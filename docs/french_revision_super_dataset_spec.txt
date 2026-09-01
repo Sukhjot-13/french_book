@@ -1,0 +1,3251 @@
+FRENCH REVISION SUPER DATASET
+Complete Data Model + Extraction Rules + HTML/Revision App Instructions
+=======================================================================
+
+SOURCE BASIS
+------------
+Primary source book:
+Practice Makes Perfect: Complete French Grammar
+Author: Annie Heminway
+
+This specification is designed for a full-book extraction into a reusable JSON study database.
+The dataset must NOT be chapter-only. Chapters remain important as source/browsing metadata,
+but the main study collections are GLOBAL: verbs, conjugations, tenses, grammar rules,
+vocabulary, expressions/constructions/collocations, examples, exercises, concepts, and study sets.
+
+The source book itself explains that vocabulary can appear inside exercises or highlighted boxes,
+and that glossaries and verb charts are useful review/reference resources. Therefore extraction
+must inspect ALL sections, exercises, vocabulary boxes, verb tables, glossaries, and answer keys,
+not only obvious headings.
+
+=======================================================================
+0. FINAL ARCHITECTURE DECISION
+=======================================================================
+
+Use a graph-like linked dataset, not a deeply nested chapter tree.
+
+GOOD:
+- one canonical verb object for "venir"
+- one canonical expression object for "venir chercher quelqu'un"
+- one canonical tense object for "présent de l'indicatif"
+- one conjugation object linking "venir" + "present"
+- all objects linked by stable IDs
+- every book occurrence recorded as an attestation/source reference
+- chapter only stores IDs of items appearing in it
+
+BAD:
+chapter -> full duplicate verb -> duplicate expressions -> duplicate conjugations
+
+The same item must be reusable from multiple views:
+- Verb view
+- Expression view
+- Tense view
+- Grammar view
+- Vocabulary view
+- Concept view
+- Chapter view
+- Exercise view
+- Revision/filter view
+
+Example:
+"venir chercher quelqu'un"
+must appear:
+- under the verb "venir"
+- under the verb "chercher"
+- under Expressions
+- under Collocations/Verb Patterns as appropriate
+- under Daily Life / Movement / Picking someone up
+- in Essential items if priority is high
+- under its source chapter(s)
+- in examples/exercises that use it
+
+=======================================================================
+1. DESIGN GOALS
+=======================================================================
+
+The dataset must support all of the following:
+
+1. Browse by chapter.
+2. Browse all vocabulary globally.
+3. Browse all verbs globally.
+4. Browse all expressions globally.
+5. Browse all tenses globally.
+6. Browse all grammar rules globally.
+7. Browse all examples globally.
+8. Browse all exercises globally.
+9. Filter by learning priority.
+10. Filter by usefulness.
+11. Filter by difficulty.
+12. Filter by CEFR if later assigned.
+13. Filter by register: formal / neutral / informal / colloquial / literary.
+14. Filter by spoken/written usage.
+15. Filter by topic: time, travel, food, work, opinion, movement, etc.
+16. Filter by grammatical concept: negation, object pronouns, agreement, questions, etc.
+17. Find every expression related to a selected verb.
+18. Find every conjugation related to a selected verb.
+19. Find every verb/conjugation related to a selected tense.
+20. Find every grammar rule related to a selected tense.
+21. Find collocations such as "prendre une décision".
+22. Find productive verb patterns such as "demander à quelqu'un de + infinitif".
+23. Find sentence starters such as "je pense que".
+24. Find fixed expressions such as "avoir besoin de".
+25. Find conversation phrases such as "ça marche".
+26. Find connectors such as "par contre".
+27. Track all occurrences of an item in the book.
+28. Keep book-derived content separate from study extensions.
+29. Keep learner progress separate from reference content.
+30. Support future flashcards, cloze drills, verb drills, pattern drills, and spaced repetition.
+31. Support accent-insensitive and alias-aware search.
+32. Support cross-links without duplicating content.
+33. Remain splittable into multiple JSON files later without changing IDs or relationships.
+34. Be auditable: every book-derived item should have source/attestation information.
+35. Be quality-controlled: parsing uncertainty must be trackable.
+
+=======================================================================
+2. THREE DATA LAYERS
+=======================================================================
+
+LAYER A — REFERENCE CONTENT (stable / mostly immutable)
+- book
+- chapters
+- sections
+- concepts
+- tenses
+- grammar_rules
+- verbs
+- conjugations
+- expressions
+- vocabulary
+- examples
+- exercises
+- study_sets
+- taxonomy
+
+LAYER B — EDITORIAL / STUDY INTELLIGENCE
+- learning_priority
+- usefulness
+- difficulty
+- semantic domains
+- expression function
+- collocation strength
+- common mistakes
+- contrast links
+- prerequisites
+- search aliases
+- study extensions
+- editorial verification/confidence
+
+LAYER C — USER PROGRESS (mutable, ideally NOT stored in the master content JSON)
+- favorite
+- status
+- times_seen
+- times_correct
+- times_wrong
+- last_reviewed
+- next_review
+- personal notes
+- streak
+- ease factor / SRS state
+
+Recommended implementation:
+- french_grammar.json = layers A + B
+- localStorage / IndexedDB / separate progress.json = layer C
+
+Never rewrite the master content dataset every time the learner answers a quiz.
+
+=======================================================================
+3. MASTER TOP-LEVEL JSON MODEL
+=======================================================================
+
+Recommended root:
+
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "pmp_complete_french_grammar_revision",
+  "generated_at": null,
+  "updated_at": null,
+
+  "book": {},
+
+  "taxonomy": {},
+
+  "chapters": [],
+  "sections": [],
+
+  "concepts": [],
+  "tenses": [],
+  "grammar_rules": [],
+
+  "verbs": [],
+  "conjugations": [],
+
+  "expressions": [],
+  "vocabulary": [],
+
+  "examples": [],
+  "exercises": [],
+
+  "study_sets": [],
+
+  "quality_report": {}
+}
+
+Optional future top-level collections:
+- "pronunciations": []
+- "external_frequency_data": []
+- "generated_exercises": []
+- "media": []
+
+Do NOT add user progress to the root reference file unless absolutely necessary.
+
+=======================================================================
+4. GLOBAL ID CONVENTIONS
+=======================================================================
+
+Every reusable entity must have a stable unique ID.
+
+Recommended prefixes:
+
+book_        book
+chapter_     chapter
+section_     section
+concept_     grammar/semantic concept
+tense_       tense or mood/form
+rule_        grammar rule
+verb_        verb
+conj_        conjugation
+expr_        expression / construction / collocation / idiom
+vocab_       vocabulary item
+example_     example sentence
+exercise_    exercise
+studyset_    study set
+
+Examples:
+verb_venir
+verb_demander
+expr_venir_chercher_qqn
+expr_demander_a_qqn_de_inf
+expr_prendre_une_decision
+tense_present_indicative
+tense_passe_compose
+rule_ne_pas
+concept_negation
+vocab_decision
+example_demander_001
+
+ID rules:
+1. lowercase ASCII only
+2. spaces -> underscore
+3. remove accents only in IDs, NOT in French display text
+4. stable once published
+5. never reuse an old ID for a different entity
+6. aliases belong in "aliases", not by changing the ID
+
+=======================================================================
+5. COMMON FIELDS USED ACROSS ENTITIES
+=======================================================================
+
+Recommended common metadata pattern:
+
+{
+  "id": "unique_id",
+  "type": "verb|expression|vocabulary|grammar_rule|tense|...",
+  "canonical_form": "canonical French form or canonical name",
+  "display_form": "preferred form shown in UI",
+
+  "aliases": [],
+  "search_terms": [],
+
+  "study": {
+    "learning_priority": 1,
+    "usefulness": 1,
+    "difficulty": 1,
+    "cefr": null
+  },
+
+  "usage": {
+    "register": "neutral",
+    "spoken_written": "both",
+    "contexts": []
+  },
+
+  "origin": {
+    "source_type": "book",
+    "created_by": "extraction",
+    "derived_from_ids": []
+  },
+
+  "attestations": [],
+
+  "relations": {},
+
+  "tags": [],
+
+  "editorial": {
+    "extraction_confidence": "high",
+    "verification_status": "unreviewed",
+    "notes": null
+  }
+}
+
+Not every entity needs every common field, but these names should remain consistent.
+
+=======================================================================
+6. SOURCE / ORIGIN / PROVENANCE
+=======================================================================
+
+Allowed source_type values:
+
+"book"
+    Directly supported by the uploaded book.
+
+"derived_from_book"
+    A normalized/combined item derived from multiple book examples or occurrences,
+    without adding an outside linguistic claim.
+
+"study_extension"
+    Useful material intentionally added beyond what is explicitly taught in the book.
+    Example: an extra high-value sentence starter or collocation.
+
+"external_reference"
+    Reserved for later enrichment from an outside dictionary, corpus, CEFR list, etc.
+
+Every non-book addition MUST be marked.
+Never silently make outside knowledge look like book content.
+
+Attestation object:
+
+{
+  "source_type": "book",
+  "chapter_number": 4,
+  "chapter_id": "chapter_04",
+  "section_id": "section_04_venir",
+  "page_printed": 36,
+  "page_pdf": null,
+  "context_type": "grammar_explanation",
+  "exercise_id": null,
+  "source_anchor": null,
+  "notes": null
+}
+
+context_type examples:
+- chapter_title
+- grammar_explanation
+- conjugation_table
+- vocabulary_box
+- expression_list
+- example_sentence
+- exercise_instruction
+- exercise_question
+- answer_key
+- verb_table
+- glossary_fr_en
+- glossary_en_fr
+
+Do not store long copied source passages merely for audit.
+Page/section/source anchor is usually enough.
+
+=======================================================================
+7. IMPORTANCE, USEFULNESS, DIFFICULTY, AND FREQUENCY
+=======================================================================
+
+These concepts MUST stay separate.
+
+study.learning_priority:
+1 = low priority / specialized / rare for revision
+2 = occasional usefulness
+3 = useful
+4 = very useful
+5 = essential / high-value / highly reusable
+
+study.usefulness:
+1 = narrow use
+2 = limited
+3 = useful
+4 = broadly useful
+5 = extremely useful in real communication/revision
+
+study.difficulty:
+1 = very easy
+2 = easy
+3 = intermediate
+4 = difficult
+5 = advanced / subtle
+
+frequency:
+{
+  "book_occurrences": 0,
+  "book_frequency_tier": "rare|occasional|common|very_common|null",
+  "real_world_frequency": null,
+  "real_world_frequency_source": null
+}
+
+IMPORTANT:
+- "book_occurrences" is an objective count from attestations.
+- "learning_priority" is a learner-oriented editorial rating.
+- "real_world_frequency" must remain null unless reliable outside frequency data is intentionally added.
+- Do not pretend learner priority is corpus frequency.
+
+=======================================================================
+8. TAXONOMY
+=======================================================================
+
+Keep commonly filtered categories controlled and predictable.
+
+Example:
+
+{
+  "learning_priority": {
+    "1": "low",
+    "2": "occasional",
+    "3": "useful",
+    "4": "very useful",
+    "5": "essential"
+  },
+
+  "difficulty": {
+    "1": "very_easy",
+    "2": "easy",
+    "3": "intermediate",
+    "4": "difficult",
+    "5": "advanced"
+  },
+
+  "registers": [
+    "formal",
+    "neutral",
+    "informal",
+    "colloquial",
+    "literary"
+  ],
+
+  "spoken_written": [
+    "spoken",
+    "written",
+    "both"
+  ],
+
+  "expression_types": [
+    "verb_pattern",
+    "collocation",
+    "fixed_expression",
+    "idiom",
+    "sentence_starter",
+    "conversation_phrase",
+    "connector",
+    "functional_phrase",
+    "formulaic_phrase"
+  ],
+
+  "collocation_strength": [
+    "strong",
+    "common",
+    "possible"
+  ],
+
+  "verification_status": [
+    "unreviewed",
+    "machine_checked",
+    "human_checked",
+    "needs_review"
+  ],
+
+  "confidence": [
+    "high",
+    "medium",
+    "low"
+  ]
+}
+
+Free-form tags are still allowed, but important filters should have dedicated structured fields.
+
+=======================================================================
+9. BOOK SCHEMA
+=======================================================================
+
+{
+  "id": "book_pmp_complete_french_grammar",
+  "title": "Practice Makes Perfect: Complete French Grammar",
+  "author": "Annie Heminway",
+  "language": "French",
+  "instruction_language": "English",
+  "edition_year": 2008,
+  "publisher": "McGraw-Hill",
+  "description": null,
+
+  "source_file": {
+    "filename": "a.pdf",
+    "page_count_pdf": 286
+  },
+
+  "chapter_ids": [],
+  "notes": null
+}
+
+=======================================================================
+10. CHAPTER SCHEMA
+=======================================================================
+
+Chapters are navigation/source containers, NOT the main storage location.
+
+{
+  "id": "chapter_01",
+  "chapter_number": 1,
+  "title": "The present tense of regular -er verbs",
+
+  "section_ids": [],
+
+  "concept_ids": [],
+  "tense_ids": [],
+  "grammar_rule_ids": [],
+  "verb_ids": [],
+  "conjugation_ids": [],
+  "expression_ids": [],
+  "vocabulary_ids": [],
+  "example_ids": [],
+  "exercise_ids": [],
+
+  "source": {
+    "page_start_printed": 1,
+    "page_end_printed": null
+  },
+
+  "tags": []
+}
+
+Do not duplicate full verb/vocab/expression objects inside the chapter.
+
+=======================================================================
+11. SECTION SCHEMA
+=======================================================================
+
+Sections are useful source anchors and browsing units.
+
+{
+  "id": "section_01_regular_er_present",
+  "chapter_id": "chapter_01",
+  "order": 1,
+  "title": "Regular -er verbs in the present",
+
+  "concept_ids": [],
+  "tense_ids": [],
+  "grammar_rule_ids": [],
+  "verb_ids": [],
+  "expression_ids": [],
+  "vocabulary_ids": [],
+  "example_ids": [],
+  "exercise_ids": [],
+
+  "source": {
+    "page_start_printed": 1,
+    "page_end_printed": 4
+  }
+}
+
+=======================================================================
+12. CONCEPT SCHEMA
+=======================================================================
+
+Concepts collect material across chapters and types.
+
+Examples:
+- Negation
+- Asking questions
+- Talking about the past
+- Object pronouns
+- Agreement
+- Time
+- Location
+- Comparison
+- Giving opinions
+- Requests
+- Movement
+- Verb + preposition patterns
+
+Schema:
+
+{
+  "id": "concept_negation",
+  "name": "Negation",
+  "name_french": "La négation",
+  "description": "Rules and patterns used to make negative statements.",
+
+  "relations": {
+    "grammar_rules": [],
+    "tenses": [],
+    "verbs": [],
+    "expressions": [],
+    "vocabulary": [],
+    "examples": [],
+    "exercises": []
+  },
+
+  "study": {
+    "learning_priority": 5,
+    "difficulty": 2,
+    "usefulness": 5,
+    "cefr": null
+  },
+
+  "tags": ["negation"]
+}
+
+=======================================================================
+13. TENSE / MOOD SCHEMA
+=======================================================================
+
+Tenses/moods are first-class global entities.
+
+Examples:
+- présent de l'indicatif
+- passé composé
+- imparfait
+- futur simple
+- futur antérieur
+- plus-que-parfait
+- conditionnel présent
+- conditionnel passé
+- subjonctif présent
+- subjonctif passé
+- impératif
+- infinitif présent
+- infinitif passé
+- participe présent
+- gérondif
+- passé simple
+- passive voice is NOT strictly a tense; model as a grammar concept/rule group
+
+Schema:
+
+{
+  "id": "tense_present_indicative",
+  "type": "tense",
+
+  "name_french": "présent de l'indicatif",
+  "name_english": "present indicative",
+
+  "mood": "indicative",
+  "time_reference": ["present", "habitual", "near_future", "historical_present"],
+  "aspect_notes": null,
+
+  "summary": "Short learner-friendly summary.",
+
+  "formation_rule_ids": [],
+  "usage_rule_ids": [],
+  "exception_rule_ids": [],
+
+  "common_time_marker_ids": [],
+  "common_time_markers_text": [],
+
+  "related_tense_ids": [],
+  "contrast_tense_ids": [],
+
+  "conjugation_ids": [],
+  "example_ids": [],
+  "exercise_ids": [],
+
+  "study": {
+    "learning_priority": 5,
+    "usefulness": 5,
+    "difficulty": 2,
+    "cefr": null
+  },
+
+  "attestations": [],
+  "tags": []
+}
+
+=======================================================================
+14. GRAMMAR RULE SCHEMA
+=======================================================================
+
+Grammar rules must be small enough to revise individually.
+Do NOT put an entire chapter into one giant rule.
+
+{
+  "id": "rule_present_habitual_action",
+  "type": "grammar_rule",
+
+  "title": "Present tense for habitual actions",
+  "short_label": "Habitual present",
+
+  "grammar_category": "tense_usage",
+  "concept_ids": ["concept_present_time"],
+  "tense_ids": ["tense_present_indicative"],
+
+  "summary": "The present can describe actions that happen regularly.",
+
+  "explanation": "A concise but complete learner-friendly explanation based on the book.",
+
+  "formation": null,
+
+  "usage_conditions": [],
+  "trigger_words": [],
+  "signal_words": [],
+
+  "exceptions": [],
+  "restrictions": [],
+  "notes": [],
+
+  "common_mistakes": [
+    {
+      "mistake": null,
+      "correction": null,
+      "explanation": null
+    }
+  ],
+
+  "contrast_with_rule_ids": [],
+  "related_rule_ids": [],
+  "prerequisite_rule_ids": [],
+
+  "example_ids": [],
+  "exercise_ids": [],
+
+  "study": {
+    "learning_priority": 4,
+    "usefulness": 5,
+    "difficulty": 1,
+    "cefr": null
+  },
+
+  "attestations": [],
+  "tags": []
+}
+
+For formation-heavy rules, allow:
+
+"formation": {
+  "steps": [],
+  "patterns": [],
+  "endings": {},
+  "auxiliary": null,
+  "agreement": null
+}
+
+For mood-triggering rules, allow:
+
+"mood_governance": {
+  "requires": "subjunctive|indicative|conditional|infinitive|null",
+  "trigger_expression_ids": []
+}
+
+=======================================================================
+15. VERB SCHEMA
+=======================================================================
+
+A verb is a canonical lexeme.
+Conjugations and expressions are separate linked entities.
+
+{
+  "id": "verb_demander",
+  "type": "verb",
+
+  "infinitive": "demander",
+  "display_form": "demander",
+
+  "english": ["to ask", "to request"],
+
+  "senses": [
+    {
+      "sense_id": "verb_demander_s1",
+      "english": ["to ask", "to request"],
+      "definition_note": null,
+      "usage_contexts": [],
+      "example_ids": []
+    }
+  ],
+
+  "verb_group": "1st_group",
+  "regularity": "regular",
+  "pronominal": false,
+
+  "transitivity": ["transitive", "indirect"],
+  "auxiliary": "avoir",
+
+  "past_participle": "demandé",
+  "present_participle": null,
+
+  "conjugation_ids": [],
+
+  "expression_ids": [],
+
+  "complement_frame_ids": [],
+
+  "related_verb_ids": [],
+  "contrast_verb_ids": [],
+  "confused_with_ids": [],
+
+  "word_family_ids": [],
+
+  "study": {
+    "learning_priority": 5,
+    "usefulness": 5,
+    "difficulty": 2,
+    "cefr": null
+  },
+
+  "usage": {
+    "register": "neutral",
+    "spoken_written": "both",
+    "contexts": []
+  },
+
+  "frequency": {
+    "book_occurrences": 0,
+    "book_frequency_tier": null,
+    "real_world_frequency": null,
+    "real_world_frequency_source": null
+  },
+
+  "attestations": [],
+  "tags": []
+}
+
+Recommended verb_group values:
+- 1st_group
+- 2nd_group
+- 3rd_group
+- irregular
+- defective
+- impersonal
+- unknown
+
+Do not rely only on "verb_group"; also keep "regularity".
+
+=======================================================================
+16. VERB COMPLEMENT FRAME / GOVERNMENT
+=======================================================================
+
+This can be embedded in expressions or represented through expression objects.
+The preferred learner-facing representation is an expression/verb_pattern.
+
+Examples:
+- demander quelque chose à quelqu'un
+- demander à quelqu'un de + infinitif
+- penser à quelque chose
+- penser que + clause
+- essayer de + infinitif
+- réussir à + infinitif
+
+Recommended fields in the expression object:
+- pattern
+- pattern_slots
+- complement_structure
+- transformations
+- restrictions
+- mood_governance
+
+=======================================================================
+17. CONJUGATION SCHEMA
+=======================================================================
+
+Conjugations are separate so both directions are easy:
+
+Verb -> all tenses
+Tense -> all verbs
+
+{
+  "id": "conj_demander_present_indicative",
+  "type": "conjugation",
+
+  "verb_id": "verb_demander",
+  "tense_id": "tense_present_indicative",
+
+  "forms": {
+    "je": "je demande",
+    "tu": "tu demandes",
+    "il_elle_on": "il/elle/on demande",
+    "nous": "nous demandons",
+    "vous": "vous demandez",
+    "ils_elles": "ils/elles demandent"
+  },
+
+  "compound": false,
+
+  "components": {
+    "auxiliary_verb_id": null,
+    "auxiliary_tense_id": null,
+    "past_participle": null
+  },
+
+  "agreement_notes": [],
+  "spelling_change_notes": [],
+  "irregularity_notes": [],
+
+  "example_ids": [],
+
+  "attestations": [],
+
+  "editorial": {
+    "extraction_confidence": "high",
+    "verification_status": "unreviewed"
+  }
+}
+
+For imperative, infinitive, participle, etc., allow a different form set:
+
+"forms": {
+  "tu": "...",
+  "nous": "...",
+  "vous": "..."
+}
+
+or:
+
+"forms": {
+  "present_infinitive": "...",
+  "past_infinitive": "..."
+}
+
+The schema should tolerate tense-specific person sets.
+
+=======================================================================
+18. EXPRESSIONS — CORE DESIGN
+=======================================================================
+
+Expressions are a major study collection, not a miscellaneous list.
+
+Allowed expression_type:
+
+1. verb_pattern
+   demander à quelqu'un de + infinitif
+
+2. collocation
+   prendre une décision
+
+3. fixed_expression
+   avoir besoin de
+
+4. idiom
+   idiomatic meaning not fully predictable from the words
+
+5. sentence_starter
+   je pense que
+
+6. conversation_phrase
+   ça marche
+
+7. connector
+   par contre
+
+8. functional_phrase
+   à mon avis / en ce qui concerne...
+
+9. formulaic_phrase
+   fixed social or discourse formula
+
+All can be revised collectively.
+
+=======================================================================
+19. EXPRESSION SCHEMA
+=======================================================================
+
+{
+  "id": "expr_demander_a_qqn_de_inf",
+  "type": "expression",
+
+  "expression_type": "verb_pattern",
+
+  "canonical_form": "demander à quelqu'un de + infinitif",
+  "display_form": "demander à quelqu'un de + infinitif",
+
+  "english": ["to ask someone to do something"],
+
+  "base_verb_ids": ["verb_demander"],
+  "related_vocabulary_ids": [],
+
+  "productive": true,
+
+  "pattern": "demander à [PERSON] de [INFINITIVE]",
+
+  "pattern_slots": [
+    {
+      "name": "person",
+      "display": "quelqu'un",
+      "type": "person",
+      "required": true
+    },
+    {
+      "name": "action",
+      "display": "infinitif",
+      "type": "verb_infinitive",
+      "required": true
+    }
+  ],
+
+  "complement_structure": {
+    "head": "demander",
+    "person_preposition": "à",
+    "noun_preposition": null,
+    "infinitive_preposition": "de",
+    "clause_marker": null
+  },
+
+  "mood_governance": {
+    "following_clause_mood": null,
+    "notes": null
+  },
+
+  "transformations": [
+    {
+      "name": "person_to_indirect_object_pronoun",
+      "from_pattern": "demander à [PERSON] de [INFINITIVE]",
+      "to_pattern": "lui/leur demander de [INFINITIVE]",
+      "notes": null
+    }
+  ],
+
+  "variants": [],
+
+  "function_ids": ["function_requesting"],
+
+  "usage_notes": [],
+  "restrictions": [],
+  "common_mistakes": [],
+
+  "example_ids": [],
+
+  "study": {
+    "learning_priority": 5,
+    "usefulness": 5,
+    "difficulty": 2,
+    "cefr": null
+  },
+
+  "usage": {
+    "register": "neutral",
+    "spoken_written": "both",
+    "contexts": ["communication", "requests"]
+  },
+
+  "frequency": {
+    "book_occurrences": 0,
+    "book_frequency_tier": null,
+    "real_world_frequency": null
+  },
+
+  "origin": {
+    "source_type": "book",
+    "derived_from_ids": []
+  },
+
+  "attestations": [],
+
+  "relations": {
+    "verbs": ["verb_demander"],
+    "vocabulary": [],
+    "grammar_rules": [],
+    "tenses": [],
+    "concepts": ["concept_requests"],
+    "expressions": [],
+    "examples": [],
+    "exercises": []
+  },
+
+  "tags": [
+    "essential",
+    "verb_pattern",
+    "de_infinitive"
+  ]
+}
+
+=======================================================================
+20. EXAMPLE: "VENIR CHERCHER QUELQU'UN"
+=======================================================================
+
+{
+  "id": "expr_venir_chercher_qqn",
+  "type": "expression",
+  "expression_type": "verb_pattern",
+
+  "canonical_form": "venir chercher quelqu'un",
+  "display_form": "venir chercher quelqu'un",
+  "english": ["to come and get someone", "to come pick someone up"],
+
+  "base_verb_ids": [
+    "verb_venir",
+    "verb_chercher"
+  ],
+
+  "productive": true,
+
+  "pattern": "venir chercher [PERSON]",
+
+  "pattern_slots": [
+    {
+      "name": "person",
+      "display": "quelqu'un",
+      "type": "person",
+      "required": true
+    }
+  ],
+
+  "study": {
+    "learning_priority": 5,
+    "usefulness": 5,
+    "difficulty": 2,
+    "cefr": null
+  },
+
+  "example_ids": [],
+
+  "relations": {
+    "verbs": ["verb_venir", "verb_chercher"],
+    "concepts": ["concept_movement"],
+    "expressions": [],
+    "grammar_rules": [],
+    "tenses": [],
+    "vocabulary": [],
+    "examples": [],
+    "exercises": []
+  }
+}
+
+It must show on BOTH the "venir" page and the "chercher" page.
+
+=======================================================================
+21. COLLOCATION SCHEMA
+=======================================================================
+
+Example: prendre une décision
+
+{
+  "id": "expr_prendre_une_decision",
+  "type": "expression",
+  "expression_type": "collocation",
+
+  "canonical_form": "prendre une décision",
+  "display_form": "prendre une décision",
+
+  "english": ["to make a decision"],
+
+  "base_verb_ids": ["verb_prendre"],
+  "related_vocabulary_ids": ["vocab_decision"],
+
+  "productive": false,
+
+  "collocation_strength": "strong",
+
+  "pattern": "prendre + une décision",
+
+  "variants": [
+    "prendre la décision de + infinitif"
+  ],
+
+  "example_ids": [],
+
+  "study": {
+    "learning_priority": 5,
+    "usefulness": 5,
+    "difficulty": 1,
+    "cefr": null
+  },
+
+  "tags": [
+    "essential",
+    "collocation",
+    "verb_noun"
+  ]
+}
+
+Important related pattern should be a separate linked entity:
+
+{
+  "id": "expr_prendre_la_decision_de_inf",
+  "type": "expression",
+  "expression_type": "verb_pattern",
+
+  "canonical_form": "prendre la décision de + infinitif",
+  "english": ["to make the decision to do something"],
+
+  "base_verb_ids": ["verb_prendre"],
+
+  "productive": true,
+  "pattern": "prendre la décision de [INFINITIVE]",
+
+  "relations": {
+    "expressions": ["expr_prendre_une_decision"],
+    "verbs": ["verb_prendre"],
+    "vocabulary": ["vocab_decision"]
+  }
+}
+
+Other collocation examples the model must be able to store:
+- faire attention
+- poser une question
+- rendre visite à quelqu'un
+- tenir compte de
+- mettre fin à
+- prendre soin de
+- faire confiance à
+- donner naissance à
+- avoir raison
+- avoir tort
+
+Do not treat these as disposable example sentences.
+
+=======================================================================
+22. SENTENCE STARTERS / DISCOURSE EXPRESSIONS
+=======================================================================
+
+Example:
+
+{
+  "id": "expr_je_pense_que",
+  "type": "expression",
+  "expression_type": "sentence_starter",
+
+  "canonical_form": "je pense que",
+  "display_form": "Je pense que...",
+  "english": ["I think that..."],
+
+  "base_verb_ids": ["verb_penser"],
+
+  "productive": true,
+  "pattern": "penser que [CLAUSE]",
+
+  "pattern_slots": [
+    {
+      "name": "clause",
+      "display": "phrase",
+      "type": "clause",
+      "required": true
+    }
+  ],
+
+  "function_ids": ["function_giving_opinion"],
+
+  "study": {
+    "learning_priority": 5,
+    "usefulness": 5,
+    "difficulty": 1,
+    "cefr": null
+  },
+
+  "origin": {
+    "source_type": "study_extension",
+    "derived_from_ids": []
+  },
+
+  "tags": [
+    "opinion",
+    "sentence_starter",
+    "conversation"
+  ]
+}
+
+If directly present in the book, source_type becomes "book".
+Never assume.
+
+=======================================================================
+23. VOCABULARY SCHEMA
+=======================================================================
+
+Vocabulary is global.
+
+{
+  "id": "vocab_decision",
+  "type": "vocabulary",
+
+  "canonical_form": "décision",
+  "display_form": "la décision",
+
+  "french": "décision",
+
+  "english": [
+    "decision"
+  ],
+
+  "part_of_speech": "noun",
+
+  "noun": {
+    "gender": "feminine",
+    "article": "la",
+    "plural": "décisions",
+    "countability": null
+  },
+
+  "adjective": null,
+  "adverb": null,
+
+  "senses": [
+    {
+      "sense_id": "vocab_decision_s1",
+      "english": ["decision"],
+      "definition_note": null,
+      "example_ids": []
+    }
+  ],
+
+  "semantic_domains": [
+    "decision_making"
+  ],
+
+  "word_family_ids": [
+    "verb_decider"
+  ],
+
+  "collocation_expression_ids": [
+    "expr_prendre_une_decision"
+  ],
+
+  "false_friend": false,
+  "cognate": true,
+
+  "pronunciation": {
+    "ipa": null,
+    "notes": null,
+    "audio_ref": null
+  },
+
+  "study": {
+    "learning_priority": 4,
+    "usefulness": 5,
+    "difficulty": 2,
+    "cefr": null
+  },
+
+  "usage": {
+    "register": "neutral",
+    "spoken_written": "both",
+    "contexts": []
+  },
+
+  "frequency": {
+    "book_occurrences": 0,
+    "book_frequency_tier": null,
+    "real_world_frequency": null
+  },
+
+  "attestations": [],
+  "tags": []
+}
+
+Part-of-speech values may include:
+- noun
+- adjective
+- adverb
+- pronoun
+- preposition
+- conjunction
+- interjection
+- numeral
+- determiner
+- phrase
+- other
+
+For nouns, learn the article with the noun when possible:
+"la maison", not only "maison".
+
+For adjectives, support forms:
+
+"adjective": {
+  "masculine_singular": "beau",
+  "feminine_singular": "belle",
+  "masculine_plural": "beaux",
+  "feminine_plural": "belles",
+  "special_forms": ["bel"]
+}
+
+=======================================================================
+24. WORD FAMILY / DERIVATION LINKS
+=======================================================================
+
+Highly recommended for revision quality.
+
+Examples:
+décider -> décision
+possible -> possibilité
+heureux -> heureusement
+finir -> fin
+
+Use IDs:
+"word_family_ids": ["vocab_decision", "verb_decider", ...]
+
+Do not create a separate top-level collection unless later needed.
+Relations are enough initially.
+
+=======================================================================
+25. EXAMPLE SENTENCE SCHEMA
+=======================================================================
+
+Examples should be reusable first-class objects.
+
+{
+  "id": "example_demander_001",
+  "type": "example",
+
+  "french": "Je lui demande de venir.",
+  "english": "I ask him to come.",
+
+  "literal_english": null,
+
+  "source_type": "book",
+
+  "annotations": {
+    "focus_spans": [
+      {
+        "text": "lui demande de venir",
+        "role": "target_pattern"
+      }
+    ]
+  },
+
+  "relations": {
+    "verbs": [
+      "verb_demander",
+      "verb_venir"
+    ],
+    "expressions": [
+      "expr_demander_a_qqn_de_inf"
+    ],
+    "tenses": [
+      "tense_present_indicative"
+    ],
+    "grammar_rules": [],
+    "vocabulary": [],
+    "concepts": []
+  },
+
+  "cloze_candidates": [
+    "demande",
+    "venir"
+  ],
+
+  "study": {
+    "difficulty": 2
+  },
+
+  "attestations": []
+}
+
+Benefits:
+- one sentence can demonstrate multiple items
+- HTML can display "examples using this verb"
+- cloze exercises can be generated later
+- examples do not need to be duplicated inside every entity
+
+Entity objects should mainly store example_ids.
+
+=======================================================================
+26. EXERCISE SCHEMA
+=======================================================================
+
+Preserve every book exercise if doing full extraction.
+
+{
+  "id": "exercise_01_01",
+  "type": "exercise",
+
+  "chapter_id": "chapter_01",
+  "section_id": null,
+
+  "exercise_number": "1.1",
+  "exercise_type": "fill_in_conjugation",
+
+  "instructions_french": "Mettre les verbes entre parenthèses au présent.",
+  "instructions_english": null,
+
+  "questions": [
+    {
+      "question_id": "exercise_01_01_q01",
+      "prompt": "Lucie (travailler) à Lyon.",
+      "answer": null,
+      "answer_explanation": null,
+
+      "relations": {
+        "verbs": ["verb_travailler"],
+        "tenses": ["tense_present_indicative"],
+        "grammar_rules": [],
+        "expressions": [],
+        "vocabulary": []
+      }
+    }
+  ],
+
+  "answer_key_source": {
+    "page_printed": null,
+    "page_pdf": null
+  },
+
+  "study": {
+    "difficulty": 1
+  },
+
+  "attestations": [],
+
+  "tags": []
+}
+
+Recommended exercise_type values:
+- fill_in_conjugation
+- translation_en_to_fr
+- translation_fr_to_en
+- matching
+- negative_transformation
+- interrogative_transformation
+- rewrite
+- choose_correct_form
+- completion
+- free_response
+- identification
+- ordering
+- other
+
+Each question should link to what it tests.
+
+=======================================================================
+27. STUDY SET SCHEMA
+=======================================================================
+
+Study sets can be static or dynamic.
+
+Static:
+
+{
+  "id": "studyset_essential_expressions",
+  "name": "Essential expressions",
+  "type": "static",
+  "item_ids": []
+}
+
+Dynamic:
+
+{
+  "id": "studyset_high_priority_verb_patterns",
+  "name": "High-priority verb patterns",
+  "type": "dynamic",
+
+  "query": {
+    "collection": "expressions",
+    "filters": [
+      {
+        "field": "expression_type",
+        "operator": "equals",
+        "value": "verb_pattern"
+      },
+      {
+        "field": "study.learning_priority",
+        "operator": "gte",
+        "value": 4
+      }
+    ],
+    "sort": [
+      {
+        "field": "study.learning_priority",
+        "direction": "desc"
+      }
+    ]
+  }
+}
+
+Recommended built-in study sets:
+- Essential vocabulary
+- Essential verbs
+- Essential expressions
+- Essential collocations
+- Essential verb patterns
+- Opinion expressions
+- Request expressions
+- Time expressions
+- Connectors
+- Movement expressions
+- Negation rules
+- Question rules
+- Present tense
+- Past tenses
+- Passé composé vs imparfait
+- Irregular verbs
+- Verbs with à
+- Verbs with de
+- Verbs followed directly by infinitive
+- Strong collocations
+- Common mistakes
+- Needs review (computed from progress)
+- Favorites (computed from progress)
+
+=======================================================================
+28. RELATIONSHIPS — STANDARD FORM
+=======================================================================
+
+Use a predictable relations object:
+
+{
+  "relations": {
+    "chapters": [],
+    "sections": [],
+    "concepts": [],
+    "tenses": [],
+    "grammar_rules": [],
+    "verbs": [],
+    "conjugations": [],
+    "expressions": [],
+    "vocabulary": [],
+    "examples": [],
+    "exercises": []
+  }
+}
+
+Not every object must include every key, but using the same names reduces parser complexity.
+
+Directionality:
+- relations may be stored in one direction only if HTML builds reverse indexes at load time.
+- Recommended: store the most natural outgoing links, then build reverse links in JavaScript.
+- Avoid manually maintaining every relation in both directions unless validation is automated.
+
+Example:
+expression -> base_verb_ids
+HTML builds:
+verb -> all expressions where base_verb_ids includes the verb ID
+
+This avoids inconsistency.
+
+=======================================================================
+29. DUPLICATES / CANONICALIZATION
+=======================================================================
+
+Critical rule:
+One canonical item, many attestations.
+
+If "demain" appears 15 times:
+DO NOT create vocab_demaim_01 ... vocab_demaim_15.
+
+Create:
+vocab_demain
+
+Then:
+"attestations": [15 source references]
+
+and:
+"frequency.book_occurrences": 15
+
+Duplicate detection keys:
+
+Vocabulary:
+normalized canonical_form + part_of_speech + sense distinction
+
+Verb:
+infinitive
+
+Expression:
+normalized canonical_form + expression_type
+BUT keep genuinely different constructions separate:
+- prendre une décision
+- prendre la décision de + infinitif
+
+Grammar rule:
+semantic rule identity, not title alone
+
+Example:
+exact normalized sentence + translation context
+
+Exercise:
+chapter + exercise number
+
+=======================================================================
+30. MULTIPLE MEANINGS / SENSES
+=======================================================================
+
+Do not duplicate a word or verb merely because it has multiple meanings.
+
+Use "senses".
+
+Example:
+
+{
+  "id": "verb_porter",
+  "infinitive": "porter",
+
+  "senses": [
+    {
+      "sense_id": "verb_porter_s1",
+      "english": ["to carry"],
+      "example_ids": []
+    },
+    {
+      "sense_id": "verb_porter_s2",
+      "english": ["to wear"],
+      "example_ids": []
+    }
+  ]
+}
+
+An expression can link to a specific sense if necessary:
+
+"base_verb_sense_ids": ["verb_porter_s2"]
+
+Optional future field; not required everywhere initially.
+
+=======================================================================
+31. COMMON MISTAKES / CONFUSIONS / CONTRASTS
+=======================================================================
+
+High-value revision fields:
+
+"common_mistakes": [
+  {
+    "wrong": "...",
+    "correct": "...",
+    "explanation": "..."
+  }
+]
+
+"confused_with_ids": [
+  "verb_savoir",
+  "verb_connaitre"
+]
+
+"contrast_with_ids": [
+  "tense_passe_compose",
+  "tense_imparfait"
+]
+
+"prerequisite_ids": [
+  "rule_past_participle",
+  "verb_etre"
+]
+
+These fields improve revision far more than a simple glossary.
+
+=======================================================================
+32. REGISTER / PRAGMATICS / COMMUNICATIVE FUNCTION
+=======================================================================
+
+Store how language is used, not only what it means.
+
+usage:
+{
+  "register": "formal|neutral|informal|colloquial|literary",
+  "spoken_written": "spoken|written|both",
+  "contexts": [
+    "conversation",
+    "work",
+    "travel",
+    "academic",
+    "narrative",
+    "formal_writing"
+  ],
+  "politeness": null
+}
+
+Expressions should also have functions:
+
+"function_ids": [
+  "function_giving_opinion",
+  "function_requesting",
+  "function_disagreeing"
+]
+
+Possible functions:
+- giving_opinion
+- agreeing
+- disagreeing
+- expressing_certainty
+- expressing_doubt
+- asking_question
+- requesting
+- asking_permission
+- expressing_need
+- expressing_desire
+- giving_reason
+- giving_example
+- contrasting
+- concluding
+- sequencing
+- expressing_time
+- expressing_frequency
+- expressing_location
+- apologizing
+- thanking
+- greeting
+- reacting
+- clarifying
+- reformulating
+
+These can be taxonomy entries or concept IDs.
+
+=======================================================================
+33. PRODUCTIVE VS FIXED LANGUAGE
+=======================================================================
+
+Important field:
+
+"productive": true|false
+
+Examples:
+
+demander à [PERSON] de [INFINITIVE]
+productive = true
+
+avoir besoin de [NOUN/INFINITIVE]
+productive = true
+
+prendre une décision
+productive = false or limited-pattern collocation
+
+ça marche
+productive = false
+
+This helps the UI decide whether to show slot-based practice.
+
+=======================================================================
+34. PATTERN SLOTS
+=======================================================================
+
+Pattern slots should be typed.
+
+Allowed slot types may include:
+- person
+- noun
+- noun_phrase
+- verb_infinitive
+- clause
+- adjective
+- adverb
+- place
+- time
+- quantity
+- pronoun
+- custom
+
+Example:
+
+"pattern_slots": [
+  {
+    "name": "person",
+    "display": "quelqu'un",
+    "type": "person",
+    "required": true
+  },
+  {
+    "name": "action",
+    "display": "infinitif",
+    "type": "verb_infinitive",
+    "required": true
+  }
+]
+
+This allows future automatic drills.
+
+=======================================================================
+35. TRANSFORMATIONS
+=======================================================================
+
+Useful for:
+- pronoun replacement
+- negation
+- question forms
+- word order changes
+- contractions
+- agreement
+- active/passive transformations
+
+Example:
+
+{
+  "name": "indirect_object_pronoun",
+  "from_pattern": "demander à [PERSON] de [INFINITIVE]",
+  "to_pattern": "lui/leur demander de [INFINITIVE]"
+}
+
+Transformation objects should be learner-readable, not executable code.
+
+=======================================================================
+36. SEARCH FIELDS
+=======================================================================
+
+Each searchable item may have:
+
+"aliases": [
+  "qqn",
+  "quelqu’un",
+  "quelqu'un"
+]
+
+"search_terms": [
+  "demander a quelquun de",
+  "ask someone to",
+  "request"
+]
+
+HTML search normalization should:
+1. lowercase
+2. Unicode normalize
+3. optionally remove accents for matching
+4. normalize curly apostrophes to straight apostrophes
+5. normalize repeated spaces
+6. preserve original French for display
+7. search aliases and English meanings too
+
+Do NOT permanently remove accents from stored French.
+
+=======================================================================
+37. PRONUNCIATION / AUDIO — RESERVED
+=======================================================================
+
+Optional, future-proof fields:
+
+"pronunciation": {
+  "ipa": null,
+  "notes": null,
+  "audio_ref": null
+}
+
+Do not fabricate IPA during book extraction unless intentionally adding a verified external layer.
+
+=======================================================================
+38. CEFR — RESERVED / OPTIONAL
+=======================================================================
+
+The book is aimed broadly at advanced beginner/intermediate learners, but it does not assign
+every item a CEFR level.
+
+Therefore:
+"cefr": null
+
+unless:
+- explicitly sourced
+- or intentionally editorially estimated and clearly marked as such
+
+If estimated:
+"cefr": {
+  "level": "A2",
+  "source_type": "editorial_estimate"
+}
+
+Never make estimated CEFR look source-derived.
+
+=======================================================================
+39. EXTRACTION RULES — FULL BOOK
+=======================================================================
+
+The extraction process must follow these rules:
+
+1. Read every chapter.
+2. Read every section.
+3. Read every vocabulary box.
+4. Read every verb list.
+5. Read every conjugation table.
+6. Read every example sentence.
+7. Read every exercise.
+8. Read the answer key.
+9. Read verb tables.
+10. Read both glossaries.
+11. Vocabulary inside exercises must be considered.
+12. Expressions inside examples/exercises must be considered.
+13. Repeated items must merge into canonical entities.
+14. Every occurrence becomes an attestation.
+15. Do not rely on chapter headings alone.
+16. Do not assume a word is unimportant because it appears only once.
+17. Do not assume a repeated word is high real-world frequency.
+18. Keep source meaning/terminology faithful to the book.
+19. Do not silently correct or expand the book using outside knowledge.
+20. If useful study extensions are added, mark them "study_extension".
+21. If PDF text extraction is unclear, inspect the page image before deciding.
+22. Broken ligatures/OCR-like parse artifacts must be normalized cautiously.
+23. French accents must be preserved.
+24. Glossary entries may be used to reconcile canonical forms/translations.
+25. Verb tables may be used to complete conjugation objects that the chapters reference.
+26. Answers from the answer key must link back to exercise question IDs.
+27. If an answer is open-ended, preserve that fact rather than inventing one definitive answer.
+28. If a pattern can be extracted from multiple examples, mark "derived_from_book" if the book does not explicitly state the pattern.
+29. Store literal book examples separately from model-generated examples.
+30. Generated examples, if any, must be "study_extension".
+
+=======================================================================
+40. EXTRACTION PRIORITY FOR EXPRESSIONS
+=======================================================================
+
+During extraction, actively detect and preserve:
+
+A. Verb + preposition patterns
+- penser à
+- essayer de
+- réussir à
+- etc.
+
+B. Verb + person + infinitive patterns
+- demander à quelqu'un de + infinitif
+- dire à quelqu'un de + infinitif
+- conseiller à quelqu'un de + infinitif
+
+C. Verb + noun collocations
+- prendre une décision
+- poser une question
+- faire attention
+
+D. Multi-verb combinations
+- venir chercher quelqu'un
+- aller voir quelqu'un
+
+E. Fixed expressions
+- avoir besoin de
+- avoir envie de
+- il y a
+
+F. Sentence starters
+- je pense que
+- à mon avis
+
+G. Connectors / discourse markers
+- par contre
+- cependant
+- donc
+- etc. if present/supported
+
+H. Conversation phrases
+- high-value spoken formulas if present or intentionally added as study extensions
+
+These are not "just examples".
+They are reusable learning units.
+
+=======================================================================
+41. QUALITY CONTROL / EDITORIAL STATUS
+=======================================================================
+
+Every extracted entity should support:
+
+"editorial": {
+  "extraction_confidence": "high|medium|low",
+  "verification_status": "unreviewed|machine_checked|human_checked|needs_review",
+  "notes": null
+}
+
+Recommended confidence:
+high:
+- clear table/list/glossary entry
+- clean source text
+- unambiguous mapping
+
+medium:
+- inferred normalization from repeated examples
+- minor parse ambiguity
+
+low:
+- unclear scan/text
+- uncertain boundary
+- uncertain translation/gender/pattern
+
+Items with low confidence should be surfaced in a QA report.
+
+=======================================================================
+42. QUALITY REPORT
+=======================================================================
+
+Recommended root section:
+
+"quality_report": {
+  "counts": {
+    "chapters": 0,
+    "sections": 0,
+    "concepts": 0,
+    "tenses": 0,
+    "grammar_rules": 0,
+    "verbs": 0,
+    "conjugations": 0,
+    "expressions": 0,
+    "vocabulary": 0,
+    "examples": 0,
+    "exercises": 0
+  },
+
+  "unresolved_relations": [],
+  "duplicate_candidates": [],
+  "low_confidence_items": [],
+  "missing_answers": [],
+  "missing_translations": [],
+  "missing_gender_for_nouns": [],
+  "missing_conjugation_forms": []
+}
+
+This should be generated automatically after extraction.
+
+=======================================================================
+43. VALIDATION RULES
+=======================================================================
+
+Before considering the dataset complete:
+
+1. All IDs unique.
+2. All relation IDs resolve to existing entities.
+3. All chapters use valid chapter numbers.
+4. All source pages are plausible.
+5. All book-derived items have at least one attestation.
+6. All study_extension items are clearly marked.
+7. No accidental duplicate canonical verbs.
+8. No accidental duplicate vocabulary lexemes/senses.
+9. No accidental duplicate expressions.
+10. Conjugation verb_id exists.
+11. Conjugation tense_id exists.
+12. Exercise answers map to existing questions.
+13. Every noun gender uses allowed values:
+    masculine / feminine / common / variable / unknown / null
+14. Every register uses taxonomy values.
+15. Every expression_type uses taxonomy values.
+16. Every priority/usefulness/difficulty is 1–5 or null.
+17. French display text preserves accents.
+18. Search-normalized text may remove accents but display text must not.
+19. No orphan examples unless intentionally standalone.
+20. Every chapter/section relation should be internally consistent.
+21. attestation count should equal frequency.book_occurrences for book occurrences.
+22. Study sets must not reference nonexistent IDs.
+23. No source-derived claim should be falsely labeled as editorial or vice versa.
+
+=======================================================================
+44. HTML APP — LOADING
+=======================================================================
+
+Initial simple implementation:
+
+const data = await fetch("./french_grammar.json").then(r => r.json());
+
+Build maps once:
+
+const maps = {
+  verbs: new Map(data.verbs.map(x => [x.id, x])),
+  expressions: new Map(data.expressions.map(x => [x.id, x])),
+  vocabulary: new Map(data.vocabulary.map(x => [x.id, x])),
+  tenses: new Map(data.tenses.map(x => [x.id, x])),
+  grammarRules: new Map(data.grammar_rules.map(x => [x.id, x])),
+  examples: new Map(data.examples.map(x => [x.id, x])),
+  exercises: new Map(data.exercises.map(x => [x.id, x]))
+};
+
+For a dataset of this size, this is likely sufficient.
+Do not prematurely add a database unless needed.
+
+=======================================================================
+45. HTML APP — BUILD REVERSE INDEXES
+=======================================================================
+
+Do not duplicate every relationship in JSON if it can be derived.
+
+Example:
+
+const expressionsByVerb = new Map();
+
+for (const expression of data.expressions) {
+  for (const verbId of expression.base_verb_ids || []) {
+    if (!expressionsByVerb.has(verbId)) {
+      expressionsByVerb.set(verbId, []);
+    }
+    expressionsByVerb.get(verbId).push(expression.id);
+  }
+}
+
+Similarly build:
+- conjugationsByVerb
+- conjugationsByTense
+- examplesByVerb
+- examplesByExpression
+- examplesByTense
+- exercisesByVerb
+- exercisesByTense
+- rulesByTense
+- vocabularyByChapter
+- expressionsByChapter
+- etc.
+
+This keeps the JSON clean and the UI fast.
+
+=======================================================================
+46. HTML APP — VERB PAGE
+=======================================================================
+
+When user clicks a verb:
+
+Display:
+
+VERB HEADER
+- infinitive
+- English meaning(s)
+- priority
+- regularity/group
+- auxiliary
+- participle
+- register/usage
+- frequency in book
+
+TABS / SECTIONS
+
+1. Conjugations
+   All conjugations where conjugation.verb_id == selected verb ID.
+
+2. Expressions
+   All expressions where selected verb ID appears in base_verb_ids.
+
+3. Collocations
+   Same expression relation filtered expression_type == "collocation".
+
+4. Patterns
+   expression_type == "verb_pattern".
+
+5. Examples
+   Examples related to the verb.
+
+6. Grammar
+   Rules/concepts related to the verb.
+
+7. Exercises
+   Questions/exercises testing the verb.
+
+8. Sources
+   Book occurrences/attestations.
+
+Example expected for "venir":
+
+VENIR
+to come
+
+Conjugations
+- Present
+- Passé composé
+- Imparfait
+- Futur
+...
+
+Expressions / Patterns
+★★★★★ venir de + infinitif
+★★★★★ venir chercher quelqu'un
+★★★★☆ venir voir quelqu'un
+...
+
+=======================================================================
+47. HTML APP — EXPRESSION PAGE
+=======================================================================
+
+Display:
+- French
+- English
+- type
+- priority
+- productive or fixed
+- pattern
+- pattern slots
+- base verbs (clickable)
+- related vocabulary (clickable)
+- transformations
+- examples
+- usage notes
+- common mistakes
+- source locations
+- exercises
+
+For productive patterns, visually highlight slots:
+demander à [PERSON] de [INFINITIVE]
+
+=======================================================================
+48. HTML APP — TENSE PAGE
+=======================================================================
+
+Display:
+- name
+- summary
+- formation
+- rules
+- common time markers
+- contrast with other tenses
+- all conjugations
+- important verbs
+- examples
+- exercises
+- common mistakes
+
+Example:
+Passé composé
+
+Rules:
+- formation
+- avoir
+- être
+- irregular participles
+- pronominal verbs
+- agreement where relevant
+
+Then:
+"Compare with imparfait" link.
+
+=======================================================================
+49. HTML APP — GRAMMAR / CONCEPT PAGE
+=======================================================================
+
+Examples:
+Negation
+Questions
+Object pronouns
+Talking about the past
+
+Display:
+- overview
+- all linked rules
+- related tenses
+- related expressions
+- examples
+- exercises
+- common mistakes
+- prerequisites
+
+=======================================================================
+50. HTML APP — FILTERS
+=======================================================================
+
+Recommended global filters:
+
+TYPE
+- Vocabulary
+- Verbs
+- Expressions
+- Grammar rules
+- Tenses
+- Examples
+- Exercises
+
+PRIORITY
+- Essential (5)
+- Very useful (4+)
+- Any
+
+EXPRESSION TYPE
+- Verb pattern
+- Collocation
+- Fixed expression
+- Idiom
+- Sentence starter
+- Conversation phrase
+- Connector
+- Functional phrase
+
+VERB PROPERTIES
+- Regular
+- Irregular
+- Pronominal
+- Auxiliary avoir
+- Auxiliary être
+- 1st / 2nd / 3rd group
+
+TENSE
+- selected tense(s)
+
+CONCEPT
+- negation
+- questions
+- pronouns
+- etc.
+
+TOPIC
+- time
+- travel
+- food
+- work
+- movement
+- opinions
+- requests
+- etc.
+
+REGISTER
+- formal
+- neutral
+- informal
+- colloquial
+- literary
+
+SPOKEN/WRITTEN
+- spoken
+- written
+- both
+
+DIFFICULTY
+- 1 to 5
+
+SOURCE
+- book
+- derived_from_book
+- study_extension
+
+CHAPTER
+- 1..27
+
+PROGRESS (from local storage)
+- new
+- learning
+- review
+- mastered
+- favorite
+- weak items
+
+=======================================================================
+51. HTML APP — SEARCH
+=======================================================================
+
+Search should match:
+- French canonical form
+- display form
+- aliases
+- normalized accentless form
+- English meanings
+- tags
+- expression function
+- base verb
+- related vocabulary
+
+Example:
+search "decision"
+should find:
+- décision
+- prendre une décision
+- prendre la décision de + infinitif
+
+search "demander"
+should find:
+- demander
+- demander quelque chose à quelqu'un
+- demander à quelqu'un de + infinitif
+- examples containing demander
+- relevant exercises
+
+=======================================================================
+52. HTML APP — SORTING
+=======================================================================
+
+Default revision sorting:
+1. learning_priority DESC
+2. weakness score DESC (if progress exists)
+3. usefulness DESC
+4. difficulty ASC or user preference
+5. alphabetical
+
+Other sorts:
+- alphabetical French
+- alphabetical English
+- book frequency
+- chapter order
+- difficulty
+- newest learned
+- least reviewed
+- most wrong
+
+=======================================================================
+53. USER PROGRESS MODEL
+=======================================================================
+
+Recommended separate structure:
+
+{
+  "schema_version": "1.0.0",
+  "items": {
+    "verb_venir": {
+      "status": "learning",
+      "favorite": true,
+      "times_seen": 12,
+      "times_correct": 9,
+      "times_wrong": 3,
+      "last_reviewed": null,
+      "next_review": null,
+      "personal_note": null
+    },
+
+    "expr_venir_chercher_qqn": {
+      "status": "new",
+      "favorite": false,
+      "times_seen": 0,
+      "times_correct": 0,
+      "times_wrong": 0,
+      "last_reviewed": null,
+      "next_review": null,
+      "personal_note": null
+    }
+  }
+}
+
+Recommended status:
+- new
+- learning
+- review
+- mastered
+- suspended
+
+Store in:
+localStorage for simplest app
+OR IndexedDB if the dataset/app becomes larger
+OR server database if multi-device sync is later needed
+
+=======================================================================
+54. REVISION MODES
+=======================================================================
+
+The data model should support:
+
+1. Vocabulary flashcards
+   French -> English
+   English -> French
+
+2. Noun gender drill
+   decision -> la décision
+
+3. Verb meaning drill
+   venir -> ?
+
+4. Conjugation drill
+   venir / present / nous -> nous venons
+
+5. Tense recognition
+   identify tense from sentence
+
+6. Verb pattern drill
+   demander à [PERSON] de [INFINITIVE]
+
+7. Collocation drill
+   prendre + ______ -> une décision
+
+8. Expression meaning drill
+   prendre une décision -> ?
+
+9. Slot substitution
+   demander à Marie de venir
+   demander à Paul de téléphoner
+
+10. Pronoun transformation
+    demander à Marie de venir
+    -> lui demander de venir
+
+11. Grammar rule quiz
+
+12. Contrast drill
+    passé composé vs imparfait
+
+13. Error correction drill
+    use common_mistakes
+
+14. Cloze examples
+    built from example.cloze_candidates
+
+15. Chapter review
+
+16. Essential-only review
+
+17. Weak-items review
+
+18. Mixed smart review
+
+=======================================================================
+55. SPACED REPETITION — OPTIONAL
+=======================================================================
+
+Do not bake SRS scheduling into reference content.
+
+Progress can store:
+- due_at
+- interval_days
+- ease_factor
+- repetition_count
+- lapse_count
+
+Simpler first version:
+- correct -> increase mastery
+- wrong -> mark weak
+- sort weak items to top
+
+Later replace with SM-2 or another SRS algorithm.
+
+=======================================================================
+56. COMPUTED REVISION SCORE
+=======================================================================
+
+Recommended not stored permanently; calculate in app.
+
+Example conceptual formula:
+
+content_score =
+  learning_priority * 0.45 +
+  usefulness * 0.25 +
+  normalized_book_frequency * 0.10 +
+  weakness * 0.20
+
+Where weakness comes from user progress.
+
+Do not confuse this with real-world frequency.
+
+=======================================================================
+57. BOOK MODE VS REVISION MODE
+=======================================================================
+
+BOOK MODE
+---------
+Chapter 1
+Chapter 2
+...
+Chapter 27
+
+Inside each chapter:
+- rules
+- verbs
+- expressions
+- vocabulary
+- examples
+- exercises
+
+REVISION MODE
+-------------
+Vocabulary
+Verbs
+Expressions
+Collocations
+Verb Patterns
+Grammar
+Tenses
+Concepts
+Exercises
+
+Then filters:
+Essential
+A1/A2/B1 if available
+Irregular
+Past tenses
+Opinion expressions
+Time
+Travel
+Negation
+Questions
+Not mastered
+Favorites
+etc.
+
+Both modes use the SAME underlying JSON.
+
+=======================================================================
+58. DATA SPLITTING STRATEGY
+=======================================================================
+
+Start with one file:
+french_grammar.json
+
+Later, if needed:
+book.json
+chapters.json
+sections.json
+concepts.json
+tenses.json
+grammar_rules.json
+verbs.json
+conjugations.json
+expressions.json
+vocabulary.json
+examples.json
+exercises.json
+study_sets.json
+
+IDs remain identical.
+
+If splitting:
+create manifest.json:
+
+{
+  "schema_version": "1.0.0",
+  "files": {
+    "verbs": "verbs.json",
+    "expressions": "expressions.json",
+    "vocabulary": "vocabulary.json"
+  }
+}
+
+Do not change object structure simply because files are split.
+
+=======================================================================
+59. PERFORMANCE NOTES FOR HTML
+=======================================================================
+
+Likely dataset size is small enough for a browser to load as JSON.
+
+Recommended:
+- fetch once
+- build Map indexes
+- build reverse indexes once
+- render only visible cards
+- debounce search input
+- use DocumentFragment or virtualized lists if thousands of rows become slow
+- save progress separately
+- use URL query/hash for shareable filters
+
+Example URL patterns:
+#verb/verb_venir
+#expression/expr_prendre_une_decision
+#tense/tense_passe_compose
+#review?type=expression&priority=5
+
+=======================================================================
+60. NORMALIZATION RULES
+=======================================================================
+
+Preserve:
+- French accents
+- apostrophes
+- hyphens
+- gender/article
+- reflexive "se/s'"
+- correct spacing
+
+For search only:
+- lowercase
+- accentless mirror
+- normalized apostrophe
+- trim whitespace
+
+Examples:
+être -> search key "etre"
+quelqu’un -> "quelqu'un" + "quelquun"
+s’appeler -> "s'appeler" + "sappeler"
+
+Never replace stored display text with search-normalized text.
+
+=======================================================================
+61. HTML DATA ACCESS EXAMPLES
+=======================================================================
+
+All expressions related to a verb:
+
+const relatedExpressions = data.expressions.filter(expr =>
+  (expr.base_verb_ids || []).includes("verb_venir")
+);
+
+All conjugations of a verb:
+
+const verbConjugations = data.conjugations.filter(c =>
+  c.verb_id === "verb_venir"
+);
+
+All conjugations in a tense:
+
+const tenseConjugations = data.conjugations.filter(c =>
+  c.tense_id === "tense_present_indicative"
+);
+
+All essential expressions:
+
+const essentialExpressions = data.expressions.filter(expr =>
+  (expr.study?.learning_priority ?? 0) >= 5
+);
+
+All collocations:
+
+const collocations = data.expressions.filter(expr =>
+  expr.expression_type === "collocation"
+);
+
+All verb patterns using "de + infinitive":
+
+const deInfPatterns = data.expressions.filter(expr =>
+  expr.expression_type === "verb_pattern" &&
+  expr.tags?.includes("de_infinitive")
+);
+
+All vocabulary:
+
+const vocabulary = data.vocabulary;
+
+All items from Chapter 4:
+Use chapter_04's linked ID arrays OR attestation filters.
+
+=======================================================================
+62. REQUIRED BUILT-IN RELATIONSHIP EXAMPLES
+=======================================================================
+
+A. venir chercher quelqu'un
+expr -> verb_venir
+expr -> verb_chercher
+
+B. demander à quelqu'un de + infinitif
+expr -> verb_demander
+expr -> concept_requests
+
+C. prendre une décision
+expr -> verb_prendre
+expr -> vocab_decision
+
+D. passé composé
+tense -> formation rules
+tense -> conjugations
+tense -> examples
+tense -> exercises
+tense -> contrast with imparfait
+
+E. vocab_decision
+vocab -> expr_prendre_une_decision
+vocab -> word family verb_decider if supported
+
+=======================================================================
+63. SOURCE-FAITHFULNESS POLICY
+=======================================================================
+
+During extraction:
+
+A. BOOK CONTENT
+Preserve:
+- terminology
+- grammar organization
+- meanings
+- examples
+- exercises
+- answer key content
+- verb tables
+- glossary information
+
+B. NORMALIZATION
+Allowed:
+- fix obvious encoding artifacts
+- standardize IDs
+- standardize apostrophe encoding
+- merge exact duplicates
+- normalize typographic spacing
+- convert repeated source items into attestations
+
+C. DO NOT SILENTLY:
+- add a new translation
+- add CEFR
+- add frequency claim
+- add pronunciation
+- add a grammar exception
+- "correct" the author
+- invent exercise answers
+
+D. STUDY EXTENSIONS
+Allowed only when clearly marked:
+"source_type": "study_extension"
+
+=======================================================================
+64. COPYRIGHT-SAFE INTERNAL PRACTICE
+=======================================================================
+
+For this personal study transformation, the dataset may preserve the source material needed
+for the user's private revision workflow.
+
+Still, for cleaner data:
+- prefer structured rules, forms, translations, and examples
+- avoid storing large repeated prose passages when a concise structured representation is enough
+- preserve source page references for traceability
+
+=======================================================================
+65. SCHEMA VERSIONING
+=======================================================================
+
+Root:
+"schema_version": "1.0.0"
+
+Semantic versioning:
+1.x.x = compatible additions
+2.0.0 = breaking field/name changes
+
+Never rename IDs during a minor update.
+
+Optional per-item:
+"revision": 1
+"updated_at": null
+
+=======================================================================
+66. FUTURE-PROOF OPTIONAL FIELDS
+=======================================================================
+
+Reserve support for:
+- pronunciation
+- audio
+- images
+- external corpus frequency
+- external dictionary IDs
+- CEFR
+- user notes
+- generated exercises
+- translations into more languages
+- morphological analysis
+- dependency/grammar annotations
+- speech synthesis
+- native-speaker notes
+
+Do not populate them until needed.
+
+=======================================================================
+67. FINAL MASTER EXAMPLE
+=======================================================================
+
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "pmp_complete_french_grammar_revision",
+
+  "book": {
+    "id": "book_pmp_complete_french_grammar",
+    "title": "Practice Makes Perfect: Complete French Grammar",
+    "author": "Annie Heminway"
+  },
+
+  "taxonomy": {
+    "expression_types": [
+      "verb_pattern",
+      "collocation",
+      "fixed_expression",
+      "idiom",
+      "sentence_starter",
+      "conversation_phrase",
+      "connector",
+      "functional_phrase",
+      "formulaic_phrase"
+    ]
+  },
+
+  "chapters": [],
+
+  "sections": [],
+
+  "concepts": [],
+
+  "tenses": [],
+
+  "grammar_rules": [],
+
+  "verbs": [
+    {
+      "id": "verb_prendre",
+      "type": "verb",
+      "infinitive": "prendre",
+      "english": ["to take"],
+      "expression_ids": [
+        "expr_prendre_une_decision",
+        "expr_prendre_la_decision_de_inf"
+      ],
+      "conjugation_ids": [],
+      "study": {
+        "learning_priority": 5,
+        "usefulness": 5,
+        "difficulty": 3,
+        "cefr": null
+      },
+      "attestations": [],
+      "tags": ["essential"]
+    }
+  ],
+
+  "conjugations": [],
+
+  "expressions": [
+    {
+      "id": "expr_prendre_une_decision",
+      "type": "expression",
+      "expression_type": "collocation",
+      "canonical_form": "prendre une décision",
+      "display_form": "prendre une décision",
+      "english": ["to make a decision"],
+      "base_verb_ids": ["verb_prendre"],
+      "related_vocabulary_ids": ["vocab_decision"],
+      "productive": false,
+      "collocation_strength": "strong",
+      "study": {
+        "learning_priority": 5,
+        "usefulness": 5,
+        "difficulty": 1,
+        "cefr": null
+      },
+      "example_ids": [],
+      "attestations": [],
+      "tags": ["essential", "collocation", "verb_noun"]
+    }
+  ],
+
+  "vocabulary": [
+    {
+      "id": "vocab_decision",
+      "type": "vocabulary",
+      "canonical_form": "décision",
+      "display_form": "la décision",
+      "french": "décision",
+      "english": ["decision"],
+      "part_of_speech": "noun",
+      "noun": {
+        "gender": "feminine",
+        "article": "la",
+        "plural": "décisions"
+      },
+      "collocation_expression_ids": [
+        "expr_prendre_une_decision"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "usefulness": 5,
+        "difficulty": 2,
+        "cefr": null
+      },
+      "attestations": []
+    }
+  ],
+
+  "examples": [],
+
+  "exercises": [],
+
+  "study_sets": [],
+
+  "quality_report": {
+    "counts": {},
+    "unresolved_relations": [],
+    "duplicate_candidates": [],
+    "low_confidence_items": []
+  }
+}
+
+=======================================================================
+68. RECOMMENDED EXTRACTION WORKFLOW
+=======================================================================
+
+PHASE 1 — STRUCTURE
+1. Create book record.
+2. Create all chapters.
+3. Create all sections.
+4. Create all tense/mood master entities.
+5. Create all broad grammar concepts.
+
+PHASE 2 — CHAPTER EXTRACTION
+For each chapter:
+1. extract grammar rules
+2. extract verbs
+3. extract conjugations
+4. extract vocabulary
+5. extract expressions/patterns/collocations
+6. extract examples
+7. extract exercises
+8. create attestations
+9. link all entities
+10. merge canonical duplicates
+
+PHASE 3 — BACK MATTER
+1. process verb tables
+2. reconcile conjugations
+3. process French-English glossary
+4. process English-French glossary
+5. reconcile vocabulary/senses
+6. process answer key
+7. fill exercise answers
+
+PHASE 4 — STUDY INTELLIGENCE
+1. assign learning priority
+2. assign usefulness
+3. assign difficulty
+4. classify expression types
+5. classify collocation strength
+6. classify communicative functions
+7. add concepts/tags
+8. add common mistakes where source-supported
+9. add clearly labeled study extensions if desired
+
+PHASE 5 — QA
+1. run validation
+2. inspect duplicate candidates
+3. inspect low-confidence items
+4. check missing answers
+5. check broken relations
+6. check gender/article gaps
+7. check conjugation completeness
+8. compare chapter item counts
+9. regenerate quality report
+
+=======================================================================
+69. IMPORTANT "DO NOT MISS" CHECKLIST
+=======================================================================
+
+[ ] Chapters
+[ ] Sections
+[ ] Grammar rules
+[ ] Tenses/moods
+[ ] Concepts
+[ ] Verbs
+[ ] Conjugations
+[ ] Verb groups
+[ ] Irregularity notes
+[ ] Auxiliaries
+[ ] Participles
+[ ] Verb + preposition patterns
+[ ] Verb + person + infinitive patterns
+[ ] Multi-verb patterns
+[ ] Collocations
+[ ] Fixed expressions
+[ ] Idioms
+[ ] Sentence starters
+[ ] Conversation phrases
+[ ] Connectors
+[ ] Vocabulary
+[ ] Articles
+[ ] Gender
+[ ] Plurals
+[ ] Adjective forms
+[ ] Multiple senses
+[ ] Word families
+[ ] Cognates/false friends when supported
+[ ] Example sentences
+[ ] Exercises
+[ ] Exercise answers
+[ ] Answer explanations where appropriate/supported
+[ ] Book source locations
+[ ] All repeated occurrences
+[ ] Book occurrence counts
+[ ] Learning priority
+[ ] Usefulness
+[ ] Difficulty
+[ ] Register
+[ ] Spoken/written
+[ ] Communicative function
+[ ] Productive pattern slots
+[ ] Transformations
+[ ] Common mistakes
+[ ] Contrast links
+[ ] Confused-with links
+[ ] Prerequisites
+[ ] Search aliases
+[ ] Study sets
+[ ] Quality/confidence
+[ ] Provenance
+[ ] Extension labeling
+[ ] HTML reverse indexes
+[ ] Separate learner progress
+[ ] Revision modes
+[ ] Validation report
+
+=======================================================================
+70. FINAL RULES TO FREEZE BEFORE EXTRACTION
+=======================================================================
+
+1. Chapter is a source/navigation dimension, not the dataset hierarchy.
+2. Everything important gets a global canonical entity.
+3. Repeated occurrences become attestations, not duplicates.
+4. Verbs, conjugations, expressions, tenses, and rules are linked by IDs.
+5. High-value constructions are first-class expressions.
+6. "prendre une décision" is a collocation, not merely an example.
+7. "demander à quelqu'un de + infinitif" is a productive verb pattern.
+8. "venir chercher quelqu'un" links to both "venir" and "chercher".
+9. "je pense que" is a sentence-starter/function expression.
+10. Conjugations are separate objects so both Verb -> Tenses and Tense -> Verbs are easy.
+11. Vocabulary is global and nouns preserve article/gender.
+12. Examples are reusable first-class objects.
+13. Exercises are linked to the exact concepts/verbs/tenses they test.
+14. Book frequency and learner priority are separate.
+15. Real-world frequency remains null until intentionally sourced.
+16. Book-derived and study-extension content are clearly separated.
+17. User progress is stored separately from reference content.
+18. Search is accent-insensitive but display text preserves correct French.
+19. Quality/confidence metadata is mandatory for a large automated extraction.
+20. Validate every relation and ID before publishing the dataset.
+
+=======================================================================
+71. RECOMMENDED FIRST HTML SCREENS
+=======================================================================
+
+HOME
+- Search
+- Essential Review
+- Vocabulary
+- Verbs
+- Expressions
+- Grammar
+- Tenses
+- Chapters
+- Exercises
+
+VERBS
+- cards/list
+- priority filter
+- regular/irregular
+- search
+- click verb -> details + conjugations + expressions
+
+EXPRESSIONS
+- type filter
+- essential filter
+- function filter
+- base verb filter
+- collocations
+- verb patterns
+- sentence starters
+
+GRAMMAR
+- concepts
+- rules
+- tense-based
+- contrast pairs
+
+REVIEW
+- essential
+- weak
+- favorites
+- due
+- random
+- by category
+
+=======================================================================
+72. RECOMMENDED CARD DESIGN
+=======================================================================
+
+Vocabulary card:
+French display form
+English
+gender/article
+priority stars
+tags
+example
+"Related expressions" button
+
+Verb card:
+Infinitive
+English
+priority
+group/regularity
+"Conjugations"
+"Expressions"
+"Examples"
+
+Expression card:
+French
+English
+type badge
+priority
+pattern
+base verbs
+example
+"Practice pattern"
+
+Grammar rule card:
+Rule title
+one-line summary
+tense/concept badges
+example
+common mistake
+
+=======================================================================
+73. DATASET PHILOSOPHY
+=======================================================================
+
+The goal is NOT to create a digital copy that is only browsed chapter by chapter.
+
+The goal is to create a connected French revision knowledge base where:
+- a verb leads to all its forms and constructions
+- a tense leads to all its rules and conjugations
+- a word leads to its collocations
+- an expression leads to its base verbs and patterns
+- a grammar rule leads to examples and exercises
+- a chapter remains available as the source map
+- revision can surface the most valuable material first
+
+The dataset should answer questions such as:
+
+"What are the most important expressions using prendre?"
+"What collocations use décision?"
+"Show me every verb pattern with de + infinitive."
+"Show me all expressions related to venir."
+"Show me all conjugations of venir."
+"Show me all important irregular verbs in the passé composé."
+"Show me every rule related to negation."
+"Show me all high-priority vocabulary from the whole book."
+"Show me only sentence starters for giving opinions."
+"Show me my weak expressions."
+"Show me all items from Chapter 4."
+"Show me every place the book uses this expression."
+
+If the JSON can support all of those without duplicating content, the architecture is correct.
+
+=======================================================================
+END OF SPECIFICATION
+=======================================================================
