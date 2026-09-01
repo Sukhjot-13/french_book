@@ -1,400 +1,393 @@
-# Practice Makes Perfect: Complete French Grammar — Revision Super-Dataset
+# Practice Makes Perfect: Complete French Grammar — Knowledge Base & Pipeline
 
-An end-to-end data extraction, semantic enrichment, normalization, relational canonicalization, and validation pipeline that transforms the authoritative book **"Practice Makes Perfect: Complete French Grammar"** (Annie Heminway, McGraw-Hill) into a rich, fully relational French Revision Super-Dataset.
+A comprehensive, end-to-end repository for extracting, structuring, validating, enriching, and combining the complete content of the authoritative textbook **"Practice Makes Perfect: Complete French Grammar"** (Annie Heminway, McGraw-Hill) into a unified, fully relational French Revision Knowledge Base and Super-Dataset.
 
 ---
 
 ## 📌 Table of Contents
-1. [Overview & Project Status](#-overview--project-status)
-2. [Dataset Metrics Summary](#-dataset-metrics-summary)
-3. [Exhaustive Repository Structure](#-exhaustive-repository-structure)
-4. [Data Pipeline Architecture & Execution Flow](#-data-pipeline-architecture--execution-flow)
-5. [Codebase Breakdown](#-codebase-breakdown)
-   - [`src/lib/dataset/` — Core Schema, IDs, Canonicalization & Validators](#srclibdataset--core-modules)
-   - [`scripts/` — Pipeline Runners & Chapter Builders](#scripts--pipeline-runners--chapter-builders)
+1. [Executive Summary & Current Project Situation](#-executive-summary--current-project-situation)
+2. [Dual Data Streams Architecture](#-dual-data-streams-architecture)
+3. [Deep Dive into `bookdata/` (Ground-Zero Extractions)](#-deep-dive-into-bookdata-ground-zero-extractions)
+   - [File Inventory & Descriptions](#file-inventory--descriptions)
+   - [JSON Schema Specification (`instructions.txt`)](#json-schema-specification-instructionstxt)
+   - [Chapter Coverage & Missing Chapters](#chapter-coverage--missing-chapters)
+   - [Entity Metrics Matrix (All 20 JSON Files)](#entity-metrics-matrix-all-20-json-files)
+   - [Audit & Validation Report of `bookdata/json/*.json`](#audit--validation-report-of-bookdatajsonjson)
+4. [Exhaustive Codebase & Folder Map](#-exhaustive-codebase--folder-map)
+   - [`bookdata/` — Independent Extraction Suite](#bookdata--independent-extraction-suite)
+   - [`src/lib/dataset/` — Core TypeScript Schema, IDs, Canonicalization & Validators](#srclibdataset--core-typescript-modules)
+   - [`scripts/` — Pipeline Runners & Extractors](#scripts--pipeline-runners--extractors)
    - [`scripts/enrichment/` — Semantic Enrichment Suite](#scriptsenrichment--semantic-enrichment-suite)
-   - [`data/` — Raw, Extracted, Normalized, Final & Reports](#data--data-artifacts)
-   - [`docs/` — Source Book & Authoritative Specifications](#docs--documentation--specifications)
-   - [`app/` & `public/` — Next.js Application](#app--public--web-application)
-6. [Audit, Quality & QA Reports](#-audit-quality--qa-reports)
-7. [Automated Smoke Tests & Verification](#-automated-smoke-tests--verification)
-8. [Available npm & CLI Commands](#-available-npm--cli-commands)
+   - [`data/` — Baseline Data Artifacts (Raw, Extracted, Normalized, Final, Reports)](#data--baseline-data-artifacts)
+   - [`docs/` — Source Materials & Historical Specifications](#docs--source-materials--historical-specifications)
+   - [`app/` & `public/` — Next.js Application](#app--public--nextjs-application)
+5. [Blueprint & Instructions for Next AI Session (Data Combination Phase)](#-blueprint--instructions-for-next-ai-session-data-combination-phase)
+   - [Objective](#objective)
+   - [Key Integration Steps](#key-integration-steps)
+   - [Handling Data Nuances & Cross-References](#handling-data-nuances--cross-references)
+6. [Available npm & CLI Commands](#-available-npm--cli-commands)
 
 ---
 
-## 🚀 Overview & Project Status
+## 🚀 Executive Summary & Current Project Situation
 
-The data parsing, semantic enrichment, canonicalization, and validation pipeline is **100% complete, frozen, and verified**. All 27 chapters, along with extensive back matter (French–English glossary, English–French glossary, 101 verb conjugation tables, and comprehensive answer keys), have been extracted, enriched, normalized, canonicalized, and cross-referenced with **0 schema errors, 0 ID errors, and 0 broken relations**.
+This repository houses tools and datasets for digitizing French grammar into a deeply interconnected knowledge graph.
 
-- **Authoritative Data Contract**: [`docs/french_revision_super_dataset_spec.txt`](file:///Users/sukhjot/codes/book/docs/french_revision_super_dataset_spec.txt)
-- **Authoritative Execution Plan**: [`docs/GEMINI_BOOK_PARSING_TODO.txt`](file:///Users/sukhjot/codes/book/docs/GEMINI_BOOK_PARSING_TODO.txt)
-- **Final Master Dataset**: [`data/final/french_grammar.json`](file:///Users/sukhjot/codes/book/data/final/french_grammar.json)
-- **Latest Freeze Verification**: [`data/reports/dataset-freeze-check.md`](file:///Users/sukhjot/codes/book/data/reports/dataset-freeze-check.md)
-
----
-
-## 📊 Dataset Metrics Summary
-
-The master dataset (`data/final/french_grammar.json`) represents **5,383 validated entities** structured into a fully indexed relational graph:
-
-| Entity Type | Total Count | Description |
-|---|:---:|---|
-| **Chapters** | **27** | All 27 textbook chapters covering French grammar from regular verbs to subjunctive and numbers |
-| **Sections** | **80** | Granular thematic subsections across all 27 chapters |
-| **Grammar Rules** | **93** | Deeply structured rules with formation, usage conditions, signals, exceptions, and common mistakes |
-| **Tenses / Moods** | **16** | Global canonical tense & mood definitions with time markers, aspects, and descriptions |
-| **Grammar Concepts** | **14** | High-level conceptual tags (negation, interrogation, agreement, pronoun order, etc.) |
-| **Canonical Verbs** | **339** | Fully resolved verbs with groups, regularity, transitivity, auxiliaries, and attestations |
-| **Conjugations** | **468** | Complete personal conjugation tables (indicative, subjunctive, conditional, imperative, participles) |
-| **Expressions / Idioms** | **343** | High-value idiomatic patterns, verb constructions, fixed expressions, collocations, and connectors |
-| **Vocabulary Items** | **1,023** | Lexical items (nouns with gender/article, adjectives, adverbs, prepositions) with English senses |
-| **Example Sentences** | **979** | Bilingual curated sentences linked to rules, verbs, tenses, and cloze candidates |
-| **Exercises** | **197** | Complete practice activities from every section of the book |
-| **Exercise Questions** | **1,799** | Individual prompts with answer-key reconciliation (1,779 answers attached) |
-| **Study Sets** | **4** | Built-in curated revision sets (Essential Verbs, High-Frequency Expressions, Tenses, Rules) |
-| **Total Graph Entities** | **5,383** | **Zero broken relations, zero schema errors, 100% graph consistency** |
+### Current State
+1. **Baseline Legacy Pipeline (`data/` & `scripts/`)**:
+   - An end-to-end TypeScript pipeline previously extracted, normalized, and assembled all 27 chapters plus backmatter into [`data/final/french_grammar.json`](file:///Users/sukhjot/codes/book/data/final/french_grammar.json) (5,383 entities, zero broken relations).
+2. **Ground-Zero Independent Extraction Suite (`bookdata/`)**:
+   - A new, highly granular, schema-enforced extraction has been conducted using an independent ground-zero model declared in [`bookdata/instructions.txt`](file:///Users/sukhjot/codes/book/bookdata/instructions.txt).
+   - **20 chapter files** have been extracted into [`bookdata/json/`](file:///Users/sukhjot/codes/book/bookdata/json) (`1.json` through `18.json`, `21.json`, `22.json`).
+   - The JSON files contain over **3,100 extracted entities** (rules, conjugations, expressions, vocabulary, examples, exercises, common traps, and attestations).
+3. **Next Phase Goal**:
+   - Write automated scripts to clean, reconcile, and combine the rich chapter data from `bookdata/json/` (along with remaining chapters) into the final production dataset.
 
 ---
 
-## 📂 Exhaustive Repository Structure
-
-```
-book/
-├── AGENTS.md                             # Agent instructions & Next.js conventions
-├── CLAUDE.md                             # Project instructions & command reference
-├── README.md                             # Comprehensive project documentation (this file)
-├── eslint.config.mjs                     # ESLint configuration
-├── next-env.d.ts                         # Next.js TypeScript declarations
-├── next.config.ts                        # Next.js build & runtime configuration
-├── package.json                          # Dependencies, scripts, and project metadata
-├── package-lock.json                     # Locked dependency tree
-├── postcss.config.mjs                    # PostCSS / TailwindCSS styling configuration
-├── tsconfig.json                         # TypeScript compiler configuration
-├── tsconfig.tsbuildinfo                  # TypeScript build cache
-│
-├── app/                                  # Next.js App Router frontend
-│   ├── favicon.ico                       # Web app favicon
-│   ├── globals.css                       # Global styles & Tailwind CSS directives
-│   ├── layout.tsx                        # Root layout component
-│   └── page.tsx                          # Main landing page
-│
-├── public/                               # Static assets for the web application
-│   ├── file.svg                          # File icon asset
-│   ├── globe.svg                         # Globe icon asset
-│   ├── next.svg                          # Next.js SVG brand asset
-│   ├── vercel.svg                        # Vercel SVG brand asset
-│   └── window.svg                        # Window icon asset
-│
-├── docs/                                 # Authoritative documentation & source materials
-│   ├── GEMINI_BOOK_PARSING_TODO.txt      # Comprehensive step-by-step pipeline execution checklist
-│   ├── french_revision_super_dataset_spec.txt # Authoritative dataset specification & schema contracts
-│   └── source_book.pdf                   # Source book PDF ("Practice Makes Perfect: Complete French Grammar", 286 pages)
-│
-├── src/                                  # Application & pipeline source code
-│   └── lib/
-│       └── dataset/                      # Dataset engine, schema definitions & utilities
-│           ├── canonicalize.ts           # Entity deduplication, canonical merge & frequency metrics
-│           ├── coverage.ts               # Coverage metrics calculator & gap detector
-│           ├── ids.ts                    # Deterministic, stable ID generators
-│           ├── load.ts                   # Master dataset file loader utility
-│           ├── normalize.ts              # French Unicode NFC, quote, ligature & whitespace normalizer
-│           ├── relations.ts              # Reverse relational index builder
-│           ├── schemas.ts                # Authoritative Zod schemas & TypeScript type definitions
-│           └── validators.ts             # Schema validation, graph integrity & foreign key resolver
-│
-├── scripts/                              # Pipeline orchestration, extraction & validation scripts
-│   ├── run-all.ts                        # Master 9-stage pipeline runner (end-to-end build)
-│   ├── build-final-dataset.ts            # Fast final dataset assembler & validator
-│   ├── extract-pages.ts                  # Raw page extraction from source PDF
-│   ├── extract-chapter.ts                # Chapter extraction helper
-│   ├── parse-book.ts                     # Chapter extraction orchestrator (Chapters 1 to 27)
-│   ├── parse-backmatter.ts               # Backmatter parser (Glossaries, Verb Tables, Answer Keys)
-│   ├── normalize-chapter.ts              # French typographical normalizer for chapter bundles
-│   ├── attach-answer-key.ts              # Exercise prompt to answer key reconciler
-│   ├── reconcile-global.ts               # Global canonicalization, auto-closure & master JSON assembly
-│   ├── validate-dataset.ts               # Schema conformance & graph integrity validator
-│   ├── check-coverage.ts                 # QA report generator (produces 17 JSON reports)
-│   ├── smoke-tests.ts                    # 12 automated query & integrity smoke tests
-│   ├── test-fixture.ts                   # Test fixture runner & sample validator
-│   ├── check_json.py                     # Fast Python JSON integrity & syntax checker
-│   ├── chapter-types.ts                  # Intermediate chapter extraction interfaces
-│   │
-│   ├── chapter-01.ts                     # Chapter 1 extractor (Present tense of regular -er verbs)
-│   ├── chapter-02.ts                     # Chapter 2 extractor (Present tense of -ir and -re verbs)
-│   ├── chapter-03.ts                     # Chapter 3 extractor (Passé composé)
-│   ├── chapter-04.ts                     # Chapter 4 extractor (Imparfait)
-│   ├── chapter-05.ts                     # Chapter 5 extractor (Futur simple & futur antérieur)
-│   ├── chapters-06-to-10.ts              # Chapters 6-10 extractor (Conditionnel, Plus-que-parfait, Subjonctif, etc.)
-│   ├── chapters-11-to-18.ts              # Chapters 11-18 extractor (Articles, Nouns, Adjectives, Pronouns, Prepositions)
-│   ├── chapters-19-to-27.ts              # Chapters 19-27 extractor (Conjunctions, Adverbs, Negation, Interrogation, Numbers)
-│   │
-│   └── enrichment/                       # Advanced semantic enrichment pipeline
-│       ├── enrich-exercises.ts           # Exercise context, difficulty & grammar tagging
-│       ├── generate-conjugations.py      # Algorithmic full-paradigm conjugation table generator
-│       ├── parse-conjugations-enhanced.ts# Enhanced conjugation extractor & table matcher
-│       ├── parse-examples-enhanced.ts    # Deep sentence-level example extractor & cloze candidate parser
-│       ├── parse-expressions-enhanced.ts # High-value idiomatic pattern & verb construction parser
-│       └── parse-glossary-enhanced.ts    # Enhanced bidirectional glossary tokenization & POS classifier
-│
-└── data/                                 # Data storage across all pipeline lifecycle stages
-    ├── raw/                              # Stage 1: Raw extracted text directly from PDF
-    │   ├── chapter-map.json              # PDF page & printed page mappings for all 27 chapters
-    │   ├── pages-all.json                # Single aggregated JSON file containing all 286 raw pages
-    │   └── pages/                        # 286 individual raw page files (`page-001.json` - `page-286.json`)
-    │
-    ├── extracted/                        # Stage 2: Structured raw extractions
-    │   ├── chapters/                     # 27 individual extracted chapters (`chapter-01.json` - `chapter-27.json`)
-    │   └── backmatter/                   # Extracted backmatter elements
-    │       ├── answer-key.json           # Comprehensive answer keys for Chapters 1-27
-    │       ├── glossary-en-fr.json       # English-to-French glossary (915 entries)
-    │       ├── glossary-fr-en.json       # French-to-English glossary (970 entries)
-    │       └── verb-tables.json          # 101 Verb conjugation tables from appendix
-    │
-    ├── normalized/                       # Stage 3: French typography & linguistic normalization
-    │   ├── chapters/                     # 27 normalized chapters (`chapter-01.json` - `chapter-27.json`)
-    │   └── global/                       # Canonical foundational reference entities
-    │       ├── concepts.json             # 14 Canonical grammatical concepts
-    │       └── tenses.json               # 16 Canonical French tenses & moods
-    │
-    ├── final/                            # Stage 4: Authoritative production master dataset
-    │   └── french_grammar.json           # Frozen, validated, self-contained SuperDatasetRoot (5,383 entities)
-    │
-    └── reports/                          # Stage 5: Audits, acceptance checks & QA validation reports
-        ├── dataset-freeze-check.md       # Final freeze verification report (0 regressions, clean taxonomy)
-        ├── final-acceptance-audit.md     # Forensic acceptance audit documentation
-        ├── final-repair-report.md        # Deficiency repair & schema patch log
-        ├── final-semantic-audit.md       # Semantic depth & entity relation audit
-        ├── forensic-final-audit.md       # Deep forensic validation and integrity check
-        ├── semantic-content-audit.md     # Linguistic accuracy & content richness assessment
-        ├── semantic-enrichment-report.md # Enrichment metrics (conjugations, expressions, examples)
-        ├── targeted-final-fix-report.md  # Targeted fix breakdown for glossary tokenization & POS tags
-        ├── ambiguities.json              # Semantic ambiguity tracking log (count: 0)
-        ├── broken-relations.json         # Foreign key reference mismatch log (count: 0)
-        ├── conjugation-gaps.json         # Missing conjugation paradigm report (count: 0)
-        ├── coverage-report.json          # Aggregate coverage statistics across all entity types
-        ├── duplicate-report.json         # Candidate entity duplicate report (count: 0)
-        ├── exercise-coverage.json        # Exercise prompt extraction ratios
-        ├── exercise-reconciliation.json  # Exercise answer attachment reconciliation stats
-        ├── extraction-summary.json       # Complete entity count & completion status summary
-        ├── glossary-coverage.json        # Glossary extraction completeness ratio (1.0)
-        ├── low-confidence-items.json     # Low confidence extraction items (count: 0)
-        ├── progress.json                 # Comprehensive pipeline progression matrix
-        ├── unmatched-answers.json        # Unmatched open-ended exercise items
-        ├── unresolved-duplicates.json    # Unresolved duplicate entity log (count: 0)
-        ├── unresolved-relations.json     # Unresolved graph relationship log (count: 0)
-        ├── validation-report.json        # Full Zod validation output & metadata gap audit
-        ├── verb-coverage.json            # Verb table coverage ratio (1.0)
-        └── vocabulary-gaps.json          # Vocabulary metadata tracking
-```
-
----
-
-## 🔄 Data Pipeline Architecture & Execution Flow
+## 🔄 Dual Data Streams Architecture
 
 ```mermaid
 flowchart TD
-    A["Source PDF (286 Pages)<br>docs/source_book.pdf"] --> B["Page Extraction<br>scripts/extract-pages.ts"]
-    B --> C["Raw Page Store<br>data/raw/pages/*.json"]
-    C --> D["Chapter Parsing (Ch 1-27)<br>scripts/parse-book.ts"]
-    C --> E["Backmatter Parsing<br>scripts/parse-backmatter.ts"]
-    D --> F["Extracted Chapters<br>data/extracted/chapters/*.json"]
-    E --> G["Extracted Backmatter<br>data/extracted/backmatter/*.json"]
-    F --> H["Linguistic Normalization<br>scripts/normalize-chapter.ts"]
-    H --> I["Normalized Chapters<br>data/normalized/chapters/*.json"]
-    I --> J["Answer Key Attachment<br>scripts/attach-answer-key.ts"]
-    J --> K["Semantic Enrichment Pipeline<br>scripts/enrichment/*"]
-    K --> L["Global Reconciliation & Auto-Closure<br>scripts/reconcile-global.ts"]
-    G --> L
-    L --> M["Master Dataset Assembly<br>data/final/french_grammar.json"]
-    M --> N["Zod & Graph Validation<br>scripts/validate-dataset.ts"]
-    M --> O["Coverage & QA Reporting<br>scripts/check-coverage.ts"]
-    M --> P["Automated Smoke Tests<br>scripts/smoke-tests.ts"]
-    N --> Q["17 QA Reports + Audits<br>data/reports/*"]
-    O --> Q
-    P --> R["Verified Frozen Dataset Ready for UI"]
+    subgraph Stream_B ["Stream B: Ground-Zero Independent Extractions (Current Focus)"]
+        B1["Source Text & Prompts<br>bookdata/a.txt, book backup.txt"] --> B2["Independent LLM Extraction<br>bookdata/instructions.txt"]
+        B2 --> B3["20 Chapter JSONs<br>bookdata/json/*.json"]
+        B3 --> B4["JSON Schema Audit & Validation<br>deepseek-independent-chapter.schema.json"]
+        B4 --> B5["NEXT TASK: Combination & Merge Scripts<br>scripts/combine-bookdata.ts"]
+    end
+
+    subgraph Stream_A ["Stream A: Baseline Frozen Pipeline (Existing Reference)"]
+        A1["Source PDF (286 Pages)<br>docs/source_book.pdf"] --> A2["TypeScript Extractors<br>scripts/chapter-*.ts"]
+        A2 --> A3["Normalized Chapters & Backmatter<br>data/normalized/ & data/extracted/"]
+        A3 --> A4["Global Reconciler<br>scripts/reconcile-global.ts"]
+        A4 --> A5["Frozen Baseline Dataset<br>data/final/french_grammar.json (5,383 entities)"]
+    end
+
+    B5 --> C["Unified Master Knowledge Base / Final JSON"]
+    A5 -.-> B5
 ```
 
-### Pipeline Stages
-1. **Raw Page Extraction**: Converts `docs/source_book.pdf` into 286 individual JSON pages with line numbers and bounding coordinates in `data/raw/pages/`.
-2. **Grammar & Exercise Extraction**: Specialized chapter extractors (`chapter-01.ts` to `chapters-19-to-27.ts`) extract rules, formations, exceptions, verb paradigms, vocabulary, and exercises.
-3. **Backmatter Extraction**: `scripts/parse-backmatter.ts` parses the 970-item French-English glossary, 915-item English-French glossary, 101 verb conjugation tables, and the complete answer key.
-4. **French Normalization**: `src/lib/dataset/normalize.ts` standardizes Unicode (NFC), curly/straight apostrophes, ligatures (`œ`, `æ`), French quotation marks (`« »`), and whitespace.
-5. **Answer Key Attachment**: Reconciles individual exercise questions with corresponding back-matter answer lines.
-6. **Semantic Enrichment**: Parses 979 bilingual examples with cloze candidates, extracts 343 idiomatic expressions, expands full conjugation paradigms, and classifies lexical tokens.
-7. **Canonicalization & Auto-Closure**: Merges cross-chapter entity duplicates, calculates unified learning priority/frequency scores, resolves referenced entities, and compiles `data/final/french_grammar.json`.
-8. **Relational Graph Indexing**: Builds reverse indexes for bidirectional lookup across verbs, tenses, rules, concepts, and exercises.
-9. **Verification & Audit Reporting**: Evaluates schema conformity, ID constraints, and graph references, generating 17 machine-readable reports and passing all 12 smoke tests.
+---
+
+## 📂 Deep Dive into `bookdata/` (Ground-Zero Extractions)
+
+The `bookdata/` directory contains all assets for the ground-zero independent extraction.
+
+### File Inventory & Descriptions
+
+| File / Folder | Purpose / Contents |
+| :--- | :--- |
+| [`bookdata/instructions.txt`](file:///Users/sukhjot/codes/book/bookdata/instructions.txt) | Contains the **authoritative JSON Schema** (`deepseek-independent-chapter.schema.json`, lines 1–1788) followed by the extraction instructions and ground-zero prompting rules (lines 1789–2550). |
+| [`bookdata/json/`](file:///Users/sukhjot/codes/book/bookdata/json/) | Contains 20 chapter extraction JSON files (`1.json` to `18.json`, `21.json`, `22.json`). |
+| [`bookdata/book backup.txt`](file:///Users/sukhjot/codes/book/bookdata/book%20backup.txt) | Complete plain-text backup of the textbook content. |
+| [`bookdata/a.txt`](file:///Users/sukhjot/codes/book/bookdata/a.txt) | Raw page-marked text extract used for ongoing chapter extractions. |
+| [`bookdata/a.pdf`](file:///Users/sukhjot/codes/book/bookdata/a.pdf) | Original source book PDF document. |
 
 ---
 
-## 💻 Codebase Breakdown
+### JSON Schema Specification (`instructions.txt`)
 
-### `src/lib/dataset/` — Core Modules
+The JSON Schema in `bookdata/instructions.txt` enforces strict typing, `additionalProperties: false`, and exhaustive attestation tracking.
 
-- [`schemas.ts`](file:///Users/sukhjot/codes/book/src/lib/dataset/schemas.ts): Authoritative Zod validation schemas and TypeScript type exports for all entities:
-  - `SuperDatasetRoot`, `BookMetadata`, `Chapter`, `Section`, `GrammarRule`, `Tense`, `GrammarConcept`
-  - `Verb`, `Conjugation`, `Expression`, `Vocabulary`, `ExampleSentence`, `Exercise`, `ExerciseQuestion`, `StudySet`, `QualityReport`
-  - Enums: `CEFRLevel`, `GrammarCategory`, `VerbGroup`, `VerbRegularity`, `Transitivity`, `AuxiliaryVerb`, `Mood`, `TenseEnum`, `ExpressionType`, `PartOfSpeech`, `Gender`, `DifficultyLevel`, `LearningPriority`
-- [`ids.ts`](file:///Users/sukhjot/codes/book/src/lib/dataset/ids.ts): Deterministic ID generators (`makeVerbId`, `makeRuleId`, `makeChapterId`, `makeSectionId`, `makeExpressionId`, `makeVocabId`, `makeExampleId`, `makeExerciseId`, `makeStudySetId`, `makeBookId`) ensuring stable IDs across rebuilds.
-- [`normalize.ts`](file:///Users/sukhjot/codes/book/src/lib/dataset/normalize.ts): French string normalization helper preserving accents (`é`, `è`, `ê`, `ë`, `à`, `ç`, `î`, `ï`, `ô`, `ù`, `û`), apostrophes, quotes, and ligatures.
-- [`canonicalize.ts`](file:///Users/sukhjot/codes/book/src/lib/dataset/canonicalize.ts): Canonical merge utilities (`canonicalizeVerbs`, `canonicalizeVocabulary`, `canonicalizeExpressions`) that merge cross-chapter occurrences and recalculate frequency metrics without creating duplicates.
-- [`relations.ts`](file:///Users/sukhjot/codes/book/src/lib/dataset/relations.ts): Fast reverse relation index builder (`buildReverseIndexes`) indexing items by verb, tense, rule, chapter, etc.
-- [`validators.ts`](file:///Users/sukhjot/codes/book/src/lib/dataset/validators.ts): Core validator checking Zod compliance, ID prefix validity, entity uniqueness, and complete foreign key graph resolution.
-- [`coverage.ts`](file:///Users/sukhjot/codes/book/src/lib/dataset/coverage.ts): Coverage evaluation helpers comparing extracted elements against source targets.
-- [`load.ts`](file:///Users/sukhjot/codes/book/src/lib/dataset/load.ts): Synchronous and asynchronous loader utilities for accessing `french_grammar.json`.
+#### Top-Level Document Structure:
+- `schema_version`: Must be `"1.0.0"`
+- `extraction_mode`: Must be `"independent_ground_zero"`
+- `chapter`: Object of type `chapterMeta` (`id`, `chapter_number`, `chapter_title`, `source_pages`, `notes`)
+- `sections`: Array of `section` items
+- `concepts`: Array of `concept` items
+- `grammar_rules`: Array of `grammarRule` items
+- `verbs`: Array of `verb` items
+- `conjugations`: Array of `conjugation` items
+- `expressions`: Array of `expression` items
+- `vocabulary`: Array of `vocabulary` items
+- `examples`: Array of `example` items
+- `exercises`: Array of `exercise` items (with nested `questions` and `answer_sources`)
+- `exceptions_and_traps`: Array of `exceptionTrap` items
+- `uncertain_candidates`: Array of `uncertainCandidate` items
 
----
-
-### `scripts/` — Pipeline Runners & Chapter Builders
-
-- [`run-all.ts`](file:///Users/sukhjot/codes/book/scripts/run-all.ts): Master script running the entire 9-stage pipeline from raw PDF extraction to smoke test execution.
-- [`build-final-dataset.ts`](file:///Users/sukhjot/codes/book/scripts/build-final-dataset.ts): Fast standalone script to build, auto-close, and validate the final dataset.
-- [`extract-pages.ts`](file:///Users/sukhjot/codes/book/scripts/extract-pages.ts): Extracts individual pages from `docs/source_book.pdf` using `pdf-parse`.
-- [`extract-chapter.ts`](file:///Users/sukhjot/codes/book/scripts/extract-chapter.ts): Helper for chapter-specific extraction workflows.
-- [`parse-book.ts`](file:///Users/sukhjot/codes/book/scripts/parse-book.ts): Runs all chapter extraction builders (1 to 27) and saves `data/extracted/chapters/`.
-- [`parse-backmatter.ts`](file:///Users/sukhjot/codes/book/scripts/parse-backmatter.ts): Extracts FR-EN glossary, EN-FR glossary, verb tables, and answer key from back matter pages.
-- [`normalize-chapter.ts`](file:///Users/sukhjot/codes/book/scripts/normalize-chapter.ts): Applies French normalization to all chapter bundles.
-- [`attach-answer-key.ts`](file:///Users/sukhjot/codes/book/scripts/attach-answer-key.ts): Reconciles exercise questions with extracted back-matter answers.
-- [`reconcile-global.ts`](file:///Users/sukhjot/codes/book/scripts/reconcile-global.ts): Merges all chapters + backmatter into canonical collections, auto-closes relations, and creates `data/final/french_grammar.json`.
-- [`validate-dataset.ts`](file:///Users/sukhjot/codes/book/scripts/validate-dataset.ts): Runs schema and graph integrity checks.
-- [`check-coverage.ts`](file:///Users/sukhjot/codes/book/scripts/check-coverage.ts): Generates all 17 QA, validation, and coverage reports in `data/reports/`.
-- [`smoke-tests.ts`](file:///Users/sukhjot/codes/book/scripts/smoke-tests.ts): Executes the 12 automated smoke tests.
-- [`test-fixture.ts`](file:///Users/sukhjot/codes/book/scripts/test-fixture.ts): Test fixture validator.
-- [`check_json.py`](file:///Users/sukhjot/codes/book/scripts/check_json.py): Python JSON syntax and validity check utility.
-- [`chapter-types.ts`](file:///Users/sukhjot/codes/book/scripts/chapter-types.ts): TypeScript interfaces for raw extracted chapter elements.
-- **Chapter Extractors**:
-  - `chapter-01.ts` (Regular -er verbs)
-  - `chapter-02.ts` (-ir and -re verbs)
-  - `chapter-03.ts` (Passé composé with avoir and être, Vandertramp)
-  - `chapter-04.ts` (Imparfait formation and usage)
-  - `chapter-05.ts` (Futur simple and futur antérieur)
-  - `chapters-06-to-10.ts` (Plus-que-parfait, Conditionnel, Subjonctif, Pronominal verbs, Passé simple)
-  - `chapters-11-to-18.ts` (Articles, Nouns, Adjectives, Pronouns, Relative Pronouns, Possessives, Demonstratives, Prepositions)
-  - `chapters-19-to-27.ts` (Conjunctions, Adverbs, Negation, Interrogation, Passive Voice, Indirect Speech, Imperative, Infinitive, Numbers/Time)
+#### Key Sub-Entity Types (`$defs`):
+- **`attestation`**: Strict provenance mapping every entity to `chapter_number`, `section_id`, `section_title`, `page_printed`, `page_pdf`, `context_type` (explanation, example, exercise, table, etc.), `exercise_id`, `question_number`, and `source_text`.
+- **`origin`**: Metadata tracking `source_type` (`book` or `derived_from_book`), `created_by`, and `derived_from_ids`.
+- **`study`**: Learning metadata with `learning_priority` (core, high, medium, low), `usefulness` (1–5), `difficulty` (1–5), and `frequency_note`.
+- **`grammarRule`**: Comprehensive rule object containing formation, usage, restrictions, conditions, signal words, exceptions, agreement rules, word order, negative/interrogative/affirmative forms, transformations, traps, and linked entity IDs.
+- **`verb`**: Infinitive, verb group (1, 2, 3), regularity, pronominal flag, transitivity enum array, auxiliary (`avoir`, `etre`, `both`), participles, important stems, and linked IDs.
+- **`conjugation`**: Verb forms across persons (`je`, `tu`, `il_elle_on`, `nous`, `vous`, `ils_elles`, imperatives, participles), stems, and endings.
+- **`expression`**: Idioms, verb patterns, connectors, and collocations with `pattern_slots`, `complement_structure`, prepositions, and collocation strength.
+- **`vocabulary`**: Lexical entries with part of speech, gender, article, plural, variant forms, and senses.
+- **`exercise`** & **`exerciseQuestion`**: Exercise prompts, instructions, open-ended flag, and reconciled answer keys with exact page sources.
+- **`exceptionTrap`**: Common mistakes, confusion traps, correct forms, and incorrect forms.
 
 ---
 
-### `scripts/enrichment/` — Semantic Enrichment Suite
+### Chapter Coverage & Missing Chapters
 
-- [`enrich-exercises.ts`](file:///Users/sukhjot/codes/book/scripts/enrichment/enrich-exercises.ts): Exercises enrichment script assigning CEFR levels, grammar tags, and hints to exercise prompts.
-- [`generate-conjugations.py`](file:///Users/sukhjot/codes/book/scripts/enrichment/generate-conjugations.py): Python paradigm generator creating complete conjugation tables across all moods and tenses.
-- [`parse-conjugations-enhanced.ts`](file:///Users/sukhjot/codes/book/scripts/enrichment/parse-conjugations-enhanced.ts): Deep verb conjugation table parser linking verb stems, endings, and irregular forms.
-- [`parse-examples-enhanced.ts`](file:///Users/sukhjot/codes/book/scripts/enrichment/parse-examples-enhanced.ts): Sentence extractor identifying cloze deletion candidates, rule mappings, and English translations.
-- [`parse-expressions-enhanced.ts`](file:///Users/sukhjot/codes/book/scripts/enrichment/parse-expressions-enhanced.ts): Idiom and prepositional construction parser identifying `verb_pattern`, `fixed_expression`, `connector`, and `collocation` types.
-- [`parse-glossary-enhanced.ts`](file:///Users/sukhjot/codes/book/scripts/enrichment/parse-glossary-enhanced.ts): Enhanced glossary tokenizer separating multi-word idioms from single-word lexical items with parts of speech and noun genders.
-
----
-
-### `data/` — Data Artifacts
-
-- **`data/raw/`**: Contains raw extracted text from `source_book.pdf`, including `pages-all.json`, `chapter-map.json`, and 286 page JSON files.
-- **`data/extracted/`**: Structured chapter JSON files (`chapters/chapter-01.json` to `chapter-27.json`) and backmatter components (`glossary-fr-en.json`, `glossary-en-fr.json`, `verb-tables.json`, `answer-key.json`).
-- **`data/normalized/`**: Typographically cleaned chapter bundles and canonical global definitions (`tenses.json`, `concepts.json`).
-- **`data/final/`**: Contains the master production dataset [`french_grammar.json`](file:///Users/sukhjot/codes/book/data/final/french_grammar.json).
-- **`data/reports/`**: 8 markdown audit reports and 17 JSON quality reports detailing validation, coverage, duplicate resolution, and exercise reconciliation.
+- **Extracted Chapters Present (20 files)**: Chapters 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22.
+- **Missing Chapters (7 files)**:
+  - Chapter 19: Conjunctions
+  - Chapter 20: Adverbs of Manner and Degree
+  - Chapter 23: Negative Words and Phrases
+  - Chapter 24: Interrogative Words and Expressions
+  - Chapter 25: The Passive Voice
+  - Chapter 26: Indirect Speech
+  - Chapter 27: The Imperative and Infinitive
 
 ---
 
-### `docs/` — Documentation & Specifications
+### Entity Metrics Matrix (All 20 JSON Files)
 
-- [`source_book.pdf`](file:///Users/sukhjot/codes/book/docs/source_book.pdf): Original 286-page PDF source book ("Practice Makes Perfect: Complete French Grammar").
-- [`french_revision_super_dataset_spec.txt`](file:///Users/sukhjot/codes/book/docs/french_revision_super_dataset_spec.txt): Authoritative master specification detailing schemas, relations, entity ID conventions, normalization rules, and quality acceptance criteria.
-- [`GEMINI_BOOK_PARSING_TODO.txt`](file:///Users/sukhjot/codes/book/docs/GEMINI_BOOK_PARSING_TODO.txt): Exhaustive, phase-by-phase implementation checklist and execution log.
-
----
-
-### `app/` & `public/` — Web Application
-
-- **Next.js 16 + React 19 + TailwindCSS 4**:
-  - [`app/layout.tsx`](file:///Users/sukhjot/codes/book/app/layout.tsx): Root layout with metadata and font configurations.
-  - [`app/page.tsx`](file:///Users/sukhjot/codes/book/app/page.tsx): Main interactive landing page for browsing grammar rules, conjugations, vocabulary, and exercises.
-  - [`app/globals.css`](file:///Users/sukhjot/codes/book/app/globals.css): Global Tailwind CSS styles and theme variables.
-  - [`public/`](file:///Users/sukhjot/codes/book/public/): Static SVG assets (`file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`).
-
----
-
-## 📋 Audit, Quality & QA Reports
-
-The `data/reports/` directory contains comprehensive audit documentation demonstrating data completeness and zero-defect graph integrity:
-
-### Forensic & Semantic Markdown Reports
-1. [`dataset-freeze-check.md`](file:///Users/sukhjot/codes/book/data/reports/dataset-freeze-check.md): Confirms clean taxonomy redistribution (+163 vocabulary items, -173 expression cleanup), multi-word expression preservation, and dataset freeze.
-2. [`final-acceptance-audit.md`](file:///Users/sukhjot/codes/book/data/reports/final-acceptance-audit.md): Complete forensic acceptance check against all requirements in `docs/french_revision_super_dataset_spec.txt`.
-3. [`final-repair-report.md`](file:///Users/sukhjot/codes/book/data/reports/final-repair-report.md): Summary of defect repairs, missing relation patches, and rule cross-linking.
-4. [`final-semantic-audit.md`](file:///Users/sukhjot/codes/book/data/reports/final-semantic-audit.md): Deep evaluation of semantic richness, cloze candidates, and tense markers.
-5. [`forensic-final-audit.md`](file:///Users/sukhjot/codes/book/data/reports/forensic-final-audit.md): Forensic graph analysis across all 27 chapters.
-6. [`semantic-content-audit.md`](file:///Users/sukhjot/codes/book/data/reports/semantic-content-audit.md): Audit of linguistic rules, usage conditions, and common mistakes.
-7. [`semantic-enrichment-report.md`](file:///Users/sukhjot/codes/book/data/reports/semantic-enrichment-report.md): Documentation of semantic enrichment algorithms and yields.
-8. [`targeted-final-fix-report.md`](file:///Users/sukhjot/codes/book/data/reports/targeted-final-fix-report.md): Analysis of targeted fixes applied to glossary tokenization and expression classification.
-
-### Machine-Readable JSON Quality Reports
-- `extraction-summary.json`: Top-level entity metrics and `"status": "complete"`.
-- `validation-report.json`: Zod validation log showing 0 schema errors and 0 broken foreign keys.
-- `coverage-report.json`: Aggregate entity coverage analysis.
-- `broken-relations.json` & `unresolved-relations.json`: Zero broken relation references.
-- `duplicate-report.json` & `unresolved-duplicates.json`: Zero unresolved duplicate entities.
-- `low-confidence-items.json` & `ambiguities.json`: Zero low-confidence flags or extraction ambiguities.
-- `exercise-coverage.json` & `exercise-reconciliation.json`: Exercise answer attachment stats (1,779 answers matched).
-- `glossary-coverage.json` & `verb-coverage.json`: 100% glossary (1,885 items) and verb table (101 tables) coverage.
-- `conjugation-gaps.json` & `vocabulary-gaps.json`: Conjugation and vocabulary metadata reports.
+| File | Ch # | Sections | Rules | Verbs | Conj | Expressions | Vocab | Examples | Exercises | Traps | Uncertain |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| [1.json](file:///Users/sukhjot/codes/book/bookdata/json/1.json) | 1 | 12 | 14 | 113 | 7 | 8 | 20 | 52 | 10 | 5 | 3 |
+| [2.json](file:///Users/sukhjot/codes/book/bookdata/json/2.json) | 2 | 9 | 10 | 62 | 62 | 15 | 19 | 33 | 11 | 3 | 0 |
+| [3.json](file:///Users/sukhjot/codes/book/bookdata/json/3.json) | 3 | 8 | 10 | 17 | 17 | 26 | 33 | 26 | 11 | 3 | 0 |
+| [4.json](file:///Users/sukhjot/codes/book/bookdata/json/4.json) | 4 | 8 | 12 | 12 | 4 | 40 | 23 | 67 | 9 | 5 | 0 |
+| [5.json](file:///Users/sukhjot/codes/book/bookdata/json/5.json) | 5 | 5 | 7 | 17 | 3 | 13 | 7 | 30 | 5 | 1 | 1 |
+| [6.json](file:///Users/sukhjot/codes/book/bookdata/json/6.json) | 6 | 6 | 10 | 45 | 9 | 45 | 21 | 28 | 6 | 0 | 0 |
+| [7.json](file:///Users/sukhjot/codes/book/bookdata/json/7.json) | 7 | 7 | 12 | 46 | 2 | 31 | 31 | 57 | 10 | 5 | 0 |
+| [8.json](file:///Users/sukhjot/codes/book/bookdata/json/8.json) | 8 | 10 | 10 | 62 | 2 | 16 | 46 | 45 | 7 | 4 | 0 |
+| [9.json](file:///Users/sukhjot/codes/book/bookdata/json/9.json) | 9 | 4 | 15 | 45 | 33 | 8 | 11 | 46 | 8 | 4 | 0 |
+| [10.json](file:///Users/sukhjot/codes/book/bookdata/json/10.json) | 10 | 9 | 6 | 38 | 2 | 15 | 22 | 20 | 6 | 2 | 0 |
+| [11.json](file:///Users/sukhjot/codes/book/bookdata/json/11.json) | 11 | 5 | 11 | 26 | 4 | 19 | 58 | 46 | 10 | 3 | 1 |
+| [12.json](file:///Users/sukhjot/codes/book/bookdata/json/12.json) | 12 | 4 | 8 | 3 | 7 | 20 | 37 | 24 | 6 | 5 | 1 |
+| [13.json](file:///Users/sukhjot/codes/book/bookdata/json/13.json) | 13 | 10 | 16 | 25 | 12 | 55 | 17 | 51 | 9 | 3 | 0 |
+| [14.json](file:///Users/sukhjot/codes/book/bookdata/json/14.json) | 14 | 15 | 16 | 71 | 0 | 10 | 1 | 65 | 7 | 6 | 0 |
+| [15.json](file:///Users/sukhjot/codes/book/bookdata/json/15.json) | 15 | 3 | 11 | 59 | 14 | 16 | 41 | 29 | 3 | 5 | 0 |
+| [16.json](file:///Users/sukhjot/codes/book/bookdata/json/16.json) | 16 | 10 | 5 | 53 | 47 | 6 | 37 | 8 | 3 | 2 | 3 |
+| [17.json](file:///Users/sukhjot/codes/book/bookdata/json/17.json) | 17 | 9 | 8 | 43 | 6 | 11 | 24 | 34 | 3 | 4 | 0 |
+| [18.json](file:///Users/sukhjot/codes/book/bookdata/json/18.json) | 18 | 11 | 6 | 25 | 0 | 17 | 21 | 19 | 4 | 0 | 1 |
+| [21.json](file:///Users/sukhjot/codes/book/bookdata/json/21.json) | 21 | 8 | 13 | 17 | 0 | 19 | 3 | 2 | 1 | 2 | 0 |
+| [22.json](file:///Users/sukhjot/codes/book/bookdata/json/22.json) | 22 | 5 | 15 | 0 | 0 | 0 | 52 | 91 | 7 | 6 | 0 |
+| **TOTAL** | **20** | **158** | **215** | **779** | **231** | **390** | **524** | **773** | **136** | **68** | **10** |
 
 ---
 
-## 🧪 Automated Smoke Tests & Verification
+### Audit & Validation Report of `bookdata/json/*.json`
 
-The test suite in [`scripts/smoke-tests.ts`](file:///Users/sukhjot/codes/book/scripts/smoke-tests.ts) verifies dataset queryability, entity relationships, and schema conformance:
+A complete automated validation of all 20 JSON files against the `bookdata/instructions.txt` schema reveals:
 
-```bash
-npx tsx scripts/smoke-tests.ts
+#### 1. Extra Fields Check
+* **Result**: **0 extra fields found across all 20 JSON files**.
+* All files strictly adhere to the schema's property names and `additionalProperties: false` rules. No undocumented or unexpected keys are present in any object.
+
+#### 2. File-by-File Compliance Table
+
+| File | Extra Fields | Schema Violations | Status |
+| :--- | :---: | :---: | :--- |
+| [1.json](file:///Users/sukhjot/codes/book/bookdata/json/1.json) | 0 | 12 violations | Issues Found |
+| [2.json](file:///Users/sukhjot/codes/book/bookdata/json/2.json) | 0 | 44 violations | Issues Found |
+| [3.json](file:///Users/sukhjot/codes/book/bookdata/json/3.json) | 0 | 3 violations | Issues Found |
+| [4.json](file:///Users/sukhjot/codes/book/bookdata/json/4.json) | 0 | 5 violations | Issues Found |
+| [5.json](file:///Users/sukhjot/codes/book/bookdata/json/5.json) | 0 | 1 violation | Issues Found |
+| [6.json](file:///Users/sukhjot/codes/book/bookdata/json/6.json) | 0 | 10 violations | Issues Found |
+| [7.json](file:///Users/sukhjot/codes/book/bookdata/json/7.json) | 0 | 5 violations | Issues Found |
+| [8.json](file:///Users/sukhjot/codes/book/bookdata/json/8.json) | 0 | 2 violations | Issues Found |
+| [9.json](file:///Users/sukhjot/codes/book/bookdata/json/9.json) | 0 | 2 violations | Issues Found |
+| [10.json](file:///Users/sukhjot/codes/book/bookdata/json/10.json) | 0 | 6 violations | Issues Found |
+| [11.json](file:///Users/sukhjot/codes/book/bookdata/json/11.json) | 0 | 3 violations | Issues Found |
+| [12.json](file:///Users/sukhjot/codes/book/bookdata/json/12.json) | 0 | 9 violations | Issues Found |
+| [13.json](file:///Users/sukhjot/codes/book/bookdata/json/13.json) | 0 | 50 violations | Issues Found |
+| [14.json](file:///Users/sukhjot/codes/book/bookdata/json/14.json) | 0 | 0 violations | **100% CLEAN** |
+| [15.json](file:///Users/sukhjot/codes/book/bookdata/json/15.json) | 0 | 1 violation | Issues Found |
+| [16.json](file:///Users/sukhjot/codes/book/bookdata/json/16.json) | 0 | 8 violations | Issues Found |
+| [17.json](file:///Users/sukhjot/codes/book/bookdata/json/17.json) | 0 | 0 violations | **100% CLEAN** |
+| [18.json](file:///Users/sukhjot/codes/book/bookdata/json/18.json) | 0 | 0 violations | **100% CLEAN** |
+| [21.json](file:///Users/sukhjot/codes/book/bookdata/json/21.json) | 0 | 16 violations | Issues Found |
+| [22.json](file:///Users/sukhjot/codes/book/bookdata/json/22.json) | 0 | 19 violations | Issues Found |
+
+#### 3. Categories of Model Violations Found
+
+##### A. Invalid Enum Values
+* **Auxiliary Verb Spelling (`auxiliary`)**:
+  - Found: `'être'` (with circumflex) instead of ASCII `'etre'`.
+  - Allowed by schema: `['avoir', 'etre', 'both', 'none', 'unknown', null]`
+  - *Affected files*: `1.json`, `16.json`, `21.json`.
+* **Verb Transitivity (`transitivity`)**:
+  - Found: `'impersonal'`, `'auxiliary'`, `'modal'`.
+  - Allowed by schema: `['transitive', 'intransitive', 'ditransitive', 'copular', 'unknown']`
+  - *Affected files*: `3.json`, `7.json`, `9.json`.
+* **Expression Type (`expression_type`)**:
+  - Found: `'conjunction'`, `'impersonal_expression'`.
+  - Allowed by schema: `['verb_pattern', 'collocation', 'fixed_expression', 'idiom', 'sentence_starter', 'conversation_phrase', 'connector', 'functional_phrase', 'formulaic_phrase', 'time_expression', 'quantity_expression', 'comparison_structure', 'subjunctive_trigger', 'conditional_trigger', 'negative_construction', 'question_construction', 'other']`
+  - *Affected files*: `11.json`, `13.json`.
+* **Complement Structure (`followed_by`)**:
+  - Found: `'thing'`, `'other'`.
+  - Allowed by schema: `['infinitive', 'noun', 'person', 'clause', 'adjective', 'adverb', 'mixed', 'none', 'unknown', null]`
+  - *Affected files*: `10.json`, `21.json`.
+* **Pattern Slots (`slot_type`)**:
+  - Found: `'number'`, `'mixed'`.
+  - Allowed by schema: `['person', 'thing', 'noun', 'verb_infinitive', 'clause', 'adjective', 'adverb', 'preposition', 'other']`
+  - *Affected files*: `3.json`, `5.json`.
+* **Vocabulary Gender (`gender`)**:
+  - Found: `'invariable'`.
+  - Allowed by schema: `['masculine', 'feminine', 'common', 'variable', 'none', 'unknown', null]`
+  - *Affected files*: `22.json`.
+* **Trap Category (`category`)**:
+  - Found: `'pronunciation'`.
+  - Allowed by schema: `['exception', 'contrast', 'restriction', 'agreement', 'spelling', 'word_order', 'usage', 'confusion', 'other']`
+  - *Affected file*: `1.json`.
+* **Attestation Context Type (`context_type`)**:
+  - Found: `'exception'`.
+  - Allowed by schema: `['explanation', 'example', 'exercise', 'answer_key', 'vocabulary', 'table', 'note', 'dialogue', 'caption', 'warning', 'contrast', 'other']`
+  - *Affected file*: `22.json`.
+
+##### B. Regex Pattern Violations in IDs (`^[a-z0-9_]+$`)
+* Entity IDs containing French accented letters (e.g. `verb_répondre`, `verb_grêler`, `verb_se_depêcher`, `vocab_français`, `verb_réussir`, `verb_défendre`) or hyphens (e.g. `trap_-t-_insertion`) violate the strict regex pattern `^[a-z0-9_]+$`.
+* *Affected files*: `2.json` (44 accented IDs), `4.json` (5 accented IDs), `6.json` (10 accented IDs).
+
+##### C. Array `uniqueItems` Violations
+* **Conjugation Endings (`conjugations[*].endings`)**:
+  - The schema specifies `"uniqueItems": true` for string arrays, but French verb paradigms naturally repeat endings across persons (e.g. `je`/`il` ending `-e`, or `je`/`tu` ending `-ais` / `-is`).
+  - *Affected files*: `1.json`, `8.json`, `10.json`, `11.json`, `12.json`, `13.json`, `16.json`.
+* **Search Terms / Stems / Verb IDs Duplication**:
+  - Minor array duplicates in `vocabulary[*].search_terms` (e.g. in `12.json`, `15.json`, `22.json`), `verbs[*].important_stems` (in `10.json`), and `exercises[*].verb_ids` (in `10.json`).
+
+---
+
+## 📂 Exhaustive Codebase & Folder Map
+
+```
+book/
+├── AGENTS.md                             # Agent behavioral rules & Next.js conventions
+├── CLAUDE.md                             # Project instructions & command reference
+├── README.md                             # Comprehensive master documentation (this file)
+├── eslint.config.mjs                     # ESLint configuration
+├── next-env.d.ts                         # Next.js TypeScript declarations
+├── next.config.ts                        # Next.js configuration
+├── package.json                          # Project scripts and dependencies
+├── package-lock.json                     # Locked dependencies
+├── postcss.config.mjs                    # PostCSS & TailwindCSS setup
+├── tsconfig.json                         # TypeScript configuration
+│
+├── bookdata/                             # 🌟 Ground-Zero Independent Chapter Extraction Suite
+│   ├── instructions.txt                  # Full Draft 2020-12 JSON Schema + extraction instructions
+│   ├── book backup.txt                   # Complete textbook plain-text backup
+│   ├── a.txt                             # Page-marked text extract for chapter parsing
+│   ├── a.pdf                             # Complete source textbook PDF
+│   └── json/                             # 20 Independent Chapter JSON Extractions
+│       ├── 1.json ... 18.json            # Chapters 1 to 18
+│       ├── 21.json                       # Chapter 21 (Demonstrative Pronouns)
+│       └── 22.json                       # Chapter 22 (Possessive Pronouns)
+│
+├── src/                                  # Core TypeScript engine & utilities
+│   └── lib/
+│       └── dataset/                      # Dataset engine & Zod validation system
+│           ├── schemas.ts                # Zod schemas & TS interfaces for full dataset graph
+│           ├── ids.ts                    # Deterministic ID generators
+│           ├── normalize.ts              # French Unicode NFC, apostrophe & ligature normalizer
+│           ├── canonicalize.ts           # Entity deduplication & cross-chapter merge logic
+│           ├── relations.ts              # Reverse relational index builders
+│           ├── validators.ts             # Graph integrity & foreign key validators
+│           ├── coverage.ts               # Coverage calculators
+│           └── load.ts                   # Master dataset JSON loader
+│
+├── scripts/                              # Pipeline orchestration & build scripts
+│   ├── run-all.ts                        # End-to-end 9-stage pipeline runner
+│   ├── build-final-dataset.ts            # Standalone fast builder & validator
+│   ├── extract-pages.ts                  # PDF to individual page JSON extractor
+│   ├── parse-book.ts                     # Chapter extraction orchestrator
+│   ├── parse-backmatter.ts               # Glossaries, verb tables & answer key parser
+│   ├── normalize-chapter.ts              # Typographical normalizer
+│   ├── attach-answer-key.ts              # Exercise prompt to answer key reconciler
+│   ├── reconcile-global.ts               # Canonical merge, auto-closure & master assembler
+│   ├── validate-dataset.ts               # Schema conformance & graph integrity validator
+│   ├── check-coverage.ts                 # QA report generator (produces 17 JSON reports)
+│   ├── smoke-tests.ts                    # 12 automated query & integrity smoke tests
+│   ├── chapter-types.ts                  # TypeScript interfaces for extraction
+│   ├── chapter-01.ts ... chapter-05.ts   # Chapter extractors
+│   ├── chapters-06-to-10.ts              # Grouped chapter extractor
+│   ├── chapters-11-to-18.ts              # Grouped chapter extractor
+│   ├── chapters-19-to-27.ts              # Grouped chapter extractor
+│   └── enrichment/                       # Semantic enrichment suite
+│       ├── enrich-exercises.ts           # CEFR level & grammar tagging for exercises
+│       ├── generate-conjugations.py      # Full-paradigm conjugation table generator
+│       ├── parse-conjugations-enhanced.ts# Enhanced conjugation extractor
+│       ├── parse-examples-enhanced.ts    # Example extractor with cloze candidates
+│       ├── parse-expressions-enhanced.ts # High-value idiom & verb pattern parser
+│       └── parse-glossary-enhanced.ts    # Bidirectional glossary tokenizer
+│
+├── data/                                 # Baseline dataset storage (5 stages)
+│   ├── raw/                              # Stage 1: 286 raw page JSONs from PDF
+│   ├── extracted/                        # Stage 2: Structured raw chapters & backmatter
+│   ├── normalized/                       # Stage 3: Normalized chapters, concepts & tenses
+│   ├── final/                            # Stage 4: french_grammar.json (5,383 entities)
+│   └── reports/                          # Stage 5: 8 Markdown audits + 17 JSON reports
+│
+├── docs/                                 # Source materials & historical specifications
+│   ├── source_book.pdf                   # Source textbook PDF (286 pages)
+│   ├── french_revision_super_dataset_spec.txt # Historical schema specification contract
+│   └── GEMINI_BOOK_PARSING_TODO.txt      # Historical pipeline checklist
+│
+└── app/ & public/                        # Next.js web application
 ```
 
-### Test Suite Results:
-1. ✅ **Root Schema**: Validates root object against `SuperDatasetRootSchema` across all 27 chapters.
-2. ✅ **Present Indicative Query**: Retrieves 60 grammar rules linked to the present indicative tense.
-3. ✅ **Être Auxiliary Verbs**: Retrieves 22 verbs conjugated with *être* (Vandertramp and pronominals).
-4. ✅ **Irregular Past Participles**: Retrieves 75 irregular verbs with explicit irregular past participles.
-5. ✅ **Avoir Idioms**: Retrieves 35 idiomatic expressions containing *avoir* (`avoir faim`, `avoir besoin de`, `avoir envie de`, etc.).
-6. ✅ **Chapter 7 Exercises**: Retrieves all 10 exercises and 86 questions with attached answer keys in Chapter 7.
-7. ✅ **Glossary Lookup**: Confirms lookup for expressions like `par cœur` in the lexical repository.
-8. ✅ **Savoir vs Connaître Contrast**: Retrieves `rule_savoir_versus_connaitre` with distinction rules.
-9. ✅ **Depuis Present Rule**: Retrieves `rule_depuis_with_present_tense` (*depuis*, *il y a... que*, *ça fait... que*).
-10. ✅ **Il s'agit de Impersonal Rule**: Retrieves `rule_il_s_agit_de_impersonal_construction`.
-11. ✅ **DR & MRS VANDERTRAMP Rule**: Retrieves `rule_vandertramp_verbs_with_etre`.
-12. ✅ **Zero Broken Relations**: Verifies exactly **0 broken foreign key IDs** across all 5,383 entities.
+---
+
+## 🛠️ Blueprint & Instructions for Next AI Session (Data Combination Phase)
+
+When starting a new session to write scripts that combine data from `bookdata/json/*.json` into the final dataset, follow this structured plan:
+
+### Objective
+Combine the 20 ground-zero extracted JSON files in `bookdata/json/` (and extract or merge any missing chapters 19, 20, 23–27) with backmatter and master relational structures to produce a unified, fully validated master dataset.
+
+### Key Integration Steps
+
+1. **Step 1: ID Normalization & Schema Sanitization**
+   - Read all `bookdata/json/*.json` files.
+   - Sanitize all entity IDs using ASCII slugification (`re.sub(r'[^a-z0-9_]', '_', unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('utf-8').lower())`) to strictly satisfy `^[a-z0-9_]+$`.
+   - Normalize auxiliary values (`'être'` -> `'etre'`).
+   - Map non-standard enum values to schema-compliant values.
+
+2. **Step 2: Missing Chapters Processing (Chapters 19, 20, 23, 24, 25, 26, 27)**
+   - Extract the 7 remaining chapters from `bookdata/a.txt` / `book backup.txt` adhering to `instructions.txt` schema, or leverage existing extracted data in `data/normalized/chapters/` mapped into the `instructions.txt` format.
+
+3. **Step 3: Global Deduplication & Canonical Entity Merging**
+   - **Verbs**: Group by infinitive, merge senses, combine conjugation IDs, union attestations, and deduplicate search terms.
+   - **Vocabulary**: Group by canonical form + part of speech + gender, merge translations.
+   - **Expressions**: Group by canonical form, merge pattern slots and complement structures.
+   - **Concepts & Rules**: Cross-link rules to global concept IDs (`concept_negation`, `concept_interrogation`, etc.).
+
+4. **Step 4: Relational Graph Auto-Closure & Backmatter Attachment**
+   - Attach answer keys from backmatter to each exercise question.
+   - Ensure all referenced foreign keys (`verb_ids`, `rule_ids`, `concept_ids`, `example_ids`, `expression_ids`) exist in the global entity pool (zero broken relations).
+   - Generate reverse relational indexes (e.g. `rule.verb_ids` <-> `verb.rule_ids`).
+
+5. **Step 5: Master Dataset Export & Validation**
+   - Compile into `data/final/french_grammar.json` (or designated target output).
+   - Run validation script to confirm 0 schema errors, 0 broken foreign keys, and 100% test pass rate.
 
 ---
 
 ## ⌨️ Available npm & CLI Commands
 
 ```bash
-# Run the complete end-to-end extraction, normalization, enrichment & validation pipeline
+# Run the complete legacy baseline pipeline
 npm run data:all
 
-# Extract PDF pages from docs/source_book.pdf
+# Extract raw pages from docs/source_book.pdf
 npm run data:extract-pages
 
-# Parse all 27 chapters into structured JSON
+# Parse chapters 1 to 27
 npm run data:parse
 
 # Normalize French typography and linguistic tokens
 npm run data:normalize
 
-# Reconcile global entities and assemble data/final/french_grammar.json
+# Reconcile global entities and assemble final dataset
 npm run data:reconcile
 
-# Build & auto-close the final dataset directly
+# Build & validate dataset directly
 npm run data:build
 
 # Validate schema conformance and foreign key graph integrity
 npm run data:validate
 
-# Generate all 17 QA, validation, and coverage reports in data/reports/
+# Generate QA and coverage reports
 npm run data:coverage
 
-# Run the 12 automated smoke tests
+# Run automated smoke tests
 npx tsx scripts/smoke-tests.ts
 
-# Run Next.js local development server
+# Start Next.js web application
 npm run dev
 
 # Run TypeScript type check

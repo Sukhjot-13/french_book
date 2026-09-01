@@ -1,0 +1,548 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/deepseek-independent-verb-tables.schema.json",
+  "title": "Independent Verb Tables Extraction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "extraction_mode",
+    "source_type",
+    "source_pages",
+    "tables",
+    "rows",
+    "uncertain_rows",
+    "quality_summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "extraction_mode": {
+      "const": "independent_ground_zero"
+    },
+    "source_type": {
+      "const": "verb_tables"
+    },
+    "source_pages": {
+      "$ref": "#/$defs/pageRange"
+    },
+    "tables": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/table"
+      }
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/row"
+      }
+    },
+    "uncertain_rows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/uncertain"
+      }
+    },
+    "quality_summary": {
+      "$ref": "#/$defs/quality"
+    }
+  },
+  "$defs": {
+    "pageRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "printed_start",
+        "printed_end",
+        "pdf_start",
+        "pdf_end"
+      ],
+      "properties": {
+        "printed_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "printed_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "pdf_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "pdf_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      }
+    },
+    "prov": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "page_printed",
+        "page_pdf",
+        "table_id",
+        "row_label",
+        "source_text"
+      ],
+      "properties": {
+        "page_printed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "page_pdf": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "table_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "row_label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "forms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "je",
+        "tu",
+        "il_elle_on",
+        "nous",
+        "vous",
+        "ils_elles"
+      ],
+      "properties": {
+        "je": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tu": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "il_elle_on": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nous": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vous": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ils_elles": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "imp": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tu",
+        "nous",
+        "vous"
+      ],
+      "properties": {
+        "tu": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nous": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vous": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "tense": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tense_name",
+        "mood",
+        "person_forms",
+        "imperative_forms",
+        "impersonal_form",
+        "notes"
+      ],
+      "properties": {
+        "tense_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mood": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "person_forms": {
+          "$ref": "#/$defs/forms"
+        },
+        "imperative_forms": {
+          "$ref": "#/$defs/imp"
+        },
+        "impersonal_form": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "table": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "table_type",
+        "column_order",
+        "page_printed_start",
+        "page_printed_end",
+        "page_pdf_start",
+        "page_pdf_end",
+        "notes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^verb_table_[a-z0-9_]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "table_type": {
+          "type": "string",
+          "enum": [
+            "principal_parts",
+            "present_indicative",
+            "full_conjugation",
+            "irregular_forms",
+            "mixed",
+            "other"
+          ]
+        },
+        "column_order": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "page_printed_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "page_printed_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "page_pdf_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "page_pdf_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "infinitive",
+        "display_form",
+        "english",
+        "past_participle",
+        "present_participle",
+        "present_indicative",
+        "other_tenses",
+        "auxiliary",
+        "pronominal",
+        "source_type",
+        "provenance",
+        "notes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^verb_table_row_[a-z0-9_]+$"
+        },
+        "infinitive": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "english": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "past_participle": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "present_participle": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "present_indicative": {
+          "$ref": "#/$defs/forms"
+        },
+        "other_tenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tense"
+          }
+        },
+        "auxiliary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "avoir",
+            "etre",
+            "both",
+            "none",
+            "unknown",
+            null
+          ]
+        },
+        "pronominal": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "source_type": {
+          "const": "book"
+        },
+        "provenance": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/prov"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "uncertain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_text",
+        "reason_uncertain",
+        "possible_infinitive",
+        "possible_forms",
+        "page"
+      ],
+      "properties": {
+        "raw_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason_uncertain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "possible_infinitive": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "possible_forms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "page": {
+          "$ref": "#/$defs/prov"
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tables_seen",
+        "rows_seen",
+        "rows_emitted",
+        "uncertain_rows",
+        "header_footer_rows_removed",
+        "duplicate_rows_collapsed",
+        "notes"
+      ],
+      "properties": {
+        "tables_seen": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rows_seen": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "rows_emitted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "uncertain_rows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "header_footer_rows_removed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "duplicate_rows_collapsed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+==================================================
+EXTRACTION RULES
+==================================================
+- Independent ground-zero extraction only; use only supplied verb-table pages/text.
+- Do not compare against the existing master dataset.
+- First identify and store each table's printed column_order.
+- Never infer column meaning from position without checking the table header.
+- CRITICAL: in a layout like:
+  infinitive | past participle | je | tu | il/elle/on | nous | vous | ils/elles
+  the past participle is NOT the je form.
+- Preserve exactly printed forms as source_type = book.
+- Do not generate additional conjugations from general French knowledge.
+- If only present indicative is printed, populate only present_indicative.
+- Keep participles separate from finite person forms.
+- Preserve accents and apostrophes exactly.
+- Do not infer auxiliary or English meaning unless supplied.
+- Put broken/ambiguous rows in uncertain_rows.
+- Remove headers, footers, page numbers, and layout artifacts.
+- Do not silently lose rows.
+- Keep exact page/table provenance.
+- Every legitimate row must be accounted for as emitted, duplicate-collapsed, uncertain, or rejected non-data artifact.
