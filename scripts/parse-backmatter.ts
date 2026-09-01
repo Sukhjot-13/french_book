@@ -12,6 +12,8 @@ export interface ParsedAnswerKey {
       Array<{
         question_number: number;
         answer_text: string;
+        page_printed: number | null;
+        page_pdf: number;
       }>
     >
   >;
@@ -28,18 +30,29 @@ export interface ParsedGlossaryEntry {
 }
 
 export interface ParsedVerbTableForm {
+  source_row_id: string;
   verb_infinitive: string;
   verb_id: string;
   tense_name: string;
   tense_id: string;
   forms: Record<string, string>;
+  past_participle?: string | null;
   page_printed: number;
+  page_pdf: number;
 }
 
 export function parseAnswerKey(pages: RawPage[]): ParsedAnswerKey {
   // Answer key spans printed pages 260-272 (PDF 274-286)
   const akPages = pages.filter((p) => (p.printed_page || 0) >= 260 && (p.printed_page || 0) <= 272);
-  const fullText = akPages.map((p) => p.text).join("\n");
+  const pageBreak = "\f";
+  const fullText = akPages.map((p) => `${pageBreak}${p.pdf_page}\n${p.text}`).join("\n");
+  const pageForOffset = (offset: number) => {
+    const prefix = fullText.slice(0, offset);
+    const marker = prefix.lastIndexOf(pageBreak);
+    const pdfPage = Number(prefix.slice(marker + 1).match(/^\d+/)?.[0]);
+    const page = akPages.find((item) => item.pdf_page === pdfPage);
+    return { page_printed: page?.printed_page || null, page_pdf: page?.pdf_page || pdfPage };
+  };
 
   const result: ParsedAnswerKey = { chapters: {} };
 
@@ -79,16 +92,19 @@ export function parseAnswerKey(pages: RawPage[]): ParsedAnswerKey {
       result.chapters[chNum] = {};
     }
 
-    const questionAnswers: Array<{ question_number: number; answer_text: string }> = [];
+    const questionAnswers: Array<{ question_number: number; answer_text: string; page_printed: number | null; page_pdf: number }> = [];
 
     // Parse items like "1. answer 2. answer" or "1. h 2. e"
     // Handle answers with parentheses or multiple words
-    const qRegex = /(\d{1,2})\.\s+([^0-9\n]+(?:\s+[^0-9\n]+)*?)(?=(?:\s+\d{1,2}\.\s+)|$)/g;
+    // Answers may contain years and number-only values, so a character-class that
+    // excludes digits drops valid items.  Page markers are explicit boundaries and
+    // retain the source page used below for provenance.
+    const qRegex = /(\d{1,2})\.\s+([\s\S]*?)(?=(?:\s+\d{1,2}\.\s+)|(?:\f\d+)|$)/g;
     let qMatch: RegExpExecArray | null;
     while ((qMatch = qRegex.exec(answersBlock.replace(/\n/g, " "))) !== null) {
       const qNum = parseInt(qMatch[1], 10);
       const ans = qMatch[2].trim();
-      questionAnswers.push({ question_number: qNum, answer_text: ans });
+      questionAnswers.push({ question_number: qNum, answer_text: ans, ...pageForOffset(match.index + qMatch.index) });
     }
 
     // Fallback if standard qRegex didn't catch (e.g. list of words like "1. suis 2. es 3. est")
@@ -97,7 +113,7 @@ export function parseAnswerKey(pages: RawPage[]): ParsedAnswerKey {
       for (let k = 1; k < simpleTokens.length; k += 2) {
         const qNum = parseInt(simpleTokens[k], 10);
         const ans = simpleTokens[k + 1]?.trim() || "";
-        questionAnswers.push({ question_number: qNum, answer_text: ans });
+        questionAnswers.push({ question_number: qNum, answer_text: ans, ...pageForOffset(match.index) });
       }
     }
 
@@ -121,15 +137,23 @@ export function parseVerbTables(pages: RawPage[]): ParsedVerbTableForm[] {
   // Key regular & irregular verbs listed in back matter:
   // regarder, vendre, partir, finir, aller, avoir, être, faire, devoir, pouvoir, vouloir, savoir, venir, prendre, mettre, voir, etc.
   // We parse individual tense rows: present, imparfait, futur, conditionnel, passe_simple, subjonctif
-  const tensesMap: Record<string, string> = {
-    "PRESENT INDICATIVE": "tense_present_indicative",
-    "IMPERFECT": "tense_imparfait",
-    "FUTURE": "tense_futur_simple",
-    "PRESENT CONDITIONAL": "tense_conditionnel_present",
-    "PASSÉ SIMPLE": "tense_passe_simple",
-    "PRESENT SUBJUNCTIVE": "tense_subjonctif_present",
-    "IMPERATIVE": "tense_imperatif",
-  };
+  const tensesMap: Array<[string, string]> = [
+    ["PLUPERFECT SUBJUNCTIVE", "tense_subjonctif_plus_que_parfait"],
+    ["IMPERFECT SUBJUNCTIVE", "tense_subjonctif_imparfait"],
+    ["CONVERSATIONAL PAST OR PRESENT PERFECT", "tense_passe_compose"],
+    ["PLUPERFECT INDICATIVE", "tense_plus_que_parfait"],
+    ["PRESENT INDICATIVE", "tense_present_indicative"],
+    ["IMPERFECT INDICATIVE", "tense_imparfait"],
+    ["PRESENT SUBJUNCTIVE", "tense_subjonctif_present"],
+    ["PAST SUBJUNCTIVE", "tense_subjonctif_passe"],
+    ["PAST CONDITIONAL", "tense_conditionnel_passe"],
+    ["CONDITIONAL MOOD", "tense_conditionnel_present"],
+    ["HISTORICAL PAST", "tense_passe_simple"],
+    ["SIMPLE FUTURE", "tense_futur_simple"],
+    ["FUTURE PERFECT", "tense_futur_anterieur"],
+    ["PAST PERFECT", "tense_passe_anterieur"],
+    ["IMPERATIVE MOOD", "tense_imperatif"],
+  ];
 
   for (const page of vtPages) {
     const lines = page.text.split("\n");
@@ -139,7 +163,7 @@ export function parseVerbTables(pages: RawPage[]): ParsedVerbTableForm[] {
       const line = rawLine.trim();
       if (!line) continue;
 
-      for (const [tName, tId] of Object.entries(tensesMap)) {
+      for (const [tName, tId] of tensesMap) {
         if (line.toUpperCase().includes(tName)) {
           currentTense = tId;
         }
@@ -153,22 +177,30 @@ export function parseVerbTables(pages: RawPage[]): ParsedVerbTableForm[] {
         const isExcluded = /^(?:There|Other|Here|Indicative|Verbs|Subjunctive|Compound|Copyright|Simple|Verb|Note|French)/i.test(inf);
         if (!isExcluded && (inf.endsWith("er") || inf.endsWith("ir") || inf.endsWith("re") || inf === "aller" || inf === "avoir" || inf === "être" || inf === "faire" || inf === "asseoir")) {
           const verbId = makeVerbId(inf);
+          // Page 239 explicitly has a distinct second column for the past
+          // participle: infinitive → past participle → six present forms.
+          // Earlier tables have infinitive → six (or compound) forms.
+          const irregularPresentRow = (page.printed_page || 0) === 239;
+          const firstForm = irregularPresentRow ? 2 : 1;
+          const compoundRow = !irregularPresentRow && tokens.length >= 13;
+          const formAt = (index: number) => compoundRow
+            ? `${tokens[firstForm + index * 2]} ${tokens[firstForm + index * 2 + 1]}`
+            : tokens[firstForm + index];
           const forms: Record<string, string> = {
-            je: tokens[1],
-            tu: tokens[2],
-            il_elle_on: tokens[3],
-            nous: tokens[4],
-            vous: tokens[5],
-            ils_elles: tokens[6],
+            je: formAt(0), tu: formAt(1), il_elle_on: formAt(2),
+            nous: formAt(3), vous: formAt(4), ils_elles: formAt(5),
           };
 
           tables.push({
+            source_row_id: `verb_table_${page.pdf_page}_${tables.length + 1}`,
             verb_infinitive: inf,
             verb_id: verbId,
             tense_name: currentTense,
             tense_id: currentTense,
             forms,
+            past_participle: irregularPresentRow ? tokens[1] : null,
             page_printed: page.printed_page || 236,
+            page_pdf: page.pdf_page,
           });
         }
       }
@@ -211,4 +243,3 @@ if (require.main === module) {
     process.exit(1);
   });
 }
-

@@ -11,6 +11,7 @@ export interface ParsedGlossaryEntry {
   english_raw?: string;
   gender?: "masculine" | "feminine" | "common" | null;
   part_of_speech?: string;
+  variants?: string[];
   is_expression?: boolean;
   page_printed: number;
   page_pdf: number;
@@ -40,6 +41,7 @@ export const KNOWN_GLOSSARY_EXPRESSIONS: Record<string, string> = {
   "agence de voyages": "travel agency",
   "agréable": "pleasant",
   "ainsi": "thus",
+  "alors que": "while, whereas",
   "allemand": "German",
   "aller simple": "one-way ticket",
   "anglais": "English",
@@ -50,6 +52,7 @@ export const KNOWN_GLOSSARY_EXPRESSIONS: Record<string, string> = {
   "arc-en-ciel": "rainbow",
   "argent liquide": "cash",
   "arrêt de bus": "bus stop",
+  "arriver sur les lieux du crime": "to arrive at the crime scene",
   "art contemporain": "contemporary art",
   "article de journal": "newspaper article",
   "ascenseur": "elevator",
@@ -101,11 +104,16 @@ export const KNOWN_GLOSSARY_EXPRESSIONS: Record<string, string> = {
   "avoir soif": "to be thirsty",
   "avoir sommeil": "to be sleepy",
   "avoir tort": "to be wrong",
+  "avoir un rhume": "to have a cold",
   "baccalauréat": "high school diploma",
   "bain de soleil": "sunbath",
   "bande dessinée": "comic strip",
   "banlieue": "suburbs",
   "beau temps": "nice weather",
+  "bleu ciel": "sky blue",
+  "bleu clair": "light blue",
+  "bleu foncé": "dark blue",
+  "bleu marine": "navy blue",
   "beaucoup de": "a lot of, many",
   "bien de la chance": "a lot of luck",
   "bien des choses": "many things",
@@ -116,6 +124,7 @@ export const KNOWN_GLOSSARY_EXPRESSIONS: Record<string, string> = {
   "boîte aux lettres": "mailbox",
   "boîte de nuit": "nightclub",
   "bon appétit": "enjoy your meal",
+  "bon marché": "cheap, inexpensive",
   "bon voyage": "have a good trip",
   "bonne chance": "good luck",
   "bonne journée": "have a nice day",
@@ -333,11 +342,59 @@ export function isInstructionalOrHeader(line: string): boolean {
   const t = line.trim();
   if (/^\d+$/.test(t)) return true;
   if (/^[A-Z]$/.test(t)) return true;
-  if (/^(?:French|English)-French glossary/i.test(t)) return true;
+  if (/^(?:\d+\s+)?(?:French-English|English-French)\s+glossary(?:\s+\d+)?$/i.test(t)) return true;
   if (/glossary\s+\d+/i.test(t) || /\d+\s+glossary/i.test(t)) return true;
   if (/Regular adjectives in French are listed/i.test(t)) return true;
   if (/Copyright ©/i.test(t)) return true;
   return false;
+}
+
+const FUNCTION_WORD_POS: Record<string, ParsedGlossaryEntry["part_of_speech"]> = {
+  "à": "preposition", "après": "preposition", "avant": "preposition", "avec": "preposition", "chez": "preposition", "contre": "preposition", "dans": "preposition", "de": "preposition", "depuis": "preposition", "derrière": "preposition", "devant": "preposition", "entre": "preposition", "hors": "preposition", "jusque": "preposition", "par": "preposition", "parmi": "preposition", "pendant": "preposition", "pour": "preposition", "sans": "preposition", "sauf": "preposition", "selon": "preposition", "sous": "preposition", "sur": "preposition", "vers": "preposition",
+  "et": "conjunction", "mais": "conjunction", "ou": "conjunction", "donc": "conjunction", "or": "conjunction", "ni": "conjunction", "car": "conjunction", "que": "conjunction", "quand": "conjunction", "comme": "conjunction", "si": "conjunction", "puisque": "conjunction",
+  "je": "pronoun", "tu": "pronoun", "il": "pronoun", "elle": "pronoun", "on": "pronoun", "nous": "pronoun", "vous": "pronoun", "ils": "pronoun", "elles": "pronoun", "moi": "pronoun", "toi": "pronoun", "lui": "pronoun", "eux": "pronoun", "ce": "pronoun", "cela": "pronoun", "ça": "pronoun", "qui": "pronoun", "quoi": "pronoun", "dont": "pronoun", "y": "pronoun", "en": "pronoun",
+  "le": "determiner", "la": "determiner", "les": "determiner", "un": "determiner", "une": "determiner", "des": "determiner", "du": "determiner", "au": "determiner", "aux": "determiner", "mon": "determiner", "ton": "determiner", "son": "determiner", "notre": "determiner", "votre": "determiner", "leur": "determiner", "ceci": "determiner", "cet": "determiner", "cette": "determiner", "ces": "determiner", "quel": "determiner", "quelle": "determiner", "quelque": "determiner", "chaque": "determiner",
+};
+
+function inferGlossaryPartOfSpeech(french: string, english: string[], gender: ParsedGlossaryEntry["gender"], variants: string[]): NonNullable<ParsedGlossaryEntry["part_of_speech"]> {
+  const normalized = french.toLowerCase().trim();
+  if (english.some((value) => /^to\s+/i.test(value.trim()))) return "verb";
+  if (gender) return "noun";
+  if (FUNCTION_WORD_POS[normalized]) return FUNCTION_WORD_POS[normalized]!;
+  if (variants.length > 0 || /(?:ment)$/i.test(normalized)) return variants.length > 0 ? "adjective" : "adverb";
+  // The source does not label every one-word lexical entry.  Keep those entries
+  // explicitly unknown rather than inventing a noun gender or a noun POS.
+  return "other";
+}
+
+function normalizeFrenchVariants(french: string): { canonical: string; variants: string[] } {
+  const value = french.trim();
+  const parenthetical = value.match(/^([a-zA-ZÀ-ÿ’'\-]+)(\s*)\(([^)]+)\)$/);
+  if (parenthetical) {
+    const canonical = parenthetical[1];
+    return {
+      canonical,
+      // Compact source notation such as blanc(he), actuel(le), and gentil(le)
+      // writes only the suffix; preserve the complete printed variant.
+      variants: parenthetical[3].split(/,\s*/).map((variant) => {
+        const trimmed = variant.trim();
+        return parenthetical[2] === "" && /^[a-zà-ÿ’'\-]+$/i.test(trimmed) && trimmed.length <= 3 ? `${canonical}${trimmed}` : trimmed;
+      }).filter(Boolean),
+    };
+  }
+  if (value.includes(", ")) {
+    const [canonical, ...variants] = value.split(/,\s*/);
+    return { canonical: canonical.trim(), variants: variants.map((variant) => variant.trim()).filter(Boolean) };
+  }
+  return { canonical: value, variants: [] };
+}
+
+function repairSplitInfinitive(french: string, english: string[]): string {
+  const words = french.trim().split(/\s+/);
+  const collapsed = words.join("");
+  return english.some((value) => /^to\s+/i.test(value)) && words.length === 2 && words.every((word) => /^[a-zà-ÿ’']{2,4}$/i.test(word)) && /(?:er|ir|re)$/i.test(collapsed)
+    ? collapsed
+    : french;
 }
 
 export function normalizeEnglishInfinitive(en: string): string {
@@ -385,7 +442,7 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
             /\((?:m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\.\/f\s*)\)$/.test(line) ||
             line.endsWith(" de") ||
             line.endsWith(" d'") ||
-            line.endsWith(" à")
+            line.endsWith(" à") || /\b(?:the|a|an|of|to|in|on|for)$/i.test(line)
           ) {
             line = line + " " + next;
             i++;
@@ -400,6 +457,7 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
 
       // 1. Gender mark
       const gMatch = line.match(/\((m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\.\s*or\s*f\.|m\.\/f\s*)\)/i);
+      const variantMatch = line.match(/^([a-zA-ZÀ-ÿ’'\-]+(?:,\s*[a-zA-ZÀ-ÿ’'\-]+)+)\s+(.+)$/);
       if (gMatch) {
         const gStr = gMatch[1].toLowerCase();
         if (gStr.startsWith("m./f") || gStr.startsWith("f./m") || gStr.includes("or")) {
@@ -413,6 +471,9 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
         const idx = line.indexOf(gMatch[0]);
         fr = line.slice(0, idx).trim();
         en = line.slice(idx + gMatch[0].length).trim();
+      } else if (variantMatch) {
+        fr = variantMatch[1].trim();
+        en = variantMatch[2].trim();
       } else if (line.match(/^([a-zA-ZÀ-ÿ\s’'\-]+?\s*\([^)]+\))\s+([a-zA-Z].*)$/)) {
         // Parenthetical variant e.g. "beau (bel, belle) beautiful" or "jouer (à, de) to play" or "nouveau (nouvel, nouvelle) new"
         const m = line.match(/^([a-zA-ZÀ-ÿ\s’'\-]+?\s*\([^)]+\))\s+([a-zA-Z].*)$/);
@@ -464,11 +525,9 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
 
       if (fr && fr.length >= 2) {
         // Determine canonical headword if fr has parenthetical variants e.g. "beau (bel, belle)" -> canonical "beau"
-        let canonicalFr = fr;
-        if (/^[a-zA-ZÀ-ÿ’'\-]+\s*\([^)]+\)$/.test(fr) && !fr.startsWith("se ") && !fr.startsWith("s’")) {
-          canonicalFr = fr.replace(/\s*\([^)]+\)$/, "").trim();
-        }
-
+        const normalizedVariants = normalizeFrenchVariants(fr);
+        const canonicalFr = normalizedVariants.canonical;
+        const variants = normalizedVariants.variants;
         const englishList = en
           ? en
               .split(/,\s*/)
@@ -478,7 +537,7 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
 
         const isExpr = isExpression || (
           !/^[a-zA-ZÀ-ÿ’'\-]+(?:\s*\([^)]+\))?$/.test(fr) &&
-          (canonicalFr.split(/\s+/).length >= 2 || canonicalFr.startsWith("se ") || canonicalFr.startsWith("s’")) &&
+          !gender && (canonicalFr.split(/\s+/).length >= 2 || canonicalFr.startsWith("se ") || canonicalFr.startsWith("s’")) &&
           !canonicalFr.includes(",")
         );
 
@@ -488,6 +547,8 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
           french: canonicalFr,
           english: englishList,
           gender,
+          part_of_speech: inferGlossaryPartOfSpeech(canonicalFr, englishList, gender, variants),
+          variants,
           is_expression: isExpr,
           page_printed: page.printed_page || 240,
           page_pdf: page.pdf_page,
@@ -515,27 +576,11 @@ export function parseGlossaryEnFrEnhanced(pages: RawPage[]): ParsedGlossaryEntry
     if (kFr.includes(" ")) knownFrenchMultiwords.push(kFr.toLowerCase());
   }
 
-  for (const p of frPages) {
-    const lines = cleanLigatures(p.text).split("\n").map((l) => l.trim()).filter(Boolean);
-    for (const l of lines) {
-      if (isInstructionalOrHeader(l)) continue;
-      const gMatch = l.match(/\((?:m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\.\s*or\s*f\.|m\.\/f\s*)\)/i);
-      let frPart = "";
-      if (gMatch) {
-        frPart = l.slice(0, gMatch.index).trim();
-      } else if (l.match(/^([a-zA-ZÀ-ÿ\s’'\-]+?\s*\([^)]+\))\s+([a-zA-Z].*)$/)) {
-        const m = l.match(/^([a-zA-ZÀ-ÿ\s’'\-]+?\s*\([^)]+\))\s+([a-zA-Z].*)$/);
-        frPart = m![1].trim();
-      } else if (l.includes(" to ")) {
-        frPart = l.slice(0, l.indexOf(" to ")).trim();
-      } else {
-        frPart = l.split(/\s+/)[0];
-      }
-      const clean = frPart.toLowerCase().replace(/\([^)]+\)/g, "").trim();
-      if (clean) {
-        knownFrenchTerms.add(clean);
-        if (clean.includes(" ")) knownFrenchMultiwords.push(clean);
-      }
+  for (const entry of parseGlossaryFrEnEnhanced(frPages)) {
+    const clean = entry.french.toLowerCase().trim();
+    if (clean) {
+      knownFrenchTerms.add(clean);
+      if (clean.includes(" ")) knownFrenchMultiwords.push(clean);
     }
   }
 
@@ -703,22 +748,16 @@ export function parseGlossaryEnFrEnhanced(pages: RawPage[]): ParsedGlossaryEntry
       let cleanEn = enRaw.trim().replace(/^[-·]\s*/, "");
       let enDisplay = normalizeEnglishInfinitive(cleanEn);
 
+      cleanFr = repairSplitInfinitive(cleanFr, [enDisplay]);
       if (cleanFr && cleanFr.length >= 2) {
         // Determine canonical headword if fr is comma list of adjectives/gender variants like "beau, bel, belle" -> canonical "beau"
-        let canonicalFr = cleanFr;
-        if (cleanFr.includes(", ")) {
-          const parts = cleanFr.split(", ");
-          // If parts are variants of same word (e.g. "beau, bel, belle" or "acteur, actrice" or "créatif, créative" or "meurtrier, meurtrière")
-          if (parts.length >= 2 && !cleanFr.startsWith("se ") && !cleanFr.startsWith("s’")) {
-            canonicalFr = parts[0].trim();
-          }
-        }
-
+        const normalizedVariants = normalizeFrenchVariants(cleanFr);
+        const canonicalFr = normalizedVariants.canonical;
+        const variants = normalizedVariants.variants;
         const enList = [enDisplay];
 
         const isExpr = isExpression || (
-          canonicalFr.split(/\s+/).length >= 2 &&
-          (canonicalFr.startsWith("se ") || canonicalFr.startsWith("s’") || KNOWN_GLOSSARY_EXPRESSIONS[canonicalFr] !== undefined)
+          !gender && canonicalFr.split(/\s+/).length >= 2
         );
 
         const id = isExpr ? makeExpressionId(canonicalFr) : makeVocabId(canonicalFr);
@@ -729,6 +768,8 @@ export function parseGlossaryEnFrEnhanced(pages: RawPage[]): ParsedGlossaryEntry
           english: enList,
           english_raw: cleanEn,
           gender,
+          part_of_speech: inferGlossaryPartOfSpeech(canonicalFr, enList, gender, variants),
+          variants,
           is_expression: isExpr,
           page_printed: page.printed_page || 250,
           page_pdf: page.pdf_page,

@@ -25,6 +25,7 @@ export interface ValidationReport {
   conjugation_gaps: Array<{ verb_id: string; tense_id: string; missing_forms: string[] }>;
   vocabulary_gaps: Array<{ id: string; french: string; gap: string }>;
   exercise_gaps: Array<{ exercise_id: string; question_id: string; gap: string }>;
+  semantic_garbage: Array<{ id: string; type: string; value: string; reason: string }>;
 }
 
 export function validateDataset(dataset: any): ValidationReport {
@@ -36,6 +37,7 @@ export function validateDataset(dataset: any): ValidationReport {
   const conjugationGaps: Array<{ verb_id: string; tense_id: string; missing_forms: string[] }> = [];
   const vocabularyGaps: Array<{ id: string; french: string; gap: string }> = [];
   const exerciseGaps: Array<{ exercise_id: string; question_id: string; gap: string }> = [];
+  const semanticGarbage: Array<{ id: string; type: string; value: string; reason: string }> = [];
 
   // 1. Zod schema validation
   const parseResult = SuperDatasetRootSchema.safeParse(dataset);
@@ -113,6 +115,9 @@ export function validateDataset(dataset: any): ValidationReport {
     if (!c.forms || Object.keys(c.forms).length === 0) {
       conjugationGaps.push({ verb_id: c.verb_id, tense_id: c.tense_id, missing_forms: ["(all forms empty)"] });
     }
+    if (c.attestations?.some((attestation) => attestation.source_type === "book") && c.origin?.source_type !== "book") {
+      conjugationGaps.push({ verb_id: c.verb_id, tense_id: c.tense_id, missing_forms: ["printed-book provenance origin mismatch"] });
+    }
   });
 
   // Check expressions
@@ -130,6 +135,18 @@ export function validateDataset(dataset: any): ValidationReport {
     if (v.part_of_speech === "noun" && !v.noun?.gender) {
       vocabularyGaps.push({ id: v.id, french: v.french, gap: "Missing noun gender" });
     }
+    if (v.part_of_speech !== "noun" && v.noun) {
+      vocabularyGaps.push({ id: v.id, french: v.french, gap: "Non-noun carries noun payload" });
+    }
+    if (v.part_of_speech !== "adjective" && v.adjective) {
+      vocabularyGaps.push({ id: v.id, french: v.french, gap: "Non-adjective carries adjective payload" });
+    }
+    if (/\b(?:french|english)[- ]french\b|\bglossary\b|\bcopyright\b/i.test(v.canonical_form) || /\b[a-z]{2,4}\s+rir\b|\b(?:to have a cold|time de temps en temps|you merci)\b/i.test(v.canonical_form)) {
+      semanticGarbage.push({ id: v.id, type: "vocabulary", value: v.canonical_form, reason: "parser artifact or unsupported auto-registration" });
+    }
+  });
+  typedData.verbs?.forEach((v) => {
+    if (/\bwhoever\b/i.test(v.infinitive)) semanticGarbage.push({ id: v.id, type: "verb", value: v.infinitive, reason: "parser artifact or unsupported auto-registration" });
   });
 
   // Check chapters & sections
@@ -157,7 +174,19 @@ export function validateDataset(dataset: any): ValidationReport {
       q.relations?.grammar_rules?.forEach((rId) => checkRelation(q.question_id, "question", rId, "grammar_rule"));
       q.relations?.expressions?.forEach((eId) => checkRelation(q.question_id, "question", eId, "expression"));
       q.relations?.vocabulary?.forEach((vId) => checkRelation(q.question_id, "question", vId, "vocabulary"));
+      if (/\b(?:VOCABULAIRE|practice makes perfect|The verb \p{L}+|French-English glossary|copyright|Pot pourri\s+\d+|To be and to have\s+\d+|Indirect speech\s+\d+|All the pronouns\s+\d+|Demonstrative adjectives and pronouns\s+\d+|Relative pronouns\s+\d+|Adverbs and expressions of time, frequency, and location\s+\d+|Numbers\s+\d+)\b/iu.test(q.prompt) || /\u0001/.test(q.prompt) || q.prompt.length > 1000) {
+        exerciseGaps.push({ exercise_id: ex.id, question_id: q.question_id, gap: "Unresolved exercise boundary" });
+      }
+      if (!q.answer_key_source?.page_printed || !q.answer_key_source?.page_pdf) {
+        exerciseGaps.push({ exercise_id: ex.id, question_id: q.question_id, gap: "Missing answer-key provenance" });
+      }
+      if (/\b(?:copyright|answer key)\b/i.test(q.answer || "")) {
+        exerciseGaps.push({ exercise_id: ex.id, question_id: q.question_id, gap: "Contaminated answer text" });
+      }
     });
+    if (!ex.answer_key_source?.page_printed || !ex.answer_key_source?.page_pdf) {
+      exerciseGaps.push({ exercise_id: ex.id, question_id: ex.id, gap: "Missing answer-key provenance" });
+    }
   });
 
   // Check examples
@@ -203,7 +232,11 @@ export function validateDataset(dataset: any): ValidationReport {
     idErrors.length === 0 &&
     unresolvedRelations.length === 0 &&
     duplicateCandidates.length === 0 &&
-    lowConfidenceItems.length === 0;
+    lowConfidenceItems.length === 0 &&
+    conjugationGaps.length === 0 &&
+    vocabularyGaps.length === 0 &&
+    exerciseGaps.length === 0 &&
+    semanticGarbage.length === 0;
 
   return {
     timestamp: new Date().toISOString(),
@@ -217,5 +250,6 @@ export function validateDataset(dataset: any): ValidationReport {
     conjugation_gaps: conjugationGaps,
     vocabulary_gaps: vocabularyGaps,
     exercise_gaps: exerciseGaps,
+    semantic_garbage: semanticGarbage,
   };
 }

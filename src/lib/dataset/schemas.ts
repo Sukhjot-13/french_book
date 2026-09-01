@@ -617,6 +617,12 @@ export const ExerciseQuestionSchema = z.object({
   prompt: z.string(),
   answer: z.string().nullable().optional(),
   answer_explanation: z.string().nullable().optional(),
+  answer_key_source: z
+    .object({
+      page_printed: z.number().int().positive().nullable().optional(),
+      page_pdf: z.number().int().positive().nullable().optional(),
+    })
+    .optional(),
   open_ended: z.boolean().default(false),
   relations: RelationsSchema.default({}),
 });

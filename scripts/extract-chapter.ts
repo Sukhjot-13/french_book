@@ -43,28 +43,86 @@ export function extractChapterExercises(
   pages: RawPage[]
 ): Exercise[] {
   const exercises: Exercise[] = [];
-  const fullText = pages.map((p) => p.text).join("\n");
   const chId = makeChapterId(chapterNum);
+  const answerKeyPath = path.resolve(__dirname, "..", "data", "extracted", "backmatter", "answer-key.json");
+  const answerKey = fs.existsSync(answerKeyPath) ? JSON.parse(fs.readFileSync(answerKeyPath, "utf-8")) : { chapters: {} };
+  const expectedQuestionCount = (exerciseNumber: string) => {
+    const entries = answerKey.chapters?.[String(chapterNum)]?.[exerciseNumber] || [];
+    return Array.isArray(entries) ? entries.reduce((max: number, entry: any) => Math.max(max, Number(entry.question_number) || 0), 0) : 0;
+  };
+  // Keep the page with every source line.  Concatenating pages before finding the
+  // next exercise used to make the final question consume the following lesson.
+  const lines = pages.flatMap((page) => page.text.split("\n").map((text) => ({ text: text.trim(), page })));
+  const exerciseHeader = /^(\d{1,2})[·\.](\d{1,2})$/;
+  const starts: Array<{ index: number; chapter: number; exercise: string }> = [];
+  for (let index = 0; index + 1 < lines.length; index++) {
+    const match = lines[index].text.match(exerciseHeader);
+    if (match && /^EXERCICE$/i.test(lines[index + 1].text)) {
+      starts.push({ index, chapter: Number(match[1]), exercise: match[2] });
+    }
+  }
 
-  // Pattern matching: "1·1\nEXERCICE\nInstructions..." or "1.1\nEXERCICE" or "EXERCICE 1·1"
-  const exRegex = /(?:(\d{1,2})[·\.](\d{1,2}))\s*\n\s*EXERCICE\s*\n([\s\S]*?)(?=(?:\d{1,2}[·\.]\d{1,2}\s*\n\s*EXERCICE)|(?:Chapter\s+\d+)|\n\s*\d{1,2}\s+[A-ZÀ-Ÿ]|$)/gi;
-  let match: RegExpExecArray | null;
+  // Running heads are emitted as ordinary text by the PDF extractor.  They are
+  // not lesson boundaries: on a continued exercise they occur before the next
+  // numbered question.  Treat the whole line as page chrome before applying any
+  // lesson-transition heuristic.
+  const isRunningPageHeading = (line: string) =>
+    /^(?:(?:practice makes perfect\s+complete french grammar\s*)?\d+|(?:answer key|verb tables|french-english glossary|english-french glossary|[\p{L}][\p{L}\s,'’\-]+)\s+\d+)$/iu.test(line.trim());
+  const isPageChrome = (line: string) =>
+    !line || /^\d+$/.test(line) || isRunningPageHeading(line) || /^(?:practice makes perfect|copyright ©|more .+ \d+)/i.test(line);
+  const withoutPageChrome = (line: string) => line
+    .replace(/\u0001/g, "")
+    .replace(/\s+(?:\d+\s+)?practice makes perfect complete french grammar\b/gi, "")
+    .replace(/^(?:answer key|verb tables|french-english glossary|english-french glossary|[\p{L}][\p{L}\s,'’\-]+)\s+\d+$/iu, "")
+    .replace(/\s*·?\d+·?\s*copyright ©.*$/i, "")
+    .trim();
+  const isLessonHeading = (line: string) => {
+    if (isPageChrome(line) || /^\d{1,2}\./.test(line) || /[.!;:]$/.test(line)) return false;
+    // Source headings are short title fragments.  Restricting the shape prevents
+    // wrapped exercise sentences from being mistaken for a boundary.
+    return line.length <= 110 && /^[A-ZÀ-Ÿ]/.test(line) && /^(?:The|More|One|When|A |An |Regular|Irregular|Verbs|Adjectives|Nouns|Pronouns|Articles|Prepositions|Conjunctions|Tenir|Faire|Avoir|Être|Aller|Venir|Partir|Sortir|Savoir|Vouloir|Pouvoir|Devoir|Quoi|Quel|Qui|Avoir beau|Quitte)/.test(line);
+  };
+  const isInstructionalTransition = (line: string) =>
+    /^(?:[A-ZÀ-Ÿ]{3,}$|The\b|More\b|One\b|When\b|Let[’']s\b|Another\b|You\b|As\b|Sometimes\b|Use\b|Beware\b|Uses\b|Should\b|Pourvu\b|Learning\b|Geographical\b|How\b|Indirect\b|Disjunctive\b|Possessive\b|Que\b|Using\b|Interrogative\b|Adverbs\b|Ordinal\b|Add\b|Whatever\b|Chapter\b|Il y a\b|Il s['’]agit\b|Remember\b|Comparatives\b|Comparison\b)/.test(line);
 
-  while ((match = exRegex.exec(fullText)) !== null) {
-    const ch = parseInt(match[1], 10);
-    if (ch !== chapterNum) continue;
-    const exNumStr = match[2];
+  for (let startOrdinal = 0; startOrdinal < starts.length; startOrdinal++) {
+    const start = starts[startOrdinal];
+    if (start.chapter !== chapterNum) continue;
+    const ch = start.chapter;
+    const exNumStr = start.exercise;
     const exerciseNumber = `${ch}.${exNumStr}`;
     const exerciseId = makeExerciseId(ch, exerciseNumber);
-    const body = match[3].trim();
+    const nextHeader = starts[startOrdinal + 1]?.index ?? lines.length;
+    const expectedLastQuestion = expectedQuestionCount(exerciseNumber);
+    const bodyLines: Array<{ text: string; page: RawPage }> = [];
+    let sawQuestion = false;
+    let currentQuestion = 0;
+    for (let index = start.index + 2; index < nextHeader; index++) {
+      const source = lines[index];
+      // A non-numbered lesson title following an exercise is an authoritative
+      // structural boundary, even when the next exercise appears pages later.
+      if (isPageChrome(source.text)) continue;
+      if (sawQuestion && isLessonHeading(source.text)) break;
+      const questionMatch = source.text.match(/^(\d{1,2})\.\s+/);
+      if (questionMatch) {
+        sawQuestion = true;
+        currentQuestion = Number(questionMatch[1]);
+      } else if (
+        // The answer key supplies the structural item count.  Once its final numbered
+        // item is reached, a new capitalized prose line is a lesson transition, not a
+        // continuation of the question.  Lowercase/wrapped continuations are retained.
+        sawQuestion && currentQuestion >= (expectedLastQuestion || 10) &&
+        isInstructionalTransition(source.text)
+      ) break;
+      const text = withoutPageChrome(source.text);
+      if (!isPageChrome(text)) bodyLines.push({ ...source, text });
+    }
 
-    // First line(s) before "1." are instructions
-    const lines = body.split("\n");
     let instructionLines: string[] = [];
     let qStartIndex = 0;
 
-    for (let i = 0; i < lines.length; i++) {
-      const l = lines[i].trim();
+    for (let i = 0; i < bodyLines.length; i++) {
+      const l = bodyLines[i].text;
       if (/^\d{1,2}\.\s+/.test(l)) {
         qStartIndex = i;
         break;
@@ -74,7 +132,7 @@ export function extractChapterExercises(
     }
 
     const instructionsFrench = instructionLines.join(" ").trim();
-    const questionsBlock = lines.slice(qStartIndex).join("\n");
+    const questionsBlock = bodyLines.slice(qStartIndex).map((line) => line.text).join("\n");
 
     const questions: ExerciseQuestion[] = [];
     const qRegex = /(\d{1,2})\.\s+([\s\S]*?)(?=(?:\n\s*\d{1,2}\.\s+)|$)/g;
@@ -91,7 +149,7 @@ export function extractChapterExercises(
       if (verbMatches) {
         for (const vm of verbMatches) {
           const vClean = vm.replace(/[()]/g, "").trim().toLowerCase();
-          if (vClean.endsWith("er") || vClean.endsWith("ir") || vClean.endsWith("re") || vClean === "aller" || vClean === "avoir" || vClean === "être" || vClean === "faire") {
+          if (/^(?:(?:se|s['’])\s*)?[a-zà-ÿ'’-]+$/i.test(vClean) && (vClean.endsWith("er") || vClean.endsWith("ir") || vClean.endsWith("re") || vClean === "aller" || vClean === "avoir" || vClean === "être" || vClean === "faire")) {
             linkedVerbs.push(makeVerbId(vClean));
           }
         }
@@ -147,7 +205,8 @@ export function extractChapterExercises(
           source_type: "book",
           chapter_number: chapterNum,
           chapter_id: chId,
-          page_printed: pages[0]?.printed_page || null,
+          page_printed: lines[start.index].page.printed_page || null,
+          page_pdf: lines[start.index].page.pdf_page,
           context_type: "exercise_instruction",
         },
       ],

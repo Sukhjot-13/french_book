@@ -13,18 +13,24 @@ export function attachAnswerKey(): { matched: number; unmatched: number } {
   }
 
   const rawKey: any = JSON.parse(fs.readFileSync(ANSWER_KEY_FILE, "utf-8"));
-  const ansMap = new Map<string, Map<number, string>>();
+  const ansMap = new Map<string, Map<number, { answer: string; page_printed: number | null; page_pdf?: number }>>();
+  const cleanAnswer = (value: string) => value
+    .replace(/\s*copyright ©.*$/i, "")
+    .replace(/\s*answer key\s+\d+\s*$/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
 
   if (rawKey.chapters && typeof rawKey.chapters === "object" && !Array.isArray(rawKey.chapters)) {
     for (const [chNum, exObj] of Object.entries(rawKey.chapters as Record<string, any>)) {
       for (const [exCode, items] of Object.entries(exObj as Record<string, any[]>)) {
         const normCode = exCode.replace(/[-·]/g, ".");
-        const itemMap = new Map<number, string>();
+        const itemMap = new Map<number, { answer: string; page_printed: number | null; page_pdf?: number }>();
         if (Array.isArray(items)) {
           for (const it of items) {
             const qNum = it.question_number || it.item_number;
             if (qNum && it.answer_text) {
-              itemMap.set(qNum, it.answer_text);
+              const answer = cleanAnswer(it.answer_text);
+              if (answer) itemMap.set(qNum, { answer, page_printed: it.page_printed ?? null, page_pdf: it.page_pdf });
             }
           }
         }
@@ -35,11 +41,12 @@ export function attachAnswerKey(): { matched: number; unmatched: number } {
     for (const ch of rawKey) {
       for (const ex of ch.exercises || []) {
         const normCode = (ex.exercise_code || "").replace(/[-·]/g, ".");
-        const itemMap = new Map<number, string>();
+        const itemMap = new Map<number, { answer: string; page_printed: number | null; page_pdf?: number }>();
         for (const it of ex.items || []) {
           const qNum = it.item_number || it.question_number;
           if (qNum && it.answer_text) {
-            itemMap.set(qNum, it.answer_text);
+            const answer = cleanAnswer(it.answer_text);
+            if (answer) itemMap.set(qNum, { answer, page_printed: it.page_printed ?? null, page_pdf: it.page_pdf });
           }
         }
         ansMap.set(normCode, itemMap);
@@ -70,12 +77,18 @@ export function attachAnswerKey(): { matched: number; unmatched: number } {
 
       for (let idx = 0; idx < ex.questions.length; idx++) {
         const q: any = ex.questions[idx];
-        const qNum = idx + 1;
+        const qNum = Number(q.question_id?.match(/q(\d+)$/)?.[1]) || idx + 1;
         const itemAns = exerciseAns?.get(qNum);
 
         if (itemAns) {
-          q.answer = itemAns;
-          q.expected_answer = itemAns;
+          q.answer = itemAns.answer;
+          q.expected_answer = itemAns.answer;
+          q.answer_key_source = { page_printed: itemAns.page_printed, page_pdf: itemAns.page_pdf };
+          // Preserve the exercise-level field for compatibility, but never let a
+          // later answer page overwrite provenance for earlier answers.
+          if (!ex.answer_key_source?.page_printed || !ex.answer_key_source?.page_pdf) {
+            ex.answer_key_source = { page_printed: itemAns.page_printed, page_pdf: itemAns.page_pdf };
+          }
           matched++;
         } else {
           if (!q.answer) {

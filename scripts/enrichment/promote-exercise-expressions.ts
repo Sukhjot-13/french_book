@@ -24,6 +24,7 @@ export interface ExerciseExpressionCandidate {
   translation_evidence: Array<{ english: string; french: string; question_id: string }>;
   existing_expression_id?: string;
   luna_disposition?: string;
+  reviewed_approval?: ReviewedApproval;
   disposition?: ExerciseExpressionDisposition;
   reason?: string;
 }
@@ -45,7 +46,14 @@ interface LunaCandidate {
   translation_evidence?: Array<{ question_id: string; english_source: string; french_source: string }>;
 }
 
+interface ReviewedApproval {
+  canonical_form: string;
+  english: string[];
+  expression_type: "verb_pattern" | "collocation" | "formulaic_phrase" | "fixed_expression";
+}
+
 const DEFAULT_LUNA_REPORT = path.resolve(__dirname, "../../data/reports/exercise-expression-candidates.json");
+const DEFAULT_REVIEWED_APPROVALS = path.resolve(__dirname, "../../data/reports/sol-reviewed-expression-approvals.json");
 const FRENCH_DETERMINERS = new Set(["un", "une", "le", "la", "les", "du", "des", "de", "ce", "cet", "cette", "ces", "mon", "ma", "mes", "ton", "ta", "tes", "son", "sa", "ses", "notre", "nos", "votre", "vos", "leur", "leurs"]);
 const FRENCH_FILLERS = new Set(["ne", "pas", "plus", "jamais", "bien", "très", "si", "que", "qu", "de", "d", "à", "a", "en", "y", "lui", "leur", "me", "te", "se", "nous", "vous", "il", "elle", "ils", "elles", "on"]);
 const FRENCH_ADJECTIVE_LIKE = new Set(["meilleur", "meilleure", "bon", "bonne", "grand", "grande", "long", "longue", "petit", "petite", "jeune", "vieux", "vieille", "nouveau", "nouvelle"]);
@@ -158,6 +166,13 @@ function loadLunaEvidence(reportPath = DEFAULT_LUNA_REPORT): Map<string, LunaCan
   const report = JSON.parse(fs.readFileSync(reportPath, "utf-8"));
   const entries: LunaCandidate[] = Array.isArray(report.candidates) ? report.candidates : [];
   return new Map(entries.map((entry) => [normalize(entry.normalized_candidate), entry]));
+}
+
+function loadReviewedApprovals(reportPath = DEFAULT_REVIEWED_APPROVALS): Map<string, ReviewedApproval> {
+  if (!fs.existsSync(reportPath)) return new Map();
+  const report = JSON.parse(fs.readFileSync(reportPath, "utf-8"));
+  const approvals: ReviewedApproval[] = Array.isArray(report.approved) ? report.approved : [];
+  return new Map(approvals.map((approval) => [normalize(approval.canonical_form), approval]));
 }
 
 function translationEvidence(question: Exercise["questions"][number]): { english: string; french: string } | null {
@@ -358,6 +373,7 @@ function conciseFormulaEnglish(candidate: ExerciseExpressionCandidate): string[]
 }
 
 function englishForCandidate(candidate: ExerciseExpressionCandidate): string[] {
+  if (candidate.reviewed_approval) return candidate.reviewed_approval.english;
   if (candidate.type_hypothesis === "fixed_formulaic_phrase") return conciseFormulaEnglish(candidate);
   const evidence = candidate.noun
     ? candidate.translation_evidence.find((item) => new RegExp(`\\b${ascii(candidate.noun!)}\\b`, "i").test(ascii(item.english))) || candidate.translation_evidence[0]
@@ -433,6 +449,7 @@ export function promoteExerciseExpressionCandidates(args: {
   chapters: Chapter[];
   sections: Section[];
   lunaReportPath?: string;
+  reviewedApprovalsPath?: string;
 }): ExercisePromotionResult {
   const hasLunaAudit = fs.existsSync(args.lunaReportPath || DEFAULT_LUNA_REPORT);
   const candidates = discoverExerciseExpressionCandidates(
@@ -445,6 +462,8 @@ export function promoteExerciseExpressionCandidates(args: {
     ],
     args.lunaReportPath,
   );
+  const reviewedApprovals = loadReviewedApprovals(args.reviewedApprovalsPath);
+  for (const candidate of candidates) candidate.reviewed_approval = reviewedApprovals.get(normalize(candidate.canonical_form));
   const expressions = [...args.expressions];
   const vocabulary = [...args.vocabulary];
   const promoted: string[] = [];
@@ -480,7 +499,7 @@ export function promoteExerciseExpressionCandidates(args: {
   for (const candidate of candidates) {
     const questionCount = new Set(candidate.evidence.map((e) => e.question_id)).size;
     const existing = findExistingExpression(candidate, expressions);
-    if (candidate.luna_disposition === "sol_review") {
+    if (candidate.luna_disposition === "sol_review" && !candidate.reviewed_approval) {
       candidate.disposition = "held_for_review";
       candidate.reason = "Luna marked the source evidence sol_review; promotion intentionally does not guess.";
       heldForReview.push(candidate.canonical_form);
@@ -501,25 +520,25 @@ export function promoteExerciseExpressionCandidates(args: {
       mergedExisting.push(existing.id);
       continue;
     }
-    if (candidate.type_hypothesis === "productive_verb_pattern") {
+    if (candidate.type_hypothesis === "productive_verb_pattern" && !candidate.reviewed_approval) {
       candidate.disposition = "held_for_review";
       candidate.reason = "A new productive pattern needs explicit source pattern support; exercise recurrence alone is insufficient.";
       heldForReview.push(candidate.canonical_form);
       continue;
     }
-    if (candidate.type_hypothesis === "verb_noun_collocation" && hasLunaAudit && candidate.luna_disposition !== "clear_new") {
+    if (candidate.type_hypothesis === "verb_noun_collocation" && hasLunaAudit && candidate.luna_disposition !== "clear_new" && !candidate.reviewed_approval) {
       candidate.disposition = "held_for_review";
       candidate.reason = "The available exercise audit does not provide a clear-new collocation disposition.";
       heldForReview.push(candidate.canonical_form);
       continue;
     }
-    if (candidate.type_hypothesis === "fixed_formulaic_phrase" && candidate.luna_disposition !== "clear_new") {
+    if (candidate.type_hypothesis === "fixed_formulaic_phrase" && candidate.luna_disposition !== "clear_new" && !candidate.reviewed_approval) {
       candidate.disposition = "held_for_review";
       candidate.reason = "A formulaic candidate needs explicit source-pattern evidence; recurrence alone is insufficient.";
       heldForReview.push(candidate.canonical_form);
       continue;
     }
-    if (questionCount < 2) {
+    if (questionCount < 2 && !candidate.reviewed_approval) {
       candidate.disposition = "rejected";
       candidate.reason = "Singleton exercise evidence without explicit pattern support is not promoted.";
       rejected.push(candidate.canonical_form);
@@ -543,8 +562,8 @@ export function promoteExerciseExpressionCandidates(args: {
       heldForReview.push(candidate.canonical_form);
       continue;
     }
-    const type = candidate.type_hypothesis === "verb_noun_collocation" ? "collocation" : candidate.type_hypothesis === "fixed_expression" ? "fixed_expression" : "formulaic_phrase";
-    const slot = candidate.type_hypothesis === "fixed_formulaic_phrase" ? genericSlotType(candidate.canonical_form) : null;
+    const type = candidate.reviewed_approval?.expression_type || (candidate.type_hypothesis === "verb_noun_collocation" ? "collocation" : candidate.type_hypothesis === "productive_verb_pattern" ? "verb_pattern" : candidate.type_hypothesis === "fixed_expression" ? "fixed_expression" : "formulaic_phrase");
+    const slot = (candidate.type_hypothesis === "fixed_formulaic_phrase" || candidate.type_hypothesis === "productive_verb_pattern") ? genericSlotType(candidate.canonical_form) : null;
     const expression: Expression = {
       id: makeExpressionId(candidate.canonical_form),
       type: "expression",
@@ -554,7 +573,7 @@ export function promoteExerciseExpressionCandidates(args: {
       english,
       base_verb_ids: candidate.base_verb_id ? [candidate.base_verb_id] : [],
       related_vocabulary_ids: vocabularyItem ? [vocabularyItem.id] : [],
-      productive: Boolean(slot),
+      productive: type === "verb_pattern" || Boolean(slot),
       collocation_strength: type === "collocation" ? "strong" : "common",
       pattern: slot ? candidate.canonical_form.replace(/\+ (?:infinitif|noun|clause)/, `[${slot.token}]`) : null,
       pattern_slots: slot ? [{ name: slot.name, display: slot.display, type: slot.type, required: true }] : [],
@@ -578,7 +597,7 @@ export function promoteExerciseExpressionCandidates(args: {
     linkCandidate(candidate, expression, vocabularyItem);
     expressions.push(expression);
     candidate.disposition = "promoted";
-    candidate.reason = "Repeated, clean exercise evidence and direct source translation satisfy the conservative promotion rules.";
+    candidate.reason = candidate.reviewed_approval ? "Promoted from explicit Sol semantic review with clean source evidence." : "Repeated, clean exercise evidence and direct source translation satisfy the conservative promotion rules.";
     promoted.push(expression.id);
   }
 

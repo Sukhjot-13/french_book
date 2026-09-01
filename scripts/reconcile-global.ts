@@ -32,20 +32,65 @@ const VERB_TABLES_FILE = path.join(ROOT_DIR, "data", "extracted", "backmatter", 
 const FINAL_DATASET_FILE = path.join(ROOT_DIR, "data", "final", "french_grammar.json");
 const EXERCISE_PROMOTION_REPORT = path.join(ROOT_DIR, "data", "reports", "exercise-expression-promotion.json");
 
+const BACKMATTER_ONLY_TENSES: Tense[] = [
+  {
+    id: "tense_passe_anterieur", type: "tense", name_french: "passé antérieur", name_english: "past perfect",
+    mood: "indicative", time_reference: ["past_before_past"], summary: "Printed in the back-matter verb table.",
+    formation_rule_ids: [], usage_rule_ids: [], exception_rule_ids: [], common_time_marker_ids: [], common_time_markers_text: [], related_tense_ids: ["tense_passe_simple"], contrast_tense_ids: [], conjugation_ids: [], example_ids: [], exercise_ids: [],
+    study: { learning_priority: 1, usefulness: 1, difficulty: 5 }, attestations: [{ source_type: "book", page_printed: 237, context_type: "verb_table" }], tags: ["backmatter", "verb_table"],
+  },
+  {
+    id: "tense_subjonctif_imparfait", type: "tense", name_french: "imparfait du subjonctif", name_english: "imperfect subjunctive",
+    mood: "subjunctive", time_reference: ["past"], summary: "Printed in the back-matter verb table.",
+    formation_rule_ids: [], usage_rule_ids: [], exception_rule_ids: [], common_time_marker_ids: [], common_time_markers_text: [], related_tense_ids: ["tense_subjonctif_present"], contrast_tense_ids: [], conjugation_ids: [], example_ids: [], exercise_ids: [],
+    study: { learning_priority: 1, usefulness: 1, difficulty: 5 }, attestations: [{ source_type: "book", page_printed: 237, context_type: "verb_table" }], tags: ["backmatter", "verb_table"],
+  },
+  {
+    id: "tense_subjonctif_plus_que_parfait", type: "tense", name_french: "plus-que-parfait du subjonctif", name_english: "pluperfect subjunctive",
+    mood: "subjunctive", time_reference: ["past_before_past"], summary: "Printed in the back-matter verb table.",
+    formation_rule_ids: [], usage_rule_ids: [], exception_rule_ids: [], common_time_marker_ids: [], common_time_markers_text: [], related_tense_ids: ["tense_subjonctif_passe"], contrast_tense_ids: [], conjugation_ids: [], example_ids: [], exercise_ids: [],
+    study: { learning_priority: 1, usefulness: 1, difficulty: 5 }, attestations: [{ source_type: "book", page_printed: 238, context_type: "verb_table" }], tags: ["backmatter", "verb_table"],
+  },
+];
+
 interface ParsedVerbTableForm {
+  source_row_id: string;
   verb_infinitive: string;
   verb_id: string;
   tense_name: string;
   tense_id: string;
   forms: Record<string, string>;
+  past_participle?: string | null;
   page_printed: number;
+  page_pdf: number;
+}
+
+function glossaryVocabulary(g: any, english: string[], contextType: "glossary_fr_en" | "glossary_en_fr"): Vocabulary {
+  const partOfSpeech = g.part_of_speech || "other";
+  const variants = Array.isArray(g.variants) ? g.variants : [];
+  const noun = partOfSpeech === "noun"
+    ? { gender: g.gender || null, article: null, plural: null, countability: null }
+    : null;
+  const adjective = partOfSpeech === "adjective"
+    ? { masculine_singular: g.french, feminine_singular: variants.find((value: string) => value.endsWith("e")) || null, masculine_plural: null, feminine_plural: null, special_forms: variants }
+    : null;
+  const vocabId = makeVocabId(g.french);
+  return {
+    id: vocabId, type: "vocabulary", canonical_form: g.french, display_form: g.french, french: g.french, english,
+    part_of_speech: partOfSpeech, noun, adjective, adverb: partOfSpeech === "adverb" ? {} : null,
+    senses: [{ sense_id: `${vocabId}_s1`, english, usage_contexts: [], example_ids: [] }], semantic_domains: [], word_family_ids: [], collocation_expression_ids: [], false_friend: false, cognate: false,
+    study: { learning_priority: 3, usefulness: 3, difficulty: 2 }, usage: { register: "neutral", spoken_written: "both", contexts: [] }, frequency: { book_occurrences: 1 },
+    origin: { source_type: "book", created_by: "extraction", derived_from_ids: [] }, attestations: [{ source_type: "book", page_printed: g.page_printed, page_pdf: g.page_pdf, context_type: contextType }],
+    tags: ["glossary", "backmatter", "part_of_speech_from_glossary"],
+  };
 }
 
 export function reconcileGlobal(): SuperDatasetRoot {
   console.log("Starting global reconciliation with enriched passes...");
 
   // Load canonical tenses and concepts
-  const tenses: Tense[] = JSON.parse(fs.readFileSync(TENSES_FILE, "utf-8"));
+  const baseTenses: Tense[] = JSON.parse(fs.readFileSync(TENSES_FILE, "utf-8"));
+  const tenses: Tense[] = [...baseTenses, ...BACKMATTER_ONLY_TENSES.filter((tense) => !baseTenses.some((item) => item.id === tense.id))];
   const concepts: Concept[] = JSON.parse(fs.readFileSync(CONCEPTS_FILE, "utf-8"));
 
   // Load backmatter
@@ -107,49 +152,7 @@ export function reconcileGlobal(): SuperDatasetRoot {
         tags: ["glossary", "expression"],
       });
     } else {
-      vocabMap.set(vocabId, {
-        id: vocabId,
-        type: "vocabulary",
-        canonical_form: g.french,
-        display_form: g.french,
-        french: g.french,
-        english: Array.isArray(g.english) ? g.english : [g.english || g.french],
-        part_of_speech: "noun",
-        noun: {
-          gender: g.gender || null,
-          article: null,
-          plural: null,
-          countability: null,
-        },
-        adjective: null,
-        adverb: null,
-        senses: [
-          {
-            sense_id: `${vocabId}_s1`,
-            english: Array.isArray(g.english) ? g.english : [g.english || g.french],
-            usage_contexts: [],
-            example_ids: [],
-          },
-        ],
-        semantic_domains: [],
-        word_family_ids: [],
-        collocation_expression_ids: [],
-        false_friend: false,
-        cognate: false,
-        study: { learning_priority: 3, usefulness: 3, difficulty: 2 },
-        usage: { register: "neutral", spoken_written: "both", contexts: [] },
-        frequency: { book_occurrences: 1 },
-        origin: { source_type: "book", created_by: "extraction", derived_from_ids: [] },
-        attestations: [
-          {
-            source_type: "book",
-            page_printed: g.page_printed,
-            page_pdf: g.page_pdf,
-            context_type: "glossary_fr_en",
-          },
-        ],
-        tags: ["glossary", "backmatter"],
-      });
+      vocabMap.set(vocabId, glossaryVocabulary(g, Array.isArray(g.english) ? g.english : [g.english || g.french], "glossary_fr_en"));
     }
   }
 
@@ -208,7 +211,13 @@ export function reconcileGlobal(): SuperDatasetRoot {
       if (vocabMap.has(vocabId)) {
         const existing = vocabMap.get(vocabId)!;
         existing.english = Array.from(new Set([...existing.english, ...enList]));
-        if (!existing.noun?.gender && g.gender) {
+        if (g.part_of_speech === "verb" || enList.some((meaning: string) => /^to\s+/i.test(meaning))) {
+          existing.part_of_speech = "verb";
+          existing.noun = null;
+          existing.adjective = null;
+          existing.adverb = null;
+        }
+        if (existing.part_of_speech === "noun" && !existing.noun?.gender && g.gender) {
           if (!existing.noun) {
             existing.noun = { gender: g.gender, article: null, plural: null, countability: null };
           } else {
@@ -220,42 +229,7 @@ export function reconcileGlobal(): SuperDatasetRoot {
           existing.senses[0].english = Array.from(new Set([...existing.senses[0].english, ...enList]));
         }
       } else {
-        vocabMap.set(vocabId, {
-          id: vocabId,
-          type: "vocabulary",
-          canonical_form: g.french,
-          display_form: g.french,
-          french: g.french,
-          english: enList,
-          part_of_speech: "noun",
-          noun: {
-            gender: g.gender || null,
-            article: null,
-            plural: null,
-            countability: null,
-          },
-          adjective: null,
-          adverb: null,
-          senses: [
-            {
-              sense_id: `${vocabId}_s1`,
-              english: enList,
-              usage_contexts: [],
-              example_ids: [],
-            },
-          ],
-          semantic_domains: [],
-          word_family_ids: [],
-          collocation_expression_ids: [],
-          false_friend: false,
-          cognate: false,
-          study: { learning_priority: 3, usefulness: 3, difficulty: 2 },
-          usage: { register: "neutral", spoken_written: "both", contexts: [] },
-          frequency: { book_occurrences: 1 },
-          origin: { source_type: "book", created_by: "extraction", derived_from_ids: [] },
-          attestations: [attestation],
-          tags: ["glossary", "backmatter", "en_fr_glossary"],
-        });
+        vocabMap.set(vocabId, glossaryVocabulary(g, enList, "glossary_en_fr"));
       }
     }
   }
@@ -283,7 +257,7 @@ export function reconcileGlobal(): SuperDatasetRoot {
       irregularity_notes: [],
       example_ids: [],
       origin: { source_type: "book", created_by: "extraction", derived_from_ids: [] },
-      attestations: [{ source_type: "book", page_printed: vt.page_printed, context_type: "verb_table" }],
+      attestations: [{ source_type: "book", page_printed: vt.page_printed, page_pdf: vt.page_pdf, context_type: "verb_table", source_anchor: vt.source_row_id }],
       editorial: { extraction_confidence: "high", verification_status: "machine_checked" },
     });
 
@@ -299,7 +273,7 @@ export function reconcileGlobal(): SuperDatasetRoot {
       pronominal: vt.verb_infinitive.startsWith("se ") || vt.verb_infinitive.startsWith("s'"),
       transitivity: ["transitive"],
       auxiliary: "avoir",
-      past_participle: null,
+      past_participle: vt.past_participle || null,
       present_participle: null,
       conjugation_ids: [conjId],
       expression_ids: [],
@@ -311,7 +285,7 @@ export function reconcileGlobal(): SuperDatasetRoot {
       study: { learning_priority: 3, usefulness: 3, difficulty: 2 },
       usage: { register: "neutral", spoken_written: "both", contexts: [] },
       frequency: { book_occurrences: 1 },
-      attestations: [{ source_type: "book", page_printed: vt.page_printed, context_type: "verb_table" }],
+      attestations: [{ source_type: "book", page_printed: vt.page_printed, page_pdf: vt.page_pdf, context_type: "verb_table", source_anchor: vt.source_row_id }],
       tags: ["verb_table", "backmatter"],
     });
   }
@@ -360,11 +334,22 @@ export function reconcileGlobal(): SuperDatasetRoot {
   const conjugationsMap = new Map<string, any>();
   for (const conj of rawConjugations) {
     if (!conjugationsMap.has(conj.id)) {
-      conjugationsMap.set(conj.id, { ...conj });
+      conjugationsMap.set(conj.id, {
+        ...conj,
+        origin: conj.attestations?.some((attestation: any) => attestation.source_type === "book")
+          ? { source_type: "book", created_by: "extraction", derived_from_ids: [] }
+          : conj.origin,
+      });
     } else {
       const existing = conjugationsMap.get(conj.id)!;
       const mergedAtts = mergeAttestations(existing.attestations || [], conj.attestations || []);
       existing.attestations = mergedAtts;
+      // A printed table is the primary source for its exact forms.  Generated
+      // paradigms remain useful coverage, but must not overwrite book text.
+      if (conj.attestations?.some((attestation: any) => attestation.context_type === "verb_table")) {
+        existing.forms = conj.forms;
+        existing.compound = conj.compound;
+      }
       if (mergedAtts.some((a: any) => a.source_type === "book")) {
         existing.origin = { source_type: "book", created_by: "extraction", derived_from_ids: [] };
       } else if (!existing.origin || existing.origin.source_type !== "book") {
@@ -423,7 +408,16 @@ export function reconcileGlobal(): SuperDatasetRoot {
 
   for (const vId of referencedVerbIds) {
     if (!verbIdSet.has(vId)) {
-      const inf = vId.replace(/^verb_/, "").replace(/_/g, " ");
+      const inf = vId.replace(/^verb_/, "").replace(/_/g, " ").replace(/^s /, "s'");
+      // Relations authored from an exercise can only auto-register a single French
+      // infinitive (optionally pronominal).  Never convert arbitrary parenthetical
+      // English prose such as "whoever you are" into a canonical verb.
+      if (!/^(?:(?:se|s['’])\s+)?[a-zà-ÿ'’-]+$/i.test(inf) || !/(?:er|ir|re)$/i.test(inf)) {
+        exercises.forEach((exercise) => exercise.questions.forEach((question) => {
+          if (question.relations?.verbs) question.relations.verbs = question.relations.verbs.filter((id) => id !== vId);
+        }));
+        continue;
+      }
       const autoVerb: Verb = {
         id: vId,
         type: "verb",
@@ -464,32 +458,11 @@ export function reconcileGlobal(): SuperDatasetRoot {
 
   for (const vocId of referencedVocabIds) {
     if (!vocabIdSet.has(vocId)) {
-      const word = vocId.replace(/^vocab_/, "").replace(/_/g, " ");
-      const autoVoc: Vocabulary = {
-        id: vocId,
-        type: "vocabulary",
-        canonical_form: word,
-        display_form: word,
-        french: word,
-        english: [word],
-        part_of_speech: "noun",
-        noun: { gender: "feminine", article: null, plural: null, countability: null },
-        adjective: null,
-        adverb: null,
-        senses: [{ sense_id: `${vocId}_s1`, english: [word], usage_contexts: [], example_ids: [] }],
-        semantic_domains: [],
-        word_family_ids: [],
-        collocation_expression_ids: [],
-        false_friend: false,
-        cognate: false,
-        study: { learning_priority: 3, usefulness: 3, difficulty: 2 },
-        usage: { register: "neutral", spoken_written: "both", contexts: [] },
-        frequency: { book_occurrences: 2 },
-        attestations: [{ source_type: "book", context_type: "expression_list" }],
-        tags: ["auto_registered"],
-      };
-      vocabulary.push(autoVoc);
-      vocabIdSet.add(vocId);
+      // A reference alone is not enough evidence to fabricate a gendered noun.
+      // Keep the graph honest by dropping unresolved placeholder references.
+      chapters.forEach((chapter) => chapter.vocabulary_ids = chapter.vocabulary_ids.filter((id) => id !== vocId));
+      sections.forEach((section) => section.vocabulary_ids = section.vocabulary_ids.filter((id) => id !== vocId));
+      expressions.forEach((expression) => expression.related_vocabulary_ids = expression.related_vocabulary_ids.filter((id) => id !== vocId));
     }
   }
 

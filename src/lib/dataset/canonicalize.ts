@@ -67,17 +67,20 @@ export function canonicalizeVocabularyEntry(existing: Vocabulary, incoming: Voca
   const existingEn = safeArray(existing.english);
   const incomingEn = safeArray(incoming.english);
 
+  const hasInfinitiveGloss = [...existingEn, ...incomingEn].some((meaning) => /^to\s+/i.test(meaning.trim()));
+  const partOfSpeech = hasInfinitiveGloss ? "verb" : existing.part_of_speech === "other" ? incoming.part_of_speech : existing.part_of_speech;
   return {
     ...existing,
     english: deduplicateArray([...existingEn, ...incomingEn]),
     senses: [...(existing.senses || []), ...(incoming.senses || []).filter((s) => !existing.senses?.some((es) => es.sense_id === s.sense_id))],
-    noun: {
+    part_of_speech: partOfSpeech,
+    noun: partOfSpeech === "noun" ? {
       gender: existing.noun?.gender || incoming.noun?.gender || null,
       article: existing.noun?.article || incoming.noun?.article || null,
       plural: existing.noun?.plural || incoming.noun?.plural || null,
       countability: existing.noun?.countability || incoming.noun?.countability || null,
-    },
-    adjective: existing.adjective || incoming.adjective || null,
+    } : null,
+    adjective: partOfSpeech === "adjective" ? (existing.adjective || incoming.adjective || null) : null,
     word_family_ids: deduplicateArray([...(existing.word_family_ids || []), ...(incoming.word_family_ids || [])]),
     collocation_expression_ids: deduplicateArray([...(existing.collocation_expression_ids || []), ...(incoming.collocation_expression_ids || [])]),
     attestations: mergedAttestations,

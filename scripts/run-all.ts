@@ -5,7 +5,7 @@ import { normalizeAllChapters } from "./normalize-chapter";
 import { attachAnswerKey } from "./attach-answer-key";
 import { reconcileGlobal } from "./reconcile-global";
 import { validateFinalDataset } from "./validate-dataset";
-import { checkCoverage } from "./check-coverage";
+import { assertExerciseSourceReconciliation, checkCoverage } from "./check-coverage";
 import { runSmokeTests } from "./smoke-tests";
 
 async function runAll() {
@@ -31,9 +31,13 @@ async function runAll() {
   console.log("\n--- STAGE 6: Global reconciliation & indexing ---");
   reconcileGlobal();
 
+  console.log("\n--- STAGE 6.5: Reconciling exercises against source answer identities ---");
+  const rebuilt = JSON.parse(require("fs").readFileSync(require("path").join(process.cwd(), "data", "final", "french_grammar.json"), "utf-8"));
+  assertExerciseSourceReconciliation(rebuilt);
+
   console.log("\n--- STAGE 7: Validating schema & relationship integrity ---");
   const valReport = validateFinalDataset();
-  if (valReport.schema_errors.length > 0 || valReport.unresolved_relations.length > 0) {
+  if (!valReport.passed) {
     console.error("Pipeline aborted due to validation errors.");
     process.exit(1);
   }
