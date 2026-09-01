@@ -1,0 +1,481 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/deepseek-independent-answer-key.schema.json",
+  "title": "Independent Answer Key Extraction",
+  "description": "Strict ground-zero schema for extracting textbook answer-key backmatter independently from chapter JSONs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "extraction_mode",
+    "source_type",
+    "source_pages",
+    "exercises",
+    "uncertain_answers",
+    "quality_summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "extraction_mode": {
+      "const": "independent_ground_zero"
+    },
+    "source_type": {
+      "const": "answer_key"
+    },
+    "source_pages": {
+      "$ref": "#/$defs/pageRange"
+    },
+    "exercises": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/exerciseAnswers"
+      }
+    },
+    "uncertain_answers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/uncertainAnswer"
+      }
+    },
+    "quality_summary": {
+      "$ref": "#/$defs/qualitySummary"
+    }
+  },
+  "$defs": {
+    "pageRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "printed_start",
+        "printed_end",
+        "pdf_start",
+        "pdf_end"
+      ],
+      "properties": {
+        "printed_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "printed_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "pdf_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "pdf_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      }
+    },
+    "pageRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "page_printed",
+        "page_pdf",
+        "source_text"
+      ],
+      "properties": {
+        "page_printed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "page_pdf": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "source_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "answerItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "question_number",
+        "answer",
+        "answer_type",
+        "is_complete",
+        "continues_across_pages",
+        "source_pages",
+        "notes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^answer_[a-z0-9_]+$"
+        },
+        "question_number": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "answer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "answer_type": {
+          "type": "string",
+          "enum": [
+            "text",
+            "sentence",
+            "word",
+            "phrase",
+            "multiple_values",
+            "numeric",
+            "date_or_year",
+            "other"
+          ]
+        },
+        "is_complete": {
+          "type": "boolean"
+        },
+        "continues_across_pages": {
+          "type": "boolean"
+        },
+        "source_pages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/pageRef"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "exerciseAnswers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "chapter_number",
+        "exercise_code",
+        "exercise_title",
+        "answers",
+        "source_pages",
+        "notes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^answer_key_exercise_[a-z0-9_]+$"
+        },
+        "chapter_number": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 99
+        },
+        "exercise_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exercise_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/answerItem"
+          }
+        },
+        "source_pages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/pageRef"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "uncertainAnswer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exercise_code",
+        "question_number",
+        "raw_text",
+        "reason_uncertain",
+        "possible_answer",
+        "source_pages"
+      ],
+      "properties": {
+        "exercise_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "question_number": {
+          "type": [
+            "integer",
+            "string",
+            "null"
+          ]
+        },
+        "raw_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason_uncertain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "possible_answer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_pages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/pageRef"
+          }
+        }
+      }
+    },
+    "qualitySummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exercise_codes_seen",
+        "exercise_codes_emitted",
+        "answer_identities_seen",
+        "answers_emitted",
+        "uncertain_answers",
+        "multi_page_answers",
+        "header_footer_rows_removed",
+        "duplicate_answer_identities",
+        "notes"
+      ],
+      "properties": {
+        "exercise_codes_seen": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "exercise_codes_emitted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "answer_identities_seen": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "answers_emitted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "uncertain_answers": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "multi_page_answers": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "header_footer_rows_removed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "duplicate_answer_identities": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+==================================================
+EXTRACTION RULES
+==================================================
+
+1. This is an INDEPENDENT, GROUND-ZERO extraction of the textbook answer key.
+
+2. Use ONLY the supplied answer-key source pages/text.
+
+3. Do NOT compare against:
+   - existing chapter JSONs;
+   - the baseline master dataset;
+   - previously parsed answer-key data.
+
+4. Preserve answer identity using:
+   exercise_code + question_number
+
+5. Preserve the answer exactly as printed after harmless typographic cleanup.
+
+6. Do NOT rewrite, improve, translate, or grammatically correct answers.
+
+7. Numeric answers, dates, years, isolated letters, short phrases, and punctuation-only meaningful answers are valid source answers.
+   Do NOT discard them merely because they are not full sentences.
+
+8. CRITICAL — MULTI-PAGE CONTINUATIONS:
+   An answer may begin on one page and continue onto the next page.
+
+   If the same numbered answer clearly continues after a page break:
+   - join the continuation into ONE complete `answer`;
+   - set `continues_across_pages = true`;
+   - include EVERY contributing page in `source_pages`;
+   - preserve source text from each contributing page.
+
+9. NEVER truncate an answer simply because a page ends.
+
+10. NEVER join two different numbered answers together.
+
+11. A running header, footer, page number, chapter title, copyright line, or section heading is NOT part of an answer.
+
+12. If a new explicit answer number begins, the previous answer has ended unless the source layout clearly indicates otherwise.
+
+13. Preserve all printed alternatives when the source supplies multiple acceptable answers.
+
+14. If the source explicitly shows multiple answers for one question, preserve them together in the `answer` field exactly and classify `answer_type = "multiple_values"` where appropriate.
+
+15. Do NOT invent answers for open-ended exercises or missing source answers.
+
+16. If an answer cannot be confidently assigned to an exercise/question identity, place it in `uncertain_answers`.
+
+17. If an answer is visibly damaged, truncated, or ambiguous in the supplied source, do NOT guess the missing content. Put it in `uncertain_answers` unless a page continuation resolves it.
+
+18. Do NOT silently drop legitimate source answer identities.
+
+Every legitimate source answer must be accounted for as one of:
+- emitted answer;
+- uncertain answer;
+- true duplicate identity reported in quality_summary;
+- rejected non-data artifact such as header/footer/page marker.
+
+19. Keep exact provenance:
+- printed page if known;
+- PDF page if known;
+- exact source text fragment.
+
+20. Do NOT collapse multiple source pages into only the final page.
+Multi-page provenance must preserve all contributing pages.
+
+21. Exercise-level `source_pages` should contain all answer-key pages on which that exercise appears.
+
+22. Question-level `source_pages` must contain the exact page(s) contributing to that specific answer.
+
+23. Preserve exercise codes exactly as printed after harmless whitespace normalization.
+
+24. Preserve question numbers exactly enough to distinguish identities.
+If the source uses labels such as a, b, i, ii, preserve them as strings.
+
+25. Use deterministic provisional IDs:
+- answer_key_exercise_14_1
+- answer_14_1_6
+etc.
+
+26. Remove control characters and layout artifacts, but do NOT remove legitimate French accents, apostrophes, punctuation, or symbols.
+
+27. Before finishing, perform a second pass specifically for page-boundary continuations.
+
+28. Before finishing, verify:
+- `exercise_codes_emitted == len(exercises)`
+- `answers_emitted == total len(exercises[*].answers)`
+- `uncertain_answers == len(uncertain_answers)`
+- no duplicate `(exercise_code, question_number)` identities unless explicitly reported
+- all emitted answers have at least one source page
+- all multi-page answers contain every contributing page
+- no answer contains headers/footers/page markers
+- no answer is accidentally truncated at a page boundary
+
+==================================================
+SPECIAL ACCEPTANCE CHECK
+==================================================
+
+Specifically test any answer that ends abruptly with:
+- a determiner;
+- a preposition;
+- an auxiliary;
+- a copula;
+- an unfinished clause;
+- a comma/colon suggesting continuation;
+- syntactically incomplete text at the bottom of a page.
+
+Such cases MUST trigger a check of the following page before the answer is considered complete.
+
+Example of the failure pattern to prevent:
+
+Question 9 answer stored as:
+"Ses idées sont"
+
+when the source continues on the next page.
+
+The final extracted answer must include the complete continuation and provenance from both pages.
+
+==================================================
+OUTPUT
+==================================================
+
+Return ONE JSON object validating exactly against this schema.
+
+Suggested filename:
+
+answer-key-independent.json
+
+Do not return prose instead of the JSON.
+Do not modify chapter JSON files at this stage.
