@@ -15,7 +15,7 @@ import {
   Concept,
   StudySet,
 } from "../src/lib/dataset/schemas";
-import { canonicalizeVerbs, canonicalizeVocabulary, canonicalizeExpressions } from "../src/lib/dataset/canonicalize";
+import { canonicalizeVerbs, canonicalizeVocabulary, canonicalizeExpressions, mergeAttestations } from "../src/lib/dataset/canonicalize";
 import { makeStudySetId, makeBookId, makeConjugationId, makeVerbId, makeVocabId, makeExpressionId, makeConceptId } from "../src/lib/dataset/ids";
 import { buildEnrichedConjugations } from "./enrichment/parse-conjugations-enhanced";
 import { buildEnrichedExpressions } from "./enrichment/parse-expressions-enhanced";
@@ -64,7 +64,7 @@ export function reconcileGlobal(): SuperDatasetRoot {
   for (const g of glossaryFrEn) {
     const vocabId = makeVocabId(g.french);
     const exprId = makeExpressionId(g.french);
-    const isExpr = g.is_expression || g.french.split(/\s+/).length >= 2 || g.french.startsWith("se ") || g.french.startsWith("s’");
+    const isExpr = Boolean(g.is_expression);
 
     if (isExpr) {
       exprMap.set(exprId, {
@@ -137,6 +137,7 @@ export function reconcileGlobal(): SuperDatasetRoot {
         study: { learning_priority: 3, usefulness: 3, difficulty: 2 },
         usage: { register: "neutral", spoken_written: "both", contexts: [] },
         frequency: { book_occurrences: 1 },
+        origin: { source_type: "book", created_by: "extraction", derived_from_ids: [] },
         attestations: [
           {
             source_type: "book",
@@ -154,7 +155,7 @@ export function reconcileGlobal(): SuperDatasetRoot {
   for (const g of glossaryEnFr) {
     const vocabId = makeVocabId(g.french);
     const exprId = makeExpressionId(g.french);
-    const isExpr = g.is_expression || g.french.split(/\s+/).length >= 2 || g.french.startsWith("se ") || g.french.startsWith("s’");
+    const isExpr = Boolean(g.is_expression);
     const enList = Array.isArray(g.english) ? g.english : [g.english || g.french];
 
     const attestation = {
@@ -249,6 +250,7 @@ export function reconcileGlobal(): SuperDatasetRoot {
           study: { learning_priority: 3, usefulness: 3, difficulty: 2 },
           usage: { register: "neutral", spoken_written: "both", contexts: [] },
           frequency: { book_occurrences: 1 },
+          origin: { source_type: "book", created_by: "extraction", derived_from_ids: [] },
           attestations: [attestation],
           tags: ["glossary", "backmatter", "en_fr_glossary"],
         });
@@ -278,6 +280,7 @@ export function reconcileGlobal(): SuperDatasetRoot {
       spelling_change_notes: [],
       irregularity_notes: [],
       example_ids: [],
+      origin: { source_type: "book", created_by: "extraction", derived_from_ids: [] },
       attestations: [{ source_type: "book", page_printed: vt.page_printed, context_type: "verb_table" }],
       editorial: { extraction_confidence: "high", verification_status: "machine_checked" },
     });
@@ -351,11 +354,21 @@ export function reconcileGlobal(): SuperDatasetRoot {
   let vocabulary = canonicalizeVocabulary(rawVocabulary);
   let expressions = canonicalizeExpressions(rawExpressions);
 
-  // Canonicalize conjugations (deduplicate by id)
+  // Canonicalize conjugations (deduplicate by id and merge attestations/origin)
   const conjugationsMap = new Map<string, any>();
   for (const conj of rawConjugations) {
     if (!conjugationsMap.has(conj.id)) {
-      conjugationsMap.set(conj.id, conj);
+      conjugationsMap.set(conj.id, { ...conj });
+    } else {
+      const existing = conjugationsMap.get(conj.id)!;
+      const mergedAtts = mergeAttestations(existing.attestations || [], conj.attestations || []);
+      existing.attestations = mergedAtts;
+      if (mergedAtts.some((a: any) => a.source_type === "book")) {
+        existing.origin = { source_type: "book", created_by: "extraction", derived_from_ids: [] };
+      } else if (!existing.origin || existing.origin.source_type !== "book") {
+        existing.origin = conj.origin || { source_type: "derived_from_book", created_by: "rule_expansion", derived_from_ids: [conj.verb_id] };
+      }
+      conjugationsMap.set(conj.id, existing);
     }
   }
   let conjugations = Array.from(conjugationsMap.values());

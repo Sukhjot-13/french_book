@@ -2181,6 +2181,20 @@ export function buildEnrichedConjugations(): { verbs: Verb[]; conjugations: Conj
 
       const isCompound = tenseId.includes("compose") || tenseId.includes("plus_que_parfait") || tenseId.includes("conditionnel_passe") || tenseId.includes("subjonctif_passe") || tenseId.includes("anterieur");
 
+      const isExplicitlyPrinted = (() => {
+        if (spec.page_printed === 236 || spec.page_printed === 237) {
+          return true; // Model verbs on pp. 236-238 have full tables
+        }
+        if (spec.page_printed === 238) {
+          return tenseId === "tense_present_indicative" || tenseId === "tense_imparfait";
+        }
+        if (spec.page_printed === 239) {
+          return tenseId === "tense_present_indicative";
+        }
+        // Chapter basic tables
+        return tenseId === "tense_present_indicative";
+      })();
+
       conjugations.push({
         id: conjId,
         type: "conjugation",
@@ -2193,14 +2207,19 @@ export function buildEnrichedConjugations(): { verbs: Verb[]; conjugations: Conj
         spelling_change_notes: tData.spelling_notes || [],
         irregularity_notes: tData.irregularity_notes || (spec.regularity === "irregular" ? ["Irregular verb paradigm from source book verb tables."] : []),
         example_ids: [],
-        attestations: [
-          {
-            source_type: "book",
-            chapter_number: spec.chapter_number || 1,
-            page_printed: spec.page_printed || 236,
-            context_type: "conjugation_table",
-          },
-        ],
+        origin: isExplicitlyPrinted
+          ? { source_type: "book", created_by: "extraction", derived_from_ids: [] }
+          : { source_type: "derived_from_book", created_by: "rule_expansion", derived_from_ids: [verbId] },
+        attestations: isExplicitlyPrinted
+          ? [
+              {
+                source_type: "book",
+                chapter_number: spec.chapter_number || (spec.page_printed && spec.page_printed >= 236 ? null : 1),
+                page_printed: spec.page_printed || 236,
+                context_type: spec.page_printed && spec.page_printed >= 236 ? "verb_table" : "conjugation_table",
+              },
+            ]
+          : [],
         editorial: {
           extraction_confidence: "high",
           verification_status: "machine_checked",
@@ -2239,12 +2258,13 @@ export function buildEnrichedConjugations(): { verbs: Verb[]; conjugations: Conj
       study: { learning_priority: 5, usefulness: 5, difficulty: spec.regularity === "regular" ? 2 : 3 },
       usage: { register: "neutral", spoken_written: "both", contexts: [] },
       frequency: { book_occurrences: 10 },
+      origin: { source_type: "book", created_by: "extraction", derived_from_ids: [] },
       attestations: [
         {
           source_type: "book",
-          chapter_number: spec.chapter_number || 1,
+          chapter_number: spec.chapter_number || (spec.page_printed && spec.page_printed >= 236 ? null : 1),
           page_printed: spec.page_printed || 236,
-          context_type: "conjugation_table",
+          context_type: spec.page_printed && spec.page_printed >= 236 ? "verb_table" : "conjugation_table",
         },
       ],
       tags: ["paradigm_model", "source_verb_table"],

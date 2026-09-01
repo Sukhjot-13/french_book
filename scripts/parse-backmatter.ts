@@ -148,8 +148,10 @@ export function parseVerbTables(pages: RawPage[]): ParsedVerbTableForm[] {
       // Check if line contains verb row: e.g. "regarder regarde regardes regarde regardons regardez regardent"
       const tokens = line.split(/\s+/);
       if (tokens.length >= 7) {
-        const inf = tokens[0];
-        if (inf.endsWith("er") || inf.endsWith("ir") || inf.endsWith("re") || inf === "aller" || inf === "avoir" || inf === "être" || inf === "faire") {
+        let inf = tokens[0].replace(/^\(s’\)|^\(se\)/, "").trim();
+        if (inf.startsWith("(") && inf.endsWith(")")) inf = inf.slice(1, -1);
+        const isExcluded = /^(?:There|Other|Here|Indicative|Verbs|Subjunctive|Compound|Copyright|Simple|Verb|Note|French)/i.test(inf);
+        if (!isExcluded && (inf.endsWith("er") || inf.endsWith("ir") || inf.endsWith("re") || inf === "aller" || inf === "avoir" || inf === "être" || inf === "faire" || inf === "asseoir")) {
           const verbId = makeVerbId(inf);
           const forms: Record<string, string> = {
             je: tokens[1],

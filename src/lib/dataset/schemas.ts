@@ -477,6 +477,7 @@ export const VerbSchema = z.object({
   study: StudyMetadataSchema.default({ learning_priority: 3, usefulness: 3, difficulty: 2 }),
   usage: UsageMetadataSchema.default({ register: "neutral", spoken_written: "both", contexts: [] }),
   frequency: FrequencySchema.default({ book_occurrences: 0 }),
+  origin: OriginMetadataSchema.default({ source_type: "book", created_by: "extraction", derived_from_ids: [] }).optional(),
   attestations: z.array(AttestationSchema).default([]),
   tags: z.array(z.string()).default([]),
 });
@@ -500,6 +501,7 @@ export const ConjugationSchema = z.object({
   spelling_change_notes: z.array(z.string()).default([]),
   irregularity_notes: z.array(z.string()).default([]),
   example_ids: z.array(z.string()).default([]),
+  origin: OriginMetadataSchema.default({ source_type: "book", created_by: "extraction", derived_from_ids: [] }).optional(),
   attestations: z.array(AttestationSchema).default([]),
   editorial: EditorialMetadataSchema.default({ extraction_confidence: "high", verification_status: "machine_checked" }),
 });
@@ -545,7 +547,7 @@ export const ExpressionSchema = z.object({
   study: StudyMetadataSchema.default({ learning_priority: 3, usefulness: 3, difficulty: 2 }),
   usage: UsageMetadataSchema.default({ register: "neutral", spoken_written: "both", contexts: [] }),
   frequency: FrequencySchema.default({ book_occurrences: 0 }),
-  origin: OriginMetadataSchema.default({ source_type: "book", created_by: "extraction", derived_from_ids: [] }),
+  origin: OriginMetadataSchema.default({ source_type: "book", created_by: "extraction", derived_from_ids: [] }).optional(),
   attestations: z.array(AttestationSchema).default([]),
   relations: RelationsSchema.default({}),
   tags: z.array(z.string()).default([]),
@@ -573,6 +575,7 @@ export const VocabularySchema = z.object({
   study: StudyMetadataSchema.default({ learning_priority: 3, usefulness: 3, difficulty: 2 }),
   usage: UsageMetadataSchema.default({ register: "neutral", spoken_written: "both", contexts: [] }),
   frequency: FrequencySchema.default({ book_occurrences: 0 }),
+  origin: OriginMetadataSchema.default({ source_type: "book", created_by: "extraction", derived_from_ids: [] }).optional(),
   attestations: z.array(AttestationSchema).default([]),
   tags: z.array(z.string()).default([]),
 });

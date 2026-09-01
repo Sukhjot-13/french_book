@@ -318,24 +318,59 @@ export const KNOWN_GLOSSARY_EXPRESSIONS: Record<string, string> = {
   "week-end": "weekend",
 };
 
+export function cleanLigatures(text: string): string {
+  return text
+    .replace(/\bfi\s+lm\b/gi, "film")
+    .replace(/\bfi\s+l\b/gi, "fil")
+    .replace(/\bcoff\s+ee\b/gi, "coffee")
+    .replace(/\bcoiff\s+ure\b/gi, "coiffure")
+    .replace(/\bsouff\s+rir\b/gi, "souffrir")
+    .replace(/\bsoft\s+ware\b/gi, "software")
+    .replace(/\boff\s+ice\b/gi, "office");
+}
+
+export function isInstructionalOrHeader(line: string): boolean {
+  const t = line.trim();
+  if (/^\d+$/.test(t)) return true;
+  if (/^[A-Z]$/.test(t)) return true;
+  if (/^(?:French|English)-French glossary/i.test(t)) return true;
+  if (/glossary\s+\d+/i.test(t) || /\d+\s+glossary/i.test(t)) return true;
+  if (/Regular adjectives in French are listed/i.test(t)) return true;
+  if (/Copyright ©/i.test(t)) return true;
+  return false;
+}
+
+export function normalizeEnglishInfinitive(en: string): string {
+  let s = en.trim();
+  if (/, to be$/i.test(s)) {
+    return "to be " + s.replace(/, to be$/i, "").trim();
+  }
+  if (/, to be\s*\(([^)]+)\)$/i.test(s)) {
+    const m = s.match(/^(.*?),\s*to be\s*\(([^)]+)\)$/i);
+    if (m) return `to be ${m[1].trim()} (${m[2].trim()})`;
+  }
+  if (/, to\s*\(([^)]+)\)$/i.test(s)) {
+    const m = s.match(/^(.*?),\s*to\s*\(([^)]+)\)$/i);
+    if (m) return `to ${m[1].trim()} (${m[2].trim()})`;
+  }
+  if (/, to$/i.test(s)) {
+    return "to " + s.replace(/, to$/i, "").trim();
+  }
+  return s;
+}
+
 export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry[] {
   // Printed 240-249 (PDF 254-263)
   const gPages = pages.filter((p) => (p.printed_page || 0) >= 240 && (p.printed_page || 0) <= 249);
   const entries: ParsedGlossaryEntry[] = [];
 
   for (const page of gPages) {
-    const rawLines = page.text.split("\n").map((l) => l.trim()).filter(Boolean);
+    const rawLines = cleanLigatures(page.text).split("\n").map((l) => l.trim()).filter(Boolean);
     let i = 0;
 
     while (i < rawLines.length) {
       let line = rawLines[i];
-      if (
-        /^\d+$/.test(line) ||
-        /^[A-Z]$/.test(line) ||
-        /^French-English glossary/i.test(line) ||
-        /French-English glossary\s+\d+/i.test(line) ||
-        /\d+\s+French-English glossary/i.test(line)
-      ) {
+      if (isInstructionalOrHeader(line)) {
         i++;
         continue;
       }
@@ -343,17 +378,11 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
       // Check continuation line
       if (i + 1 < rawLines.length) {
         const next = rawLines[i + 1];
-        const isNextHeader =
-          /^\d+$/.test(next) ||
-          /^[A-Z]$/.test(next) ||
-          /^French-English glossary/i.test(next) ||
-          next.includes("(m.)") ||
-          next.includes("(f.)") ||
-          next.includes("(m./f.)");
+        const isNextHeader = isInstructionalOrHeader(next);
 
         if (!isNextHeader) {
           if (
-            /\((?:m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.)\)$/.test(line) ||
+            /\((?:m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\.\/f\s*)\)$/.test(line) ||
             line.endsWith(" de") ||
             line.endsWith(" d'") ||
             line.endsWith(" à")
@@ -369,8 +398,8 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
       let en = "";
       let isExpression = false;
 
-      // Check for gender mark
-      const gMatch = line.match(/\((m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\.\s*or\s*f\.)\)/i);
+      // 1. Gender mark
+      const gMatch = line.match(/\((m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\.\s*or\s*f\.|m\.\/f\s*)\)/i);
       if (gMatch) {
         const gStr = gMatch[1].toLowerCase();
         if (gStr.startsWith("m./f") || gStr.startsWith("f./m") || gStr.includes("or")) {
@@ -384,15 +413,20 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
         const idx = line.indexOf(gMatch[0]);
         fr = line.slice(0, idx).trim();
         en = line.slice(idx + gMatch[0].length).trim();
+      } else if (line.match(/^([a-zA-ZÀ-ÿ\s’'\-]+?\s*\([^)]+\))\s+([a-zA-Z].*)$/)) {
+        // Parenthetical variant e.g. "beau (bel, belle) beautiful" or "jouer (à, de) to play" or "nouveau (nouvel, nouvelle) new"
+        const m = line.match(/^([a-zA-ZÀ-ÿ\s’'\-]+?\s*\([^)]+\))\s+([a-zA-Z].*)$/);
+        fr = m![1].trim();
+        en = m![2].trim();
       } else if (line.includes(" to ")) {
         const idx = line.indexOf(" to ");
         fr = line.slice(0, idx).trim();
         en = line.slice(idx + 1).trim();
       } else {
-        // Match against known expressions first
+        // Match against known expressions
         let foundKnown = false;
         for (const [kFr, kEn] of Object.entries(KNOWN_GLOSSARY_EXPRESSIONS)) {
-          if (line.toLowerCase().startsWith(kFr.toLowerCase())) {
+          if (line.toLowerCase().startsWith(kFr.toLowerCase() + " ") || line.toLowerCase() === kFr.toLowerCase()) {
             fr = line.slice(0, kFr.length).trim();
             en = line.slice(kFr.length).trim() || kEn;
             foundKnown = true;
@@ -407,10 +441,10 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
             fr = tokens[0];
             en = tokens[1];
           } else {
-            const match = line.match(/^([a-zA-ZÀ-ÿ’'\-,\s/()]+?)\s{1,3}([a-z].*)$/);
-            if (match) {
-              fr = match[1].trim();
-              en = match[2].trim();
+            const m = line.match(/^([a-zA-ZÀ-ÿ’'\-]+)\s+(.+)$/);
+            if (m) {
+              fr = m[1];
+              en = m[2];
             } else {
               fr = line;
               en = "";
@@ -429,20 +463,32 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
       en = en.trim().replace(/^[-·]\s*/, "");
 
       if (fr && fr.length >= 2) {
+        // Determine canonical headword if fr has parenthetical variants e.g. "beau (bel, belle)" -> canonical "beau"
+        let canonicalFr = fr;
+        if (/^[a-zA-ZÀ-ÿ’'\-]+\s*\([^)]+\)$/.test(fr) && !fr.startsWith("se ") && !fr.startsWith("s’")) {
+          canonicalFr = fr.replace(/\s*\([^)]+\)$/, "").trim();
+        }
+
         const englishList = en
           ? en
               .split(/,\s*/)
               .map((s) => s.trim())
               .filter(Boolean)
-          : [fr];
+          : [canonicalFr];
 
-        const id = makeVocabId(fr);
+        const isExpr = isExpression || (
+          !/^[a-zA-ZÀ-ÿ’'\-]+(?:\s*\([^)]+\))?$/.test(fr) &&
+          (canonicalFr.split(/\s+/).length >= 2 || canonicalFr.startsWith("se ") || canonicalFr.startsWith("s’")) &&
+          !canonicalFr.includes(",")
+        );
+
+        const id = isExpr ? makeExpressionId(canonicalFr) : makeVocabId(canonicalFr);
         entries.push({
           id,
-          french: fr,
+          french: canonicalFr,
           english: englishList,
           gender,
-          is_expression: isExpression || fr.split(/\s+/).length >= 2 || fr.startsWith("se ") || fr.startsWith("s’"),
+          is_expression: isExpr,
           page_printed: page.printed_page || 240,
           page_pdf: page.pdf_page,
         });
@@ -458,21 +504,52 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
 export function parseGlossaryEnFrEnhanced(pages: RawPage[]): ParsedGlossaryEntry[] {
   // Printed 250-259 (PDF 264-273)
   const gPages = pages.filter((p) => (p.printed_page || 0) >= 250 && (p.printed_page || 0) <= 259);
+  const frPages = pages.filter((p) => (p.printed_page || 0) >= 240 && (p.printed_page || 0) <= 249);
+
+  // Build dictionary of known French terms from Fr-En pages & expressions
+  const knownFrenchTerms = new Set<string>();
+  const knownFrenchMultiwords: string[] = [];
+
+  for (const [kFr] of Object.entries(KNOWN_GLOSSARY_EXPRESSIONS)) {
+    knownFrenchTerms.add(kFr.toLowerCase());
+    if (kFr.includes(" ")) knownFrenchMultiwords.push(kFr.toLowerCase());
+  }
+
+  for (const p of frPages) {
+    const lines = cleanLigatures(p.text).split("\n").map((l) => l.trim()).filter(Boolean);
+    for (const l of lines) {
+      if (isInstructionalOrHeader(l)) continue;
+      const gMatch = l.match(/\((?:m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\.\s*or\s*f\.|m\.\/f\s*)\)/i);
+      let frPart = "";
+      if (gMatch) {
+        frPart = l.slice(0, gMatch.index).trim();
+      } else if (l.match(/^([a-zA-ZÀ-ÿ\s’'\-]+?\s*\([^)]+\))\s+([a-zA-Z].*)$/)) {
+        const m = l.match(/^([a-zA-ZÀ-ÿ\s’'\-]+?\s*\([^)]+\))\s+([a-zA-Z].*)$/);
+        frPart = m![1].trim();
+      } else if (l.includes(" to ")) {
+        frPart = l.slice(0, l.indexOf(" to ")).trim();
+      } else {
+        frPart = l.split(/\s+/)[0];
+      }
+      const clean = frPart.toLowerCase().replace(/\([^)]+\)/g, "").trim();
+      if (clean) {
+        knownFrenchTerms.add(clean);
+        if (clean.includes(" ")) knownFrenchMultiwords.push(clean);
+      }
+    }
+  }
+
+  knownFrenchMultiwords.sort((a, b) => b.length - a.length);
+
   const entries: ParsedGlossaryEntry[] = [];
 
   for (const page of gPages) {
-    const rawLines = page.text.split("\n").map((l) => l.trim()).filter(Boolean);
+    const rawLines = cleanLigatures(page.text).split("\n").map((l) => l.trim()).filter(Boolean);
     let i = 0;
 
     while (i < rawLines.length) {
       let line = rawLines[i];
-      if (
-        /^\d+$/.test(line) ||
-        /^[A-Z]$/.test(line) ||
-        /^English-French glossary/i.test(line) ||
-        /English-French glossary\s+\d+/i.test(line) ||
-        /\d+\s+English-French glossary/i.test(line)
-      ) {
+      if (isInstructionalOrHeader(line)) {
         i++;
         continue;
       }
@@ -480,14 +557,7 @@ export function parseGlossaryEnFrEnhanced(pages: RawPage[]): ParsedGlossaryEntry
       // Check continuation line
       if (i + 1 < rawLines.length) {
         const next = rawLines[i + 1];
-        const isNextHeader =
-          /^\d+$/.test(next) ||
-          /^[A-Z]$/.test(next) ||
-          /^English-French glossary/i.test(next) ||
-          next.includes("(m.)") ||
-          next.includes("(f.)") ||
-          next.includes("(m./f.)") ||
-          next.includes(", to");
+        const isNextHeader = isInstructionalOrHeader(next);
 
         if (!isNextHeader && (line.endsWith(",") || line.endsWith("(") || line.endsWith("to") || next.startsWith("(") || next.startsWith("d’") || next.startsWith("de "))) {
           line = line + " " + next;
@@ -501,13 +571,13 @@ export function parseGlossaryEnFrEnhanced(pages: RawPage[]): ParsedGlossaryEntry
       let isExpression = false;
 
       // 1. Verb pattern: "verb, to [infinitive]" or "verb, to be [infinitive]"
-      const vMatch = line.match(/^(.+?,\s*to(?:\s+be|\s+\([^)]+\))?)\s+([a-zA-ZÀ-ÿ\s’'\-\(\)\.,\/]+)$/);
-      if (vMatch) {
+      const vMatch = line.match(/^(.*?(?:,\s*to\s+be\b|,\s*to\s*\([^)]+\)|,\s*to\b|\bto\s+be\b|\bto\b).*?)\s+([a-zA-ZÀ-ÿ’'\-,\s/()]+)$/);
+      if (vMatch && (vMatch[1].includes(", to") || vMatch[1].endsWith(" to") || vMatch[1].startsWith("to "))) {
         enRaw = vMatch[1].trim();
         frRaw = vMatch[2].trim();
       } else {
         // 2. Gender tagged noun: "... (m.)", "... (f.)", "... (m./f.)", etc.
-        const gMatch = line.match(/\((m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\.\s*or\s*f\.)\)$/i);
+        const gMatch = line.match(/\((m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\.\s*or\s*f\.|m\.\/f\s*)\)$/i);
         if (gMatch) {
           const gStr = gMatch[1].toLowerCase();
           if (gStr.startsWith("m./f") || gStr.startsWith("f./m") || gStr.includes("or")) {
@@ -519,52 +589,75 @@ export function parseGlossaryEnFrEnhanced(pages: RawPage[]): ParsedGlossaryEntry
           }
 
           const before = line.slice(0, gMatch.index).trim();
-          
-          // Split english and french from before
-          // Check known compounds
-          let foundKnown = false;
-          for (const [kFr, kEn] of Object.entries(KNOWN_GLOSSARY_EXPRESSIONS)) {
-            if (before.toLowerCase().endsWith(kFr.toLowerCase())) {
-              frRaw = kFr;
-              enRaw = before.slice(0, before.length - kFr.length).trim() || kEn;
-              foundKnown = true;
+
+          // Check known multiwords
+          let matchedMulti = false;
+          for (const mw of knownFrenchMultiwords) {
+            if (before.toLowerCase().endsWith(" " + mw) || before.toLowerCase() === mw) {
+              frRaw = before.slice(before.length - mw.length).trim();
+              enRaw = before.slice(0, before.length - mw.length).trim();
+              matchedMulti = true;
               break;
             }
           }
 
-          if (!foundKnown) {
-            // General split: comma in english term vs french term
-            const tokens = before.split(/\s+/);
-            if (tokens.length === 2) {
-              enRaw = tokens[0];
-              frRaw = tokens[1];
+          if (!matchedMulti) {
+            // Check if before has English parens like `word (...) french`:
+            // e.g. "star (film) vedette", "craftsman (-woman) artisan(e)", "fine (penalty) amende", "pounds (English currency, weight) livres"
+            const parenMatch = before.match(/^(.*?\([^)]+\))\s+([a-zA-ZÀ-ÿ’'\-,\s/()]+)$/);
+            if (parenMatch && (parenMatch[1].includes("-woman") || !parenMatch[2].includes("(") || parenMatch[2].includes("artisan("))) {
+              enRaw = parenMatch[1].trim();
+              frRaw = parenMatch[2].trim();
             } else if (before.includes(", ")) {
-              // e.g. "actor, actress acteur, actrice" or "access, high-speed accès haut-débit"
-              const commaIdx = before.lastIndexOf(", ");
-              const secondHalf = before.slice(commaIdx + 2).trim();
-              const secondTokens = secondHalf.split(/\s+/);
-              if (secondTokens.length >= 2) {
-                // e.g. "high-speed accès haut-débit" -> english is "access, high-speed", french is "accès haut-débit"
-                enRaw = before.slice(0, commaIdx + 2) + secondTokens[0];
-                frRaw = secondTokens.slice(1).join(" ");
+              const tokens = before.split(/\s+/);
+              let splitIdx = -1;
+              for (let t = 1; t < tokens.length; t++) {
+                const firstWord = tokens[t].toLowerCase().replace(/,/g, "");
+                if (knownFrenchTerms.has(firstWord)) {
+                  splitIdx = t;
+                  break;
+                }
+              }
+              if (splitIdx !== -1) {
+                enRaw = tokens.slice(0, splitIdx).join(" ");
+                frRaw = tokens.slice(splitIdx).join(" ");
               } else {
-                enRaw = before.slice(0, commaIdx).trim();
-                frRaw = secondHalf;
+                const half = Math.floor(tokens.length / 2);
+                enRaw = tokens.slice(0, half).join(" ");
+                frRaw = tokens.slice(half).join(" ");
               }
             } else {
-              // Split roughly in half or at transition to french word
-              const half = Math.floor(tokens.length / 2);
-              enRaw = tokens.slice(0, half).join(" ");
-              frRaw = tokens.slice(half).join(" ");
+              const tokens = before.split(/\s+/);
+              if (tokens.length === 2) {
+                enRaw = tokens[0];
+                frRaw = tokens[1];
+              } else {
+                let splitIdx = -1;
+                for (let t = 1; t < tokens.length; t++) {
+                  const firstWord = tokens[t].toLowerCase().replace(/,/g, "");
+                  if (knownFrenchTerms.has(firstWord)) {
+                    splitIdx = t;
+                    break;
+                  }
+                }
+                if (splitIdx !== -1) {
+                  enRaw = tokens.slice(0, splitIdx).join(" ");
+                  frRaw = tokens.slice(splitIdx).join(" ");
+                } else {
+                  const half = Math.floor(tokens.length / 2);
+                  enRaw = tokens.slice(0, half).join(" ");
+                  frRaw = tokens.slice(half).join(" ");
+                }
+              }
             }
           }
         } else {
           // 3. Other expressions / adjectives / adverbs
           let foundKnown = false;
-          for (const [kFr, kEn] of Object.entries(KNOWN_GLOSSARY_EXPRESSIONS)) {
-            if (line.toLowerCase().endsWith(kFr.toLowerCase())) {
-              frRaw = kFr;
-              enRaw = line.slice(0, line.length - kFr.length).trim() || kEn;
+          for (const mw of knownFrenchMultiwords) {
+            if (line.toLowerCase().endsWith(" " + mw) || line.toLowerCase() === mw) {
+              frRaw = line.slice(line.length - mw.length).trim();
+              enRaw = line.slice(0, line.length - mw.length).trim();
               foundKnown = true;
               isExpression = true;
               break;
@@ -577,9 +670,22 @@ export function parseGlossaryEnFrEnhanced(pages: RawPage[]): ParsedGlossaryEntry
               enRaw = tokens[0];
               frRaw = tokens[1];
             } else {
-              const half = Math.floor(tokens.length / 2);
-              enRaw = tokens.slice(0, half).join(" ");
-              frRaw = tokens.slice(half).join(" ");
+              let splitIdx = -1;
+              for (let t = 1; t < tokens.length; t++) {
+                const word = tokens[t].toLowerCase().replace(/,/g, "");
+                if (knownFrenchTerms.has(word)) {
+                  splitIdx = t;
+                  break;
+                }
+              }
+              if (splitIdx !== -1) {
+                enRaw = tokens.slice(0, splitIdx).join(" ");
+                frRaw = tokens.slice(splitIdx).join(" ");
+              } else {
+                const half = Math.floor(tokens.length / 2);
+                enRaw = tokens.slice(0, half).join(" ");
+                frRaw = tokens.slice(half).join(" ");
+              }
             }
           }
         }
@@ -593,27 +699,33 @@ export function parseGlossaryEnFrEnhanced(pages: RawPage[]): ParsedGlossaryEntry
         cleanFr = "se " + cleanFr.replace(/\(se\)/g, "").trim();
       }
 
-      // Clean English term
+      // Clean English term & normalize infinitive
       let cleanEn = enRaw.trim().replace(/^[-·]\s*/, "");
-      let enDisplay = cleanEn;
-      if (cleanEn.endsWith(", to")) {
-        enDisplay = "to " + cleanEn.slice(0, -4).trim();
-      } else if (cleanEn.endsWith(", to be")) {
-        enDisplay = "to be " + cleanEn.slice(0, -7).trim();
-      }
+      let enDisplay = normalizeEnglishInfinitive(cleanEn);
 
       if (cleanFr && cleanFr.length >= 2) {
-        const enList = [enDisplay];
-        if (cleanEn !== enDisplay) {
-          enList.push(cleanEn);
+        // Determine canonical headword if fr is comma list of adjectives/gender variants like "beau, bel, belle" -> canonical "beau"
+        let canonicalFr = cleanFr;
+        if (cleanFr.includes(", ")) {
+          const parts = cleanFr.split(", ");
+          // If parts are variants of same word (e.g. "beau, bel, belle" or "acteur, actrice" or "créatif, créative" or "meurtrier, meurtrière")
+          if (parts.length >= 2 && !cleanFr.startsWith("se ") && !cleanFr.startsWith("s’")) {
+            canonicalFr = parts[0].trim();
+          }
         }
 
-        const isExpr = isExpression || cleanFr.split(/\s+/).length >= 2 || cleanFr.startsWith("se ") || cleanFr.startsWith("s’");
-        const id = isExpr ? makeExpressionId(cleanFr) : makeVocabId(cleanFr);
+        const enList = [enDisplay];
+
+        const isExpr = isExpression || (
+          canonicalFr.split(/\s+/).length >= 2 &&
+          (canonicalFr.startsWith("se ") || canonicalFr.startsWith("s’") || KNOWN_GLOSSARY_EXPRESSIONS[canonicalFr] !== undefined)
+        );
+
+        const id = isExpr ? makeExpressionId(canonicalFr) : makeVocabId(canonicalFr);
 
         entries.push({
           id,
-          french: cleanFr,
+          french: canonicalFr,
           english: enList,
           english_raw: cleanEn,
           gender,
