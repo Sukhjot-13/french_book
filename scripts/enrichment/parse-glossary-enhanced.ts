@@ -8,6 +8,7 @@ export interface ParsedGlossaryEntry {
   id: string;
   french: string;
   english: string[];
+  english_raw?: string;
   gender?: "masculine" | "feminine" | "common" | null;
   part_of_speech?: string;
   is_expression?: boolean;
@@ -16,7 +17,7 @@ export interface ParsedGlossaryEntry {
 }
 
 // Well-known French multi-word expressions in the glossary
-const KNOWN_GLOSSARY_EXPRESSIONS: Record<string, string> = {
+export const KNOWN_GLOSSARY_EXPRESSIONS: Record<string, string> = {
   "à carreaux": "checked",
   "à fleurs": "flowered",
   "à la campagne": "in the country",
@@ -351,7 +352,6 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
           next.includes("(m./f.)");
 
         if (!isNextHeader) {
-          // If current line ends with a parenthetical or has no obvious english
           if (
             /\((?:m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.)\)$/.test(line) ||
             line.endsWith(" de") ||
@@ -370,7 +370,7 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
       let isExpression = false;
 
       // Check for gender mark
-      const gMatch = line.match(/\((m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\. or f\.)\)/i);
+      const gMatch = line.match(/\((m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\.\s*or\s*f\.)\)/i);
       if (gMatch) {
         const gStr = gMatch[1].toLowerCase();
         if (gStr.startsWith("m./f") || gStr.startsWith("f./m") || gStr.includes("or")) {
@@ -402,14 +402,11 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
         }
 
         if (!foundKnown) {
-          // General split on transition
-          // e.g. "accès haut-débit high-speed access" or "acide sour, acid"
           const tokens = line.split(/\s+/);
           if (tokens.length === 2) {
             fr = tokens[0];
             en = tokens[1];
           } else {
-            // Check if there are English words
             const match = line.match(/^([a-zA-ZÀ-ÿ’'\-,\s/()]+?)\s{1,3}([a-z].*)$/);
             if (match) {
               fr = match[1].trim();
@@ -422,7 +419,6 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
         }
       }
 
-      // Clean reflexive verbs e.g. "abonner à (s’)" -> "s’abonner à"
       if (fr.includes("(s’)") || fr.includes("(s')")) {
         fr = "s’" + fr.replace(/\(s[’']\)/g, "").trim();
       } else if (fr.includes("(se)")) {
@@ -448,6 +444,181 @@ export function parseGlossaryFrEnEnhanced(pages: RawPage[]): ParsedGlossaryEntry
           gender,
           is_expression: isExpression || fr.split(/\s+/).length >= 2 || fr.startsWith("se ") || fr.startsWith("s’"),
           page_printed: page.printed_page || 240,
+          page_pdf: page.pdf_page,
+        });
+      }
+
+      i++;
+    }
+  }
+
+  return entries;
+}
+
+export function parseGlossaryEnFrEnhanced(pages: RawPage[]): ParsedGlossaryEntry[] {
+  // Printed 250-259 (PDF 264-273)
+  const gPages = pages.filter((p) => (p.printed_page || 0) >= 250 && (p.printed_page || 0) <= 259);
+  const entries: ParsedGlossaryEntry[] = [];
+
+  for (const page of gPages) {
+    const rawLines = page.text.split("\n").map((l) => l.trim()).filter(Boolean);
+    let i = 0;
+
+    while (i < rawLines.length) {
+      let line = rawLines[i];
+      if (
+        /^\d+$/.test(line) ||
+        /^[A-Z]$/.test(line) ||
+        /^English-French glossary/i.test(line) ||
+        /English-French glossary\s+\d+/i.test(line) ||
+        /\d+\s+English-French glossary/i.test(line)
+      ) {
+        i++;
+        continue;
+      }
+
+      // Check continuation line
+      if (i + 1 < rawLines.length) {
+        const next = rawLines[i + 1];
+        const isNextHeader =
+          /^\d+$/.test(next) ||
+          /^[A-Z]$/.test(next) ||
+          /^English-French glossary/i.test(next) ||
+          next.includes("(m.)") ||
+          next.includes("(f.)") ||
+          next.includes("(m./f.)") ||
+          next.includes(", to");
+
+        if (!isNextHeader && (line.endsWith(",") || line.endsWith("(") || line.endsWith("to") || next.startsWith("(") || next.startsWith("d’") || next.startsWith("de "))) {
+          line = line + " " + next;
+          i++;
+        }
+      }
+
+      let gender: "masculine" | "feminine" | "common" | null = null;
+      let enRaw = "";
+      let frRaw = "";
+      let isExpression = false;
+
+      // 1. Verb pattern: "verb, to [infinitive]" or "verb, to be [infinitive]"
+      const vMatch = line.match(/^(.+?,\s*to(?:\s+be|\s+\([^)]+\))?)\s+([a-zA-ZÀ-ÿ\s’'\-\(\)\.,\/]+)$/);
+      if (vMatch) {
+        enRaw = vMatch[1].trim();
+        frRaw = vMatch[2].trim();
+      } else {
+        // 2. Gender tagged noun: "... (m.)", "... (f.)", "... (m./f.)", etc.
+        const gMatch = line.match(/\((m\.|f\.|m\.\/f\.|f\.\/m\.|f\.pl\.|m\.pl\.|pl\.|m\.\s*or\s*f\.)\)$/i);
+        if (gMatch) {
+          const gStr = gMatch[1].toLowerCase();
+          if (gStr.startsWith("m./f") || gStr.startsWith("f./m") || gStr.includes("or")) {
+            gender = "common";
+          } else if (gStr.startsWith("m")) {
+            gender = "masculine";
+          } else if (gStr.startsWith("f")) {
+            gender = "feminine";
+          }
+
+          const before = line.slice(0, gMatch.index).trim();
+          
+          // Split english and french from before
+          // Check known compounds
+          let foundKnown = false;
+          for (const [kFr, kEn] of Object.entries(KNOWN_GLOSSARY_EXPRESSIONS)) {
+            if (before.toLowerCase().endsWith(kFr.toLowerCase())) {
+              frRaw = kFr;
+              enRaw = before.slice(0, before.length - kFr.length).trim() || kEn;
+              foundKnown = true;
+              break;
+            }
+          }
+
+          if (!foundKnown) {
+            // General split: comma in english term vs french term
+            const tokens = before.split(/\s+/);
+            if (tokens.length === 2) {
+              enRaw = tokens[0];
+              frRaw = tokens[1];
+            } else if (before.includes(", ")) {
+              // e.g. "actor, actress acteur, actrice" or "access, high-speed accès haut-débit"
+              const commaIdx = before.lastIndexOf(", ");
+              const secondHalf = before.slice(commaIdx + 2).trim();
+              const secondTokens = secondHalf.split(/\s+/);
+              if (secondTokens.length >= 2) {
+                // e.g. "high-speed accès haut-débit" -> english is "access, high-speed", french is "accès haut-débit"
+                enRaw = before.slice(0, commaIdx + 2) + secondTokens[0];
+                frRaw = secondTokens.slice(1).join(" ");
+              } else {
+                enRaw = before.slice(0, commaIdx).trim();
+                frRaw = secondHalf;
+              }
+            } else {
+              // Split roughly in half or at transition to french word
+              const half = Math.floor(tokens.length / 2);
+              enRaw = tokens.slice(0, half).join(" ");
+              frRaw = tokens.slice(half).join(" ");
+            }
+          }
+        } else {
+          // 3. Other expressions / adjectives / adverbs
+          let foundKnown = false;
+          for (const [kFr, kEn] of Object.entries(KNOWN_GLOSSARY_EXPRESSIONS)) {
+            if (line.toLowerCase().endsWith(kFr.toLowerCase())) {
+              frRaw = kFr;
+              enRaw = line.slice(0, line.length - kFr.length).trim() || kEn;
+              foundKnown = true;
+              isExpression = true;
+              break;
+            }
+          }
+
+          if (!foundKnown) {
+            const tokens = line.split(/\s+/);
+            if (tokens.length === 2) {
+              enRaw = tokens[0];
+              frRaw = tokens[1];
+            } else {
+              const half = Math.floor(tokens.length / 2);
+              enRaw = tokens.slice(0, half).join(" ");
+              frRaw = tokens.slice(half).join(" ");
+            }
+          }
+        }
+      }
+
+      // Clean French term
+      let cleanFr = frRaw.trim().replace(/^[-·]\s*/, "");
+      if (cleanFr.includes("(s’)") || cleanFr.includes("(s')")) {
+        cleanFr = "s’" + cleanFr.replace(/\(s[’']\)/g, "").trim();
+      } else if (cleanFr.includes("(se)")) {
+        cleanFr = "se " + cleanFr.replace(/\(se\)/g, "").trim();
+      }
+
+      // Clean English term
+      let cleanEn = enRaw.trim().replace(/^[-·]\s*/, "");
+      let enDisplay = cleanEn;
+      if (cleanEn.endsWith(", to")) {
+        enDisplay = "to " + cleanEn.slice(0, -4).trim();
+      } else if (cleanEn.endsWith(", to be")) {
+        enDisplay = "to be " + cleanEn.slice(0, -7).trim();
+      }
+
+      if (cleanFr && cleanFr.length >= 2) {
+        const enList = [enDisplay];
+        if (cleanEn !== enDisplay) {
+          enList.push(cleanEn);
+        }
+
+        const isExpr = isExpression || cleanFr.split(/\s+/).length >= 2 || cleanFr.startsWith("se ") || cleanFr.startsWith("s’");
+        const id = isExpr ? makeExpressionId(cleanFr) : makeVocabId(cleanFr);
+
+        entries.push({
+          id,
+          french: cleanFr,
+          english: enList,
+          english_raw: cleanEn,
+          gender,
+          is_expression: isExpr,
+          page_printed: page.printed_page || 250,
           page_pdf: page.pdf_page,
         });
       }

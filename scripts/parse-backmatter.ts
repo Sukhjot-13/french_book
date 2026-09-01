@@ -107,41 +107,11 @@ export function parseAnswerKey(pages: RawPage[]): ParsedAnswerKey {
   return result;
 }
 
-import { parseGlossaryFrEnEnhanced } from "./enrichment/parse-glossary-enhanced";
+import { parseGlossaryFrEnEnhanced, parseGlossaryEnFrEnhanced } from "./enrichment/parse-glossary-enhanced";
 import { buildEnrichedConjugations } from "./enrichment/parse-conjugations-enhanced";
 
-export { parseGlossaryFrEnEnhanced as parseGlossaryFrEn };
-
-export function parseGlossaryEnFr(pages: RawPage[]): Array<{ english: string; french: string; page_printed: number }> {
-  // Printed 250-259 (PDF 264-273)
-  const gPages = pages.filter((p) => (p.printed_page || 0) >= 250 && (p.printed_page || 0) <= 259);
-  const entries: Array<{ english: string; french: string; page_printed: number }> = [];
-
-  for (const page of gPages) {
-    const lines = page.text.split("\n");
-    for (const rawLine of lines) {
-      const line = rawLine.trim();
-      if (!line || line.length < 3) continue;
-      if (/^[A-Z]$/.test(line)) continue;
-      if (/^English-French glossary/i.test(line)) continue;
-      if (/^\d+$/i.test(line)) continue;
-
-      // e.g. "accept, to accepter"
-      // "access, high-speed accès haut-débit (m.)"
-      // "actor, actress acteur, actrice (m./f.)"
-      const match = line.match(/^([^,]+(?:,\s*[^,]+)*?)\s+([a-zA-ZÀ-ÿ\s’'-]+(?:\s*\([^)]+\))?)$/);
-      if (match) {
-        entries.push({
-          english: match[1].trim(),
-          french: match[2].trim(),
-          page_printed: page.printed_page || 250,
-        });
-      }
-    }
-  }
-
-  return entries;
-}
+export const parseGlossaryFrEn = parseGlossaryFrEnEnhanced;
+export const parseGlossaryEnFr = parseGlossaryEnFrEnhanced;
 
 export function parseVerbTables(pages: RawPage[]): ParsedVerbTableForm[] {
   // Printed 236-239 (PDF 250-253)

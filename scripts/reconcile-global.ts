@@ -50,68 +50,32 @@ export function reconcileGlobal(): SuperDatasetRoot {
   const glossaryFrEn: any[] = fs.existsSync(GLOSSARY_FR_EN_FILE)
     ? JSON.parse(fs.readFileSync(GLOSSARY_FR_EN_FILE, "utf-8"))
     : [];
+  const glossaryEnFr: any[] = fs.existsSync(GLOSSARY_EN_FR_FILE)
+    ? JSON.parse(fs.readFileSync(GLOSSARY_EN_FR_FILE, "utf-8"))
+    : [];
   const verbTables: ParsedVerbTableForm[] = fs.existsSync(VERB_TABLES_FILE)
     ? JSON.parse(fs.readFileSync(VERB_TABLES_FILE, "utf-8"))
     : [];
 
-  // 1. Convert glossary entries into canonical Vocabulary objects
-  const backmatterVocab: Vocabulary[] = glossaryFrEn.map((g) => ({
-    id: g.id || makeVocabId(g.french),
-    type: "vocabulary",
-    canonical_form: g.french,
-    display_form: g.french,
-    french: g.french,
-    english: Array.isArray(g.english) ? g.english : [g.english || g.french],
-    part_of_speech: "noun",
-    noun: {
-      gender: g.gender || null,
-      article: null,
-      plural: null,
-      countability: null,
-    },
-    adjective: null,
-    adverb: null,
-    senses: [
-      {
-        sense_id: `${g.id || makeVocabId(g.french)}_s1`,
-        english: Array.isArray(g.english) ? g.english : [g.english || g.french],
-        usage_contexts: [],
-        example_ids: [],
-      },
-    ],
-    semantic_domains: [],
-    word_family_ids: [],
-    collocation_expression_ids: [],
-    false_friend: false,
-    cognate: false,
-    study: { learning_priority: 3, usefulness: 3, difficulty: 2 },
-    usage: { register: "neutral", spoken_written: "both", contexts: [] },
-    frequency: { book_occurrences: 1 },
-    attestations: [
-      {
-        source_type: "book",
-        page_printed: g.page_printed,
-        page_pdf: g.page_pdf,
-        context_type: "glossary_fr_en",
-      },
-    ],
-    tags: ["glossary", "backmatter"],
-  }));
+  const vocabMap = new Map<string, Vocabulary>();
+  const exprMap = new Map<string, Expression>();
 
-  // Also convert multi-word glossary entries into Expression objects
-  const glossaryExpressions: Expression[] = glossaryFrEn
-    .filter((g) => g.is_expression)
-    .map((g) => {
-      const id = makeExpressionId(g.french);
-      return {
-        id,
+  // 1a. Convert Fr-En glossary entries into canonical Vocabulary & Expression objects
+  for (const g of glossaryFrEn) {
+    const vocabId = makeVocabId(g.french);
+    const exprId = makeExpressionId(g.french);
+    const isExpr = g.is_expression || g.french.split(/\s+/).length >= 2 || g.french.startsWith("se ") || g.french.startsWith("s’");
+
+    if (isExpr) {
+      exprMap.set(exprId, {
+        id: exprId,
         type: "expression",
         expression_type: g.french.startsWith("se ") || g.french.startsWith("s’") ? "verb_pattern" : "fixed_expression",
         canonical_form: g.french,
         display_form: g.french,
         english: Array.isArray(g.english) ? g.english : [g.english || g.french],
         base_verb_ids: [],
-        related_vocabulary_ids: [g.id || makeVocabId(g.french)],
+        related_vocabulary_ids: [],
         productive: false,
         collocation_strength: "common",
         pattern: null,
@@ -137,12 +101,163 @@ export function reconcileGlobal(): SuperDatasetRoot {
             context_type: "glossary_fr_en",
           },
         ],
-        relations: {
-          vocabulary: [g.id || makeVocabId(g.french)],
-        },
+        relations: {},
         tags: ["glossary", "expression"],
-      };
-    });
+      });
+    } else {
+      vocabMap.set(vocabId, {
+        id: vocabId,
+        type: "vocabulary",
+        canonical_form: g.french,
+        display_form: g.french,
+        french: g.french,
+        english: Array.isArray(g.english) ? g.english : [g.english || g.french],
+        part_of_speech: "noun",
+        noun: {
+          gender: g.gender || null,
+          article: null,
+          plural: null,
+          countability: null,
+        },
+        adjective: null,
+        adverb: null,
+        senses: [
+          {
+            sense_id: `${vocabId}_s1`,
+            english: Array.isArray(g.english) ? g.english : [g.english || g.french],
+            usage_contexts: [],
+            example_ids: [],
+          },
+        ],
+        semantic_domains: [],
+        word_family_ids: [],
+        collocation_expression_ids: [],
+        false_friend: false,
+        cognate: false,
+        study: { learning_priority: 3, usefulness: 3, difficulty: 2 },
+        usage: { register: "neutral", spoken_written: "both", contexts: [] },
+        frequency: { book_occurrences: 1 },
+        attestations: [
+          {
+            source_type: "book",
+            page_printed: g.page_printed,
+            page_pdf: g.page_pdf,
+            context_type: "glossary_fr_en",
+          },
+        ],
+        tags: ["glossary", "backmatter"],
+      });
+    }
+  }
+
+  // 1b. Ingest En-Fr glossary & reconcile with canonical entries
+  for (const g of glossaryEnFr) {
+    const vocabId = makeVocabId(g.french);
+    const exprId = makeExpressionId(g.french);
+    const isExpr = g.is_expression || g.french.split(/\s+/).length >= 2 || g.french.startsWith("se ") || g.french.startsWith("s’");
+    const enList = Array.isArray(g.english) ? g.english : [g.english || g.french];
+
+    const attestation = {
+      source_type: "book" as const,
+      page_printed: g.page_printed,
+      page_pdf: g.page_pdf,
+      context_type: "glossary_en_fr" as const,
+    };
+
+    if (isExpr) {
+      if (exprMap.has(exprId)) {
+        const existing = exprMap.get(exprId)!;
+        existing.english = Array.from(new Set([...existing.english, ...enList]));
+        existing.attestations.push(attestation);
+      } else {
+        exprMap.set(exprId, {
+          id: exprId,
+          type: "expression",
+          expression_type: g.french.startsWith("se ") || g.french.startsWith("s’") ? "verb_pattern" : "fixed_expression",
+          canonical_form: g.french,
+          display_form: g.french,
+          english: enList,
+          base_verb_ids: [],
+          related_vocabulary_ids: [],
+          productive: false,
+          collocation_strength: "common",
+          pattern: null,
+          pattern_slots: [],
+          complement_structure: null,
+          mood_governance: null,
+          transformations: [],
+          variants: [],
+          function_ids: [],
+          usage_notes: [],
+          restrictions: [],
+          common_mistakes: [],
+          example_ids: [],
+          study: { learning_priority: 3, usefulness: 4, difficulty: 2 },
+          usage: { register: "neutral", spoken_written: "both", contexts: [] },
+          frequency: { book_occurrences: 1 },
+          origin: { source_type: "book", created_by: "extraction", derived_from_ids: [] },
+          attestations: [attestation],
+          relations: {},
+          tags: ["glossary", "expression", "en_fr_glossary"],
+        });
+      }
+    } else {
+      if (vocabMap.has(vocabId)) {
+        const existing = vocabMap.get(vocabId)!;
+        existing.english = Array.from(new Set([...existing.english, ...enList]));
+        if (!existing.noun?.gender && g.gender) {
+          if (!existing.noun) {
+            existing.noun = { gender: g.gender, article: null, plural: null, countability: null };
+          } else {
+            existing.noun.gender = g.gender;
+          }
+        }
+        existing.attestations.push(attestation);
+        if (existing.senses && existing.senses.length > 0) {
+          existing.senses[0].english = Array.from(new Set([...existing.senses[0].english, ...enList]));
+        }
+      } else {
+        vocabMap.set(vocabId, {
+          id: vocabId,
+          type: "vocabulary",
+          canonical_form: g.french,
+          display_form: g.french,
+          french: g.french,
+          english: enList,
+          part_of_speech: "noun",
+          noun: {
+            gender: g.gender || null,
+            article: null,
+            plural: null,
+            countability: null,
+          },
+          adjective: null,
+          adverb: null,
+          senses: [
+            {
+              sense_id: `${vocabId}_s1`,
+              english: enList,
+              usage_contexts: [],
+              example_ids: [],
+            },
+          ],
+          semantic_domains: [],
+          word_family_ids: [],
+          collocation_expression_ids: [],
+          false_friend: false,
+          cognate: false,
+          study: { learning_priority: 3, usefulness: 3, difficulty: 2 },
+          usage: { register: "neutral", spoken_written: "both", contexts: [] },
+          frequency: { book_occurrences: 1 },
+          attestations: [attestation],
+          tags: ["glossary", "backmatter", "en_fr_glossary"],
+        });
+      }
+    }
+  }
+
+  const backmatterVocab: Vocabulary[] = Array.from(vocabMap.values());
+  const glossaryExpressions: Expression[] = Array.from(exprMap.values());
 
   // 2. Load enriched conjugations and backmatter verb tables
   const enrichedConjsData = buildEnrichedConjugations();
