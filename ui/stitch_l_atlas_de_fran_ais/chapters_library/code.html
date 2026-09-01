@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>L'Étude - Chapters</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;family=Source+Serif+4:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#1a1b1e",
+                      "on-tertiary-fixed-variant": "#6c391d",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#2d476f",
+                      "primary-fixed": "#d6e3ff",
+                      "surface-container": "#efedf1",
+                      "inverse-surface": "#2f3033",
+                      "on-tertiary-fixed": "#341100",
+                      "on-surface-variant": "#44474e",
+                      "primary": "#000a1e",
+                      "surface-dim": "#dad9dd",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "secondary-container": "#d5e0f8",
+                      "surface-container-highest": "#e3e2e6",
+                      "inverse-primary": "#aec7f6",
+                      "on-error": "#ffffff",
+                      "outline": "#74777f",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#bcc7de",
+                      "on-primary-container": "#708ab5",
+                      "outline-variant": "#c4c6cf",
+                      "surface": "#faf9fd",
+                      "inverse-on-surface": "#f1f0f4",
+                      "on-tertiary-container": "#b97958",
+                      "background": "#faf9fd",
+                      "tertiary-fixed-dim": "#ffb691",
+                      "on-surface": "#1a1b1e",
+                      "surface-container-low": "#f4f3f7",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#586377",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed": "#d8e3fb",
+                      "on-error-container": "#93000a",
+                      "surface-bright": "#faf9fd",
+                      "secondary": "#545f73",
+                      "primary-container": "#002147",
+                      "surface-variant": "#e3e2e6",
+                      "tertiary-fixed": "#ffdbcb",
+                      "tertiary-container": "#3d1500",
+                      "primary-fixed-dim": "#aec7f6",
+                      "surface-tint": "#465f88",
+                      "on-primary-fixed": "#001b3d",
+                      "on-secondary-fixed": "#111c2d",
+                      "surface-container-high": "#e9e7eb",
+                      "on-tertiary": "#ffffff",
+                      "tertiary": "#180500"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "unit": "4px",
+                      "container-max": "1280px",
+                      "margin-mobile": "16px",
+                      "sidebar-width": "280px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "mono-ui": [
+                              "jetbrainsMono"
+                      ],
+                      "label-caps": [
+                              "Hanken Grotesk"
+                      ],
+                      "example-text": [
+                              "\"Source Serif 4\""
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "display-lg": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "mono-ui": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "450"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "example-text": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar (Hidden on Mobile, Visible on md+) -->
+<nav class="hidden md:flex flex-col py-margin-desktop px-4 w-sidebar-width h-screen sticky top-0 left-0 bg-surface-container-low border-r border-outline-variant transition-colors duration-150 shrink-0">
+<div class="mb-8 px-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">L'Étude</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">French Revision Portal</p>
+</div>
+</div>
+<ul class="flex flex-col gap-1 w-full flex-grow overflow-y-auto">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span>Home</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span>Chapters</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+<span>Grammar</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="history_toggle_off">history_toggle_off</span>
+<span>Tenses</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="translate">translate</span>
+<span>Verbs</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+<span>Constructions</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="record_voice_over">record_voice_over</span>
+<span>Expressions</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="extension">extension</span>
+<span>Vocabulary</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+<span>Examples</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span>Traps</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0">
+<!-- TopAppBar (Visible on Mobile, Hidden on md+) -->
+<header class="md:hidden sticky top-0 w-full z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center h-16 px-margin-mobile transition-all duration-200">
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">L'Étude</h1>
+<div class="flex items-center gap-4 text-primary">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors" data-icon="menu">menu</span>
+</div>
+</header>
+<!-- Page Content Canvas -->
+<main class="flex-1 p-margin-mobile md:p-margin-desktop overflow-y-auto">
+<div class="max-w-[1200px] mx-auto w-full">
+<!-- Page Header -->
+<div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2 text-on-surface-variant font-label-caps text-label-caps">
+<span>INDEX</span>
+<span>/</span>
+<span class="text-primary font-bold">CHAPTERS</span>
+</div>
+<h2 class="font-display-lg text-display-lg text-on-surface">Course Curriculum</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">Structured progression through French grammar and syntax. Select a chapter to begin or review your study material.</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-container-high hover:bg-surface-container-highest text-on-surface px-4 py-2 rounded flex items-center gap-2 transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+<span class="font-label-caps text-label-caps">FILTER</span>
+</button>
+</div>
+</div>
+<!-- Bento Grid / Card Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Chapter 1 -->
+<a class="group block relative bg-surface rounded-xl border border-outline-variant hover:border-primary transition-all duration-300 p-6 flex flex-col h-full hover:bg-surface-container-low shadow-sm hover:shadow-md" href="#">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-primary-container text-on-primary-container px-2 py-1 rounded font-label-caps text-label-caps tracking-wider">CH. 01</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 group-hover:text-primary transition-colors">The Foundation: Nouns &amp; Articles</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Introduction to gender, number, and the definite, indefinite, and partitive articles essential for basic sentence structure.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-outline-variant/50">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="format_list_bulleted">format_list_bulleted</span>
+<span class="font-mono-ui text-mono-ui">12 Rules</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="translate">translate</span>
+<span class="font-mono-ui text-mono-ui">4 Verbs</span>
+</div>
+</div>
+</a>
+<!-- Chapter 2 -->
+<a class="group block relative bg-surface rounded-xl border border-outline-variant hover:border-primary transition-all duration-300 p-6 flex flex-col h-full hover:bg-surface-container-low shadow-sm hover:shadow-md" href="#">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-primary-container text-on-primary-container px-2 py-1 rounded font-label-caps text-label-caps tracking-wider">CH. 02</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 group-hover:text-primary transition-colors">Present Tense Essentials</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Mastering the regular -er, -ir, and -re verbs in the indicative present, along with key irregulars like être and avoir.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-outline-variant/50">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="history_toggle_off">history_toggle_off</span>
+<span class="font-mono-ui text-mono-ui">1 Tense</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="translate">translate</span>
+<span class="font-mono-ui text-mono-ui">24 Verbs</span>
+</div>
+</div>
+</a>
+<!-- Chapter 3 -->
+<a class="group block relative bg-surface rounded-xl border border-outline-variant hover:border-primary transition-all duration-300 p-6 flex flex-col h-full hover:bg-surface-container-low shadow-sm hover:shadow-md" href="#">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-primary-container text-on-primary-container px-2 py-1 rounded font-label-caps text-label-caps tracking-wider">CH. 03</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 group-hover:text-primary transition-colors">Adjectives &amp; Agreement</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Rules for adjective placement (BANGS), agreement in gender and number, and comparative structures.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-outline-variant/50">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="format_list_bulleted">format_list_bulleted</span>
+<span class="font-mono-ui text-mono-ui">18 Rules</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="warning">warning</span>
+<span class="font-mono-ui text-mono-ui">3 Traps</span>
+</div>
+</div>
+</a>
+<!-- Chapter 4 -->
+<a class="group block relative bg-surface rounded-xl border border-outline-variant hover:border-primary transition-all duration-300 p-6 flex flex-col h-full hover:bg-surface-container-low shadow-sm hover:shadow-md" href="#">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-primary-container text-on-primary-container px-2 py-1 rounded font-label-caps text-label-caps tracking-wider">CH. 04</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 group-hover:text-primary transition-colors">The Past: Passé Composé</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">Forming the past tense with avoir and être auxiliaries, past participle agreement, and Dr. Mrs. Vandertramp.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-outline-variant/50">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="history_toggle_off">history_toggle_off</span>
+<span class="font-mono-ui text-mono-ui">1 Tense</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="translate">translate</span>
+<span class="font-mono-ui text-mono-ui">17 Verbs</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="warning">warning</span>
+<span class="font-mono-ui text-mono-ui">5 Traps</span>
+</div>
+</div>
+</a>
+</div>
+</div>
+</main>
+</div>
+</body></html>

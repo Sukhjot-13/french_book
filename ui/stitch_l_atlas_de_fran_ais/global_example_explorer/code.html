@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>L'Étude - Example Explorer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Source+Serif+4:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#74777f",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#111c2d",
+                        "on-primary-container": "#708ab5",
+                        "inverse-on-surface": "#f1f0f4",
+                        "primary-container": "#002147",
+                        "on-tertiary-fixed-variant": "#6c391d",
+                        "inverse-surface": "#2f3033",
+                        "surface-tint": "#465f88",
+                        "surface-container-high": "#e9e7eb",
+                        "surface-variant": "#e3e2e6",
+                        "surface-bright": "#faf9fd",
+                        "secondary-fixed": "#d8e3fb",
+                        "primary-fixed-dim": "#aec7f6",
+                        "inverse-primary": "#aec7f6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#faf9fd",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "tertiary-fixed": "#ffdbcb",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "surface-dim": "#dad9dd",
+                        "tertiary-fixed-dim": "#ffb691",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "on-primary-fixed": "#001b3d",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#341100",
+                        "surface-container": "#efedf1",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#180500",
+                        "secondary": "#545f73",
+                        "background": "#faf9fd",
+                        "surface-container-low": "#f4f3f7",
+                        "tertiary-container": "#3d1500",
+                        "surface-container-highest": "#e3e2e6",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c4c6cf",
+                        "on-secondary-container": "#586377",
+                        "on-surface": "#1a1b1e",
+                        "on-tertiary-container": "#b97958",
+                        "on-surface-variant": "#44474e",
+                        "on-error-container": "#93000a",
+                        "primary": "#000a1e",
+                        "on-background": "#1a1b1e",
+                        "secondary-container": "#d5e0f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "sidebar-width": "280px",
+                        "unit": "4px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "example-text": ["\"Source Serif 4\""],
+                        "body-lg": ["Hanken Grotesk"],
+                        "mono-ui": ["JetBrains Mono"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-caps": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "example-text": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "mono-ui": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Custom scrollbar for dense data views */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c4c6cf; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #74777f; }
+    </style>
+</head>
+<body class="bg-background text-on-background flex h-screen overflow-hidden antialiased">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col py-margin-desktop px-4 w-sidebar-width h-screen sticky top-0 left-0 bg-surface-container-low border-r border-outline-variant z-10 shrink-0">
+<div class="mb-8 px-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-headline-sm">L'</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">L'Étude</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">French Revision Portal</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">home</span>
+<span>Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">menu_book</span>
+<span>Chapters</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">format_list_bulleted</span>
+<span>Grammar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">history_toggle_off</span>
+<span>Tenses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">translate</span>
+<span>Verbs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">layers</span>
+<span>Constructions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">record_voice_over</span>
+<span>Expressions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">extension</span>
+<span>Vocabulary</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-surface-container-highest transition-colors duration-150 group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-primary fill">visibility</span>
+<span>Examples</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">warning</span>
+<span>Traps</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden bg-background">
+<!-- TopAppBar (Mobile & Desktop Header) -->
+<header class="flex justify-between items-center h-16 px-4 md:px-margin-desktop w-full bg-surface/80 backdrop-blur-md sticky top-0 z-40 border-b border-outline-variant shrink-0">
+<div class="flex items-center gap-4 lg:hidden">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">L'Étude</span>
+</div>
+<div class="hidden lg:flex items-center gap-8 font-label-caps text-label-caps">
+<a class="text-on-surface-variant hover:text-primary transition-all duration-200 uppercase" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-all duration-200 uppercase" href="#">Resources</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img alt="Administrator Avatar" class="w-full h-full object-cover" data-alt="A detailed headshot portrait of a professional linguist or academic administrator, well-lit with soft natural light, minimalist background, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4NDeshpDt3UtFu7ma3lOWFFyxEgmpIXKJGH-tbeThe4LJ63LghVYVFHwTsRgg-X-08tFwHO_QHIUtJ5Crn04kIzNBPMv6PRsXVahBSiRiqDD8ReuoqfjPr-NRdbjzk-EUOHncAfgbSVTqD_iL6lXhlXNPtVGYeDIerSX0Rh-5eWGLNk45hkIYqgy3dOO1APvFHdf4PzfsXUTfDRuu-lERUMQK6aLb7tbbA86UawjgkuirQD7QzKpM"/>
+</div>
+</div>
+</header>
+<!-- Search & Filter Bar (Sticky below header) -->
+<div class="bg-surface border-b border-outline-variant px-4 md:px-margin-desktop py-4 shrink-0 z-30">
+<div class="max-w-container-max mx-auto flex flex-col gap-4">
+<!-- Search Row -->
+<div class="flex flex-col md:flex-row gap-4 items-center">
+<h2 class="font-headline-sm text-headline-sm text-primary shrink-0 mr-4">Global Examples</h2>
+<div class="relative flex-1 w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-lowest border-b-2 border-outline-variant hover:border-outline focus:border-primary focus:outline-none focus:ring-0 pl-10 pr-4 py-2 font-body-md text-body-md text-on-surface transition-colors bg-transparent rounded-t-DEFAULT" placeholder="Search French text or English translation..." type="text"/>
+</div>
+<button class="hidden md:flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded font-label-caps text-label-caps uppercase tracking-wider hover:bg-primary-fixed hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" style="font-size: 16px;">filter_list</span>
+                        Advanced
+                    </button>
+</div>
+<!-- Active Filter Chips -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mr-2">Active Filters:</span>
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-secondary-container text-on-secondary-container rounded font-mono-ui text-[12px] border border-outline-variant/30">
+                        Chapter 11
+                        <button class="hover:text-error transition-colors flex items-center justify-center"><span class="material-symbols-outlined" style="font-size: 14px;">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-tertiary-container text-on-tertiary-container rounded font-mono-ui text-[12px] border border-outline-variant/30">
+                        Si Clauses
+                        <button class="hover:text-error transition-colors flex items-center justify-center"><span class="material-symbols-outlined" style="font-size: 14px;">close</span></button>
+</span>
+<button class="text-primary hover:underline font-label-caps text-label-caps ml-2">Clear All</button>
+</div>
+<!-- Quick Filter Categories -->
+<div class="flex overflow-x-auto pb-2 gap-2 hide-scrollbar font-label-caps text-label-caps">
+<button class="px-3 py-1.5 border border-outline-variant rounded-full text-on-surface-variant hover:bg-surface-container-high whitespace-nowrap transition-colors">Chapter</button>
+<button class="px-3 py-1.5 border border-outline-variant rounded-full text-on-surface-variant hover:bg-surface-container-high whitespace-nowrap transition-colors">Tense / Mood</button>
+<button class="px-3 py-1.5 border border-outline-variant rounded-full text-on-surface-variant hover:bg-surface-container-high whitespace-nowrap transition-colors">Grammar Rule</button>
+<button class="px-3 py-1.5 border border-outline-variant rounded-full text-on-surface-variant hover:bg-surface-container-high whitespace-nowrap transition-colors">Verb</button>
+<button class="px-3 py-1.5 border border-outline-variant rounded-full text-on-surface-variant hover:bg-surface-container-high whitespace-nowrap transition-colors">Construction</button>
+<button class="px-3 py-1.5 border border-outline-variant rounded-full text-on-surface-variant hover:bg-surface-container-high whitespace-nowrap transition-colors">Importance</button>
+</div>
+</div>
+</div>
+<!-- Data List Container -->
+<div class="flex-1 overflow-y-auto p-4 md:p-margin-desktop bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto space-y-4">
+<!-- Row Item 1 -->
+<div class="group border-b border-outline-variant pb-6 pt-2 hover:bg-surface-bright transition-colors px-4 -mx-4">
+<div class="flex flex-col md:flex-row md:items-start gap-4 justify-between">
+<!-- Content -->
+<div class="flex-1 space-y-2">
+<p class="font-example-text text-example-text text-on-surface font-semibold">
+                                Si j'avais su, je ne serais pas <span class="bg-error-container text-on-error-container px-1 rounded">venu</span>.
+                            </p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                If I had known, I would not have come.
+                            </p>
+<!-- Metadata Tags -->
+<div class="flex flex-wrap gap-2 pt-2">
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Chapter 11</a>
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Si Clause (Type 3)</a>
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Plus-que-parfait</a>
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Cond. Passé</a>
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Venir</a>
+</div>
+</div>
+<!-- Actions / Callouts -->
+<div class="shrink-0 flex items-center md:items-start gap-3">
+<span class="inline-flex items-center px-2 py-1 bg-error/10 text-error rounded font-label-caps text-[10px] uppercase tracking-wider border border-error/20">High Importance</span>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined">bookmark_border</span></button>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined">volume_up</span></button>
+</div>
+</div>
+</div>
+<!-- Row Item 2 -->
+<div class="group border-b border-outline-variant pb-6 pt-2 hover:bg-surface-bright transition-colors px-4 -mx-4">
+<div class="flex flex-col md:flex-row md:items-start gap-4 justify-between">
+<!-- Content -->
+<div class="flex-1 space-y-2">
+<p class="font-example-text text-example-text text-on-surface font-semibold">
+                                Il est important que vous <span class="bg-primary-container text-on-primary-container px-1 rounded">fassiez</span> vos devoirs.
+                            </p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                It is important that you do your homework.
+                            </p>
+<!-- Metadata Tags -->
+<div class="flex flex-wrap gap-2 pt-2">
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Chapter 8</a>
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Subjonctif Présent</a>
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Impersonal Expression</a>
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Faire</a>
+</div>
+</div>
+<!-- Actions / Callouts -->
+<div class="shrink-0 flex items-center md:items-start gap-3">
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined">bookmark_border</span></button>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined">volume_up</span></button>
+</div>
+</div>
+</div>
+<!-- Row Item 3 -->
+<div class="group border-b border-outline-variant pb-6 pt-2 hover:bg-surface-bright transition-colors px-4 -mx-4">
+<div class="flex flex-col md:flex-row md:items-start gap-4 justify-between">
+<!-- Content -->
+<div class="flex-1 space-y-2">
+<p class="font-example-text text-example-text text-on-surface font-semibold">
+                                Elle s'est <span class="border-b-2 border-outline border-dashed pb-0.5">lavé</span> les mains, mais elle s'est <span class="border-b-2 border-error border-dashed pb-0.5">lavée</span> à l'eau froide.
+                            </p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                She washed her hands, but she washed herself in cold water.
+                            </p>
+<!-- Knowledge Callout -->
+<div class="mt-2 pl-3 border-l-4 border-tertiary-container bg-tertiary-container/5 py-2 px-3 rounded-r-DEFAULT text-sm font-body-md text-on-surface-variant">
+<strong>Rule:</strong> Reflexive verbs with body parts (direct object follows) do not agree in gender/number with the subject.
+                            </div>
+<!-- Metadata Tags -->
+<div class="flex flex-wrap gap-2 pt-2">
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Chapter 5</a>
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Passé Composé</a>
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Reflexive Verbs</a>
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Agreement</a>
+<a class="inline-block px-2 py-0.5 bg-surface-container text-on-surface font-mono-ui text-[11px] uppercase tracking-wider rounded border border-outline-variant/50 hover:border-primary hover:text-primary transition-colors" href="#">Se Laver</a>
+</div>
+</div>
+<!-- Actions / Callouts -->
+<div class="shrink-0 flex items-center md:items-start gap-3">
+<span class="inline-flex items-center px-2 py-1 bg-tertiary-container/10 text-on-tertiary-container rounded font-label-caps text-[10px] uppercase tracking-wider border border-tertiary-container/20">Common Trap</span>
+<button class="text-primary transition-colors"><span class="material-symbols-outlined fill">bookmark</span></button>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined">volume_up</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="py-8 flex justify-center">
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary border-b border-transparent hover:border-primary transition-colors uppercase tracking-widest pb-1">Load More Examples</button>
+</div>
+</div>
+</main>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body></html>

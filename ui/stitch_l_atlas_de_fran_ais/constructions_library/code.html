@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>L'Étude - Verb Constructions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#111c2d",
+                      "inverse-on-surface": "#f1f0f4",
+                      "tertiary": "#180500",
+                      "primary-fixed": "#d6e3ff",
+                      "primary-container": "#002147",
+                      "inverse-primary": "#aec7f6",
+                      "secondary-fixed-dim": "#bcc7de",
+                      "tertiary-fixed": "#ffdbcb",
+                      "tertiary-container": "#3d1500",
+                      "tertiary-fixed-dim": "#ffb691",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "on-primary-container": "#708ab5",
+                      "surface-container-high": "#e9e7eb",
+                      "surface-bright": "#faf9fd",
+                      "secondary-container": "#d5e0f8",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#545f73",
+                      "on-tertiary-fixed": "#341100",
+                      "surface-container-low": "#f4f3f7",
+                      "inverse-surface": "#2f3033",
+                      "on-tertiary-container": "#b97958",
+                      "on-error": "#ffffff",
+                      "on-surface": "#1a1b1e",
+                      "error": "#ba1a1a",
+                      "on-background": "#1a1b1e",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#e3e2e6",
+                      "on-secondary-container": "#586377",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#6c391d",
+                      "primary-fixed-dim": "#aec7f6",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed": "#d8e3fb",
+                      "surface-container": "#efedf1",
+                      "on-surface-variant": "#44474e",
+                      "surface-variant": "#e3e2e6",
+                      "background": "#faf9fd",
+                      "on-error-container": "#93000a",
+                      "outline": "#74777f",
+                      "on-primary-fixed": "#001b3d",
+                      "surface-tint": "#465f88",
+                      "outline-variant": "#c4c6cf",
+                      "primary": "#000a1e",
+                      "on-primary-fixed-variant": "#2d476f",
+                      "surface-dim": "#dad9dd",
+                      "surface": "#faf9fd"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-max": "1280px",
+                      "margin-mobile": "16px",
+                      "unit": "4px",
+                      "gutter": "24px",
+                      "margin-desktop": "48px",
+                      "sidebar-width": "280px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "mono-ui": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-caps": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "display-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "example-text": [
+                              "\"Source Serif 4\""
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "mono-ui": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "450"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "example-text": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for academic feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.surface-container-low');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant');
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline');
+        }
+        
+        .code-pattern {
+            background-color: theme('colors.surface-container');
+            padding: 2px 6px;
+            border-radius: theme('borderRadius.DEFAULT');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased flex w-full min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex flex-col py-margin-desktop px-4 w-sidebar-width h-screen sticky top-0 left-0 border-r border-outline-variant bg-surface-container-low z-50">
+<div class="mb-12 px-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" data-icon="school">school</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">L'Étude</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">French Revision Portal</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span>Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Chapters</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+<span>Grammar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="history_toggle_off">history_toggle_off</span>
+<span>Tenses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="translate">translate</span>
+<span>Verbs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="layers" data-weight="fill" style="font-variation-settings: 'FILL' 1;">layers</span>
+<span>Constructions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="record_voice_over">record_voice_over</span>
+<span>Expressions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="extension">extension</span>
+<span>Vocabulary</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+<span>Examples</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span>Traps</span>
+</a>
+</nav>
+<div class="mt-auto px-4 py-4 border-t border-outline-variant flex items-center gap-3">
+<img alt="User Profile" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small, professional avatar portrait of an academic administrator in a brightly lit, modern office setting. High contrast light mode aesthetic with crisp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDrDiT9FT_6M_2Fos7IPFsYMsNMcsgA4ybIMwhguGKxg5vY-jWXCBfq7wCXgQVHxc5kj8KgzyTu_eN8eOENN5WiDrAOZcGf_l3A2KWfD0twQb97Y2m3q4xSkyywIXZAnc9fq2ln3U3Pu6cqic4vsHrMdwocvLMp9w3NVhn61JHOWlWeI7-SuES8X75zt26HXM9ui3238kaHYZVEK7e8-2tUinz3rRKLeGMYbjdiGO63woWa1a9sWWO"/>
+<div class="flex-1 min-w-0">
+<p class="font-label-caps text-label-caps text-on-surface truncate">Admin User</p>
+<p class="text-xs text-on-surface-variant truncate">Settings</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- TopAppBar Component (Mobile Only) -->
+<header class="md:hidden flex justify-between items-center h-16 px-margin-mobile w-full sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">L'Étude</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all duration-200" data-icon="search">search</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all duration-200" data-icon="notifications">notifications</span>
+<img alt="Administrator Avatar" class="w-8 h-8 rounded-full object-cover" data-alt="A small, professional avatar portrait of an academic administrator in a brightly lit, modern office setting. High contrast light mode aesthetic with crisp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlGepS58WSeM-ur1_HGr_NuDQdATnVIf9j_-g0VJtgWmjYMMPqrjebFkWCmRte22h4ykAStyYc033b8q0_DEsaI1Ya6hzplIX3worrq2wcSTtjNSYT4kTusw_pDucG_ZRtp0XSRta8Yy1fTvSTAOwo0yaNgqyGu3KrDlPFTzIzizYpVC3b2OA2AtUuv9Ei7C59jH6SdbaNeUl551C6q1XSkH8W4RRWaCOOYzPuhhpBQqXewLqTJYsv"/>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="flex-1 p-margin-mobile md:p-margin-desktop overflow-y-auto">
+<!-- Page Header -->
+<div class="max-w-[1000px] mx-auto mb-10">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-caps text-label-caps mb-4">
+<span>GRAMMAR</span>
+<span>/</span>
+<span class="text-primary">VERB CONSTRUCTIONS</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-4">Verb Constructions &amp; Patterns</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+                    Mastering French verb constructions requires precise knowledge of required prepositions (à, de, pour, sans) and their corresponding complements. This index provides structural blueprints for high-frequency verbs.
+                </p>
+</div>
+<!-- Filters Section -->
+<section class="max-w-[1000px] mx-auto mb-8 bg-surface-container-lowest border border-outline-variant rounded-lg p-6">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-4">FILTER REPOSITORY</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">BASE VERB</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search" style="font-size: 18px;">search</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-low border-b border-outline-variant focus:border-primary focus:outline-none focus:ring-0 text-sm font-mono-ui text-mono-ui rounded-t-DEFAULT" placeholder="e.g. demander, commencer..." type="text"/>
+</div>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">PATTERN TYPE</label>
+<select class="w-full px-3 py-2 bg-surface-container-low border-b border-outline-variant focus:border-primary focus:outline-none focus:ring-0 text-sm rounded-t-DEFAULT appearance-none">
+<option>All Types</option>
+<option>Verb + Noun</option>
+<option>Verb + Infinitive</option>
+<option>Verb + Subjunctive</option>
+</select>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">PREPOSITION</label>
+<select class="w-full px-3 py-2 bg-surface-container-low border-b border-outline-variant focus:border-primary focus:outline-none focus:ring-0 text-sm rounded-t-DEFAULT appearance-none">
+<option>All Prepositions</option>
+<option>à</option>
+<option>de</option>
+<option>pour</option>
+<option>None (Direct)</option>
+</select>
+</div>
+<div class="flex items-end">
+<button class="w-full bg-primary text-on-primary py-2 px-4 rounded font-label-caps text-label-caps hover:bg-on-primary-fixed transition-colors h-[37px]">
+                            APPLY FILTERS
+                        </button>
+</div>
+</div>
+</section>
+<!-- Prominent Visual Display / Spotlight -->
+<section class="max-w-[1000px] mx-auto mb-12">
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-8 relative overflow-hidden">
+<!-- Decorative background element -->
+<div class="absolute right-0 top-0 w-64 h-64 bg-primary-container opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+<div class="flex items-start gap-4 mb-6">
+<div class="w-1 bg-error h-full absolute left-0 top-0 bottom-0 rounded-l-xl opacity-80"></div>
+<div class="flex-1 pl-4 relative z-10">
+<div class="flex gap-2 mb-3">
+<span class="bg-error/10 text-error px-2 py-1 rounded font-label-caps text-label-caps tracking-wider text-[10px]">HIGH IMPORTANCE</span>
+<span class="bg-primary/10 text-primary px-2 py-1 rounded font-label-caps text-label-caps tracking-wider text-[10px]">COMMON FREQUENCY</span>
+</div>
+<h2 class="font-mono-ui text-mono-ui text-2xl md:text-3xl font-semibold text-on-surface mb-2 tracking-tight">
+<span class="text-on-surface-variant">DEMANDER</span>
+<span class="text-error font-bold border-b-2 border-error pb-0.5">à</span>
+<span class="text-primary italic">quelqu'un</span>
+<span class="text-error font-bold border-b-2 border-error pb-0.5">de</span>
+<span class="text-on-surface-variant">+ infinitif</span>
+</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">To ask someone to do something.</p>
+</div>
+</div>
+<div class="pl-4 border-l border-outline-variant ml-4 relative z-10">
+<p class="font-example-text text-example-text text-on-surface mb-2">
+                            Le professeur a demandé <strong class="text-error">aux</strong> élèves <strong class="text-error">de</strong> faire leurs devoirs.
+                        </p>
+<p class="font-body-md text-sm text-on-surface-variant italic">
+                            The teacher asked the students to do their homework.
+                        </p>
+</div>
+</div>
+</section>
+<!-- Data Table Section -->
+<section class="max-w-[1000px] mx-auto">
+<div class="border border-outline-variant rounded-lg bg-surface-container-lowest overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low">
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant w-1/3">STRUCTURE</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant w-1/4">MEANING</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant">PREP</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant text-center">FREQ</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="font-mono-ui text-mono-ui text-sm text-on-surface">
+                                        commencer <strong class="text-error font-bold">à</strong> + infinitif
+                                    </div>
+<div class="text-xs text-on-surface-variant mt-1">Verb + Infinitive</div>
+</td>
+<td class="py-4 px-6 font-body-md text-sm text-on-surface-variant">
+                                    To start doing something
+                                </td>
+<td class="py-4 px-6">
+<span class="inline-block px-2 py-0.5 rounded border border-outline-variant bg-surface-container text-on-surface font-mono-ui text-xs font-bold text-error">à</span>
+</td>
+<td class="py-4 px-6 text-center">
+<div class="w-full bg-surface-variant rounded-full h-1.5 mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-slate-50/50 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="font-mono-ui text-mono-ui text-sm text-on-surface">
+                                        décider <strong class="text-primary font-bold">de</strong> + infinitif
+                                    </div>
+<div class="text-xs text-on-surface-variant mt-1">Verb + Infinitive</div>
+</td>
+<td class="py-4 px-6 font-body-md text-sm text-on-surface-variant">
+                                    To decide to do something
+                                </td>
+<td class="py-4 px-6">
+<span class="inline-block px-2 py-0.5 rounded border border-outline-variant bg-surface-container text-on-surface font-mono-ui text-xs font-bold text-primary">de</span>
+</td>
+<td class="py-4 px-6 text-center">
+<div class="w-full bg-surface-variant rounded-full h-1.5 mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="font-mono-ui text-mono-ui text-sm text-on-surface">
+                                        s'intéresser <strong class="text-error font-bold">à</strong> + nom
+                                    </div>
+<div class="text-xs text-on-surface-variant mt-1">Reflexive Verb + Noun</div>
+</td>
+<td class="py-4 px-6 font-body-md text-sm text-on-surface-variant">
+                                    To be interested in something
+                                </td>
+<td class="py-4 px-6">
+<span class="inline-block px-2 py-0.5 rounded border border-outline-variant bg-surface-container text-on-surface font-mono-ui text-xs font-bold text-error">à</span>
+</td>
+<td class="py-4 px-6 text-center">
+<div class="w-full bg-surface-variant rounded-full h-1.5 mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-slate-50/50 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="font-mono-ui text-mono-ui text-sm text-on-surface">
+                                        se souvenir <strong class="text-primary font-bold">de</strong> + nom
+                                    </div>
+<div class="text-xs text-on-surface-variant mt-1">Reflexive Verb + Noun</div>
+</td>
+<td class="py-4 px-6 font-body-md text-sm text-on-surface-variant">
+                                    To remember something/someone
+                                </td>
+<td class="py-4 px-6">
+<span class="inline-block px-2 py-0.5 rounded border border-outline-variant bg-surface-container text-on-surface font-mono-ui text-xs font-bold text-primary">de</span>
+</td>
+<td class="py-4 px-6 text-center">
+<div class="w-full bg-surface-variant rounded-full h-1.5 mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 80%"></div>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="font-mono-ui text-mono-ui text-sm text-on-surface">
+                                        réussir <strong class="text-error font-bold">à</strong> + infinitif
+                                    </div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-xs text-on-surface-variant">Verb + Infinitive</span>
+<span class="bg-error/10 text-error px-1.5 py-0.5 rounded font-label-caps text-[8px]">TRAP</span>
+</div>
+</td>
+<td class="py-4 px-6 font-body-md text-sm text-on-surface-variant">
+                                    To succeed in doing / manage to do
+                                </td>
+<td class="py-4 px-6">
+<span class="inline-block px-2 py-0.5 rounded border border-outline-variant bg-surface-container text-on-surface font-mono-ui text-xs font-bold text-error">à</span>
+</td>
+<td class="py-4 px-6 text-center">
+<div class="w-full bg-surface-variant rounded-full h-1.5 mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex justify-between items-center mt-6 py-4 border-t border-outline-variant">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Showing 1-5 of 142 patterns</span>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center font-mono-ui text-sm">1</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container-high font-mono-ui text-sm">2</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container-high font-mono-ui text-sm">3</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container-high font-mono-ui text-sm">...</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

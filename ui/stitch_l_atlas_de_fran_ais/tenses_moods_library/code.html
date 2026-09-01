@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>L'Étude - Tense Explorer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#1a1b1e",
+                        "on-tertiary-fixed-variant": "#6c391d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "primary-fixed": "#d6e3ff",
+                        "surface-container": "#efedf1",
+                        "inverse-surface": "#2f3033",
+                        "on-tertiary-fixed": "#341100",
+                        "on-surface-variant": "#44474e",
+                        "primary": "#000a1e",
+                        "surface-dim": "#dad9dd",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "secondary-container": "#d5e0f8",
+                        "surface-container-highest": "#e3e2e6",
+                        "inverse-primary": "#aec7f6",
+                        "on-error": "#ffffff",
+                        "outline": "#74777f",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "on-primary-container": "#708ab5",
+                        "outline-variant": "#c4c6cf",
+                        "surface": "#faf9fd",
+                        "inverse-on-surface": "#f1f0f4",
+                        "on-tertiary-container": "#b97958",
+                        "background": "#faf9fd",
+                        "tertiary-fixed-dim": "#ffb691",
+                        "on-surface": "#1a1b1e",
+                        "surface-container-low": "#f4f3f7",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#586377",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#faf9fd",
+                        "secondary": "#545f73",
+                        "primary-container": "#002147",
+                        "surface-variant": "#e3e2e6",
+                        "tertiary-fixed": "#ffdbcb",
+                        "tertiary-container": "#3d1500",
+                        "primary-fixed-dim": "#aec7f6",
+                        "surface-tint": "#465f88",
+                        "on-primary-fixed": "#001b3d",
+                        "on-secondary-fixed": "#111c2d",
+                        "surface-container-high": "#e9e7eb",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#180500"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "unit": "4px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "sidebar-width": "280px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "mono-ui": ["JetBrains Mono"],
+                        "label-caps": ["Hanken Grotesk"],
+                        "example-text": ["Source Serif 4"],
+                        "body-md": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "mono-ui": ["14px", { "lineHeight": "1.4", "fontWeight": "450" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "example-text": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex antialiased">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col py-margin-desktop px-4 bg-surface-container-low dark:bg-surface-container-lowest w-sidebar-width h-screen sticky top-0 left-0 border-r border-outline-variant dark:border-outline">
+<div class="mb-12 px-4">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim">L'Étude</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">French Revision Portal</p>
+</div>
+<div class="space-y-2 flex-grow overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">home</span>
+<span class="font-body-md text-body-md">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">menu_book</span>
+<span class="font-body-md text-body-md">Chapters</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">format_list_bulleted</span>
+<span class="font-body-md text-body-md">Grammar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary dark:text-primary-fixed-dim font-bold bg-primary-fixed/10 group" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">history_toggle_off</span>
+<span class="font-body-md text-body-md">Tenses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">translate</span>
+<span class="font-body-md text-body-md">Verbs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">layers</span>
+<span class="font-body-md text-body-md">Constructions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">record_voice_over</span>
+<span class="font-body-md text-body-md">Expressions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">extension</span>
+<span class="font-body-md text-body-md">Vocabulary</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">visibility</span>
+<span class="font-body-md text-body-md">Examples</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">warning</span>
+<span class="font-body-md text-body-md">Traps</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 bg-background relative">
+<!-- Mobile TopAppBar (Visible only on md <) -->
+<header class="md:hidden flex justify-between items-center h-16 px-margin-mobile w-full bg-surface/80 dark:bg-surface/80 backdrop-blur-md sticky top-0 z-40 border-b border-outline-variant dark:border-outline">
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface dark:text-inverse-on-surface">L'Étude</h1>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-all duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12">
+<!-- Page Header -->
+<div class="max-w-container-max mx-auto mb-10">
+<div class="flex items-center gap-2 text-on-surface-variant mb-4">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-primary">Grammar</span>
+<span class="text-outline-variant">/</span>
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Tenses &amp; Moods</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-background">Tense Explorer</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-3 max-w-2xl">
+                            Navigate the timeline of French grammar. Filter by mood to isolate indicative reality from subjunctive subjectivity.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Filter Controls -->
+<div class="max-w-container-max mx-auto mb-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col md:flex-row gap-4 items-center justify-between">
+<div class="flex items-center gap-2 w-full md:w-auto">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">filter_list</span>
+<div class="flex gap-2 flex-wrap">
+<button class="px-4 py-2 bg-primary text-on-primary rounded font-label-caps text-label-caps uppercase hover:bg-primary/90 transition-colors">
+                            Indicatif
+                        </button>
+<button class="px-4 py-2 bg-surface-container text-on-surface rounded font-label-caps text-label-caps uppercase hover:bg-surface-container-high border border-outline-variant transition-colors">
+                            Subjonctif
+                        </button>
+<button class="px-4 py-2 bg-surface-container text-on-surface rounded font-label-caps text-label-caps uppercase hover:bg-surface-container-high border border-outline-variant transition-colors">
+                            Conditionnel
+                        </button>
+<button class="px-4 py-2 bg-surface-container text-on-surface rounded font-label-caps text-label-caps uppercase hover:bg-surface-container-high border border-outline-variant transition-colors">
+                            Impératif
+                        </button>
+</div>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="relative w-full md:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container pl-10 pr-4 py-2 rounded-lg border-b border-outline-variant focus:border-primary focus:outline-none focus:ring-0 font-body-md text-body-md transition-colors bg-transparent border-t-0 border-l-0 border-r-0 placeholder-on-surface-variant/50" placeholder="Search tenses..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Bento Grid Content -->
+<div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Card 1: Présent -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col hover:border-primary/50 transition-colors group cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="inline-block px-2 py-1 bg-primary/10 text-primary font-label-caps text-label-caps rounded mb-2 uppercase">Indicatif</span>
+<h3 class="font-headline-md text-headline-md text-on-background group-hover:text-primary transition-colors">Présent</h3>
+</div>
+<span class="px-2 py-1 bg-error-container text-on-error-container font-label-caps text-label-caps rounded uppercase">Core</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
+                        Describes actions happening now, general truths, or habitual actions. The foundation of all conjugation.
+                    </p>
+<div class="bg-surface-container p-3 rounded-lg mb-6 border-l-4 border-primary">
+<p class="font-mono-ui text-mono-ui text-on-surface">
+                            Stem + [e, es, e, ons, ez, ent]
+                        </p>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant pt-4 border-t border-outline-variant/50">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">library_books</span>
+<span class="font-body-md text-sm">24 Rules</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">speaker_notes</span>
+<span class="font-body-md text-sm">150+ Ex</span>
+</div>
+</div>
+</article>
+<!-- Card 2: Passé Composé -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col hover:border-primary/50 transition-colors group cursor-pointer lg:col-span-2">
+<div class="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
+<div>
+<span class="inline-block px-2 py-1 bg-primary/10 text-primary font-label-caps text-label-caps rounded mb-2 uppercase">Indicatif</span>
+<h3 class="font-headline-md text-headline-md text-on-background group-hover:text-primary transition-colors">Passé Composé</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-xl">
+                                The primary past tense for completed actions with a clear beginning and end. Essential for recounting specific events in conversational French.
+                            </p>
+</div>
+<span class="px-2 py-1 bg-error-container text-on-error-container font-label-caps text-label-caps rounded uppercase whitespace-nowrap">Core</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 mt-4 flex-grow">
+<div class="bg-surface-container p-4 rounded-lg border-l-4 border-secondary">
+<span class="font-label-caps text-label-caps text-secondary mb-1 block uppercase">Formation</span>
+<p class="font-mono-ui text-mono-ui text-on-surface">
+                                [Avoir/Être] present + Past Participle
+                            </p>
+</div>
+<div class="bg-surface-container p-4 rounded-lg border-l-4 border-tertiary-container">
+<span class="font-label-caps text-label-caps text-on-tertiary-container mb-1 block uppercase">Key Challenge</span>
+<p class="font-body-md text-sm text-on-surface">
+                                Choosing auxiliary verb &amp; agreement of participle with preceding direct objects.
+                            </p>
+</div>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant pt-4 border-t border-outline-variant/50">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">library_books</span>
+<span class="font-body-md text-sm">32 Rules</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+<span class="font-body-md text-sm text-error">8 Traps</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">speaker_notes</span>
+<span class="font-body-md text-sm">200+ Ex</span>
+</div>
+</div>
+</article>
+<!-- Card 3: Imparfait -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col hover:border-primary/50 transition-colors group cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="inline-block px-2 py-1 bg-primary/10 text-primary font-label-caps text-label-caps rounded mb-2 uppercase">Indicatif</span>
+<h3 class="font-headline-md text-headline-md text-on-background group-hover:text-primary transition-colors">Imparfait</h3>
+</div>
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container font-label-caps text-label-caps rounded uppercase">High</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
+                        Used for descriptions, ongoing states, or habitual actions in the past. Sets the scene before the Passé Composé interrupts.
+                    </p>
+<div class="bg-surface-container p-3 rounded-lg mb-6 border-l-4 border-primary">
+<p class="font-mono-ui text-mono-ui text-on-surface">
+                            [Nous form stem] + [ais, ais, ait, ions, iez, aient]
+                        </p>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant pt-4 border-t border-outline-variant/50">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">library_books</span>
+<span class="font-body-md text-sm">12 Rules</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">speaker_notes</span>
+<span class="font-body-md text-sm">85 Ex</span>
+</div>
+</div>
+</article>
+<!-- Card 4: Plus-que-parfait -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col hover:border-primary/50 transition-colors group cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="inline-block px-2 py-1 bg-primary/10 text-primary font-label-caps text-label-caps rounded mb-2 uppercase">Indicatif</span>
+<h3 class="font-headline-sm text-headline-sm text-on-background group-hover:text-primary transition-colors">Plus-que-parfait</h3>
+</div>
+<span class="px-2 py-1 bg-surface-variant text-on-surface-variant font-label-caps text-label-caps rounded uppercase">Medium</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
+                        The "past of the past." Indicates an action completed before another past action occurred.
+                    </p>
+<div class="bg-surface-container p-3 rounded-lg mb-6 border-l-4 border-secondary-fixed">
+<p class="font-mono-ui text-mono-ui text-on-surface text-sm">
+                            [Avoir/Être] imparfait + P.P.
+                        </p>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant pt-4 border-t border-outline-variant/50">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">library_books</span>
+<span class="font-body-md text-sm">8 Rules</span>
+</div>
+</div>
+</article>
+<!-- Subjunctive Feature -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col hover:border-primary/50 transition-colors group cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary-fixed-dim/20 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start mb-4 z-10">
+<div>
+<span class="inline-block px-2 py-1 bg-secondary-fixed/50 text-on-secondary-fixed font-label-caps text-label-caps rounded mb-2 uppercase">Subjonctif</span>
+<h3 class="font-headline-md text-headline-md text-on-background group-hover:text-primary transition-colors">Présent</h3>
+</div>
+<span class="px-2 py-1 bg-error-container text-on-error-container font-label-caps text-label-caps rounded uppercase">High</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow z-10">
+                        Expresses doubt, necessity, emotion, or subjectivity. Triggered by specific expressions, usually following "que".
+                    </p>
+<div class="bg-surface-container p-3 rounded-lg mb-6 border-l-4 border-on-primary-container z-10">
+<p class="font-mono-ui text-mono-ui text-on-surface text-sm">
+                            [Ils stem] + [e, es, e, ent] <br/>
+                            [Nous stem] + [ions, iez]
+                        </p>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant pt-4 border-t border-outline-variant/50 z-10">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">library_books</span>
+<span class="font-body-md text-sm">45 Triggers</span>
+</div>
+<div class="flex items-center gap-1 text-primary">
+<span class="font-label-caps text-label-caps uppercase">Explore</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+</article>
+</div>
+</div>
+</main>
+</body></html>

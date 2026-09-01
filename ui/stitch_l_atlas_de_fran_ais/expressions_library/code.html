@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>L'Étude - Expressions</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@450&amp;family=Source+Serif+4:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#111c2d",
+                    "inverse-on-surface": "#f1f0f4",
+                    "tertiary": "#180500",
+                    "primary-fixed": "#d6e3ff",
+                    "primary-container": "#002147",
+                    "inverse-primary": "#aec7f6",
+                    "secondary-fixed-dim": "#bcc7de",
+                    "tertiary-fixed": "#ffdbcb",
+                    "tertiary-container": "#3d1500",
+                    "tertiary-fixed-dim": "#ffb691",
+                    "on-secondary-fixed-variant": "#3c475a",
+                    "on-primary-container": "#708ab5",
+                    "surface-container-high": "#e9e7eb",
+                    "surface-bright": "#faf9fd",
+                    "secondary-container": "#d5e0f8",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#545f73",
+                    "on-tertiary-fixed": "#341100",
+                    "surface-container-low": "#f4f3f7",
+                    "inverse-surface": "#2f3033",
+                    "on-tertiary-container": "#b97958",
+                    "on-error": "#ffffff",
+                    "on-surface": "#1a1b1e",
+                    "error": "#ba1a1a",
+                    "on-background": "#1a1b1e",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e3e2e6",
+                    "on-secondary-container": "#586377",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#6c391d",
+                    "primary-fixed-dim": "#aec7f6",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#d8e3fb",
+                    "surface-container": "#efedf1",
+                    "on-surface-variant": "#44474e",
+                    "surface-variant": "#e3e2e6",
+                    "background": "#faf9fd",
+                    "on-error-container": "#93000a",
+                    "outline": "#74777f",
+                    "on-primary-fixed": "#001b3d",
+                    "surface-tint": "#465f88",
+                    "outline-variant": "#c4c6cf",
+                    "primary": "#000a1e",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "surface-dim": "#dad9dd",
+                    "surface": "#faf9fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "margin-desktop": "48px",
+                    "sidebar-width": "280px"
+            },
+            "fontFamily": {
+                    "body-lg": [
+                            "Hanken Grotesk"
+                    ],
+                    "mono-ui": [
+                            "jetbrainsMono"
+                    ],
+                    "headline-md": [
+                            "Hanken Grotesk"
+                    ],
+                    "headline-sm": [
+                            "Hanken Grotesk"
+                    ],
+                    "label-caps": [
+                            "Hanken Grotesk"
+                    ],
+                    "body-md": [
+                            "Hanken Grotesk"
+                    ],
+                    "display-lg": [
+                            "Hanken Grotesk"
+                    ],
+                    "example-text": [
+                            "\"Source Serif 4\""
+                    ]
+            },
+            "fontSize": {
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "mono-ui": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "450"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "example-text": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+        }
+        .table-row-zebra:nth-child(even) {
+            background-color: theme('colors.surface-container-lowest');
+        }
+        .table-row-zebra:nth-child(odd) {
+            background-color: theme('colors.surface-container-low');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex font-body-md text-body-md">
+<!-- SideNavBar -->
+<nav class="hidden lg:flex w-sidebar-width h-screen sticky top-0 left-0 border-r border-outline-variant bg-surface-container-low flex-col py-margin-desktop px-4 flex-shrink-0 z-30">
+<div class="mb-12 flex items-center gap-4 px-4">
+<img alt="User Profile" class="w-10 h-10 object-cover rounded shadow-sm border border-outline-variant" data-alt="A minimalist logo for a premium language learning platform. Clean, academic aesthetic with a sophisticated indigo and white color palette. Sharp geometric shapes suggesting a stylized book or open portal. High resolution, stark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAySJXKkSnFMZyeDTpfQyrTpN2COb48tDUaWN8w2-hh0DlELJsHMP4IKaJ1EuRQ1BhrBkZH36rspOTd4L8aT8v33tlIoYVWrUfpWIjW2-NpTdq4ceaMQafLUT7di0J8zLpLXYJtIGnUBndIPnTikkddf172Qf29m_lo274Tn4YiAYF04TbZRxU95vuRphVwYTQiFHUNWW1j-tAbhnK9_KSz1TLU0bM2ShyJTQ3mRhk8ObUOWOKw5up"/>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">L'Étude</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">French Revision Portal</p>
+</div>
+</div>
+<ul class="flex flex-col gap-2 flex-grow overflow-y-auto">
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT transition-colors duration-150 hover:bg-surface-container-high text-on-surface-variant" href="#"><span class="material-symbols-outlined" data-icon="home">home</span> Home</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT transition-colors duration-150 hover:bg-surface-container-high text-on-surface-variant" href="#"><span class="material-symbols-outlined" data-icon="menu_book">menu_book</span> Chapters</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT transition-colors duration-150 hover:bg-surface-container-high text-on-surface-variant" href="#"><span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span> Grammar</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT transition-colors duration-150 hover:bg-surface-container-high text-on-surface-variant" href="#"><span class="material-symbols-outlined" data-icon="history_toggle_off">history_toggle_off</span> Tenses</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT transition-colors duration-150 hover:bg-surface-container-high text-on-surface-variant" href="#"><span class="material-symbols-outlined" data-icon="translate">translate</span> Verbs</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT transition-colors duration-150 hover:bg-surface-container-high text-on-surface-variant" href="#"><span class="material-symbols-outlined" data-icon="layers">layers</span> Constructions</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT transition-colors duration-150 bg-primary-container text-on-primary-container font-bold" href="#"><span class="material-symbols-outlined fill" data-icon="record_voice_over" data-weight="fill">record_voice_over</span> Expressions</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT transition-colors duration-150 hover:bg-surface-container-high text-on-surface-variant" href="#"><span class="material-symbols-outlined" data-icon="extension">extension</span> Vocabulary</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT transition-colors duration-150 hover:bg-surface-container-high text-on-surface-variant" href="#"><span class="material-symbols-outlined" data-icon="visibility">visibility</span> Examples</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT transition-colors duration-150 hover:bg-surface-container-high text-on-surface-variant" href="#"><span class="material-symbols-outlined" data-icon="warning">warning</span> Traps</a></li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- TopAppBar (Mobile/Desktop Hybrid) -->
+<header class="sticky top-0 w-full z-40 border-b border-outline-variant bg-surface/80 backdrop-blur-md flex justify-between items-center h-16 px-4 md:px-margin-desktop transition-all duration-200 lg:hidden">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant p-2 lg:hidden"><span class="material-symbols-outlined">menu</span></button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">L'Étude</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-all duration-200"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-all duration-200"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+<img alt="Administrator Avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A small, circular avatar image of an administrator for a language learning platform. Clean, professional headshot in an academic setting with soft, natural lighting. High contrast, minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFUd-6Prkco2rfLivnxhwQEYgg7N5FSy8w3uiZUCYEA4rZle2XP_nsBbBS-gTzGk0NYIpKlMiSnnt1gw8RopCEN8hYVsdVILCdv-K2-uvFt7vx5leiGWTS0FNM2msJMLzFRUnCK1GxbUhLMCSMM6158U-4PyA8xt_2mpF5f_-yPzbHLuzOItpJS-vEXAiGuFYKOLll6XkWeHhIcgc5_F0_cthPPL3Ihw32Cs9MhUBzTKvoB5XXZ7ya"/>
+</div>
+</header>
+<div class="p-4 md:p-margin-desktop flex-1 max-w-[1400px] mx-auto w-full">
+<!-- Header Section -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant mb-2">
+<span class="font-label-caps text-label-caps">BROWSER</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="font-label-caps text-label-caps text-primary">EXPRESSIONS</span>
+</div>
+<h2 class="font-display-lg text-display-lg font-bold text-on-surface">Collective Expression Browser</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-3xl">A comprehensive index of idiomatic phrases, verbal structures, and fixed expressions essential for fluency. Use the filters below to isolate specific patterns.</p>
+</div>
+<div class="flex-shrink-0">
+<button class="bg-primary text-on-primary px-6 py-3 rounded-DEFAULT font-label-caps text-label-caps hover:bg-on-primary-fixed transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        NEW EXPRESSION
+                    </button>
+</div>
+</div>
+<!-- Filters Toolbar -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 mb-8 flex flex-wrap gap-4 items-end shadow-sm">
+<div class="flex-1 min-w-[250px]">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">SEARCH EXPRESSIONS</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-b border-outline-variant focus:border-primary focus:outline-none focus:ring-0 pl-10 pr-4 py-2 font-body-md text-body-md transition-colors rounded-t-DEFAULT" placeholder="e.g., prendre une décision..." type="text"/>
+</div>
+</div>
+<div class="w-full md:w-auto flex gap-4 flex-wrap">
+<div class="w-32">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">BASE VERB</label>
+<select class="w-full bg-surface-container-low border-b border-outline-variant focus:border-primary focus:outline-none focus:ring-0 px-3 py-2 font-body-md text-body-md rounded-t-DEFAULT appearance-none">
+<option>All Verbs</option>
+<option>Avoir</option>
+<option>Être</option>
+<option>Faire</option>
+<option>Prendre</option>
+</select>
+</div>
+<div class="w-36">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">EXPRESSION TYPE</label>
+<select class="w-full bg-surface-container-low border-b border-outline-variant focus:border-primary focus:outline-none focus:ring-0 px-3 py-2 font-body-md text-body-md rounded-t-DEFAULT appearance-none">
+<option>All Types</option>
+<option>Idiomatic</option>
+<option>Collocation</option>
+<option>Phrasal</option>
+</select>
+</div>
+<div class="w-32">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">IMPORTANCE</label>
+<select class="w-full bg-surface-container-low border-b border-outline-variant focus:border-primary focus:outline-none focus:ring-0 px-3 py-2 font-body-md text-body-md rounded-t-DEFAULT appearance-none">
+<option>Any</option>
+<option>High</option>
+<option>Medium</option>
+<option>Low</option>
+</select>
+</div>
+<button class="bg-surface-container-high hover:bg-surface-variant text-on-surface px-4 py-2 rounded-DEFAULT font-label-caps text-label-caps border border-outline-variant transition-colors flex items-center gap-2 h-[41px]">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        MORE FILTERS
+                    </button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[1000px]">
+<thead>
+<tr class="bg-surface-container border-b border-outline-variant">
+<th class="font-label-caps text-label-caps text-on-surface-variant p-4 w-[25%]">EXPRESSION</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-4 w-[25%]">ENGLISH MEANING</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-4 w-[12%]">BASE VERB</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-4 w-[10%]">TYPE</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-4 w-[10%]">FREQ.</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-4 w-[18%]">CHAPTERS</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<tr class="table-row-zebra border-b border-outline-variant hover:bg-surface-container-highest transition-colors group">
+<td class="p-4">
+<div class="font-mono-ui text-mono-ui text-primary font-bold">avoir besoin de</div>
+<div class="text-sm text-on-surface-variant mt-1">suj + avoir besoin de + nom/inf</div>
+</td>
+<td class="p-4 font-example-text text-example-text text-on-surface">to need, to have need of</td>
+<td class="p-4">
+<a class="inline-flex items-center gap-1 text-primary hover:underline font-bold" href="#">
+                                        avoir <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+</td>
+<td class="p-4"><span class="bg-surface-container-high text-on-surface px-2 py-1 rounded text-[11px] font-label-caps tracking-wider uppercase border border-outline-variant">Collocation</span></td>
+<td class="p-4">
+<div class="flex gap-1 text-primary">
+<div class="w-1.5 h-3 bg-primary rounded-sm"></div>
+<div class="w-1.5 h-3 bg-primary rounded-sm"></div>
+<div class="w-1.5 h-3 bg-primary rounded-sm"></div>
+<div class="w-1.5 h-3 bg-surface-variant rounded-sm"></div>
+</div>
+</td>
+<td class="p-4">
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full whitespace-nowrap">Ch 2: Essentials</span>
+</div>
+</td>
+</tr>
+<tr class="table-row-zebra border-b border-outline-variant hover:bg-surface-container-highest transition-colors group">
+<td class="p-4">
+<div class="font-mono-ui text-mono-ui text-primary font-bold">prendre une décision</div>
+<div class="text-sm text-on-surface-variant mt-1">suj + prendre + une décision</div>
+</td>
+<td class="p-4 font-example-text text-example-text text-on-surface">to make a decision</td>
+<td class="p-4">
+<a class="inline-flex items-center gap-1 text-primary hover:underline font-bold" href="#">
+                                        prendre <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+</td>
+<td class="p-4"><span class="bg-surface-container-high text-on-surface px-2 py-1 rounded text-[11px] font-label-caps tracking-wider uppercase border border-outline-variant">Collocation</span></td>
+<td class="p-4">
+<div class="flex gap-1 text-primary">
+<div class="w-1.5 h-3 bg-primary rounded-sm"></div>
+<div class="w-1.5 h-3 bg-primary rounded-sm"></div>
+<div class="w-1.5 h-3 bg-surface-variant rounded-sm"></div>
+<div class="w-1.5 h-3 bg-surface-variant rounded-sm"></div>
+</div>
+</td>
+<td class="p-4">
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full whitespace-nowrap">Ch 5: Work</span>
+</div>
+</td>
+</tr>
+<tr class="table-row-zebra border-b border-outline-variant hover:bg-surface-container-highest transition-colors group">
+<td class="p-4">
+<div class="font-mono-ui text-mono-ui text-primary font-bold">faire la grasse matinée</div>
+<div class="text-sm text-on-surface-variant mt-1">suj + faire + la grasse matinée</div>
+</td>
+<td class="p-4 font-example-text text-example-text text-on-surface">to sleep in</td>
+<td class="p-4">
+<a class="inline-flex items-center gap-1 text-primary hover:underline font-bold" href="#">
+                                        faire <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+</td>
+<td class="p-4"><span class="bg-surface-container-high text-on-surface px-2 py-1 rounded text-[11px] font-label-caps tracking-wider uppercase border border-outline-variant">Idiomatic</span></td>
+<td class="p-4">
+<div class="flex gap-1 text-primary">
+<div class="w-1.5 h-3 bg-primary rounded-sm"></div>
+<div class="w-1.5 h-3 bg-surface-variant rounded-sm"></div>
+<div class="w-1.5 h-3 bg-surface-variant rounded-sm"></div>
+<div class="w-1.5 h-3 bg-surface-variant rounded-sm"></div>
+</div>
+</td>
+<td class="p-4">
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full whitespace-nowrap">Ch 4: Daily Life</span>
+<span class="text-xs bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full whitespace-nowrap">Ch 8: Idioms</span>
+</div>
+</td>
+</tr>
+<tr class="table-row-zebra border-b border-outline-variant hover:bg-surface-container-highest transition-colors group">
+<td class="p-4">
+<div class="font-mono-ui text-mono-ui text-primary font-bold">être en train de</div>
+<div class="text-sm text-on-surface-variant mt-1">suj + être + en train de + inf</div>
+</td>
+<td class="p-4 font-example-text text-example-text text-on-surface">to be in the middle of doing</td>
+<td class="p-4">
+<a class="inline-flex items-center gap-1 text-primary hover:underline font-bold" href="#">
+                                        être <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+</td>
+<td class="p-4"><span class="bg-surface-container-high text-on-surface px-2 py-1 rounded text-[11px] font-label-caps tracking-wider uppercase border border-outline-variant">Structural</span></td>
+<td class="p-4">
+<div class="flex gap-1 text-error">
+<div class="w-1.5 h-3 bg-error rounded-sm"></div>
+<div class="w-1.5 h-3 bg-error rounded-sm"></div>
+<div class="w-1.5 h-3 bg-error rounded-sm"></div>
+<div class="w-1.5 h-3 bg-error rounded-sm"></div>
+</div>
+</td>
+<td class="p-4">
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full whitespace-nowrap">Ch 3: Action</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-4 bg-surface-container border-t border-outline-variant flex justify-between items-center">
+<span class="text-sm text-on-surface-variant">Showing 1-4 of 124 expressions</span>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-variant disabled:opacity-50"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<button class="p-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface hover:bg-surface-variant"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

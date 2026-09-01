@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>L'Étude - Command Palette</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;family=Source+Serif+4:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#faf9fd",
+                    "surface-variant": "#e3e2e6",
+                    "secondary": "#545f73",
+                    "on-background": "#1a1b1e",
+                    "on-primary-container": "#708ab5",
+                    "inverse-surface": "#2f3033",
+                    "tertiary-fixed-dim": "#ffb691",
+                    "primary-container": "#002147",
+                    "tertiary-fixed": "#ffdbcb",
+                    "primary-fixed-dim": "#aec7f6",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1a1b1e",
+                    "tertiary-container": "#3d1500",
+                    "on-tertiary-container": "#b97958",
+                    "on-secondary-container": "#586377",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "surface-tint": "#465f88",
+                    "surface-container-highest": "#e3e2e6",
+                    "primary": "#000a1e",
+                    "on-primary-fixed": "#001b3d",
+                    "surface-container-high": "#e9e7eb",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#bcc7de",
+                    "surface-dim": "#dad9dd",
+                    "on-tertiary-fixed": "#341100",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f4f3f7",
+                    "tertiary": "#180500",
+                    "primary-fixed": "#d6e3ff",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#111c2d",
+                    "outline": "#74777f",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#6c391d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#3c475a",
+                    "secondary-container": "#d5e0f8",
+                    "surface-bright": "#faf9fd",
+                    "inverse-primary": "#aec7f6",
+                    "on-surface-variant": "#44474e",
+                    "outline-variant": "#c4c6cf",
+                    "surface-container": "#efedf1",
+                    "surface": "#faf9fd",
+                    "secondary-fixed": "#d8e3fb",
+                    "inverse-on-surface": "#f1f0f4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "sidebar-width": "280px",
+                    "unit": "4px",
+                    "margin-desktop": "48px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "example-text": [
+                            "\"Source Serif 4\""
+                    ],
+                    "headline-sm": [
+                            "Hanken Grotesk"
+                    ],
+                    "headline-md": [
+                            "Hanken Grotesk"
+                    ],
+                    "body-lg": [
+                            "Hanken Grotesk"
+                    ],
+                    "display-lg": [
+                            "Hanken Grotesk"
+                    ],
+                    "mono-ui": [
+                            "JetBrains Mono"
+                    ],
+                    "label-caps": [
+                            "Hanken Grotesk"
+                    ],
+                    "body-md": [
+                            "Hanken Grotesk"
+                    ]
+            },
+            "fontSize": {
+                    "example-text": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "mono-ui": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "450"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-hidden">
+<!-- Background overlay (simulated parent page) -->
+<div class="fixed inset-0 bg-surface-container-low opacity-50 z-0"></div>
+<!-- Command Palette Overlay -->
+<div aria-modal="true" class="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 pb-24" role="dialog">
+<!-- Backdrop -->
+<div class="fixed inset-0 bg-primary/20 backdrop-blur-sm transition-opacity"></div>
+<!-- Command Palette Container (Surface 2: Popover) -->
+<div class="relative w-full max-w-3xl bg-surface-container-lowest rounded-xl shadow-[0_12px_48px_-12px_rgba(0,10,30,0.15)] border border-outline-variant overflow-hidden flex flex-col max-h-[80vh] transform transition-all">
+<!-- Search Header -->
+<div class="flex items-center px-4 py-3 border-b border-outline-variant bg-surface-container-lowest sticky top-0 z-10">
+<span aria-hidden="true" class="material-symbols-outlined text-outline text-2xl mr-3" data-icon="search">search</span>
+<input autofocus="" class="flex-1 bg-transparent border-none outline-none focus:ring-0 font-headline-sm text-headline-sm text-on-surface placeholder:text-outline-variant py-2" placeholder="Search verbs, grammar, chapters..." type="text" value="prendre"/>
+<div class="flex items-center space-x-2 text-outline font-mono-ui text-mono-ui">
+<kbd class="px-2 py-1 bg-surface-container rounded text-xs border border-outline-variant">esc</kbd>
+<span class="text-xs">to close</span>
+</div>
+</div>
+<!-- Scrollable Results Area -->
+<div class="flex-1 overflow-y-auto overscroll-contain py-2">
+<!-- Group: VERB -->
+<div class="px-2 mb-4 mt-2">
+<div class="px-3 mb-1 text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Verbs</div>
+<!-- Active Result -->
+<div class="group flex items-center justify-between px-3 py-2 mx-1 rounded bg-surface-container-high border-l-4 border-primary cursor-pointer">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-primary" data-icon="translate">translate</span>
+<div>
+<span class="font-body-md text-body-md font-bold text-on-surface">prendre</span>
+<span class="font-body-md text-body-md text-on-surface-variant ml-1">- to take</span>
+</div>
+</div>
+<div class="flex items-center space-x-2">
+<span class="px-2 py-0.5 rounded bg-error/10 text-error font-label-caps text-label-caps">Irregular</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-label-caps text-label-caps">Essential</span>
+<span class="material-symbols-outlined text-outline-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="keyboard_return">keyboard_return</span>
+</div>
+</div>
+</div>
+<!-- Group: EXPRESSIONS/COLLOCATIONS -->
+<div class="px-2 mb-4">
+<div class="px-3 mb-1 text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Expressions &amp; Collocations</div>
+<div class="group flex items-center justify-between px-3 py-2 mx-1 rounded hover:bg-surface-container cursor-pointer transition-colors">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-outline" data-icon="record_voice_over">record_voice_over</span>
+<span class="font-body-md text-body-md text-on-surface">prendre une décision</span>
+</div>
+</div>
+<div class="group flex items-center justify-between px-3 py-2 mx-1 rounded hover:bg-surface-container cursor-pointer transition-colors">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-outline" data-icon="record_voice_over">record_voice_over</span>
+<span class="font-body-md text-body-md text-on-surface">prendre sa retraite</span>
+</div>
+</div>
+<div class="group flex items-center justify-between px-3 py-2 mx-1 rounded hover:bg-surface-container cursor-pointer transition-colors">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-outline" data-icon="record_voice_over">record_voice_over</span>
+<span class="font-body-md text-body-md text-on-surface">prendre rendez-vous</span>
+</div>
+</div>
+</div>
+<!-- Group: CONSTRUCTIONS -->
+<div class="px-2 mb-4">
+<div class="px-3 mb-1 text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Constructions</div>
+<div class="group flex flex-col justify-center px-3 py-2 mx-1 rounded hover:bg-surface-container cursor-pointer transition-colors">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-outline" data-icon="layers">layers</span>
+<span class="font-mono-ui text-mono-ui text-secondary bg-surface-container-low px-1.5 py-0.5 rounded border border-outline-variant/30">prendre le temps de + infinitif</span>
+</div>
+</div>
+</div>
+<!-- Group: GRAMMAR -->
+<div class="px-2 mb-4">
+<div class="px-3 mb-1 text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Grammar Rules</div>
+<div class="group flex items-center justify-between px-3 py-2 mx-1 rounded hover:bg-surface-container cursor-pointer transition-colors">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-outline" data-icon="format_list_bulleted">format_list_bulleted</span>
+<div>
+<span class="font-body-md text-body-md text-on-surface">Irregular stems in the futur simple</span>
+<div class="font-label-caps text-label-caps text-on-surface-variant mt-1 flex items-center">
+<span>Grammar</span>
+<span class="mx-1">/</span>
+<span>Futur Simple</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Group: EXAMPLES -->
+<div class="px-2 mb-4">
+<div class="px-3 mb-1 text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Examples</div>
+<div class="group flex items-center justify-between px-3 py-3 mx-1 rounded hover:bg-surface-container cursor-pointer transition-colors">
+<div class="flex items-start space-x-3">
+<span class="material-symbols-outlined text-outline mt-0.5" data-icon="visibility">visibility</span>
+<span class="font-example-text text-example-text text-on-surface italic">"Je prends le train tous les matins."</span>
+</div>
+</div>
+<div class="group flex items-center justify-between px-3 py-3 mx-1 rounded hover:bg-surface-container cursor-pointer transition-colors">
+<div class="flex items-start space-x-3">
+<span class="material-symbols-outlined text-outline mt-0.5" data-icon="visibility">visibility</span>
+<span class="font-example-text text-example-text text-on-surface italic">"Nous avons pris un café ensemble."</span>
+</div>
+</div>
+</div>
+<!-- Group: CHAPTERS -->
+<div class="px-2 mb-2">
+<div class="px-3 mb-1 text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Chapters</div>
+<div class="flex flex-wrap gap-2 px-3 mx-1">
+<div class="flex items-center space-x-2 px-3 py-1.5 rounded-full border border-outline-variant hover:bg-surface-container cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-outline text-sm" data-icon="menu_book">menu_book</span>
+<span class="font-body-md text-sm text-on-surface">Ch. 4: Basic Actions</span>
+</div>
+<div class="flex items-center space-x-2 px-3 py-1.5 rounded-full border border-outline-variant hover:bg-surface-container cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-outline text-sm" data-icon="menu_book">menu_book</span>
+<span class="font-body-md text-sm text-on-surface">Ch. 7: Daily Routines</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Hints -->
+<div class="border-t border-outline-variant bg-surface px-4 py-2 flex items-center justify-between text-on-surface-variant font-label-caps text-label-caps">
+<div class="flex items-center space-x-4">
+<div class="flex items-center space-x-1">
+<span class="material-symbols-outlined text-[14px]">keyboard_arrow_up</span>
+<span class="material-symbols-outlined text-[14px]">keyboard_arrow_down</span>
+<span class="ml-1 normal-case">to navigate</span>
+</div>
+<div class="flex items-center space-x-1">
+<span class="material-symbols-outlined text-[14px]">keyboard_return</span>
+<span class="ml-1 normal-case">to select</span>
+</div>
+</div>
+<div class="flex items-center space-x-1">
+<span>Ctrl</span>
+<span>+</span>
+<span>K</span>
+</div>
+</div>
+</div>
+</div>
+</body></html>

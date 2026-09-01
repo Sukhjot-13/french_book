@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>L'Étude - PRENDRE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Source+Serif+4:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#111c2d",
+                      "inverse-on-surface": "#f1f0f4",
+                      "tertiary": "#180500",
+                      "primary-fixed": "#d6e3ff",
+                      "primary-container": "#002147",
+                      "inverse-primary": "#aec7f6",
+                      "secondary-fixed-dim": "#bcc7de",
+                      "tertiary-fixed": "#ffdbcb",
+                      "tertiary-container": "#3d1500",
+                      "tertiary-fixed-dim": "#ffb691",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "on-primary-container": "#708ab5",
+                      "surface-container-high": "#e9e7eb",
+                      "surface-bright": "#faf9fd",
+                      "secondary-container": "#d5e0f8",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#545f73",
+                      "on-tertiary-fixed": "#341100",
+                      "surface-container-low": "#f4f3f7",
+                      "inverse-surface": "#2f3033",
+                      "on-tertiary-container": "#b97958",
+                      "on-error": "#ffffff",
+                      "on-surface": "#1a1b1e",
+                      "error": "#ba1a1a",
+                      "on-background": "#1a1b1e",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#e3e2e6",
+                      "on-secondary-container": "#586377",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#6c391d",
+                      "primary-fixed-dim": "#aec7f6",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed": "#d8e3fb",
+                      "surface-container": "#efedf1",
+                      "on-surface-variant": "#44474e",
+                      "surface-variant": "#e3e2e6",
+                      "background": "#faf9fd",
+                      "on-error-container": "#93000a",
+                      "outline": "#74777f",
+                      "on-primary-fixed": "#001b3d",
+                      "surface-tint": "#465f88",
+                      "outline-variant": "#c4c6cf",
+                      "primary": "#000a1e",
+                      "on-primary-fixed-variant": "#2d476f",
+                      "surface-dim": "#dad9dd",
+                      "surface": "#faf9fd"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-max": "1280px",
+                      "margin-mobile": "16px",
+                      "unit": "4px",
+                      "gutter": "24px",
+                      "margin-desktop": "48px",
+                      "sidebar-width": "280px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "mono-ui": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-caps": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "display-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "example-text": [
+                              "\"Source Serif 4\""
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "mono-ui": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "450"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "example-text": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          }
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background antialiased flex">
+<!-- Side Nav Bar Component -->
+<nav class="bg-surface-container-low dark:bg-surface-container-lowest text-primary dark:text-primary-fixed font-body-md text-body-md w-sidebar-width h-screen sticky top-0 left-0 border-r border-outline-variant dark:border-outline flat no shadows flex flex-col py-margin-desktop px-4 hidden md:flex z-50">
+<div class="mb-10 px-4">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim">L'Étude</h1>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-80 mt-1">French Revision Portal</p>
+</div>
+<ul class="flex flex-col gap-2 flex-grow">
+<li><a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#"><span class="material-symbols-outlined" data-icon="home">home</span>Home</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#"><span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>Chapters</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#"><span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>Grammar</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#"><span class="material-symbols-outlined" data-icon="history_toggle_off">history_toggle_off</span>Tenses</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded text-primary dark:text-primary-fixed-dim font-bold bg-surface-container-high" href="#"><span class="material-symbols-outlined" data-icon="translate">translate</span>Verbs</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#"><span class="material-symbols-outlined" data-icon="layers">layers</span>Constructions</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#"><span class="material-symbols-outlined" data-icon="record_voice_over">record_voice_over</span>Expressions</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#"><span class="material-symbols-outlined" data-icon="extension">extension</span>Vocabulary</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#"><span class="material-symbols-outlined" data-icon="visibility">visibility</span>Examples</a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#"><span class="material-symbols-outlined" data-icon="warning">warning</span>Traps</a></li>
+</ul>
+<div class="mt-auto px-4 flex items-center gap-3 border-t border-outline-variant pt-4">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A small, professional portrait photograph of an academic individual used as a user avatar. They are wearing neutral, business-casual attire against a minimal, light-mode background. The lighting is soft and flattering, suitable for a sophisticated digital platform interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzLg-Dy6Yxh57lGSV5F9du5hx_cDVbSOtgZ5xaMrnb5R1LkMU5W32G0J6_Kvbibo5isxqofjRZ0LfwbjFMSWd481eZ_xfTbyirZ8B8ijWIegLx6-2luV1nd59MkSTWxYamKOoyoXr90AIEOIpykXjeF_1IX3Iad3fKIMb-TvE9_-AWceiEZMo_SNG-wgNFGGi5fIH-hsk6WJM6oaMgZEhjY9FuYCkHcZuClUhfCMPUWDMf6thd1Vsu"/>
+</div>
+<span class="font-body-md text-body-md truncate">User Profile</span>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0">
+<!-- Top App Bar Component -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-md text-primary dark:text-primary-fixed-dim font-label-caps text-label-caps sticky top-0 w-full z-40 border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center h-16 px-margin-desktop transition-all duration-200">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface md:hidden">L'Étude</span>
+<!-- Breadcrumbs in header area -->
+<div class="hidden md:flex items-center gap-2 text-on-surface-variant">
+<span class="uppercase tracking-widest">Verbs</span>
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+<span class="text-primary font-bold uppercase tracking-widest">Prendre</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search -->
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="bg-surface-container-highest border-none rounded-full py-2 pl-10 pr-4 font-body-md text-body-md text-on-surface focus:ring-1 focus:ring-primary outline-none transition-all w-64" placeholder="Search..." type="text"/>
+</div>
+<!-- Actions -->
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant md:hidden">
+<img class="w-full h-full object-cover" data-alt="A small, professional portrait photograph of an academic individual used as a user avatar. They are wearing neutral, business-casual attire against a minimal, light-mode background. The lighting is soft and flattering, suitable for a sophisticated digital platform interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5_9mDGUmE1Z5BRHCuIQQwGqMS2vuBqEznvqqlSdUkH5J2ivR1ZiFXFHce2DO0CQVIsr4XjpyRPfNDRPzeM9egIRSyUJcrj2Bkp0bhEydXitrjytm8eeF2ehPv7wzqSsCmwvRHULdRH5WS-aBJFpV0HN9NdGUf62acC8aBQGzr6KVfw3vMBIOB6i6MwKpF01blkUsmwQkiatMN0IbdLdChpb_j3RBSNWpBEqkkbRlZEsn2R7kKVSbB"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto px-4 md:px-margin-desktop py-12 flex justify-center">
+<!-- Content Constraints -->
+<article class="w-full max-w-[800px] flex flex-col gap-12">
+<!-- Header & Metadata -->
+<header class="flex flex-col gap-6 border-b border-outline-variant pb-8">
+<h1 class="font-display-lg text-display-lg text-on-surface">prendre</h1>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center px-2 py-1 rounded bg-error-container text-on-error-container font-label-caps text-label-caps uppercase tracking-wider">Irregular</span>
+<span class="inline-flex items-center px-2 py-1 rounded border border-outline-variant text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Auxiliary: Avoir</span>
+<span class="inline-flex items-center px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-caps text-label-caps uppercase tracking-wider">Essential</span>
+<span class="inline-flex items-center px-2 py-1 rounded border border-outline-variant text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Very Common</span>
+<span class="inline-flex items-center px-2 py-1 rounded bg-surface-variant text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Ch. 4, 7, 9</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                        To take, to catch (transport), to have (food/drink). A highly versatile and frequent irregular verb belonging to the 3rd group.
+                    </p>
+</header>
+<!-- 1. Overview -->
+<section class="flex flex-col gap-4">
+<h2 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-primary" data-icon="overview" data-weight="fill">overview</span> Overview
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container p-6 rounded-xl border border-outline-variant/50 relative overflow-hidden">
+<!-- Rule Callout style accent -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase mb-3 text-primary">Core Meaning</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">The primary translation is "to take" (physically grasping something or taking a mode of transport). It is also heavily used for consuming food or drink.</p>
+</div>
+<div class="bg-surface-container p-6 rounded-xl border border-outline-variant/50 relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase mb-3 text-secondary">Usage Note</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Unlike in English, one does not "make" a decision in French; one "takes" it (prendre une décision). Do not confuse with <i>apporter</i> or <i>emmener</i>.</p>
+</div>
+</div>
+</section>
+<!-- 2. Conjugations -->
+<section class="flex flex-col gap-4">
+<div class="flex justify-between items-end border-b border-outline-variant pb-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="table_chart" data-weight="fill">table_chart</span> Conjugations
+                        </h2>
+<!-- Minimalist Tabs for Tenses -->
+<div class="flex gap-4">
+<button class="font-label-caps text-label-caps text-primary border-b-2 border-primary pb-1 uppercase tracking-wider">Présent</button>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors uppercase tracking-wider pb-1">Passé Composé</button>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors uppercase tracking-wider pb-1">Imparfait</button>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors uppercase tracking-wider pb-1">Futur</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left font-body-md text-body-md border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase w-1/3">Subject</th>
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase w-2/3">Verb Form</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-6 text-on-surface-variant">je</td>
+<td class="py-3 px-6 text-on-surface font-semibold">prends</td>
+</tr>
+<tr class="bg-surface-bright border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-6 text-on-surface-variant">tu</td>
+<td class="py-3 px-6 text-on-surface font-semibold">prends</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-6 text-on-surface-variant">il/elle/on</td>
+<td class="py-3 px-6 text-on-surface font-semibold">prend</td>
+</tr>
+<tr class="bg-surface-bright border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-6 text-on-surface-variant">nous</td>
+<td class="py-3 px-6 text-on-surface font-semibold">prenons</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-6 text-on-surface-variant">vous</td>
+<td class="py-3 px-6 text-on-surface font-semibold">prenez</td>
+</tr>
+<tr class="bg-surface-bright hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-6 text-on-surface-variant">ils/elles</td>
+<td class="py-3 px-6 text-error font-bold flex items-center gap-2">
+                                        prennent
+                                        <span class="material-symbols-outlined text-sm" data-icon="warning" title="Double 'n'">warning</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 3. Constructions -->
+<section class="flex flex-col gap-4">
+<h2 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-primary" data-icon="account_tree" data-weight="fill">account_tree</span> Syntactic Constructions
+                    </h2>
+<div class="flex flex-col gap-3">
+<div class="p-4 rounded-lg bg-surface-container-low font-mono-ui text-mono-ui border border-outline-variant/50">
+<span class="text-primary font-bold">prendre</span> quelque chose
+                            <span class="text-on-surface-variant ml-4 block sm:inline mt-2 sm:mt-0 opacity-80">// to take something</span>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low font-mono-ui text-mono-ui border border-outline-variant/50">
+<span class="text-primary font-bold">prendre</span> quelque chose <span class="text-error font-bold">à</span> quelqu’un
+                            <span class="text-on-surface-variant ml-4 block sm:inline mt-2 sm:mt-0 opacity-80">// to take something from someone</span>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low font-mono-ui text-mono-ui border border-outline-variant/50">
+<span class="text-primary font-bold">prendre</span> le temps <span class="text-secondary font-bold">de</span> + infinitif
+                            <span class="text-on-surface-variant ml-4 block sm:inline mt-2 sm:mt-0 opacity-80">// to take the time to do something</span>
+</div>
+</div>
+</section>
+<!-- 4. Expressions & 5. Examples Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Expressions Pane -->
+<div class="md:col-span-5 flex flex-col gap-4 bg-surface p-6 rounded-2xl border border-outline-variant">
+<h2 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary" data-icon="forum" data-weight="fill">forum</span> Key Expressions
+                        </h2>
+<ul class="flex flex-col gap-4">
+<li class="border-b border-outline-variant/30 pb-3 last:border-0 last:pb-0">
+<div class="font-body-md text-body-md font-semibold text-on-surface">prendre une décision</div>
+<div class="font-body-md text-body-md text-on-surface-variant">to make a decision</div>
+</li>
+<li class="border-b border-outline-variant/30 pb-3 last:border-0 last:pb-0">
+<div class="font-body-md text-body-md font-semibold text-on-surface">prendre soin de</div>
+<div class="font-body-md text-body-md text-on-surface-variant">to take care of</div>
+</li>
+<li class="border-b border-outline-variant/30 pb-3 last:border-0 last:pb-0">
+<div class="font-body-md text-body-md font-semibold text-on-surface">prendre l'air</div>
+<div class="font-body-md text-body-md text-on-surface-variant">to get some fresh air</div>
+</li>
+<li class="border-b border-outline-variant/30 pb-3 last:border-0 last:pb-0">
+<div class="font-body-md text-body-md font-semibold text-on-surface">s'y prendre</div>
+<div class="font-body-md text-body-md text-on-surface-variant">to go about (doing something)</div>
+</li>
+</ul>
+</div>
+<!-- Examples Pane -->
+<div class="md:col-span-7 flex flex-col gap-4 bg-surface-container-low p-6 rounded-2xl border border-outline-variant">
+<h2 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary" data-icon="format_quote" data-weight="fill">format_quote</span> In Context
+                        </h2>
+<div class="flex flex-col gap-6">
+<div>
+<p class="font-example-text text-example-text text-on-surface mb-1 italic">Je <span class="font-bold text-primary">prends</span> le train tous les matins.</p>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">I take the train every morning.</p>
+</div>
+<div>
+<p class="font-example-text text-example-text text-on-surface mb-1 italic">Nous avons <span class="font-bold text-primary">pris</span> un café ensemble.</p>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">We had a coffee together.</p>
+</div>
+<div>
+<p class="font-example-text text-example-text text-on-surface mb-1 italic">Il faut qu'elle <span class="font-bold text-error">prenne</span> ses médicaments.</p>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">She needs to take her medication. (Subjunctive)</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. Related Knowledge -->
+<section class="flex flex-col gap-4 pt-6 border-t border-outline-variant">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-2">Related Knowledge Paths</h2>
+<div class="flex flex-wrap gap-3">
+<a class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant bg-surface hover:bg-surface-container-high transition-colors text-on-surface font-body-md text-sm" href="#">
+<span class="material-symbols-outlined text-base" data-icon="translate">translate</span> Apprendre (Derivation)
+                        </a>
+<a class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant bg-surface hover:bg-surface-container-high transition-colors text-on-surface font-body-md text-sm" href="#">
+<span class="material-symbols-outlined text-base" data-icon="translate">translate</span> Comprendre (Derivation)
+                        </a>
+<a class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant bg-surface hover:bg-surface-container-high transition-colors text-on-surface font-body-md text-sm" href="#">
+<span class="material-symbols-outlined text-base" data-icon="menu_book">menu_book</span> Subjunctive Formations (Ch. 9)
+                        </a>
+</div>
+</section>
+<div class="h-24 w-full"></div> <!-- Bottom padding -->
+</article>
+</main>
+</div>
+</body></html>

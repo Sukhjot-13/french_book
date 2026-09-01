@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>L'Étude - Conditionnel Présent</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;family=Source+Serif+4:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "outline": "#74777f",
+                            "on-tertiary": "#ffffff",
+                            "on-secondary-fixed": "#111c2d",
+                            "on-primary-container": "#708ab5",
+                            "inverse-on-surface": "#f1f0f4",
+                            "primary-container": "#002147",
+                            "on-tertiary-fixed-variant": "#6c391d",
+                            "inverse-surface": "#2f3033",
+                            "surface-tint": "#465f88",
+                            "surface-container-high": "#e9e7eb",
+                            "surface-variant": "#e3e2e6",
+                            "surface-bright": "#faf9fd",
+                            "secondary-fixed": "#d8e3fb",
+                            "primary-fixed-dim": "#aec7f6",
+                            "inverse-primary": "#aec7f6",
+                            "surface-container-lowest": "#ffffff",
+                            "surface": "#faf9fd",
+                            "on-primary-fixed-variant": "#2d476f",
+                            "on-primary": "#ffffff",
+                            "primary-fixed": "#d6e3ff",
+                            "tertiary-fixed": "#ffdbcb",
+                            "secondary-fixed-dim": "#bcc7de",
+                            "surface-dim": "#dad9dd",
+                            "tertiary-fixed-dim": "#ffb691",
+                            "on-error": "#ffffff",
+                            "on-secondary-fixed-variant": "#3c475a",
+                            "on-primary-fixed": "#001b3d",
+                            "error": "#ba1a1a",
+                            "on-tertiary-fixed": "#341100",
+                            "surface-container": "#efedf1",
+                            "on-secondary": "#ffffff",
+                            "tertiary": "#180500",
+                            "secondary": "#545f73",
+                            "background": "#faf9fd",
+                            "surface-container-low": "#f4f3f7",
+                            "tertiary-container": "#3d1500",
+                            "surface-container-highest": "#e3e2e6",
+                            "error-container": "#ffdad6",
+                            "outline-variant": "#c4c6cf",
+                            "on-secondary-container": "#586377",
+                            "on-surface": "#1a1b1e",
+                            "on-tertiary-container": "#b97958",
+                            "on-surface-variant": "#44474e",
+                            "on-error-container": "#93000a",
+                            "primary": "#000a1e",
+                            "on-background": "#1a1b1e",
+                            "secondary-container": "#d5e0f8"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.125rem",
+                            "lg": "0.25rem",
+                            "xl": "0.5rem",
+                            "full": "0.75rem"
+                    },
+                    "spacing": {
+                            "container-max": "1280px",
+                            "margin-mobile": "16px",
+                            "sidebar-width": "280px",
+                            "unit": "4px",
+                            "margin-desktop": "48px",
+                            "gutter": "24px"
+                    },
+                    "fontFamily": {
+                            "headline-sm": ["Hanken Grotesk"],
+                            "body-md": ["Hanken Grotesk"],
+                            "example-text": ["\"Source Serif 4\""],
+                            "body-lg": ["Hanken Grotesk"],
+                            "mono-ui": ["JetBrains Mono"],
+                            "headline-md": ["Hanken Grotesk"],
+                            "label-caps": ["Hanken Grotesk"],
+                            "display-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                            "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                            "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                            "example-text": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                            "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                            "mono-ui": ["14px", { "lineHeight": "1.4", "fontWeight": "450" }],
+                            "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                            "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                            "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+            .material-symbols-outlined.fill {
+                font-variation-settings: 'FILL' 1;
+            }
+            
+            .stripe-table tr:nth-child(even) {
+                background-color: theme('colors.surface-container-low');
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased selection:bg-primary-fixed selection:text-on-primary-fixed flex flex-col md:flex-row min-h-screen overflow-x-hidden">
+<!-- Mobile Top Nav -->
+<header class="md:hidden sticky top-0 w-full z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center h-16 px-margin-mobile">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">school</span>
+<span class="font-headline-sm text-headline-sm text-primary">L'Étude</span>
+</div>
+<button class="text-on-surface-variant p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- Desktop SideNavBar -->
+<aside class="hidden md:flex flex-col py-margin-desktop px-4 w-sidebar-width h-screen sticky top-0 left-0 bg-surface-container-low border-r border-outline-variant shrink-0 z-30">
+<div class="mb-8 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined fill">school</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">L'Étude</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">French Revision Portal</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto space-y-1 pr-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">home</span>
+<span class="font-body-md text-body-md">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+<span class="font-body-md text-body-md">Chapters</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">format_list_bulleted</span>
+<span class="font-body-md text-body-md">Grammar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px] fill">history_toggle_off</span>
+<span class="font-body-md text-body-md">Tenses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">translate</span>
+<span class="font-body-md text-body-md">Verbs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">layers</span>
+<span class="font-body-md text-body-md">Constructions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">record_voice_over</span>
+<span class="font-body-md text-body-md">Expressions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">extension</span>
+<span class="font-body-md text-body-md">Vocabulary</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+<span class="font-body-md text-body-md">Examples</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+<span class="font-body-md text-body-md">Traps</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant px-4">
+<div class="flex items-center gap-3 cursor-pointer hover:bg-surface-container-high p-2 rounded-lg transition-colors">
+<img class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small, professional headshot avatar of a student in a minimalist, high-key light studio environment. Clean background, sharp focus, desaturated palette with a subtle blue accent. Academic tone." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbBeGZHNZ_qiP2LH3_qRZ7IVZkOgaeau_-QyTCQ8QcgPEBBHMBo9rk1EZW7lf320lLUXDbo4bctYu1KKs5Ko59ypk5qBDry2s_3Us4W8xQMTgi_wrOYdfY0v0AaRHvtqKfJo6ugNV4zcgQBL3I49kW6gvXnMF2oSr3KseGnYvW1YAUzsHT50OyMZ9soqT0SGnGBcsROF1blhXZgheLHNUmTelPRhW1Zu8_6suH1psOPFfWl8ebqakw"/>
+<span class="font-body-md text-body-md text-on-surface-variant">User Profile</span>
+<span class="material-symbols-outlined text-outline ml-auto text-[18px]">settings</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 flex justify-center">
+<!-- Reading Column (Center Focus) -->
+<article class="w-full max-w-[800px] flex flex-col gap-12">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 font-label-caps text-label-caps text-on-surface-variant mb-[-24px]">
+<a class="hover:text-primary transition-colors" href="#">TENSES</a>
+<span class="text-outline-variant">/</span>
+<a class="hover:text-primary transition-colors" href="#">INDICATIVE MOOD</a>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface">CONDITIONNEL PRÉSENT</span>
+</nav>
+<!-- 1. Header -->
+<header class="border-b border-outline-variant pb-8">
+<div class="flex items-start justify-between gap-4 flex-wrap">
+<div>
+<h1 class="font-display-lg text-display-lg text-primary mb-2">Conditionnel Présent</h1>
+<p class="font-headline-sm text-headline-sm text-on-surface-variant font-normal">Would / Could / Should</p>
+</div>
+<div class="flex gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-container text-on-primary-container rounded font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[14px]">psychology</span>
+                            HYPOTHETICAL
+                        </span>
+</div>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface mt-6 max-w-[680px]">
+                    The present conditional is used to express events that are not guaranteed to occur, often dependent on certain conditions. It is the French equivalent of "would" + verb, used heavily in polite requests, hypotheses, and future actions viewed from a past perspective.
+                </p>
+</header>
+<!-- 2. Formation -->
+<section class="scroll-mt-24" id="formation">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">build</span>
+                    Formation
+                </h2>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 md:p-8">
+<p class="font-body-md text-body-md mb-6">
+                        The conditional is formed using the <strong>future stem</strong> (typically the infinitive) combined with the <strong>imparfait endings</strong>.
+                    </p>
+<div class="bg-surface-container-low rounded-lg p-4 mb-8 font-mono-ui text-mono-ui text-center border border-outline-variant">
+<span class="text-primary-container">Future Stem</span> + <span class="text-on-tertiary-container">-ais, -ais, -ait, -ions, -iez, -aient</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-3 border-b border-outline-variant pb-2">REGULAR ENDINGS (PARLER)</h3>
+<ul class="space-y-2 font-mono-ui text-mono-ui">
+<li class="flex justify-between py-1 border-b border-surface-variant"><span class="text-on-surface-variant w-12">je</span> <span>parler<strong class="text-primary">ais</strong></span></li>
+<li class="flex justify-between py-1 border-b border-surface-variant"><span class="text-on-surface-variant w-12">tu</span> <span>parler<strong class="text-primary">ais</strong></span></li>
+<li class="flex justify-between py-1 border-b border-surface-variant"><span class="text-on-surface-variant w-12">il/elle</span> <span>parler<strong class="text-primary">ait</strong></span></li>
+<li class="flex justify-between py-1 border-b border-surface-variant"><span class="text-on-surface-variant w-12">nous</span> <span>parler<strong class="text-primary">ions</strong></span></li>
+<li class="flex justify-between py-1 border-b border-surface-variant"><span class="text-on-surface-variant w-12">vous</span> <span>parler<strong class="text-primary">iez</strong></span></li>
+<li class="flex justify-between py-1"><span class="text-on-surface-variant w-12">ils/elles</span> <span>parler<strong class="text-primary">aient</strong></span></li>
+</ul>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-3 border-b border-outline-variant pb-2">COMMON IRREGULAR STEMS</h3>
+<ul class="space-y-2 font-mono-ui text-mono-ui">
+<li class="flex justify-between py-1 border-b border-surface-variant"><span class="text-on-surface-variant">aller</span> <span><strong class="text-on-tertiary-container">ir-</strong> (irais)</span></li>
+<li class="flex justify-between py-1 border-b border-surface-variant"><span class="text-on-surface-variant">avoir</span> <span><strong class="text-on-tertiary-container">aur-</strong> (aurais)</span></li>
+<li class="flex justify-between py-1 border-b border-surface-variant"><span class="text-on-surface-variant">être</span> <span><strong class="text-on-tertiary-container">ser-</strong> (serais)</span></li>
+<li class="flex justify-between py-1 border-b border-surface-variant"><span class="text-on-surface-variant">faire</span> <span><strong class="text-on-tertiary-container">fer-</strong> (ferais)</span></li>
+<li class="flex justify-between py-1 border-b border-surface-variant"><span class="text-on-surface-variant">savoir</span> <span><strong class="text-on-tertiary-container">saur-</strong> (saurais)</span></li>
+<li class="flex justify-between py-1"><span class="text-on-surface-variant">venir</span> <span><strong class="text-on-tertiary-container">viendr-</strong> (viendrais)</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Usage Rules -->
+<section class="scroll-mt-24" id="usage">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">rule</span>
+                    Usage Rules
+                </h2>
+<div class="space-y-4">
+<!-- Rule 1 -->
+<div class="relative bg-surface-container-lowest border border-outline-variant rounded-lg p-5 pl-6 overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="absolute inset-0 bg-primary opacity-5 pointer-events-none"></div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">1. Politeness &amp; Softened Requests</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">To express a wish, a request, or advice politely, avoiding the harshness of the present or imperative.</p>
+<p class="font-example-text text-example-text italic text-primary-container">Je voudrais un café, s'il vous plaît.</p>
+</div>
+<!-- Rule 2 -->
+<div class="relative bg-surface-container-lowest border border-outline-variant rounded-lg p-5 pl-6 overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-on-tertiary-container"></div>
+<div class="absolute inset-0 bg-on-tertiary-container opacity-5 pointer-events-none"></div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">2. Hypotheses (Si Clauses)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">Used in the main clause when expressing a hypothetical situation that is contrary to current facts (Si + Imparfait ➔ Conditionnel).</p>
+<p class="font-example-text text-example-text italic text-primary-container">Si j'avais de l'argent, j'achèterais une voiture.</p>
+</div>
+<!-- Rule 3 -->
+<div class="relative bg-surface-container-lowest border border-outline-variant rounded-lg p-5 pl-6 overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="absolute inset-0 bg-secondary opacity-5 pointer-events-none"></div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">3. Future in the Past</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">Used in indirect speech when the main reporting verb is in a past tense, and the reported action was future relative to that past moment.</p>
+<p class="font-example-text text-example-text italic text-primary-container">Il a dit qu'il viendrait demain.</p>
+</div>
+</div>
+</section>
+</article>
+<!-- Right Sidebar (Table of Contents / Context) - Hidden on smaller screens -->
+<aside class="hidden xl:block w-64 ml-12 shrink-0">
+<div class="sticky top-24">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-4">ON THIS PAGE</h4>
+<nav class="flex flex-col space-y-3 border-l-2 border-surface-variant pl-4 text-body-md font-body-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#formation">Formation</a>
+<a class="text-on-surface hover:text-primary transition-colors font-semibold border-l-2 border-primary -ml-[18px] pl-[16px]" href="#usage">Usage Rules</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#connected">Connected Grammar</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#verbs">Key Verbs</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#examples">Examples</a>
+</nav>
+</div>
+</aside>
+</main>
+</body></html>

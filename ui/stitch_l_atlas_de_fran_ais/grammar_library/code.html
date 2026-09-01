@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>L'Étude - Global Grammar Explorer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@450&amp;family=Source+Serif+4:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#111c2d",
+                    "inverse-on-surface": "#f1f0f4",
+                    "tertiary": "#180500",
+                    "primary-fixed": "#d6e3ff",
+                    "primary-container": "#002147",
+                    "inverse-primary": "#aec7f6",
+                    "secondary-fixed-dim": "#bcc7de",
+                    "tertiary-fixed": "#ffdbcb",
+                    "tertiary-container": "#3d1500",
+                    "tertiary-fixed-dim": "#ffb691",
+                    "on-secondary-fixed-variant": "#3c475a",
+                    "on-primary-container": "#708ab5",
+                    "surface-container-high": "#e9e7eb",
+                    "surface-bright": "#faf9fd",
+                    "secondary-container": "#d5e0f8",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#545f73",
+                    "on-tertiary-fixed": "#341100",
+                    "surface-container-low": "#f4f3f7",
+                    "inverse-surface": "#2f3033",
+                    "on-tertiary-container": "#b97958",
+                    "on-error": "#ffffff",
+                    "on-surface": "#1a1b1e",
+                    "error": "#ba1a1a",
+                    "on-background": "#1a1b1e",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e3e2e6",
+                    "on-secondary-container": "#586377",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#6c391d",
+                    "primary-fixed-dim": "#aec7f6",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#d8e3fb",
+                    "surface-container": "#efedf1",
+                    "on-surface-variant": "#44474e",
+                    "surface-variant": "#e3e2e6",
+                    "background": "#faf9fd",
+                    "on-error-container": "#93000a",
+                    "outline": "#74777f",
+                    "on-primary-fixed": "#001b3d",
+                    "surface-tint": "#465f88",
+                    "outline-variant": "#c4c6cf",
+                    "primary": "#000a1e",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "surface-dim": "#dad9dd",
+                    "surface": "#faf9fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "margin-desktop": "48px",
+                    "sidebar-width": "280px"
+            },
+            "fontFamily": {
+                    "body-lg": [
+                            "Hanken Grotesk"
+                    ],
+                    "mono-ui": [
+                            "jetbrainsMono"
+                    ],
+                    "headline-md": [
+                            "Hanken Grotesk"
+                    ],
+                    "headline-sm": [
+                            "Hanken Grotesk"
+                    ],
+                    "label-caps": [
+                            "Hanken Grotesk"
+                    ],
+                    "body-md": [
+                            "Hanken Grotesk"
+                    ],
+                    "display-lg": [
+                            "Hanken Grotesk"
+                    ],
+                    "example-text": [
+                            "\"Source Serif 4\""
+                    ]
+            },
+            "fontSize": {
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "mono-ui": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "450"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "example-text": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col py-margin-desktop px-4 bg-surface-container-low dark:bg-surface-container-lowest text-primary dark:text-primary-fixed font-body-md text-body-md w-sidebar-width h-screen sticky top-0 left-0 border-r border-outline-variant dark:border-outline flat no shadows">
+<div class="mb-12 px-4">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim">L'Étude</h1>
+<p class="text-on-surface-variant font-label-caps text-label-caps mt-1">French Revision Portal</p>
+</div>
+<div class="flex-1 overflow-y-auto space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span>Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Chapters</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-primary dark:text-primary-fixed-dim font-bold hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted" style="font-variation-settings: 'FILL' 1;">format_list_bulleted</span>
+<span>Grammar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="history_toggle_off">history_toggle_off</span>
+<span>Tenses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="translate">translate</span>
+<span>Verbs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+<span>Constructions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="record_voice_over">record_voice_over</span>
+<span>Expressions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="extension">extension</span>
+<span>Vocabulary</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+<span>Examples</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span>Traps</span>
+</a>
+</div>
+<div class="mt-auto px-4 pt-4 border-t border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="person">person</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold text-on-surface truncate">User Profile</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+<!-- TopAppBar (Mobile Only) -->
+<header class="md:hidden flex justify-between items-center h-16 px-margin-mobile w-full bg-surface/80 dark:bg-surface/80 backdrop-blur-md text-primary dark:text-primary-fixed-dim font-label-caps text-label-caps sticky top-0 z-40 border-b border-outline-variant dark:border-outline flat no shadows transition-all duration-200">
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface">L'Étude</h1>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<div class="flex-1 flex overflow-hidden">
+<!-- Main Content Pane -->
+<div class="flex-1 overflow-y-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12">
+<div class="max-w-[800px] mx-auto">
+<!-- Page Header -->
+<div class="mb-8">
+<div class="flex items-center gap-2 text-on-surface-variant mb-2">
+<span class="font-label-caps text-label-caps uppercase">Grammar</span>
+<span class="font-label-caps text-label-caps">/</span>
+<span class="font-label-caps text-label-caps uppercase text-primary">Global Explorer</span>
+</div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface mb-2">Grammar Concepts</h2>
+<p class="text-on-surface-variant max-w-2xl">Browse, filter, and review grammatical constructs across all chapters. Master the rules governing sentence structure, mood, and tense.</p>
+</div>
+<!-- Active Filters & Search -->
+<div class="flex flex-col sm:flex-row gap-4 mb-8 items-start sm:items-center justify-between bg-surface-container-lowest p-4 rounded-lg border border-outline-variant">
+<div class="flex-1 w-full sm:w-auto relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full bg-transparent border-b border-outline-variant focus:border-primary pl-10 pr-4 py-2 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant focus:outline-none transition-colors" placeholder="Search concepts..." type="text"/>
+</div>
+<div class="flex flex-wrap gap-2 items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mr-2">Filters:</span>
+<span class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-caps text-label-caps">
+                                Mood: Subjunctive
+                                <button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[14px]" data-icon="close">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 bg-surface-container-high text-on-surface px-3 py-1 rounded-full font-label-caps text-label-caps">
+                                Importance: High
+                                <button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[14px]" data-icon="close">close</span></button>
+</span>
+<button class="text-primary hover:text-primary-container font-label-caps text-label-caps uppercase ml-2 transition-colors">Clear All</button>
+</div>
+</div>
+<!-- Results Count -->
+<div class="flex justify-between items-center mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Showing 24 Results</span>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Sort:</span>
+<select class="bg-transparent border-none text-primary font-label-caps text-label-caps uppercase focus:ring-0 p-0 cursor-pointer">
+<option>A-Z</option>
+<option>Importance</option>
+<option>Chapter</option>
+</select>
+</div>
+</div>
+<!-- Grammar Cards List -->
+<div class="space-y-4">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 hover:border-outline transition-colors group relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error opacity-5"></div>
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-4 pl-2">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-error-container text-on-error-container font-label-caps text-label-caps px-2 py-1 rounded uppercase">High Importance</span>
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase px-2 py-1 border border-outline-variant rounded">Freq: Common</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2 group-hover:text-primary transition-colors">Si + imparfait → conditionnel présent</h3>
+<p class="text-on-surface-variant mb-4 font-body-md text-body-md">Used to express a hypothesis about the present or a situation that is unlikely to happen. The condition is introduced by 'si' followed by the imperfect, and the result is in the conditional.</p>
+<div class="bg-surface-container-low p-3 rounded font-mono-ui text-mono-ui text-on-surface mb-4 border border-outline-variant">
+                                        Si + [Sujet] + [Imparfait], [Sujet] + [Conditionnel Présent]
+                                    </div>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs text-on-surface-variant bg-surface-container py-1 px-2 rounded">Chapter 4</span>
+<span class="text-xs text-on-surface-variant bg-surface-container py-1 px-2 rounded">Hypotheses</span>
+<span class="text-xs text-on-surface-variant bg-surface-container py-1 px-2 rounded">Conditional Mood</span>
+</div>
+</div>
+<div class="flex md:flex-col gap-2 items-center md:items-end justify-between md:justify-start shrink-0 pt-2">
+<button class="text-primary hover:bg-surface-container-high p-2 rounded-full transition-colors" title="Bookmark">
+<span class="material-symbols-outlined" data-icon="bookmark_border">bookmark_border</span>
+</button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded font-label-caps text-label-caps uppercase hover:bg-primary-container transition-colors">View Details</button>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 hover:border-outline transition-colors group relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary opacity-5"></div>
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-4 pl-2">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-2 py-1 rounded uppercase">Medium Importance</span>
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase px-2 py-1 border border-outline-variant rounded">Freq: Frequent</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2 group-hover:text-primary transition-colors">Subjonctif après expressions de doute</h3>
+<p class="text-on-surface-variant mb-4 font-body-md text-body-md">The subjunctive mood must be used after verbs and expressions indicating doubt, uncertainty, or denial.</p>
+<div class="bg-surface-container-low p-3 rounded font-mono-ui text-mono-ui text-on-surface mb-4 border border-outline-variant">
+                                        Je doute que + [Sujet] + [Verbe au Subjonctif]
+                                    </div>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs text-on-surface-variant bg-surface-container py-1 px-2 rounded">Chapter 7</span>
+<span class="text-xs text-on-surface-variant bg-surface-container py-1 px-2 rounded">Subjunctive</span>
+<span class="text-xs text-on-surface-variant bg-surface-container py-1 px-2 rounded">Doubt</span>
+</div>
+</div>
+<div class="flex md:flex-col gap-2 items-center md:items-end justify-between md:justify-start shrink-0 pt-2">
+<button class="text-primary hover:bg-surface-container-high p-2 rounded-full transition-colors" title="Bookmark">
+<span class="material-symbols-outlined" data-icon="bookmark_border">bookmark_border</span>
+</button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded font-label-caps text-label-caps uppercase hover:bg-primary-container transition-colors">View Details</button>
+</div>
+</div>
+</article>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Filters (Desktop) -->
+<aside class="hidden lg:block w-72 border-l border-outline-variant bg-surface-container-lowest overflow-y-auto p-6">
+<div class="sticky top-0 pb-4 bg-surface-container-lowest z-10 border-b border-outline-variant mb-6">
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface tracking-wider">Refine Results</h3>
+</div>
+<div class="space-y-8">
+<!-- Category Filter -->
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-3 uppercase">Grammar Category</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative flex items-center justify-center">
+<input class="peer appearance-none w-4 h-4 border border-outline rounded-sm checked:bg-primary checked:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-1 transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary text-[12px] opacity-0 peer-checked:opacity-100 pointer-events-none" data-icon="check">check</span>
+</div>
+<span class="text-sm text-on-surface group-hover:text-primary transition-colors">Conjugation</span>
+<span class="ml-auto text-xs text-on-surface-variant">42</span>
+</label>
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative flex items-center justify-center">
+<input class="peer appearance-none w-4 h-4 border border-outline rounded-sm checked:bg-primary checked:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-1 transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary text-[12px] opacity-0 peer-checked:opacity-100 pointer-events-none" data-icon="check">check</span>
+</div>
+<span class="text-sm text-on-surface group-hover:text-primary transition-colors">Pronouns</span>
+<span class="ml-auto text-xs text-on-surface-variant">18</span>
+</label>
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative flex items-center justify-center">
+<input class="peer appearance-none w-4 h-4 border border-outline rounded-sm checked:bg-primary checked:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-1 transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary text-[12px] opacity-0 peer-checked:opacity-100 pointer-events-none" data-icon="check">check</span>
+</div>
+<span class="text-sm text-on-surface group-hover:text-primary transition-colors">Sentence Structure</span>
+<span class="ml-auto text-xs text-on-surface-variant">27</span>
+</label>
+</div>
+</div>
+<!-- Mood Filter -->
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-3 uppercase">Tense &amp; Mood</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative flex items-center justify-center">
+<input class="peer appearance-none w-4 h-4 border border-outline rounded-sm checked:bg-primary checked:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-1 transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary text-[12px] opacity-0 peer-checked:opacity-100 pointer-events-none" data-icon="check">check</span>
+</div>
+<span class="text-sm text-on-surface group-hover:text-primary transition-colors">Indicative</span>
+</label>
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative flex items-center justify-center">
+<input checked="" class="peer appearance-none w-4 h-4 border border-outline rounded-sm checked:bg-primary checked:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-1 transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary text-[12px] opacity-0 peer-checked:opacity-100 pointer-events-none" data-icon="check">check</span>
+</div>
+<span class="text-sm text-on-surface group-hover:text-primary transition-colors">Subjunctive</span>
+</label>
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative flex items-center justify-center">
+<input class="peer appearance-none w-4 h-4 border border-outline rounded-sm checked:bg-primary checked:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-1 transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary text-[12px] opacity-0 peer-checked:opacity-100 pointer-events-none" data-icon="check">check</span>
+</div>
+<span class="text-sm text-on-surface group-hover:text-primary transition-colors">Conditional</span>
+</label>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</body></html>
