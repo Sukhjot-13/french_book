@@ -107,68 +107,10 @@ export function parseAnswerKey(pages: RawPage[]): ParsedAnswerKey {
   return result;
 }
 
-export function parseGlossaryFrEn(pages: RawPage[]): ParsedGlossaryEntry[] {
-  // Printed 240-249 (PDF 254-263)
-  const gPages = pages.filter((p) => (p.printed_page || 0) >= 240 && (p.printed_page || 0) <= 249);
-  const entries: ParsedGlossaryEntry[] = [];
+import { parseGlossaryFrEnEnhanced } from "./enrichment/parse-glossary-enhanced";
+import { buildEnrichedConjugations } from "./enrichment/parse-conjugations-enhanced";
 
-  for (const page of gPages) {
-    const lines = page.text.split("\n");
-    for (const rawLine of lines) {
-      const line = rawLine.trim();
-      if (!line || line.length < 3) continue;
-      if (/^[A-Z]$/.test(line)) continue; // Letter header
-      if (/^French-English glossary/i.test(line)) continue;
-      if (/^\d+$/i.test(line)) continue; // Page number
-
-      // Format e.g. "accès haut-débit (m.) high-speed access"
-      // "acide sour, acid"
-      // "abonner à (s’) to subscribe to"
-      // "acteur, actrice (m./f.) actor, actress"
-      let gender: "masculine" | "feminine" | "common" | null = null;
-      if (/\(m\.\)/i.test(line)) gender = "masculine";
-      else if (/\(f\.\)/i.test(line)) gender = "feminine";
-      else if (/\(m\.\/f\.\)/i.test(line) || /\(f\.\/m\.\)/i.test(line)) gender = "common";
-
-      // Split french and english
-      // Usually there's a transition from french word to english definition
-      // e.g. "à carreaux checked" -> french: "à carreaux", english: ["checked"]
-      let fr = "";
-      let en = "";
-
-      if (line.includes("(m.)") || line.includes("(f.)") || line.includes("(m./f.)")) {
-        const parts = line.split(/\((?:m\.|f\.|m\.\/f\.)\)/);
-        fr = parts[0].trim();
-        en = parts[1]?.trim() || "";
-      } else {
-        // Try common words split
-        const match = line.match(/^([a-zA-ZÀ-ÿ\s’'-,()]+?)\s+(to\s+[a-z].*|[a-z].*)$/);
-        if (match) {
-          fr = match[1].trim();
-          en = match[2].trim();
-        } else {
-          fr = line;
-          en = "";
-        }
-      }
-
-      if (fr) {
-        const englishList = en ? en.split(/,\s*/).map((s) => s.trim()).filter(Boolean) : [];
-        const id = makeVocabId(fr);
-        entries.push({
-          id,
-          french: fr,
-          english: englishList.length > 0 ? englishList : [en || fr],
-          gender,
-          page_printed: page.printed_page || 240,
-          page_pdf: page.pdf_page,
-        });
-      }
-    }
-  }
-
-  return entries;
-}
+export { parseGlossaryFrEnEnhanced as parseGlossaryFrEn };
 
 export function parseGlossaryEnFr(pages: RawPage[]): Array<{ english: string; french: string; page_printed: number }> {
   // Printed 250-259 (PDF 264-273)
@@ -265,7 +207,7 @@ export function parseVerbTables(pages: RawPage[]): ParsedVerbTableForm[] {
 }
 
 export async function parseBackmatter() {
-  console.log("Parsing all back matter files...");
+  console.log("Parsing all back matter files with enhanced parsers...");
   const pagesPath = path.resolve(process.cwd(), "data/raw/pages-all.json");
   const pages: RawPage[] = JSON.parse(fs.readFileSync(pagesPath, "utf-8"));
 
@@ -276,7 +218,7 @@ export async function parseBackmatter() {
   fs.writeFileSync(path.join(outDir, "answer-key.json"), JSON.stringify(answerKey, null, 2), "utf-8");
   console.log(`Answer key extracted: ${Object.keys(answerKey.chapters).length} chapters found.`);
 
-  const glossaryFrEn = parseGlossaryFrEn(pages);
+  const glossaryFrEn = parseGlossaryFrEnEnhanced(pages);
   fs.writeFileSync(path.join(outDir, "glossary-fr-en.json"), JSON.stringify(glossaryFrEn, null, 2), "utf-8");
   console.log(`French-English glossary extracted: ${glossaryFrEn.length} entries.`);
 
@@ -284,9 +226,11 @@ export async function parseBackmatter() {
   fs.writeFileSync(path.join(outDir, "glossary-en-fr.json"), JSON.stringify(glossaryEnFr, null, 2), "utf-8");
   console.log(`English-French glossary extracted: ${glossaryEnFr.length} entries.`);
 
+  const enrichedConjs = buildEnrichedConjugations();
   const verbTables = parseVerbTables(pages);
   fs.writeFileSync(path.join(outDir, "verb-tables.json"), JSON.stringify(verbTables, null, 2), "utf-8");
-  console.log(`Verb tables extracted: ${verbTables.length} tables found.`);
+  fs.writeFileSync(path.join(outDir, "enriched-conjugations.json"), JSON.stringify(enrichedConjs, null, 2), "utf-8");
+  console.log(`Verb tables extracted: ${verbTables.length} tables found, ${enrichedConjs.conjugations.length} enriched conjugations generated.`);
 }
 
 if (require.main === module) {

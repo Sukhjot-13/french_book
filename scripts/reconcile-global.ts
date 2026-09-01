@@ -16,7 +16,10 @@ import {
   StudySet,
 } from "../src/lib/dataset/schemas";
 import { canonicalizeVerbs, canonicalizeVocabulary, canonicalizeExpressions } from "../src/lib/dataset/canonicalize";
-import { makeStudySetId, makeBookId, makeConjugationId, makeVerbId, makeVocabId, makeConceptId } from "../src/lib/dataset/ids";
+import { makeStudySetId, makeBookId, makeConjugationId, makeVerbId, makeVocabId, makeExpressionId, makeConceptId } from "../src/lib/dataset/ids";
+import { buildEnrichedConjugations } from "./enrichment/parse-conjugations-enhanced";
+import { buildEnrichedExpressions } from "./enrichment/parse-expressions-enhanced";
+import { buildEnrichedExamples } from "./enrichment/parse-examples-enhanced";
 
 const ROOT_DIR = path.resolve(__dirname, "..");
 const NORMALIZED_CHAPTERS_DIR = path.join(ROOT_DIR, "data", "normalized", "chapters");
@@ -37,7 +40,7 @@ interface ParsedVerbTableForm {
 }
 
 export function reconcileGlobal(): SuperDatasetRoot {
-  console.log("Starting global reconciliation...");
+  console.log("Starting global reconciliation with enriched passes...");
 
   // Load canonical tenses and concepts
   const tenses: Tense[] = JSON.parse(fs.readFileSync(TENSES_FILE, "utf-8"));
@@ -51,9 +54,9 @@ export function reconcileGlobal(): SuperDatasetRoot {
     ? JSON.parse(fs.readFileSync(VERB_TABLES_FILE, "utf-8"))
     : [];
 
-  // Convert glossary entries into canonical Vocabulary objects
+  // 1. Convert glossary entries into canonical Vocabulary objects
   const backmatterVocab: Vocabulary[] = glossaryFrEn.map((g) => ({
-    id: g.id,
+    id: g.id || makeVocabId(g.french),
     type: "vocabulary",
     canonical_form: g.french,
     display_form: g.french,
@@ -68,7 +71,14 @@ export function reconcileGlobal(): SuperDatasetRoot {
     },
     adjective: null,
     adverb: null,
-    senses: [{ sense_id: `${g.id}_s1`, english: Array.isArray(g.english) ? g.english : [g.english || g.french], usage_contexts: [], example_ids: [] }],
+    senses: [
+      {
+        sense_id: `${g.id || makeVocabId(g.french)}_s1`,
+        english: Array.isArray(g.english) ? g.english : [g.english || g.french],
+        usage_contexts: [],
+        example_ids: [],
+      },
+    ],
     semantic_domains: [],
     word_family_ids: [],
     collocation_expression_ids: [],
@@ -88,9 +98,56 @@ export function reconcileGlobal(): SuperDatasetRoot {
     tags: ["glossary", "backmatter"],
   }));
 
-  // Convert verb table forms into Conjugation & Verb items
-  const backmatterVerbs: Verb[] = [];
-  const backmatterConjugations: any[] = [];
+  // Also convert multi-word glossary entries into Expression objects
+  const glossaryExpressions: Expression[] = glossaryFrEn
+    .filter((g) => g.is_expression)
+    .map((g) => {
+      const id = makeExpressionId(g.french);
+      return {
+        id,
+        type: "expression",
+        expression_type: g.french.startsWith("se ") || g.french.startsWith("s’") ? "verb_pattern" : "fixed_expression",
+        canonical_form: g.french,
+        display_form: g.french,
+        english: Array.isArray(g.english) ? g.english : [g.english || g.french],
+        base_verb_ids: [],
+        related_vocabulary_ids: [g.id || makeVocabId(g.french)],
+        productive: false,
+        collocation_strength: "common",
+        pattern: null,
+        pattern_slots: [],
+        complement_structure: null,
+        mood_governance: null,
+        transformations: [],
+        variants: [],
+        function_ids: [],
+        usage_notes: [],
+        restrictions: [],
+        common_mistakes: [],
+        example_ids: [],
+        study: { learning_priority: 3, usefulness: 4, difficulty: 2 },
+        usage: { register: "neutral", spoken_written: "both", contexts: [] },
+        frequency: { book_occurrences: 1 },
+        origin: { source_type: "book", created_by: "extraction", derived_from_ids: [] },
+        attestations: [
+          {
+            source_type: "book",
+            page_printed: g.page_printed,
+            page_pdf: g.page_pdf,
+            context_type: "glossary_fr_en",
+          },
+        ],
+        relations: {
+          vocabulary: [g.id || makeVocabId(g.french)],
+        },
+        tags: ["glossary", "expression"],
+      };
+    });
+
+  // 2. Load enriched conjugations and backmatter verb tables
+  const enrichedConjsData = buildEnrichedConjugations();
+  const backmatterVerbs: Verb[] = [...enrichedConjsData.verbs];
+  const backmatterConjugations: any[] = [...enrichedConjsData.conjugations];
 
   for (const vt of verbTables) {
     const conjId = makeConjugationId(vt.verb_id, vt.tense_id);
@@ -139,7 +196,11 @@ export function reconcileGlobal(): SuperDatasetRoot {
     });
   }
 
-  // Load all 27 chapters
+  // 3. Load enriched expressions & examples
+  const enrichedExpressions = buildEnrichedExpressions();
+  const enrichedExamples = buildEnrichedExamples();
+
+  // 4. Load all 27 chapters
   const chapterFiles = fs
     .readdirSync(NORMALIZED_CHAPTERS_DIR)
     .filter((f) => f.startsWith("chapter-") && f.endsWith(".json"))
@@ -151,8 +212,8 @@ export function reconcileGlobal(): SuperDatasetRoot {
   const rawVerbs: Verb[] = [...backmatterVerbs];
   const rawConjugations: any[] = [...backmatterConjugations];
   const rawVocabulary: Vocabulary[] = [...backmatterVocab];
-  const rawExpressions: Expression[] = [];
-  const examples: Example[] = [];
+  const rawExpressions: Expression[] = [...enrichedExpressions, ...glossaryExpressions];
+  const rawExamples: Example[] = [...enrichedExamples];
   const exercises: Exercise[] = [];
 
   for (const file of chapterFiles) {
@@ -166,7 +227,7 @@ export function reconcileGlobal(): SuperDatasetRoot {
     rawConjugations.push(...bundle.conjugations);
     rawVocabulary.push(...bundle.vocabulary);
     rawExpressions.push(...bundle.expressions);
-    examples.push(...bundle.examples);
+    rawExamples.push(...bundle.examples);
     exercises.push(...bundle.exercises);
   }
 
@@ -183,6 +244,15 @@ export function reconcileGlobal(): SuperDatasetRoot {
     }
   }
   let conjugations = Array.from(conjugationsMap.values());
+
+  // Canonicalize examples (deduplicate by id)
+  const examplesMap = new Map<string, Example>();
+  for (const ex of rawExamples) {
+    if (!examplesMap.has(ex.id)) {
+      examplesMap.set(ex.id, ex);
+    }
+  }
+  let examples = Array.from(examplesMap.values());
 
   // Build ID lookups
   const verbIdSet = new Set(verbs.map((v) => v.id));
@@ -276,6 +346,32 @@ export function reconcileGlobal(): SuperDatasetRoot {
     }
   }
 
+  // Populate reverse relationships
+  const verbToConjugationsMap = new Map<string, string[]>();
+  for (const c of conjugations) {
+    const list = verbToConjugationsMap.get(c.verb_id) || [];
+    list.push(c.id);
+    verbToConjugationsMap.set(c.verb_id, list);
+  }
+
+  const verbToExpressionsMap = new Map<string, string[]>();
+  for (const e of expressions) {
+    for (const vId of e.base_verb_ids || []) {
+      const list = verbToExpressionsMap.get(vId) || [];
+      list.push(e.id);
+      verbToExpressionsMap.set(vId, list);
+    }
+  }
+
+  for (const v of verbs) {
+    if (verbToConjugationsMap.has(v.id)) {
+      v.conjugation_ids = Array.from(new Set([...(v.conjugation_ids || []), ...verbToConjugationsMap.get(v.id)!]));
+    }
+    if (verbToExpressionsMap.has(v.id)) {
+      v.expression_ids = Array.from(new Set([...(v.expression_ids || []), ...verbToExpressionsMap.get(v.id)!]));
+    }
+  }
+
   // Clean dangling relation IDs from rules and examples
   for (const rule of grammar_rules) {
     rule.example_ids = rule.example_ids.filter((id) => exampleIdSet.has(id));
@@ -301,12 +397,19 @@ export function reconcileGlobal(): SuperDatasetRoot {
   for (const ch of chapters) {
     ch.concept_ids = ch.concept_ids.filter((id) => conceptIdSet.has(id));
     ch.tense_ids = ch.tense_ids.filter((id) => tenseIdSet.has(id));
+    ch.verb_ids = Array.from(new Set(ch.verb_ids.filter((id) => verbIdSet.has(id))));
+    ch.expression_ids = Array.from(new Set(ch.expression_ids.filter((id) => exprIdSet.has(id))));
+    ch.vocabulary_ids = Array.from(new Set(ch.vocabulary_ids.filter((id) => vocabIdSet.has(id))));
+    ch.example_ids = Array.from(new Set(ch.example_ids.filter((id) => exampleIdSet.has(id))));
   }
 
   for (const sec of sections) {
     sec.concept_ids = sec.concept_ids.filter((id) => conceptIdSet.has(id));
     sec.tense_ids = sec.tense_ids.filter((id) => tenseIdSet.has(id));
     sec.example_ids = sec.example_ids.filter((id) => exampleIdSet.has(id));
+    sec.verb_ids = Array.from(new Set(sec.verb_ids.filter((id) => verbIdSet.has(id))));
+    sec.expression_ids = Array.from(new Set(sec.expression_ids.filter((id) => exprIdSet.has(id))));
+    sec.vocabulary_ids = Array.from(new Set(sec.vocabulary_ids.filter((id) => vocabIdSet.has(id))));
   }
 
   // Create built-in study sets
@@ -324,8 +427,16 @@ export function reconcileGlobal(): SuperDatasetRoot {
       name: "High-Frequency Idiomatic Expressions",
       description: "Essential colloquial and conversational French expressions with avoir, faire, aller, and venir.",
       type: "static",
-      item_ids: expressions.slice(0, 30).map((e) => e.id),
+      item_ids: expressions.slice(0, 50).map((e) => e.id),
       tags: ["idioms", "expressions", "collocations"],
+    },
+    {
+      id: makeStudySetId("prepositional_verbal_patterns"),
+      name: "Verbs with Prepositions (à and de)",
+      description: "Comprehensive study set of verbs requiring à or de before an infinitive.",
+      type: "static",
+      item_ids: expressions.filter((e) => e.canonical_form.includes(" à ") || e.canonical_form.includes(" de ")).map((e) => e.id),
+      tags: ["prepositions", "infinitive_constructions", "patterns"],
     },
     {
       id: makeStudySetId("core_grammar_tenses"),
