@@ -12,6 +12,8 @@ export interface DatasetReverseIndexes {
   exercisesByVerb: Map<string, string[]>;
   exercisesByTense: Map<string, string[]>;
   exercisesByGrammarRule: Map<string, string[]>;
+  exercisesByExpression: Map<string, string[]>;
+  exercisesByVocabulary: Map<string, string[]>;
   vocabularyByChapter: Map<string, string[]>;
   expressionsByChapter: Map<string, string[]>;
   verbsByChapter: Map<string, string[]>;
@@ -30,6 +32,8 @@ export function buildReverseIndexes(dataset: SuperDatasetRoot): DatasetReverseIn
   const exercisesByVerb = new Map<string, string[]>();
   const exercisesByTense = new Map<string, string[]>();
   const exercisesByGrammarRule = new Map<string, string[]>();
+  const exercisesByExpression = new Map<string, string[]>();
+  const exercisesByVocabulary = new Map<string, string[]>();
   const vocabularyByChapter = new Map<string, string[]>();
   const expressionsByChapter = new Map<string, string[]>();
   const verbsByChapter = new Map<string, string[]>();
@@ -98,6 +102,8 @@ export function buildReverseIndexes(dataset: SuperDatasetRoot): DatasetReverseIn
       q.relations?.verbs?.forEach((vId) => addLink(exercisesByVerb, vId, ex.id));
       q.relations?.tenses?.forEach((tId) => addLink(exercisesByTense, tId, ex.id));
       q.relations?.grammar_rules?.forEach((rId) => addLink(exercisesByGrammarRule, rId, ex.id));
+      q.relations?.expressions?.forEach((eId) => addLink(exercisesByExpression, eId, ex.id));
+      q.relations?.vocabulary?.forEach((vId) => addLink(exercisesByVocabulary, vId, ex.id));
     });
   });
 
@@ -120,6 +126,8 @@ export function buildReverseIndexes(dataset: SuperDatasetRoot): DatasetReverseIn
     exercisesByVerb,
     exercisesByTense,
     exercisesByGrammarRule,
+    exercisesByExpression,
+    exercisesByVocabulary,
     vocabularyByChapter,
     expressionsByChapter,
     verbsByChapter,

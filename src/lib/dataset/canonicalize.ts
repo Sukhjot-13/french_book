@@ -9,7 +9,8 @@ export function mergeAttestations(existing: Attestation[] = [], incoming: Attest
         m.page_printed === item.page_printed &&
         m.context_type === item.context_type &&
         m.section_id === item.section_id &&
-        m.exercise_id === item.exercise_id
+        m.exercise_id === item.exercise_id &&
+        m.source_anchor === item.source_anchor
     );
     if (!isDup) {
       merged.push(item);

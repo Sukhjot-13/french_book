@@ -20,6 +20,7 @@ import { makeStudySetId, makeBookId, makeConjugationId, makeVerbId, makeVocabId,
 import { buildEnrichedConjugations } from "./enrichment/parse-conjugations-enhanced";
 import { buildEnrichedExpressions } from "./enrichment/parse-expressions-enhanced";
 import { buildEnrichedExamples } from "./enrichment/parse-examples-enhanced";
+import { promoteExerciseExpressionCandidates, writeExercisePromotionReport } from "./enrichment/promote-exercise-expressions";
 
 const ROOT_DIR = path.resolve(__dirname, "..");
 const NORMALIZED_CHAPTERS_DIR = path.join(ROOT_DIR, "data", "normalized", "chapters");
@@ -29,6 +30,7 @@ const GLOSSARY_FR_EN_FILE = path.join(ROOT_DIR, "data", "extracted", "backmatter
 const GLOSSARY_EN_FR_FILE = path.join(ROOT_DIR, "data", "extracted", "backmatter", "glossary-en-fr.json");
 const VERB_TABLES_FILE = path.join(ROOT_DIR, "data", "extracted", "backmatter", "verb-tables.json");
 const FINAL_DATASET_FILE = path.join(ROOT_DIR, "data", "final", "french_grammar.json");
+const EXERCISE_PROMOTION_REPORT = path.join(ROOT_DIR, "data", "reports", "exercise-expression-promotion.json");
 
 interface ParsedVerbTableForm {
   verb_infinitive: string;
@@ -381,6 +383,23 @@ export function reconcileGlobal(): SuperDatasetRoot {
     }
   }
   let examples = Array.from(examplesMap.values());
+
+  // The answer key has already been attached to normalized exercises by the pipeline.  Discover
+  // candidates from those reconciled prompts/answers, then promote only source-supported items
+  // before the final relationship and canonicalization pass.
+  const exercisePromotion = promoteExerciseExpressionCandidates({
+    exercises,
+    expressions,
+    vocabulary,
+    verbs,
+    conjugations,
+    chapters,
+    sections,
+  });
+  expressions = exercisePromotion.expressions;
+  vocabulary = exercisePromotion.vocabulary;
+  writeExercisePromotionReport(exercisePromotion, EXERCISE_PROMOTION_REPORT);
+  console.log(`Exercise expression promotion: ${exercisePromotion.promoted.length} promoted, ${exercisePromotion.merged_existing.length} existing expressions merged, ${exercisePromotion.held_for_review.length} held.`);
 
   // Build ID lookups
   const verbIdSet = new Set(verbs.map((v) => v.id));

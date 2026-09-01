@@ -2,6 +2,17 @@ import { SuperDatasetRoot, SuperDatasetRootSchema } from "./schemas";
 import { isValidId } from "./ids";
 import { buildReverseIndexes } from "./relations";
 
+function normalizedIdentity(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[’`]/g, "'")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
 export interface ValidationReport {
   timestamp: string;
   passed: boolean;
@@ -109,6 +120,7 @@ export function validateDataset(dataset: any): ValidationReport {
     e.base_verb_ids?.forEach((vId) => checkRelation(e.id, "expression", vId, "base_verb_id"));
     e.related_vocabulary_ids?.forEach((vId) => checkRelation(e.id, "expression", vId, "related_vocabulary_id"));
     e.example_ids?.forEach((exId) => checkRelation(e.id, "expression", exId, "example_id"));
+    e.relations?.exercises?.forEach((exId) => checkRelation(e.id, "expression", exId, "exercise_id"));
   });
 
   // Check vocabulary
@@ -143,6 +155,8 @@ export function validateDataset(dataset: any): ValidationReport {
       q.relations?.verbs?.forEach((vId) => checkRelation(q.question_id, "question", vId, "verb"));
       q.relations?.tenses?.forEach((tId) => checkRelation(q.question_id, "question", tId, "tense"));
       q.relations?.grammar_rules?.forEach((rId) => checkRelation(q.question_id, "question", rId, "grammar_rule"));
+      q.relations?.expressions?.forEach((eId) => checkRelation(q.question_id, "question", eId, "expression"));
+      q.relations?.vocabulary?.forEach((vId) => checkRelation(q.question_id, "question", vId, "vocabulary"));
     });
   });
 
@@ -158,6 +172,31 @@ export function validateDataset(dataset: any): ValidationReport {
   typedData.study_sets?.forEach((s) => {
     s.item_ids?.forEach((itemId) => checkRelation(s.id, "study_set", itemId, "item_id"));
   });
+
+  // 4. Canonical duplicate detection.  IDs are not sufficient: source passes can emit
+  // different IDs for the same normalized canonical entity, which would make graph links split.
+  const findDuplicateGroups = (entityType: string, entries: Array<{ id: string; key: string; display: string }>) => {
+    const byKey = new Map<string, Array<{ id: string; display: string }>>();
+    for (const entry of entries) {
+      if (!entry.key) continue;
+      const list = byKey.get(entry.key) || [];
+      list.push({ id: entry.id, display: entry.display });
+      byKey.set(entry.key, list);
+    }
+    for (const [key, values] of byKey) {
+      if (values.length > 1) {
+        duplicateCandidates.push({
+          entity_type: entityType,
+          ids: values.map((value) => value.id),
+          display_name: values[0].display,
+          reason: `Same normalized canonical identity (${key})`,
+        });
+      }
+    }
+  };
+  findDuplicateGroups("verb", (typedData.verbs || []).map((verb) => ({ id: verb.id, key: normalizedIdentity(verb.infinitive), display: verb.infinitive })));
+  findDuplicateGroups("vocabulary", (typedData.vocabulary || []).map((item) => ({ id: item.id, key: `${item.part_of_speech}:${normalizedIdentity(item.canonical_form)}`, display: item.canonical_form })));
+  findDuplicateGroups("expression", (typedData.expressions || []).map((item) => ({ id: item.id, key: `${item.expression_type}:${normalizedIdentity(item.canonical_form)}`, display: item.canonical_form })));
 
   const passed =
     schemaErrors.length === 0 &&
