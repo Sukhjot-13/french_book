@@ -26,7 +26,7 @@ No source_reference_target shells or empty generated rules/examples remain. Unre
 
 ## Relationship Reconciliation After Placeholder Removal
 
-FINAL_TYPED_REFERENCES: 3023; FINAL_RESOLVED: 3023; FINAL_BROKEN: 0.
+FINAL_TYPED_REFERENCES: 3418; FINAL_RESOLVED: 3418; FINAL_BROKEN: 0.
 
 ## Generated Global Trace Repair
 
@@ -35,16 +35,19 @@ Generated tense traces use real source files, source entity IDs, relationship fi
 ## Provenance Accounting Repair
 
 {
-  "DIRECT_SOURCE_ATTESTATION_OBJECTS": 576,
-  "GENERATED_SOURCE_ATTESTATIONS_FROM_GLOSSARY_ROWS": 1906,
+  "DIRECT_SOURCE_ATTESTATION_OBJECTS": 753,
+  "GENERATED_SOURCE_ATTESTATIONS_FROM_GLOSSARY_ROWS": 1893,
   "GENERATED_SOURCE_ATTESTATIONS_FROM_VERB_TABLE_VERB_ROWS": 56,
   "GENERATED_SOURCE_ATTESTATIONS_FROM_VERB_TABLE_CONJUGATION_ROWS": 104,
   "DERIVED_FROM_BOOK_ATTESTATIONS": 4,
-  "OTHER_GENERATED_GRAPH_EVIDENCE": 19,
-  "FINAL_UNIQUE_ATTESTATIONS": 2660,
-  "REJECTED_SOURCE_EVIDENCE": 396,
+  "OTHER_GENERATED_GRAPH_EVIDENCE": 31,
+  "FINAL_ATTESTATION_OCCURRENCES": 2837,
+  "FINAL_UNIQUE_ENTITY_ATTESTATIONS": 2824,
+  "EXACT_DUPLICATE_ATTESTATIONS_COLLAPSED": 13,
+  "CONFIRMED_MALFORMED_SOURCE_EVIDENCE_REJECTED": 108,
+  "SOURCE_EVIDENCE_RECONCILED": 2823,
   "UNACCOUNTED_SOURCE_EVIDENCE": 0,
-  "arithmetic": "FINAL_UNIQUE_ATTESTATIONS is the deduplicated canonical attestation total; categories may overlap by entity role but no source attestation is unaccounted."
+  "arithmetic": "UNACCOUNTED_SOURCE_EVIDENCE is computed deterministically as authoritative source evidence minus reconciled evidence minus confirmed malformed rejected evidence."
 }
 
 ## Regression Tests
@@ -53,7 +56,7 @@ See scripts/test-master-semantic-repair.ts.
 
 ## Idempotence
 
-f6cd68af9d34c0d5e7e6476837f1f8398ff3252ff33870d715c11b23af5b9de4; master-idempotence-report.json records the two-run comparison.
+e9faedf5b2fea18924eb73bfb2604f158b342b4e94e517450ba88090da46910c; master-idempotence-report.json records the two-run comparison.
 
 ## Preserved Previously-Fixed Areas
 

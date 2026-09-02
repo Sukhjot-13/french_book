@@ -34,9 +34,9 @@ Verb Table Cells Processed: 104
 Total Inputs Processed into Entities: 4478
 
 ### DISPOSITION_RECORD_COUNT
-Total Processed Entities: 6456 (Includes Chapters, Sections, Answers, etc.)
-MERGED_EXISTING: 2875
-NEW_CANONICAL_ENTITY: 3561
+Total Processed Entities: 6645 (Includes Chapters, Sections, Answers, etc.)
+MERGED_EXISTING: 2874
+NEW_CANONICAL_ENTITY: 3751
 ROUTED_TO_OTHER_ENTITY_TYPE: 0
 UNCERTAIN: 0
 CONFLICT: 0
@@ -45,14 +45,14 @@ REJECTED_MALFORMED: 20
 ## Final Canonical Entity Counts
 chapters: 27
 sections: 80
-concepts: 0
+concepts: 12
 tenses: 19
-grammar_rules: 93
-verbs: 394
+grammar_rules: 120
+verbs: 451
 conjugations: 108
-expressions: 142
-vocabulary: 565
-examples: 90
+expressions: 225
+vocabulary: 569
+examples: 97
 exercises: 197
 questions: 1872
 answers: 1872
@@ -65,8 +65,8 @@ Glossary EN->FR rows: 978
 Total: 1926
 
 ordinary vocabulary:
-  merged: 474
-  newly created canonical entities: 542
+  merged: 473
+  newly created canonical entities: 543
 verbs:
   merged: 440
   newly created canonical entities: 272
@@ -97,20 +97,20 @@ orphan answers: 0
 missing answer provenance: 0
 
 ## Relationship Rebuild
-relationships examined: 3023
-resolved: 3023
+relationships examined: 3418
+resolved: 3418
 broken: 0
 
 ## Attestation & Provenance Accounting
-incoming source attestations: 2660
-unique final attestations: 2660
-exact duplicate attestations collapsed: 0
+incoming source attestations: 2837
+unique final attestations: 2824
+exact duplicate attestations collapsed: 13
 rejected attestations: 0
 unaccounted attestations: 0
 
 Provenance breakdown:
 {
-  "book": 2656,
+  "book": 2820,
   "derived_from_book": 4
 }
 
@@ -119,7 +119,8 @@ Provenance breakdown:
   {
     "entity_type": "vocabulary",
     "candidate_ids": [
-      "vocab_voile"
+      "vocab_voile",
+      "vocab_voile_veil"
     ],
     "source_files": [
       "glossary-en-fr.json"
@@ -130,7 +131,7 @@ Provenance breakdown:
       "feminine",
       "masculine"
     ],
-    "reason": "Source gender metadata conflict retained on one same-form/same-sense lexical entity",
+    "reason": "Source-supported homograph/POS conflict preserved as separate lexical sense",
     "confidence": "high"
   },
   {

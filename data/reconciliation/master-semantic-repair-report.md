@@ -6,18 +6,18 @@ Reference: final-master-semantic-audit.md
 
 ## Executive Summary
 
-The preview was regenerated exclusively from the 31 structured inputs. Stable canonical hash: `f6cd68af9d34c0d5e7e6476837f1f8398ff3252ff33870d715c11b23af5b9de4`.
+The preview was regenerated exclusively from the 31 structured inputs. Stable canonical hash: `e9faedf5b2fea18924eb73bfb2604f158b342b4e94e517450ba88090da46910c`.
 
 ## Relationship Repairs
 
 - BEFORE: 219 independently observed broken typed references.
 - ROOT CAUSE: source-local IDs were rewritten without source-aware/global aliases and the prior audit omitted nested typed relationship fields.
 - PIPELINE CHANGE: complete schema-aware typed walker, canonical alias rewriting, source-backed targets, and explicit rejection records for English pseudo-verbs and empty-paradigm placeholders.
-- AFTER: TOTAL_TYPED_REFERENCES=3023; RESOLVED=3023; MALFORMED_SOURCE_RELATIONS_REJECTED=396; UNRESOLVED=0.
+- AFTER: TOTAL_TYPED_REFERENCES=3418; RESOLVED=3418; MALFORMED_SOURCE_RELATIONS_REJECTED=88; UNRESOLVED=0.
 
 ## Glossary Corruption Repairs
 
-Structural bilingual column-boundary detection rejected 22 malformed source rows before entity construction. Trace: master-glossary-corruption-repairs.json.
+Structural bilingual column-boundary detection rejected 25 malformed source rows before entity construction. Trace: master-glossary-corruption-repairs.json.
 
 ## Vocabulary Gender / POS / Sense Repairs
 
@@ -57,7 +57,7 @@ See scripts/test-master-semantic-repair.ts.
 
 ## Idempotence
 
-Canonical hash: `f6cd68af9d34c0d5e7e6476837f1f8398ff3252ff33870d715c11b23af5b9de4`. A second identical run must reproduce it (excluding volatile timestamps).
+Canonical hash: `e9faedf5b2fea18924eb73bfb2604f158b342b4e94e517450ba88090da46910c`. A second identical run must reproduce it (excluding volatile timestamps).
 
 ## Remaining Blocking Issues
 
