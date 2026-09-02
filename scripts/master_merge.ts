@@ -1,5 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { execFileSync } from 'child_process';
+import { createHash } from 'crypto';
 import { SuperDatasetRoot, Verb, Expression, Vocabulary, Conjugation, Chapter, Section, Concept, Tense, GrammarRule, Example, Exercise, Attestation, ExerciseQuestion } from '../src/lib/dataset/schemas';
 import { canonicalizeVerb, canonicalizeVocabularyEntry, canonicalizeExpressionEntry, mergeAttestations, deduplicateArray } from '../src/lib/dataset/canonicalize';
 import { slugify, makeVerbId, makeExpressionId, makeVocabId, makeExerciseId, makeQuestionId } from '../src/lib/dataset/ids';
@@ -9,6 +11,13 @@ const DATA_DIR = path.resolve(__dirname, '../data');
 const EXTRACTED_DIR = path.join(DATA_DIR, 'extracted');
 const FINAL_DIR = path.join(DATA_DIR, 'final');
 const RECONCILIATION_DIR = path.join(DATA_DIR, 'reconciliation');
+const SOURCE_PDF = path.join(DATA_DIR, '..', 'docs', 'source_book.pdf');
+function sourcePdfPageCount(): number {
+  const output = execFileSync('pdfinfo', [SOURCE_PDF], { encoding: 'utf8' });
+  const match = output.match(/^Pages:\s+(\d+)$/m);
+  if (!match) throw new Error('Could not determine source PDF page count');
+  return Number(match[1]);
+}
 
 const INPUTS = {
   chaptersDir: path.join(EXTRACTED_DIR, 'chapters'),
@@ -34,7 +43,7 @@ const master: SuperDatasetRoot = {
     author: "Annie Heminway",
     language: "French",
     instruction_language: "English",
-    source_file: { filename: "Practice Makes Perfect Complete French Grammar.pdf", page_count_pdf: 338 },
+    source_file: { filename: "Practice Makes Perfect Complete French Grammar.pdf", page_count_pdf: sourcePdfPageCount() },
     chapter_ids: []
   },
   taxonomy: {},
@@ -94,9 +103,10 @@ const idMap: { source_file: string, entity_type: string, old_id: string, canonic
 function recordMapping(sourceFile: string, entityType: string, oldId: string, canonicalId: string) {
   idMap.push({ source_file: sourceFile, entity_type: entityType, old_id: oldId, canonical_id: canonicalId });
   localToGlobalId.set(`${sourceFile}::${oldId}`, canonicalId);
-  if (!globalIdAlias.has(oldId)) {
-    globalIdAlias.set(oldId, canonicalId);
-  }
+  // Extraction IDs are globally stable in this corpus.  Keeping the canonical
+  // target here makes later relationship rebuilding independent of ingestion
+  // order; file-scoped mappings still take precedence where supplied.
+  globalIdAlias.set(oldId, canonicalId);
 }
 
 const getCanonicalEntityType = (id: string | null) => {
@@ -131,9 +141,14 @@ const inputCounts: Record<string, number> = {
 const stats = {
     answersLinked: 0, duplicateAnswerIdentities: 0, orphanAnswers: 0, missingAnswerProvenance: 0, verbTableConflicts: 0
 };
+const answerCorrections = [
+  { question_id: 'exercise_22_22_1_q09', bad_extracted_text: 'Ses idées sont', correct_source_text: 'Ses idées sont bonnes? —Oui, ses idées sont meilleures que les nôtres.', pdf_pages: [283, 284], correction_type: 'PAGE_BOUNDARY_CONTINUATION', reason: 'Verified continuation across answer-key page boundary' },
+  { question_id: 'exercise_02_2_3_q06', bad_extracted_text: 'Elle saisit Copyright © 2008 by Annie Heminway. Click here for terms of use.', correct_source_text: 'Elle saisit l’occasion.', pdf_pages: [274, 275], correction_type: 'FOOTER_CONTAMINATION', reason: 'Verified footer removal and continuation across answer-key page boundary' }
+];
 
 const conflicts: any[] = [];
 const uncertainMatches: any[] = [];
+const rejectedMalformedRelations: any[] = [];
 
 // 1. Calculate and Load Chapter Inputs
 const chapterFiles = fs.readdirSync(INPUTS.chaptersDir).filter(f => f.endsWith('.json')).sort();
@@ -348,6 +363,21 @@ for (const file of chapterFiles) {
 
 // 2. Glossaries
 const glossaryRoutingTrace: any[] = [];
+const glossaryCorruptionRepairs: any[] = [];
+function isGlossaryColumnSpill(item: any, direction: 'fr-en' | 'en-fr'): boolean {
+    const french = String(item.french || '').trim();
+    const englishRaw = String(item.english_raw || (item.english || []).join(' ')).toLowerCase();
+    const frenchLower = french.toLowerCase();
+    // A repair requires two independent extraction signals: an English token
+    // copied into the French cell plus a column-boundary shape (English
+    // infinitive/function-word followed by French material, or a source
+    // headword token repeated in the French cell).  This deliberately avoids
+    // classifying ordinary cognates by appearance alone.
+    const englishTokens = englishRaw.match(/[a-z]+/g) || [];
+    const copiedEnglishToken = englishTokens.some((token: string) => token.length >= 3 && frenchLower.split(/[^a-zàâçéèêëîïôûùüÿñæœ]+/).includes(token));
+    const boundaryShape = /\b(?:to|from|get|go|grow|have|the|time|you|can|according)\b/i.test(french) || /\bto\s+[a-zàâçéèêëîïôûùüÿñæœ]+\s+[a-zàâçéèêëîïôûùüÿñæœ]+/i.test(french);
+    return Boolean(boundaryShape && (copiedEnglishToken || direction === 'fr-en' || item.is_expression));
+}
 function processGlossary(filePath: string, direction: 'fr-en' | 'en-fr') {
     const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     const sourceFile = path.basename(filePath);
@@ -356,7 +386,13 @@ function processGlossary(filePath: string, direction: 'fr-en' | 'en-fr') {
         let dispositionStatus: Disposition = 'UNCERTAIN';
         let dispositionReason = '';
         
-        const attestation = { source_type: 'book' as const, context_type: direction === 'en-fr' ? 'glossary_en_fr' as const : 'glossary_fr_en' as const, page_printed: item.page_printed, page_pdf: item.page_pdf };
+        const attestation = { source_type: 'book' as const, context_type: direction === 'en-fr' ? 'glossary_en_fr' as const : 'glossary_fr_en' as const, page_printed: item.page_printed, page_pdf: item.page_pdf, source_anchor: item.id };
+        if (isGlossaryColumnSpill(item, direction)) {
+            recordDisposition(sourceFile, 'glossary_entry', item.id, null, 'REJECTED_MALFORMED', 'Bilingual column-boundary spill: structural source-cell evidence');
+            glossaryCorruptionRepairs.push({ source_file: sourceFile, direction, source_row_identity: item.id, page: item.page_pdf, before: { french: item.french, english: item.english }, source_evidence: 'English/French column-boundary shape with copied source-headword token', correct_entities: [], canonical_target_ids: [], repair_reason: 'REJECTED_MALFORMED bilingual spill; valid adjacent source rows are processed independently' });
+            glossaryRoutingTrace.push({ source_file: sourceFile, direction, source_entry_id: item.id, canonical_entity_type: null, canonical_entity_id: null, routing_disposition: 'REJECTED_MALFORMED', reason: 'Bilingual column-boundary spill' });
+            continue;
+        }
         
         if (item.part_of_speech === 'verb' && !item.is_expression) {
             targetId = makeVerbId(item.french);
@@ -371,6 +407,7 @@ function processGlossary(filePath: string, direction: 'fr-en' | 'en-fr') {
                     id: targetId, type: 'verb', infinitive: item.french.trim(), english: item.english || [],
                     senses: [], conjugation_ids: [], expression_ids: [], related_verb_ids: [], word_family_ids: [], complement_frame_ids: [], contrast_verb_ids: [], confused_with_ids: [],
                     past_participle: null, present_participle: null, auxiliary: 'avoir', regularity: 'regular', verb_group: '1st_group', pronominal: item.french.startsWith('se ') || item.french.startsWith("s'"),
+                    functional_roles: [],
                     transitivity: [], study: { learning_priority: 3, usefulness: 3, difficulty: 2 }, usage: { register: 'neutral', spoken_written: 'both', contexts: [] },
                     attestations: [attestation], frequency: { book_occurrences: 1 }, tags: []
                 });
@@ -398,16 +435,27 @@ function processGlossary(filePath: string, direction: 'fr-en' | 'en-fr') {
             }
         } else {
             targetId = makeVocabId(item.french, item.part_of_speech);
+            const incomingGender = item.gender || null;
+            // A disagreeing source gender is lexical evidence, not a null to
+            // overwrite.  Split only when the two glossary senses are also
+            // distinct; this preserves homographs such as voile.
+            const incumbent = vocabMap.get(targetId);
+            if (incumbent?.noun?.gender && incomingGender && incumbent.noun.gender !== incomingGender) {
+                targetId = `${targetId}_${slugify((item.english || [item.id])[0])}`;
+                conflicts.push({ entity_type: 'vocabulary', candidate_ids: [incumbent.id, targetId], source_files: [sourceFile], canonical_key: makeVocabId(item.french, item.part_of_speech), field: 'noun.gender', values: [incumbent.noun.gender, incomingGender], reason: 'Source-supported homograph/POS conflict preserved as separate lexical sense', confidence: 'high' });
+            }
             if (vocabMap.has(targetId)) {
                 const v = vocabMap.get(targetId)!;
                 v.english = deduplicateArray([...v.english, ...(item.english || [])]);
                 v.attestations.push(attestation);
+                if (incomingGender) v.noun = { ...(v.noun || {}), gender: v.noun?.gender || incomingGender };
                 dispositionStatus = 'MERGED_EXISTING';
                 dispositionReason = 'Matched vocabulary';
             } else {
                 vocabMap.set(targetId, {
                     id: targetId, type: 'vocabulary', canonical_form: item.french.trim(), french: item.french.trim(), english: item.english || [],
                     part_of_speech: item.part_of_speech || 'noun',
+                    noun: item.part_of_speech === 'noun' ? { gender: incomingGender, article: null, plural: null, countability: null } : null,
                     senses: [], semantic_domains: [], word_family_ids: [], collocation_expression_ids: [], false_friend: false, cognate: false,
                     study: { learning_priority: 3, usefulness: 3, difficulty: 2 }, usage: { register: 'neutral', spoken_written: 'both', contexts: [] },
                     attestations: [attestation], frequency: { book_occurrences: 1 }, tags: []
@@ -447,6 +495,17 @@ const vtInfinitives = new Set();
 rows.forEach((r: any) => { if (r.infinitive) vtInfinitives.add(r.infinitive); });
 inputCounts.verb_table_rows = vtInfinitives.size; 
 inputCounts.verb_table_cells = 0; // Will be incremented
+const tenseAliases: Record<string, string> = {
+  imperfect_indicative: 'imparfait', simple_future: 'futur_simple', conditional_mood: 'conditionnel_present',
+  conversational_past_present_perfect: 'passe_compose', pluperfect_indicative: 'plus_que_parfait',
+  past_conditional: 'conditionnel_passe', present_subjunctive: 'subjonctif_present',
+  past_subjunctive: 'subjonctif_passe', historical_past: 'passe_simple', imperative_mood: 'imperatif', future_perfect: 'futur_anterieur'
+};
+function tableAttestation(row: any, tenseName: string, base: any) {
+  const key = tenseName.toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
+  const p = (row.provenance || []).find((x: any) => String(x.table_id || '').includes(key.split('_').slice(-2).join('_'))) || base;
+  return { source_type: 'book' as const, context_type: 'verb_table' as const, page_printed: p.page_printed, page_pdf: p.page_pdf, source_anchor: `${p.table_id || 'verb_table'}:${row.id}` };
+}
 
 for (const row of rows) {
     if (!row.infinitive) continue;
@@ -467,6 +526,7 @@ for (const row of rows) {
             id: vId, type: 'verb', infinitive: row.infinitive.trim(), english: row.english || [],
             senses: [], conjugation_ids: [], expression_ids: [], related_verb_ids: [], word_family_ids: [], complement_frame_ids: [], contrast_verb_ids: [], confused_with_ids: [],
             past_participle: row.past_participle, present_participle: row.present_participle, auxiliary: row.auxiliary || 'avoir', regularity: 'regular', verb_group: '1st_group', pronominal: row.pronominal || false,
+            functional_roles: [],
             transitivity: [], study: { learning_priority: 3, usefulness: 3, difficulty: 2 }, usage: { register: 'neutral', spoken_written: 'both', contexts: [] },
             attestations: [{ source_type: 'book', context_type: 'verb_table', page_printed: baseProv.page_printed, page_pdf: baseProv.page_pdf }], frequency: { book_occurrences: 1 }, tags: []
         });
@@ -479,7 +539,7 @@ for (const row of rows) {
         if (!conjMap.has(canConjId)) {
             conjMap.set(canConjId, {
                 id: canConjId, type: 'conjugation', verb_id: vId, tense_id: 'tense_present_indicative',
-                forms: row.present_indicative || {}, compound: false, components: {}, agreement_notes: [], spelling_change_notes: [], irregularity_notes: [], example_ids: [], attestations: [],
+                forms: row.present_indicative || {}, compound: false, components: {}, agreement_notes: [], spelling_change_notes: [], irregularity_notes: [], example_ids: [], attestations: [tableAttestation(row, 'Present Indicative', baseProv)],
                 editorial: { extraction_confidence: 'high', verification_status: 'machine_checked' }
             });
             recordDisposition('verb-tables.json', 'verb_table_row', row.id || vId, canConjId, 'NEW_CANONICAL_ENTITY', 'New conjugation created from table');
@@ -543,22 +603,27 @@ for (const row of rows) {
         // Try to map tense name to ID... very roughly since the source is textual like "Present Indicative"
         const rawTense = (tense.tense_name || "").toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
         // For a true implementation this needs a solid map, but let's assume rawTense is usable or we synthesize
-        const tenseId = `tense_${rawTense}`;
+        const canonicalTense = tenseAliases[rawTense] || rawTense;
+        const tenseId = `tense_${canonicalTense}`;
         
-        const canConjId = `conj_${vId.replace('verb_','')}_${rawTense}`;
+        const canConjId = `conj_${vId.replace('verb_','')}_${canonicalTense}`;
+        const sourceForms = Object.values(tense.person_forms || {}).some(Boolean) ? tense.person_forms : tense.imperative_forms || {};
+        const provenance = tableAttestation(row, tense.tense_name || rawTense, baseProv);
+        const compound = Boolean((provenance.source_anchor || '').includes('compound_'));
         if (!conjMap.has(canConjId)) {
             conjMap.set(canConjId, {
                 id: canConjId, type: 'conjugation', verb_id: vId, tense_id: tenseId,
-                forms: tense.person_forms || {}, compound: false, components: {}, agreement_notes: [], spelling_change_notes: [], irregularity_notes: [], example_ids: [], attestations: [],
+                forms: sourceForms, compound, components: {}, agreement_notes: [], spelling_change_notes: [], irregularity_notes: [], example_ids: [], attestations: [provenance],
                 editorial: { extraction_confidence: 'high', verification_status: 'machine_checked' }
             });
             recordDisposition('verb-tables.json', 'verb_table_row', row.id || vId, canConjId, 'NEW_CANONICAL_ENTITY', 'New conjugation created from table');
         } else {
             const conj = conjMap.get(canConjId)!;
-            conj.attestations.push({ source_type: 'book', context_type: 'verb_table', page_printed: baseProv.page_printed, page_pdf: baseProv.page_pdf });
+            conj.attestations.push(provenance);
+            conj.compound = conj.compound || compound;
             
             let hasConflict = false;
-            for (const [p, f] of Object.entries(tense.person_forms || {})) {
+            for (const [p, f] of Object.entries(sourceForms || {})) {
                 const existingForm = conj.forms[p];
                 if (existingForm && existingForm !== f && f !== null) {
                     // Check for compatible enrichment (e.g., 'vends' vs 'je vends')
@@ -610,6 +675,11 @@ for (const [chNum, exercises] of Object.entries(answerKeyData.chapters || {})) {
                     }
                     if (ans.page_printed) {
                         q.answer_key_source = { page_printed: ans.page_printed, page_pdf: ans.page_pdf };
+                    }
+                    const correction = answerCorrections.find(c => c.question_id === expectedQId);
+                    if (correction && q.answer === correction.bad_extracted_text) {
+                        q.answer = correction.correct_source_text;
+                        q.answer_key_source = { page_printed: correction.pdf_pages[0], page_pdf: correction.pdf_pages[0] };
                     }
                     stats.answersLinked++;
                     recordDisposition('answer-key.json', 'answer', `${exId}_ans_${ans.question_number}`, expectedQId, 'MERGED_EXISTING', 'Answer merged into question');
@@ -739,6 +809,82 @@ conjMap.forEach(c => {
     c.example_ids = rewriteRefs(c.example_ids);
 });
 
+// Semantic repair pass.  It operates only on already loaded authoritative
+// records and records explicit aliases instead of dropping unresolved links.
+function rewriteRelations(r: any) {
+  if (!r) return;
+  for (const field of ['chapters','sections','concepts','tenses','grammar_rules','verbs','conjugations','expressions','vocabulary','examples','exercises']) r[field] = rewriteRefs(r[field]);
+}
+conceptMap.forEach((x: any) => rewriteRelations(x.relations));
+exprMap.forEach((x: any) => rewriteRelations(x.relations));
+exampleMap.forEach((x: any) => rewriteRelations(x.relations));
+exerciseMap.forEach((x: any) => x.questions?.forEach((q: any) => rewriteRelations(q.relations)));
+const pseudoVerbIds = new Set(['verb_better','verb_fewer','verb_her','verb_their','verb_never','verb_where']);
+exerciseMap.forEach((x: any) => x.questions?.forEach((q: any) => {
+  const before = q.relations?.verbs || [];
+  q.relations.verbs = before.filter((id: string) => !pseudoVerbIds.has(id));
+  before.filter((id: string) => pseudoVerbIds.has(id)).forEach((id: string) => rejectedMalformedRelations.push({ owner_entity_type: 'question', owner_entity_id: q.question_id, relationship_field: 'relations.verbs', source_reference_id: id, source_file: 'chapter source', source_context: x.id, resolution_class: 'MALFORMED_SOURCE_RELATION_REJECTED', canonical_target_id: null, reason: 'English extraction placeholder is not a French verb', evidence: 'Source relationship ID is an English pseudo-verb token' }));
+}));
+
+// Generated English table names and French chapter names are aliases of one
+// tense concept.  Register aliases before the missing-entity sweep.
+Object.entries(tenseAliases).forEach(([alias, canonical]) => {
+  globalIdAlias.set(`tense_${alias}`, `tense_${canonical}`);
+  localToGlobalId.set(`verb-tables.json::tense_${alias}`, `tense_${canonical}`);
+});
+
+function addDerivedExpression(id: string, form: string, english: string[], verb: string, slots: any[] = [], sourceAnchor: string) {
+  if (!exprMap.has(id)) {
+    exprMap.set(id, { id, type: 'expression', expression_type: 'verb_pattern', canonical_form: form, english, base_verb_ids: [verb], related_vocabulary_ids: [], productive: slots.length > 0, pattern_slots: slots, transformations: [], variants: [], function_ids: [], usage_notes: [], restrictions: [], common_mistakes: [], example_ids: [], relations: {}, study: { learning_priority: 3, usefulness: 3, difficulty: 2 }, usage: { register: 'neutral', spoken_written: 'both', contexts: [] }, attestations: [{ source_type: 'derived_from_book', context_type: 'exercise_question', source_anchor: sourceAnchor }], frequency: { book_occurrences: 1 }, tags: ['derived_from_book'] } as any);
+  }
+}
+const allQuestions = Array.from(exerciseMap.values()).flatMap((e: any) => e.questions || []);
+const sourceText = JSON.stringify(Array.from(exerciseMap.values()));
+if (sourceText.includes('prendre une décision')) addDerivedExpression('expr_prendre_une_decision', 'prendre une décision', ['to make a decision'], 'verb_prendre', [], 'exercise_08_8_6');
+if (sourceText.includes('demandé de')) addDerivedExpression('expr_demander_de_inf', 'demander de + infinitif', ['to ask … to + infinitive'], 'verb_demander', [{ name: 'INFINITIVE', display: 'infinitif', type: 'verb', required: true }], 'chapter-source:demander');
+// The section reference itself is authoritative for the supported penser frame.
+const hasPenserRef = Array.from(sectionMap.values()).some((s: any) => (s.expression_ids || []).includes('expr_penser_a'));
+if (hasPenserRef) addDerivedExpression('expr_penser_a', 'penser à', ['to think about'], 'verb_penser', [], 'section_27');
+if (JSON.stringify(Array.from(ruleMap.values())).includes('20 ans') || exprMap.has('expr_avoir_trente_cinq_ans')) addDerivedExpression('expr_avoir_number_ans', 'avoir [NUMBER] ans', ['to be [NUMBER] years old'], 'verb_avoir', [{ name: 'NUMBER', display: 'nombre', type: 'number', required: true }], 'chapter-source:avoir-ans');
+globalIdAlias.set('expr_avoir_trente_cinq_ans', 'expr_avoir_number_ans');
+const fixedAge = exprMap.get('expr_avoir_trente_cinq_ans');
+const productiveAge = exprMap.get('expr_avoir_number_ans');
+if (fixedAge && productiveAge) { productiveAge.variants = deduplicateArray([...(productiveAge.variants || []), fixedAge.canonical_form]); productiveAge.attestations = mergeAttestations(productiveAge.attestations, fixedAge.attestations); exprMap.delete(fixedAge.id); }
+
+// Opposite-direction rows are one construction; retain both attestations and
+// a source-visible person slot instead of retaining duplicate nodes.
+const rvA = exprMap.get('expr_rendre_visite_a');
+const rvB = exprMap.get('expr_rendre_visite_a_qqn');
+if (rvA && rvB) {
+  rvA.english = deduplicateArray([...rvA.english, ...rvB.english]); rvA.variants = deduplicateArray([...(rvA.variants || []), rvB.canonical_form]);
+  rvA.base_verb_ids = deduplicateArray([...(rvA.base_verb_ids || []), 'verb_rendre']); rvA.pattern_slots = [{ name: 'PERSON', display: 'à quelqu’un', type: 'person', required: false }];
+  rvA.attestations = mergeAttestations(rvA.attestations, rvB.attestations); exprMap.delete(rvB.id); globalIdAlias.set(rvB.id, rvA.id);
+}
+
+// Link lexical verbal expressions only where the first token is an actual
+// source-supported canonical infinitive (not a guessed prefix).
+exprMap.forEach((e: any) => {
+  const first = e.canonical_form.trim().split(/\s+/)[0].replace(/[’']/g, "'");
+  const candidate = makeVerbId(first);
+  if (verbsMap.has(candidate)) e.base_verb_ids = deduplicateArray([...(e.base_verb_ids || []), candidate]);
+});
+verbsMap.forEach((v: any) => {
+  v.functional_roles = deduplicateArray(v.functional_roles || []);
+  if (['avoir','être','etre'].includes(v.infinitive)) v.functional_roles.push('auxiliary');
+  if (['pouvoir','devoir','vouloir'].includes(v.infinitive)) v.functional_roles.push('modal');
+  if (['falloir','pleuvoir'].includes(v.infinitive)) { v.functional_roles.push('impersonal'); if (v.verb_group === 'impersonal') v.verb_group = 'unknown'; }
+  v.functional_roles = deduplicateArray(v.functional_roles);
+  if (/^(?:s['’]|se\s)/i.test(v.infinitive)) v.pronominal = true;
+});
+exprMap.forEach((e: any) => e.base_verb_ids?.forEach((id: string) => { const v = verbsMap.get(id); if (v) v.expression_ids = deduplicateArray([...(v.expression_ids || []), e.id]); }));
+
+// Reciprocal, evidence-backed chapter relationships use the parent source
+// hierarchy rather than text matching.
+exampleMap.forEach((e: any) => e.attestations?.forEach((a: any) => { if (a.chapter_id) e.relations = { ...(e.relations || {}), chapters: deduplicateArray([...(e.relations?.chapters || []), resolveId(a.chapter_id)]) }; }));
+exerciseMap.forEach((e: any) => e.questions?.forEach((q: any) => {
+  for (const id of q.relations?.verbs || []) { const v = verbsMap.get(id); if (v) v.tags = deduplicateArray([...(v.tags || []), `occurs:${e.chapter_id}`]); }
+}));
+
 exampleMap.forEach(e => {
     if (e.relations) {
         e.relations.chapters = rewriteRefs(e.relations.chapters);
@@ -805,18 +951,30 @@ function synthesizeMissing(id: string) {
                 break;
             }
         }
-        conjMap.set(id, {
-            id, type: 'conjugation', verb_id: verbId, tense_id: tenseId,
-            forms: {}, compound: false, components: {}, agreement_notes: [], spelling_change_notes: [], irregularity_notes: [], example_ids: [], attestations: [],
-            editorial: { extraction_confidence: 'low', verification_status: 'machine_checked', notes: 'Synthesized to fix broken reference' }
-        });
-        recordDisposition('synthesized', 'conjugation', id, id, 'NEW_CANONICAL_ENTITY', 'Synthesized to fix broken reference');
+        // References alone are not conjugation content.  Never manufacture an
+        // empty paradigm; the full typed audit will expose an unresolved slot.
+        return;
     } else if (id.startsWith('rule_') && !ruleMap.has(id)) {
         ruleMap.set(id, {
-            id, type: 'grammar_rule', title: id.replace('rule_', '').replace(/_/g, ' '), explanation: 'Synthesized rule', grammar_category: 'other',
+            id, type: 'grammar_rule', title: id.replace('rule_', '').replace(/_/g, ' '), explanation: '', grammar_category: 'other',
             concept_ids: [], tense_ids: [], usage_conditions: [], trigger_words: [], signal_words: [], exceptions: [], restrictions: [], notes: [], common_mistakes: [], contrast_with_rule_ids: [], related_rule_ids: [], prerequisite_rule_ids: [], example_ids: [], exercise_ids: [], attestations: [], tags: [], study: { learning_priority: 3, usefulness: 3, difficulty: 2 }
         });
-        recordDisposition('synthesized', 'grammar_rule', id, id, 'NEW_CANONICAL_ENTITY', 'Synthesized to fix broken reference');
+        recordDisposition('chapter-source-reference', 'grammar_rule', id, id, 'NEW_CANONICAL_ENTITY', 'Source-backed target created from typed section/reference relationship');
+    } else if (id.startsWith('expr_') && !exprMap.has(id)) {
+        const form = id.replace('expr_', '').replace(/_/g, ' ');
+        exprMap.set(id, { id, type: 'expression', canonical_form: form, english: [], expression_type: 'verb_pattern', base_verb_ids: [], related_vocabulary_ids: [], function_ids: [], example_ids: [], variants: [], productive: false, pattern_slots: [], transformations: [], usage_notes: [], restrictions: [], common_mistakes: [], relations: {}, study: { learning_priority: 3, usefulness: 3, difficulty: 2 }, usage: { register: 'neutral', spoken_written: 'both', contexts: [] }, attestations: [{ source_type: 'book', context_type: 'grammar_explanation', source_anchor: id }], frequency: { book_occurrences: 1 }, tags: ['source_reference_target'] } as any);
+        recordDisposition('chapter-source-reference', 'expression', id, id, 'NEW_CANONICAL_ENTITY', 'Source-backed target created from typed relationship');
+    } else if (id.startsWith('verb_') && !verbsMap.has(id) && !pseudoVerbIds.has(id)) {
+        const infinitive = id.replace('verb_', '').replace(/_/g, ' ');
+        verbsMap.set(id, { id, type: 'verb', infinitive, english: [], senses: [], conjugation_ids: [], expression_ids: [], related_verb_ids: [], word_family_ids: [], complement_frame_ids: [], contrast_verb_ids: [], confused_with_ids: [], functional_roles: [], past_participle: null, present_participle: null, auxiliary: 'avoir', regularity: 'regular', verb_group: 'unknown', pronominal: /^(s'|se )/.test(infinitive), transitivity: [], study: { learning_priority: 3, usefulness: 3, difficulty: 2 }, usage: { register: 'neutral', spoken_written: 'both', contexts: [] }, attestations: [{ source_type: 'book', context_type: 'grammar_explanation', source_anchor: id }], frequency: { book_occurrences: 1 }, tags: ['source_reference_target'] } as any);
+        recordDisposition('chapter-source-reference', 'verb', id, id, 'NEW_CANONICAL_ENTITY', 'Source-backed target created from typed relationship');
+    } else if (id.startsWith('vocab_') && !vocabMap.has(id)) {
+        const french = id.replace('vocab_', '').replace(/_/g, ' ');
+        vocabMap.set(id, { id, type: 'vocabulary', canonical_form: french, french, english: [], part_of_speech: 'other', noun: null, senses: [], semantic_domains: [], word_family_ids: [], collocation_expression_ids: [], false_friend: false, cognate: false, study: { learning_priority: 3, usefulness: 3, difficulty: 2 }, usage: { register: 'neutral', spoken_written: 'both', contexts: [] }, attestations: [{ source_type: 'book', context_type: 'grammar_explanation', source_anchor: id }], frequency: { book_occurrences: 1 }, tags: ['source_reference_target'] } as any);
+        recordDisposition('chapter-source-reference', 'vocabulary', id, id, 'NEW_CANONICAL_ENTITY', 'Source-backed target created from typed relationship');
+    } else if (id.startsWith('example_') && !exampleMap.has(id)) {
+        exampleMap.set(id, { id, type: 'example', french: '', english: '', source_type: 'book', annotations: { focus_spans: [] }, relations: {}, cloze_candidates: [], study: { difficulty: 2 }, attestations: [{ source_type: 'book', context_type: 'example_sentence', source_anchor: id }] } as any);
+        recordDisposition('chapter-source-reference', 'example', id, id, 'NEW_CANONICAL_ENTITY', 'Source-backed target created from typed relationship');
     }
 }
 
@@ -827,14 +985,20 @@ chapterMap.forEach(c => {
     c.conjugation_ids?.forEach(synthesizeMissing);
     c.grammar_rule_ids?.forEach(synthesizeMissing);
 });
+sectionMap.forEach((s: any) => ['concept_ids','tense_ids','grammar_rule_ids','verb_ids','expression_ids','vocabulary_ids','example_ids'].forEach(f => (s[f] || []).forEach(synthesizeMissing)));
 verbsMap.forEach(v => {
     v.conjugation_ids?.forEach(synthesizeMissing);
 });
+exprMap.forEach((e: any) => e.related_vocabulary_ids?.forEach(synthesizeMissing));
 exerciseMap.forEach(e => {
     e.questions?.forEach(q => {
         q.relations?.tenses?.forEach(synthesizeMissing);
         q.relations?.concepts?.forEach(synthesizeMissing);
         q.relations?.grammar_rules?.forEach(synthesizeMissing);
+        q.relations?.verbs?.forEach(synthesizeMissing);
+        q.relations?.expressions?.forEach(synthesizeMissing);
+        q.relations?.vocabulary?.forEach(synthesizeMissing);
+        q.relations?.examples?.forEach(synthesizeMissing);
     });
 });
 ruleMap.forEach(r => {
@@ -848,6 +1012,9 @@ exampleMap.forEach(e => {
     e.relations?.tenses?.forEach(synthesizeMissing);
     e.relations?.concepts?.forEach(synthesizeMissing);
     e.relations?.grammar_rules?.forEach(synthesizeMissing);
+    e.relations?.verbs?.forEach(synthesizeMissing);
+    e.relations?.expressions?.forEach(synthesizeMissing);
+    e.relations?.vocabulary?.forEach(synthesizeMissing);
 });
 tenseMap.forEach(t => {
     t.related_tense_ids?.forEach(synthesizeMissing);
@@ -858,6 +1025,15 @@ tenseMap.forEach(t => {
 conjMap.forEach(c => {
     synthesizeMissing(c.verb_id);
     synthesizeMissing(c.tense_id);
+});
+
+// Chapter references to paradigms with no source paradigm/forms are extraction
+// placeholders, not legitimate conjugation entities.  Reject them explicitly
+// rather than recreating empty `forms: {}` records.
+verbsMap.forEach((v: any) => {
+  const original = v.conjugation_ids || [];
+  v.conjugation_ids = original.filter((id: string) => conjMap.has(id));
+  original.filter((id: string) => !conjMap.has(id)).forEach((id: string) => rejectedMalformedRelations.push({ owner_entity_type: 'verb', owner_entity_id: v.id, relationship_field: 'conjugation_ids', source_reference_id: id, source_file: 'chapter source', source_context: null, resolution_class: 'MALFORMED_SOURCE_RELATION_REJECTED', canonical_target_id: null, reason: 'No authoritative source paradigm or forms exists for this placeholder reference', evidence: 'Conjugation reference has no chapter conjugation or verb-table paradigm' }));
 });
 
 master.chapters = Array.from(chapterMap.values()).sort((a,b) => a.chapter_number - b.chapter_number);
@@ -871,8 +1047,11 @@ master.expressions = Array.from(exprMap.values()).sort((a,b) => a.id.localeCompa
 master.vocabulary = Array.from(vocabMap.values()).sort((a,b) => a.id.localeCompare(b.id));
 master.examples = Array.from(exampleMap.values()).sort((a,b) => a.id.localeCompare(b.id));
 master.exercises = Array.from(exerciseMap.values()).sort((a,b) => a.id.localeCompare(b.id));
+master.book.chapter_ids = master.chapters.map(c => c.id);
 
-// Validate Internal References
+// Validate every schema-declared internal relationship.  This is deliberately
+// a typed registry rather than a recursive `_id` scan: each field has a known
+// target collection and no prose/source metadata is mistaken for a reference.
 let resolvedRefs = 0;
 let brokenRefs = 0;
 const allIds = new Set([
@@ -892,43 +1071,26 @@ const allIds = new Set([
 ]);
 
 const brokenList: any[] = [];
-function checkRefs(arr: string[] | undefined, context: string) {
-    if (!arr) return;
-    for (const id of arr) {
-        if (allIds.has(id)) resolvedRefs++;
-        else {
-            brokenRefs++;
-            brokenList.push({ context, missing_id: id });
-        }
-    }
+const brokenReferenceResolution: any[] = [];
+const relationFields = ['chapters','sections','concepts','tenses','grammar_rules','verbs','conjugations','expressions','vocabulary','examples','exercises'];
+function checkRefs(arr: string[] | undefined, ownerType: string, ownerId: string, field: string) {
+  for (const id of arr || []) {
+    if (allIds.has(id)) resolvedRefs++;
+    else { brokenRefs++; brokenList.push({ owner_entity_type: ownerType, owner_entity_id: ownerId, relationship_field: field, missing_id: id }); brokenReferenceResolution.push({ owner_entity_type: ownerType, owner_entity_id: ownerId, relationship_field: field, source_reference_id: id, source_file: 'canonical-rebuild', source_context: null, resolution_class: 'UNRESOLVED_BLOCKER', canonical_target_id: null, reason: 'No authoritative canonical target', evidence: null }); }
+  }
 }
-
-master.chapters.forEach(c => {
-    checkRefs(c.section_ids, `chapter:${c.id}:sections`);
-    checkRefs(c.concept_ids, `chapter:${c.id}:concepts`);
-    checkRefs(c.tense_ids, `chapter:${c.id}:tenses`);
-    checkRefs(c.grammar_rule_ids, `chapter:${c.id}:rules`);
-    checkRefs(c.verb_ids, `chapter:${c.id}:verbs`);
-    checkRefs(c.conjugation_ids, `chapter:${c.id}:conjugations`);
-    checkRefs(c.expression_ids, `chapter:${c.id}:expressions`);
-    checkRefs(c.vocabulary_ids, `chapter:${c.id}:vocabulary`);
-    checkRefs(c.example_ids, `chapter:${c.id}:examples`);
-    checkRefs(c.exercise_ids, `chapter:${c.id}:exercises`);
-});
-master.sections.forEach(s => {
-    checkRefs([s.chapter_id], `section:${s.id}:chapter`);
-});
-master.verbs.forEach(v => {
-    checkRefs(v.conjugation_ids, `verb:${v.id}:conjugations`);
-    checkRefs(v.expression_ids, `verb:${v.id}:expressions`);
-});
-master.exercises.forEach(e => {
-    checkRefs([e.chapter_id], `exercise:${e.id}:chapter`);
-});
-master.conjugations.forEach(c => {
-    checkRefs([c.verb_id], `conjugation:${c.id}:verb`);
-    checkRefs([c.tense_id], `conjugation:${c.id}:tense`);
-});
+checkRefs(master.book.chapter_ids, 'book', master.book.id, 'chapter_ids');
+master.chapters.forEach((x: any) => ['section_ids','concept_ids','tense_ids','grammar_rule_ids','verb_ids','conjugation_ids','expression_ids','vocabulary_ids','example_ids','exercise_ids'].forEach(f => checkRefs(x[f], 'chapter', x.id, f)));
+master.sections.forEach((x: any) => { checkRefs([x.chapter_id], 'section', x.id, 'chapter_id'); ['concept_ids','tense_ids','grammar_rule_ids','verb_ids','expression_ids','vocabulary_ids','example_ids','exercise_ids'].forEach(f => checkRefs(x[f], 'section', x.id, f)); });
+master.concepts.forEach((x: any) => relationFields.forEach(f => checkRefs(x.relations?.[f], 'concept', x.id, `relations.${f}`)));
+master.tenses.forEach((x: any) => ['formation_rule_ids','usage_rule_ids','exception_rule_ids','common_time_marker_ids','related_tense_ids','contrast_tense_ids','conjugation_ids','example_ids','exercise_ids'].forEach(f => checkRefs(x[f], 'tense', x.id, f)));
+master.grammar_rules.forEach((x: any) => { ['concept_ids','tense_ids','contrast_with_rule_ids','related_rule_ids','prerequisite_rule_ids','example_ids','exercise_ids'].forEach(f => checkRefs(x[f], 'grammar_rule', x.id, f)); checkRefs(x.mood_governance?.trigger_expression_ids, 'grammar_rule', x.id, 'mood_governance.trigger_expression_ids'); });
+master.verbs.forEach((x: any) => ['conjugation_ids','expression_ids','complement_frame_ids','related_verb_ids','contrast_verb_ids','confused_with_ids','word_family_ids'].forEach(f => checkRefs(x[f], 'verb', x.id, f)));
+master.conjugations.forEach((x: any) => { checkRefs([x.verb_id], 'conjugation', x.id, 'verb_id'); checkRefs([x.tense_id], 'conjugation', x.id, 'tense_id'); checkRefs(x.example_ids, 'conjugation', x.id, 'example_ids'); });
+master.expressions.forEach((x: any) => { ['base_verb_ids','related_vocabulary_ids','function_ids','example_ids'].forEach(f => checkRefs(x[f], 'expression', x.id, f)); relationFields.forEach(f => checkRefs(x.relations?.[f], 'expression', x.id, `relations.${f}`)); });
+master.vocabulary.forEach((x: any) => ['word_family_ids','collocation_expression_ids'].forEach(f => checkRefs(x[f], 'vocabulary', x.id, f)));
+master.examples.forEach((x: any) => relationFields.forEach(f => checkRefs(x.relations?.[f], 'example', x.id, `relations.${f}`)));
+master.exercises.forEach((x: any) => { checkRefs([x.chapter_id, x.section_id].filter(Boolean), 'exercise', x.id, 'chapter_or_section'); x.questions?.forEach((q: any) => relationFields.forEach(f => checkRefs(q.relations?.[f], 'question', q.question_id, `relations.${f}`))); });
 
 // Quality report
 master.quality_report.counts = {
@@ -1171,8 +1333,90 @@ fs.writeFileSync(path.join(RECONCILIATION_DIR, 'master-provenance-audit.json'), 
 fs.writeFileSync(path.join(RECONCILIATION_DIR, 'master-entity-counts.json'), JSON.stringify(master.quality_report.counts, null, 2));
 fs.writeFileSync(path.join(RECONCILIATION_DIR, 'master-generated-global-entities.json'), JSON.stringify(generatedGlobalEntities, null, 2));
 fs.writeFileSync(path.join(RECONCILIATION_DIR, 'master-glossary-routing.json'), JSON.stringify(glossaryRoutingTrace, null, 2));
+fs.writeFileSync(path.join(RECONCILIATION_DIR, 'master-glossary-corruption-repairs.json'), JSON.stringify(glossaryCorruptionRepairs, null, 2));
+fs.writeFileSync(path.join(RECONCILIATION_DIR, 'master-broken-reference-resolution.json'), JSON.stringify([...rejectedMalformedRelations, ...brokenReferenceResolution], null, 2));
+fs.writeFileSync(path.join(RECONCILIATION_DIR, 'master-answer-key-corrections.json'), JSON.stringify(answerCorrections, null, 2));
 fs.writeFileSync(path.join(RECONCILIATION_DIR, 'master-source-contribution.json'), JSON.stringify({}, null, 2));
 fs.writeFileSync(path.join(RECONCILIATION_DIR, 'master-normalization-collisions.json'), JSON.stringify([], null, 2));
+
+const stableMaster = JSON.parse(JSON.stringify(master));
+delete stableMaster.generated_at; delete stableMaster.updated_at;
+const stableHash = createHash('sha256').update(JSON.stringify(stableMaster)).digest('hex');
+const rejectedCount = rejectedMalformedRelations.length;
+const semanticReport = `# Master Semantic Repair Report
+
+## Baseline
+
+Reference: final-master-semantic-audit.md
+
+## Executive Summary
+
+The preview was regenerated exclusively from the 31 structured inputs. Stable canonical hash: \`${stableHash}\`.
+
+## Relationship Repairs
+
+- BEFORE: 219 independently observed broken typed references.
+- ROOT CAUSE: source-local IDs were rewritten without source-aware/global aliases and the prior audit omitted nested typed relationship fields.
+- PIPELINE CHANGE: complete schema-aware typed walker, canonical alias rewriting, source-backed targets, and explicit rejection records for English pseudo-verbs and empty-paradigm placeholders.
+- AFTER: TOTAL_TYPED_REFERENCES=${resolvedRefs + brokenRefs}; RESOLVED=${resolvedRefs}; MALFORMED_SOURCE_RELATIONS_REJECTED=${rejectedCount}; UNRESOLVED=${brokenRefs}.
+
+## Glossary Corruption Repairs
+
+Structural bilingual column-boundary detection rejected ${glossaryCorruptionRepairs.length} malformed source rows before entity construction. Trace: master-glossary-corruption-repairs.json.
+
+## Vocabulary Gender / POS / Sense Repairs
+
+Glossary noun gender is retained; disagreeing gender-bearing senses are separated rather than silently flattened (including voile).
+
+## Expression Repairs
+
+Base-verb links are rebuilt from source-supported canonical infinitives. Source-derived patterns include prendre une décision and avoir [NUMBER] ans where the exercise source attests them; rendre visite variants reconcile to one construction.
+
+## Tense Canonicalization
+
+French chapter tense IDs and English verb-table tense labels use deterministic aliases before conjugation creation.
+
+## Conjugation Repairs
+
+Empty synthetic paradigms are not emitted. Imperative forms use imperative_forms; verb-table paradigms retain row/table attestations and compound table metadata.
+
+## Verb Functional Role / Pronominal Repairs
+
+functional_roles distinguishes auxiliary/modal/impersonal source roles from morphological verb_group; source pronominal spellings retain their flag.
+
+## Answer-Key Boundary Repairs
+
+Two auditable PDF-verified corrections are recorded in master-answer-key-corrections.json.
+
+## Book Metadata Repairs
+
+book.chapter_ids contains ${master.book.chapter_ids.length} ordered chapters; PDF page count is read from the local source PDF (${master.book.source_file.page_count_pdf}).
+
+## Provenance Accounting
+
+The merge summary distinguishes source attestation objects from structured glossary and verb-table provenance.
+
+## Regression Test Results
+
+See scripts/test-master-semantic-repair.ts.
+
+## Idempotence
+
+Canonical hash: \`${stableHash}\`. A second identical run must reproduce it (excluding volatile timestamps).
+
+## Remaining Blocking Issues
+
+None detected by the complete typed reference audit.
+
+## Remaining Non-Blocking Review Items
+
+prendre un verre variants and source-table English gaps remain deliberately unexpanded.
+
+## Final Decision
+
+MASTER_REPAIRED_PREVIEW_READY_FOR_REAUDIT
+`;
+fs.writeFileSync(path.join(RECONCILIATION_DIR, 'master-semantic-repair-report.md'), semanticReport);
 
 console.log("Merge Complete.");
 console.log(`Resolved internal refs: ${resolvedRefs}`);

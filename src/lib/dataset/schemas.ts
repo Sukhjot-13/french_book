@@ -463,6 +463,10 @@ export const VerbSchema = z.object({
   verb_group: VerbGroupSchema.default("1st_group"),
   regularity: RegularitySchema.default("regular"),
   pronominal: z.boolean().default(false),
+  // These describe a verb's syntactic function, not its morphological group.
+  // Kept separate so source labels such as "impersonal" cannot corrupt
+  // verb_group.
+  functional_roles: z.array(z.enum(["auxiliary", "modal", "impersonal"])).optional(),
   transitivity: z.array(z.string()).default([]),
   auxiliary: AuxiliarySchema.default("avoir"),
   past_participle: z.string().nullable().optional(),

@@ -50,6 +50,7 @@ export function canonicalizeVerb(existing: Verb, incoming: Verb): Verb {
     regularity: existing.regularity !== "regular" ? existing.regularity : incoming.regularity || "regular",
     verb_group: existing.verb_group !== "1st_group" ? existing.verb_group : incoming.verb_group || "1st_group",
     pronominal: Boolean(existing.pronominal || incoming.pronominal),
+    functional_roles: deduplicateArray([...(existing.functional_roles || []), ...(incoming.functional_roles || [])]),
     attestations: mergedAttestations,
     frequency: {
       ...existing.frequency,

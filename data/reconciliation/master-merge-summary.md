@@ -34,25 +34,25 @@ Verb Table Cells Processed: 104
 Total Inputs Processed into Entities: 4478
 
 ### DISPOSITION_RECORD_COUNT
-Total Processed Entities: 6457 (Includes Chapters, Sections, Answers, etc.)
-MERGED_EXISTING: 2876
-NEW_CANONICAL_ENTITY: 3581
+Total Processed Entities: 6634 (Includes Chapters, Sections, Answers, etc.)
+MERGED_EXISTING: 2871
+NEW_CANONICAL_ENTITY: 3746
 ROUTED_TO_OTHER_ENTITY_TYPE: 0
 UNCERTAIN: 0
 CONFLICT: 0
-REJECTED_MALFORMED: 0
+REJECTED_MALFORMED: 17
 
 ## Final Canonical Entity Counts
 chapters: 27
 sections: 80
 concepts: 12
-tenses: 30
-grammar_rules: 93
-verbs: 394
-conjugations: 187
-expressions: 154
-vocabulary: 570
-examples: 90
+tenses: 19
+grammar_rules: 120
+verbs: 451
+conjugations: 108
+expressions: 225
+vocabulary: 575
+examples: 97
 exercises: 197
 questions: 1872
 answers: 1872
@@ -65,17 +65,17 @@ Glossary EN->FR rows: 978
 Total: 1926
 
 ordinary vocabulary:
-  merged: 475
-  newly created canonical entities: 548
+  merged: 470
+  newly created canonical entities: 550
 verbs:
   merged: 440
   newly created canonical entities: 272
 expressions:
   merged: 69
-  newly created canonical entities: 122
+  newly created canonical entities: 108
 uncertain: 0
 conflict: 0
-rejected: 0
+rejected: 17
 
 SOURCE ROW TOTAL: 1926
 
@@ -97,24 +97,116 @@ orphan answers: 0
 missing answer provenance: 0
 
 ## Relationship Rebuild
-relationships examined: 1467
-resolved: 1467
+relationships examined: 3331
+resolved: 3331
 broken: 0
 
 ## Attestation & Provenance Accounting
-incoming source attestations: 2577
-unique final attestations: 2577
+incoming source attestations: 2799
+unique final attestations: 2799
 exact duplicate attestations collapsed: 0
 rejected attestations: 0
 unaccounted attestations: 0
 
 Provenance breakdown:
 {
-  "book": 2577
+  "book": 2795,
+  "derived_from_book": 4
 }
 
 ## Conflicts
-No conflicts
+\`\`\`json\n[
+  {
+    "entity_type": "vocabulary",
+    "candidate_ids": [
+      "vocab_voile",
+      "vocab_voile_veil"
+    ],
+    "source_files": [
+      "glossary-en-fr.json"
+    ],
+    "canonical_key": "vocab_voile",
+    "field": "noun.gender",
+    "values": [
+      "feminine",
+      "masculine"
+    ],
+    "reason": "Source-supported homograph/POS conflict preserved as separate lexical sense",
+    "confidence": "high"
+  },
+  {
+    "entity_type": "vocabulary",
+    "candidate_ids": [
+      "vocab_anniversaire",
+      "vocab_anniversaire_birthday"
+    ],
+    "source_files": [
+      "glossary-fr-en.json"
+    ],
+    "canonical_key": "vocab_anniversaire",
+    "field": "noun.gender",
+    "values": [
+      "feminine",
+      "masculine"
+    ],
+    "reason": "Source-supported homograph/POS conflict preserved as separate lexical sense",
+    "confidence": "high"
+  },
+  {
+    "entity_type": "vocabulary",
+    "candidate_ids": [
+      "vocab_meurtrier",
+      "vocab_meurtrier_murderer"
+    ],
+    "source_files": [
+      "glossary-fr-en.json"
+    ],
+    "canonical_key": "vocab_meurtrier",
+    "field": "noun.gender",
+    "values": [
+      "masculine",
+      "common"
+    ],
+    "reason": "Source-supported homograph/POS conflict preserved as separate lexical sense",
+    "confidence": "high"
+  },
+  {
+    "entity_type": "vocabulary",
+    "candidate_ids": [
+      "vocab_patron",
+      "vocab_patron_boss"
+    ],
+    "source_files": [
+      "glossary-fr-en.json"
+    ],
+    "canonical_key": "vocab_patron",
+    "field": "noun.gender",
+    "values": [
+      "masculine",
+      "common"
+    ],
+    "reason": "Source-supported homograph/POS conflict preserved as separate lexical sense",
+    "confidence": "high"
+  },
+  {
+    "entity_type": "vocabulary",
+    "candidate_ids": [
+      "vocab_veuf",
+      "vocab_veuf_widower"
+    ],
+    "source_files": [
+      "glossary-fr-en.json"
+    ],
+    "canonical_key": "vocab_veuf",
+    "field": "noun.gender",
+    "values": [
+      "masculine",
+      "common"
+    ],
+    "reason": "Source-supported homograph/POS conflict preserved as separate lexical sense",
+    "confidence": "high"
+  }
+]\n\`\`\`
 
 ## Duplicate Audit
 canonical duplicate IDs: 0
