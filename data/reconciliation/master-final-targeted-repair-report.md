@@ -34,6 +34,13 @@ The individual resolution records are saved to [`data/reconciliation/master-fina
 | `UNRESOLVED_BLOCKER` | 0 | Zero unresolved blockers |
 | **TOTAL_INPUT_RELATIONSHIPS** | **308** | **100% of candidate relationships resolved** |
 
+### Source Lemma Verification for the 46 Derived Verbs
+
+All 46 `SOURCE_DERIVED_ENTITY_CREATED` relationships link exercise questions to verb lemmas directly tested by those questions. Each of the 34 unique French verb lemmas was verified against the exact prompt text inside the immutable chapter exercise files (`data/extracted/chapters/`):
+- 46 out of 46 (100%) have their authentic French infinitive lemma directly appearing in the source question prompt (e.g. `(apporter)`, `(exercer)`, `(se plaindre)`, `(dîner)`, `(compléter)`, `(geler)`, `(se réveiller)`, `(introduire)`).
+- Zero external French knowledge was required; all lemmas are physically printed in the prompt parentheses.
+- Detailed question-by-question mapping is recorded in [`data/reconciliation/master-reconciled-target-source-trace.json`](file:///Users/sukhjot/codes/book/data/reconciliation/master-reconciled-target-source-trace.json).
+
 ### Relationship Traversal Verification
 - `TOTAL_TYPED_REFERENCES`: 3,506 (3,418 resolved internal graph edges + 88 confirmed malformed rejections)
 - `RESOLVED`: 3,418
@@ -127,14 +134,26 @@ Zero generated global entities have count 0 or single exemplar placeholders. The
 
 ## 6. Provenance Accounting
 
-Attestation counting deduplicates occurrences per entity so that multiple identical attestations on the same entity are counted accurately. The provenance audit reports all 12 specified categories and computes `UNACCOUNTED_SOURCE_EVIDENCE` deterministically:
+Attestation counting deduplicates occurrences per entity so that multiple identical attestations on the same entity are counted accurately. Physical examination of the authoritative source files confirms that there are **576** attestation objects physically existing inside the 27 immutable chapter files:
+- `grammar_rules`: 93
+- `verbs`: 119
+- `conjugations`: 23
+- `expressions`: 32
+- `vocabulary`: 22
+- `examples`: 90
+- `exercises`: 197
+- **Total Physical Source Attestations**: **576**
 
+The previously reported count of 753 was the composite sum of these **576** direct chapter source attestations plus the **177** attestation objects generated for the 189 reconciled relationship targets (27 rules + 57 verbs + 83 expressions + 7 examples + 3 vocabulary = 177; the 12 concepts do not carry an attestations array per schema).
+
+By separating these categories explicitly, the provenance audit reflects:
 ```json
 {
-  "DIRECT_SOURCE_ATTESTATION_OBJECTS": 753,
+  "DIRECT_SOURCE_ATTESTATION_OBJECTS": 576,
   "GENERATED_SOURCE_ATTESTATIONS_FROM_GLOSSARY_ROWS": 1893,
   "GENERATED_SOURCE_ATTESTATIONS_FROM_VERB_TABLE_VERB_ROWS": 56,
   "GENERATED_SOURCE_ATTESTATIONS_FROM_VERB_TABLE_CONJUGATION_ROWS": 104,
+  "GENERATED_SOURCE_ATTESTATIONS_FROM_SOURCE_RELATIONSHIPS": 177,
   "DERIVED_FROM_BOOK_ATTESTATIONS": 4,
   "OTHER_GENERATED_GRAPH_EVIDENCE": 31,
   "FINAL_ATTESTATION_OCCURRENCES": 2837,
@@ -148,7 +167,8 @@ Attestation counting deduplicates occurrences per entity so that multiple identi
 ```
 
 The 13 collapsed exact duplicate attestations are accounted for: `2837 - 2824 = 13`.
-The file is persisted at [`data/reconciliation/master-provenance-audit.json`](file:///Users/sukhjot/codes/book/data/reconciliation/master-provenance-audit.json).
+The complete provenance audit is persisted at [`data/reconciliation/master-provenance-audit.json`](file:///Users/sukhjot/codes/book/data/reconciliation/master-provenance-audit.json).
+The entity-by-entity origin trace for all 189 reconciled targets is documented in [`data/reconciliation/master-reconciled-target-source-trace.json`](file:///Users/sukhjot/codes/book/data/reconciliation/master-reconciled-target-source-trace.json).
 
 ---
 

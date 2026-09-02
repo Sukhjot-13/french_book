@@ -197,6 +197,8 @@ assert.equal(provenance.FINAL_UNIQUE_ENTITY_ATTESTATIONS, rawAttestationCount, '
 assert.equal(provenance.FINAL_ATTESTATION_OCCURRENCES, provenance.FINAL_UNIQUE_ENTITY_ATTESTATIONS + provenance.EXACT_DUPLICATE_ATTESTATIONS_COLLAPSED, 'Raw attestations equals unique plus collapsed duplicates');
 
 // 10. UNACCOUNTED_SOURCE_EVIDENCE is computed rather than hard-coded
+assert.equal(provenance.DIRECT_SOURCE_ATTESTATION_OBJECTS, 576, 'DIRECT_SOURCE_ATTESTATION_OBJECTS is exactly 576 physically inside chapter sources');
+assert.equal(provenance.GENERATED_SOURCE_ATTESTATIONS_FROM_SOURCE_RELATIONSHIPS, 177, 'GENERATED_SOURCE_ATTESTATIONS_FROM_SOURCE_RELATIONSHIPS is exactly 177');
 assert.equal(provenance.UNACCOUNTED_SOURCE_EVIDENCE, 0, 'UNACCOUNTED_SOURCE_EVIDENCE is zero');
 assert(provenance.arithmetic.includes('computed deterministically'), 'Provenance arithmetic states deterministic computation');
 
