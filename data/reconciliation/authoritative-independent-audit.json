@@ -1,0 +1,1786 @@
+{
+  "generated_at": "2026-09-02T23:28:01.832Z",
+  "verdict": "TERRA_TARGETED_REPAIR_REQUIRED",
+  "blockers": [
+    "Disposition or represent 6795 source evidence occurrences.",
+    "Resolve or preserve listed rejected pointers; unknown pointers are not safe rejections.",
+    "Regenerate stale reconciliation report content."
+  ],
+  "source_universe": {
+    "count": 37658,
+    "disposition_counts": {
+      "REPRESENTED_ENTITY": 9080,
+      "REPRESENTED_RELATIONSHIP": 17780,
+      "REPRESENTED_ANSWER": 3937,
+      "EXPLICITLY_REJECTED_WITH_JUSTIFICATION": 46,
+      "EXACT_DUPLICATE": 0,
+      "NOT_APPLICABLE": 20,
+      "UNACCOUNTED": 6795
+    },
+    "unaccounted_count": 6795,
+    "unaccounted_by_kind": {
+      "attestation": 2145,
+      "relationship": 4589,
+      "glossary_row": 61
+    },
+    "suspicious_unaccounted": [
+      {
+        "evidence_id": "1.json::section_regular_er_present::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_regular_er_present",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::section_subject_pronouns::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_subject_pronouns",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::section_common_er_verbs::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_common_er_verbs",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::section_vocabulaire_time::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_vocabulaire_time",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::section_spelling_changes::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_spelling_changes",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::section_verbs_cer::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_verbs_cer",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::section_verbs_ger::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_verbs_ger",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::section_verbs_e_consonant_er::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_verbs_e_consonant_er",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::section_verbs_e_acc_consonant_er::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_verbs_e_acc_consonant_er",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::section_verbs_e_l_er::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_verbs_e_l_er",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::section_present_tense_uses::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_present_tense_uses",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::section_depuis::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "section_depuis",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::concept_present_tense::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "concept_present_tense",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::concept_regular_er_verbs::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "concept_regular_er_verbs",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::concept_subject_pronouns::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "concept_subject_pronouns",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::concept_spelling_changes::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "concept_spelling_changes",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::concept_usage::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "concept_usage",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::concept_depuis::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "concept_depuis",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::concept_duration::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "concept_duration",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::concept_time_expressions::attestation::0",
+        "file": "1.json",
+        "kind": "attestation",
+        "owner_id": "concept_time_expressions",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::expr_etre_en_train_de_inf::relationship::rule_ids::1",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "expr_etre_en_train_de_inf",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::expr_depuis_present::relationship::rule_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "expr_depuis_present",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::expr_il_y_a_que::relationship::rule_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "expr_il_y_a_que",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::expr_ca_fait_que::relationship::rule_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "expr_ca_fait_que",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::expr_depuis_quand::relationship::rule_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "expr_depuis_quand",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::expr_depuis_combien_de_temps::relationship::rule_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "expr_depuis_combien_de_temps",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::expr_il_y_a_combien_de_temps_que::relationship::rule_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "expr_il_y_a_combien_de_temps_que",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::expr_ca_fait_combien_de_temps_que::relationship::rule_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "expr_ca_fait_combien_de_temps_que",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::verb_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::verb_ids::1",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::verb_ids::2",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::verb_ids::3",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::verb_ids::4",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::verb_ids::5",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::verb_ids::6",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::verb_ids::7",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::verb_ids::8",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::verb_ids::9",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::rule_ids::10",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::tense_ids::11",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::concept_ids::12",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_1::relationship::concept_ids::13",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_1",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::verb_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::verb_ids::1",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::verb_ids::2",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::verb_ids::3",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::verb_ids::4",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::verb_ids::5",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::verb_ids::6",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::verb_ids::7",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::verb_ids::8",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::verb_ids::9",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::rule_ids::10",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::tense_ids::11",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::concept_ids::12",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_2::relationship::concept_ids::13",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_2",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::verb_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::verb_ids::1",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::verb_ids::2",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::verb_ids::3",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::verb_ids::4",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::verb_ids::5",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::verb_ids::6",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::verb_ids::7",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::verb_ids::8",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::verb_ids::9",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::vocabulary_ids::10",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::rule_ids::11",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::tense_ids::12",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_3::relationship::concept_ids::13",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_3",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::verb_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::verb_ids::1",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::verb_ids::2",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::verb_ids::3",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::verb_ids::4",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::verb_ids::5",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::verb_ids::6",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::verb_ids::7",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::verb_ids::8",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::verb_ids::9",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::vocabulary_ids::10",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::vocabulary_ids::11",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::vocabulary_ids::12",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::rule_ids::13",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::tense_ids::14",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_4::relationship::concept_ids::15",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_4",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::verb_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::verb_ids::1",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::verb_ids::2",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::verb_ids::3",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::verb_ids::4",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::verb_ids::5",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::verb_ids::6",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::verb_ids::7",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::verb_ids::8",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::verb_ids::9",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::rule_ids::10",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::rule_ids::11",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::rule_ids::12",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::tense_ids::13",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_5::relationship::concept_ids::14",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_5",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::verb_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::verb_ids::1",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::verb_ids::2",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::verb_ids::3",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::verb_ids::4",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::verb_ids::5",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::verb_ids::6",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::verb_ids::7",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::verb_ids::8",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::verb_ids::9",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::vocabulary_ids::10",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::vocabulary_ids::11",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::vocabulary_ids::12",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::vocabulary_ids::13",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::vocabulary_ids::14",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::rule_ids::15",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::rule_ids::16",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::rule_ids::17",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::rule_ids::18",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::rule_ids::19",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::tense_ids::20",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::concept_ids::21",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_6::relationship::concept_ids::22",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_6",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::verb_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::verb_ids::1",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::verb_ids::2",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::verb_ids::3",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::verb_ids::4",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::verb_ids::5",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::verb_ids::6",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::verb_ids::7",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::verb_ids::8",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::verb_ids::9",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::verb_ids::10",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::vocabulary_ids::11",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::vocabulary_ids::12",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::vocabulary_ids::13",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::rule_ids::14",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::rule_ids::15",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::rule_ids::16",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::rule_ids::17",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::tense_ids::18",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::concept_ids::19",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_7::relationship::concept_ids::20",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_7",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_8::relationship::verb_ids::0",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_8",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_8::relationship::verb_ids::1",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_8",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_8::relationship::verb_ids::2",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_8",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_8::relationship::verb_ids::3",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_8",
+        "disposition": "UNACCOUNTED"
+      },
+      {
+        "evidence_id": "1.json::exercise_1_8::relationship::verb_ids::4",
+        "file": "1.json",
+        "kind": "relationship",
+        "owner_id": "exercise_1_8",
+        "disposition": "UNACCOUNTED"
+      }
+    ]
+  },
+  "provenance_independence": {
+    "published_ledger_assessment": "VALID"
+  },
+  "rejected_pointer_classification": {
+    "total": 46,
+    "counts": {
+      "UNRESOLVED": 46
+    },
+    "groups": [
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_#",
+        "total": 10
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_on_#",
+        "total": 5
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_order_#",
+        "total": 4
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_subject_pronoun_#",
+        "total": 3
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_direct_object_#",
+        "total": 3
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_direct_object_compound_#",
+        "total": 2
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_direct_object_imperative_#",
+        "total": 2
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_indirect_object_#",
+        "total": 2
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_indirect_object_imperative_#",
+        "total": 2
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_y_#",
+        "total": 2
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_en_#",
+        "total": 2
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_disjunctive_animate_#",
+        "total": 2
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ca_fait_que",
+        "total": 1
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_repeter_paradigm",
+        "total": 1
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_partir_paradigm",
+        "total": 1
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_repondre_paradigm",
+        "total": 1
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_avoir_paradigm",
+        "total": 1
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_etre_paradigm",
+        "total": 1
+      },
+      {
+        "group": "unencoded | rule | example_ids | example | example_ch#_disjunctive_#",
+        "total": 1
+      }
+    ],
+    "classifications": [
+      {
+        "from": "rule_depuis_duration",
+        "field": "example_ids",
+        "dangling_target": "example_ca_fait_que",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ca_fait_que"
+      },
+      {
+        "from": "rule_english_simple_past_vs_plus_que_parfait",
+        "field": "example_ids",
+        "dangling_target": "example_ch10_21",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_#"
+      },
+      {
+        "from": "rule_english_simple_past_vs_plus_que_parfait",
+        "field": "example_ids",
+        "dangling_target": "example_ch10_22",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_#"
+      },
+      {
+        "from": "rule_ps_formation_er",
+        "field": "example_ids",
+        "dangling_target": "example_ch16_repeter_paradigm",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_repeter_paradigm"
+      },
+      {
+        "from": "rule_ps_formation_ir_re",
+        "field": "example_ids",
+        "dangling_target": "example_ch16_partir_paradigm",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_partir_paradigm"
+      },
+      {
+        "from": "rule_ps_formation_ir_re",
+        "field": "example_ids",
+        "dangling_target": "example_ch16_repondre_paradigm",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_repondre_paradigm"
+      },
+      {
+        "from": "rule_ps_avoir_etre_irregular",
+        "field": "example_ids",
+        "dangling_target": "example_ch16_avoir_paradigm",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_avoir_paradigm"
+      },
+      {
+        "from": "rule_ps_avoir_etre_irregular",
+        "field": "example_ids",
+        "dangling_target": "example_ch16_etre_paradigm",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_etre_paradigm"
+      },
+      {
+        "from": "rule_preposition_states",
+        "field": "example_ids",
+        "dangling_target": "example_ch20_048",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_#"
+      },
+      {
+        "from": "rule_preposition_states",
+        "field": "example_ids",
+        "dangling_target": "example_ch20_049",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_#"
+      },
+      {
+        "from": "rule_preposition_states",
+        "field": "example_ids",
+        "dangling_target": "example_ch20_050",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_#"
+      },
+      {
+        "from": "rule_from_geographical",
+        "field": "example_ids",
+        "dangling_target": "example_ch20_051",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_#"
+      },
+      {
+        "from": "rule_from_geographical",
+        "field": "example_ids",
+        "dangling_target": "example_ch20_052",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_#"
+      },
+      {
+        "from": "rule_from_geographical",
+        "field": "example_ids",
+        "dangling_target": "example_ch20_053",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_#"
+      },
+      {
+        "from": "rule_from_geographical",
+        "field": "example_ids",
+        "dangling_target": "example_ch20_054",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_#"
+      },
+      {
+        "from": "rule_from_geographical",
+        "field": "example_ids",
+        "dangling_target": "example_ch20_055",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_#"
+      },
+      {
+        "from": "rule_subject_pronouns_list",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_subject_pronoun_2",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_subject_pronoun_#"
+      },
+      {
+        "from": "rule_subject_pronouns_list",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_subject_pronoun_3",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_subject_pronoun_#"
+      },
+      {
+        "from": "rule_subject_pronouns_list",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_subject_pronoun_4",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_subject_pronoun_#"
+      },
+      {
+        "from": "rule_on_meanings",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_on_1",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_on_#"
+      },
+      {
+        "from": "rule_on_meanings",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_on_2",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_on_#"
+      },
+      {
+        "from": "rule_on_meanings",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_on_3",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_on_#"
+      },
+      {
+        "from": "rule_on_meanings",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_on_4",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_on_#"
+      },
+      {
+        "from": "rule_on_meanings",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_on_5",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_on_#"
+      },
+      {
+        "from": "rule_direct_object_pronouns_forms",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_direct_object_2",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_direct_object_#"
+      },
+      {
+        "from": "rule_direct_object_pronouns_forms",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_direct_object_3",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_direct_object_#"
+      },
+      {
+        "from": "rule_direct_object_pronouns_forms",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_direct_object_4",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_direct_object_#"
+      },
+      {
+        "from": "rule_direct_object_pronouns_compound",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_direct_object_compound_1",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_direct_object_compound_#"
+      },
+      {
+        "from": "rule_direct_object_pronouns_compound",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_direct_object_compound_2",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_direct_object_compound_#"
+      },
+      {
+        "from": "rule_direct_object_pronouns_imperative",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_direct_object_imperative_1",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_direct_object_imperative_#"
+      },
+      {
+        "from": "rule_direct_object_pronouns_imperative",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_direct_object_imperative_2",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_direct_object_imperative_#"
+      },
+      {
+        "from": "rule_indirect_object_pronouns_forms",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_indirect_object_1",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_indirect_object_#"
+      },
+      {
+        "from": "rule_indirect_object_pronouns_forms",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_indirect_object_2",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_indirect_object_#"
+      },
+      {
+        "from": "rule_indirect_object_pronouns_imperative",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_indirect_object_imperative_1",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_indirect_object_imperative_#"
+      },
+      {
+        "from": "rule_indirect_object_pronouns_imperative",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_indirect_object_imperative_2",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_indirect_object_imperative_#"
+      },
+      {
+        "from": "rule_y",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_y_1",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_y_#"
+      },
+      {
+        "from": "rule_y",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_y_2",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_y_#"
+      },
+      {
+        "from": "rule_en",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_en_1",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_en_#"
+      },
+      {
+        "from": "rule_en",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_en_2",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_en_#"
+      },
+      {
+        "from": "rule_order_object_pronouns",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_order_1",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_order_#"
+      },
+      {
+        "from": "rule_order_object_pronouns",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_order_2",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_order_#"
+      },
+      {
+        "from": "rule_order_object_pronouns",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_order_3",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_order_#"
+      },
+      {
+        "from": "rule_order_object_pronouns",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_order_4",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_order_#"
+      },
+      {
+        "from": "rule_disjunctive_pronouns_forms",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_disjunctive_1",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_disjunctive_#"
+      },
+      {
+        "from": "rule_disjunctive_pronouns_verbs_animate",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_disjunctive_animate_1",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_disjunctive_animate_#"
+      },
+      {
+        "from": "rule_disjunctive_pronouns_verbs_animate",
+        "field": "example_ids",
+        "dangling_target": "example_ch21_disjunctive_animate_2",
+        "status": "DANGLING_POINTER_REJECTED",
+        "reason": "No authoritative target entity exists for this source example pointer",
+        "classification": "UNRESOLVED",
+        "source_chapter": "unencoded",
+        "owner_type": "rule",
+        "target_prefix": "example",
+        "id_pattern": "example_ch#_disjunctive_animate_#"
+      }
+    ]
+  },
+  "tense_canonicalization": {
+    "raw_tense_count": 27,
+    "canonical_tense_count": 27,
+    "alias_duplicate_count": 0,
+    "passive_paradigm_count": 6,
+    "duplicate_groups": []
+  },
+  "input_isolation": {
+    "inspected_files": [
+      "scripts/master_merge.ts",
+      "src/lib/dataset/ids.ts",
+      "src/lib/dataset/canonicalize.ts"
+    ],
+    "semantic_read_references": {
+      "bookdata_json": true,
+      "data_extracted": false,
+      "data_normalized": false,
+      "deprecated_final_master": false
+    },
+    "status": "PASS"
+  },
+  "answer_reconciliation": {
+    "exercises": 197,
+    "canonical_questions": 1868,
+    "answer_entries": 1872,
+    "structural_extra_answer_slots": 4,
+    "unmatched_canonical_questions": [],
+    "unmatched_answer_entries": [],
+    "status": "PASS"
+  },
+  "artifact_synchronization": {
+    "status": "ARTIFACT_DRIFT",
+    "actual_sha256": "c26b73fe00ad779bc8542fd4db0a4db1b2a1cf94c47f0b59ec5fe04be51f24fa",
+    "reported_sha256": "c26b73fe00ad779bc8542fd4db0a4db1b2a1cf94c47f0b59ec5fe04be51f24fa",
+    "actual_counts": {
+      "chapters": 27,
+      "sections": 209,
+      "concepts": 189,
+      "tenses": 27,
+      "grammar_rules": 286,
+      "verbs": 593,
+      "conjugations": 314,
+      "expressions": 662,
+      "vocabulary": 1088,
+      "examples": 1015,
+      "exercises": 197,
+      "questions": 1868,
+      "answered_questions": 1868
+    },
+    "reported_counts": {
+      "chapters": 27,
+      "sections": 209,
+      "concepts": 189,
+      "tenses": 27,
+      "grammar_rules": 286,
+      "verbs": 593,
+      "conjugations": 314,
+      "expressions": 662,
+      "vocabulary": 1088,
+      "examples": 1015,
+      "exercises": 197,
+      "questions": 1868,
+      "answered_questions": 1868
+    },
+    "execute_pipeline_twice": false
+  }
+}

@@ -376,7 +376,7 @@ export const ConceptSchema = z.object({
   name: z.string(),
   name_french: z.string().optional(),
   description: z.string().nullable().optional(),
-  relations: RelationsSchema.default({}),
+  relations: RelationsSchema.default({}).optional(),
   study: StudyMetadataSchema.default({ learning_priority: 3, usefulness: 3, difficulty: 2 }),
   tags: z.array(z.string()).default([]),
 });
@@ -446,6 +446,7 @@ export const GrammarRuleSchema = z.object({
   prerequisite_rule_ids: z.array(z.string()).default([]),
   example_ids: z.array(z.string()).default([]),
   exercise_ids: z.array(z.string()).default([]),
+  relations: RelationsSchema.default({}).optional(),
   study: StudyMetadataSchema.default({ learning_priority: 3, usefulness: 3, difficulty: 2 }),
   attestations: z.array(AttestationSchema).default([]),
   tags: z.array(z.string()).default([]),
@@ -483,6 +484,7 @@ export const VerbSchema = z.object({
   frequency: FrequencySchema.default({ book_occurrences: 0 }),
   origin: OriginMetadataSchema.default({ source_type: "book", created_by: "extraction", derived_from_ids: [] }).optional(),
   attestations: z.array(AttestationSchema).default([]),
+  relations: RelationsSchema.default({}).optional(),
   tags: z.array(z.string()).default([]),
 });
 
@@ -581,6 +583,7 @@ export const VocabularySchema = z.object({
   frequency: FrequencySchema.default({ book_occurrences: 0 }),
   origin: OriginMetadataSchema.default({ source_type: "book", created_by: "extraction", derived_from_ids: [] }).optional(),
   attestations: z.array(AttestationSchema).default([]),
+  relations: RelationsSchema.default({}).optional(),
   tags: z.array(z.string()).default([]),
 });
 

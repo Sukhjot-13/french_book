@@ -34,7 +34,8 @@ const master: SuperDatasetRoot = {
     author: "Annie Heminway",
     language: "French",
     instruction_language: "English",
-    source_file: { filename: "Practice Makes Perfect Complete French Grammar.pdf", page_count_pdf: 338 }
+    source_file: { filename: "Practice Makes Perfect Complete French Grammar.pdf", page_count_pdf: 338 },
+    chapter_ids: []
   },
   taxonomy: {},
   chapters: [],

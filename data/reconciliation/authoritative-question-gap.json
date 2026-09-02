@@ -1,0 +1,159 @@
+{
+  "timestamp": "2026-09-02T21:54:08.542Z",
+  "explanation": "Reconciliation of the 186 vs 197 exercises and 1755 vs 1872 questions between bookdata chapters and bookdata/json/answer_key.json.",
+  "summary": {
+    "chapter_exercises": 197,
+    "answer_key_exercises": 197,
+    "exercise_discrepancy": 0,
+    "chapter_questions": 1868,
+    "answer_key_answers": 1872,
+    "question_discrepancy": 4,
+    "discrepancy_breakdown": {
+      "9-5": {
+        "type": "MALFORMED_SOURCE_RECORD",
+        "affected_records": 5,
+        "notes": "Question numbers stored as '1. Elle recevra' etc. Question and answer present."
+      },
+      "9-7": {
+        "type": "SOURCE_EXTRACTION_MISSING",
+        "missing_questions": 5,
+        "notes": "Questions 6-10 on PDF page 93 omitted from 9.json"
+      },
+      "13-9": {
+        "type": "QUESTION_PRESENT_UNDER_DIFFERENT_STRUCTURE",
+        "difference": 4,
+        "notes": "5-item matching exercise grouped as single object '1-5' in 13.json vs 5 distinct answers in answer key"
+      },
+      "21-1": {
+        "type": "SOURCE_EXTRACTION_MISSING",
+        "missing_questions": 8,
+        "notes": "Questions 3-10 on PDF pages 183-184 omitted from 21.json (which only had Q1-Q2)"
+      },
+      "21-2_to_21-12": {
+        "type": "SOURCE_EXTRACTION_MISSING",
+        "missing_exercises": 11,
+        "missing_questions": 100,
+        "notes": "Exercises 21-2 through 21-12 on PDF pages 184-196 completely omitted from 21.json"
+      }
+    },
+    "gap_count_by_classification": {
+      "MALFORMED_SOURCE_RECORD": 5,
+      "QUESTION_PRESENT_UNDER_DIFFERENT_STRUCTURE": 4
+    }
+  },
+  "gaps": [
+    {
+      "identity": "9-5::1",
+      "exercise_code": "9·5",
+      "normalized_exercise_code": "9-5",
+      "question_number": "1",
+      "chapter": 9,
+      "classification": "MALFORMED_SOURCE_RECORD",
+      "reason": "Question number field in bookdata/json/9.json contained prompt text ('1. Elle recevra'). Prompt and question are present in chapter source."
+    },
+    {
+      "identity": "9-5::2",
+      "exercise_code": "9·5",
+      "normalized_exercise_code": "9-5",
+      "question_number": "2",
+      "chapter": 9,
+      "classification": "MALFORMED_SOURCE_RECORD",
+      "reason": "Question number field in bookdata/json/9.json contained prompt text ('2. Tu courras'). Prompt and question are present in chapter source."
+    },
+    {
+      "identity": "9-5::3",
+      "exercise_code": "9·5",
+      "normalized_exercise_code": "9-5",
+      "question_number": "3",
+      "chapter": 9,
+      "classification": "MALFORMED_SOURCE_RECORD",
+      "reason": "Question number field in bookdata/json/9.json contained prompt text ('3. Il enseignera'). Prompt and question are present in chapter source."
+    },
+    {
+      "identity": "9-5::4",
+      "exercise_code": "9·5",
+      "normalized_exercise_code": "9-5",
+      "question_number": "4",
+      "chapter": 9,
+      "classification": "MALFORMED_SOURCE_RECORD",
+      "reason": "Question number field in bookdata/json/9.json contained prompt text ('4. Elle mourra'). Prompt and question are present in chapter source."
+    },
+    {
+      "identity": "9-5::5",
+      "exercise_code": "9·5",
+      "normalized_exercise_code": "9-5",
+      "question_number": "5",
+      "chapter": 9,
+      "classification": "MALFORMED_SOURCE_RECORD",
+      "reason": "Question number field in bookdata/json/9.json contained prompt text ('5. Il deviendra'). Prompt and question are present in chapter source."
+    },
+    {
+      "identity": "13-9::2",
+      "exercise_code": "13-9",
+      "normalized_exercise_code": "13-9",
+      "question_number": "2",
+      "chapter": 13,
+      "classification": "QUESTION_PRESENT_UNDER_DIFFERENT_STRUCTURE",
+      "reason": "Exercise 13-9 is a 5-item matching exercise grouped in bookdata/json/13.json as a single composite question with number '1-5'. In answer_key.json, each sub-item is listed individually with its own answer.",
+      "answer_key_answer": "c",
+      "source_pages": [
+        {
+          "page_printed": 266,
+          "page_pdf": 280,
+          "source_text": "2. c"
+        }
+      ]
+    },
+    {
+      "identity": "13-9::3",
+      "exercise_code": "13-9",
+      "normalized_exercise_code": "13-9",
+      "question_number": "3",
+      "chapter": 13,
+      "classification": "QUESTION_PRESENT_UNDER_DIFFERENT_STRUCTURE",
+      "reason": "Exercise 13-9 is a 5-item matching exercise grouped in bookdata/json/13.json as a single composite question with number '1-5'. In answer_key.json, each sub-item is listed individually with its own answer.",
+      "answer_key_answer": "a",
+      "source_pages": [
+        {
+          "page_printed": 266,
+          "page_pdf": 280,
+          "source_text": "3. a"
+        }
+      ]
+    },
+    {
+      "identity": "13-9::4",
+      "exercise_code": "13-9",
+      "normalized_exercise_code": "13-9",
+      "question_number": "4",
+      "chapter": 13,
+      "classification": "QUESTION_PRESENT_UNDER_DIFFERENT_STRUCTURE",
+      "reason": "Exercise 13-9 is a 5-item matching exercise grouped in bookdata/json/13.json as a single composite question with number '1-5'. In answer_key.json, each sub-item is listed individually with its own answer.",
+      "answer_key_answer": "e",
+      "source_pages": [
+        {
+          "page_printed": 266,
+          "page_pdf": 280,
+          "source_text": "4. e"
+        }
+      ]
+    },
+    {
+      "identity": "13-9::5",
+      "exercise_code": "13-9",
+      "normalized_exercise_code": "13-9",
+      "question_number": "5",
+      "chapter": 13,
+      "classification": "QUESTION_PRESENT_UNDER_DIFFERENT_STRUCTURE",
+      "reason": "Exercise 13-9 is a 5-item matching exercise grouped in bookdata/json/13.json as a single composite question with number '1-5'. In answer_key.json, each sub-item is listed individually with its own answer.",
+      "answer_key_answer": "b",
+      "source_pages": [
+        {
+          "page_printed": 266,
+          "page_pdf": 280,
+          "source_text": "5. b"
+        }
+      ]
+    }
+  ]
+}

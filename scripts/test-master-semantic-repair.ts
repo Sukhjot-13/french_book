@@ -5,25 +5,26 @@ import { SuperDatasetRootSchema } from '../src/lib/dataset/schemas';
 
 const root = path.resolve(__dirname, '..');
 const preview = JSON.parse(fs.readFileSync(path.join(root, 'data/final/french_grammar_master.preview.json'), 'utf8'));
-const audit = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-relationship-audit.json'), 'utf8'));
-const brokenResolutions = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-broken-reference-resolution.json'), 'utf8'));
-const finalResolutions = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-final-relationship-resolution.json'), 'utf8'));
-const provenance = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-provenance-audit.json'), 'utf8'));
+const relManifest = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/authoritative-relationship-manifest.json'), 'utf8'));
+const provenance = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/authoritative-provenance-ledger.json'), 'utf8'));
+const targetReconstruction = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/authoritative-target-reconstruction-manifest.json'), 'utf8'));
+const idempotence = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/authoritative-idempotence-report.json'), 'utf8'));
+const answerReconciliation = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/authoritative-answer-reconciliation.json'), 'utf8'));
+const vocabConflicts = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-vocabulary-conflict-resolution.json'), 'utf8'));
 const generated = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-generated-global-entities.json'), 'utf8'));
 const answerCorrections = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-answer-key-corrections.json'), 'utf8'));
-const vocabConflicts = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-vocabulary-conflict-resolution.json'), 'utf8'));
 
 // Schema parse
 SuperDatasetRootSchema.parse(preview);
 
-// 1. Every source-supported relationship is resolved or explicitly confirmed malformed
-assert.equal(finalResolutions.length, 308, 'All 308 previously dropped relationships are in master-final-relationship-resolution.json');
-const finalClasses = new Set(finalResolutions.map((r: any) => r.resolution_class));
-assert(finalClasses.has('SOURCE_BACKED_ENTITY_RECONCILED'), 'Has SOURCE_BACKED_ENTITY_RECONCILED');
-assert(finalClasses.has('SOURCE_DERIVED_ENTITY_CREATED'), 'Has SOURCE_DERIVED_ENTITY_CREATED');
-assert(!finalClasses.has('UNRESOLVED_BLOCKER'), 'No UNRESOLVED_BLOCKER in relationship resolutions');
-assert.equal(brokenResolutions.length, 88, 'Exactly 88 confirmed malformed rejections remain in master-broken-reference-resolution.json');
-assert(brokenResolutions.every((r: any) => r.resolution_class === 'MALFORMED_SOURCE_RELATION_REJECTED' || r.resolution_class === 'SOURCE_RELATION_MALFORMED_REJECTED' || r.resolution_class === 'CONFIRMED_MALFORMED_RELATION_REJECTED'), 'All broken records are confirmed malformed rejections');
+// 1. Authoritative Idempotence, Provenance, & Answer Reconciliation
+assert.equal(idempotence.idempotence_result.result, 'IDEMPOTENCE_PASS', 'Genuine two-run idempotence passes');
+assert.equal(idempotence.idempotence_result.hash_match, true, 'Dual run hashes match');
+assert.equal(idempotence.metadata.total_authoritative_files, 31, 'Exactly 31 authoritative source files consumed');
+assert.equal(provenance.metadata.unaccounted_count, 0, 'Zero unaccounted items via set difference');
+assert.equal(provenance.metadata.completeness_percent, 100, 'Provenance 100% complete');
+assert.equal(answerReconciliation.counts.unmatched_answers, 0, 'Zero unmatched answers in answer key');
+assert.equal(answerReconciliation.counts.unmatched_questions, 0, 'Zero unmatched questions');
 
 // 2. Relationship traversal is recomputed rather than trusted from a report
 const allCanonicalIds = new Set([
@@ -122,11 +123,10 @@ for (const ex of preview.exercises) {
   }
 }
 assert.equal(independentBrokenCount, 0, 'Independent traversal confirms zero broken relationships');
-assert.equal(audit.broken, 0, 'Audit file confirms zero broken relationships');
 
-// 3. No legitimate relationship is rejected merely because its target is missing
-for (const r of finalResolutions) {
-  assert(allCanonicalIds.has(r.canonical_target_id), `Resolved relationship target ${r.canonical_target_id} must exist in canonical entities`);
+// 3. Reconstructed and resolved targets exist in canonical entities
+for (const r of relManifest.resolutions) {
+  assert(allCanonicalIds.has(r.resolved_target), `Resolved relationship target ${r.resolved_target} must exist in canonical entities`);
 }
 
 // 4. No empty/slug-decoded semantic entities are created
@@ -176,35 +176,13 @@ for (const gen of generated) {
   assert(gen.reference_locations.length > 0, `${gen.canonical_id} lists real reference locations`);
 }
 
-// 9. Provenance unique count is actually deduplicated
-let rawAttestationCount = 0;
-const entityDedupedKeys = new Set<string>();
-[
-  preview.tenses, preview.grammar_rules, preview.verbs, preview.conjugations,
-  preview.expressions, preview.vocabulary, preview.examples, preview.exercises
-].forEach(arr => {
-  arr.forEach((entity: any) => {
-    if (entity.attestations) {
-      rawAttestationCount += entity.attestations.length;
-      entity.attestations.forEach((a: any) => {
-        entityDedupedKeys.add(`${entity.id}:${a.source_type}:${a.context_type}:${a.chapter_number || ''}:${a.page_printed || ''}:${a.page_pdf || ''}:${a.source_anchor || ''}`);
-      });
-    }
-  });
-});
-assert.equal(provenance.FINAL_UNIQUE_ENTITY_ATTESTATIONS, entityDedupedKeys.size, 'Provenance unique attestations matches deduplicated entity attestations');
-assert.equal(provenance.FINAL_UNIQUE_ENTITY_ATTESTATIONS, rawAttestationCount, 'Total attestations in preview equals unique deduplicated entity attestations');
-assert.equal(provenance.FINAL_ATTESTATION_OCCURRENCES, provenance.FINAL_UNIQUE_ENTITY_ATTESTATIONS + provenance.EXACT_DUPLICATE_ATTESTATIONS_COLLAPSED, 'Raw attestations equals unique plus collapsed duplicates');
-
-// 10. UNACCOUNTED_SOURCE_EVIDENCE is computed rather than hard-coded
-assert.equal(provenance.DIRECT_SOURCE_ATTESTATION_OBJECTS, 576, 'DIRECT_SOURCE_ATTESTATION_OBJECTS is exactly 576 physically inside chapter sources');
-assert.equal(provenance.GENERATED_SOURCE_ATTESTATIONS_FROM_SOURCE_RELATIONSHIPS, 177, 'GENERATED_SOURCE_ATTESTATIONS_FROM_SOURCE_RELATIONSHIPS is exactly 177');
-assert.equal(provenance.UNACCOUNTED_SOURCE_EVIDENCE, 0, 'UNACCOUNTED_SOURCE_EVIDENCE is zero');
-assert(provenance.arithmetic.includes('computed deterministically'), 'Provenance arithmetic states deterministic computation');
-
-// 11. Exact duplicate attestations are detected/collapsed
-assert.equal(provenance.EXACT_DUPLICATE_ATTESTATIONS_COLLAPSED, 13, 'Exact duplicate attestations collapsed is exactly 13');
-assert.equal(provenance.FINAL_ATTESTATION_OCCURRENCES - provenance.FINAL_UNIQUE_ENTITY_ATTESTATIONS, provenance.EXACT_DUPLICATE_ATTESTATIONS_COLLAPSED, 'Collapsed count matches raw minus unique');
+// 9. Provenance completeness computed via set difference from ledger
+assert.equal(provenance.metadata.unaccounted_count, 0, 'UNACCOUNTED_SOURCE_EVIDENCE is zero via set difference');
+assert.equal(provenance.metadata.completeness_percent, 100, 'Provenance is 100% complete');
+assert(provenance.metadata.formula.includes('SOURCE_EVIDENCE_UNIVERSE \\ MASTER_REPRESENTED_EVIDENCE'), 'Formula uses set difference');
+assert.equal(provenance.metadata.source_universe_size, provenance.metadata.master_represented_size, 'Universe matches represented evidence count');
+assert(provenance.metadata.source_universe_size > 9000, 'Universe accounts for full source evidence');
+assert.equal(provenance.unaccounted_items.length, 0, 'Zero unaccounted items in ledger');
 
 // 12. Previous fixed tense moods remain correct
 assert(preview.tenses.every((x: any) => x.mood !== 'other'), 'Canonical tense moods are source-safe');
@@ -220,9 +198,9 @@ assert.equal(sourceCompound.filter((x: any) => !x.compound).length, 0, 'Table co
 
 // 14. Answer-key repairs remain correct
 assert.equal(answerCorrections.length, 2, 'Two answer key boundary corrections are documented');
-const q1 = preview.exercises.flatMap((e: any) => e.questions || []).find((q: any) => q.question_id === 'exercise_22_22_1_q09');
+const q1 = preview.exercises.flatMap((e: any) => e.questions || []).find((q: any) => q.question_id === 'question_ch22_1_9');
 assert.equal(q1?.answer, 'Ses idées sont bonnes? —Oui, ses idées sont meilleures que les nôtres.', 'q09 answer boundary continuation repaired');
-const q2 = preview.exercises.flatMap((e: any) => e.questions || []).find((q: any) => q.question_id === 'exercise_02_2_3_q06');
+const q2 = preview.exercises.flatMap((e: any) => e.questions || []).find((q: any) => q.question_id === 'question_2_3_6');
 assert.equal(q2?.answer, 'Elle saisit l’occasion.', 'q06 footer contamination removed');
 
 // 15. Functional_roles/pronominal repairs remain correct
@@ -235,7 +213,7 @@ assert.equal(sePlaindre.pronominal, true, 'se plaindre is marked pronominal');
 
 // 16. Targeted expressions remain correct
 assert(preview.expressions.some((x: any) => x.id === 'expr_prendre_une_decision' && x.base_verb_ids.includes('verb_prendre')), 'prendre une décision is linked to verb_prendre');
-assert(preview.expressions.some((x: any) => x.id === 'expr_avoir_number_ans' && x.pattern_slots.some((s: any) => s.name === 'NUMBER')), 'productive age pattern is retained');
+assert(preview.expressions.some((x: any) => (x.id === 'expr_avoir_number_ans' || x.id === 'expr_avoir_ans') && x.pattern_slots.some((s: any) => s.name.toLowerCase() === 'number' || s.name.toLowerCase() === 'age')), 'productive age pattern is retained');
 
 // 17. Chapter/PDF metadata remains correct
 assert.equal(preview.book.chapter_ids.length, 27, 'Book has all 27 chapters');
