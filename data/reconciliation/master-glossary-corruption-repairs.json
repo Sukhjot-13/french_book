@@ -170,10 +170,17 @@
         "thank"
       ]
     },
-    "source_evidence": "English/French column-boundary shape with copied source-headword token",
-    "correct_entities": [],
-    "canonical_target_ids": [],
-    "repair_reason": "REJECTED_MALFORMED bilingual spill; valid adjacent source rows are processed independently"
+    "source_evidence": "PDF/glossary row has a detached English continuation before the final French-cell token",
+    "correct_entities": [
+      {
+        "french": "merci",
+        "english": "thank you"
+      }
+    ],
+    "canonical_target_ids": [
+      "vocab_merci"
+    ],
+    "repair_reason": "SOURCE_COLUMN_RECONSTRUCTED"
   },
   {
     "source_file": "glossary-fr-en.json",
@@ -200,6 +207,22 @@
       "french": "chercher to look for cheveux",
       "english": [
         "hair"
+      ]
+    },
+    "source_evidence": "English/French column-boundary shape with copied source-headword token",
+    "correct_entities": [],
+    "canonical_target_ids": [],
+    "repair_reason": "REJECTED_MALFORMED bilingual spill; valid adjacent source rows are processed independently"
+  },
+  {
+    "source_file": "glossary-fr-en.json",
+    "direction": "fr-en",
+    "source_row_identity": "vocab_au",
+    "page": 256,
+    "before": {
+      "french": "au",
+      "english": [
+        "cinéma at the movies"
       ]
     },
     "source_evidence": "English/French column-boundary shape with copied source-headword token",
@@ -242,6 +265,38 @@
   {
     "source_file": "glossary-fr-en.json",
     "direction": "fr-en",
+    "source_row_identity": "vocab_le",
+    "page": 259,
+    "before": {
+      "french": "le",
+      "english": [
+        "mardi on Tuesdays"
+      ]
+    },
+    "source_evidence": "English/French column-boundary shape with copied source-headword token",
+    "correct_entities": [],
+    "canonical_target_ids": [],
+    "repair_reason": "REJECTED_MALFORMED bilingual spill; valid adjacent source rows are processed independently"
+  },
+  {
+    "source_file": "glossary-fr-en.json",
+    "direction": "fr-en",
+    "source_row_identity": "vocab_le",
+    "page": 259,
+    "before": {
+      "french": "le",
+      "english": [
+        "vendredi on Fridays"
+      ]
+    },
+    "source_evidence": "English/French column-boundary shape with copied source-headword token",
+    "correct_entities": [],
+    "canonical_target_ids": [],
+    "repair_reason": "REJECTED_MALFORMED bilingual spill; valid adjacent source rows are processed independently"
+  },
+  {
+    "source_file": "glossary-fr-en.json",
+    "direction": "fr-en",
     "source_row_identity": "expr_pouvoir_can",
     "page": 261,
     "before": {
@@ -270,5 +325,55 @@
     "correct_entities": [],
     "canonical_target_ids": [],
     "repair_reason": "REJECTED_MALFORMED bilingual spill; valid adjacent source rows are processed independently"
+  },
+  {
+    "source_file": "glossary-fr-en.json",
+    "direction": "fr-en",
+    "source_row_identity": "vocab_vu",
+    "page": 263,
+    "before": {
+      "french": "vu",
+      "english": [
+        "que given",
+        "in view of"
+      ]
+    },
+    "source_evidence": "English/French column-boundary shape with copied source-headword token",
+    "correct_entities": [],
+    "canonical_target_ids": [],
+    "repair_reason": "REJECTED_MALFORMED bilingual spill; valid adjacent source rows are processed independently"
+  },
+  {
+    "source_file": "glossary-fr-en.json",
+    "direction": "fr-en",
+    "source_row_identity": "vocab_marchand",
+    "before": {
+      "english": [
+        "merchant",
+        "storekeeper",
+        "au détail retailer",
+        "de journaux news dealer",
+        "de légumes greengrocer",
+        "produce seller",
+        "de poisson fishmonger",
+        "de tableaux art dealer",
+        "de vin wine merchant",
+        "en gros wholesaler"
+      ]
+    },
+    "source_evidence": "Adjacent specialty continuation rows share the headword cell",
+    "correct_entities": [
+      {
+        "french": "marchand",
+        "english": [
+          "merchant",
+          "storekeeper"
+        ]
+      }
+    ],
+    "canonical_target_ids": [
+      "vocab_marchand"
+    ],
+    "repair_reason": "HEADWORD_CONTINUATION_SEPARATED"
   }
 ]

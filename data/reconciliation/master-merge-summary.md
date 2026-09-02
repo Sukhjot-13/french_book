@@ -34,25 +34,25 @@ Verb Table Cells Processed: 104
 Total Inputs Processed into Entities: 4478
 
 ### DISPOSITION_RECORD_COUNT
-Total Processed Entities: 6634 (Includes Chapters, Sections, Answers, etc.)
-MERGED_EXISTING: 2871
-NEW_CANONICAL_ENTITY: 3746
+Total Processed Entities: 6456 (Includes Chapters, Sections, Answers, etc.)
+MERGED_EXISTING: 2875
+NEW_CANONICAL_ENTITY: 3561
 ROUTED_TO_OTHER_ENTITY_TYPE: 0
 UNCERTAIN: 0
 CONFLICT: 0
-REJECTED_MALFORMED: 17
+REJECTED_MALFORMED: 20
 
 ## Final Canonical Entity Counts
 chapters: 27
 sections: 80
-concepts: 12
+concepts: 0
 tenses: 19
-grammar_rules: 120
-verbs: 451
+grammar_rules: 93
+verbs: 394
 conjugations: 108
-expressions: 225
-vocabulary: 575
-examples: 97
+expressions: 142
+vocabulary: 565
+examples: 90
 exercises: 197
 questions: 1872
 answers: 1872
@@ -65,8 +65,8 @@ Glossary EN->FR rows: 978
 Total: 1926
 
 ordinary vocabulary:
-  merged: 470
-  newly created canonical entities: 550
+  merged: 474
+  newly created canonical entities: 542
 verbs:
   merged: 440
   newly created canonical entities: 272
@@ -75,9 +75,9 @@ expressions:
   newly created canonical entities: 108
 uncertain: 0
 conflict: 0
-rejected: 17
+rejected: 20
 
-SOURCE ROW TOTAL: 1926
+SOURCE ROW TOTAL: 1925
 
 ## Verb Table Integration
 source tables: 20
@@ -97,20 +97,20 @@ orphan answers: 0
 missing answer provenance: 0
 
 ## Relationship Rebuild
-relationships examined: 3331
-resolved: 3331
+relationships examined: 3023
+resolved: 3023
 broken: 0
 
 ## Attestation & Provenance Accounting
-incoming source attestations: 2799
-unique final attestations: 2799
+incoming source attestations: 2660
+unique final attestations: 2660
 exact duplicate attestations collapsed: 0
 rejected attestations: 0
 unaccounted attestations: 0
 
 Provenance breakdown:
 {
-  "book": 2795,
+  "book": 2656,
   "derived_from_book": 4
 }
 
@@ -119,8 +119,7 @@ Provenance breakdown:
   {
     "entity_type": "vocabulary",
     "candidate_ids": [
-      "vocab_voile",
-      "vocab_voile_veil"
+      "vocab_voile"
     ],
     "source_files": [
       "glossary-en-fr.json"
@@ -131,14 +130,13 @@ Provenance breakdown:
       "feminine",
       "masculine"
     ],
-    "reason": "Source-supported homograph/POS conflict preserved as separate lexical sense",
+    "reason": "Source gender metadata conflict retained on one same-form/same-sense lexical entity",
     "confidence": "high"
   },
   {
     "entity_type": "vocabulary",
     "candidate_ids": [
-      "vocab_anniversaire",
-      "vocab_anniversaire_birthday"
+      "vocab_anniversaire"
     ],
     "source_files": [
       "glossary-fr-en.json"
@@ -149,14 +147,13 @@ Provenance breakdown:
       "feminine",
       "masculine"
     ],
-    "reason": "Source-supported homograph/POS conflict preserved as separate lexical sense",
+    "reason": "Source gender metadata conflict retained on one same-form/same-sense lexical entity",
     "confidence": "high"
   },
   {
     "entity_type": "vocabulary",
     "candidate_ids": [
-      "vocab_meurtrier",
-      "vocab_meurtrier_murderer"
+      "vocab_meurtrier"
     ],
     "source_files": [
       "glossary-fr-en.json"
@@ -167,14 +164,13 @@ Provenance breakdown:
       "masculine",
       "common"
     ],
-    "reason": "Source-supported homograph/POS conflict preserved as separate lexical sense",
+    "reason": "Source gender metadata conflict retained on one same-form/same-sense lexical entity",
     "confidence": "high"
   },
   {
     "entity_type": "vocabulary",
     "candidate_ids": [
-      "vocab_patron",
-      "vocab_patron_boss"
+      "vocab_patron"
     ],
     "source_files": [
       "glossary-fr-en.json"
@@ -185,14 +181,13 @@ Provenance breakdown:
       "masculine",
       "common"
     ],
-    "reason": "Source-supported homograph/POS conflict preserved as separate lexical sense",
+    "reason": "Source gender metadata conflict retained on one same-form/same-sense lexical entity",
     "confidence": "high"
   },
   {
     "entity_type": "vocabulary",
     "candidate_ids": [
-      "vocab_veuf",
-      "vocab_veuf_widower"
+      "vocab_veuf"
     ],
     "source_files": [
       "glossary-fr-en.json"
@@ -203,7 +198,7 @@ Provenance breakdown:
       "masculine",
       "common"
     ],
-    "reason": "Source-supported homograph/POS conflict preserved as separate lexical sense",
+    "reason": "Source gender metadata conflict retained on one same-form/same-sense lexical entity",
     "confidence": "high"
   }
 ]\n\`\`\`

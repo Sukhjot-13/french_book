@@ -7,6 +7,8 @@ const root = path.resolve(__dirname, '..');
 const preview = JSON.parse(fs.readFileSync(path.join(root, 'data/final/french_grammar_master.preview.json'), 'utf8'));
 const audit = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-relationship-audit.json'), 'utf8'));
 const resolutions = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-broken-reference-resolution.json'), 'utf8'));
+const provenance = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-provenance-audit.json'), 'utf8'));
+const generated = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/master-generated-global-entities.json'), 'utf8'));
 
 SuperDatasetRootSchema.parse(preview);
 assert.equal(audit.broken, 0, 'complete typed relationship audit has no unresolved references');
@@ -19,4 +21,18 @@ assert(resolutions.some((x: any) => x.resolution_class === 'MALFORMED_SOURCE_REL
 assert(preview.expressions.some((x: any) => x.id === 'expr_prendre_une_decision' && x.base_verb_ids.includes('verb_prendre')), 'prendre une décision is linked');
 assert(preview.expressions.some((x: any) => x.id === 'expr_avoir_number_ans' && x.pattern_slots.some((s: any) => s.name === 'NUMBER')), 'productive age pattern is retained');
 assert(!preview.expressions.some((x: any) => /\b(?:from|time|have|get|grow)\b/i.test(x.canonical_form) && x.canonical_form.split(/\s+/).length > 2), 'known bilingual spill shapes do not survive');
+assert(preview.tenses.every((x: any) => x.mood !== 'other'), 'canonical tense moods are source-safe');
+assert(preview.tenses.some((x: any) => x.mood === 'conditional') && preview.tenses.some((x: any) => x.mood === 'subjunctive') && preview.tenses.some((x: any) => x.mood === 'infinitive'), 'non-indicative moods are retained');
+const compoundTableIds = new Set(['verb_table_regular_compound_conversational_past', 'verb_table_regular_compound_pluperfect', 'verb_table_regular_compound_past_perfect', 'verb_table_regular_compound_future_perfect', 'verb_table_regular_compound_past_conditional', 'verb_table_regular_subjunctive_past', 'verb_table_regular_subjunctive_pluperfect']);
+const sourceCompound = preview.conjugations.filter((x: any) => x.attestations.some((a: any) => compoundTableIds.has(String(a.source_anchor || '').split(':')[0])));
+assert.equal(sourceCompound.length, 21, 'all 21 source compound paradigms are retained');
+assert.equal(sourceCompound.filter((x: any) => !x.compound).length, 0, 'table compound flags match their actual table identity');
+for (const id of ['vocab_au', 'vocab_le', 'vocab_vu']) assert(!preview.vocabulary.some((x: any) => x.id === id), `${id} continuation spill is rejected`);
+assert(preview.vocabulary.some((x: any) => x.french === 'merci' && x.english.includes('thank you')), 'source-supported merci survives');
+assert(!preview.grammar_rules.some((x: any) => !x.explanation), 'no empty generated grammar rule remains');
+assert(!preview.expressions.some((x: any) => (x.tags || []).includes('source_reference_target') || !x.english.length), 'no ID-decoded expression shell remains');
+assert(!preview.examples.some((x: any) => !x.french || !x.english), 'no empty ID-decoded example remains');
+assert(!preview.verbs.some((x: any) => (x.tags || []).includes('source_reference_target')), 'no source-reference verb shell remains');
+assert(generated.every((x: any) => !x.source_files.includes('synthesized') && x.number_of_references > 0), 'generated traces name real source files and counts');
+assert.equal(typeof provenance.FINAL_UNIQUE_ATTESTATIONS, 'number', 'provenance audit contains numerical accounting');
 console.log('Master semantic repair regressions passed.');
