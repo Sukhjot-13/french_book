@@ -1,0 +1,20 @@
+{
+  "batch_id": "059_expressions_batch_008",
+  "collection": "expressions",
+  "patches": [
+    {"entity_key": "goûter à quelque chose", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Goûter à signifie essayer ou faire l’expérience de quelque chose; goûter quelque chose, sans à, signifie en vérifier la saveur."]}]},
+    {"entity_key": "hier", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"}]},
+    {"entity_key": "ici", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"}, {"operation": "add_unique", "field": "english", "values": ["in this place", "over here"]}]},
+    {"entity_key": "il est certain que + indicatif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["À la forme affirmative, la certitude appelle l’indicatif; sous négation ou interrogation, le subjonctif devient possible si le fait est mis en doute."]}]},
+    {"entity_key": "il est dommage que + subjonctif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Le jugement affectif exprimé par il est dommage que entraîne le subjonctif dans la proposition dépendante."]}]},
+    {"entity_key": "il est possible que + subjonctif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["La possibilité non confirmée introduite par cette tournure exige normalement le subjonctif."]}]},
+    {"entity_key": "il est probable que + indicatif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["À l’affirmatif, probable présente le fait comme suffisamment vraisemblable pour prendre l’indicatif; la négation favorise le subjonctif."]}]},
+    {"entity_key": "il est préférable que + subjonctif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["La préférence ou recommandation formulée par cette tournure entraîne le subjonctif."]}]},
+    {"entity_key": "il est rare que + subjonctif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Le caractère exceptionnel et non pleinement affirmé du fait entraîne normalement le subjonctif."]}]},
+    {"entity_key": "il est sûr que + indicatif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["À l’affirmatif, cette expression de certitude prend l’indicatif; il n’est pas sûr que appelle généralement le subjonctif."]}]},
+    {"entity_key": "il est vrai que + indicatif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Il est vrai que affirme un fait et prend donc normalement l’indicatif; la tournure peut aussi concéder un point avant un contraste."]}]},
+    {"entity_key": "il est évident que + indicatif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["À la forme affirmative, l’évidence exprimée entraîne l’indicatif; la forme négative peut prendre le subjonctif."]}]}
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Added focused mood-selection guidance for impersonal certainty, probability, evaluation, and possibility constructions, plus a key goûter distinction."
+}

@@ -1,0 +1,22 @@
+{
+  "batch_id": "056_expressions_batch_005",
+  "collection": "expressions",
+  "patches": [
+    {"entity_key": "dans quelle mesure", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"}, {"operation": "add_unique", "field": "usage_notes", "values": ["Sert à demander le degré ou la portée d’un fait, souvent dans une question analytique ou formelle."]}]},
+    {"entity_key": "dans trois jours", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "common"}, {"operation": "add_unique", "field": "usage_notes", "values": ["Avec une durée, dans situe l’événement à venir après l’intervalle indiqué."]}]},
+    {"entity_key": "dans un an", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "common"}]},
+    {"entity_key": "dans un mois", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "common"}]},
+    {"entity_key": "dans une quinzaine", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "common"}, {"operation": "add_unique", "field": "usage_notes", "values": ["Une quinzaine désigne ici une période approximative de quinze jours, couramment comprise comme environ deux semaines."]}]},
+    {"entity_key": "de crainte que + subjonctif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Introduit une conséquence redoutée et exige le subjonctif; un ne explétif est fréquent dans un registre soutenu."]}, {"operation": "set_if_empty", "field": "register", "value": "formal"}]},
+    {"entity_key": "de peur que + subjonctif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Introduit une conséquence redoutée et exige le subjonctif; le ne explétif peut apparaître sans valeur négative."]}]},
+    {"entity_key": "de temps en temps", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"}]},
+    {"entity_key": "de temps à autre", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "common"}]},
+    {"entity_key": "demander quelque chose à quelqu'un", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["La chose demandée est le complément direct et la personne sollicitée est introduite par à."]}]},
+    {"entity_key": "demander à + infinitif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Lorsque le sujet demande l’autorisation d’accomplir lui-même l’action, demander à + infinitif est possible: il demande à sortir."]}]},
+    {"entity_key": "demander à quelqu'un de + infinitif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["La personne chargée d’accomplir l’action est introduite par à; l’action demandée est introduite par de."]}]},
+    {"entity_key": "depuis", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Depuis introduit un point de départ ou une durée qui se prolonge jusqu’au repère présent; le verbe est généralement au présent si la situation continue."]}]},
+    {"entity_key": "demain", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"}]}
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Added high-value temporal and complementation guidance, including distinctions for depuis, demander, and fear clauses, plus missing strength metadata."
+}

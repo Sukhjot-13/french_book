@@ -1,0 +1,61 @@
+{
+  "batch_id": "053_expressions_batch_002",
+  "collection": "expressions",
+  "patches": [
+    {"entity_key": "aller + [infinitive]", "operations": [
+      {"operation": "add_unique", "field": "usage_notes", "values": ["Le futur proche se forme avec aller conjugué au présent suivi de l’infinitif; il exprime souvent une action imminente ou déjà envisagée."]},
+      {"operation": "add_unique", "field": "tags", "values": ["futur proche", "near future"]}
+    ]},
+    {"entity_key": "alors que", "operations": [
+      {"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"},
+      {"operation": "add_unique", "field": "usage_notes", "values": ["Alors que peut exprimer la simultanéité, mais sert très souvent à marquer un contraste entre deux faits."]}
+    ]},
+    {"entity_key": "après + infinitif passé", "operations": [
+      {"operation": "add_unique", "field": "usage_notes", "values": ["Le sujet implicite de l’infinitif passé est normalement le même que celui du verbe principal; l’auxiliaire est avoir ou être selon le verbe."]}
+    ]},
+    {"entity_key": "après-demain", "operations": [
+      {"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"},
+      {"operation": "add_unique", "field": "search_terms", "values": ["two days from now"]}
+    ]},
+    {"entity_key": "assister à", "operations": [
+      {"operation": "add_unique", "field": "usage_notes", "values": ["Assister à signifie être présent à un événement; assister quelqu’un, sans à, signifie l’aider."]},
+      {"operation": "add_unique", "field": "search_terms", "values": ["attend an event", "be present at"]}
+    ]},
+    {"entity_key": "au cas où", "operations": [
+      {"operation": "add_unique", "field": "usage_notes", "values": ["Au cas où est normalement suivi du conditionnel lorsqu’il introduit une éventualité: au cas où il pleuvrait."]}
+    ]},
+    {"entity_key": "au cinéma", "operations": [
+      {"operation": "set_if_empty", "field": "collocation_strength", "value": "common"},
+      {"operation": "add_unique", "field": "english", "values": ["at the cinema", "to the cinema"]}
+    ]},
+    {"entity_key": "aujourd'hui", "operations": [
+      {"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"},
+      {"operation": "add_unique", "field": "search_terms", "values": ["this day", "present day"]}
+    ]},
+    {"entity_key": "auprès", "operations": [
+      {"operation": "add_unique", "field": "english", "values": ["with", "in the eyes of"]},
+      {"operation": "add_unique", "field": "usage_notes", "values": ["Auprès de peut indicate physical proximity, contact with an organization or person, or a person’s opinion, as in populaire auprès des jeunes."]},
+      {"operation": "set_if_empty", "field": "collocation_strength", "value": "common"}
+    ]},
+    {"entity_key": "aurais dû + infinitive", "operations": [
+      {"operation": "add_unique", "field": "usage_notes", "values": ["Le conditionnel passé de devoir suivi d’un infinitif exprime généralement un regret, un reproche ou une obligation non accomplie."]}
+    ]},
+    {"entity_key": "aussitôt que", "operations": [
+      {"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"},
+      {"operation": "add_unique", "field": "search_terms", "values": ["immediately after", "the moment that"]}
+    ]},
+    {"entity_key": "autrefois", "operations": [
+      {"operation": "set_if_empty", "field": "collocation_strength", "value": "common"},
+      {"operation": "add_unique", "field": "english", "values": ["in the past", "once"]}
+    ]},
+    {"entity_key": "avant que + subjonctif", "operations": [
+      {"operation": "add_unique", "field": "usage_notes", "values": ["Avant que exige le subjonctif et peut être accompagné d’un ne explétif dans un registre soutenu; ce ne n’exprime pas la négation."]}
+    ]},
+    {"entity_key": "avant-hier", "operations": [
+      {"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"},
+      {"operation": "add_unique", "field": "search_terms", "values": ["two days ago"]}
+    ]}
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Added usage distinctions for high-value verb patterns and connectors, plus missing strength and search metadata for common time and place expressions."
+}

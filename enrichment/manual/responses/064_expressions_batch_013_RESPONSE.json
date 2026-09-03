@@ -1,0 +1,24 @@
+{
+  "batch_id": "064_expressions_batch_013",
+  "collection": "expressions",
+  "patches": [
+    {"entity_key": "prévenir la police", "operations": [{"operation": "add_unique", "field": "english", "values": ["to notify the police", "to alert the police"]}]},
+    {"entity_key": "prévenir que + proposition", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Prévenir que introduces the information communicated; when naming the person warned, use prévenir quelqu’un que or prévenir quelqu’un de quelque chose."]}]},
+    {"entity_key": "quand", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"}]},
+    {"entity_key": "que", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "common"}]},
+    {"entity_key": "quel que + nom + être (subjonctif)", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Quel agrees in gender and number with the noun it determines and remains separate from que: quelle que soit la raison, quels que soient les résultats."]}]},
+    {"entity_key": "quelquefois", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "common"}]},
+    {"entity_key": "qui", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"}]},
+    {"entity_key": "quitte à + infinitif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Introduces a consequence, risk, or concession the subject is prepared to accept in pursuing the main action."]}]},
+    {"entity_key": "quoi que + subjonctif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Written as two words when it means whatever; it introduces a subjunctive clause and must not be confused with quoique meaning although."]}]},
+    {"entity_key": "quoique + subjonctif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Written as one word when it means although; it introduces a concession and requires the subjunctive."]}]},
+    {"entity_key": "rarement", "operations": [{"operation": "add_unique", "field": "english", "values": ["rarely"]}, {"operation": "set_if_empty", "field": "collocation_strength", "value": "common"}]},
+    {"entity_key": "rendre visite à", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Used for visiting a person and requires à; visiting a place normally uses visiter directly."]}]},
+    {"entity_key": "renoncer à quelque chose", "operations": [{"operation": "add_unique", "field": "search_terms", "values": ["give up on", "relinquish", "forgo"]}, {"operation": "add_unique", "field": "usage_notes", "values": ["Renoncer requires à before the thing abandoned and can also be followed by an infinitive."]}]},
+    {"entity_key": "réussir à un examen", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Réussir à un examen means to pass it successfully; passer un examen means to sit or take it, without stating the result."]}]},
+    {"entity_key": "rêver de + quelque chose/quelqu'un", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Rêver de commonly refers either to dreaming during sleep or to strongly desiring a person, thing, or situation."]}]},
+    {"entity_key": "rêver à + quelque chose", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Rêver à means to let one’s thoughts dwell on something and is less common than rêver de in everyday usage."]}]}
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Added orthographic and mood distinctions for quel que, quoi que, and quoique, plus construction guidance for visit, exam, warning, and dreaming expressions."
+}

@@ -1,0 +1,19 @@
+{
+  "batch_id": "057_expressions_batch_006",
+  "collection": "expressions",
+  "patches": [
+    {"entity_key": "dessus", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "common"}, {"operation": "add_unique", "field": "usage_notes", "values": ["Dessus s’emploie sans complément nominal; devant un nom, on emploie sur: le livre est dessus, mais sur la table."]}]},
+    {"entity_key": "devant", "operations": [{"operation": "set_if_empty", "field": "collocation_strength", "value": "common"}, {"operation": "add_unique", "field": "english", "values": ["before", "ahead of"]}]},
+    {"entity_key": "devoir + infinitif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Selon le temps et le contexte, devoir + infinitif exprime l’obligation, le conseil ou une forte probabilité: il doit être chez lui."]}]},
+    {"entity_key": "devoir quelque chose à quelqu'un", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Peut exprimer une dette concrète ou figurée: devoir de l’argent à quelqu’un; devoir sa réussite à quelqu’un."]}]},
+    {"entity_key": "douter que + subjonctif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["À la forme affirmative, douter que appelle normalement le subjonctif; à la forme négative, l’indicatif est possible lorsque la certitude domine."]}]},
+    {"entity_key": "en attendant que + subjonctif", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Introduit l’événement attendu et exige le subjonctif; avec le même sujet, on emploie en attendant de + infinitif."]}]},
+    {"entity_key": "en ce moment", "operations": [{"operation": "add_unique", "field": "english", "values": ["at the moment", "right now"]}, {"operation": "set_if_empty", "field": "collocation_strength", "value": "strong"}]},
+    {"entity_key": "faire + [infinitive]", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Dans la construction causative, faire est conjugué et le second verbe reste à l’infinitif; l’agent peut être introduit par à ou par selon le contexte."]}, {"operation": "add_unique", "field": "tags", "values": ["causative construction"]}]},
+    {"entity_key": "faire demi-tour", "operations": [{"operation": "add_unique", "field": "english", "values": ["to make a U-turn", "to turn back"]}]},
+    {"entity_key": "faire des siennes", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Expression familière indiquant qu’une personne, un animal ou une chose recommence à mal se comporter ou à causer des problèmes."]}, {"operation": "set_if_empty", "field": "register", "value": "informal"}]},
+    {"entity_key": "faire de l'exercice", "operations": [{"operation": "add_unique", "field": "usage_notes", "values": ["Faire de l’exercice met l’accent sur l’activité physique en général; faire un exercice désigne une tâche précise."]}]}
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Added concise grammatical and register guidance for devoir, douter, the causative construction, and selected high-frequency expressions."
+}

@@ -1,0 +1,224 @@
+{
+  "batch_id": "062_expressions_batch_011",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "moi non plus",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "strong"
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Used to agree with a negative statement; after an affirmative statement, use moi aussi."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "n'importe quoi",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "english",
+          "values": [
+            "whatever",
+            "nonsense"
+          ]
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Can mean any thing whatsoever, but as an exclamation it commonly means nonsense or something absurd."
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "strong"
+        }
+      ]
+    },
+    {
+      "entity_key": "ne pas croire que + subjonctif",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Negated croire que generally takes the subjunctive because the proposition is not asserted as true; the indicative can occur when the speaker treats it as factual."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "ne pas penser que + subjonctif",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Negated penser que normally favors the subjunctive because the subordinate proposition is placed in doubt."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "ne...guère",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "english",
+          "values": [
+            "scarcely",
+            "not much"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "register",
+          "value": "formal"
+        }
+      ]
+    },
+    {
+      "entity_key": "ne...personne",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Personne replaces pas and normally follows the past participle in a compound tense; as subject, personne ne precedes the verb."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "ne...rien",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Rien replaces pas and usually appears before an infinitive or between the auxiliary and past participle in compound tenses."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "ni...ni...",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Ni coordinates two or more negative alternatives; pas is normally omitted when ni…ni follows the verb."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "obéir à",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Obéir is an indirect-transitive verb and requires à before the person, rule, or authority obeyed."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "où",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "strong"
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "The grave accent distinguishes the interrogative or relative où from the conjunction ou meaning or."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "par cœur",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "english",
+          "values": [
+            "from memory"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "strong"
+        }
+      ]
+    },
+    {
+      "entity_key": "par hasard",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "english",
+          "values": [
+            "accidentally",
+            "by any chance"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "strong"
+        }
+      ]
+    },
+    {
+      "entity_key": "parfois",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "common"
+        }
+      ]
+    },
+    {
+      "entity_key": "parler l'anglais couramment",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Names of languages normally follow parler without an article when referring to the ability to speak them: parler anglais couramment."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "partout",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "common"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Added negative-construction placement notes, conversational polarity guidance, and high-value distinctions for n’importe quoi, où, and parler a language."
+}

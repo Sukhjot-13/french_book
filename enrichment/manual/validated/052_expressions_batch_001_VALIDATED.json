@@ -1,0 +1,232 @@
+{
+  "batch_id": "052_expressions_batch_001",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "C'est ... qui",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "strong"
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Cette structure clivée met l’accent sur la personne qui accomplit l’action; le pronom après c’est est tonique."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "Comment vous appelez-vous ?",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "strong"
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "register",
+          "value": "formal"
+        }
+      ]
+    },
+    {
+      "entity_key": "Comment épelez-vous votre nom ?",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "strong"
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "register",
+          "value": "formal"
+        }
+      ]
+    },
+    {
+      "entity_key": "Il veut savoir si",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "common"
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Introduit une interrogation indirecte totale; on n’emploie pas de point d’interrogation dans la proposition en si."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "Je m'appelle…",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "strong"
+        },
+        {
+          "operation": "add_unique",
+          "field": "search_terms",
+          "values": [
+            "introduce yourself",
+            "name introduction"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "Je suis né(e) à...",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "common"
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Le participe passé né s’accorde avec la personne qui parle; à s’emploie normalement devant une ville."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": "Où êtes-vous né(e) ?",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "strong"
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "register",
+          "value": "formal"
+        }
+      ]
+    },
+    {
+      "entity_key": "Tiens, tiens",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "La répétition tiens, tiens marque souvent la surprise, la curiosité ou une légère suspicion; tiens seul peut accompagner le geste de donner quelque chose."
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "register",
+          "value": "informal"
+        }
+      ]
+    },
+    {
+      "entity_key": "accès haut-débit",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "english",
+          "values": [
+            "high-speed internet access",
+            "broadband access"
+          ]
+        },
+        {
+          "operation": "add_unique",
+          "field": "search_terms",
+          "values": [
+            "broadband",
+            "high-speed internet"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "common"
+        }
+      ]
+    },
+    {
+      "entity_key": "actuellement",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "english",
+          "values": [
+            "currently",
+            "at present"
+          ]
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Actuellement signifie « en ce moment » et non « actually », qui se traduit plutôt par en fait."
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "common"
+        }
+      ]
+    },
+    {
+      "entity_key": "afin que + subjonctif",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "english",
+          "values": [
+            "in order that"
+          ]
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Afin que introduit une proposition avec un sujet exprimé et exige le subjonctif; avec le même sujet, on emploie plutôt afin de + infinitif."
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "register",
+          "value": "formal"
+        }
+      ]
+    },
+    {
+      "entity_key": "ailleurs",
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "collocation_strength",
+          "value": "common"
+        },
+        {
+          "operation": "add_unique",
+          "field": "search_terms",
+          "values": [
+            "somewhere else",
+            "another place"
+          ]
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Filled clearly missing collocation and register metadata and added focused usage guidance for common introductory, request, and connector constructions."
+}
