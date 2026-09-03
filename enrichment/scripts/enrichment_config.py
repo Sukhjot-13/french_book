@@ -116,7 +116,7 @@ SAFE_FIELDS: Dict[str, List[str]] = {
     "grammar_rules": ["explanation", "summary", "usage", "signal_words", "tags"],
     "tenses": ["english_name", "usage", "signal_words", "tags"],
     "exceptions_and_traps": ["description", "why_incorrect", "why_correct", "memory_tip", "tags"],
-    "examples": ["english", "tags"],
+    "examples": ["english", "tags", "related_verbs", "related_tenses"],
     "exercises": ["instructions", "notes", "tags"],
     "chapters": ["notes", "sections"],
     "topics": ["description", "tags"],
@@ -134,4 +134,12 @@ HIGH_RISK_FIELDS: Dict[str, List[str]] = {
     "exercises": ["chapter_number", "exercise_code", "questions"],
     "chapters": ["chapter_number"],
     "topics": ["name"],
+}
+
+# Additive relationship fields whose values must resolve to existing natural keys.
+RELATIONSHIP_TARGETS: Dict[str, Dict[str, str]] = {
+    "examples": {
+        "related_verbs": "verbs",
+        "related_tenses": "tenses",
+    },
 }

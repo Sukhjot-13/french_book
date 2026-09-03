@@ -29,6 +29,7 @@ from enrichment.scripts.enrichment_config import (
     ALLOWED_OPERATIONS,
     NATURAL_KEYS,
     SAFE_FIELDS,
+    RELATIONSHIP_TARGETS,
 )
 from enrichment.scripts.enrichment_helpers import (
     load_json,
@@ -231,6 +232,21 @@ def validate_response_file(
                     res.errors.append(f"Operation '{op_type}' on '{field}' requires an array 'values'.")
                     res.is_valid = False
                     continue
+                target_collection = RELATIONSHIP_TARGETS.get(collection, {}).get(norm_field)
+                if target_collection:
+                    if target_collection not in indices:
+                        indices[target_collection] = build_natural_key_index(dataset, target_collection)
+                    for value in values:
+                        _, related_entity = find_entity_by_natural_key(
+                            dataset, target_collection, value, indices[target_collection]
+                        )
+                        if related_entity is None:
+                            reference = f"{target_collection}::{natural_key_to_str(target_collection, value)}"
+                            res.errors.append(f"Relationship target does not exist: '{reference}'.")
+                            res.invalid_references.append(reference)
+                            res.is_valid = False
+                    if not res.is_valid:
+                        continue
 
             elif op_type == "set_if_empty":
                 if "value" not in op:

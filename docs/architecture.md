@@ -570,7 +570,8 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `COLLECTION_ORDER`: Authoritative global sequence ordering for whole-dataset queue generation.
   - `NATURAL_KEYS`: Mapping of collection names to natural key field specifications.
   - `ALLOWED_OPERATIONS`: Whitelist of permitted JSON patch operations.
-  - `SAFE_FIELDS` & `HIGH_RISK_FIELDS`: Field categorizations used to authorize enrichment; vocabulary includes safe fill-only inflection fields (`gender`, `articles`, `plural`, `variants`).
+  - `SAFE_FIELDS` & `HIGH_RISK_FIELDS`: Field categorizations used to authorize enrichment; vocabulary includes safe fill-only inflection fields (`gender`, `articles`, `plural`, `variants`) and examples include reusable `related_verbs`/`related_tenses` links.
+  - `RELATIONSHIP_TARGETS`: Maps additive example links to their target collections so references must resolve during validation.
   - `ENRICHED_DATA_PATH`: Copy-only enrichment output location; `MASTER_DATA_PATH` is never an apply target.
 
 #### `enrichment/scripts/enrichment_helpers.py`
@@ -648,7 +649,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 
 #### `enrichment/tests/test_enrichment_pipeline.py`
-- **Purpose**: Twelve-test suite validating batch generation, collection-schema excerpts, downloadable JSON response instructions, field authorization, response validation, previewing, reporting, and object-safe transactional application.
+- **Purpose**: Fourteen-test suite validating batch generation, collection-schema excerpts, downloadable JSON response instructions, field authorization, reusable example-link validation, previewing, reporting, and object-safe transactional application.
 - **Functions**:
   - `TestEnrichmentConfiguration`: Asserts configuration completeness across all 11 collections and protected items.
   - `TestEnrichmentHelpers`: Tests text normalization, natural key serialization, and equality matching.

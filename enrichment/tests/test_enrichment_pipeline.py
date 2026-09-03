@@ -62,6 +62,10 @@ class TestEnrichmentConfiguration(unittest.TestCase):
         for field in ["gender", "articles", "plural", "variants"]:
             self.assertIn(field, SAFE_FIELDS["vocabulary"])
 
+    def test_example_enrichment_includes_reusable_links(self):
+        self.assertIn("related_verbs", SAFE_FIELDS["examples"])
+        self.assertIn("related_tenses", SAFE_FIELDS["examples"])
+
 
 class TestEnrichmentHelpers(unittest.TestCase):
     def test_normalize_french_text(self):
@@ -217,6 +221,38 @@ class TestEnrichmentValidationAndPreview(unittest.TestCase):
             result, _ = validate_response_file(temp_path, self.dataset, manifest)
             self.assertFalse(result.is_valid)
             self.assertTrue(any("not requested" in error for error in result.errors))
+        finally:
+            temp_path.unlink()
+
+    def test_example_relationships_must_resolve(self):
+        dataset = {
+            "examples": [{"french": "Je prends le train.", "related_verbs": [], "related_tenses": []}],
+            "verbs": [{"infinitive": "prendre"}],
+            "tenses": [{"name": "présent"}],
+        }
+        payload = {
+            "batch_id": "example_links_001",
+            "collection": "examples",
+            "patches": [{
+                "entity_key": "Je prends le train.",
+                "operations": [
+                    {"operation": "add_unique", "field": "related_verbs", "values": ["prendre"]},
+                    {"operation": "add_unique", "field": "related_tenses", "values": ["présent"]},
+                ],
+            }],
+        }
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+            import json
+            json.dump(payload, f)
+            temp_path = Path(f.name)
+        try:
+            result, _ = validate_response_file(temp_path, dataset)
+            self.assertTrue(result.is_valid, result.errors)
+            payload["patches"][0]["operations"][0]["values"] = ["inexistant"]
+            temp_path.write_text(json.dumps(payload))
+            result, _ = validate_response_file(temp_path, dataset)
+            self.assertFalse(result.is_valid)
+            self.assertTrue(any("Relationship target does not exist" in error for error in result.errors))
         finally:
             temp_path.unlink()
 
