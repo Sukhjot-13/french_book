@@ -14,15 +14,23 @@ export function GlobalKeyboardShortcuts() {
       const isInputFocused =
         activeTag === "input" || activeTag === "textarea" || activeTag === "select";
 
-      // 1. "/" or Cmd/Ctrl+K -> Focus search
-      if (!isInputFocused && (e.key === "/" || ((e.metaKey || e.ctrlKey) && e.key === "k"))) {
+      // 1. "/" or Cmd/Ctrl+K -> Open search or focus search
+      if (!isInputFocused && ((e.metaKey || e.ctrlKey) && e.key === "k")) {
+        e.preventDefault();
+        window.dispatchEvent(new CustomEvent("open-command-palette"));
+        return;
+      }
+
+      if (!isInputFocused && e.key === "/") {
         e.preventDefault();
         const searchInput = document.querySelector<HTMLInputElement>(
-          'input[type="text"][placeholder*="search" i], input[type="text"]'
+          'input[type="text"][placeholder*="Search" i], input[type="text"][placeholder*="search" i]'
         );
         if (searchInput) {
           searchInput.focus();
           searchInput.select();
+        } else {
+          window.dispatchEvent(new CustomEvent("open-command-palette"));
         }
         return;
       }

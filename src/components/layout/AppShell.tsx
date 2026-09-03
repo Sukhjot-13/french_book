@@ -17,6 +17,30 @@ export function AppShell({ children }: AppShellProps) {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Listen for global custom event to open command palette from anywhere
+  React.useEffect(() => {
+    const handleOpenPalette = () => setIsCommandPaletteOpen(true);
+    window.addEventListener("open-command-palette", handleOpenPalette);
+    return () => window.removeEventListener("open-command-palette", handleOpenPalette);
+  }, []);
+
+  // Close mobile drawer upon navigating
+  React.useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  // Lock body scroll when mobile menu is open
+  React.useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const navItems = [
     { label: "Revision Home", href: "/", icon: "home", count: null },
     { label: "Chapters", href: "/chapters", icon: "import_contacts", count: "27" },
@@ -138,18 +162,22 @@ export function AppShell({ children }: AppShellProps) {
             <span className="font-bold text-sm text-primary">L'Étude</span>
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
+              type="button"
               onClick={() => setIsCommandPaletteOpen(true)}
-              className="p-2 rounded hover:bg-surface-container-high text-on-surface-variant"
-              aria-label="Search"
+              className="p-2 rounded-lg hover:bg-surface-container-high active:bg-surface-container-highest text-on-surface-variant hover:text-primary transition-colors cursor-pointer flex items-center justify-center"
+              aria-label="Search repository"
+              title="Search repository (⌘K)"
             >
               <span className="material-symbols-outlined text-[22px]">search</span>
             </button>
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded hover:bg-surface-container-high text-on-surface-variant"
-              aria-label="Toggle Menu"
+              type="button"
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              className="p-2 rounded-lg hover:bg-surface-container-high active:bg-surface-container-highest text-on-surface-variant hover:text-primary transition-colors cursor-pointer flex items-center justify-center"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              title="Toggle Menu"
             >
               <span className="material-symbols-outlined text-[24px]">
                 {isMobileMenuOpen ? "close" : "menu"}
@@ -158,35 +186,58 @@ export function AppShell({ children }: AppShellProps) {
           </div>
         </div>
 
-        {/* MOBILE MENU DRAWER */}
+        {/* MOBILE MENU DRAWER OVERLAY */}
         {isMobileMenuOpen && (
           <div
-            className="lg:hidden fixed inset-0 top-14 z-30 bg-surface-container-low/95 backdrop-blur-md p-4 flex flex-col gap-2 overflow-y-auto"
+            className="lg:hidden fixed inset-0 top-14 z-50 bg-black/40 backdrop-blur-xs flex flex-col justify-start animate-in fade-in duration-150"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            {navItems.map((item) => {
-              const isActive =
-                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center justify-between px-4 py-3 rounded text-base font-medium ${
-                    isActive
-                      ? "bg-primary text-white font-semibold"
-                      : "text-on-surface hover:bg-surface-container-high"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-[22px]">{item.icon}</span>
-                    <span>{item.label}</span>
-                  </div>
-                  {item.count && (
-                    <span className="text-xs font-mono opacity-80">{item.count}</span>
-                  )}
-                </Link>
-              );
-            })}
+            <div
+              className="bg-surface-container-low border-b border-outline-variant/70 p-4 shadow-xl flex flex-col gap-1.5 max-h-[80vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-on-surface-variant px-3 py-1">
+                Navigation Libraries
+              </span>
+              {navItems.map((item) => {
+                const isActive =
+                  item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                      isActive
+                        ? "bg-primary text-white font-semibold shadow-xs"
+                        : "text-on-surface hover:bg-surface-container-high"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span
+                        className={`material-symbols-outlined text-[20px] ${
+                          isActive ? "text-white fill-icon" : "text-secondary"
+                        }`}
+                      >
+                        {item.icon}
+                      </span>
+                      <span>{item.label}</span>
+                    </div>
+                    {item.count && (
+                      <span
+                        className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
+                          isActive
+                            ? "bg-white/20 text-white font-bold"
+                            : "bg-surface-container-highest text-on-surface-variant"
+                        }`}
+                      >
+                        {item.count}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         )}
 

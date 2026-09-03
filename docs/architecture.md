@@ -222,12 +222,17 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ### 3. UI Components (`src/components/`)
 
 #### `src/components/layout/AppShell.tsx`
-- **Purpose**: Responsive layout shell providing desktop sidebar navigation (with live counts for all 10 entity collections), mobile drawer, breadcrumbs, command palette integration, PeekDrawer mount, and global keyboard shortcuts.
+- **Purpose**: Responsive layout shell providing desktop sidebar navigation (with live counts for all 10 entity collections), mobile header with search and hamburger menu triggers, mobile drawer with auto-close on navigation and body scroll lock, breadcrumbs, command palette integration, PeekDrawer mount, and global keyboard shortcuts.
 - **Functions**:
-  - `AppShell({ children })`: Client component wrapping pages with consistent application chrome.
+  - `AppShell({ children })`: Client component wrapping pages with consistent application chrome and listening for global `"open-command-palette"` events.
+
+#### `src/components/common/RowActionMenu.tsx`
+- **Purpose**: Reusable compact action menu providing "Save for review" toggle, "Mark as reviewed" toggle, and "Full Detail Page" navigation link with reactive bookmark badges and local storage synchronization.
+- **Functions**:
+  - `RowActionMenu({ type, id, fullUrl, label })`: Interactive action dropdown and status pill component.
 
 #### `src/components/common/GlobalKeyboardShortcuts.tsx`
-- **Purpose**: Global keyboard event handler providing power-user navigation across table rows and modal views (`/`, `Cmd+K`, `Esc`, `j`, `k`, `o`, `Enter`, `Space`).
+- **Purpose**: Global keyboard event handler providing power-user navigation across table rows and modal views (`/`, `Cmd+K`, `Esc`, `j`, `k`, `o`, `Enter`, `Space`); dispatches `"open-command-palette"` event on `Cmd+K`.
 - **Functions**:
   - `GlobalKeyboardShortcuts()`: Client listener mounted in AppShell.
   - `handleKeyDown(e)`: Internal key event dispatcher for navigation, search, and drawer toggling.
@@ -239,9 +244,9 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `usePeek()`: Hook returning peek state (`activePeek`, `peekData`, `loading`, `openPeek`, `closePeek`).
 
 #### `src/components/peek/PeekDrawer.tsx`
-- **Purpose**: Right-side slide-over drawer (desktop) / bottom sheet (mobile) rendering Level 2 entity previews with key facts, constructions, pitfalls, and deep-dive links.
+- **Purpose**: Dual-mode preview component acting as a right-side slide-over drawer on desktop (`>=768px`) and a tactile bottom sheet on mobile screens (`<768px`) with top drag/grab indicator bar, rounded top corners, max-height 85vh, and bottom slide-in animation.
 - **Functions**:
-  - `PeekDrawer()`: Slide-over UI component mounted globally in AppShell.
+  - `PeekDrawer()`: Slide-over and bottom-sheet UI component mounted globally in AppShell.
   - `handleKeyDown(e)`: Internal key event listener closing drawer on Escape.
 
 #### `src/components/peek/PeekTrigger.tsx`
@@ -251,9 +256,9 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `handleClick(e)`: Click handler preventing event bubbling and invoking `openPeek`.
 
 #### `src/components/verbs/VerbLibraryTable.tsx`
-- **Purpose**: Dense scan-and-peek table for the 496 verbs library with inline filters, quick preview triggers, and row click handling.
+- **Purpose**: Scan-and-peek interface for the 496 verbs library featuring enhanced desktop table scanning (sticky header, subtle zebra striping, selected-row styling via `data-selected`, visually dominant French lemma, right-aligned action badges) and a purpose-built mobile two-line list layout (`<768px`: Line 1 = French lemma · English gloss; Line 2 = classification, auxiliary, participle with tap-to-peek and save/review menu).
 - **Functions**:
-  - `VerbLibraryTable({ verbs, total, currentPage, pageSize, initialGroup, initialRegularity, initialAuxiliary, initialQuery })`: Interactive client table component.
+  - `VerbLibraryTable({ verbs, total, currentPage, pageSize, initialFilters })`: Dual-mode responsive table/list component.
   - `formatGroup(g)`: Normalizes verb group string for badge rendering.
   - `updateFilters(newFilters)`: Pushes updated URL search query parameters for verb filters.
   - `handleSearchSubmit(e)`: Form submit handler committing search queries.
@@ -265,9 +270,9 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `formatGroupName(g)`: Formats French verb group name into descriptive label.
 
 #### `src/components/vocabulary/VocabDictionaryTable.tsx`
-- **Purpose**: Dense alphabetical A-Z dictionary table for 1,002 vocabulary items with alphabet jump bar, part of speech filtering, and row-click Level 2 peek.
+- **Purpose**: Alphabetical A-Z dictionary interface for 1,002 vocabulary items featuring enhanced desktop table scanning (sticky header, zebra striping, selected-row styling, dominant French term with article, right-aligned badges) and a purpose-built mobile two-line list layout (`<768px`: Line 1 = article/term · English gloss; Line 2 = category, CEFR, word family with tap-to-peek and save/review menu).
 - **Functions**:
-  - `VocabDictionaryTable({ vocabulary, total, currentPage, pageSize, initialQuery, initialLetter, initialPos })`: Interactive client dictionary table.
+  - `VocabDictionaryTable({ vocabulary, total, currentPage, pageSize, initialFilters })`: Dual-mode responsive dictionary table/list component.
   - `formatPosGender(pos, gender)`: Formats part of speech and gender display badge text.
   - `updateFilters(newFilters)`: Pushes updated URL search parameters for vocabulary filters.
   - `handleSearchSubmit(e)`: Form submit handler committing dictionary search queries.
@@ -332,10 +337,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `ExampleExplorerList({ examples })`: Client list component with peek triggers.
 
 #### `src/components/search/CommandPalette.tsx`
-- **Purpose**: Modal command palette (`Cmd+K` / `Ctrl+K`) for keyboard-first navigation and instant search.
+- **Purpose**: Modal command palette (`Cmd+K` / `Ctrl+K`) for keyboard-first navigation and instant search with backdrop click-to-close, explicit close button (`✕`) for mobile devices without Escape keys, and responsive padding.
 - **Functions**:
-  - `CommandPalette()`: Client component managing search dialog, keyboard shortcuts, and live results.
-  - `handleKeyDown(e)`: Listens for palette trigger (`Cmd+K`, `/`, `Esc`).
+  - `CommandPalette({ isOpen, onClose })`: Client component managing search dialog, keyboard shortcuts, live results, and listening for global `"open-command-palette"` custom events.
+  - `handleKeyDown(e)`: Listens for palette keyboard triggers (`Cmd+K`, `Esc`).
   - `handleKeyDownInInput(e)`: Handles arrow keys, Enter, and Tab inside palette input.
   - `handleSelect(type, id)`: Executes selection navigation or triggers Level 2 peek.
 
@@ -408,6 +413,17 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `normalizeFrenchText(text)`: Lowercases, removes diacritics, and normalizes punctuation for search indexing.
   - `searchDataset(dataset, query, limit)`: Searches across all master entities and returns categorized, ranked matches.
+
+#### `src/lib/data/reviewStore.ts`
+- **Purpose**: Client-side storage helper for saving items for review and marking entries reviewed with persistent `localStorage` backing and cross-component reactive custom event broadcasting.
+- **Functions**:
+  - `isItemSaved(type, id)`: Returns boolean indicating whether entity is saved for review.
+  - `toggleItemSaved(type, id)`: Toggles saved bookmark status in localStorage and emits custom change event.
+  - `isItemReviewed(type, id)`: Returns boolean indicating whether entity has been marked as reviewed.
+  - `toggleItemReviewed(type, id)`: Toggles reviewed status in localStorage and emits custom change event.
+  - `subscribeReviewState(callback)`: Registers listener for `letude-review-state-changed` events and returns cleanup unsubscription function.
+  - `safeGetStorage(key)`: Safely parses JSON records from localStorage with SSR fallback.
+  - `safeSetStorage(key, data)`: Safely persists JSON records to localStorage and notifies subscribers.
 
 ---
 
@@ -538,6 +554,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - Validates vocabulary article sanitization (string or null).
   - Validates enhanced example filters (`verb`, `tense`, `hasTranslation`).
   - Executes Python unit test suite `enrichment/tests/test_enrichment_pipeline.py` covering all enrichment pipeline components.
+  - Validates `reviewStore` functions (`isItemSaved`, `toggleItemSaved`, `isItemReviewed`, `toggleItemReviewed`) and SSR environment safety.
 
 ---
 

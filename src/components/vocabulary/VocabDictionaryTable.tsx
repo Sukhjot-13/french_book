@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { VocabUI } from "@/src/lib/data/selectors";
 import { usePeek } from "../peek/PeekContext";
+import { RowActionMenu } from "../common/RowActionMenu";
 
 interface VocabDictionaryTableProps {
   vocabulary: VocabUI[];
@@ -177,72 +178,148 @@ export function VocabDictionaryTable({
         </div>
       </div>
 
-      {/* DENSE DICTIONARY TABLE */}
+      {/* SCAN CONTAINER (Desktop Dense Table + Mobile Purpose-Built 2-Line Rows) */}
       {vocabulary.length > 0 ? (
         <div className="rounded-xl border border-outline-variant overflow-hidden bg-surface-container-lowest shadow-xs">
-          <div className="overflow-x-auto">
+          {/* MOBILE PURPOSE-BUILT TWO-LINE LIST (<768px) */}
+          <div className="md:hidden divide-y divide-outline-variant/30">
+            {vocabulary.map((item) => (
+              <div
+                key={item.id}
+                data-id={item.french}
+                onClick={() => openPeek("vocab", item.french)}
+                className="p-3 active:bg-surface-container-low hover:bg-surface-container-low/60 transition-colors cursor-pointer flex items-center justify-between gap-3 group"
+              >
+                {/* 2-Line Content */}
+                <div className="min-w-0 flex-1">
+                  {/* Line 1: [Article] French Term · English Gloss */}
+                  <div className="flex items-baseline gap-1.5 truncate">
+                    {item.article && typeof item.article === "string" && (
+                      <span className="text-on-surface-variant/70 font-serif text-xs">
+                        {item.article}
+                      </span>
+                    )}
+                    <span className="font-bold text-sm text-primary tracking-tight font-sans">
+                      {item.french}
+                    </span>
+                    {item.plural_form && (
+                      <span className="text-[10px] text-on-surface-variant/60 font-mono">
+                        (pl. {item.plural_form})
+                      </span>
+                    )}
+                    <span className="text-on-surface-variant/50 text-xs">·</span>
+                    <span className="text-xs text-on-surface font-medium truncate">
+                      {item.english || "—"}
+                    </span>
+                  </div>
+
+                  {/* Line 2: Category/Gender · CEFR · Word Family / Sense */}
+                  <div className="flex items-center gap-1 text-[11px] font-mono text-on-surface-variant/75 mt-0.5 truncate">
+                    <span className="font-semibold text-on-surface">
+                      {formatPosGender(item)}
+                    </span>
+                    {item.word_family && item.word_family.length > 0 ? (
+                      <>
+                        <span className="text-on-surface-variant/40">·</span>
+                        <span className="text-on-surface-variant/80 truncate">
+                          famille: {item.word_family.slice(0, 2).join(", ")}
+                        </span>
+                      </>
+                    ) : item.senses?.[0]?.meaning ? (
+                      <>
+                        <span className="text-on-surface-variant/40">·</span>
+                        <span className="text-on-surface-variant/80 truncate">
+                          {item.senses[0].meaning}
+                        </span>
+                      </>
+                    ) : null}
+                  </div>
+                </div>
+
+                {/* Right Controls: Save/Review Action Menu + Peek indicator */}
+                <div className="flex items-center gap-1 shrink-0">
+                  <RowActionMenu
+                    type="vocab"
+                    id={item.french}
+                    fullUrl={`/vocabulary/${encodeURIComponent(item.french)}`}
+                    label={item.french}
+                  />
+                  <span
+                    className="text-on-surface-variant/50 group-hover:text-primary transition-colors text-base font-mono pl-0.5"
+                    title="Tap to Peek"
+                  >
+                    ›
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* DESKTOP HIGH-DENSITY SCAN TABLE (>=768px) */}
+          <div className="hidden md:block overflow-x-auto max-h-[72vh] overflow-y-auto">
             <table className="w-full text-left text-xs border-collapse font-sans">
-              <thead>
-                <tr className="bg-surface-container border-b border-outline-variant text-[11px] font-mono uppercase text-on-surface-variant tracking-wider">
-                  <th className="py-2.5 px-3.5">Term (Lexical Entry)</th>
-                  <th className="py-2.5 px-3.5">Category</th>
-                  <th className="py-2.5 px-3.5">English Translation</th>
-                  <th className="py-2.5 px-3.5">Family & Notes</th>
-                  <th className="py-2.5 px-3.5 text-right">Quick Peek</th>
+              <thead className="sticky top-0 z-10 bg-surface-container/95 backdrop-blur-md border-b border-outline-variant shadow-xs">
+                <tr className="text-[11px] font-mono uppercase text-on-surface-variant/80 tracking-wider">
+                  <th className="py-2.5 px-3.5 font-semibold">Term (Lexical Entry)</th>
+                  <th className="py-2.5 px-3.5 font-semibold">Category</th>
+                  <th className="py-2.5 px-3.5 font-semibold">English Translation</th>
+                  <th className="py-2.5 px-3.5 font-semibold">Family & Notes</th>
+                  <th className="py-2.5 px-3.5 text-right font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-outline-variant/40">
+              <tbody className="divide-y divide-outline-variant/30">
                 {vocabulary.map((item) => {
                   return (
                     <tr
                       key={item.id}
+                      data-id={item.french}
                       onClick={() => openPeek("vocab", item.french)}
-                      className="hover:bg-surface-container-low transition-colors cursor-pointer group"
+                      className="even:bg-surface-container-lowest odd:bg-surface-container-low/25 hover:bg-primary/[0.04] [&[data-selected='true']]:bg-primary/[0.08] [&[data-selected='true']]:border-l-4 [&[data-selected='true']]:border-primary transition-colors cursor-pointer group"
                     >
-                      {/* Term + Article */}
-                      <td className="py-2.5 px-3.5 font-semibold text-primary">
+                      {/* Term + Article - Visually Dominant */}
+                      <td className="py-2.5 px-3.5">
                         <div className="flex items-center gap-1.5">
                           {item.article && typeof item.article === "string" && (
-                            <span className="text-on-surface-variant/80 font-normal font-serif">
+                            <span className="text-on-surface-variant/75 font-normal font-serif">
                               {item.article}
                             </span>
                           )}
                           <Link
                             href={`/vocabulary/${encodeURIComponent(item.french)}`}
                             onClick={(e) => e.stopPropagation()}
-                            className="font-bold text-sm text-primary hover:underline hover:text-blue-800"
+                            className="font-bold text-sm text-primary hover:underline tracking-tight"
                             title="Open full vocabulary page"
                           >
                             {item.french}
                           </Link>
                           {item.plural_form && (
-                            <span className="text-[11px] text-on-surface-variant/70 font-mono">
+                            <span className="text-[11px] text-on-surface-variant/60 font-mono">
                               (pl. {item.plural_form})
                             </span>
                           )}
                         </div>
                       </td>
 
-                      {/* Type / Gender (e.g. n.m., adj., etc.) */}
-                      <td className="py-2.5 px-3.5 font-mono text-on-surface-variant">
+                      {/* Type / Gender - Muted/Faded visual weight */}
+                      <td className="py-2.5 px-3.5 font-mono text-[11px] text-on-surface-variant/80">
                         <span className="font-semibold text-on-surface">
                           {formatPosGender(item)}
                         </span>
                       </td>
 
                       {/* English Meaning */}
-                      <td className="py-2.5 px-3.5 text-on-surface font-medium">
-                        {item.english || "—"}
+                      <td className="py-2.5 px-3.5 text-on-surface">
+                        <span className="font-medium text-xs text-on-surface">{item.english || "—"}</span>
                       </td>
 
-                      {/* Word Family / Senses */}
-                      <td className="py-2.5 px-3.5 text-on-surface-variant text-[11px]">
+                      {/* Word Family / Senses - Faded */}
+                      <td className="py-2.5 px-3.5 text-on-surface-variant/70 text-[11px]">
                         {item.word_family?.length > 0 ? (
-                          <span className="font-mono text-on-surface-variant">
+                          <span className="font-mono text-on-surface-variant/80 truncate block max-w-xs">
                             {item.word_family.slice(0, 3).join(", ")}
                           </span>
                         ) : item.senses?.[0]?.meaning ? (
-                          <span className="truncate block max-w-xs">
+                          <span className="truncate block max-w-xs text-on-surface-variant/80">
                             {item.senses[0].meaning}
                           </span>
                         ) : (
@@ -250,18 +327,28 @@ export function VocabDictionaryTable({
                         )}
                       </td>
 
-                      {/* Quick Peek */}
+                      {/* Right-Aligned Badges & Action Controls */}
                       <td className="py-2.5 px-3.5 text-right">
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openPeek("vocab", item.french);
-                          }}
-                          className="px-2 py-1 rounded text-[11px] font-mono text-primary bg-surface-container group-hover:bg-[#002147] group-hover:text-white transition-colors"
-                        >
-                          Peek →
-                        </button>
+                        <div className="flex items-center justify-end gap-1.5">
+                          <RowActionMenu
+                            type="vocab"
+                            id={item.french}
+                            fullUrl={`/vocabulary/${encodeURIComponent(item.french)}`}
+                            label={item.french}
+                          />
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openPeek("vocab", item.french);
+                            }}
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] font-mono text-primary bg-surface-container hover:bg-[#002147] hover:text-white transition-colors cursor-pointer"
+                            title="Open fast Level 2 Peek"
+                          >
+                            <span>Peek</span>
+                            <span className="text-[10px]">→</span>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );

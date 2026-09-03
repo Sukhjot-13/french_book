@@ -43,7 +43,7 @@ export function PeekDrawer() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden flex justify-end">
+    <div className="fixed inset-0 z-50 overflow-hidden flex flex-col justify-end md:flex-row md:justify-end">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity animate-in fade-in duration-150"
@@ -51,11 +51,16 @@ export function PeekDrawer() {
         aria-label="Close preview"
       />
 
-      {/* Slide-over panel */}
+      {/* Slide-over panel (Desktop: right drawer / Mobile: bottom sheet) */}
       <aside
-        className="relative z-10 w-full max-w-md bg-surface-container-lowest border-l border-outline-variant shadow-2xl flex flex-col h-full animate-in slide-in-from-right duration-200"
+        className="relative z-10 w-full md:max-w-md bg-surface-container-lowest border-t md:border-t-0 md:border-l border-outline-variant shadow-2xl flex flex-col max-h-[85vh] md:max-h-none md:h-full rounded-t-2xl md:rounded-none animate-in slide-in-from-bottom md:slide-in-from-right duration-200"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Mobile Bottom-Sheet Grab Handle */}
+        <div className="md:hidden flex justify-center pt-2.5 pb-1 bg-surface-container-low cursor-grab">
+          <div className="w-10 h-1.5 rounded-full bg-outline-variant/80" />
+        </div>
+
         {/* Drawer Header with Back/Forward controls */}
         <div className="p-3.5 border-b border-outline-variant/60 flex items-center justify-between bg-surface-container-low">
           <div className="flex items-center gap-2">

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import assert from "assert";
+import { isItemSaved, toggleItemSaved, isItemReviewed, toggleItemReviewed } from "../src/lib/data/reviewStore";
 
 console.log("🚀 Running complete test suite for French Revision Platform...\n");
 
@@ -241,6 +242,16 @@ try {
   console.error("❌ Enrichment pipeline test failure:", err.stdout || err.message);
   process.exit(1);
 }
+
+// 14. Validate ReviewStore logic
+assert.strictEqual(typeof isItemSaved, "function", "isItemSaved must be a function");
+assert.strictEqual(typeof toggleItemSaved, "function", "toggleItemSaved must be a function");
+assert.strictEqual(typeof isItemReviewed, "function", "isItemReviewed must be a function");
+assert.strictEqual(typeof toggleItemReviewed, "function", "toggleItemReviewed must be a function");
+// Under SSR / Node test runner, safe defaults return false
+assert.strictEqual(isItemSaved("verb", "prendre"), false, "SSR isItemSaved must return false safely");
+assert.strictEqual(isItemReviewed("verb", "prendre"), false, "SSR isItemReviewed must return false safely");
+console.log("✅ Review store helper and SSR safety verified.");
 
 console.log("\n🎉 All tests passed successfully!");
 

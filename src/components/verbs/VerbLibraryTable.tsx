@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { VerbUI } from "@/src/lib/data/selectors";
 import { usePeek } from "../peek/PeekContext";
+import { RowActionMenu } from "../common/RowActionMenu";
 
 interface VerbLibraryTableProps {
   verbs: VerbUI[];
@@ -224,36 +225,111 @@ export function VerbLibraryTable({
         )}
       </div>
 
-      {/* DENSE SCAN-PEEK TABLE */}
+      {/* SCAN CONTAINER (Desktop Dense Table + Mobile Purpose-Built 2-Line Rows) */}
       {verbs.length > 0 ? (
         <div className="rounded-xl border border-outline-variant overflow-hidden bg-surface-container-lowest shadow-xs">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr className="bg-surface-container border-b border-outline-variant text-[11px] font-mono uppercase text-on-surface-variant tracking-wider">
-                  <th className="py-2.5 px-3.5">Verb (Lemma)</th>
-                  <th className="py-2.5 px-3.5">Primary Meaning</th>
-                  <th className="py-2.5 px-3.5">Classification</th>
-                  <th className="py-2.5 px-3.5">Aux & Participle</th>
-                  <th className="py-2.5 px-3.5">Relations</th>
-                  <th className="py-2.5 px-3.5 text-right">Quick Peek</th>
+          {/* MOBILE PURPOSE-BUILT TWO-LINE LIST (<768px) */}
+          <div className="md:hidden divide-y divide-outline-variant/30">
+            {verbs.map((verb) => (
+              <div
+                key={verb.id}
+                data-id={verb.lemma}
+                onClick={() => openPeek("verb", verb.lemma)}
+                className="p-3 active:bg-surface-container-low hover:bg-surface-container-low/60 transition-colors cursor-pointer flex items-center justify-between gap-3 group"
+              >
+                {/* 2-Line Content */}
+                <div className="min-w-0 flex-1">
+                  {/* Line 1: French Term · English Gloss */}
+                  <div className="flex items-baseline gap-1.5 truncate">
+                    <span className="font-bold text-sm text-primary tracking-tight font-sans">
+                      {verb.lemma}
+                    </span>
+                    {verb.pronominal && (
+                      <span className="text-[9px] font-mono text-purple-700 bg-purple-50 border border-purple-200 px-1 rounded">
+                        se
+                      </span>
+                    )}
+                    <span className="text-on-surface-variant/50 text-xs">·</span>
+                    <span className="text-xs text-on-surface font-medium truncate">
+                      {verb.english || "—"}
+                    </span>
+                  </div>
+
+                  {/* Line 2: 3e · irregular · avoir · [participle] */}
+                  <div className="flex items-center gap-1 text-[11px] font-mono text-on-surface-variant/75 mt-0.5 truncate">
+                    <span className="font-semibold text-on-surface">
+                      {formatGroup(verb.group)}
+                    </span>
+                    <span className="text-on-surface-variant/40">·</span>
+                    <span
+                      className={
+                        verb.regularity === "irregular" ? "text-amber-700 font-medium" : ""
+                      }
+                    >
+                      {verb.regularity === "irregular" ? "irrég." : "rég."}
+                    </span>
+                    <span className="text-on-surface-variant/40">·</span>
+                    <span className="text-primary font-medium">{verb.auxiliary}</span>
+                    {verb.past_participle && (
+                      <>
+                        <span className="text-on-surface-variant/40">·</span>
+                        <span className="text-on-surface-variant/90 truncate">
+                          {verb.past_participle}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Right Controls: Save/Review Action Menu + Peek indicator */}
+                <div className="flex items-center gap-1 shrink-0">
+                  <RowActionMenu
+                    type="verb"
+                    id={verb.lemma}
+                    fullUrl={`/verbs/${encodeURIComponent(verb.lemma)}`}
+                    label={verb.lemma}
+                  />
+                  <span
+                    className="text-on-surface-variant/50 group-hover:text-primary transition-colors text-base font-mono pl-0.5"
+                    title="Tap to Peek"
+                  >
+                    ›
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* DESKTOP HIGH-DENSITY SCAN TABLE (>=768px) */}
+          <div className="hidden md:block overflow-x-auto max-h-[72vh] overflow-y-auto">
+            <table className="w-full text-left text-xs border-collapse font-sans">
+              <thead className="sticky top-0 z-10 bg-surface-container/95 backdrop-blur-md border-b border-outline-variant shadow-xs">
+                <tr className="text-[11px] font-mono uppercase text-on-surface-variant/80 tracking-wider">
+                  <th className="py-2.5 px-3.5 font-semibold">Verb (Lemma)</th>
+                  <th className="py-2.5 px-3.5 font-semibold">Primary Meaning</th>
+                  <th className="py-2.5 px-3.5 font-semibold">Classification</th>
+                  <th className="py-2.5 px-3.5 font-semibold">Aux & Participle</th>
+                  <th className="py-2.5 px-3.5 font-semibold">Usage & Cross-Links</th>
+                  <th className="py-2.5 px-3.5 text-right font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-outline-variant/40">
+              <tbody className="divide-y divide-outline-variant/30">
                 {verbs.map((verb) => {
                   return (
                     <tr
                       key={verb.id}
+                      data-id={verb.lemma}
                       onClick={() => openPeek("verb", verb.lemma)}
-                      className="hover:bg-surface-container-low transition-colors cursor-pointer group"
+                      className="even:bg-surface-container-lowest odd:bg-surface-container-low/25 hover:bg-primary/[0.04] [&[data-selected='true']]:bg-primary/[0.08] [&[data-selected='true']]:border-l-4 [&[data-selected='true']]:border-primary transition-colors cursor-pointer group"
                     >
-                      {/* Verb Infinitive */}
-                      <td className="py-2.5 px-3.5 font-semibold text-primary">
+                      {/* Verb Infinitive - Visually Dominant */}
+                      <td className="py-2.5 px-3.5">
                         <div className="flex items-center gap-1.5">
                           <Link
                             href={`/verbs/${encodeURIComponent(verb.lemma)}`}
                             onClick={(e) => e.stopPropagation()}
-                            className="font-bold text-sm text-primary hover:underline"
+                            className="font-bold text-sm text-primary hover:underline tracking-tight"
+                            title="Open full verb dossier"
                           >
                             {verb.lemma}
                           </Link>
@@ -263,7 +339,7 @@ export function VerbLibraryTable({
                             </span>
                           )}
                           {verb.cefr && (
-                            <span className="text-[10px] font-mono text-on-surface-variant/70">
+                            <span className="text-[10px] font-mono text-on-surface-variant/60">
                               {verb.cefr}
                             </span>
                           )}
@@ -272,39 +348,39 @@ export function VerbLibraryTable({
 
                       {/* Primary English Meaning */}
                       <td className="py-2.5 px-3.5 text-on-surface">
-                        <span className="font-medium text-xs">{verb.english || "—"}</span>
+                        <span className="font-medium text-xs text-on-surface">{verb.english || "—"}</span>
                       </td>
 
-                      {/* Classification (Clean minimal inline text, no oversized badges) */}
-                      <td className="py-2.5 px-3.5 font-mono text-on-surface-variant">
+                      {/* Classification - Subtle / Faded visual weight */}
+                      <td className="py-2.5 px-3.5 font-mono text-[11px] text-on-surface-variant/80">
                         <span className="font-semibold text-on-surface">
                           {formatGroup(verb.group)}
                         </span>
-                        <span className="text-on-surface-variant/70 mx-1">·</span>
+                        <span className="text-on-surface-variant/40 mx-1">·</span>
                         <span
                           className={
-                            verb.regularity === "irregular" ? "text-amber-700 font-medium" : ""
+                            verb.regularity === "irregular" ? "text-amber-700 font-medium" : "text-on-surface-variant/70"
                           }
                         >
-                          {verb.regularity === "irregular" ? "irr." : "rég."}
+                          {verb.regularity === "irregular" ? "irrégulier" : "régulier"}
                         </span>
                       </td>
 
-                      {/* Auxiliary & Participle */}
-                      <td className="py-2.5 px-3.5 font-mono text-on-surface-variant">
+                      {/* Auxiliary & Participle - Faded structural details */}
+                      <td className="py-2.5 px-3.5 font-mono text-[11px] text-on-surface-variant/80">
                         <span className="text-primary font-medium">{verb.auxiliary}</span>
                         {verb.past_participle && (
                           <>
-                            <span className="text-on-surface-variant/60 mx-1">·</span>
-                            <span className="text-on-surface font-semibold">
+                            <span className="text-on-surface-variant/40 mx-1">·</span>
+                            <span className="text-on-surface font-normal">
                               {verb.past_participle}
                             </span>
                           </>
                         )}
                       </td>
 
-                      {/* Usage & Relations */}
-                      <td className="py-2.5 px-3.5 text-on-surface-variant font-mono text-[11px]">
+                      {/* Usage & Cross-Links - Faded */}
+                      <td className="py-2.5 px-3.5 text-on-surface-variant/70 font-mono text-[11px]">
                         {verb.related_expressions?.length > 0 && (
                           <span className="mr-2">
                             {verb.related_expressions.length} expr
@@ -315,18 +391,28 @@ export function VerbLibraryTable({
                         )}
                       </td>
 
-                      {/* Peek trigger */}
+                      {/* Right-Aligned Badges & Action Controls */}
                       <td className="py-2.5 px-3.5 text-right">
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openPeek("verb", verb.lemma);
-                          }}
-                          className="px-2 py-1 rounded text-[11px] font-mono text-primary bg-surface-container hover:bg-[#002147] hover:text-white transition-colors"
-                        >
-                          Peek →
-                        </button>
+                        <div className="flex items-center justify-end gap-1.5">
+                          <RowActionMenu
+                            type="verb"
+                            id={verb.lemma}
+                            fullUrl={`/verbs/${encodeURIComponent(verb.lemma)}`}
+                            label={verb.lemma}
+                          />
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openPeek("verb", verb.lemma);
+                            }}
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] font-mono text-primary bg-surface-container hover:bg-[#002147] hover:text-white transition-colors cursor-pointer"
+                            title="Open fast Level 2 Peek"
+                          >
+                            <span>Peek</span>
+                            <span className="text-[10px]">→</span>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );

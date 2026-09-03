@@ -1,6 +1,10 @@
 # Project Suggestions & Roadmap
 
-## 🟢 Improvements
+- **2026-09-03**: Enhanced desktop table scanning across Verbs (`VerbLibraryTable`) and Vocabulary (`VocabDictionaryTable`) with sticky column headers, subtle zebra striping, selected-row indicator (`data-selected`), visually dominant French terms, and right-aligned metadata/action badges.
+- **2026-09-03**: Implemented purpose-built mobile two-line list layouts (`<768px`) for Verbs and Vocabulary (Line 1: French term · English gloss; Line 2: classification/aux/participle with tap-to-peek chevron).
+- **2026-09-03**: Converted `PeekDrawer` into a mobile bottom sheet (`<768px`) with top grab indicator bar, rounded top corners, backdrop blur, and bottom slide-in animation.
+- **2026-09-03**: Added client-side revision store (`reviewStore.ts`) and row action menu (`RowActionMenu`) enabling saving items for review and marking entries reviewed with local persistence and reactive status updates.
+- **2026-09-03**: Fixed navbar search and mobile hamburger menu in `AppShell`: added explicit button types, route-change auto-closing, backdrop click-to-close, and visible close button (`✕`) in `CommandPalette` for phones without Escape keys.
 - **2026-09-02**: Modernized data layer to consume `data/MASTER_DATA.json` (the 10-collection master dataset) directly with in-memory caching and strict TypeScript interfaces matching `MASTER_SCHEMA.json`.
 - **2026-09-02**: Added resilient dual matching by canonical string/infinitive and slugs across all selectors.
 - **2026-09-02**: Added defensive normalization and input guards in search and ID generation routines.

@@ -125,14 +125,17 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-150">
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center pt-4 sm:pt-16 bg-black/60 backdrop-blur-sm p-2 sm:p-4 animate-in fade-in duration-150"
+      onClick={onClose}
+    >
       <div
-        className="w-full max-w-2xl bg-surface-container-lowest border border-outline-variant shadow-2xl rounded-lg overflow-hidden flex flex-col max-h-[80vh]"
+        className="w-full max-w-2xl bg-surface-container-lowest border border-outline-variant shadow-2xl rounded-xl overflow-hidden flex flex-col max-h-[88vh] sm:max-h-[80vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3.5 border-b border-outline-variant/60 bg-surface-container-low">
-          <span className="material-symbols-outlined text-on-surface-variant text-[22px] mr-3">
+        <div className="flex items-center px-3 sm:px-4 py-3 border-b border-outline-variant/60 bg-surface-container-low gap-2">
+          <span className="material-symbols-outlined text-on-surface-variant text-[22px] shrink-0">
             search
           </span>
           <input
@@ -142,14 +145,35 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDownInInput}
             placeholder="Search verbs, grammar rules, expressions, vocabulary, tenses..."
-            className="flex-1 bg-transparent border-none outline-none text-base text-on-surface placeholder:text-on-surface-variant font-sans"
+            className="flex-1 min-w-0 bg-transparent border-none outline-none text-sm sm:text-base text-on-surface placeholder:text-on-surface-variant font-sans"
           />
           {isLoading && (
-            <span className="text-xs font-mono text-on-surface-variant mr-2">Searching...</span>
+            <span className="text-xs font-mono text-on-surface-variant shrink-0 mr-1">Searching...</span>
           )}
-          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[11px] font-mono font-medium text-on-surface-variant bg-surface-container-high rounded border border-outline-variant">
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery("")}
+              className="p-1 text-on-surface-variant hover:text-primary rounded cursor-pointer"
+              title="Clear search"
+              aria-label="Clear search"
+            >
+              <span className="material-symbols-outlined text-[18px]">backspace</span>
+            </button>
+          )}
+          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[11px] font-mono font-medium text-on-surface-variant bg-surface-container-high rounded border border-outline-variant shrink-0">
             ESC
           </kbd>
+          {/* Explicit close button for phone & all screen sizes */}
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-1.5 rounded-md hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors shrink-0 cursor-pointer flex items-center justify-center"
+            title="Close search"
+            aria-label="Close search"
+          >
+            <span className="material-symbols-outlined text-[20px]">close</span>
+          </button>
         </div>
 
         {/* Search Results List */}
