@@ -25,6 +25,7 @@ export function AppShell({ children }: AppShellProps) {
     { label: "Grammar Rules", href: "/grammar", icon: "menu_book", count: "284" },
     { label: "Expressions", href: "/expressions", icon: "chat_bubble", count: "557" },
     { label: "Vocabulary", href: "/vocabulary", icon: "dictionary", count: "1,002" },
+    { label: "Concepts", href: "/concepts", icon: "psychology", count: "206" },
     { label: "Exercises", href: "/exercises", icon: "quiz", count: "217" },
     { label: "Traps & Pitfalls", href: "/traps", icon: "warning", count: "108" },
     { label: "Example Explorer", href: "/examples", icon: "format_quote", count: "1,011" },

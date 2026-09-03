@@ -766,7 +766,14 @@ export function getVerbById(verbId: string): VerbDetailWithGraph | null {
   const verb = mapVerb(rawVerb);
 
   const expressions = (data.expressions || [])
-    .filter((e) => (e.related_verbs || []).some((rv) => rv === rawVerb.infinitive))
+    .filter((e) => {
+      if ((e.related_verbs || []).some((rv) => rv === rawVerb.infinitive)) return true;
+      if ((rawVerb.related_expressions || []).includes(e.canonical_form) || (rawVerb.related_expressions || []).includes(e.display_form || "")) return true;
+      const lowerCanonical = (e.canonical_form || "").toLowerCase();
+      const lowerInfinitive = rawVerb.infinitive.toLowerCase();
+      if (lowerCanonical === lowerInfinitive || lowerCanonical.startsWith(`${lowerInfinitive} `)) return true;
+      return false;
+    })
     .map(mapExpression);
 
   const grammarRules = (data.grammar_rules || [])
@@ -1174,6 +1181,8 @@ export interface VocabDetailWithGraph {
   vocab: VocabUI;
   expressions: ExpressionUI[];
   examples: ExampleUI[];
+  relatedVerbs: VerbUI[];
+  relatedChapters: ChapterUI[];
 }
 
 export function getVocabularyById(vocabId: string): VocabDetailWithGraph | null {
@@ -1214,13 +1223,30 @@ export function getVocabularyById(vocabId: string): VocabDetailWithGraph | null 
       const normFr = normalizeFrenchText(ex.french);
       return normFr.includes(normWord);
     })
-    .slice(0, 5)
+    .slice(0, 10)
     .map((ex, i) => mapExample(ex, i));
+
+  const relatedVerbs = (data.verbs || [])
+    .filter((v) => {
+      const normVerb = normalizeFrenchText(v.infinitive);
+      return (
+        (rawVocab.related_verbs || []).includes(v.infinitive) ||
+        normVerb === normWord
+      );
+    })
+    .slice(0, 6)
+    .map(mapVerb);
+
+  const relatedChapters = (data.chapters || [])
+    .filter((ch) => (rawVocab.chapters || []).includes(ch.chapter_number))
+    .map(mapChapter);
 
   return {
     vocab,
     expressions,
     examples,
+    relatedVerbs,
+    relatedChapters,
   };
 }
 
@@ -1313,6 +1339,12 @@ export function getChapterById(chapterId: string): ChapterDetailWithGraph | null
 export interface ExampleFilterOptions {
   query?: string;
   chapterId?: string;
+  verb?: string;
+  tense?: string;
+  grammarRule?: string;
+  expression?: string;
+  concept?: string;
+  hasTranslation?: boolean;
   limit?: number;
   offset?: number;
 }
@@ -1332,6 +1364,49 @@ export function getExamples(filters?: ExampleFilterOptions): { examples: Example
 
   if (filters?.chapterId && filters.chapterId !== "all") {
     list = list.filter((ex) => ex.chapter_ids.includes(filters.chapterId!));
+  }
+
+  if (filters?.verb && filters.verb !== "all") {
+    const v = normalizeFrenchText(filters.verb);
+    list = list.filter((ex) =>
+      ex.related_verbs.some((rv) => normalizeFrenchText(rv).includes(v)) ||
+      normalizeFrenchText(ex.french).includes(v)
+    );
+  }
+
+  if (filters?.tense && filters.tense !== "all") {
+    const t = normalizeFrenchText(filters.tense);
+    list = list.filter((ex) =>
+      ex.related_tenses.some((rt) => normalizeFrenchText(rt).includes(t)) ||
+      slugify(t) === slugify(filters.tense!)
+    );
+  }
+
+  if (filters?.grammarRule && filters.grammarRule !== "all") {
+    const gr = normalizeFrenchText(filters.grammarRule);
+    list = list.filter((ex) =>
+      ex.related_grammar_rules.some((rg) => normalizeFrenchText(rg).includes(gr))
+    );
+  }
+
+  if (filters?.expression && filters.expression !== "all") {
+    const exp = normalizeFrenchText(filters.expression);
+    list = list.filter((ex) =>
+      ex.related_expressions.some((re) => normalizeFrenchText(re).includes(exp))
+    );
+  }
+
+  if (filters?.concept && filters.concept !== "all") {
+    const c = normalizeFrenchText(filters.concept);
+    list = list.filter((ex) =>
+      ex.related_concepts.some((rc) => normalizeFrenchText(rc).includes(c))
+    );
+  }
+
+  if (filters?.hasTranslation !== undefined) {
+    list = list.filter((ex) =>
+      filters.hasTranslation ? Boolean(ex.english && ex.english.trim()) : !ex.english
+    );
   }
 
   const total = list.length;
@@ -1462,4 +1537,93 @@ export function getExceptionsAndTraps(filters?: TrapFilterOptions): { traps: Exc
 export function getConcepts(): ConceptUI[] {
   const data = getMasterDataset();
   return (data.concepts || []).map(mapConcept);
+}
+
+export interface ConceptDetailWithGraph {
+  concept: ConceptUI;
+  grammarRules: GrammarRuleUI[];
+  tenses: TenseUI[];
+  verbs: VerbUI[];
+  expressions: ExpressionUI[];
+  vocabulary: VocabUI[];
+  examples: ExampleUI[];
+}
+
+export function getConceptById(conceptId: string): ConceptDetailWithGraph | null {
+  const data = getMasterDataset();
+  const rawId = conceptId;
+  const decoded = safeDecode(conceptId);
+  const rawConcept = (data.concepts || []).find((c) => {
+    const id = `concept_${slugify(c.name)}`;
+    return (
+      id === rawId ||
+      id === decoded ||
+      c.name === rawId ||
+      c.name === decoded ||
+      slugify(c.name) === slugify(rawId) ||
+      slugify(c.name) === slugify(decoded)
+    );
+  });
+
+  if (!rawConcept) return null;
+
+  const concept = mapConcept(rawConcept);
+  const normName = normalizeFrenchText(rawConcept.name);
+
+  const grammarRules = (data.grammar_rules || [])
+    .filter((gr) =>
+      (rawConcept.related_grammar_rules || []).includes(gr.rule_name) ||
+      (gr.related_concepts || []).some((rc) => normalizeFrenchText(rc).includes(normName))
+    )
+    .slice(0, 15)
+    .map(mapRule);
+
+  const tenses = (data.tenses || [])
+    .filter((t) =>
+      (rawConcept.related_tenses || []).includes(t.name) ||
+      normalizeFrenchText(t.name).includes(normName) ||
+      (t.tags || []).some((tag) => normalizeFrenchText(tag).includes(normName))
+    )
+    .map(mapTense);
+
+  const verbs = (data.verbs || [])
+    .filter((v) =>
+      (rawConcept.related_verbs || []).includes(v.infinitive) ||
+      (v.related_concepts || []).some((rc) => normalizeFrenchText(rc).includes(normName))
+    )
+    .slice(0, 15)
+    .map(mapVerb);
+
+  const expressions = (data.expressions || [])
+    .filter((e) =>
+      (rawConcept.related_expressions || []).includes(e.canonical_form) ||
+      (e.related_concepts || []).some((rc) => normalizeFrenchText(rc).includes(normName))
+    )
+    .slice(0, 15)
+    .map(mapExpression);
+
+  const vocabulary = (data.vocabulary || [])
+    .filter((vocab) =>
+      (rawConcept.related_vocabulary || []).includes(vocab.canonical_form) ||
+      (vocab.related_concepts || []).some((rc) => normalizeFrenchText(rc).includes(normName))
+    )
+    .slice(0, 20)
+    .map(mapVocab);
+
+  const examples = (data.examples || [])
+    .filter((ex) =>
+      (ex.related_concepts || []).some((rc) => normalizeFrenchText(rc).includes(normName))
+    )
+    .slice(0, 10)
+    .map((ex, i) => mapExample(ex, i));
+
+  return {
+    concept,
+    grammarRules,
+    tenses,
+    verbs,
+    expressions,
+    vocabulary,
+    examples,
+  };
 }

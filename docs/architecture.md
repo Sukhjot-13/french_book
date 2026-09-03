@@ -164,6 +164,21 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `VocabularyPage({ searchParams })`: Renders searchable table of vocabulary words with articles, grammatical categories, word family, and senses.
 
+#### `app/vocabulary/[id]/page.tsx`
+- **Purpose**: Vocabulary item deep dive view showing grammatical gender, articles, senses, synonyms/antonyms, related expressions, base verbs, and contextual examples.
+- **Functions**:
+  - `VocabularyDetailPage({ params })`: Server page resolving word entry and rendering `VocabDetailView`.
+
+#### `app/concepts/page.tsx`
+- **Purpose**: Concepts taxonomy directory cataloging all 206 grammatical and pedagogical concepts with CEFR levels, categories, and quick peek integration.
+- **Functions**:
+  - `ConceptsPage({ searchParams })`: Server page rendering `ConceptsDirectoryView`.
+
+#### `app/concepts/[id]/page.tsx`
+- **Purpose**: Concept deep dive view showing definition, CEFR metadata, interconnected grammar rules, verbs, expressions, vocabulary, and related tenses.
+- **Functions**:
+  - `ConceptDetailPage({ params })`: Server page resolving concept entity and rendering `ConceptDetailView`.
+
 #### `app/examples/page.tsx`
 - **Purpose**: Global example sentence explorer with interactive focus spans, target linguistic badges, and bidirectional links to grammar rules, verbs, and chapters.
 - **Functions**:
@@ -259,10 +274,30 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `GrammarDetailView({ rule, tenses, verbs, examples, traps })`: Client detail component.
 
+#### `src/components/vocabulary/VocabDetailView.tsx`
+- **Purpose**: Vocabulary word deep dive with gender tag, article, definitions/senses, synonyms, antonyms, related expressions, base verbs, and contextual sentences.
+- **Functions**:
+  - `VocabDetailView({ vocab, baseVerbs, expressions, examples })`: Interactive client component with peek triggers and external cross-filters.
+
+#### `src/components/tenses/TensesDirectoryTable.tsx`
+- **Purpose**: Dual-view (Card and Table) directory for all 24 French tenses and moods with mood filters, search, quick Peek triggers, and direct navigation.
+- **Functions**:
+  - `TensesDirectoryTable({ tenses, initialMood, initialQuery })`: Interactive client component with scan-to-peek interactions and layout switcher.
+
 #### `src/components/tenses/TenseDetailView.tsx`
-- **Purpose**: Tense deep dive with 4-part Quick-Reference Card (Formula, When to Use, Signal Words, Agreement & Traps), verb inflection matrix with search & Peek, and linked grammar rules.
+- **Purpose**: Tense deep dive with sticky subnavigation, 4-part Quick-Reference Card (Formula, When to Use, Signal Words, Agreement & Traps), verb inflection matrix with search & Peek, linked grammar rules, contextual sentence examples, practice drill CTA, and demoted attestation metadata.
 - **Functions**:
   - `TenseDetailView({ tense, conjugations, grammarRules, examples, traps })`: Client detail component.
+
+#### `src/components/concepts/ConceptsDirectoryView.tsx`
+- **Purpose**: Semantic concept explorer cataloging all 206 concepts with live search, CEFR badges, category filters, and quick peek integration.
+- **Functions**:
+  - `ConceptsDirectoryView({ concepts, total, initialQuery, initialCefr })`: Interactive client directory component.
+
+#### `src/components/concepts/ConceptDetailView.tsx`
+- **Purpose**: Concept deep dive interface displaying semantic taxonomy, CEFR badges, related grammar rules, verbs, expressions, vocabulary, and related tenses with peek and drill links.
+- **Functions**:
+  - `ConceptDetailView({ concept, grammarRules, verbs, expressions, vocabulary, tenses })`: Client detail component.
 
 #### `src/components/chapters/ChapterDetailView.tsx`
 - **Purpose**: Chapter dashboard featuring 1-screen Quick Cheat Sheet (Key Verbs, Core Rule, Essential 5 Vocab, #1 Trap to Avoid) and tabbed navigation (Overview, Grammar, Verbs, Vocab, Expressions, Practice).

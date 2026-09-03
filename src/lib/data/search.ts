@@ -23,7 +23,8 @@ export type SearchResultType =
   | "chapter"
   | "example"
   | "exercise"
-  | "trap";
+  | "trap"
+  | "concept";
 
 export interface SearchResultItem {
   id: string;
@@ -127,7 +128,7 @@ export function searchDataset(
         title: fr,
         subtitle: enStr,
         snippet: item.part_of_speech,
-        url: `/vocabulary?query=${encodeURIComponent(fr)}`,
+        url: `/vocabulary/${encodeURIComponent(fr)}`,
         badge: item.part_of_speech || "vocab",
         priority: item.study?.learning_priority ?? undefined,
         score,
@@ -275,6 +276,33 @@ export function searchDataset(
         subtitle: ex.english,
         url: `/examples?query=${encodeURIComponent(rawQuery)}`,
         badge: "example",
+        score,
+      });
+    }
+  }
+
+  // 10. CONCEPTS
+  for (const concept of dataset.concepts || []) {
+    const name = concept.name || "";
+    const normName = normalizeFrenchText(name);
+    const normDesc = normalizeFrenchText(concept.description);
+
+    let score = 0;
+    if (normName === query) score = 92;
+    else if (normName.startsWith(query)) score = 72;
+    else if (normName.includes(query)) score = 52;
+    else if (normDesc.includes(query)) score = 25;
+
+    if (score > 0) {
+      results.push({
+        id: `concept_${slugify(name)}`,
+        type: "concept",
+        title: name,
+        subtitle: concept.description ? concept.description.slice(0, 80) : "Linguistic Concept",
+        snippet: concept.study?.cefr_level ? `CEFR ${concept.study.cefr_level}` : undefined,
+        url: `/concepts/${encodeURIComponent(name)}`,
+        badge: concept.study?.cefr_level || "concept",
+        priority: concept.study?.learning_priority ?? undefined,
         score,
       });
     }

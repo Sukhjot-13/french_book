@@ -143,13 +143,79 @@ export default async function HomePage() {
           <p className="text-[11px] text-on-surface-variant mt-1">With focus spans</p>
         </Link>
 
-        <div className="p-4 rounded-lg bg-surface-container-low border border-outline-variant/60">
+        <Link
+          href="/concepts"
+          className="p-4 rounded-lg bg-surface-container-low border border-outline-variant/60 hover:border-primary transition-all group block"
+        >
           <div className="flex items-center justify-between text-on-surface-variant mb-1">
             <span className="text-xs font-mono uppercase tracking-wider">Concepts</span>
-            <span className="material-symbols-outlined text-[18px] text-primary">psychology</span>
+            <span className="material-symbols-outlined text-[18px] text-primary group-hover:scale-110 transition-transform">psychology</span>
           </div>
           <div className="text-2xl font-bold font-mono text-primary">{stats.totalConcepts}</div>
-          <p className="text-[11px] text-on-surface-variant mt-1">Semantic taxonomy</p>
+          <p className="text-[11px] text-on-surface-variant mt-1">Semantic taxonomy & explorer</p>
+        </Link>
+      </div>
+
+      {/* DIRECT ACTION JUMP TARGETS (Suggestion 18) */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between border-b border-outline-variant/50 pb-2">
+          <h2 className="text-base font-bold text-primary flex items-center gap-2">
+            <span className="material-symbols-outlined text-primary text-[20px]">bolt</span>
+            <span>Direct Jump Targets</span>
+          </h2>
+          <span className="text-xs text-on-surface-variant font-mono">
+            Direct syllabus slices
+          </span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+          <Link
+            href="/verbs?regularity=irregular"
+            className="p-3 rounded-lg bg-surface-container-low border border-outline-variant/70 hover:border-primary hover:bg-surface-container transition-all group"
+          >
+            <div className="text-[10px] font-mono uppercase text-amber-700 font-bold">Verbs</div>
+            <div className="text-xs font-bold text-primary group-hover:underline mt-0.5">Irregular Verbs</div>
+            <div className="text-[10px] text-on-surface-variant mt-1 font-mono">Irregulars filter &rarr;</div>
+          </Link>
+          <Link
+            href="/tenses?mood=subjunctive"
+            className="p-3 rounded-lg bg-surface-container-low border border-outline-variant/70 hover:border-primary hover:bg-surface-container transition-all group"
+          >
+            <div className="text-[10px] font-mono uppercase text-purple-700 font-bold">Moods</div>
+            <div className="text-xs font-bold text-primary group-hover:underline mt-0.5">Subjunctive</div>
+            <div className="text-[10px] text-on-surface-variant mt-1 font-mono">4 subjunctive tenses &rarr;</div>
+          </Link>
+          <Link
+            href="/grammar?priority=1"
+            className="p-3 rounded-lg bg-surface-container-low border border-outline-variant/70 hover:border-primary hover:bg-surface-container transition-all group"
+          >
+            <div className="text-[10px] font-mono uppercase text-emerald-700 font-bold">Rules</div>
+            <div className="text-xs font-bold text-primary group-hover:underline mt-0.5">Priority 1 Rules</div>
+            <div className="text-[10px] text-on-surface-variant mt-1 font-mono">Core essentials &rarr;</div>
+          </Link>
+          <Link
+            href="/grammar?cefr=B1"
+            className="p-3 rounded-lg bg-surface-container-low border border-outline-variant/70 hover:border-primary hover:bg-surface-container transition-all group"
+          >
+            <div className="text-[10px] font-mono uppercase text-blue-700 font-bold">Level</div>
+            <div className="text-xs font-bold text-primary group-hover:underline mt-0.5">B1 Intermediate</div>
+            <div className="text-[10px] text-on-surface-variant mt-1 font-mono">Threshold syllabus &rarr;</div>
+          </Link>
+          <Link
+            href="/expressions"
+            className="p-3 rounded-lg bg-surface-container-low border border-outline-variant/70 hover:border-primary hover:bg-surface-container transition-all group"
+          >
+            <div className="text-[10px] font-mono uppercase text-indigo-700 font-bold">Expressions</div>
+            <div className="text-xs font-bold text-primary group-hover:underline mt-0.5">Idiom Patterns</div>
+            <div className="text-[10px] text-on-surface-variant mt-1 font-mono">Governed phrases &rarr;</div>
+          </Link>
+          <Link
+            href="/traps"
+            className="p-3 rounded-lg bg-surface-container-low border border-outline-variant/70 hover:border-amber-600 hover:bg-surface-container transition-all group"
+          >
+            <div className="text-[10px] font-mono uppercase text-rose-700 font-bold">Traps</div>
+            <div className="text-xs font-bold text-primary group-hover:underline mt-0.5">Pitfall Review</div>
+            <div className="text-[10px] text-on-surface-variant mt-1 font-mono">Curated warnings &rarr;</div>
+          </Link>
         </div>
       </div>
 

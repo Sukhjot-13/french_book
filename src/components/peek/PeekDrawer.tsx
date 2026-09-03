@@ -2,10 +2,20 @@
 
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { usePeek } from "./PeekContext";
+import { usePeek, PeekEntityType } from "./PeekContext";
 
 export function PeekDrawer() {
-  const { isOpen, isLoading, peekData, closePeek, openPeek } = usePeek();
+  const {
+    isOpen,
+    isLoading,
+    peekData,
+    closePeek,
+    openPeek,
+    canGoBack,
+    canGoForward,
+    goBack,
+    goForward,
+  } = usePeek();
 
   // Close on Escape key
   useEffect(() => {
@@ -20,6 +30,18 @@ export function PeekDrawer() {
 
   if (!isOpen) return null;
 
+  const helperDeterminePeekType = (url?: string): { type: PeekEntityType; id: string } | null => {
+    if (!url) return null;
+    if (url.startsWith("/verbs/")) return { type: "verb", id: decodeURIComponent(url.replace("/verbs/", "")) };
+    if (url.startsWith("/grammar/")) return { type: "grammar", id: decodeURIComponent(url.replace("/grammar/", "")) };
+    if (url.startsWith("/expressions/")) return { type: "expression", id: decodeURIComponent(url.replace("/expressions/", "")) };
+    if (url.startsWith("/tenses/")) return { type: "tense", id: decodeURIComponent(url.replace("/tenses/", "")) };
+    if (url.startsWith("/vocabulary/")) return { type: "vocab", id: decodeURIComponent(url.replace("/vocabulary/", "")) };
+    if (url.startsWith("/chapters/")) return { type: "chapter", id: decodeURIComponent(url.replace("/chapters/", "")) };
+    if (url.startsWith("/concepts/")) return { type: "concept", id: decodeURIComponent(url.replace("/concepts/", "")) };
+    return null;
+  };
+
   return (
     <div className="fixed inset-0 z-50 overflow-hidden flex justify-end">
       {/* Backdrop */}
@@ -29,19 +51,42 @@ export function PeekDrawer() {
         aria-label="Close preview"
       />
 
-      {/* Slide-over panel (Right desktop, bottom-sheet style on small screens) */}
+      {/* Slide-over panel */}
       <aside
         className="relative z-10 w-full max-w-md bg-surface-container-lowest border-l border-outline-variant shadow-2xl flex flex-col h-full animate-in slide-in-from-right duration-200"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Drawer Header */}
-        <div className="p-4 border-b border-outline-variant/60 flex items-center justify-between bg-surface-container-low">
+        {/* Drawer Header with Back/Forward controls */}
+        <div className="p-3.5 border-b border-outline-variant/60 flex items-center justify-between bg-surface-container-low">
           <div className="flex items-center gap-2">
+            {/* History Navigation Buttons */}
+            <div className="flex items-center gap-0.5 border-r border-outline-variant/60 pr-2 mr-1">
+              <button
+                onClick={goBack}
+                disabled={!canGoBack}
+                className="p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container-high disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                title="Previous peek (Back)"
+                aria-label="Back"
+              >
+                <span className="material-symbols-outlined text-[18px]">arrow_back</span>
+              </button>
+              <button
+                onClick={goForward}
+                disabled={!canGoForward}
+                className="p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container-high disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                title="Next peek (Forward)"
+                aria-label="Forward"
+              >
+                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </button>
+            </div>
+
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#002147] text-white">
-              {peekData?.type || "Quick Peek"}
+              {peekData?.type || "Peek"}
             </span>
             <span className="text-xs font-mono text-on-surface-variant">Level 2 Preview</span>
           </div>
+
           <button
             onClick={closePeek}
             className="p-1 rounded-md text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors"
@@ -65,7 +110,7 @@ export function PeekDrawer() {
             </div>
           ) : peekData ? (
             <>
-              {/* Title and English Gloss */}
+              {/* Title and Subtitle */}
               <div className="space-y-1">
                 <h2 className="text-2xl font-bold font-sans text-primary tracking-tight">
                   {peekData.title}
@@ -86,13 +131,13 @@ export function PeekDrawer() {
               {peekData.patternSnippet && (
                 <div className="p-3 rounded-lg bg-[#002147] text-white font-mono text-xs border border-blue-900 shadow-xs">
                   <span className="text-[10px] uppercase text-blue-200 block font-sans font-bold mb-0.5">
-                    Pattern / Formation:
+                    Pattern / Formation / Prompt:
                   </span>
                   <div className="text-blue-100 font-semibold">{peekData.patternSnippet}</div>
                 </div>
               )}
 
-              {/* Essential Facts Badges / Strip */}
+              {/* Essential Facts Strip */}
               {peekData.facts && peekData.facts.length > 0 && (
                 <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                   {peekData.facts.map((f, i) => (
@@ -114,7 +159,7 @@ export function PeekDrawer() {
                 <div className="p-3 rounded-lg bg-amber-50/70 border border-amber-200 text-xs text-amber-950 space-y-2">
                   <div className="flex items-center gap-1 font-bold text-amber-900">
                     <span className="material-symbols-outlined text-[16px]">warning</span>
-                    <span>Common Pitfall</span>
+                    <span>Common Pitfall & Exception</span>
                   </div>
                   {peekData.traps.map((t, idx) => (
                     <div key={idx} className="space-y-1">
@@ -122,12 +167,12 @@ export function PeekDrawer() {
                       {(t.correct || t.incorrect) && (
                         <div className="grid grid-cols-2 gap-1 font-mono text-[11px] pt-1">
                           {t.correct && (
-                            <span className="text-emerald-800 bg-emerald-100/80 px-1.5 py-0.5 rounded">
+                            <span className="text-emerald-800 bg-emerald-100/80 px-1.5 py-0.5 rounded font-semibold">
                               ✓ {t.correct}
                             </span>
                           )}
                           {t.incorrect && (
-                            <span className="text-rose-800 bg-rose-100/80 px-1.5 py-0.5 rounded line-through">
+                            <span className="text-rose-800 bg-rose-100/80 px-1.5 py-0.5 rounded line-through font-semibold">
                               ✗ {t.incorrect}
                             </span>
                           )}
@@ -138,37 +183,49 @@ export function PeekDrawer() {
                 </div>
               )}
 
-              {/* Common Constructions / Collocations */}
+              {/* Linked Constructions / Rules */}
               {peekData.constructions && peekData.constructions.length > 0 && (
                 <div className="space-y-2 pt-2 border-t border-outline-variant/40">
                   <span className="text-xs font-mono font-bold uppercase text-on-surface-variant block">
-                    Common Constructions
+                    Related Rules & Constructions
                   </span>
                   <div className="space-y-1.5">
-                    {peekData.constructions.map((c, i) => (
-                      <div
-                        key={i}
-                        className="p-2 rounded bg-surface-container-lowest border border-outline-variant/50 text-xs flex items-center justify-between group"
-                      >
-                        <div>
-                          <span className="font-semibold text-primary">{c.text}</span>
-                          {c.subtext && (
-                            <span className="text-on-surface-variant block text-[11px]">
-                              {c.subtext}
-                            </span>
-                          )}
+                    {peekData.constructions.map((c, i) => {
+                      const target = helperDeterminePeekType(c.url);
+                      return (
+                        <div
+                          key={i}
+                          className="p-2 rounded bg-surface-container-lowest border border-outline-variant/50 text-xs flex items-center justify-between group"
+                        >
+                          <div>
+                            <span className="font-semibold text-primary">{c.text}</span>
+                            {c.subtext && (
+                              <span className="text-on-surface-variant block text-[11px]">
+                                {c.subtext}
+                              </span>
+                            )}
+                          </div>
+                          {target ? (
+                            <button
+                              onClick={() => openPeek(target.type, target.id)}
+                              className="text-[11px] font-mono text-primary group-hover:underline flex items-center gap-0.5"
+                            >
+                              <span>Peek</span>
+                              <span className="material-symbols-outlined text-[12px]">visibility</span>
+                            </button>
+                          ) : c.url ? (
+                            <Link
+                              href={c.url}
+                              onClick={closePeek}
+                              className="text-[11px] font-mono text-primary group-hover:underline flex items-center gap-0.5"
+                            >
+                              <span>View</span>
+                              <span className="material-symbols-outlined text-[12px]">open_in_new</span>
+                            </Link>
+                          ) : null}
                         </div>
-                        {c.url && (
-                          <button
-                            onClick={() => openPeek("expression", c.text)}
-                            className="text-[11px] font-mono text-primary group-hover:underline flex items-center gap-0.5"
-                          >
-                            <span>Peek</span>
-                            <span className="material-symbols-outlined text-[12px]">visibility</span>
-                          </button>
-                        )}
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -201,15 +258,14 @@ export function PeekDrawer() {
               {peekData.chapters && peekData.chapters.length > 0 && (
                 <div className="pt-2 border-t border-outline-variant/40 flex items-center gap-1.5 text-xs text-on-surface-variant font-mono">
                   <span>Found in:</span>
-                  {peekData.chapters.slice(0, 4).map((ch) => (
-                    <Link
+                  {peekData.chapters.slice(0, 5).map((ch) => (
+                    <button
                       key={ch}
-                      href={`/chapters/${ch}`}
-                      onClick={closePeek}
+                      onClick={() => openPeek("chapter", String(ch))}
                       className="px-1.5 py-0.5 rounded bg-surface-container hover:bg-primary hover:text-white transition-colors"
                     >
                       Ch {ch}
-                    </Link>
+                    </button>
                   ))}
                 </div>
               )}

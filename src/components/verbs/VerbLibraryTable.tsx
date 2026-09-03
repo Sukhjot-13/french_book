@@ -53,7 +53,7 @@ export function VerbLibraryTable({
     });
     params.set("page", "1");
     startTransition(() => {
-      router.push(`/verbs?${params.toString()}`);
+      router.replace(`/verbs?${params.toString()}`, { scroll: false });
     });
   };
 

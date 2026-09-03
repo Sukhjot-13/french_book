@@ -16,6 +16,13 @@
 - **2026-09-02**: (Implemented) Dense **Alphabetical Vocabulary Dictionary** (`/vocabulary`) with A-Z jump bar, part of speech filtering, and fast peek.
 - **2026-09-02**: (Implemented) Syntactic **Expression Library Table** (`/expressions`) emphasizing pattern formulas, preposition filtering (à, de, en, sur, pour, avec), and base-verb cross-links.
 - **2026-09-02**: (Implemented) Chapter **Dashboard & Tabbed View** (`/chapters/[id]`) with 1-screen Quick Cheat Sheet and clean tabbed navigation.
+- **2026-09-02**: (Implemented) Dedicated **Concepts Directory & Deep Dive** (`/concepts`, `/concepts/[id]`) exposing the 206 grammatical and pedagogical concepts with CEFR levels, categories, and relationship graphs.
+- **2026-09-02**: (Implemented) Dedicated **Vocabulary Detail View** (`/vocabulary/[id]`) with gender pill, article, senses, synonyms, antonyms, base verbs, and contextual sentences.
+- **2026-09-02**: (Implemented) **Dual-view (Card & Table) Tenses Directory** (`/tenses`) with Scan → Peek and fast mood filtering.
+- **2026-09-02**: (Implemented) **Sticky Subnavigation & Deep-Link Anchors** across Verb, Grammar, Tense, and Expression detail views.
+- **2026-09-02**: (Implemented) **Homepage Direct Action Jump Targets** for Irregular Verbs, Subjunctive, Priority 1 Rules, B1 Intermediate, Preposition Phrases, and Traps.
+- **2026-09-02**: (Implemented) **Integrated Drill & Practice Hooks** bridging detail views directly into targeted chapter/search exercise quizzes.
+- **2026-09-02**: (Implemented) **Cross-collection Example Explorer Filtering** linking verbs, tenses, grammar rules, and expressions to contextual sentence instances.
 - **2026-09-02**: (Idea) Add a Spaced Repetition System (SRS) flashcard review mode for vocabulary and irregular verbs stored in browser LocalStorage.
 
 ## 🔴 Vulnerabilities

@@ -35,8 +35,39 @@ export function TenseDetailView({
 
   return (
     <div className="space-y-6">
+      {/* STICKY LOCAL SUBNAV */}
+      <nav className="sticky top-2 z-20 px-3 py-2 rounded-xl bg-surface-container-low/95 backdrop-blur-md border border-outline-variant/80 shadow-xs flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+        <div className="flex items-center gap-1.5 overflow-x-auto">
+          <a href="#overview" className="px-2.5 py-1 rounded-lg hover:bg-surface-container hover:text-primary transition-colors text-on-surface-variant font-medium">
+            Overview
+          </a>
+          <a href="#matrix" className="px-2.5 py-1 rounded-lg hover:bg-surface-container hover:text-primary transition-colors text-on-surface-variant font-medium">
+            Inflections ({conjugations.length})
+          </a>
+          {grammarRules.length > 0 && (
+            <a href="#grammar" className="px-2.5 py-1 rounded-lg hover:bg-surface-container hover:text-primary transition-colors text-on-surface-variant font-medium">
+              Rules ({grammarRules.length})
+            </a>
+          )}
+          {examples.length > 0 && (
+            <a href="#examples" className="px-2.5 py-1 rounded-lg hover:bg-surface-container hover:text-primary transition-colors text-on-surface-variant font-medium">
+              Examples ({examples.length})
+            </a>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <Link
+            href={`/examples?tense=${encodeURIComponent(tense.name_fr)}`}
+            className="text-[11px] font-semibold text-primary hover:underline inline-flex items-center gap-1"
+          >
+            <span>Explorer Filter</span>
+            <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
+          </Link>
+        </div>
+      </nav>
+
       {/* POINT 15: TENSE QUICK-REFERENCE CARD FIRST */}
-      <div className="p-5 md:p-6 rounded-xl bg-surface-container-low border border-outline-variant space-y-4 shadow-xs">
+      <div id="overview" className="p-5 md:p-6 rounded-xl bg-surface-container-low border border-outline-variant space-y-4 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 border-b border-outline-variant/40 pb-3">
           <div>
             <span className="text-[10px] font-mono uppercase text-on-surface-variant tracking-wider block">
@@ -129,7 +160,7 @@ export function TenseDetailView({
       </div>
 
       {/* RECORDED VERB CONJUGATIONS (SCAN TABLE + SEARCH + PEEK) */}
-      <div className="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant space-y-4 shadow-xs">
+      <div id="matrix" className="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant space-y-4 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-outline-variant/50 pb-3">
           <div>
             <h2 className="text-base font-bold text-primary flex items-center gap-2">
@@ -228,7 +259,7 @@ export function TenseDetailView({
 
       {/* RELATIONSHIPS: RELATED GRAMMAR RULES */}
       {grammarRules.length > 0 && (
-        <div className="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant space-y-3 shadow-xs">
+        <div id="grammar" className="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant space-y-3 shadow-xs">
           <h2 className="text-base font-bold text-primary flex items-center gap-2 border-b border-outline-variant/50 pb-2">
             <span className="material-symbols-outlined text-primary text-[18px]">menu_book</span>
             <span>Related Grammar Rules ({grammarRules.length})</span>
@@ -267,7 +298,7 @@ export function TenseDetailView({
 
       {/* CONTEXTUAL EXAMPLES WITH SMART SHOW MORE */}
       {examples.length > 0 && (
-        <div className="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant space-y-3 shadow-xs">
+        <div id="examples" className="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant space-y-3 shadow-xs">
           <div className="flex items-center justify-between border-b border-outline-variant/50 pb-2">
             <h2 className="text-base font-bold text-primary flex items-center gap-2">
               <span className="material-symbols-outlined text-primary text-[18px]">format_quote</span>
@@ -292,8 +323,38 @@ export function TenseDetailView({
               </div>
             ))}
           </div>
+
+          <div className="pt-2 border-t border-outline-variant/40 flex items-center justify-between">
+            <Link
+              href={`/examples?tense=${encodeURIComponent(tense.name_fr)}`}
+              className="text-xs font-mono font-semibold text-primary hover:underline inline-flex items-center gap-1"
+            >
+              <span>View all examples for {tense.name_fr} in Example Explorer</span>
+              <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
+            </Link>
+          </div>
         </div>
       )}
+
+      {/* PRACTICE DRILL CALL-TO-ACTION (Suggestion 23) */}
+      <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-emerald-700 text-white flex items-center justify-center">
+            <span className="material-symbols-outlined text-[20px]">quiz</span>
+          </div>
+          <div>
+            <div className="text-xs font-bold text-emerald-950">Drill Tense Inflections</div>
+            <div className="text-[11px] text-emerald-900/80">Practice conjugation drills and sentence transformations for {tense.name_fr}.</div>
+          </div>
+        </div>
+        <Link
+          href={`/exercises?search=${encodeURIComponent(tense.name_fr)}`}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 text-white text-xs font-mono font-medium hover:bg-emerald-800 transition-colors self-start sm:self-auto"
+        >
+          <span>Practice Exercises</span>
+          <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </Link>
+      </div>
 
       {/* DEMOTED TECHNICAL METADATA (Point 9) */}
       <details className="p-3.5 rounded-lg bg-surface-container-low border border-outline-variant/60 text-xs font-mono group">

@@ -106,6 +106,9 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
     tense: "history_toggle_off",
     chapter: "import_contacts",
     example: "format_quote",
+    exercise: "quiz",
+    trap: "warning",
+    concept: "psychology",
   };
 
   const typeLabels: Record<string, string> = {
@@ -116,6 +119,9 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
     tense: "Tense / Mood",
     chapter: "Chapter",
     example: "Example",
+    exercise: "Exercise",
+    trap: "Pitfall",
+    concept: "Concept",
   };
 
   return (

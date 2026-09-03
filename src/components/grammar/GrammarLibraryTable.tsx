@@ -42,7 +42,7 @@ export function GrammarLibraryTable({
     });
     params.set("page", "1");
     startTransition(() => {
-      router.push(`/grammar?${params.toString()}`);
+      router.replace(`/grammar?${params.toString()}`, { scroll: false });
     });
   };
 

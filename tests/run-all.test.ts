@@ -57,11 +57,14 @@ import {
   getGrammarRuleById,
   getExpressions,
   getVocabulary,
+  getVocabularyById,
   getChapters,
   getChapterById,
   getExercises,
   getExceptionsAndTraps,
   getConcepts,
+  getConceptById,
+  getExamples,
 } from "../src/lib/data/selectors";
 
 // 3. Validate Selectors Functionality
@@ -196,7 +199,33 @@ for (const v of allVocab.vocabulary) {
 }
 console.log(`✅ All ${allVocab.total} vocabulary items verified to have string or null article field.`);
 
+// 10. Validate getConceptById resolution and relationships
+const allConcepts = getConcepts();
+assert(allConcepts.length >= 200, "Must have at least 200 concepts");
+const firstConcept = allConcepts[0];
+const conceptDetail = getConceptById(firstConcept.name);
+assert(conceptDetail !== null, `getConceptById('${firstConcept.name}') must return concept detail`);
+assert.strictEqual(conceptDetail.concept.name, firstConcept.name, "Concept name must match");
+console.log(`✅ Selector getConceptById('${firstConcept.name}') verified.`);
+
+// 11. Validate enhanced getExamples filters (verb, tense, grammarRule, translation)
+const verbExamples = getExamples({ verb: "être", limit: 10 });
+assert(verbExamples.examples.length > 0, "getExamples({ verb: 'être' }) should return examples");
+const tenseExamples = getExamples({ tense: "présent", limit: 10 });
+assert(tenseExamples.examples.length > 0, "getExamples({ tense: 'présent' }) should return examples");
+const transExamples = getExamples({ hasTranslation: true, limit: 10 });
+assert(transExamples.examples.length > 0, "getExamples({ hasTranslation: true }) should return examples");
+console.log(`✅ Enhanced getExamples() filters (verb, tense, hasTranslation) verified.`);
+
+// 12. Validate getVocabularyById relatedVerbs and relatedChapters
+const testVocab = getVocabularyById("maison") || getVocabularyById("temps");
+assert(testVocab !== null, "Vocabulary detail must resolve for common word");
+assert(Array.isArray(testVocab.relatedVerbs), "relatedVerbs must be an array");
+assert(Array.isArray(testVocab.relatedChapters), "relatedChapters must be an array");
+console.log(`✅ Selector getVocabularyById('${testVocab.vocab.french}') graph verified.`);
+
 console.log("\n🎉 All tests passed successfully!");
+
 
 
 

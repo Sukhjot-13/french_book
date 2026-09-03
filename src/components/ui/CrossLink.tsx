@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 interface CrossLinkProps {
-  type: "verb" | "expression" | "grammar" | "tense" | "chapter" | "vocab";
+  type: "verb" | "expression" | "grammar" | "tense" | "chapter" | "vocab" | "concept";
   id: string;
   label: string;
   sublabel?: string;
@@ -17,7 +17,8 @@ export function CrossLink({ type, id, label, sublabel, badge, className = "" }: 
     grammar: `/grammar/${encodeURIComponent(id)}`,
     tense: `/tenses/${encodeURIComponent(id)}`,
     chapter: `/chapters/${encodeURIComponent(id)}`,
-    vocab: `/vocabulary?query=${encodeURIComponent(label)}`,
+    vocab: `/vocabulary/${encodeURIComponent(id || label)}`,
+    concept: `/concepts/${encodeURIComponent(id)}`,
   };
 
   const icons: Record<CrossLinkProps["type"], string> = {
@@ -26,7 +27,8 @@ export function CrossLink({ type, id, label, sublabel, badge, className = "" }: 
     grammar: "menu_book",
     tense: "history_toggle_off",
     chapter: "import_contacts",
-    vocab: "search",
+    vocab: "dictionary",
+    concept: "psychology",
   };
 
   const href = routes[type] || "#";

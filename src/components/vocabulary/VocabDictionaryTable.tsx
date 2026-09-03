@@ -207,9 +207,14 @@ export function VocabDictionaryTable({
                               {item.article}
                             </span>
                           )}
-                          <span className="font-bold text-sm text-primary group-hover:underline">
+                          <Link
+                            href={`/vocabulary/${encodeURIComponent(item.french)}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="font-bold text-sm text-primary hover:underline hover:text-blue-800"
+                            title="Open full vocabulary page"
+                          >
                             {item.french}
-                          </span>
+                          </Link>
                           {item.plural_form && (
                             <span className="text-[11px] text-on-surface-variant/70 font-mono">
                               (pl. {item.plural_form})

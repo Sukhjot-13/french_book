@@ -24,8 +24,41 @@ export function ExpressionDetailView({
 
   return (
     <div className="space-y-6">
+      {/* STICKY LOCAL SUBNAV */}
+      <nav className="sticky top-2 z-20 px-3 py-2 rounded-xl bg-surface-container-low/95 backdrop-blur-md border border-outline-variant/80 shadow-xs flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+        <div className="flex items-center gap-1.5 overflow-x-auto">
+          <a href="#overview" className="px-2.5 py-1 rounded-lg hover:bg-surface-container hover:text-primary transition-colors text-on-surface-variant font-medium">
+            Overview
+          </a>
+          {expression.pattern && (
+            <a href="#pattern" className="px-2.5 py-1 rounded-lg hover:bg-surface-container hover:text-primary transition-colors text-on-surface-variant font-medium">
+              Pattern & Slots
+            </a>
+          )}
+          {(verbs.length > 0 || vocabulary.length > 0) && (
+            <a href="#relations" className="px-2.5 py-1 rounded-lg hover:bg-surface-container hover:text-primary transition-colors text-on-surface-variant font-medium">
+              Connections ({verbs.length + vocabulary.length})
+            </a>
+          )}
+          {examples.length > 0 && (
+            <a href="#examples" className="px-2.5 py-1 rounded-lg hover:bg-surface-container hover:text-primary transition-colors text-on-surface-variant font-medium">
+              Examples ({examples.length})
+            </a>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <Link
+            href={`/examples?search=${encodeURIComponent(expression.french)}`}
+            className="text-[11px] font-semibold text-primary hover:underline inline-flex items-center gap-1"
+          >
+            <span>Explorer Filter</span>
+            <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
+          </Link>
+        </div>
+      </nav>
+
       {/* HERO HEADER */}
-      <div className="p-5 md:p-6 rounded-xl bg-surface-container-low border border-outline-variant space-y-4 shadow-xs">
+      <div id="overview" className="p-5 md:p-6 rounded-xl bg-surface-container-low border border-outline-variant space-y-4 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 border-b border-outline-variant/40 pb-3">
           <div>
             <span className="text-[10px] font-mono uppercase text-on-surface-variant tracking-wider block">
@@ -59,7 +92,7 @@ export function ExpressionDetailView({
 
         {/* Prominently Emphasized Syntactic Pattern (Point 13) */}
         {expression.pattern && (
-          <div className="p-3.5 rounded-lg bg-[#002147] text-white font-mono text-xs md:text-sm border border-blue-900 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div id="pattern" className="p-3.5 rounded-lg bg-[#002147] text-white font-mono text-xs md:text-sm border border-blue-900 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <span className="text-[10px] uppercase text-blue-200 block font-sans font-bold">
                 Syntactic Pattern:
@@ -138,7 +171,7 @@ export function ExpressionDetailView({
       </div>
 
       {/* RELATIONSHIPS: RELATED VERBS & VOCABULARY (Point 7) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div id="relations" className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Base / Related Verbs */}
         <div className="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant space-y-3 shadow-xs">
           <h2 className="text-base font-bold text-primary flex items-center gap-2 border-b border-outline-variant/50 pb-2">
@@ -173,16 +206,16 @@ export function ExpressionDetailView({
             </div>
           ) : (
             <p className="text-xs text-on-surface-variant italic py-2">
-              No specific verb lemmas linked directly.
+              No directly linked base verbs recorded.
             </p>
           )}
         </div>
 
-        {/* Associated Vocabulary */}
+        {/* Governed / Related Vocabulary */}
         <div className="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant space-y-3 shadow-xs">
           <h2 className="text-base font-bold text-primary flex items-center gap-2 border-b border-outline-variant/50 pb-2">
-            <span className="material-symbols-outlined text-primary text-[18px]">translate</span>
-            <span>Associated Vocabulary ({vocabulary.length})</span>
+            <span className="material-symbols-outlined text-primary text-[18px]">dictionary</span>
+            <span>Related Vocabulary ({vocabulary.length})</span>
           </h2>
           {vocabulary.length > 0 ? (
             <div className="space-y-2">
@@ -192,7 +225,12 @@ export function ExpressionDetailView({
                   className="p-2.5 rounded-lg bg-surface-container-low/50 border border-outline-variant/40 flex items-center justify-between gap-2 text-xs"
                 >
                   <div>
-                    <span className="font-bold text-primary text-sm">{voc.french}</span>
+                    <Link
+                      href={`/vocabulary/${encodeURIComponent(voc.french)}`}
+                      className="font-bold text-primary hover:underline text-sm"
+                    >
+                      {voc.french}
+                    </Link>
                     <p className="text-on-surface-variant text-[11px]">{voc.english}</p>
                   </div>
                   <button
@@ -215,7 +253,7 @@ export function ExpressionDetailView({
 
       {/* SENTENCE EXAMPLES WITH SMART SHOW MORE */}
       {examples.length > 0 && (
-        <div className="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant space-y-3 shadow-xs">
+        <div id="examples" className="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant space-y-3 shadow-xs">
           <div className="flex items-center justify-between border-b border-outline-variant/50 pb-2">
             <h2 className="text-base font-bold text-primary flex items-center gap-2">
               <span className="material-symbols-outlined text-primary text-[18px]">format_quote</span>
@@ -239,6 +277,16 @@ export function ExpressionDetailView({
                 <p className="text-xs text-on-surface-variant font-sans">{ex.english}</p>
               </div>
             ))}
+          </div>
+
+          <div className="pt-2 border-t border-outline-variant/40 flex items-center justify-between">
+            <Link
+              href={`/examples?search=${encodeURIComponent(expression.french)}`}
+              className="text-xs font-mono font-semibold text-primary hover:underline inline-flex items-center gap-1"
+            >
+              <span>View all examples in Example Explorer</span>
+              <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
+            </Link>
           </div>
         </div>
       )}
