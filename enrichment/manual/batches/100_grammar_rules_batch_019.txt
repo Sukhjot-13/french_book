@@ -1,0 +1,355 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 100_grammar_rules_batch_019
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: grammar_rules
+TOTAL ENTITIES IN THIS BATCH: 14
+TARGET ENRICHMENT FIELDS: explanation, summary, usage, signal_words, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 100_grammar_rules_batch_019_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "100_grammar_rules_batch_019",
+  "collection": "grammar_rules",
+  "patches": [
+    {
+      "entity_key": "<rule_name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "grammar_rules",
+  "natural_key": "rule_name",
+  "required_fields": [
+    "rule_name",
+    "summary",
+    "explanation",
+    "formation",
+    "usage",
+    "restrictions",
+    "conditions",
+    "signal_words",
+    "exceptions",
+    "agreement_rules",
+    "word_order",
+    "negative_form",
+    "interrogative_form",
+    "affirmative_form",
+    "transformations",
+    "contrast_with",
+    "common_traps",
+    "related_tenses",
+    "related_concepts",
+    "related_expressions",
+    "related_verbs",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "explanation",
+    "summary",
+    "usage",
+    "signal_words",
+    "tags"
+  ],
+  "properties": {
+    "rule_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "explanation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "usage": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "signal_words": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "rule_name": "Verb agreement after qui subject",
+    "existing_explanation": "C’est moi qui lui ai vendu cette lampe. C’est toi qui es responsable. C’est vous qui avez restauré cette chaise? C’est vous qui êtes le propriétaire?",
+    "existing_summary": "When qui is subject of dependent clause, the verb agrees with the noun/pronoun qui replaces.",
+    "existing_usage": [
+      "emphasis construction",
+      "agreement"
+    ],
+    "existing_signal_words": [
+      "c'est moi qui",
+      "c'est toi qui",
+      "c'est lui qui",
+      "c'est nous qui",
+      "c'est vous qui",
+      "c'est eux qui"
+    ],
+    "existing_tags": [],
+    "summary": "When qui is subject of dependent clause, the verb agrees with the noun/pronoun qui replaces.",
+    "formation": "c'est + pronoun + qui + verb agreeing with pronoun"
+  },
+  {
+    "rule_name": "Verbs conjugated with être in passé composé",
+    "existing_explanation": "These verbs must be memorized; most are intransitive verbs of movement.",
+    "existing_summary": "A finite list of intransitive movement and state verbs use être.",
+    "existing_usage": [
+      "movement",
+      "state change"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "A finite list of intransitive movement and state verbs use être.",
+    "formation": "être + past participle"
+  },
+  {
+    "rule_name": "Verbs followed by preposition de before infinitive",
+    "existing_explanation": "These verbs are followed by de + infinitive; must be memorized.",
+    "existing_summary": "List of verbs requiring de before a following infinitive.",
+    "existing_usage": [
+      "After the listed verbs."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "List of verbs requiring de before a following infinitive.",
+    "formation": "verb + de + infinitive"
+  },
+  {
+    "rule_name": "Verbs followed by preposition à before infinitive",
+    "existing_explanation": "These verbs are followed by à + infinitive; must be memorized.",
+    "existing_summary": "List of verbs requiring à before a following infinitive.",
+    "existing_usage": [
+      "After the listed verbs."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "List of verbs requiring à before a following infinitive.",
+    "formation": "verb + à + infinitive"
+  },
+  {
+    "rule_name": "Verbs followed directly by infinitive",
+    "existing_explanation": "Certain French verbs are followed directly by an infinitive without any preposition. When the subjects of the two verbs differ, a que clause is used instead.",
+    "existing_summary": "List of verbs not followed by a preposition before an infinitive.",
+    "existing_usage": [
+      "After the listed verbs when the same subject performs both actions."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "List of verbs not followed by a preposition before an infinitive.",
+    "formation": "verb + infinitive"
+  },
+  {
+    "rule_name": "Verbs with avoir or être (six verbs)",
+    "existing_explanation": "When followed by a direct object, these verbs use avoir and the meaning changes (often 'to take/bring up/down/out/in, to spend, to turn over').",
+    "existing_summary": "Sortir, rentrer, monter, descendre, passer, retourner can use avoir when transitive, with meaning change.",
+    "existing_usage": [
+      "to express taking/bringing something, spending time, turning over"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Sortir, rentrer, monter, descendre, passer, retourner can use avoir when transitive, with meaning change.",
+    "formation": "avoir + past participle when direct object present"
+  },
+  {
+    "rule_name": "Weather expressions with faire",
+    "existing_explanation": "Faire is used with the impersonal third-person singular il in most expressions relating to the weather, e.g., il fait beau, il fait froid.",
+    "existing_summary": "Use impersonal il + faire + adjective to describe weather.",
+    "existing_usage": [
+      "To describe weather conditions."
+    ],
+    "existing_signal_words": [
+      "il fait"
+    ],
+    "existing_tags": [],
+    "summary": "Use impersonal il + faire + adjective to describe weather.",
+    "formation": "il fait + adjective"
+  },
+  {
+    "rule_name": "Would for polite requests",
+    "existing_explanation": "When 'would' is used in polite requests, French uses the conditionnel présent of vouloir (or sometimes pouvoir), often with 'bien' to soften the request.",
+    "existing_summary": "Use conditionnel présent of vouloir (or pouvoir) for polite requests.",
+    "existing_usage": [
+      "Polite requests",
+      "Asking for favors"
+    ],
+    "existing_signal_words": [
+      "voudrais-tu",
+      "voudriez-vous",
+      "est-ce que tu voudrais bien"
+    ],
+    "existing_tags": [],
+    "summary": "Use conditionnel présent of vouloir (or pouvoir) for polite requests.",
+    "formation": "conditionnel présent of vouloir (+ bien) + infinitive"
+  },
+  {
+    "rule_name": "Would for repeated past actions",
+    "existing_explanation": "When 'would' refers to a repeated or habitual action in the past (not a specific one-time event), French uses the imparfait of the main verb.",
+    "existing_summary": "Use imparfait of the main verb to express habitual or repeated actions in the past (English 'would').",
+    "existing_usage": [
+      "To describe past habits",
+      "To translate 'used to' or 'would' for repeated past actions"
+    ],
+    "existing_signal_words": [
+      "quand",
+      "tous les jours",
+      "le jeudi"
+    ],
+    "existing_tags": [],
+    "summary": "Use imparfait of the main verb to express habitual or repeated actions in the past (English 'would').",
+    "formation": "imparfait of main verb"
+  },
+  {
+    "rule_name": "Would for specific past refusal",
+    "existing_explanation": "When 'would' refers to a specific action in the past where someone refused to do something, French uses the passé composé of vouloir, typically in the negative.",
+    "existing_summary": "Use passé composé of vouloir (often in negative) to express a specific refusal in the past (English 'would not').",
+    "existing_usage": [
+      "To express a past refusal",
+      "To translate 'would not' when meaning 'refused to'"
+    ],
+    "existing_signal_words": [
+      "n'a pas voulu",
+      "n'ont pas voulu"
+    ],
+    "existing_tags": [],
+    "summary": "Use passé composé of vouloir (often in negative) to express a specific refusal in the past (English 'would not').",
+    "formation": "passé composé of vouloir (usually negative) + infinitive"
+  },
+  {
+    "rule_name": "Writing years",
+    "existing_explanation": "Years are written out as follows: 1978 = mille neuf cent soixante-dix-huit or dix-neuf cent soixante-dix-huit; 2008 = deux mille huit.",
+    "existing_summary": "Years can be written as 'mille neuf cent soixante-dix-huit' or 'dix-neuf cent soixante-dix-huit'.",
+    "existing_usage": [
+      "Writing years in words."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Years can be written as 'mille neuf cent soixante-dix-huit' or 'dix-neuf cent soixante-dix-huit'.",
+    "formation": "Either use 'mille' + hundreds + tens + units, or use the two-digit century + 'cent' + tens + units."
+  },
+  {
+    "rule_name": "après + past infinitive",
+    "existing_explanation": "Après is followed by past infinitive, whereas avant de is followed by present infinitive.",
+    "existing_summary": "Use après + infinitif passé to express an action completed before another.",
+    "existing_usage": [
+      "To indicate anteriority after another action."
+    ],
+    "existing_signal_words": [
+      "après"
+    ],
+    "existing_tags": [],
+    "summary": "Use après + infinitif passé to express an action completed before another.",
+    "formation": "après + avoir/être + past participle"
+  },
+  {
+    "rule_name": "avant de + present infinitive",
+    "existing_explanation": "Avant de is always followed by the present infinitive, not past.",
+    "existing_summary": "Use avant de + infinitif présent to express an action occurring before another.",
+    "existing_usage": [
+      "To indicate an action that happens before another."
+    ],
+    "existing_signal_words": [
+      "avant de"
+    ],
+    "existing_tags": [],
+    "summary": "Use avant de + infinitif présent to express an action occurring before another.",
+    "formation": "avant de + infinitive"
+  },
+  {
+    "rule_name": "Être en train de + infinitive",
+    "existing_explanation": "This construction emphasizes the ongoing nature of the action.",
+    "existing_summary": "To express an action in progress, use être en train de + infinitive.",
+    "existing_usage": [
+      "Action in progress"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "To express an action in progress, use être en train de + infinitive.",
+    "formation": "conjugated être + en train de + infinitive"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

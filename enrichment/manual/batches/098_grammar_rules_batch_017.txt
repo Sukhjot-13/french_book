@@ -1,0 +1,378 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 098_grammar_rules_batch_017
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: grammar_rules
+TOTAL ENTITIES IN THIS BATCH: 15
+TARGET ENRICHMENT FIELDS: explanation, summary, usage, signal_words, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 098_grammar_rules_batch_017_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "098_grammar_rules_batch_017",
+  "collection": "grammar_rules",
+  "patches": [
+    {
+      "entity_key": "<rule_name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "grammar_rules",
+  "natural_key": "rule_name",
+  "required_fields": [
+    "rule_name",
+    "summary",
+    "explanation",
+    "formation",
+    "usage",
+    "restrictions",
+    "conditions",
+    "signal_words",
+    "exceptions",
+    "agreement_rules",
+    "word_order",
+    "negative_form",
+    "interrogative_form",
+    "affirmative_form",
+    "transformations",
+    "contrast_with",
+    "common_traps",
+    "related_tenses",
+    "related_concepts",
+    "related_expressions",
+    "related_verbs",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "explanation",
+    "summary",
+    "usage",
+    "signal_words",
+    "tags"
+  ],
+  "properties": {
+    "rule_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "explanation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "usage": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "signal_words": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "rule_name": "Spelling change: -e + l + -er verbs",
+    "existing_explanation": "The consonant l is doubled in je, tu, il/elle/on, ils/elles forms.",
+    "existing_summary": "Verbs like épeler double the l in all forms except nous and vous.",
+    "existing_usage": [
+      "Present tense, all persons except first and second plural"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Verbs like épeler double the l in all forms except nous and vous.",
+    "formation": "j'épelle, tu épelles, il/elle épelle, ils/elles épellent; nous épelons, vous épelez"
+  },
+  {
+    "rule_name": "Spelling change: -ger verbs",
+    "existing_explanation": "The e is added after g before o in the nous form to preserve the /ʒ/ sound.",
+    "existing_summary": "In verbs ending in -ger, the g becomes ge before the letter o to keep the soft pronunciation.",
+    "existing_usage": [
+      "Present tense, first person plural"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "In verbs ending in -ger, the g becomes ge before the letter o to keep the soft pronunciation.",
+    "formation": "nous form: stem + -geons (e.g., voyageons)"
+  },
+  {
+    "rule_name": "Spelling change: -é + consonant + -er verbs",
+    "existing_explanation": "The acute accent (é) becomes grave accent (è) in the stem for je, tu, il/elle/on, ils/elles.",
+    "existing_summary": "Verbs like répéter change é to è in all forms except nous and vous.",
+    "existing_usage": [
+      "Present tense, all persons except first and second plural"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Verbs like répéter change é to è in all forms except nous and vous.",
+    "formation": "je répète, tu répètes, il/elle répète, ils/elles répètent; nous répétons, vous répétez"
+  },
+  {
+    "rule_name": "Spelling changes for -cer and -ger verbs in passé simple",
+    "existing_explanation": "When the passé simple ending starts with -a, verbs ending in -cer use a cedilla and verbs ending in -ger add an extra -e- before the ending.",
+    "existing_summary": "Use cedilla (ç) for -cer verbs and add extra -e- for -ger verbs when ending starts with -a.",
+    "existing_usage": [
+      "Applies to all forms with endings beginning with -a: -a, -âmes, -âtes, -èrent."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Use cedilla (ç) for -cer verbs and add extra -e- for -ger verbs when ending starts with -a.",
+    "formation": "-cer: ç + -a... ; -ger: -ge- + -a..."
+  },
+  {
+    "rule_name": "Spelling changes in futur simple",
+    "existing_explanation": "Some slight spelling modifications occur with some verbs. These are seen throughout all persons of the future conjugation.",
+    "existing_summary": "Some verbs have slight spelling modifications in the future stem (e.g., acheter -> j'achèterai, appeler -> j'appellerai, employer -> j'emploierai).",
+    "existing_usage": [],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Some verbs have slight spelling modifications in the future stem (e.g., acheter -> j'achèterai, appeler -> j'appellerai, employer -> j'emploierai).",
+    "formation": "modified stem + regular endings"
+  },
+  {
+    "rule_name": "Spelling changes with -cer and -ger verbs",
+    "existing_explanation": "Examples: commencer -> commençant, influencer -> influençant, manger -> mangeant, nager -> nageant.",
+    "existing_summary": "Some -cer and -ger verbs change spelling in the present participle: -cer becomes -çant, -ger becomes -geant.",
+    "existing_usage": [
+      "to form present participle correctly"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Some -cer and -ger verbs change spelling in the present participle: -cer becomes -çant, -ger becomes -geant.",
+    "formation": "For -cer: replace c with ç before -ant; for -ger: insert e before -ant"
+  },
+  {
+    "rule_name": "Subject pronouns list",
+    "existing_explanation": "Subject pronouns replace subject nouns. The third-person pronouns apply to people, animals, or things.",
+    "existing_summary": "The subject pronouns in French are je, tu, il, elle, on, nous, vous, ils, elles.",
+    "existing_usage": [
+      "Used as the subject of a verb."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "The subject pronouns in French are je, tu, il, elle, on, nous, vous, ils, elles.",
+    "formation": "je, tu, il, elle, on, nous, vous, ils, elles"
+  },
+  {
+    "rule_name": "Subjective pronominal verbs",
+    "existing_explanation": "These verbs are neither reflexive nor reciprocal. For idiomatic or historical reasons, they just happen to use the pronominal forms. Learn their infinitives with the pronoun se.",
+    "existing_summary": "Idiomatic pronominal verbs; learn with se; not reflexive or reciprocal.",
+    "existing_usage": [
+      "Common subjective verbs list"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Idiomatic pronominal verbs; learn with se; not reflexive or reciprocal."
+  },
+  {
+    "rule_name": "Subjunctive after relative pronoun with doubt",
+    "existing_explanation": "Il cherche un artisan qui puisse restaurer ce fauteuil Louis XV. Connaîtriez-vous un antiquaire qui vende des pièces rares?",
+    "existing_summary": "After qui or que, subjunctive may be used if there is doubt about existence or realization.",
+    "existing_usage": [
+      "doubt",
+      "uncertainty"
+    ],
+    "existing_signal_words": [
+      "chercher",
+      "connaître",
+      "trouver"
+    ],
+    "existing_tags": [],
+    "summary": "After qui or que, subjunctive may be used if there is doubt about existence or realization.",
+    "formation": "antecedent + qui/que + subjunctive verb"
+  },
+  {
+    "rule_name": "Subjunctive after relative with superlative antecedent",
+    "existing_explanation": "Paolo est le meilleur artisan qui vende des objets à Burano. C’est le seul marché aux puces que je connaisse dans cette ville.",
+    "existing_summary": "When antecedent of qui or que is a superlative (le plus, le moins, le seul, l’unique, le premier, le dernier), subjunctive may be used.",
+    "existing_usage": [
+      "after superlative"
+    ],
+    "existing_signal_words": [
+      "le plus",
+      "le moins",
+      "le seul",
+      "l’unique",
+      "le premier",
+      "le dernier",
+      "le meilleur"
+    ],
+    "existing_tags": [],
+    "summary": "When antecedent of qui or que is a superlative (le plus, le moins, le seul, l’unique, le premier, le dernier), subjunctive may be used.",
+    "formation": "superlative antecedent + qui/que + subjunctive verb"
+  },
+  {
+    "rule_name": "Subjunctive after superlatives",
+    "existing_explanation": "Adjectives like premier, dernier, seul, unique, etc. trigger the subjunctive in the relative clause.",
+    "existing_summary": "The subjunctive is used after a superlative or an adjective conveying a superlative idea.",
+    "existing_usage": [
+      "Expressing a subjective evaluation or uniqueness."
+    ],
+    "existing_signal_words": [
+      "le meilleur",
+      "le seul",
+      "la pire",
+      "le plus",
+      "premier",
+      "dernier",
+      "unique"
+    ],
+    "existing_tags": [],
+    "summary": "The subjunctive is used after a superlative or an adjective conveying a superlative idea.",
+    "formation": "Superlative/adjective + relative pronoun + subjunctive."
+  },
+  {
+    "rule_name": "Subjunctive in relative clauses with doubt",
+    "existing_explanation": "If the existence of the person/thing is uncertain, use the subjunctive.",
+    "existing_summary": "The subjunctive may be used after relative pronouns when there is doubt about the existence or realization of the antecedent.",
+    "existing_usage": [
+      "Expressing uncertainty about existence."
+    ],
+    "existing_signal_words": [
+      "quelqu'un qui",
+      "quelque chose qui"
+    ],
+    "existing_tags": [],
+    "summary": "The subjunctive may be used after relative pronouns when there is doubt about the existence or realization of the antecedent.",
+    "formation": "Relative pronoun + subjunctive."
+  },
+  {
+    "rule_name": "Subjunctive with indefinite expressions (whatever, whenever, wherever, whoever)",
+    "existing_explanation": "When English 'whatever' is followed by subject + verb, use the neuter 'quoi que' + present subjunctive. When 'whatever' is followed by a noun, use 'quel que' (agreeing in gender and number) + subjunctive of être + noun. 'Où que' expresses wherever, and 'qui que' expresses whoever, both followed by the subjunctive.",
+    "existing_summary": "The present subjunctive is used after the indefinite expressions quoi que, quel que, où que, and qui que.",
+    "existing_usage": [
+      "To express 'whatever' (with verb or noun)",
+      "To express 'wherever'",
+      "To express 'whoever'"
+    ],
+    "existing_signal_words": [
+      "quoi que",
+      "quel que",
+      "quelle que",
+      "quels que",
+      "quelles que",
+      "où que",
+      "qui que"
+    ],
+    "existing_tags": [],
+    "summary": "The present subjunctive is used after the indefinite expressions quoi que, quel que, où que, and qui que.",
+    "formation": "quoi que + subject + subjunctive verb; quel/quelle/quels/quelles que + subject + subjunctive of être + noun; où que + subject + subjunctive; qui que + subject + subjunctive"
+  },
+  {
+    "rule_name": "Superlative formation",
+    "existing_explanation": "To form the superlative, use le/la/les + plus/moins + adjective. When specifying the group, add de + definite article.",
+    "existing_summary": "Superlative is formed by preceding the comparative with the definite article; before a group, use de + definite article.",
+    "existing_usage": [
+      "To express the most, least, best, worst."
+    ],
+    "existing_signal_words": [
+      "le plus",
+      "la plus",
+      "les plus",
+      "le moins",
+      "la moins",
+      "les moins"
+    ],
+    "existing_tags": [],
+    "summary": "Superlative is formed by preceding the comparative with the definite article; before a group, use de + definite article.",
+    "formation": "definite article + comparative"
+  },
+  {
+    "rule_name": "Tenir de + person",
+    "existing_explanation": "tenir de + person means to resemble or take after that person.",
+    "existing_summary": "tenir de means to take after someone.",
+    "existing_usage": [
+      "To express resemblance to a family member."
+    ],
+    "existing_signal_words": [
+      "tenir de"
+    ],
+    "existing_tags": [],
+    "summary": "tenir de means to take after someone.",
+    "formation": "tenir (conjugated) + de + person"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

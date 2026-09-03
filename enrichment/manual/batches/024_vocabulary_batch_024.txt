@@ -1,0 +1,1676 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 024_vocabulary_batch_024
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: vocabulary
+TOTAL ENTITIES IN THIS BATCH: 40
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, word_family, tags, gender, articles, plural, variants
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 024_vocabulary_batch_024_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "024_vocabulary_batch_024",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "<canonical_form_value>",
+        "part_of_speech": "<part_of_speech_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "vocabulary",
+  "natural_key": [
+    "canonical_form",
+    "part_of_speech"
+  ],
+  "required_fields": [
+    "canonical_form",
+    "display_form",
+    "english",
+    "part_of_speech",
+    "gender",
+    "articles",
+    "plural",
+    "variants",
+    "senses",
+    "aliases",
+    "search_terms",
+    "word_family",
+    "related_expressions",
+    "related_verbs",
+    "related_concepts",
+    "source_classifications",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "synonyms",
+    "antonyms",
+    "register",
+    "usage_notes",
+    "aliases",
+    "search_terms",
+    "word_family",
+    "tags",
+    "gender",
+    "articles",
+    "plural",
+    "variants"
+  ],
+  "properties": {
+    "canonical_form": {
+      "type": "string",
+      "minLength": 1
+    },
+    "part_of_speech": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "noun",
+        "verb",
+        "adjective",
+        "adverb",
+        "pronoun",
+        "determiner",
+        "preposition",
+        "conjunction",
+        "interjection",
+        "number",
+        "other",
+        "unknown",
+        null
+      ]
+    },
+    "english": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      },
+      "description": "Natural vocabulary references for synonyms."
+    },
+    "antonyms": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      },
+      "description": "Natural vocabulary references for antonyms."
+    },
+    "register": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "formal",
+        "neutral",
+        "informal",
+        "colloquial",
+        "literary",
+        "slang",
+        "technical",
+        "archaic",
+        "regional",
+        "vulgar",
+        "unknown",
+        null
+      ],
+      "description": "Typical usage register of the item."
+    },
+    "usage_notes": {
+      "$ref": "#/$defs/stringArray",
+      "description": "Usage-specific notes kept separate from general notes."
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "search_terms": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "word_family": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      }
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "gender": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "masculine",
+        "feminine",
+        "common",
+        "variable",
+        "none",
+        "unknown",
+        null
+      ]
+    },
+    "articles": {
+      "$ref": "#/$defs/articleSet"
+    },
+    "plural": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/variant"
+      }
+    }
+  },
+  "$defs": {
+    "variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "form",
+        "variant_type",
+        "note"
+      ],
+      "properties": {
+        "form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "variant_type": {
+          "type": "string",
+          "enum": [
+            "masculine",
+            "feminine",
+            "masculine_before_vowel",
+            "plural",
+            "alternate_spelling",
+            "inflected_form",
+            "other"
+          ]
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "articleSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "definite",
+        "indefinite",
+        "partitive",
+        "other"
+      ],
+      "properties": {
+        "definite": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "indefinite": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "partitive": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "vocabularyWordRef": {
+      "type": "string",
+      "minLength": 1,
+      "description": "A display-form vocabulary relation retained when part-of-speech metadata is unavailable."
+    },
+    "vocabularyRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_form",
+        "part_of_speech"
+      ],
+      "properties": {
+        "canonical_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "part_of_speech": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "noun",
+            "verb",
+            "adjective",
+            "adverb",
+            "pronoun",
+            "determiner",
+            "preposition",
+            "conjunction",
+            "interjection",
+            "number",
+            "other",
+            "unknown",
+            null
+          ]
+        }
+      }
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "vieux",
+    "part_of_speech": "adjective",
+    "display_form": "vieux",
+    "existing_english": [
+      "old"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "old",
+      "vieil",
+      "vieille",
+      "vieux"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "vieux",
+    "existing_variants": [
+      {
+        "form": "vieil",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "vieille",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "vieux",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "vieilles",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "vieil",
+        "variant_type": "masculine_before_vowel",
+        "note": "before vowel or mute h"
+      },
+      {
+        "form": "vieille",
+        "variant_type": "feminine",
+        "note": "feminine singular"
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt",
+    "part_of_speech": "number",
+    "display_form": "vingt",
+    "existing_english": [
+      "twenty"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty",
+      "vingt"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt et un",
+    "part_of_speech": "number",
+    "display_form": "vingt et un",
+    "existing_english": [
+      "twenty-one"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-one",
+      "vingt et un"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt et unième",
+    "part_of_speech": "adjective",
+    "display_form": "vingt et unième",
+    "existing_english": [
+      "twenty-first"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-first",
+      "vingt et unième"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt-cinq",
+    "part_of_speech": "number",
+    "display_form": "vingt-cinq",
+    "existing_english": [
+      "twenty-five"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-five",
+      "vingt-cinq"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt-deux",
+    "part_of_speech": "number",
+    "display_form": "vingt-deux",
+    "existing_english": [
+      "twenty-two"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-two",
+      "vingt-deux"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt-deuxième",
+    "part_of_speech": "adjective",
+    "display_form": "vingt-deuxième",
+    "existing_english": [
+      "twenty-second"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-second",
+      "vingt-deuxième"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt-huit",
+    "part_of_speech": "number",
+    "display_form": "vingt-huit",
+    "existing_english": [
+      "twenty-eight"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-eight",
+      "vingt-huit"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt-neuf",
+    "part_of_speech": "number",
+    "display_form": "vingt-neuf",
+    "existing_english": [
+      "twenty-nine"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-nine",
+      "vingt-neuf"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt-quatre",
+    "part_of_speech": "number",
+    "display_form": "vingt-quatre",
+    "existing_english": [
+      "twenty-four"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-four",
+      "vingt-quatre"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt-sept",
+    "part_of_speech": "number",
+    "display_form": "vingt-sept",
+    "existing_english": [
+      "twenty-seven"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-seven",
+      "vingt-sept"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt-six",
+    "part_of_speech": "number",
+    "display_form": "vingt-six",
+    "existing_english": [
+      "twenty-six"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-six",
+      "vingt-six"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt-trois",
+    "part_of_speech": "number",
+    "display_form": "vingt-trois",
+    "existing_english": [
+      "twenty-three"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-three",
+      "vingt-trois"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingt-troisième",
+    "part_of_speech": "adjective",
+    "display_form": "vingt-troisième",
+    "existing_english": [
+      "twenty-third"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twenty-third",
+      "vingt-troisième"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vingtième",
+    "part_of_speech": "adjective",
+    "display_form": "vingtième",
+    "existing_english": [
+      "twentieth"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "twentieth",
+      "vingtième"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "vingtièmes",
+    "existing_variants": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "violet",
+    "part_of_speech": "adjective",
+    "display_form": "violet",
+    "existing_english": [
+      "purple"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "purple",
+      "violet",
+      "violette"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "violets",
+    "existing_variants": [
+      {
+        "form": "violette",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "violets",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "violettes",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "violette",
+        "variant_type": "feminine",
+        "note": "feminine form"
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "violon",
+    "part_of_speech": "noun",
+    "display_form": "le violon",
+    "existing_english": [
+      "violin"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "violin",
+      "violon"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "violoncelle",
+    "part_of_speech": "noun",
+    "display_form": "le violoncelle",
+    "existing_english": [
+      "cello"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cello",
+      "violoncelle"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "visage",
+    "part_of_speech": "noun",
+    "display_form": "le visage",
+    "existing_english": [
+      "face"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "visage"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "visite",
+    "part_of_speech": "noun",
+    "display_form": "une visite",
+    "existing_english": [
+      "a visit"
+    ],
+    "existing_aliases": [
+      "visit"
+    ],
+    "existing_search_terms": [
+      "visit",
+      "visite"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "des visites",
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "visite guidée",
+    "part_of_speech": "noun",
+    "display_form": "une visite guidée",
+    "existing_english": [
+      "a guided tour",
+      "guided tour"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "guided tour",
+      "visite guidee"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vitesse",
+    "part_of_speech": "noun",
+    "display_form": "vitesse",
+    "existing_english": [
+      "speed"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "voile",
+    "part_of_speech": "noun",
+    "display_form": "la voile",
+    "existing_english": [
+      "sail",
+      "sailing",
+      "veil"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "sailing",
+      "voile"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "voiture",
+    "part_of_speech": "noun",
+    "display_form": "une voiture",
+    "existing_english": [
+      "a car",
+      "car"
+    ],
+    "existing_aliases": [
+      "car"
+    ],
+    "existing_search_terms": [
+      "car",
+      "voiture"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "la",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "des voitures",
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "voix",
+    "part_of_speech": "noun",
+    "display_form": "la voix",
+    "existing_english": [
+      "voice",
+      "vote"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "voix"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vol",
+    "part_of_speech": "noun",
+    "display_form": "un vol",
+    "existing_english": [
+      "a theft",
+      "theft"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "vol"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vol à l'étalage",
+    "part_of_speech": "noun",
+    "display_form": "un vol à l'étalage",
+    "existing_english": [
+      "(a case of) shoplifting",
+      "shoplifting"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "vol à l'étalage"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "volley-ball",
+    "part_of_speech": "noun",
+    "display_form": "le volley-ball",
+    "existing_english": [
+      "volleyball"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "volley-ball",
+      "volleyball"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "voyage",
+    "part_of_speech": "noun",
+    "display_form": "un voyage",
+    "existing_english": [
+      "trip"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "voyage d'affaires",
+    "part_of_speech": "noun",
+    "display_form": "un voyage d’affaires",
+    "existing_english": [
+      "business trip"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "voyage d'agrément",
+    "part_of_speech": "noun",
+    "display_form": "un voyage d’agrément",
+    "existing_english": [
+      "pleasure trip"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vélo",
+    "part_of_speech": "noun",
+    "display_form": "vélo",
+    "existing_english": [
+      "bike",
+      "bicycle"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bike",
+      "vélo"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vérité",
+    "part_of_speech": "noun",
+    "display_form": "vérité",
+    "existing_english": [
+      "truth"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "wolof",
+    "part_of_speech": "noun",
+    "display_form": "le wolof",
+    "existing_english": [
+      "Wolof"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "le wolof",
+      "wolof"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "xylophone",
+    "part_of_speech": "noun",
+    "display_form": "le xylophone",
+    "existing_english": [
+      "xylophone"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "xylophone"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "yeux",
+    "part_of_speech": "noun",
+    "display_form": "les yeux",
+    "existing_english": [
+      "eyes"
+    ],
+    "existing_aliases": [
+      "œil"
+    ],
+    "existing_search_terms": [
+      "yeux",
+      "œil"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "les yeux (m.pl.)",
+    "existing_variants": [
+      {
+        "form": "œil (singular)",
+        "variant_type": "other",
+        "note": null
+      }
+    ],
+    "gender": "masculine",
+    "articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "zèbre",
+    "part_of_speech": "noun",
+    "display_form": "un zèbre",
+    "existing_english": [
+      "zebra"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "zebra",
+      "zèbre"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "zèbres",
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "zéro",
+    "part_of_speech": "number",
+    "display_form": "zéro",
+    "existing_english": [
+      "zero"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "zero",
+      "zéro"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "États-Unis",
+    "part_of_speech": "noun",
+    "display_form": "États-Unis",
+    "existing_english": [
+      "United States"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "USA",
+      "United States",
+      "États-Unis"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "à carreaux",
+    "part_of_speech": "adjective",
+    "display_form": "à carreaux",
+    "existing_english": [
+      "checked"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "checked",
+      "à carreaux"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": null,
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

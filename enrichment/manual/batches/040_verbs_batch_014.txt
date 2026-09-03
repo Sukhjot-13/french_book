@@ -1,0 +1,531 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 040_verbs_batch_014
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 040_verbs_batch_014_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "040_verbs_batch_014",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "verbs",
+  "natural_key": "infinitive",
+  "required_fields": [
+    "infinitive",
+    "display_form",
+    "english",
+    "senses",
+    "verb_group",
+    "regularity",
+    "pronominal",
+    "transitivity",
+    "auxiliary",
+    "past_participle",
+    "present_participle",
+    "stems",
+    "conjugations",
+    "related_expressions",
+    "related_concepts",
+    "aliases",
+    "search_terms",
+    "source_classifications",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "synonyms",
+    "antonyms",
+    "register",
+    "usage_notes",
+    "aliases",
+    "search_terms",
+    "tags"
+  ],
+  "properties": {
+    "infinitive": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to synonymous verbs."
+    },
+    "antonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to antonymous verbs."
+    },
+    "register": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "formal",
+        "neutral",
+        "informal",
+        "colloquial",
+        "literary",
+        "slang",
+        "technical",
+        "archaic",
+        "regional",
+        "vulgar",
+        "unknown",
+        null
+      ],
+      "description": "Typical usage register of the item."
+    },
+    "usage_notes": {
+      "$ref": "#/$defs/stringArray",
+      "description": "Usage-specific notes kept separate from general notes."
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "search_terms": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "offrir",
+    "display_form": "offrir",
+    "existing_english": [
+      "offer",
+      "to give",
+      "to offer"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "offer",
+      "offert",
+      "offrant",
+      "offrir"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "oser",
+    "display_form": "oser",
+    "existing_english": [
+      "dare",
+      "to dare (to)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "oser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "oublier",
+    "display_form": "oublier",
+    "existing_english": [
+      "forget",
+      "to forget"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "forget",
+      "oublier"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "oublier son anniversaire"
+    ]
+  },
+  {
+    "infinitive": "ouvrir",
+    "display_form": "ouvrir",
+    "existing_english": [
+      "open",
+      "to open"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ouvert",
+      "ouvrir"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "paner",
+    "display_form": "paner",
+    "existing_english": [
+      "coat with bread crumbs",
+      "to coat with bread crumbs"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "paner"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "paraître",
+    "display_form": "paraître",
+    "existing_english": [
+      "appear",
+      "to appear",
+      "to seem"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "paraitre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "parier",
+    "display_form": "parier",
+    "existing_english": [
+      "to bet",
+      "to gamble"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "pariant",
+      "parier",
+      "parié"
+    ],
+    "existing_tags": [],
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "parler",
+    "display_form": "parler",
+    "existing_english": [
+      "speak",
+      "speak English fluently",
+      "to be fluent in",
+      "to speak",
+      "to talk"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "parle",
+      "parler",
+      "parlons",
+      "speak",
+      "talk"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "parler de",
+      "parler de + quelque chose",
+      "parler l'anglais couramment",
+      "parler à + personne"
+    ]
+  },
+  {
+    "infinitive": "partager",
+    "display_form": "partager",
+    "existing_english": [
+      "share",
+      "to share"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "partager",
+      "share"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "partir",
+    "display_form": "partir",
+    "existing_english": [
+      "leave",
+      "to leave"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "leave",
+      "parti",
+      "partir"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "etre"
+  },
+  {
+    "infinitive": "passer",
+    "display_form": "passer",
+    "existing_english": [
+      "handcuff someone",
+      "take an exam",
+      "to handcuff",
+      "to pass",
+      "to spend",
+      "to spend (time)",
+      "to take (an exam)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "passer",
+      "passé"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "passer devant",
+      "passer les menottes à quelqu'un",
+      "passer ses vacances à + infinitif",
+      "passer son temps à + infinitif",
+      "passer trois semaines à Tokyo"
+    ]
+  },
+  {
+    "infinitive": "payer",
+    "display_form": "payer",
+    "existing_english": [
+      "to pay"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "peindre",
+    "display_form": "peindre",
+    "existing_english": [
+      "paint",
+      "to paint"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "paint",
+      "peindre",
+      "peint"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "pencher",
+    "display_form": "pencher",
+    "existing_english": [
+      "lean"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "penser",
+    "display_form": "penser",
+    "existing_english": [
+      "think",
+      "to think"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "penser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "expr_penser_que_indicative",
+      "ne pas penser que + subjonctif",
+      "penser à quelque chose"
+    ]
+  },
+  {
+    "infinitive": "percer",
+    "display_form": "percer",
+    "existing_english": [
+      "pierce",
+      "to pierce"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "percer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "perdre",
+    "display_form": "perdre",
+    "existing_english": [
+      "lose",
+      "to lose"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "perdant",
+      "perdre",
+      "perdu"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "perdre les élections",
+      "perdre ses clés"
+    ]
+  },
+  {
+    "infinitive": "peser",
+    "display_form": "peser",
+    "existing_english": [
+      "to weigh",
+      "weigh"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "peser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "piler",
+    "display_form": "piler",
+    "existing_english": [
+      "to crush"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "piler"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "piquer",
+    "display_form": "piquer",
+    "existing_english": [
+      "sting"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

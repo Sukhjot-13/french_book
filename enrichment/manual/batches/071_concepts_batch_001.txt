@@ -1,0 +1,287 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 071_concepts_batch_001
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: concepts
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: description, aliases, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 071_concepts_batch_001_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "071_concepts_batch_001",
+  "collection": "concepts",
+  "patches": [
+    {
+      "entity_key": "<name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "concepts",
+  "natural_key": "name",
+  "required_fields": [
+    "name",
+    "description",
+    "aliases",
+    "related_grammar_rules",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_tenses",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "description",
+    "aliases",
+    "tags"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "name": "-ir verbs",
+    "existing_description": "Verbs ending in -ir in the infinitive, which follow two conjugation patterns: Type 1 (with -iss- infix) and Type 2 (irregular).",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "-re verbs",
+    "existing_description": "Verbs ending in -re in the infinitive, which follow a regular pattern or are irregular (prendre group).",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Adverb placement",
+    "existing_description": "Position of short adverbs in the passé composé (between auxiliary and past participle)",
+    "existing_aliases": [
+      "adverb order",
+      "adverb position"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Agreement",
+    "existing_description": "Agreement of past participle with preceding direct object introduced by que.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Agreement of past participle",
+    "existing_description": "Rules for when the past participle agrees in gender and number (with direct object before avoir, with subject after être, etc.).",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Animal vocabulary",
+    "existing_description": "Vocabulary list of animals introduced in the chapter.",
+    "existing_aliases": [
+      "les animaux"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Art vocabulary",
+    "existing_description": "Vocabulary related to art, museums, painting, and collecting.",
+    "existing_aliases": [
+      "art terms"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Avoir as auxiliary",
+    "existing_description": "Most verbs use avoir as the auxiliary in the passé composé.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Causative form",
+    "existing_description": "faire + infinitive; expresses having something done or causing something to happen.",
+    "existing_aliases": [
+      "faire causatif"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Chores and activities with faire",
+    "existing_description": "faire used to express household chores, sports, hobbies.",
+    "existing_aliases": [
+      "faire expressions"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Cinema and theater vocabulary",
+    "existing_description": "Vocabulary related to film and theater.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Colloquial substitution with immediate future",
+    "existing_description": "Immediate future can replace present or future in colloquial speech.",
+    "existing_aliases": [
+      "colloquial future"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Commerce and professions",
+    "existing_description": "Vocabulary for shops, stores, and professions (boulanger, pharmacie, etc.)",
+    "existing_aliases": [
+      "métiers",
+      "professions",
+      "shops"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Compound numbers",
+    "existing_description": "Formation of compound numbers using hyphens, et, and special patterns like soixante-dix, quatre-vingts, quatre-vingt-dix.",
+    "existing_aliases": [
+      "compound number formation"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Concessive expressions (avoir beau, quitte à)",
+    "existing_description": "Expressions that convey concession: avoir beau + infinitive (although, however) and quitte à + infinitive (even if it means).",
+    "existing_aliases": [
+      "avoir beau",
+      "concessive",
+      "quitte à"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Conditionnel",
+    "existing_description": "The conditional mood",
+    "existing_aliases": [
+      "conditionnel",
+      "present conditional"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Conditionnel journalistique",
+    "existing_description": "Use of the conditional (present or past) to express unconfirmed or alleged information, often translated as 'reportedly' or 'allegedly'.",
+    "existing_aliases": [
+      "journalistic conditional"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Conjunctions requiring subjunctive",
+    "existing_description": "Certain conjunctions are followed by the subjunctive.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Contraction of à + le/les",
+    "existing_description": "à + le = au, à + les = aux.",
+    "existing_aliases": [
+      "au",
+      "aux"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Days, months, seasons",
+    "existing_description": "Vocabulary for days of the week, months of the year, and seasons.",
+    "existing_aliases": [
+      "calendar vocabulary"
+    ],
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

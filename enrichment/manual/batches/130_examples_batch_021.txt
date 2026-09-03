@@ -1,0 +1,458 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 130_examples_batch_021
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags, related_verbs, related_tenses
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 130_examples_batch_021_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "130_examples_batch_021",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "examples",
+  "natural_key": "french",
+  "required_fields": [
+    "french",
+    "english",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_tenses",
+    "related_concepts",
+    "focus_spans",
+    "tags",
+    "chapters",
+    "notes",
+    "sources"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "tags",
+    "related_verbs",
+    "related_tenses"
+  ],
+  "properties": {
+    "french": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "related_verbs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true
+    },
+    "related_tenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tenseRef"
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "tenseRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Je vais lui dire ce que je pense, quitte à me fâcher avec elle.",
+    "existing_english": "Even if it means arguing with her, I am going to tell her what I think.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aller",
+      "dire",
+      "penser"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "je vends",
+    "existing_english": "I sell",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "vendre"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Je veux acheter cet ordinateur.",
+    "existing_english": "I want to buy this computer.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "acheter",
+      "vouloir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Je veux que tu achètes cet ordinateur.",
+    "existing_english": "I want you to buy this computer.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "acheter",
+      "vouloir"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "Je vois des erreurs ça et là.",
+    "existing_english": "I see mistakes here and there.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Je voudrais du pain.",
+    "existing_english": "I would like some bread.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "vouloir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Je voudrais finir ce projet aussitôt que possible.",
+    "existing_english": "I would like to finish this project as soon as possible.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "finir",
+      "vouloir"
+    ],
+    "existing_related_tenses": [
+      "conditionnel présent"
+    ]
+  },
+  {
+    "french": "Je voudrais savoir ce à quoi elle aspire.",
+    "existing_english": "I’d like to know what she is aspiring to.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aspirer à",
+      "savoir",
+      "vouloir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Je voudrais vous parler.",
+    "existing_english": "I would like to speak with you.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "vouloir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Je vous demanderai de faire preuve de compassion.",
+    "existing_english": "Please show a little compassion.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "demander"
+    ],
+    "existing_related_tenses": [
+      "futur simple"
+    ]
+  },
+  {
+    "french": "Je vous dois quelque chose?",
+    "existing_english": "Do I owe you anything?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "devoir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Je vous le dirais si je le savais.",
+    "existing_english": "I would tell you if I knew.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "conditionnel présent",
+      "imparfait"
+    ]
+  },
+  {
+    "french": "Je vous présente la personne sans qui je n'aurai pas pu réussir.",
+    "existing_english": "Let me introduce you to the person without whom I would not have been able to succeed.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "pouvoir",
+      "réussir",
+      "verb_presenter"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Julie est pharmacienne depuis dix ans.",
+    "existing_english": "Julie has been a pharmacist for ten years.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "L'ami de Sonia est japonais.",
+    "existing_english": "Sonia’s friend is Japanese.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "l'an dernier",
+    "existing_english": "last year",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "L'appartement d'Olivier est au dixième étage.",
+    "existing_english": "Olivier’s apartment is on the eleventh floor.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "L'article qu'elle écrit sera publié en mai.",
+    "existing_english": "The article she is writing will be published in May.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "publier",
+      "écrire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "L'artiste chante la chanson.",
+    "existing_english": "The artist sings the song.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "L'avion doit atterrir à dix heures.",
+    "existing_english": "The plane is supposed to land at ten o'clock.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "devoir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "L'enfant doit obéir à ses parents.",
+    "existing_english": "The child must obey his parents.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "devoir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "L'enfant fait la vaisselle.",
+    "existing_english": "The child is doing the dishes.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "faire"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "L'homme que vous voyez au fond de l'atelier est un des meilleurs artisans du pays.",
+    "existing_english": "The man you see in the back of the shop is one of the best craftsmen in the country.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "voir",
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "L'instant où nous sommes partis, il a commencé à pleuvoir.",
+    "existing_english": "The moment (when) we left, it started to rain.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "commencer",
+      "partir",
+      "pleuvoir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "L'étudiant n'est pas en classe. Il sera encore endormi.",
+    "existing_english": "The student is not in class. He is probably still asleep.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": [
+      "futur simple"
+    ]
+  },
+  {
+    "french": "La caféine la tient éveillée.",
+    "existing_english": "Caffeine keeps her awake.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "tenir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "La circulation était fluide.",
+    "existing_english": "The traffic was flowing.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  },
+  {
+    "french": "La commode qui est dans la vitrine, a appartenu à Talleyrand.",
+    "existing_english": "The chest of drawers that is in the window belonged to Talleyrand.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "appartenir",
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "La pièce qu'il a écrite n'a jamais été jouée.",
+    "existing_english": "The play he wrote was never performed.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "jouer",
+      "écrire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "La police l'a aperçu entrant dans un laboratoire médical.",
+    "existing_english": "The police saw him entering (as he was entering) a medical lab.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "apercevoir"
+    ],
+    "existing_related_tenses": [
+      "participe présent"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

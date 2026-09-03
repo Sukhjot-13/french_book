@@ -1,0 +1,469 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 034_verbs_batch_008
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 034_verbs_batch_008_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "034_verbs_batch_008",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "verbs",
+  "natural_key": "infinitive",
+  "required_fields": [
+    "infinitive",
+    "display_form",
+    "english",
+    "senses",
+    "verb_group",
+    "regularity",
+    "pronominal",
+    "transitivity",
+    "auxiliary",
+    "past_participle",
+    "present_participle",
+    "stems",
+    "conjugations",
+    "related_expressions",
+    "related_concepts",
+    "aliases",
+    "search_terms",
+    "source_classifications",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "synonyms",
+    "antonyms",
+    "register",
+    "usage_notes",
+    "aliases",
+    "search_terms",
+    "tags"
+  ],
+  "properties": {
+    "infinitive": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to synonymous verbs."
+    },
+    "antonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to antonymous verbs."
+    },
+    "register": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "formal",
+        "neutral",
+        "informal",
+        "colloquial",
+        "literary",
+        "slang",
+        "technical",
+        "archaic",
+        "regional",
+        "vulgar",
+        "unknown",
+        null
+      ],
+      "description": "Typical usage register of the item."
+    },
+    "usage_notes": {
+      "$ref": "#/$defs/stringArray",
+      "description": "Usage-specific notes kept separate from general notes."
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "search_terms": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "embarquer",
+    "display_form": "embarquer",
+    "existing_english": [
+      "board",
+      "to go on board"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "embarquer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "unknown"
+  },
+  {
+    "infinitive": "embrasser",
+    "display_form": "embrasser",
+    "existing_english": [
+      "kiss"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "emmener",
+    "display_form": "emmener",
+    "existing_english": [
+      "escort",
+      "take along",
+      "to escort",
+      "to take along"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "emmener"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "employer",
+    "display_form": "employer",
+    "existing_english": [
+      "to use",
+      "to hire"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "employer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "emporter",
+    "display_form": "emporter",
+    "existing_english": [
+      "take away"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "emprunter",
+    "display_form": "emprunter",
+    "existing_english": [
+      "borrow",
+      "to borrow"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "emprunter"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "encourager",
+    "display_form": "encourager",
+    "existing_english": [
+      "encourage",
+      "to encourage"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "encourager"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "engager",
+    "display_form": "engager",
+    "existing_english": [
+      "commit",
+      "hire"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "enlever",
+    "display_form": "enlever",
+    "existing_english": [
+      "remove",
+      "take off (shoes)",
+      "to remove"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "enlever"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "enseigner",
+    "display_form": "enseigner",
+    "existing_english": [
+      "teach",
+      "to teach"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "enseigner"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "ensorceler",
+    "display_form": "ensorceler",
+    "existing_english": [
+      "bewitch",
+      "to bewitch"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ensorceler"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "entendre",
+    "display_form": "entendre",
+    "existing_english": [
+      "hear",
+      "to hear"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "entendre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "entourer",
+    "display_form": "entourer",
+    "existing_english": [
+      "to surround"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "entreprendre",
+    "display_form": "entreprendre",
+    "existing_english": [
+      "to undertake",
+      "undertake"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "entreprendre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "entrer",
+    "display_form": "entrer",
+    "existing_english": [
+      "enter",
+      "to enter",
+      "to walk in"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "entrer",
+      "entré"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre"
+  },
+  {
+    "infinitive": "envahir",
+    "display_form": "envahir",
+    "existing_english": [
+      "invade",
+      "to invade"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "envisager",
+    "display_form": "envisager",
+    "existing_english": [
+      "contemplate"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "envoyer",
+    "display_form": "envoyer",
+    "existing_english": [
+      "send",
+      "to send"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "envoyer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "escalader",
+    "display_form": "escalader",
+    "existing_english": [
+      "climb",
+      "to climb"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "espérer",
+    "display_form": "espérer",
+    "existing_english": [
+      "hope",
+      "to hope",
+      "to hope to"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "esperer",
+      "espérer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

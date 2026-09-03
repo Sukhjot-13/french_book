@@ -1,0 +1,451 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 127_examples_batch_018
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags, related_verbs, related_tenses
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 127_examples_batch_018_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "127_examples_batch_018",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "examples",
+  "natural_key": "french",
+  "required_fields": [
+    "french",
+    "english",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_tenses",
+    "related_concepts",
+    "focus_spans",
+    "tags",
+    "chapters",
+    "notes",
+    "sources"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "tags",
+    "related_verbs",
+    "related_tenses"
+  ],
+  "properties": {
+    "french": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "related_verbs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true
+    },
+    "related_tenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tenseRef"
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "tenseRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "J'adore cette belle chanson.",
+    "existing_english": "I love this beautiful song.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "verb_adorer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai contacté l'ébéniste que tu as recommandé.",
+    "existing_english": "I contacted the cabinetmaker you recommended.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "recommander",
+      "verb_contacter"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai entendu dire qu'elle était en Inde.",
+    "existing_english": "I heard she was in India.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "dire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai entendu dire qu'il pleuvait à Londres.",
+    "existing_english": "I heard it was raining in London.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "dire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai entendu dire qu'ils achèteraient une maison.",
+    "existing_english": "I heard they would buy a house.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "dire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai entendu dire qu'ils se retrouveraient à Lyon.",
+    "existing_english": "I heard they would meet in Lyon.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "dire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai entendu dire que tu irais en France.",
+    "existing_english": "I heard you would go to France.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "dire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai entendu dire que tu travaillais pour France 2.",
+    "existing_english": "I heard you were working for France 2.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "dire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai entendu dire que vous aviez voté pour moi.",
+    "existing_english": "I heard you had voted for me.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "dire",
+      "voter"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai entendu dire que vous vous présenteriez aux élections.",
+    "existing_english": "I heard you would run for election.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "dire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai fait griller le pain.",
+    "existing_english": "I toasted the bread.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "faire",
+      "griller"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai fait tremper les pruneaux.",
+    "existing_english": "I soaked the prunes.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "faire",
+      "tremper"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'ai fini de lire le roman.",
+    "existing_english": "I finished reading the novel.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "J'ai mal à la tête.",
+    "existing_english": "I have a headache.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "J'ai passé trois semaines à Tokyo.",
+    "existing_english": "I spent three weeks in Tokyo.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "passer"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "J'ai pu la convaincre.",
+    "existing_english": "I managed to convince her.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "J'ai vu les moutons traverser la route.",
+    "existing_english": "I saw the sheep crossing (cross) the road.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "voir"
+    ],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "J'aime ce qui est fabriqué dans cet atelier.",
+    "existing_english": "I like what is made (what they make) in this workshop.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aimer",
+      "verb_fabriquer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'aimerais savoir ce qui lui plairait.",
+    "existing_english": "I’d like to know what she would like.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aimer",
+      "plaire",
+      "savoir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'apporte mes notes et tu apportes les tiennes.",
+    "existing_english": "I bring my notes and you bring yours.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "apporter"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "j'apprends",
+    "existing_english": "I learn",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "apprendre"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "j'aurais donné",
+    "existing_english": "I would have given",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "donner"
+    ],
+    "existing_related_tenses": [
+      "conditionnel passé"
+    ]
+  },
+  {
+    "french": "J'avoue ne pas comprendre son but.",
+    "existing_english": "I admit I do not understand his goal.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avouer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "j'encourageais",
+    "existing_english": "I encouraged",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "encourager"
+    ],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  },
+  {
+    "french": "J'espère obtenir ce poste.",
+    "existing_english": "I am hoping to get this position.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "espérer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'espère qu'elle obtiendra ce poste.",
+    "existing_english": "I am hoping she'll get this position.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "espérer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'exige que vous arriviez à l'heure.",
+    "existing_english": "I demand that you arrive on time.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "arriver",
+      "exiger"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "J'habite à Nice depuis trois ans.",
+    "existing_english": "I have been living in Nice for three years.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "habiter"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "J'ignore ce à quoi il s'abonne.",
+    "existing_english": "I don’t know what he subscribes to.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "s'abonner à",
+      "verb_ignorer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "J'écoute la personne qui parle.",
+    "existing_english": "I am listening to the person who is speaking.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "écouter"
+    ],
+    "existing_related_tenses": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

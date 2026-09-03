@@ -1,0 +1,307 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 106_exceptions_and_traps_batch_003
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: exceptions_and_traps
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: description, why_incorrect, why_correct, memory_tip, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 106_exceptions_and_traps_batch_003_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "106_exceptions_and_traps_batch_003",
+  "collection": "exceptions_and_traps",
+  "patches": [
+    {
+      "entity_key": {
+        "title": "<title_value>",
+        "category": "<category_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "exceptions_and_traps",
+  "natural_key": [
+    "title",
+    "category"
+  ],
+  "required_fields": [
+    "title",
+    "category",
+    "description",
+    "correct_form",
+    "incorrect_form",
+    "related_grammar_rules",
+    "related_verbs",
+    "related_expressions",
+    "related_examples",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "description",
+    "why_incorrect",
+    "why_correct",
+    "memory_tip",
+    "tags"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "exception",
+        "contrast",
+        "restriction",
+        "agreement",
+        "spelling",
+        "word_order",
+        "usage",
+        "confusion",
+        "other"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "title": "Irregular plural nouns",
+    "category": "exception",
+    "existing_description": "Some nouns have irregular plurals that do not follow -s, -x, -aux rules.",
+    "existing_tags": [],
+    "correct_form": "des bals, des genoux, des pneus, des festivals, des yeux, des bijoux",
+    "incorrect_form": "des bals (following -al rule would be baux, but bal is exception)"
+  },
+  {
+    "title": "Irregular present participles (être, avoir, savoir)",
+    "category": "exception",
+    "existing_description": "Three verbs have irregular present participles: être -> étant, avoir -> ayant, savoir -> sachant. They do not follow the regular -ant rule.",
+    "existing_tags": [],
+    "correct_form": "étant, ayant, sachant",
+    "incorrect_form": "êtant, avant, savant"
+  },
+  {
+    "title": "Irregular stem of être in imparfait",
+    "category": "exception",
+    "existing_description": "The verb être has an irregular stem ét- in the imparfait, not the expected stem from the nous present.",
+    "existing_tags": [],
+    "correct_form": "j’étais, nous étions"
+  },
+  {
+    "title": "Irregular stems not predictable from past participle",
+    "category": "exception",
+    "existing_description": "For some irregular verbs, the passé simple stem is based on the past participle, but this is not a fixed rule; forms must be memorized.",
+    "existing_tags": [],
+    "correct_form": "Various irregular forms (e.g., il but, il vint)",
+    "incorrect_form": "Assuming regular formation"
+  },
+  {
+    "title": "Islands with en",
+    "category": "exception",
+    "existing_description": "Some islands use en instead of à.",
+    "existing_tags": [],
+    "correct_form": "en Haïti, en Martinique, en Guadeloupe",
+    "incorrect_form": "à Haïti, etc."
+  },
+  {
+    "title": "Liaison after plural subject pronouns",
+    "category": "other",
+    "existing_description": "The final -s of nous, vous, ils, elles links with a following vowel sound, making a z sound.",
+    "existing_tags": []
+  },
+  {
+    "title": "Masculine countries ending in -e",
+    "category": "exception",
+    "existing_description": "Some countries/states ending in -e are masculine, not feminine.",
+    "existing_tags": [],
+    "correct_form": "le Mexique, le Cambodge, le Maine, le Mozambique",
+    "incorrect_form": "la Mexique, etc."
+  },
+  {
+    "title": "Mille never takes -s",
+    "category": "exception",
+    "existing_description": "Mille (thousand) is invariable; never add -s.",
+    "existing_tags": [],
+    "correct_form": "deux mille",
+    "incorrect_form": "deux milles"
+  },
+  {
+    "title": "Million and milliard take -s when greater than one",
+    "category": "agreement",
+    "existing_description": "Million and milliard take an -s when the number is greater than one.",
+    "existing_tags": [],
+    "correct_form": "deux millions, deux milliards",
+    "incorrect_form": "deux million, deux milliard"
+  },
+  {
+    "title": "Mon, ton, son used before feminine nouns starting with vowel/mute h",
+    "category": "exception",
+    "existing_description": "The masculine singular possessive adjectives mon, ton, son are used before singular feminine nouns beginning with a vowel or a mute h instead of ma, ta, sa.",
+    "existing_tags": [],
+    "correct_form": "mon amie, ton amitié, son honnêteté",
+    "incorrect_form": "ma amie, ta amitié, sa honnêteté"
+  },
+  {
+    "title": "Negation with infinitive precedes it",
+    "category": "word_order",
+    "existing_description": "With infinitive, negation ne...pas precedes the infinitive and is not separated.",
+    "existing_tags": [],
+    "correct_form": "ne pas + infinitive",
+    "incorrect_form": "ne + infinitive + pas"
+  },
+  {
+    "title": "Negative duration: use passé composé, not present",
+    "category": "exception",
+    "existing_description": "In negative sentences with depuis, the passé composé is used instead of the present tense.",
+    "existing_tags": [],
+    "correct_form": "Il n'a pas revu sa sœur depuis dix ans.",
+    "incorrect_form": "Il ne revoit pas sa sœur depuis dix ans."
+  },
+  {
+    "title": "No -iss- in Type 2 -ir verbs",
+    "category": "exception",
+    "existing_description": "Type 2 -ir verbs do not take the -iss- infix in plural forms, unlike Type 1 -ir verbs.",
+    "existing_tags": [],
+    "correct_form": "nous sortons (not nous sortissons)",
+    "incorrect_form": "nous sortissons"
+  },
+  {
+    "title": "No future tense after 'si' in future condition",
+    "category": "contrast",
+    "existing_description": "In French, neither futur simple nor futur antérieur is used after 'si' when it means 'if' introducing a future condition. Use present tense instead.",
+    "existing_tags": [],
+    "correct_form": "S'il a le temps, il passera vous voir.",
+    "incorrect_form": "S'il aura le temps, il passera vous voir."
+  },
+  {
+    "title": "Object pronouns in negative imperative",
+    "category": "word_order",
+    "existing_description": "In negative imperative, object pronouns precede the verb, unlike affirmative imperative where they follow.",
+    "existing_tags": [],
+    "correct_form": "Ne l’appelle pas dimanche!",
+    "incorrect_form": "N’appelle pas le dimanche!"
+  },
+  {
+    "title": "On as impersonal pronoun",
+    "category": "usage",
+    "existing_description": "The pronoun on can mean one, we, or they depending on context.",
+    "existing_tags": []
+  },
+  {
+    "title": "Partitive after être in negative",
+    "category": "exception",
+    "existing_description": "After être in negative, the partitive article remains du/de la/de l'/des instead of changing to de.",
+    "existing_tags": [],
+    "correct_form": "Ce n’est pas du fromage.",
+    "incorrect_form": "Ce n’est pas de fromage."
+  },
+  {
+    "title": "Past participle agreement in perfect participle with être",
+    "category": "agreement",
+    "existing_description": "In the perfect participle construction (ayant/étant + past participle), the past participle agrees with the subject if the auxiliary is être. Example: étant allé(e)(s), étant parti(e)(s).",
+    "existing_tags": [],
+    "correct_form": "étant allée (feminine singular), étant partis (masculine plural)",
+    "incorrect_form": "étant allé (without agreement for feminine subject)"
+  },
+  {
+    "title": "Past participle agreement with object pronouns",
+    "category": "agreement",
+    "existing_description": "The past participle agrees with a preceding direct object pronoun, but never with an indirect object pronoun (including y and en).",
+    "existing_tags": [],
+    "correct_form": "Le journaliste les a prises. (direct object feminine plural)",
+    "incorrect_form": "Le journaliste leur a parlés. (indirect object)"
+  },
+  {
+    "title": "Past participle agreement with preceding direct object",
+    "category": "agreement",
+    "existing_description": "With avoir, past participle does not normally agree, but agrees with a direct object that precedes the verb.",
+    "existing_tags": [],
+    "correct_form": "Il l'a prise.",
+    "incorrect_form": "Il l'a pris."
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

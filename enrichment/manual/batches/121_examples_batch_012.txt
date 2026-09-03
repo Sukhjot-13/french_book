@@ -1,0 +1,473 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 121_examples_batch_012
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags, related_verbs, related_tenses
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 121_examples_batch_012_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "121_examples_batch_012",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "examples",
+  "natural_key": "french",
+  "required_fields": [
+    "french",
+    "english",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_tenses",
+    "related_concepts",
+    "focus_spans",
+    "tags",
+    "chapters",
+    "notes",
+    "sources"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "tags",
+    "related_verbs",
+    "related_tenses"
+  ],
+  "properties": {
+    "french": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "related_verbs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true
+    },
+    "related_tenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tenseRef"
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "tenseRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Il a mal au bras.",
+    "existing_english": "His arm hurts.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Il a moins de chance que toi.",
+    "existing_english": "He is less lucky than you are.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Il a ouvert un restaurant à Washington.",
+    "existing_english": "He opened a restaurant in Washington, D.C.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "ouvrir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Il a pris la bonne décision.",
+    "existing_english": "He made the right decision.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "prendre"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Il a promis de ne pas ajouter trop d'ail.",
+    "existing_english": "He promised not to add too much garlic.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Il a pu obtenir les fonds.",
+    "existing_english": "He succeeded in obtaining the funding.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Il a regretté d'avoir oublié l'anniversaire de Clara.",
+    "existing_english": "He regretted having forgotten Clara's birthday.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": [
+      "infinitif passé"
+    ]
+  },
+  {
+    "french": "Il a un nouveau chien.",
+    "existing_english": "He has a new dog.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Il a vendu sa voiture.",
+    "existing_english": "He sold his car.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "vendre"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "il a été construit",
+    "existing_english": "it has been built",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "construire",
+      "être"
+    ],
+    "existing_related_tenses": [
+      "passé composé passif"
+    ]
+  },
+  {
+    "french": "Il achète de la viande.",
+    "existing_english": "He is buying meat.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "acheter"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Il aime les histoires qui finissent bien.",
+    "existing_english": "He likes stories that end well.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aimer",
+      "finir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Il aimerait avoir une tortue.",
+    "existing_english": "He would like to have a turtle.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aimer",
+      "avoir"
+    ],
+    "existing_related_tenses": [
+      "conditionnel présent"
+    ]
+  },
+  {
+    "french": "Il aimerait rencontrer la femme de sa vie.",
+    "existing_english": "He would like to meet the woman of his dreams.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aimer",
+      "rencontrer"
+    ],
+    "existing_related_tenses": [
+      "conditionnel présent"
+    ]
+  },
+  {
+    "french": "Il assiste rarement aux réunions.",
+    "existing_english": "He rarely attends meetings.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Il aura encore brûlé le gigot d'agneau!",
+    "existing_english": "He probably burnt the leg of lamb again!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "verb_bruler"
+    ],
+    "existing_related_tenses": [
+      "futur antérieur"
+    ]
+  },
+  {
+    "french": "Il aura enseigné le français toute sa vie.",
+    "existing_english": "He'll have taught French all his life.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "enseigner"
+    ],
+    "existing_related_tenses": [
+      "futur antérieur"
+    ]
+  },
+  {
+    "french": "Il aurait volé la voiture de son voisin.",
+    "existing_english": "He allegedly stole his neighbor’s car.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "voler"
+    ],
+    "existing_related_tenses": [
+      "conditionnel passé"
+    ]
+  },
+  {
+    "french": "Il avait beau habiter au bord de la mer, il n'a jamais appris à nager.",
+    "existing_english": "Although he lived by the sea, he never learned how to swim.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "apprendre",
+      "avoir",
+      "habiter"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Il avait faim.",
+    "existing_english": "He was hungry.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  },
+  {
+    "french": "Il avait toujours fini avant les autres.",
+    "existing_english": "He had always finished before the others.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir",
+      "finir"
+    ],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  },
+  {
+    "french": "il avançait",
+    "existing_english": "he moved forward",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avancer"
+    ],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  },
+  {
+    "french": "Il bruine.",
+    "existing_english": "It is drizzling.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "bruiner"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "il chante",
+    "existing_english": "he sings",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "chanter"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Il cherche quelqu'un qui puisse créer un logiciel pour son entreprise.",
+    "existing_english": "He is looking for someone who can create a piece of software for his company.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "chercher",
+      "pouvoir",
+      "verb_creer"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "Il cherche un artisan qui puisse restaurer ce fauteuil Louis XV.",
+    "existing_english": "He is looking for an artisan who might be able to restore this Louis XV armchair.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "chercher",
+      "restaurer"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "Il commence à travailler à huit heures.",
+    "existing_english": "He starts to work at eight o'clock.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "Il demande que nous soyons plus efficaces.",
+    "existing_english": "He is asking us to be more efficient.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "demander",
+      "être"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "Il doit sa vie à son chirurgien.",
+    "existing_english": "He owes his life to his surgeon.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "devoir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Il est accroupi dans le jardin à cueillir des fraises.",
+    "existing_english": "He is squatting in the garden picking strawberries.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

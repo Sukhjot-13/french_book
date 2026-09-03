@@ -1,0 +1,346 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 096_grammar_rules_batch_015
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: grammar_rules
+TOTAL ENTITIES IN THIS BATCH: 15
+TARGET ENRICHMENT FIELDS: explanation, summary, usage, signal_words, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 096_grammar_rules_batch_015_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "096_grammar_rules_batch_015",
+  "collection": "grammar_rules",
+  "patches": [
+    {
+      "entity_key": "<rule_name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "grammar_rules",
+  "natural_key": "rule_name",
+  "required_fields": [
+    "rule_name",
+    "summary",
+    "explanation",
+    "formation",
+    "usage",
+    "restrictions",
+    "conditions",
+    "signal_words",
+    "exceptions",
+    "agreement_rules",
+    "word_order",
+    "negative_form",
+    "interrogative_form",
+    "affirmative_form",
+    "transformations",
+    "contrast_with",
+    "common_traps",
+    "related_tenses",
+    "related_concepts",
+    "related_expressions",
+    "related_verbs",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "explanation",
+    "summary",
+    "usage",
+    "signal_words",
+    "tags"
+  ],
+  "properties": {
+    "rule_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "explanation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "usage": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "signal_words": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "rule_name": "Pronominal verbs in passé composé",
+    "existing_explanation": "Formation: reflexive pronoun + être + past participle.",
+    "existing_summary": "All pronominal verbs use être; reflexive pronoun before auxiliary.",
+    "existing_usage": [
+      "reflexive actions",
+      "reciprocal actions"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "All pronominal verbs use être; reflexive pronoun before auxiliary.",
+    "formation": "reflexive pronoun + être + past participle"
+  },
+  {
+    "rule_name": "Pronominal verbs with infinitive",
+    "existing_explanation": "When pronominal verbs are used in the infinitive, the reflexive pronoun is always in the same person and number as the subject, and it precedes the infinitive.",
+    "existing_summary": "Reflexive pronoun agrees with subject and precedes infinitive.",
+    "existing_usage": [
+      "After verbs like aller, venir de, devoir, pouvoir, aimer, etc."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Reflexive pronoun agrees with subject and precedes infinitive.",
+    "formation": "subject + (conjugated verb) + pronoun + infinitive"
+  },
+  {
+    "rule_name": "Pronoun en",
+    "existing_explanation": "En is an indirect object pronoun replacing things/ideas introduced by de.",
+    "existing_summary": "En replaces inanimate object preceded by de. It precedes the verb; no past participle agreement.",
+    "existing_usage": [
+      "Replace de + inanimate noun."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "En replaces inanimate object preceded by de. It precedes the verb; no past participle agreement.",
+    "formation": "en + verb"
+  },
+  {
+    "rule_name": "Pronoun y",
+    "existing_explanation": "Y is an indirect object pronoun that replaces things/ideas introduced by à (sometimes sur).",
+    "existing_summary": "Y replaces inanimate object preceded by à or sur. It precedes the verb; no past participle agreement.",
+    "existing_usage": [
+      "Replace à + inanimate noun.",
+      "Replace sur + inanimate noun in some cases."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Y replaces inanimate object preceded by à or sur. It precedes the verb; no past participle agreement.",
+    "formation": "y + verb"
+  },
+  {
+    "rule_name": "Pronunciation of final consonants in certain numbers",
+    "existing_explanation": "Although consonants are generally silent in French, they are pronounced in the following numbers: cinq, six, sept, huit, neuf, dix. With sept, the -p- is silent, but the final -t is pronounced. The final -x in six and dix is pronounced like an s. When the numbers cinq, six, huit, and dix are followed by a word beginning with a consonant, their final consonant is mute (silent).",
+    "existing_summary": "Final consonants in cinq, six, sept, huit, neuf, dix are pronounced; -p in sept is silent but -t pronounced; -x in six and dix pronounced like s; final consonant mute before consonant-initial word for cinq, six, huit, dix.",
+    "existing_usage": [
+      "Pronunciation of numbers cinq, six, sept, huit, neuf, dix."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Final consonants in cinq, six, sept, huit, neuf, dix are pronounced; -p in sept is silent but -t pronounced; -x in six and dix pronounced like s; final consonant mute before consonant-initial word for cinq, six, huit, dix."
+  },
+  {
+    "rule_name": "Que as direct object relative pronoun",
+    "existing_explanation": "Que refers to both people and things and means whom, which, that.",
+    "existing_summary": "Que is used as the direct object of the dependent clause when it already has a subject.",
+    "existing_usage": [
+      "direct object of dependent clause"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Que is used as the direct object of the dependent clause when it already has a subject.",
+    "formation": "antecedent + que + subject + verb"
+  },
+  {
+    "rule_name": "Question formation in passé composé",
+    "existing_explanation": "As in present tense, questions can be formed three ways.",
+    "existing_summary": "Three ways: rising intonation, inversion, est-ce que.",
+    "existing_usage": [
+      "interrogative"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Three ways: rising intonation, inversion, est-ce que."
+  },
+  {
+    "rule_name": "Qui after prepositions for people",
+    "existing_explanation": "Voici le collègue avec qui j’écris le rapport. Je vous présente la personne sans qui je n’aurai pas pu réussir.",
+    "existing_summary": "Qui is used after a preposition to refer only to people.",
+    "existing_usage": [
+      "object of preposition referring to people"
+    ],
+    "existing_signal_words": [
+      "avec",
+      "sans",
+      "pour",
+      "à"
+    ],
+    "existing_tags": [],
+    "summary": "Qui is used after a preposition to refer only to people.",
+    "formation": "preposition + qui"
+  },
+  {
+    "rule_name": "Qui as object of verb with intervening subject",
+    "existing_explanation": "Je ne sais pas qui il est. Le président n’a pas dit qui il nommerait à ce poste. Nous ignorons qui elle renverra. Le policier a révélé qui il avait attrapé.",
+    "existing_summary": "Qui can be the object of the verb in the dependent clause; a subject noun or pronoun comes between qui and the verb.",
+    "existing_usage": [
+      "object of verb"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Qui can be the object of the verb in the dependent clause; a subject noun or pronoun comes between qui and the verb.",
+    "formation": "verb + qui + subject + verb"
+  },
+  {
+    "rule_name": "Qui as subject relative pronoun",
+    "existing_explanation": "Qui may refer to people or things and may mean who, whom, which, what, or that. When qui is the subject, it precedes the verb in the dependent clause.",
+    "existing_summary": "Qui is used as the subject of a dependent clause, referring to people or things.",
+    "existing_usage": [
+      "subject of dependent clause"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Qui is used as the subject of a dependent clause, referring to people or things.",
+    "formation": "antecedent + qui + verb"
+  },
+  {
+    "rule_name": "Quitte à + infinitive",
+    "existing_explanation": "It expresses acceptance of a possible negative consequence in order to achieve something else.",
+    "existing_summary": "The expression quitte à + infinitive is translated as 'even if it means'.",
+    "existing_usage": [
+      "To express 'even if it means (doing something)'"
+    ],
+    "existing_signal_words": [
+      "quitte à"
+    ],
+    "existing_tags": [],
+    "summary": "The expression quitte à + infinitive is translated as 'even if it means'.",
+    "formation": "quitte à + infinitive"
+  },
+  {
+    "rule_name": "Quoi after prepositions for indefinite things",
+    "existing_explanation": "Tu sais à quoi il pense?",
+    "existing_summary": "Quoi is used after a preposition to refer to an indefinite thing or object.",
+    "existing_usage": [
+      "object of preposition referring to indefinite things"
+    ],
+    "existing_signal_words": [
+      "à",
+      "de"
+    ],
+    "existing_tags": [],
+    "summary": "Quoi is used after a preposition to refer to an indefinite thing or object.",
+    "formation": "preposition + quoi"
+  },
+  {
+    "rule_name": "Reciprocal pronominal verbs",
+    "existing_explanation": "Reciprocal verbs describe an action two or more people perform with or for each other. Since two or more people are involved, reciprocal verbs can only be used in the plural (with se, nous, vous).",
+    "existing_summary": "Action between two or more people; used in plural only.",
+    "existing_usage": [
+      "Plural subjects only"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Action between two or more people; used in plural only."
+  },
+  {
+    "rule_name": "Reciprocal verbs agreement",
+    "existing_explanation": "For reciprocal pronominal verbs, agreement depends on whether the reciprocal pronoun is direct or indirect object.",
+    "existing_summary": "Agreement with subject if direct object; no agreement if indirect object.",
+    "existing_usage": [
+      "reciprocal actions"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Agreement with subject if direct object; no agreement if indirect object."
+  },
+  {
+    "rule_name": "Regular -re verbs present tense",
+    "existing_explanation": "For regular -re verbs, remove the -re ending and add: je -s, tu -s, il/elle - (no ending), nous -ons, vous -ez, ils/elles -ent. Example: vendre -> je vends, tu vends, il vend, nous vendons, vous vendez, ils vendent.",
+    "existing_summary": "Drop -re, add endings -s, -s, - (nothing), -ons, -ez, -ent.",
+    "existing_usage": [
+      "Present tense conjugation of regular -re verbs"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Drop -re, add endings -s, -s, - (nothing), -ons, -ez, -ent.",
+    "formation": "stem + -s / -s / - / -ons / -ez / -ent"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

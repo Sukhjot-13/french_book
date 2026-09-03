@@ -1,0 +1,443 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 026_vocabulary_batch_026
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: vocabulary
+TOTAL ENTITIES IN THIS BATCH: 2
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, word_family, tags, gender, articles, plural, variants
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 026_vocabulary_batch_026_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "026_vocabulary_batch_026",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "<canonical_form_value>",
+        "part_of_speech": "<part_of_speech_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "vocabulary",
+  "natural_key": [
+    "canonical_form",
+    "part_of_speech"
+  ],
+  "required_fields": [
+    "canonical_form",
+    "display_form",
+    "english",
+    "part_of_speech",
+    "gender",
+    "articles",
+    "plural",
+    "variants",
+    "senses",
+    "aliases",
+    "search_terms",
+    "word_family",
+    "related_expressions",
+    "related_verbs",
+    "related_concepts",
+    "source_classifications",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "synonyms",
+    "antonyms",
+    "register",
+    "usage_notes",
+    "aliases",
+    "search_terms",
+    "word_family",
+    "tags",
+    "gender",
+    "articles",
+    "plural",
+    "variants"
+  ],
+  "properties": {
+    "canonical_form": {
+      "type": "string",
+      "minLength": 1
+    },
+    "part_of_speech": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "noun",
+        "verb",
+        "adjective",
+        "adverb",
+        "pronoun",
+        "determiner",
+        "preposition",
+        "conjunction",
+        "interjection",
+        "number",
+        "other",
+        "unknown",
+        null
+      ]
+    },
+    "english": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      },
+      "description": "Natural vocabulary references for synonyms."
+    },
+    "antonyms": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      },
+      "description": "Natural vocabulary references for antonyms."
+    },
+    "register": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "formal",
+        "neutral",
+        "informal",
+        "colloquial",
+        "literary",
+        "slang",
+        "technical",
+        "archaic",
+        "regional",
+        "vulgar",
+        "unknown",
+        null
+      ],
+      "description": "Typical usage register of the item."
+    },
+    "usage_notes": {
+      "$ref": "#/$defs/stringArray",
+      "description": "Usage-specific notes kept separate from general notes."
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "search_terms": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "word_family": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      }
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "gender": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "masculine",
+        "feminine",
+        "common",
+        "variable",
+        "none",
+        "unknown",
+        null
+      ]
+    },
+    "articles": {
+      "$ref": "#/$defs/articleSet"
+    },
+    "plural": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/variant"
+      }
+    }
+  },
+  "$defs": {
+    "variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "form",
+        "variant_type",
+        "note"
+      ],
+      "properties": {
+        "form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "variant_type": {
+          "type": "string",
+          "enum": [
+            "masculine",
+            "feminine",
+            "masculine_before_vowel",
+            "plural",
+            "alternate_spelling",
+            "inflected_form",
+            "other"
+          ]
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "articleSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "definite",
+        "indefinite",
+        "partitive",
+        "other"
+      ],
+      "properties": {
+        "definite": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "indefinite": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "partitive": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "vocabularyWordRef": {
+      "type": "string",
+      "minLength": 1,
+      "description": "A display-form vocabulary relation retained when part-of-speech metadata is unavailable."
+    },
+    "vocabularyRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_form",
+        "part_of_speech"
+      ],
+      "properties": {
+        "canonical_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "part_of_speech": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "noun",
+            "verb",
+            "adjective",
+            "adverb",
+            "pronoun",
+            "determiner",
+            "preposition",
+            "conjunction",
+            "interjection",
+            "number",
+            "other",
+            "unknown",
+            null
+          ]
+        }
+      }
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "œil",
+    "part_of_speech": "noun",
+    "display_form": "œil",
+    "existing_english": [
+      "eye(s)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "yeux",
+    "existing_variants": [
+      {
+        "form": "yeux",
+        "variant_type": "plural",
+        "note": "masculine plural"
+      }
+    ],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "œuvre",
+    "part_of_speech": "noun",
+    "display_form": "œuvre",
+    "existing_english": [
+      "work (of art)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

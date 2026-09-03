@@ -1,0 +1,482 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 126_examples_batch_017
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags, related_verbs, related_tenses
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 126_examples_batch_017_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "126_examples_batch_017",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "examples",
+  "natural_key": "french",
+  "required_fields": [
+    "french",
+    "english",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_tenses",
+    "related_concepts",
+    "focus_spans",
+    "tags",
+    "chapters",
+    "notes",
+    "sources"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "tags",
+    "related_verbs",
+    "related_tenses"
+  ],
+  "properties": {
+    "french": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "related_verbs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true
+    },
+    "related_tenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tenseRef"
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "tenseRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "ils parlent",
+    "existing_english": "they (m., m./f.) speak",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "parler"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "ils partageaient",
+    "existing_english": "they shared",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "partager"
+    ],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  },
+  {
+    "french": "Ils pourraient apprendre à jouer de la clarinette.",
+    "existing_english": "They could learn how to play the clarinet.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "conditionnel présent"
+    ]
+  },
+  {
+    "french": "Ils répondirent immédiatement à notre lettre.",
+    "existing_english": "They answered our letter immediately.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "répondre"
+    ],
+    "existing_related_tenses": [
+      "passé simple"
+    ]
+  },
+  {
+    "french": "Ils s'aiment beaucoup.",
+    "existing_english": "They love each other a lot.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "verb_s_aimer"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Ils s'entendent très bien.",
+    "existing_english": "They get along very well.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "s'entendre"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Ils savent gérer leurs affaires.",
+    "existing_english": "They know how to manage their business.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "savoir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Ils se préparent à partir.",
+    "existing_english": "They are getting ready to leave.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "Ils se seraient mis en colère.",
+    "existing_english": "They would have gotten angry.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "se mettre en colère"
+    ],
+    "existing_related_tenses": [
+      "conditionnel passé"
+    ]
+  },
+  {
+    "french": "Ils se sont embrassés.",
+    "existing_english": "They kissed each other.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "s'embrasser"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Ils se sont ennuyés à la réception.",
+    "existing_english": "They were (got) bored at the reception.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "verb_s_ennuyer"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Ils se sont laissés influencer très facilement.",
+    "existing_english": "They let themselves be influenced very easily.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "se laisser"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ils se sont mariés en mars.",
+    "existing_english": "They got married in March.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "se marier"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Ils se sont rencontrés à Venise.",
+    "existing_english": "They met in Venice.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "se rencontrer"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Ils se sont téléphoné.",
+    "existing_english": "They called each other.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "se téléphoner"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Ils se sont écrit de longues lettres.",
+    "existing_english": "They wrote each other long letters.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "s'écrire"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Ils sont allés au Liban.",
+    "existing_english": "They went to Lebanon.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aller"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ils sont déçus que le cours soit annulé.",
+    "existing_english": "They are disappointed that the class is canceled.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "annuler",
+      "être"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "Ils sont montés en haut de la Tour Eiffel.",
+    "existing_english": "They went to the top of the Eiffel Tower.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "monter"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Ils sont nés en Belgique.",
+    "existing_english": "They (m.) were born in Belgium.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "naître"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Ils tiennent le rythme.",
+    "existing_english": "They are keeping up the pace.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "tenir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Ils tiennent un restaurant à Nice.",
+    "existing_english": "They run a restaurant in Nice.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "tenir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Ils tiennent à leurs habitudes.",
+    "existing_english": "They are attached to their habits.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "tenir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Ils vont bientôt déménager.",
+    "existing_english": "They’re going to move soon.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aller"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Ils vont à Paris à la fin du mois.",
+    "existing_english": "They are going to Paris at the end of the month.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aller"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Ils étaient à la montagne depuis une semaine quand ils ont décidé d'aller au bord de la mer.",
+    "existing_english": "They had been in the mountains for a week when they decided to go to the seashore.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aller",
+      "décider",
+      "être"
+    ],
+    "existing_related_tenses": [
+      "imparfait",
+      "passé composé"
+    ]
+  },
+  {
+    "french": "ils/elles étaient",
+    "existing_english": "they were",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  },
+  {
+    "french": "Immédiatement, j'ai su qu'il était innocent.",
+    "existing_english": "Immediately, I realized he was innocent.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "savoir",
+      "être"
+    ],
+    "existing_related_tenses": [
+      "imparfait",
+      "passé composé"
+    ]
+  },
+  {
+    "french": "j'achète",
+    "existing_english": "I buy",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "acheter"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "J'achète mes livres chez ce libraire depuis des années.",
+    "existing_english": "I have been buying my books at this bookseller’s for years.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

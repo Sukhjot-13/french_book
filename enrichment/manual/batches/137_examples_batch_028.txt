@@ -1,0 +1,461 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 137_examples_batch_028
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags, related_verbs, related_tenses
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 137_examples_batch_028_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "137_examples_batch_028",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "examples",
+  "natural_key": "french",
+  "required_fields": [
+    "french",
+    "english",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_tenses",
+    "related_concepts",
+    "focus_spans",
+    "tags",
+    "chapters",
+    "notes",
+    "sources"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "tags",
+    "related_verbs",
+    "related_tenses"
+  ],
+  "properties": {
+    "french": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "related_verbs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true
+    },
+    "related_tenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tenseRef"
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "tenseRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Promenons-nous!",
+    "existing_english": "Let's take a walk!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "se promener"
+    ],
+    "existing_related_tenses": [
+      "impératif"
+    ]
+  },
+  {
+    "french": "Préférez-vous ces lunettes-ci ou ces lunettes-là?",
+    "existing_english": "Do you prefer these glasses or those glasses?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "préférer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Préférez-vous cette chemise-ci ou cette chemise-là?",
+    "existing_english": "Do you prefer this shirt or that shirt?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "préférer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Puis-je vous aider?",
+    "existing_english": "May I help you?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Puisque tu as le temps, aide-moi à finir mes devoirs.",
+    "existing_english": "Since you have time, help me finish my homework.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir",
+      "finir",
+      "verb_aider"
+    ],
+    "existing_related_tenses": [
+      "impératif",
+      "présent"
+    ]
+  },
+  {
+    "french": "Qu'est-ce qu'il y a?",
+    "existing_english": "What's the matter?",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Qu'est-ce que tu es en train de faire?",
+    "existing_english": "What are you doing?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "faire",
+      "être"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Qu'est-ce que vous faites ce soir?",
+    "existing_english": "What are you doing tonight?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "faire"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Quand ils étaient adolescents, ils jouaient au volley-ball le jeudi.",
+    "existing_english": "When they were teens, they would play volleyball on Thursdays.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  },
+  {
+    "french": "Quand j'étais étudiant, je lisais les journaux tous les jours.",
+    "existing_english": "When I was a student, I would read the newspapers every day.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  },
+  {
+    "french": "Que dire?",
+    "existing_english": "What is there to say?",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "Que fait-elle actuellement?",
+    "existing_english": "What is she presently doing?",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Que répondre?",
+    "existing_english": "What can I (can we) answer?",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "Quel que soit votre conseil, je prendrai rendez-vous avec le patron.",
+    "existing_english": "Whatever your advice, I will make an appointment with the boss.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Quel temps fait-il?",
+    "existing_english": "What’s the weather like?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "faire"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Quelle que soit leur décision, elle démissionnera.",
+    "existing_english": "Whatever their decision, she will resign.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "verb_demissionner",
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Quentin demande où vous allez.",
+    "existing_english": "Quentin is asking where you are going.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aller",
+      "demander"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Qui que tu sois, tu peux lui parler.",
+    "existing_english": "Whoever you are, you can talk to him.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "pouvoir",
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Qui que vous soyez, ouvrez votre cœur.",
+    "existing_english": "Whoever you are, open up your heart.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "ouvrir",
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Qui sait ce qui est arrivé?",
+    "existing_english": "Who knows what happened?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "arriver",
+      "savoir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Quitte à payer plus, je préfère voyager en première classe.",
+    "existing_english": "Even if it means paying more, I prefer traveling first class.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "payer",
+      "préférer",
+      "voyager"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Quitte à s'ennuyer, ils préfèrent rester chez eux.",
+    "existing_english": "They prefer to stay home even if it means being bored.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "préférer",
+      "rester",
+      "verb_ennuyer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Quoi faire?",
+    "existing_english": "What can we do?",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "Quoi qu'elle dise, je ne changerai pas d'avis.",
+    "existing_english": "Whatever she says, I will not change my mind.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "changer",
+      "dire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Quoi que tu fasses, je t'aimerai toujours.",
+    "existing_english": "Whatever you do, I will always love you.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aimer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Quoiqu'il fasse froid, ils se promènent dans la forêt.",
+    "existing_english": "Although it is cold, they take a walk in the forest.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "faire",
+      "verb_promener"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "Rends-moi le livre que je t'ai prêté.",
+    "existing_english": "Give me back the book I lent you.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "prêter",
+      "rendre"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Reposez-vous!",
+    "existing_english": "Take a rest!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "se reposer"
+    ],
+    "existing_related_tenses": [
+      "impératif"
+    ]
+  },
+  {
+    "french": "Reposons-nous sur un banc.",
+    "existing_english": "Let's rest on a bench.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "se reposer"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Régis finirait son roman s'il pouvait trouver une maison d'édition.",
+    "existing_english": "Régis would finish his novel if he could find a publisher.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "finir",
+      "pouvoir",
+      "trouver"
+    ],
+    "existing_related_tenses": [
+      "conditionnel présent",
+      "imparfait"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

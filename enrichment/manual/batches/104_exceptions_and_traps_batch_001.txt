@@ -1,0 +1,299 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 104_exceptions_and_traps_batch_001
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: exceptions_and_traps
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: description, why_incorrect, why_correct, memory_tip, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 104_exceptions_and_traps_batch_001_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "104_exceptions_and_traps_batch_001",
+  "collection": "exceptions_and_traps",
+  "patches": [
+    {
+      "entity_key": {
+        "title": "<title_value>",
+        "category": "<category_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "exceptions_and_traps",
+  "natural_key": [
+    "title",
+    "category"
+  ],
+  "required_fields": [
+    "title",
+    "category",
+    "description",
+    "correct_form",
+    "incorrect_form",
+    "related_grammar_rules",
+    "related_verbs",
+    "related_expressions",
+    "related_examples",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "description",
+    "why_incorrect",
+    "why_correct",
+    "memory_tip",
+    "tags"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "exception",
+        "contrast",
+        "restriction",
+        "agreement",
+        "spelling",
+        "word_order",
+        "usage",
+        "confusion",
+        "other"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "title": "-er verbs drop -s in tu imperative",
+    "category": "spelling",
+    "existing_description": "For -er verbs, the tu imperative drops the final -s of the present tense form.",
+    "existing_tags": [],
+    "correct_form": "Parle!",
+    "incorrect_form": "Parles!"
+  },
+  {
+    "title": "-t- insertion in third person singular inversion",
+    "category": "spelling",
+    "existing_description": "When forming a question by inversion with a third-person singular subject pronoun and a verb ending in a vowel, a -t- is inserted between the verb and the pronoun for pronunciation.",
+    "existing_tags": [],
+    "correct_form": "Parle-t-elle russe?",
+    "incorrect_form": "Parle-elle russe?"
+  },
+  {
+    "title": "Active vs passive voice",
+    "category": "contrast",
+    "existing_description": "The passive voice is much more common in English than in French; French tends to use the active voice.",
+    "existing_tags": []
+  },
+  {
+    "title": "Adjective after ce (c') is always masculine singular",
+    "category": "agreement",
+    "existing_description": "The demonstrative pronoun ce (c') is invariable and the adjective following ce is always masculine singular, even if it refers to a feminine antecedent.",
+    "existing_tags": [],
+    "correct_form": "C'est idiot. C'est si beau.",
+    "incorrect_form": "C'est idiote. C'est si belle."
+  },
+  {
+    "title": "Adjectives change meaning based on position",
+    "category": "contrast",
+    "existing_description": "Adjectives like ancien, cher, pauvre, propre, sale, grand, dernier have different meanings before or after the noun.",
+    "existing_tags": []
+  },
+  {
+    "title": "Agent with par vs de",
+    "category": "contrast",
+    "existing_description": "The preposition par is default, but de is used after verbs of emotion or opinion, and the agent plays a less active role.",
+    "existing_tags": []
+  },
+  {
+    "title": "Agreement in past conditional with être",
+    "category": "agreement",
+    "existing_description": "In the past conditional, past participle agrees with subject when auxiliary is être, and with preceding direct object when auxiliary is avoir.",
+    "existing_tags": [],
+    "correct_form": "Elle serait venue.",
+    "incorrect_form": "Elle serait venu."
+  },
+  {
+    "title": "Ambiguity of son, sa, ses",
+    "category": "confusion",
+    "existing_description": "Son, sa, ses can mean either his or her. Context usually prevents ambiguity; if ambiguity exists, the sentence should be rephrased.",
+    "existing_tags": [],
+    "correct_form": "son roman (his/her novel)"
+  },
+  {
+    "title": "Après requires past infinitive",
+    "category": "usage",
+    "existing_description": "Use past infinitive after après, not present infinitive.",
+    "existing_tags": [],
+    "correct_form": "après avoir/être + past participle",
+    "incorrect_form": "après + present infinitive"
+  },
+  {
+    "title": "Article change in negation",
+    "category": "restriction",
+    "existing_description": "After a negated verb, un, une, des become de or d'.",
+    "existing_tags": [],
+    "correct_form": "Je n'ai pas d'amis.",
+    "incorrect_form": "Je n'ai pas des amis."
+  },
+  {
+    "title": "Article retention/dropping with ni...ni...",
+    "category": "agreement",
+    "existing_description": "With ni...ni..., definite articles are retained, but indefinite and partitive articles are dropped.",
+    "existing_tags": [],
+    "correct_form": "Il n'aime ni le café ni le chocolat. / Elle ne commande ni eau ni vin.",
+    "incorrect_form": "Il n'aime ni café ni chocolat. / Elle ne commande ni de l'eau ni du vin."
+  },
+  {
+    "title": "Au cas où does not take subjunctive",
+    "category": "usage",
+    "existing_description": "Au cas où is followed by the conditional, not the subjunctive, despite its hypothetical meaning.",
+    "existing_tags": [],
+    "correct_form": "Au cas où il pleuvrait, prends un parapluie.",
+    "incorrect_form": "Au cas où il pleuve, prends un parapluie."
+  },
+  {
+    "title": "Avant de requires present infinitive",
+    "category": "usage",
+    "existing_description": "Use present infinitive after avant de, not past infinitive.",
+    "existing_tags": [],
+    "correct_form": "avant de + infinitive",
+    "incorrect_form": "avant de + past infinitive"
+  },
+  {
+    "title": "Causative vs simple faire + noun",
+    "category": "confusion",
+    "existing_description": "The causative form uses faire + infinitive, not faire + noun. Example: faire faire la robe (have the dress made) vs faire la robe (make the dress).",
+    "existing_tags": [],
+    "correct_form": "faire + infinitive",
+    "incorrect_form": "faire + noun when causative is intended"
+  },
+  {
+    "title": "Cities with article",
+    "category": "exception",
+    "existing_description": "Some city names include an article and must be used with it.",
+    "existing_tags": [],
+    "correct_form": "Le Caire, La Nouvelle-Orléans, La Havane, Le Havre, La Rochelle, Le Touquet",
+    "incorrect_form": "Caire, Havane, etc."
+  },
+  {
+    "title": "Color adjectives from nouns are invariable",
+    "category": "exception",
+    "existing_description": "Color adjectives that are also nouns of fruit or plants (orange, marron, safran) remain in masculine singular.",
+    "existing_tags": []
+  },
+  {
+    "title": "Compound color adjectives are invariable",
+    "category": "exception",
+    "existing_description": "Compound color adjectives (vert clair, gris foncé, etc.) remain in masculine singular.",
+    "existing_tags": []
+  },
+  {
+    "title": "Compound demonstrative pronouns may be derogatory",
+    "category": "usage",
+    "existing_description": "Celui-ci/celui-là (and feminine/plural forms) may carry a condescending or derogatory meaning when used to talk about a person who is not present.",
+    "existing_tags": []
+  },
+  {
+    "title": "Contraction of à + le/les",
+    "category": "spelling",
+    "existing_description": "Remember that à + le = au and à + les = aux, but no contraction with la or l'.",
+    "existing_tags": [],
+    "correct_form": "au, aux",
+    "incorrect_form": "à le, à les"
+  },
+  {
+    "title": "Could for polite requests vs other uses",
+    "category": "contrast",
+    "existing_description": "Use conditionnel présent of pouvoir for polite requests, not passé composé or imparfait.",
+    "existing_tags": [],
+    "correct_form": "Pourrais-tu...?",
+    "incorrect_form": "As-tu pu...? (for polite request)"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

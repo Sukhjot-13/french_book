@@ -1,14 +1,14 @@
 ================================================================================
-L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 003_tenses_batch_001
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 158_exercises_batch_015
 ================================================================================
 
 PROJECT CONTEXT & ROLE:
 You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
 a high-precision French revision curriculum. You are producing structured patch data.
 
-TARGET COLLECTION: tenses
-TOTAL ENTITIES IN THIS BATCH: 8
-TARGET ENRICHMENT FIELDS: english_name, usage, signal_words, tags
+TARGET COLLECTION: exercises
+TOTAL ENTITIES IN THIS BATCH: 7
+TARGET ENRICHMENT FIELDS: instructions, notes, tags
 
 CRITICAL RULES & INTEGRITY DIRECTIVES:
 1. EXISTING DATA IS AUTHORITATIVE:
@@ -34,7 +34,7 @@ CRITICAL RULES & INTEGRITY DIRECTIVES:
 7. ACCURACY & ORTHOGRAPHY:
    - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
 8. STRICT OUTPUT FORMAT:
-   - Create one UTF-8 JSON FILE named exactly: 003_tenses_batch_001_RESPONSE.json
+   - Create one UTF-8 JSON FILE named exactly: 158_exercises_batch_015_RESPONSE.json
    - Attach that JSON file as your response so it can be downloaded directly.
    - The file must contain only the JSON object; no Markdown or conversational text.
 
@@ -42,11 +42,14 @@ CRITICAL RULES & INTEGRITY DIRECTIVES:
 EXPECTED JSON RESPONSE CONTRACT:
 --------------------------------------------------------------------------------
 {
-  "batch_id": "003_tenses_batch_001",
-  "collection": "tenses",
+  "batch_id": "158_exercises_batch_015",
+  "collection": "exercises",
   "patches": [
     {
-      "entity_key": "<name_value>",
+      "entity_key": {
+        "chapter_number": "<chapter_number_value>",
+        "exercise_code": "<exercise_code_value>"
+      },
       "operations": [
         {
           "operation": "add_unique",
@@ -72,67 +75,61 @@ EXPECTED JSON RESPONSE CONTRACT:
 COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
 --------------------------------------------------------------------------------
 {
-  "collection": "tenses",
-  "natural_key": "name",
+  "collection": "exercises",
+  "natural_key": [
+    "chapter_number",
+    "exercise_code"
+  ],
   "required_fields": [
-    "name",
-    "english_name",
-    "mood",
-    "formation",
-    "usage",
-    "signal_words",
-    "regular_patterns",
-    "irregular_stems",
-    "compound_structure",
-    "agreement_rules",
-    "negative_form",
-    "interrogative_form",
-    "affirmative_form",
-    "common_traps",
-    "related_tenses",
+    "chapter_number",
+    "exercise_code",
+    "title",
+    "exercise_type",
+    "instructions",
+    "section_title",
+    "pages",
+    "questions",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
     "related_grammar_rules",
-    "tags",
-    "study",
-    "chapters",
-    "sources",
-    "notes"
+    "related_tenses",
+    "related_concepts",
+    "notes",
+    "sources"
   ],
   "allowed_enrichment_fields": [
-    "english_name",
-    "usage",
-    "signal_words",
+    "instructions",
+    "notes",
     "tags"
   ],
   "properties": {
-    "name": {
+    "chapter_number": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1,
+      "maximum": 999
+    },
+    "exercise_code": {
       "type": "string",
       "minLength": 1
     },
-    "english_name": {
+    "instructions": {
       "type": [
         "string",
         "null"
       ]
     },
-    "usage": {
-      "$ref": "#/$defs/stringArray"
-    },
-    "signal_words": {
-      "$ref": "#/$defs/stringArray"
-    },
-    "tags": {
-      "$ref": "#/$defs/stringArray"
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
     }
   },
-  "$defs": {
-    "stringArray": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "uniqueItems": true
-    }
-  }
+  "$defs": {}
 }
 
 --------------------------------------------------------------------------------
@@ -140,76 +137,67 @@ ENTITIES TO ENRICH (EXISTING CONTEXT):
 --------------------------------------------------------------------------------
 [
   {
-    "name": "imparfait passif",
-    "mood": "indicative",
-    "existing_english_name": "Imparfait passif",
-    "existing_usage": [],
-    "existing_signal_words": [],
-    "existing_tags": [],
-    "english_name": "Imparfait passif"
+    "chapter_number": 26,
+    "exercise_code": "26-6",
+    "title": null,
+    "existing_instructions": "Écrire les nombres suivants en toutes lettres.",
+    "existing_notes": null,
+    "instructions": "Écrire les nombres suivants en toutes lettres.",
+    "questions_count": 10
   },
   {
-    "name": "imperative mood",
-    "mood": "imperative",
-    "existing_english_name": "Imperative mood",
-    "existing_usage": [],
-    "existing_signal_words": [],
-    "existing_tags": [],
-    "english_name": "Imperative mood"
+    "chapter_number": 26,
+    "exercise_code": "26-7",
+    "title": null,
+    "existing_instructions": "Écrire les nombres suivants en toutes lettres.",
+    "existing_notes": null,
+    "instructions": "Écrire les nombres suivants en toutes lettres.",
+    "questions_count": 10
   },
   {
-    "name": "impératif",
-    "mood": "imperative",
-    "existing_english_name": "Impératif",
-    "existing_usage": [],
-    "existing_signal_words": [],
-    "existing_tags": [],
-    "english_name": "Impératif"
+    "chapter_number": 26,
+    "exercise_code": "26-8",
+    "title": null,
+    "existing_instructions": "Dans les phrases suivantes, transcrire les nombres.",
+    "existing_notes": null,
+    "instructions": "Dans les phrases suivantes, transcrire les nombres.",
+    "questions_count": 10
   },
   {
-    "name": "participe présent",
-    "mood": "participle",
-    "existing_english_name": "Participe présent",
-    "existing_usage": [],
-    "existing_signal_words": [],
-    "existing_tags": [],
-    "english_name": "Participe présent"
+    "chapter_number": 27,
+    "exercise_code": "27-1",
+    "title": null,
+    "existing_instructions": "Compléter avec la préposition appropriée.",
+    "existing_notes": null,
+    "instructions": "Compléter avec la préposition appropriée.",
+    "questions_count": 10
   },
   {
-    "name": "passé antérieur",
-    "mood": "indicative",
-    "existing_english_name": "Passé antérieur",
-    "existing_usage": [],
-    "existing_signal_words": [],
-    "existing_tags": [],
-    "english_name": "Passé antérieur"
+    "chapter_number": 27,
+    "exercise_code": "27-2",
+    "title": null,
+    "existing_instructions": "Traduire en anglais les phrases suivantes.",
+    "existing_notes": null,
+    "instructions": "Traduire en anglais les phrases suivantes.",
+    "questions_count": 5
   },
   {
-    "name": "passé composé",
-    "mood": "indicatif",
-    "existing_english_name": "Passé composé",
-    "existing_usage": [],
-    "existing_signal_words": [],
-    "existing_tags": [],
-    "english_name": "Passé composé"
+    "chapter_number": 27,
+    "exercise_code": "27-3",
+    "title": null,
+    "existing_instructions": "Traduire les phrases entre parenthèses en utilisant tu si nécessaire.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases entre parenthèses en utilisant tu si nécessaire.",
+    "questions_count": 10
   },
   {
-    "name": "passé composé passif",
-    "mood": "indicative",
-    "existing_english_name": "Passé composé passif",
-    "existing_usage": [],
-    "existing_signal_words": [],
-    "existing_tags": [],
-    "english_name": "Passé composé passif"
-  },
-  {
-    "name": "passé simple",
-    "mood": "indicative",
-    "existing_english_name": "Passé simple",
-    "existing_usage": [],
-    "existing_signal_words": [],
-    "existing_tags": [],
-    "english_name": "Passé simple"
+    "chapter_number": 27,
+    "exercise_code": "27-4",
+    "title": null,
+    "existing_instructions": "Traduire les phrases suivantes en utilisant tu si nécessaire.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases suivantes en utilisant tu si nécessaire.",
+    "questions_count": 10
   }
 ]
 

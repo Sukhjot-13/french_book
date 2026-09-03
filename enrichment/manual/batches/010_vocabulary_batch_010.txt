@@ -1,0 +1,1713 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 010_vocabulary_batch_010
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: vocabulary
+TOTAL ENTITIES IN THIS BATCH: 40
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, word_family, tags, gender, articles, plural, variants
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 010_vocabulary_batch_010_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "010_vocabulary_batch_010",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "<canonical_form_value>",
+        "part_of_speech": "<part_of_speech_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "vocabulary",
+  "natural_key": [
+    "canonical_form",
+    "part_of_speech"
+  ],
+  "required_fields": [
+    "canonical_form",
+    "display_form",
+    "english",
+    "part_of_speech",
+    "gender",
+    "articles",
+    "plural",
+    "variants",
+    "senses",
+    "aliases",
+    "search_terms",
+    "word_family",
+    "related_expressions",
+    "related_verbs",
+    "related_concepts",
+    "source_classifications",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "synonyms",
+    "antonyms",
+    "register",
+    "usage_notes",
+    "aliases",
+    "search_terms",
+    "word_family",
+    "tags",
+    "gender",
+    "articles",
+    "plural",
+    "variants"
+  ],
+  "properties": {
+    "canonical_form": {
+      "type": "string",
+      "minLength": 1
+    },
+    "part_of_speech": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "noun",
+        "verb",
+        "adjective",
+        "adverb",
+        "pronoun",
+        "determiner",
+        "preposition",
+        "conjunction",
+        "interjection",
+        "number",
+        "other",
+        "unknown",
+        null
+      ]
+    },
+    "english": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      },
+      "description": "Natural vocabulary references for synonyms."
+    },
+    "antonyms": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      },
+      "description": "Natural vocabulary references for antonyms."
+    },
+    "register": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "formal",
+        "neutral",
+        "informal",
+        "colloquial",
+        "literary",
+        "slang",
+        "technical",
+        "archaic",
+        "regional",
+        "vulgar",
+        "unknown",
+        null
+      ],
+      "description": "Typical usage register of the item."
+    },
+    "usage_notes": {
+      "$ref": "#/$defs/stringArray",
+      "description": "Usage-specific notes kept separate from general notes."
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "search_terms": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "word_family": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      }
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "gender": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "masculine",
+        "feminine",
+        "common",
+        "variable",
+        "none",
+        "unknown",
+        null
+      ]
+    },
+    "articles": {
+      "$ref": "#/$defs/articleSet"
+    },
+    "plural": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/variant"
+      }
+    }
+  },
+  "$defs": {
+    "variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "form",
+        "variant_type",
+        "note"
+      ],
+      "properties": {
+        "form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "variant_type": {
+          "type": "string",
+          "enum": [
+            "masculine",
+            "feminine",
+            "masculine_before_vowel",
+            "plural",
+            "alternate_spelling",
+            "inflected_form",
+            "other"
+          ]
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "articleSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "definite",
+        "indefinite",
+        "partitive",
+        "other"
+      ],
+      "properties": {
+        "definite": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "indefinite": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "partitive": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "vocabularyWordRef": {
+      "type": "string",
+      "minLength": 1,
+      "description": "A display-form vocabulary relation retained when part-of-speech metadata is unavailable."
+    },
+    "vocabularyRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_form",
+        "part_of_speech"
+      ],
+      "properties": {
+        "canonical_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "part_of_speech": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "noun",
+            "verb",
+            "adjective",
+            "adverb",
+            "pronoun",
+            "determiner",
+            "preposition",
+            "conjunction",
+            "interjection",
+            "number",
+            "other",
+            "unknown",
+            null
+          ]
+        }
+      }
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "four à micro-ondes",
+    "part_of_speech": "noun",
+    "display_form": "un four à micro-ondes",
+    "existing_english": [
+      "a microwave oven"
+    ],
+    "existing_aliases": [
+      "micro-ondes"
+    ],
+    "existing_search_terms": [
+      "four à micro-ondes",
+      "microwave"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fourchette",
+    "part_of_speech": "noun",
+    "display_form": "une fourchette",
+    "existing_english": [
+      "a fork"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "fork",
+      "fourchette"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fournisseur d'accès",
+    "part_of_speech": "noun",
+    "display_form": "fournisseur d'accès",
+    "existing_english": [
+      "an access provider"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "access provider",
+      "fournisseur d'accès"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "frais",
+    "part_of_speech": "adjective",
+    "display_form": "frais, fraîche",
+    "existing_english": [
+      "cool",
+      "fresh"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cool",
+      "frais",
+      "fraîche",
+      "fresh"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [
+      {
+        "form": "fraîche",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "fraîche",
+        "variant_type": "feminine",
+        "note": "feminine form"
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "français",
+    "part_of_speech": "noun",
+    "display_form": "le français",
+    "existing_english": [
+      "French"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "français",
+      "le français"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "froid",
+    "part_of_speech": "adjective",
+    "display_form": "froid",
+    "existing_english": [
+      "cold"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cold",
+      "froid"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": null,
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fromage",
+    "part_of_speech": "noun",
+    "display_form": "fromage",
+    "existing_english": [
+      "cheese"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cheese",
+      "fromage"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "les fromages",
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "frère",
+    "part_of_speech": "noun",
+    "display_form": "un frère",
+    "existing_english": [
+      "a brother"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "frère"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "des frères",
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fréquemment",
+    "part_of_speech": "adverb",
+    "display_form": "fréquemment",
+    "existing_english": [
+      "frequently"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fusillade",
+    "part_of_speech": "noun",
+    "display_form": "une fusillade",
+    "existing_english": [
+      "a gun battle",
+      "a shoot-out",
+      "shoot-out"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "fusillade"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "février",
+    "part_of_speech": "noun",
+    "display_form": "février",
+    "existing_english": [
+      "February"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "February",
+      "février"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fête",
+    "part_of_speech": "noun",
+    "display_form": "fête",
+    "existing_english": [
+      "celebration"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "gaffe",
+    "part_of_speech": "noun",
+    "display_form": "gaffe",
+    "existing_english": [
+      "blunder"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "gagnant",
+    "part_of_speech": "noun",
+    "display_form": "un gagnant",
+    "existing_english": [
+      "a winner"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "gagnant",
+      "winner"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "gagnants",
+    "existing_variants": [
+      {
+        "form": "gagnante",
+        "variant_type": "other",
+        "note": null
+      }
+    ],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "gagnante",
+    "part_of_speech": "noun",
+    "display_form": "une gagnante",
+    "existing_english": [
+      "a winner (female)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "gagnante",
+      "winner"
+    ],
+    "existing_word_family": [
+      {
+        "canonical_form": "gagnant",
+        "part_of_speech": "noun"
+      }
+    ],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "gagnantes",
+    "existing_variants": [
+      {
+        "form": "gagnant",
+        "variant_type": "other",
+        "note": null
+      }
+    ],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "word_family": [
+      {
+        "canonical_form": "gagnant",
+        "part_of_speech": "noun"
+      }
+    ]
+  },
+  {
+    "canonical_form": "galerie",
+    "part_of_speech": "noun",
+    "display_form": "une galerie",
+    "existing_english": [
+      "a gallery"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "galerie",
+      "gallery"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "garage",
+    "part_of_speech": "noun",
+    "display_form": "le garage",
+    "existing_english": [
+      "garage"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "garage"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "gaspiller",
+    "part_of_speech": "verb",
+    "display_form": "gaspiller",
+    "existing_english": [
+      "to waste"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "gaspiller"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "gauche",
+    "part_of_speech": "noun",
+    "display_form": "la gauche",
+    "existing_english": [
+      "left",
+      "the left"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "gauche"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "genou",
+    "part_of_speech": "noun",
+    "display_form": "le genou",
+    "existing_english": [
+      "knee"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "genou"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "gentil",
+    "part_of_speech": "adjective",
+    "display_form": "gentil(le)",
+    "existing_english": [
+      "kind",
+      "nice"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "gentil",
+      "gentille",
+      "kind",
+      "nice"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [
+      {
+        "form": "gentille",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "gentille",
+        "variant_type": "feminine",
+        "note": "feminine form"
+      },
+      {
+        "form": "sympathique",
+        "variant_type": "other",
+        "note": "synonym"
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "girafe",
+    "part_of_speech": "noun",
+    "display_form": "une girafe",
+    "existing_english": [
+      "giraffe"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "girafe",
+      "giraffe"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "girafes",
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "golf",
+    "part_of_speech": "noun",
+    "display_form": "le golf",
+    "existing_english": [
+      "golf"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "golf"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "gouvernement",
+    "part_of_speech": "noun",
+    "display_form": "le gouvernement",
+    "existing_english": [
+      "government"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "gouvernement"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "grand",
+    "part_of_speech": "adjective",
+    "display_form": "grand",
+    "existing_english": [
+      "big",
+      "important",
+      "tall"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "big",
+      "grand",
+      "grande",
+      "important",
+      "tall"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "grands",
+    "existing_variants": [
+      {
+        "form": "grande",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "grands",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "grandes",
+        "variant_type": "other",
+        "note": null
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "grand-mère",
+    "part_of_speech": "noun",
+    "display_form": "une grand-mère",
+    "existing_english": [
+      "a grandmother"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "grand-mère"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "des grands-mères",
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "grand-père",
+    "part_of_speech": "noun",
+    "display_form": "un grand-père",
+    "existing_english": [
+      "a grandfather"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "grand-père"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "des grands-pères",
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "grasse matinée",
+    "part_of_speech": "noun",
+    "display_form": "la grasse matinée",
+    "existing_english": [
+      "lie-in",
+      "sleeping in"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "grasse matinée",
+      "sleep in"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "gravure",
+    "part_of_speech": "noun",
+    "display_form": "une gravure",
+    "existing_english": [
+      "an etching",
+      "etching"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "etching",
+      "gravure"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "grenouille",
+    "part_of_speech": "noun",
+    "display_form": "une grenouille",
+    "existing_english": [
+      "frog"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "frog",
+      "grenouille"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "grenouilles",
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "grille-pain",
+    "part_of_speech": "noun",
+    "display_form": "un grille-pain",
+    "existing_english": [
+      "a toaster"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "grille-pain",
+      "toaster"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "grippe",
+    "part_of_speech": "noun",
+    "display_form": "la grippe",
+    "existing_english": [
+      "flu"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "flu",
+      "grippe"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "gris",
+    "part_of_speech": "adjective",
+    "display_form": "gris",
+    "existing_english": [
+      "gray"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "gray",
+      "gris",
+      "grise"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "gris",
+    "existing_variants": [
+      {
+        "form": "grise",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "gris",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "grises",
+        "variant_type": "other",
+        "note": null
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "guerre",
+    "part_of_speech": "noun",
+    "display_form": "guerre",
+    "existing_english": [
+      "war"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "guitare",
+    "part_of_speech": "noun",
+    "display_form": "la guitare",
+    "existing_english": [
+      "guitar"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "guitar",
+      "guitare"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "guitare électrique",
+    "part_of_speech": "noun",
+    "display_form": "la guitare électrique",
+    "existing_english": [
+      "electric guitar"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "electric guitar",
+      "guitare électrique"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "gélule",
+    "part_of_speech": "noun",
+    "display_form": "une gélule",
+    "existing_english": [
+      "a capsule"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "capsule",
+      "gélule"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "des gélules",
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "généreux",
+    "part_of_speech": "adjective",
+    "display_form": "généreux",
+    "existing_english": [
+      "generous"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "generous",
+      "généreuse",
+      "généreux"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "généreux",
+    "existing_variants": [
+      {
+        "form": "généreuse",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "généreux",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "généreuses",
+        "variant_type": "other",
+        "note": null
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "géraniums",
+    "part_of_speech": "noun",
+    "display_form": "les géraniums",
+    "existing_english": [
+      "geraniums"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "geraniums",
+      "géraniums"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "géraniums",
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "habitude",
+    "part_of_speech": "noun",
+    "display_form": "habitude",
+    "existing_english": [
+      "habit"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

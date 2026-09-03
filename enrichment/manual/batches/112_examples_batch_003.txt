@@ -1,0 +1,429 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 112_examples_batch_003
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags, related_verbs, related_tenses
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 112_examples_batch_003_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "112_examples_batch_003",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "examples",
+  "natural_key": "french",
+  "required_fields": [
+    "french",
+    "english",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_tenses",
+    "related_concepts",
+    "focus_spans",
+    "tags",
+    "chapters",
+    "notes",
+    "sources"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "tags",
+    "related_verbs",
+    "related_tenses"
+  ],
+  "properties": {
+    "french": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "related_verbs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true
+    },
+    "related_tenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tenseRef"
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "tenseRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "C'est vous qui êtes le propriétaire?",
+    "existing_english": "Are you the owner?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est à moi.",
+    "existing_english": "It's mine.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est à Pierre?",
+    "existing_english": "Is it Pierre's?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est à qui?",
+    "existing_english": "Whose is it?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est écrit dessus.",
+    "existing_english": "It’s written on it.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Carole aime les plats italiens.",
+    "existing_english": "Carole loves Italian dishes.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aimer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Caroline est généreuse.",
+    "existing_english": "Caroline is generous.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce château est vieux.",
+    "existing_english": "This castle is old.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce célèbre chanteur français se serait installé en Suisse.",
+    "existing_english": "This famous French singer reportedly moved to Switzerland.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "s'installer"
+    ],
+    "existing_related_tenses": [
+      "conditionnel passé"
+    ]
+  },
+  {
+    "french": "Ce dont il a envie, c'est de cet automate.",
+    "existing_english": "What he’d like is this automaton!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir envie de"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce gérant est estimé de ses employés.",
+    "existing_english": "This manager is respected by his employees.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "estimer",
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce jeu est fou.",
+    "existing_english": "This game is crazy.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce jeu est interactif.",
+    "existing_english": "This game is interactive.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce jeune chef est vraiment doué.",
+    "existing_english": "This young chef is really talented.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "ce livre",
+    "existing_english": "this book",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce livre est bon.",
+    "existing_english": "This book is good.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce livre-ci est meilleur que ce livre-là.",
+    "existing_english": "This book is better than that book.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce manoir a été construit par une famille fortunée.",
+    "existing_english": "This mansion was built by a wealthy family.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "construire",
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce modèle est plus récent que le mien.",
+    "existing_english": "This model is more recent than mine.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce n'est guère raisonnable.",
+    "existing_english": "It's hardly reasonable.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "verb_être"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Ce n'est pas de l'eau potable.",
+    "existing_english": "It’s not drinking water.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce n'est pas de la porcelaine.",
+    "existing_english": "It’s not porcelain.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce n'est pas du fromage de chèvre.",
+    "existing_english": "It’s not goat cheese.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce parc se trouve dans l'État de Washington.",
+    "existing_english": "This park is located in Washington State.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "verb_se_trouver"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce produit est dangereux.",
+    "existing_english": "This product is dangerous.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce professeur est apprécié de ses étudiants.",
+    "existing_english": "This teacher is appreciated by his students.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "apprécier",
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce qu'elle adore, c'est acheter des vieilles chaises.",
+    "existing_english": "She loves buying old chairs!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "acheter",
+      "verb_adorer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce qui est amusant, c'est les marchés aux puces.",
+    "existing_english": "Flea markets are fun!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce rapport a été fait par un consultant américain.",
+    "existing_english": "This report was written by an American consultant.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "faire",
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Ce roman est bon.",
+    "existing_english": "This novel is good.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

@@ -1,0 +1,651 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 061_expressions_batch_010
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 061_expressions_batch_010_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "061_expressions_batch_010",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "expressions",
+  "natural_key": "canonical_form",
+  "required_fields": [
+    "canonical_form",
+    "display_form",
+    "english",
+    "expression_type",
+    "productive",
+    "pattern",
+    "pattern_slots",
+    "related_verbs",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_concepts",
+    "prepositions",
+    "complement_structure",
+    "restrictions",
+    "transformations",
+    "aliases",
+    "search_terms",
+    "collocation_strength",
+    "source_classifications",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "synonyms",
+    "antonyms",
+    "register",
+    "usage_notes",
+    "aliases",
+    "search_terms",
+    "collocation_strength",
+    "tags"
+  ],
+  "properties": {
+    "canonical_form": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/expressionRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to synonymous expressions."
+    },
+    "antonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/expressionRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to antonymous expressions."
+    },
+    "register": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "formal",
+        "neutral",
+        "informal",
+        "colloquial",
+        "literary",
+        "slang",
+        "technical",
+        "archaic",
+        "regional",
+        "vulgar",
+        "unknown",
+        null
+      ],
+      "description": "Typical usage register of the item."
+    },
+    "usage_notes": {
+      "$ref": "#/$defs/stringArray",
+      "description": "Usage-specific notes kept separate from general notes."
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "search_terms": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "collocation_strength": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "strong",
+        "common",
+        "possible",
+        "unknown",
+        null
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "expressionRef": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "l'avant-veille",
+    "display_form": "l'avant-veille",
+    "existing_english": [
+      "two days before"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "two days before"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "la dernière semaine",
+    "display_form": "la dernière semaine",
+    "existing_english": [
+      "the last week (of a sequence)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "last week (sequence)"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "la première fois que",
+    "display_form": "la première fois que",
+    "existing_english": [
+      "the first time that"
+    ],
+    "existing_aliases": [
+      "la première fois"
+    ],
+    "existing_search_terms": [
+      "la première fois que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "la première fois que + clause",
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "la semaine dernière",
+    "display_form": "la semaine dernière",
+    "existing_english": [
+      "last week"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "last week"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "la semaine prochaine",
+    "display_form": "la semaine prochaine",
+    "existing_english": [
+      "next week"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "next week"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "la semaine suivante",
+    "display_form": "la semaine suivante",
+    "existing_english": [
+      "the following week"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "following week"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "la veille",
+    "display_form": "la veille",
+    "existing_english": [
+      "the day before"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "eve",
+      "the day before"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "le bulletin de vote",
+    "display_form": "le bulletin de vote",
+    "existing_english": [
+      "(paper) ballot"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bulletin de vote"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "le deuxième tour",
+    "display_form": "le deuxième tour",
+    "existing_english": [
+      "second round"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "deuxième tour"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "le droit de vote",
+    "display_form": "le droit de vote",
+    "existing_english": [
+      "right to vote"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "droit de vote"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "le jour même",
+    "display_form": "le jour même",
+    "existing_english": [
+      "the very day"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "same day",
+      "the very day"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "le lendemain",
+    "display_form": "le lendemain",
+    "existing_english": [
+      "the day after"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "next day",
+      "the day after"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "le mardi",
+    "display_form": "le mardi",
+    "existing_english": [
+      "on Tuesdays"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "le premier tour",
+    "display_form": "le premier tour",
+    "existing_english": [
+      "first round"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "premier tour"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "le suffrage universel",
+    "display_form": "le suffrage universel",
+    "existing_english": [
+      "universal suffrage"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "suffrage universel"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "le surlendemain",
+    "display_form": "le surlendemain",
+    "existing_english": [
+      "two days later"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "two days later"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "le vendredi",
+    "display_form": "le vendredi",
+    "existing_english": [
+      "on Fridays"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "loin",
+    "display_form": "loin",
+    "existing_english": [
+      "far"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "far"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "longtemps",
+    "display_form": "longtemps",
+    "existing_english": [
+      "for a long time"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "for a long time"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "là",
+    "display_form": "là",
+    "existing_english": [
+      "there"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "there"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "là-bas",
+    "display_form": "là-bas",
+    "existing_english": [
+      "over there"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "over there"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "là-haut",
+    "display_form": "là-haut",
+    "existing_english": [
+      "up there"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "up there"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "maintenant",
+    "display_form": "maintenant",
+    "existing_english": [
+      "now"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "now"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "maintenant que",
+    "display_form": "maintenant que",
+    "existing_english": [
+      "now that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "manquer de + nom",
+    "display_form": "manquer de + noun",
+    "existing_english": [
+      "to lack something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "lack",
+      "manquer de"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "manquer de + NOM",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "manquer le train",
+    "display_form": "manquer le train",
+    "existing_english": [
+      "to miss the train"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "manquer le train"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "manquer à + personne",
+    "display_form": "manquer à + person",
+    "existing_english": [
+      "to be missed by someone (literally: to be lacking to someone)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "manquer à quelqu'un",
+      "miss someone"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "PERSONNE + manquer à + PERSONNE",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "manquer à + promesse/devoir",
+    "display_form": "manquer à + promise/duty",
+    "existing_english": [
+      "to fail to keep (a promise)",
+      "to neglect (a duty)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "fail promise",
+      "manquer à",
+      "neglect duty"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "manquer à + NOM (promesse/devoir)",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "marquer un but",
+    "display_form": "marquer un but",
+    "existing_english": [
+      "to score a goal"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "marquer un but",
+      "score a goal"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "moi aussi",
+    "display_form": "moi aussi",
+    "existing_english": [
+      "me too"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "conversation_phrase"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

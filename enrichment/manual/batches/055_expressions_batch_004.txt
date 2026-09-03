@@ -1,0 +1,705 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 055_expressions_batch_004
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 055_expressions_batch_004_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "055_expressions_batch_004",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "expressions",
+  "natural_key": "canonical_form",
+  "required_fields": [
+    "canonical_form",
+    "display_form",
+    "english",
+    "expression_type",
+    "productive",
+    "pattern",
+    "pattern_slots",
+    "related_verbs",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_concepts",
+    "prepositions",
+    "complement_structure",
+    "restrictions",
+    "transformations",
+    "aliases",
+    "search_terms",
+    "collocation_strength",
+    "source_classifications",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "synonyms",
+    "antonyms",
+    "register",
+    "usage_notes",
+    "aliases",
+    "search_terms",
+    "collocation_strength",
+    "tags"
+  ],
+  "properties": {
+    "canonical_form": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/expressionRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to synonymous expressions."
+    },
+    "antonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/expressionRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to antonymous expressions."
+    },
+    "register": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "formal",
+        "neutral",
+        "informal",
+        "colloquial",
+        "literary",
+        "slang",
+        "technical",
+        "archaic",
+        "regional",
+        "vulgar",
+        "unknown",
+        null
+      ],
+      "description": "Typical usage register of the item."
+    },
+    "usage_notes": {
+      "$ref": "#/$defs/stringArray",
+      "description": "Usage-specific notes kept separate from general notes."
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "search_terms": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "collocation_strength": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "strong",
+        "common",
+        "possible",
+        "unknown",
+        null
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "expressionRef": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "baisser le prix",
+    "display_form": "baisser le prix",
+    "existing_english": [
+      "to lower the price"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "baisser le prix",
+      "lower the price"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "bien que + subjonctif",
+    "display_form": "bien que",
+    "existing_english": [
+      "although"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bien que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "bien que + subjonctif",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "c'est du fromage",
+    "display_form": "c’est du fromage",
+    "existing_english": [
+      "it's (some) cheese"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "c'est du fromage",
+      "it's cheese"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "c'est du/de la/de l'/des + noun",
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "ce dont",
+    "display_form": "ce dont",
+    "existing_english": [
+      "what",
+      "that of which"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ce dont",
+      "what"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "functional_phrase",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "ce n'est pas du fromage",
+    "display_form": "ce n’est pas du fromage",
+    "existing_english": [
+      "it's not cheese"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ce n'est pas du fromage",
+      "it's not cheese"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "ce n'est pas du/de la/de l'/des + noun",
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "ce que",
+    "display_form": "ce que",
+    "existing_english": [
+      "what",
+      "that which"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ce que",
+      "what"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "functional_phrase"
+  },
+  {
+    "canonical_form": "ce qui",
+    "display_form": "ce qui",
+    "existing_english": [
+      "what",
+      "that which"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ce qui",
+      "what"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "functional_phrase"
+  },
+  {
+    "canonical_form": "ce à quoi",
+    "display_form": "ce à quoi",
+    "existing_english": [
+      "what",
+      "that to which"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ce a quoi",
+      "ce à quoi",
+      "what"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "functional_phrase",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "cela fait... que",
+    "display_form": "cela fait [duration] que",
+    "existing_english": [
+      "for (duration)"
+    ],
+    "existing_aliases": [
+      "ça fait... que"
+    ],
+    "existing_search_terms": [
+      "cela fait que",
+      "for ... now",
+      "ça fait que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "cela/ça fait + [duration] + que + [clause]",
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "cela ne vaut pas la peine que + subjonctif",
+    "display_form": "cela ne vaut pas la peine que",
+    "existing_english": [
+      "it is not worth it that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cela ne vaut pas la peine que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "cela ne vaut pas la peine que + subjonctif",
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "changer de coiffure",
+    "display_form": "changer de coiffure",
+    "existing_english": [
+      "to change haircut"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "change haircut",
+      "changer de coiffure"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "chaque année",
+    "display_form": "chaque année",
+    "existing_english": [
+      "every year"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "chaque jour",
+    "display_form": "chaque jour",
+    "existing_english": [
+      "every day"
+    ],
+    "existing_aliases": [
+      "tous les jours"
+    ],
+    "existing_search_terms": [
+      "every day"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "chaque mois",
+    "display_form": "chaque mois",
+    "existing_english": [
+      "every month"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "chaque semaine",
+    "display_form": "chaque semaine",
+    "existing_english": [
+      "every week"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "circuler en vélo",
+    "display_form": "circuler en vélo",
+    "existing_english": [
+      "to ride a bike"
+    ],
+    "existing_aliases": [
+      "faire du vélo"
+    ],
+    "existing_search_terms": [
+      "circuler en vélo",
+      "ride a bike"
+    ],
+    "existing_collocation_strength": "possible",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "en"
+    ]
+  },
+  {
+    "canonical_form": "combien",
+    "display_form": "combien",
+    "existing_english": [
+      "how much",
+      "how many"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "how many",
+      "how much"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "question_construction"
+  },
+  {
+    "canonical_form": "comme d'habitude",
+    "display_form": "comme d'habitude",
+    "existing_english": [
+      "as usual"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "commencer par + nom/infinitif",
+    "display_form": "commencer par + noun/infinitive",
+    "existing_english": [
+      "to start by doing something",
+      "to start with something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "commencer par",
+      "start by",
+      "start with"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "commencer par + NOM/INF",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "par"
+    ]
+  },
+  {
+    "canonical_form": "commencer à + infinitif",
+    "display_form": "commencer à + infinitive",
+    "existing_english": [
+      "to begin doing something",
+      "to start doing something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "begin",
+      "commencer à",
+      "start"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "commencer à + INF",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "comment",
+    "display_form": "comment",
+    "existing_english": [
+      "how"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "how"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "question_construction"
+  },
+  {
+    "canonical_form": "comment ça se traduit",
+    "display_form": "comment ça se traduit ?",
+    "existing_english": [
+      "how is it translated?"
+    ],
+    "existing_aliases": [
+      "comment ça se traduit"
+    ],
+    "existing_search_terms": [
+      "comment ça se traduit"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "connaître + direct object",
+    "display_form": "connaître quelqu'un/quelque chose",
+    "existing_english": [
+      "to know (someone/something)",
+      "to be acquainted with"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "be acquainted with",
+      "connaitre",
+      "to know"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "connaître + noun/pronoun",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "croire + infinitif",
+    "display_form": "croire + infinitive",
+    "existing_english": [
+      "to think (that) one can do something",
+      "to believe (that) one does something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "croire + infinitive",
+      "think can"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "croire + INF",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "croire en + personne/Dieu",
+    "display_form": "croire en + person/God",
+    "existing_english": [
+      "to believe in (a person or God)",
+      "to have faith in"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "believe in",
+      "croire en",
+      "faith"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "croire en + PERSONNE/DIEU",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "en"
+    ]
+  },
+  {
+    "canonical_form": "croire à + quelque chose",
+    "display_form": "croire à + something",
+    "existing_english": [
+      "to believe in something (abstract)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "believe in",
+      "croire à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "croire à + NOM",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "croiser quelqu'un dans la rue",
+    "display_form": "croiser quelqu'un dans la rue",
+    "existing_english": [
+      "to run into someone in the street"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "croiser dans la rue"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "croiser [person] dans la rue",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "dans"
+    ]
+  },
+  {
+    "canonical_form": "d'accord",
+    "display_form": "d'accord",
+    "existing_english": [
+      "all right"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "d'habitude",
+    "display_form": "d'habitude",
+    "existing_english": [
+      "usually"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "usually"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "d'ordinaire",
+    "display_form": "d'ordinaire",
+    "existing_english": [
+      "ordinarily"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ordinarily"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other",
+    "prepositions": [
+      "de"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

@@ -1,0 +1,462 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 136_examples_batch_027
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags, related_verbs, related_tenses
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 136_examples_batch_027_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "136_examples_batch_027",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "examples",
+  "natural_key": "french",
+  "required_fields": [
+    "french",
+    "english",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_tenses",
+    "related_concepts",
+    "focus_spans",
+    "tags",
+    "chapters",
+    "notes",
+    "sources"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "tags",
+    "related_verbs",
+    "related_tenses"
+  ],
+  "properties": {
+    "french": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "related_verbs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true
+    },
+    "related_tenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tenseRef"
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "tenseRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Où allez-vous?",
+    "existing_english": "Where are you going?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aller"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Où habite le souffleur de verre dont tu nous as parlé?",
+    "existing_english": "Where does the glassblower you told us about live?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "habiter",
+      "parler"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Où qu'elle aille, il ira aussi.",
+    "existing_english": "Wherever she goes, he will go, too.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aller"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Où que tu sois, appelle-moi.",
+    "existing_english": "Wherever you are, call me.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "appeler",
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Où se trouve le pont Alexandre III?",
+    "existing_english": "Where is the Alexandre III bridge?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "verb_se_trouver"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Paolo est le meilleur artisan qui vende des objets à Burano.",
+    "existing_english": "Paolo is the best artisan who sells pieces in Burano.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "vendre",
+      "être"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "Parle!",
+    "existing_english": "Speak!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "parler"
+    ],
+    "existing_related_tenses": [
+      "impératif"
+    ]
+  },
+  {
+    "french": "Parle-t-elle russe?",
+    "existing_english": "Does she speak Russian?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "parler"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "parler → parlé",
+    "existing_english": "to speak → spoken",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "parler"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Parlez!",
+    "existing_english": "Speak!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "parler"
+    ],
+    "existing_related_tenses": [
+      "impératif"
+    ]
+  },
+  {
+    "french": "Parlez-vous italien?",
+    "existing_english": "Do you speak Italian?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "parler"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Parlons!",
+    "existing_english": "Let's speak!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "parler"
+    ],
+    "existing_related_tenses": [
+      "impératif"
+    ]
+  },
+  {
+    "french": "partant",
+    "existing_english": "leaving",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "partir"
+    ],
+    "existing_related_tenses": [
+      "participe présent"
+    ]
+  },
+  {
+    "french": "Paul dit que ce n'est pas important.",
+    "existing_english": "Paul says it is not important.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "dire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "perdre → perdu",
+    "existing_english": "to lose → lost",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "perdre"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Pierre dit que le président est à Milan.",
+    "existing_english": "Pierre is saying that the president is in Milan.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "dire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Pierre dit: « Le président est à Milan. »",
+    "existing_english": "Pierre says: “The president is in Milan.”",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "dire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Pourquoi protester?",
+    "existing_english": "Why protest?",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "Pourquoi étudiez-vous le français?",
+    "existing_english": "Why do you study French?",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Pourrais-tu me prêter le livre dont tu m'as parlé?",
+    "existing_english": "Could you lend me the book you told me about?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "conditionnel présent"
+    ]
+  },
+  {
+    "french": "Pourriez-vous m'expliquer votre méthode de travail?",
+    "existing_english": "Could you explain to me your working method?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "conditionnel présent"
+    ]
+  },
+  {
+    "french": "Pourriez-vous nous donner votre avis?",
+    "existing_english": "Could you give us your opinion?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "donner",
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "conditionnel présent"
+    ]
+  },
+  {
+    "french": "Pourriez-vous résoudre ce problème?",
+    "existing_english": "Could you solve this problem?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Pourvu qu'il réussisse!",
+    "existing_english": "Let's hope he succeeds!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "réussir"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "Pourvu qu'il y ait un cybercafé!",
+    "existing_english": "Let's hope there is a cybercafé!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "Pourvu qu'ils aient l'adresse!",
+    "existing_english": "Let's hope they have the address!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "Pourvu que leur base de données soit à jour!",
+    "existing_english": "Let's hope their database is up to date!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "Prendre une fois par jour.",
+    "existing_english": "Take once a day.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "Prends un café avant de partir!",
+    "existing_english": "Have a coffee before you leave!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "prendre"
+    ],
+    "existing_related_tenses": [
+      "impératif"
+    ]
+  },
+  {
+    "french": "Prenez le chemin sur la droite.",
+    "existing_english": "Take the path on the (your) right.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "prendre"
+    ],
+    "existing_related_tenses": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

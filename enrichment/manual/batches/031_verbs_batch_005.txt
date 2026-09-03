@@ -1,0 +1,485 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 031_verbs_batch_005
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 031_verbs_batch_005_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "031_verbs_batch_005",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "verbs",
+  "natural_key": "infinitive",
+  "required_fields": [
+    "infinitive",
+    "display_form",
+    "english",
+    "senses",
+    "verb_group",
+    "regularity",
+    "pronominal",
+    "transitivity",
+    "auxiliary",
+    "past_participle",
+    "present_participle",
+    "stems",
+    "conjugations",
+    "related_expressions",
+    "related_concepts",
+    "aliases",
+    "search_terms",
+    "source_classifications",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "synonyms",
+    "antonyms",
+    "register",
+    "usage_notes",
+    "aliases",
+    "search_terms",
+    "tags"
+  ],
+  "properties": {
+    "infinitive": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to synonymous verbs."
+    },
+    "antonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to antonymous verbs."
+    },
+    "register": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "formal",
+        "neutral",
+        "informal",
+        "colloquial",
+        "literary",
+        "slang",
+        "technical",
+        "archaic",
+        "regional",
+        "vulgar",
+        "unknown",
+        null
+      ],
+      "description": "Typical usage register of the item."
+    },
+    "usage_notes": {
+      "$ref": "#/$defs/stringArray",
+      "description": "Usage-specific notes kept separate from general notes."
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "search_terms": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "concevoir",
+    "display_form": "concevoir",
+    "existing_english": [
+      "to conceive",
+      "to design"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "conclure",
+    "display_form": "conclure",
+    "existing_english": [],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "condamner",
+    "display_form": "condamner",
+    "existing_english": [
+      "to sentence"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": [],
+    "related_expressions": [
+      "être condamné(e) à"
+    ]
+  },
+  {
+    "infinitive": "conduire",
+    "display_form": "conduire",
+    "existing_english": [
+      "drive",
+      "to drive"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "conduire",
+      "conduisant",
+      "conduit",
+      "drive"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "confier",
+    "display_form": "confier",
+    "existing_english": [
+      "confide",
+      "to confide"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "confier"
+    ],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "connaître",
+    "display_form": "connaître",
+    "existing_english": [
+      "know",
+      "to be acquainted with",
+      "to be familiar with",
+      "to enjoy",
+      "to experience",
+      "to know"
+    ],
+    "existing_aliases": [
+      "connaitre"
+    ],
+    "existing_search_terms": [
+      "connaitre",
+      "connaître",
+      "know",
+      "to be acquainted with",
+      "to know"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "connaître + direct object"
+    ]
+  },
+  {
+    "infinitive": "conseiller",
+    "display_form": "conseiller",
+    "existing_english": [
+      "advise",
+      "to advise"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "advise",
+      "conseiller"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "considérer",
+    "display_form": "considérer",
+    "existing_english": [
+      "consider",
+      "to consider"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "considerer",
+      "considérer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "constater",
+    "display_form": "constater",
+    "existing_english": [
+      "note",
+      "notice",
+      "to note",
+      "to notice"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "constater"
+    ],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "construire",
+    "display_form": "construire",
+    "existing_english": [
+      "build",
+      "to build"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "consulter",
+    "display_form": "consulter",
+    "existing_english": [
+      "consult"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "convaincre",
+    "display_form": "convaincre",
+    "existing_english": [
+      "convince",
+      "to convince"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "convaincre",
+      "convince"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "correspondre",
+    "display_form": "correspondre",
+    "existing_english": [
+      "correspond"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "corriger",
+    "display_form": "corriger",
+    "existing_english": [
+      "correct",
+      "to correct"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "corriger"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "couper",
+    "display_form": "couper",
+    "existing_english": [
+      "cut",
+      "to cut"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "couper"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "courir",
+    "display_form": "courir",
+    "existing_english": [
+      "run",
+      "to run"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "courant",
+      "courir",
+      "couru",
+      "run"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "couvrir",
+    "display_form": "couvrir",
+    "existing_english": [
+      "cover",
+      "to cover"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "couvrir",
+      "cover"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "coûter",
+    "display_form": "coûter",
+    "existing_english": [
+      "to cost"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "craindre",
+    "display_form": "craindre",
+    "existing_english": [
+      "fear",
+      "to fear"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "craindre",
+      "craint",
+      "fear"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "crier",
+    "display_form": "crier",
+    "existing_english": [
+      "shout",
+      "to shout"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "crier"
+    ],
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

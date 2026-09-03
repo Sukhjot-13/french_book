@@ -1,0 +1,464 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 134_examples_batch_025
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags, related_verbs, related_tenses
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 134_examples_batch_025_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "134_examples_batch_025",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "examples",
+  "natural_key": "french",
+  "required_fields": [
+    "french",
+    "english",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_tenses",
+    "related_concepts",
+    "focus_spans",
+    "tags",
+    "chapters",
+    "notes",
+    "sources"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "tags",
+    "related_verbs",
+    "related_tenses"
+  ],
+  "properties": {
+    "french": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "related_verbs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true
+    },
+    "related_tenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tenseRef"
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "tenseRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Notre pauvre chien!",
+    "existing_english": "Our poor dog!",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Nous aimons votre chien et vous aimez le nôtre.",
+    "existing_english": "We like your dog and you like ours.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aimer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Nous allons faire un voyage en avril.",
+    "existing_english": "We are going to go on a trip in April.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aller",
+      "faire"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Nous aurions un chien si notre appartement était plus grand.",
+    "existing_english": "We would have a dog if our apartment were bigger.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir",
+      "être"
+    ],
+    "existing_related_tenses": [
+      "conditionnel présent",
+      "imparfait"
+    ]
+  },
+  {
+    "french": "Nous aurions voulu y assister.",
+    "existing_english": "We would have liked to attend.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "assister",
+      "vouloir"
+    ],
+    "existing_related_tenses": [
+      "conditionnel passé"
+    ]
+  },
+  {
+    "french": "Nous aurions été déçus.",
+    "existing_english": "We would have been disappointed.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": [
+      "conditionnel passé"
+    ]
+  },
+  {
+    "french": "Nous aurons résolu tous les problèmes d'ici la fin de l'année.",
+    "existing_english": "We'll have solved all the problems by the end of the year.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "verb_resoudre"
+    ],
+    "existing_related_tenses": [
+      "futur antérieur"
+    ]
+  },
+  {
+    "french": "Nous avons compris la situation.",
+    "existing_english": "We understood the situation.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "comprendre"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Nous avons des cartes routières.",
+    "existing_english": "We have road maps.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Nous avons du mal à accepter sa décision.",
+    "existing_english": "We have trouble accepting his decision.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Nous avons vu des lapins dans le jardin.",
+    "existing_english": "We saw (some) rabbits in the garden.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "voir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Nous buvons de l'eau minérale.",
+    "existing_english": "We drink mineral water.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "boire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "nous chantons",
+    "existing_english": "we sing",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "chanter"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "nous choisissons",
+    "existing_english": "we choose",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "choisir"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Nous déménageâmes de nombreuses fois.",
+    "existing_english": "We moved many times.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "déménager"
+    ],
+    "existing_related_tenses": [
+      "passé simple"
+    ]
+  },
+  {
+    "french": "Nous désirons voyager ailleurs.",
+    "existing_english": "We want to travel elsewhere.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Nous faisons un gâteau.",
+    "existing_english": "We’re making a cake.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "faire"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Nous félicitons l'artiste qui a pris cette photo.",
+    "existing_english": "We congratulate the artist who took this picture.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "féliciter",
+      "prendre"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Nous ignorons qui elle renverra.",
+    "existing_english": "We don’t know who(m) she’ll fire.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "renvoyer",
+      "verb_ignorer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Nous irions à Rome si nous pouvions.",
+    "existing_english": "We would go to Rome if we could.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aller",
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "conditionnel présent",
+      "imparfait"
+    ]
+  },
+  {
+    "french": "Nous irons à Tokyo la semaine prochaine.",
+    "existing_english": "We’ll go to Tokyo next week.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aller"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Nous leur avons demandé de nous accorder un peu de temps; ils n'ont pas voulu le faire.",
+    "existing_english": "We asked them to give us a little time; they would not do it.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "vouloir"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Nous n'avons pas de cartes routières.",
+    "existing_english": "We do not have any road maps.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Nous n'avons pas pu y aller.",
+    "existing_english": "We could not go there.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "nous nagions",
+    "existing_english": "we swam",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "nager"
+    ],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  },
+  {
+    "french": "Nous ne sommes pas allées à Madrid depuis dix ans.",
+    "existing_english": "We have not been to Madrid for ten years.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Nous nous parlons tous les jours.",
+    "existing_english": "We talk to each other every day.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "verb_se_parler"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Nous nous promenons.",
+    "existing_english": "We take a walk.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "se promener"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Nous nous sommes excusés d'être partis avant le dessert.",
+    "existing_english": "We apologized for leaving before dessert.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": [
+      "infinitif passé"
+    ]
+  },
+  {
+    "french": "Nous nous étions embrassés sur le Pont-Neuf.",
+    "existing_english": "We had kissed on the Pont-Neuf.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "s'embrasser"
+    ],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

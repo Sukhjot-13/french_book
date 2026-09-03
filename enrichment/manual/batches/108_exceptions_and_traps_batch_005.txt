@@ -1,0 +1,300 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 108_exceptions_and_traps_batch_005
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: exceptions_and_traps
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: description, why_incorrect, why_correct, memory_tip, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 108_exceptions_and_traps_batch_005_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "108_exceptions_and_traps_batch_005",
+  "collection": "exceptions_and_traps",
+  "patches": [
+    {
+      "entity_key": {
+        "title": "<title_value>",
+        "category": "<category_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "exceptions_and_traps",
+  "natural_key": [
+    "title",
+    "category"
+  ],
+  "required_fields": [
+    "title",
+    "category",
+    "description",
+    "correct_form",
+    "incorrect_form",
+    "related_grammar_rules",
+    "related_verbs",
+    "related_expressions",
+    "related_examples",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "description",
+    "why_incorrect",
+    "why_correct",
+    "memory_tip",
+    "tags"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "exception",
+        "contrast",
+        "restriction",
+        "agreement",
+        "spelling",
+        "word_order",
+        "usage",
+        "confusion",
+        "other"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "title": "Savoir vs. Connaître",
+    "category": "contrast",
+    "existing_description": "Savoir is used for knowing facts or knowing how to do something; it can be followed by an infinitive or clause. Connaître means to be acquainted with and is always followed by a direct object, never a clause.",
+    "existing_tags": []
+  },
+  {
+    "title": "Should vs should have",
+    "category": "contrast",
+    "existing_description": "Use conditionnel présent of devoir for present advice, conditionnel passé for past advice/regret.",
+    "existing_tags": [],
+    "correct_form": "Tu devrais (present) / Tu aurais dû (past)",
+    "incorrect_form": "Using présent of devoir for past advice"
+  },
+  {
+    "title": "Silent endings in -er verbs",
+    "category": "spelling",
+    "existing_description": "The -e, -es, and -ent endings of regular -er verbs are silent in pronunciation.",
+    "existing_tags": []
+  },
+  {
+    "title": "Some French verbs omit preposition even when English requires one",
+    "category": "contrast",
+    "existing_description": "Verbs like attendre (wait for), abandonner (give up), écouter (listen to), entrer (walk in) do not take a preposition in French.",
+    "existing_tags": [],
+    "correct_form": "attendre le train, écouter la conférence",
+    "incorrect_form": "attendre pour le train, écouter à la conférence"
+  },
+  {
+    "title": "Special masculine forms before vowel",
+    "category": "exception",
+    "existing_description": "Certain adjectives (fou, vieux, nouveau, beau) have special masculine singular forms before a vowel (fol, vieil, nouvel, bel).",
+    "existing_tags": []
+  },
+  {
+    "title": "Spelling change for -cer and -ger verbs in passé simple",
+    "category": "spelling",
+    "existing_description": "Verbs ending in -cer use a cedilla (ç) and verbs ending in -ger add an extra -e- when the passé simple ending begins with -a.",
+    "existing_tags": [],
+    "correct_form": "commença, mangea",
+    "incorrect_form": "commenca, manga"
+  },
+  {
+    "title": "Spelling changes in imparfait",
+    "category": "spelling",
+    "existing_description": "Verbs with spelling changes in the nous present (e.g., manger, commencer) do not take the extra e or ç in the nous and vous forms of the imparfait.",
+    "existing_tags": [],
+    "correct_form": "nous nagions, vous effaciez",
+    "incorrect_form": "nous nageons, vous effacez"
+  },
+  {
+    "title": "Spelling changes with -cer and -ger verbs in present participle",
+    "category": "spelling",
+    "existing_description": "Some -cer and -ger verbs change spelling when forming the present participle: -cer becomes -çant (e.g., commencer -> commençant), and -ger becomes -geant (e.g., manger -> mangeant).",
+    "existing_tags": [],
+    "correct_form": "commençant, mangeant",
+    "incorrect_form": "commencant, mangant"
+  },
+  {
+    "title": "State verbs: imparfait vs passé composé meaning change",
+    "category": "contrast",
+    "existing_description": "Verbs like être, avoir, penser, croire, savoir, espérer, sembler, paraître tend to be used in imparfait for states; in passé composé they may indicate a specific change or event.",
+    "existing_tags": [],
+    "correct_form": "Il semblait déprimé (state) vs Tout à coup il a semblé comprendre (change)"
+  },
+  {
+    "title": "Subjunctive after relative pronoun with doubt/superlative",
+    "category": "usage",
+    "existing_description": "The subjunctive may be used after a relative pronoun if there is doubt about existence or after superlative antecedents.",
+    "existing_tags": [],
+    "correct_form": "un artisan qui puisse",
+    "incorrect_form": "un artisan qui peut"
+  },
+  {
+    "title": "Tenir à vs tenir de",
+    "category": "contrast",
+    "existing_description": "tenir à means to be attached to or insist on; tenir de means to take after. They are easily confused.",
+    "existing_tags": [],
+    "correct_form": "tenir à (attached/insist), tenir de (take after)",
+    "incorrect_form": "using à instead of de or vice versa"
+  },
+  {
+    "title": "The -i of qui is never dropped",
+    "category": "spelling",
+    "existing_description": "Unlike que, qui never loses its final -i before a vowel sound.",
+    "existing_tags": [],
+    "correct_form": "qui a pris",
+    "incorrect_form": "qu'a pris"
+  },
+  {
+    "title": "Tout + gerund expresses contradiction, not just simultaneity",
+    "category": "contrast",
+    "existing_description": "When tout precedes the gerund, it underscores tension or contradiction between two actions, not simple simultaneity.",
+    "existing_tags": [],
+    "correct_form": "Tout en étant un bon joueur, il ne marquait jamais de but.",
+    "incorrect_form": "Interpreting as simple simultaneity: 'While being a good player' without contradiction."
+  },
+  {
+    "title": "Tu vs vous",
+    "category": "usage",
+    "existing_description": "Use tu for friends, family, children, animals. Use vous for strangers, people you don't know well, or to maintain distance/respect.",
+    "existing_tags": []
+  },
+  {
+    "title": "Use que clause when subjects differ",
+    "category": "usage",
+    "existing_description": "If the subject of the first verb and the infinitive differ, use que + subordinate clause instead of infinitive.",
+    "existing_tags": [],
+    "correct_form": "Je veux qu'il parte.",
+    "incorrect_form": "Je veux il partir."
+  },
+  {
+    "title": "Using on instead of passive",
+    "category": "usage",
+    "existing_description": "French often prefers the pronoun on to avoid the passive voice.",
+    "existing_tags": [],
+    "correct_form": "on + verb",
+    "incorrect_form": "passive construction"
+  },
+  {
+    "title": "Using present tense with depuis vs English",
+    "category": "usage",
+    "existing_description": "In English, past tense or present perfect is often used, but French uses present tense with depuis.",
+    "existing_tags": []
+  },
+  {
+    "title": "Using y/en for people",
+    "category": "usage",
+    "existing_description": "Y and en replace inanimate objects. For people, use disjunctive pronouns after the preposition.",
+    "existing_tags": [],
+    "correct_form": "Je parle de lui.",
+    "incorrect_form": "J'en parle (when referring to a person)."
+  },
+  {
+    "title": "Verbs with être or avoir (six verbs)",
+    "category": "contrast",
+    "existing_description": "Sortir, rentrer, monter, descendre, passer, retourner use avoir when transitive; meaning changes.",
+    "existing_tags": [],
+    "correct_form": "Elle a sorti la voiture.",
+    "incorrect_form": "Elle est sorti la voiture."
+  },
+  {
+    "title": "Vouloir only in vous imperative",
+    "category": "restriction",
+    "existing_description": "The verb vouloir is used only in the vous imperative form: veuillez.",
+    "existing_tags": [],
+    "correct_form": "Veuillez"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

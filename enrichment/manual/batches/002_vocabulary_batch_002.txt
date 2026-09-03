@@ -1,0 +1,1691 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 002_vocabulary_batch_002
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: vocabulary
+TOTAL ENTITIES IN THIS BATCH: 40
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, word_family, tags, gender, articles, plural, variants
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 002_vocabulary_batch_002_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "002_vocabulary_batch_002",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "<canonical_form_value>",
+        "part_of_speech": "<part_of_speech_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "vocabulary",
+  "natural_key": [
+    "canonical_form",
+    "part_of_speech"
+  ],
+  "required_fields": [
+    "canonical_form",
+    "display_form",
+    "english",
+    "part_of_speech",
+    "gender",
+    "articles",
+    "plural",
+    "variants",
+    "senses",
+    "aliases",
+    "search_terms",
+    "word_family",
+    "related_expressions",
+    "related_verbs",
+    "related_concepts",
+    "source_classifications",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "synonyms",
+    "antonyms",
+    "register",
+    "usage_notes",
+    "aliases",
+    "search_terms",
+    "word_family",
+    "tags",
+    "gender",
+    "articles",
+    "plural",
+    "variants"
+  ],
+  "properties": {
+    "canonical_form": {
+      "type": "string",
+      "minLength": 1
+    },
+    "part_of_speech": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "noun",
+        "verb",
+        "adjective",
+        "adverb",
+        "pronoun",
+        "determiner",
+        "preposition",
+        "conjunction",
+        "interjection",
+        "number",
+        "other",
+        "unknown",
+        null
+      ]
+    },
+    "english": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      },
+      "description": "Natural vocabulary references for synonyms."
+    },
+    "antonyms": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      },
+      "description": "Natural vocabulary references for antonyms."
+    },
+    "register": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "formal",
+        "neutral",
+        "informal",
+        "colloquial",
+        "literary",
+        "slang",
+        "technical",
+        "archaic",
+        "regional",
+        "vulgar",
+        "unknown",
+        null
+      ],
+      "description": "Typical usage register of the item."
+    },
+    "usage_notes": {
+      "$ref": "#/$defs/stringArray",
+      "description": "Usage-specific notes kept separate from general notes."
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "search_terms": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "word_family": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          {
+            "$ref": "#/$defs/vocabularyWordRef"
+          }
+        ]
+      }
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "gender": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "masculine",
+        "feminine",
+        "common",
+        "variable",
+        "none",
+        "unknown",
+        null
+      ]
+    },
+    "articles": {
+      "$ref": "#/$defs/articleSet"
+    },
+    "plural": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/variant"
+      }
+    }
+  },
+  "$defs": {
+    "variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "form",
+        "variant_type",
+        "note"
+      ],
+      "properties": {
+        "form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "variant_type": {
+          "type": "string",
+          "enum": [
+            "masculine",
+            "feminine",
+            "masculine_before_vowel",
+            "plural",
+            "alternate_spelling",
+            "inflected_form",
+            "other"
+          ]
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "articleSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "definite",
+        "indefinite",
+        "partitive",
+        "other"
+      ],
+      "properties": {
+        "definite": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "indefinite": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "partitive": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "vocabularyWordRef": {
+      "type": "string",
+      "minLength": 1,
+      "description": "A display-form vocabulary relation retained when part-of-speech metadata is unavailable."
+    },
+    "vocabularyRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_form",
+        "part_of_speech"
+      ],
+      "properties": {
+        "canonical_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "part_of_speech": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "noun",
+            "verb",
+            "adjective",
+            "adverb",
+            "pronoun",
+            "determiner",
+            "preposition",
+            "conjunction",
+            "interjection",
+            "number",
+            "other",
+            "unknown",
+            null
+          ]
+        }
+      }
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "air",
+    "part_of_speech": "noun",
+    "display_form": "air",
+    "existing_english": [
+      "air",
+      "appearance"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "air",
+      "appearance"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "allemand",
+    "part_of_speech": "adjective",
+    "display_form": "allemand",
+    "existing_english": [
+      "German"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "German",
+      "allemand",
+      "allemande"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "allemands",
+    "existing_variants": [
+      {
+        "form": "allemande",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "allemands",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "allemandes",
+        "variant_type": "other",
+        "note": null
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "allemand",
+    "part_of_speech": "noun",
+    "display_form": "l'allemand",
+    "existing_english": [
+      "German"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "allemand",
+      "l'allemand"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "allergique",
+    "part_of_speech": "adjective",
+    "display_form": "allergique",
+    "existing_english": [
+      "allergic"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "allergic",
+      "allergique"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "allergiques",
+    "existing_variants": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "alors que",
+    "part_of_speech": "conjunction",
+    "display_form": "alors que",
+    "existing_english": [
+      "while",
+      "whereas"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": null,
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "alto",
+    "part_of_speech": "noun",
+    "display_form": "l'alto",
+    "existing_english": [
+      "viola"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "alto",
+      "viola"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "amende",
+    "part_of_speech": "noun",
+    "display_form": "une amende",
+    "existing_english": [
+      "a fine",
+      "fine",
+      "fine (penalty)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "amende"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "amer",
+    "part_of_speech": "adjective",
+    "display_form": "amer",
+    "existing_english": [
+      "bitter"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [
+      {
+        "form": "amère",
+        "variant_type": "feminine",
+        "note": "feminine form"
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "amer, amère",
+    "part_of_speech": "adjective",
+    "display_form": "amer, amère",
+    "existing_english": [
+      "bitter"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": null,
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [
+      {
+        "form": "amer",
+        "variant_type": "masculine",
+        "note": null
+      },
+      {
+        "form": "amère",
+        "variant_type": "feminine",
+        "note": null
+      }
+    ],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "amis",
+    "part_of_speech": "noun",
+    "display_form": "des amis",
+    "existing_english": [
+      "friends"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "amis",
+      "friends"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "des",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "amis",
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "des",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "amusant",
+    "part_of_speech": "adjective",
+    "display_form": "amusant(e)",
+    "existing_english": [
+      "funny"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "amusant",
+      "amusante",
+      "funny"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [
+      {
+        "form": "amusante",
+        "variant_type": "other",
+        "note": null
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "an",
+    "part_of_speech": "noun",
+    "display_form": "an",
+    "existing_english": [
+      "year"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "an",
+      "year"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "ans",
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "analgésique",
+    "part_of_speech": "noun",
+    "display_form": "un analgésique",
+    "existing_english": [
+      "a painkiller"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "analgésique",
+      "painkiller"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "des analgésiques",
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "ancien",
+    "part_of_speech": "adjective",
+    "display_form": "ancien",
+    "existing_english": [
+      "former",
+      "antique"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ancien",
+      "ancienne",
+      "antique",
+      "former"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "anciens",
+    "existing_variants": [
+      {
+        "form": "ancienne",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "anciens",
+        "variant_type": "other",
+        "note": null
+      },
+      {
+        "form": "anciennes",
+        "variant_type": "other",
+        "note": null
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "ancêtre",
+    "part_of_speech": "noun",
+    "display_form": "un(e) ancêtre",
+    "existing_english": [
+      "an ancestor",
+      "ancestor"
+    ],
+    "existing_aliases": [
+      "ancestor"
+    ],
+    "existing_search_terms": [
+      "ancestor",
+      "ancetre",
+      "ancêtre"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": "un/une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "des ancêtres",
+    "existing_variants": [
+      {
+        "form": "ancêtre",
+        "variant_type": "other",
+        "note": null
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "un/une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "anglais",
+    "part_of_speech": "noun",
+    "display_form": "l'anglais",
+    "existing_english": [
+      "English"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "anglais",
+      "l'anglais"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "animal",
+    "part_of_speech": "noun",
+    "display_form": "un animal",
+    "existing_english": [
+      "animal"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "animal"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "animaux",
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "anniversaire",
+    "part_of_speech": "noun",
+    "display_form": "un anniversaire",
+    "existing_english": [
+      "a birthday",
+      "birthday"
+    ],
+    "existing_aliases": [
+      "birthday"
+    ],
+    "existing_search_terms": [
+      "anniversaire",
+      "birthday"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": "des anniversaires",
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "antiquaire",
+    "part_of_speech": "noun",
+    "display_form": "antiquaire",
+    "existing_english": [
+      "an antiques dealer",
+      "antiques dealer"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "antiquaire",
+      "antiques dealer"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "common",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "common",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "août",
+    "part_of_speech": "noun",
+    "display_form": "août",
+    "existing_english": [
+      "August"
+    ],
+    "existing_aliases": [
+      "aout"
+    ],
+    "existing_search_terms": [
+      "August",
+      "août"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "appareil",
+    "part_of_speech": "noun",
+    "display_form": "appareil",
+    "existing_english": [
+      "(still) camera",
+      "camera",
+      "device"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "après que",
+    "part_of_speech": "conjunction",
+    "display_form": "après que",
+    "existing_english": [
+      "after"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": null,
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "après-demain",
+    "part_of_speech": "adverb",
+    "display_form": "après-demain",
+    "existing_english": [
+      "the day after tomorrow"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "apres-demain",
+      "après-demain"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "none",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "aquarelle",
+    "part_of_speech": "noun",
+    "display_form": "une aquarelle",
+    "existing_english": [
+      "a watercolor (painting)",
+      "watercolor"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "aquarelle",
+      "watercolor"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "arabe",
+    "part_of_speech": "adjective",
+    "display_form": "arabe",
+    "existing_english": [
+      "Arabic"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": null,
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "arabe",
+    "part_of_speech": "noun",
+    "display_form": "l'arabe",
+    "existing_english": [
+      "Arabic"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "arabe",
+      "l'arabe"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "arbre",
+    "part_of_speech": "noun",
+    "display_form": "arbre",
+    "existing_english": [
+      "tree"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "arbre généalogique",
+    "part_of_speech": "noun",
+    "display_form": "un arbre généalogique",
+    "existing_english": [
+      "a family tree"
+    ],
+    "existing_aliases": [
+      "family tree"
+    ],
+    "existing_search_terms": [
+      "arbre genealogique",
+      "arbre généalogique",
+      "family tree"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "architecte",
+    "part_of_speech": "noun",
+    "display_form": "un(e) architecte",
+    "existing_english": [
+      "architect"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "common",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un/une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un/une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "argent",
+    "part_of_speech": "noun",
+    "display_form": "l'argent",
+    "existing_english": [
+      "money"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "argent",
+      "money"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "armoire",
+    "part_of_speech": "noun",
+    "display_form": "armoire",
+    "existing_english": [
+      "cupboard",
+      "wardrobe"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "armoire",
+      "cupboard",
+      "wardrobe"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "armoire à pharmacie",
+    "part_of_speech": "noun",
+    "display_form": "armoire à pharmacie",
+    "existing_english": [
+      "medicine cabinet"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "armoire a pharmacie",
+      "medicine cabinet"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "art",
+    "part_of_speech": "noun",
+    "display_form": "l'art",
+    "existing_english": [
+      "art"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "art"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "artisan",
+    "part_of_speech": "noun",
+    "display_form": "artisan",
+    "existing_english": [
+      "craftsman",
+      "craftswoman"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [
+      {
+        "form": "artisane",
+        "variant_type": "feminine",
+        "note": "feminine form"
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "artisan(e)",
+    "part_of_speech": "noun",
+    "display_form": "artisan(e)",
+    "existing_english": [
+      "craftsman",
+      "craftswoman"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "variable",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [
+      {
+        "form": "artisan",
+        "variant_type": "masculine",
+        "note": null
+      },
+      {
+        "form": "artisane",
+        "variant_type": "feminine",
+        "note": null
+      }
+    ],
+    "gender": "variable",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "ascenseur",
+    "part_of_speech": "noun",
+    "display_form": "ascenseur",
+    "existing_english": [
+      "elevator"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "aspirateur",
+    "part_of_speech": "noun",
+    "display_form": "un aspirateur",
+    "existing_english": [
+      "a vacuum cleaner"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "aspirateur",
+      "vacuum cleaner"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "assassin",
+    "part_of_speech": "noun",
+    "display_form": "un assassin",
+    "existing_english": [
+      "a murderer"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "assassin"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "assiette",
+    "part_of_speech": "noun",
+    "display_form": "une assiette",
+    "existing_english": [
+      "a plate",
+      "a (soup) bowl"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "assiette",
+      "bowl",
+      "plate"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "feminine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "atelier",
+    "part_of_speech": "noun",
+    "display_form": "un atelier",
+    "existing_english": [
+      "a studio",
+      "a workshop"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "atelier",
+      "studio",
+      "workshop"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "existing_gender": "masculine",
+    "existing_articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "existing_plural": null,
+    "existing_variants": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

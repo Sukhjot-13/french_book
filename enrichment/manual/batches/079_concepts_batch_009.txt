@@ -1,0 +1,283 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 079_concepts_batch_009
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: concepts
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: description, aliases, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 079_concepts_batch_009_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "079_concepts_batch_009",
+  "collection": "concepts",
+  "patches": [
+    {
+      "entity_key": "<name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "concepts",
+  "natural_key": "name",
+  "required_fields": [
+    "name",
+    "description",
+    "aliases",
+    "related_grammar_rules",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_tenses",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "description",
+    "aliases",
+    "tags"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "name": "infinitive mood",
+    "existing_description": "The infinitive mood used as subject, for instructions, after prepositions, and after certain verbs.",
+    "existing_aliases": [
+      "infinitif",
+      "infinitive"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "instructions and notices",
+    "existing_description": "Infinitive used for general instructions, prescriptions, public notices, and proverbs.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "interrogation",
+    "existing_description": "Interrogative infinitive using question words + infinitive.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "interrupted action",
+    "existing_description": "A continuous past action interrupted by another action.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "irregular future stems",
+    "existing_description": "Verbs with irregular stems in the futur simple.",
+    "existing_aliases": [
+      "irregular future roots"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "irregular imperative forms",
+    "existing_description": "être, avoir, and savoir have irregular imperative forms; vouloir is used only in the vous form.",
+    "existing_aliases": [
+      "irregular imperative"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "irregular present participles",
+    "existing_description": "Three verbs have irregular present participles: être, avoir, savoir.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "irregular stem",
+    "existing_description": "A verb stem that does not follow the regular pattern.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "negation",
+    "existing_description": "Negation with infinitive: ne...pas precedes infinitive and is not separated.",
+    "existing_aliases": [
+      "négation"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "negative imperative",
+    "existing_description": "Negation is placed around the verb; object pronouns precede the verb following ne (n’).",
+    "existing_aliases": [
+      "imperative negative form"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "on as passive alternative",
+    "existing_description": "Using the third-person singular pronoun on to avoid the passive voice.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "partitive article",
+    "existing_description": "Use of du, de la, de l', des to express unspecified quantity",
+    "existing_aliases": [
+      "article partitif"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "passive voice",
+    "existing_description": "The passive voice, where the subject is acted upon.",
+    "existing_aliases": [
+      "voix passive"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "passé composé",
+    "existing_description": "French compound past tense used for completed actions on specific occasions.",
+    "existing_aliases": [
+      "compound past",
+      "present perfect"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "past anteriority",
+    "existing_description": "Action before another past action, often with dependent clause.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "past infinitive",
+    "existing_description": "Infinitif passé formed with avoir or être + past participle, marks anteriority.",
+    "existing_aliases": [
+      "infinitif passé"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "perfect participle",
+    "existing_description": "Construction with ayant or étant + past participle to express anteriority.",
+    "existing_aliases": [
+      "compound present participle"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "plural of nouns",
+    "existing_description": "Formation of plural nouns",
+    "existing_aliases": [
+      "pluriel des noms"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "plus-que-parfait",
+    "existing_description": "Compound past tense indicating an action completed before another past action.",
+    "existing_aliases": [
+      "past perfect",
+      "pluperfect"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "polite imperative with future",
+    "existing_description": "Using futur simple instead of imperative for a less peremptory tone.",
+    "existing_aliases": [
+      "soft command"
+    ],
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

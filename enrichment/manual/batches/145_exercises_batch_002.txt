@@ -1,0 +1,278 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 145_exercises_batch_002
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: exercises
+TOTAL ENTITIES IN THIS BATCH: 15
+TARGET ENRICHMENT FIELDS: instructions, notes, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 145_exercises_batch_002_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "145_exercises_batch_002",
+  "collection": "exercises",
+  "patches": [
+    {
+      "entity_key": {
+        "chapter_number": "<chapter_number_value>",
+        "exercise_code": "<exercise_code_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "exercises",
+  "natural_key": [
+    "chapter_number",
+    "exercise_code"
+  ],
+  "required_fields": [
+    "chapter_number",
+    "exercise_code",
+    "title",
+    "exercise_type",
+    "instructions",
+    "section_title",
+    "pages",
+    "questions",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_tenses",
+    "related_concepts",
+    "notes",
+    "sources"
+  ],
+  "allowed_enrichment_fields": [
+    "instructions",
+    "notes",
+    "tags"
+  ],
+  "properties": {
+    "chapter_number": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1,
+      "maximum": 999
+    },
+    "exercise_code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "instructions": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "$defs": {}
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "chapter_number": 2,
+    "exercise_code": "2-4",
+    "title": "EXERCICE",
+    "existing_instructions": "Mettre au présent les verbes entre parenthèses.",
+    "existing_notes": null,
+    "instructions": "Mettre au présent les verbes entre parenthèses.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 2,
+    "exercise_code": "2-5",
+    "title": "EXERCICE",
+    "existing_instructions": "Faire correspondre les deux colonnes.",
+    "existing_notes": null,
+    "instructions": "Faire correspondre les deux colonnes.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 2,
+    "exercise_code": "2-6",
+    "title": "EXERCICE",
+    "existing_instructions": "Mettre au présent les verbes entre parenthèses.",
+    "existing_notes": null,
+    "instructions": "Mettre au présent les verbes entre parenthèses.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 2,
+    "exercise_code": "2-7",
+    "title": "EXERCICE",
+    "existing_instructions": "Traduire les phrases suivantes en utilisant vous si nécessaire.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases suivantes en utilisant vous si nécessaire.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 2,
+    "exercise_code": "2-8",
+    "title": "EXERCICE",
+    "existing_instructions": "Mettre les phrases suivantes à la forme interrogative en utilisant l’inversion.",
+    "existing_notes": null,
+    "instructions": "Mettre les phrases suivantes à la forme interrogative en utilisant l’inversion.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 2,
+    "exercise_code": "2-9",
+    "title": "EXERCICE",
+    "existing_instructions": "Mettre les phrases suivantes à la forme interrogative en utilisant la forme est-ce que.",
+    "existing_notes": null,
+    "instructions": "Mettre les phrases suivantes à la forme interrogative en utilisant la forme est-ce que.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 3,
+    "exercise_code": "3-1",
+    "title": null,
+    "existing_instructions": "Mettre au présent les verbes entre parenthèses.",
+    "existing_notes": null,
+    "instructions": "Mettre au présent les verbes entre parenthèses.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 3,
+    "exercise_code": "3-10",
+    "title": null,
+    "existing_instructions": "Mettre au présent les verbes entre parenthèses.",
+    "existing_notes": null,
+    "instructions": "Mettre au présent les verbes entre parenthèses.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 3,
+    "exercise_code": "3-11",
+    "title": null,
+    "existing_instructions": "Mettre au présent les verbes entre parenthèses en utilisant tu et la forme est-ce que si nécessaire.",
+    "existing_notes": null,
+    "instructions": "Mettre au présent les verbes entre parenthèses en utilisant tu et la forme est-ce que si nécessaire.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 3,
+    "exercise_code": "3-2",
+    "title": null,
+    "existing_instructions": "Répondre aux questions à la forme affirmative.",
+    "existing_notes": null,
+    "instructions": "Répondre aux questions à la forme affirmative.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 3,
+    "exercise_code": "3-3",
+    "title": null,
+    "existing_instructions": "Mettre au présent les verbes entre parenthèses.",
+    "existing_notes": null,
+    "instructions": "Mettre au présent les verbes entre parenthèses.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 3,
+    "exercise_code": "3-4",
+    "title": null,
+    "existing_instructions": "Faire correspondre les deux colonnes.",
+    "existing_notes": null,
+    "instructions": "Faire correspondre les deux colonnes.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 3,
+    "exercise_code": "3-5",
+    "title": null,
+    "existing_instructions": "Traduire les phrases suivantes en utilisant vous et l’inversion si nécessaire.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases suivantes en utilisant vous et l’inversion si nécessaire.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 3,
+    "exercise_code": "3-6",
+    "title": null,
+    "existing_instructions": "Mettre au présent les verbes entre parenthèses.",
+    "existing_notes": null,
+    "instructions": "Mettre au présent les verbes entre parenthèses.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 3,
+    "exercise_code": "3-7",
+    "title": null,
+    "existing_instructions": "Conjuguer le verbe connaître au présent.",
+    "existing_notes": null,
+    "instructions": "Conjuguer le verbe connaître au présent.",
+    "questions_count": 10
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

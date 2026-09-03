@@ -1,0 +1,277 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 080_concepts_batch_010
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: concepts
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: description, aliases, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 080_concepts_batch_010_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "080_concepts_batch_010",
+  "collection": "concepts",
+  "patches": [
+    {
+      "entity_key": "<name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "concepts",
+  "natural_key": "name",
+  "required_fields": [
+    "name",
+    "description",
+    "aliases",
+    "related_grammar_rules",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_tenses",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "description",
+    "aliases",
+    "tags"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "name": "prepositions with geographical names",
+    "existing_description": "Use of à, en, au, aux, de, du, des with places",
+    "existing_aliases": [
+      "prépositions géographiques"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "present infinitive",
+    "existing_description": "Infinitif présent used as subject, for general instructions, after verbs of perception, in interrogative infinitive, after expressions of spending time and position.",
+    "existing_aliases": [
+      "infinitif présent"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "present participle",
+    "existing_description": "Participe présent: verb form ending in -ant, used as verb, noun, or adjective.",
+    "existing_aliases": [
+      "participe présent"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "present participle as noun, adjective, verb",
+    "existing_description": "The present participle can function as a noun (with gender/number agreement), as an adjective (agreeing with noun), or as a verb (invariable).",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "probability with future",
+    "existing_description": "Use of future tenses to express probability or likelihood.",
+    "existing_aliases": [
+      "supposition"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "pronominal agreement",
+    "existing_description": "Pronominal verbs in plus-que-parfait use être and agree in gender and number.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "pronominal present participle",
+    "existing_description": "Pronominal verbs form the present participle with a reflexive pronoun corresponding to the subject.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "pronominal verbs",
+    "existing_description": "Pronominal verbs have pronouns that change position in the imperative: after the verb in affirmative, before the verb in negative.",
+    "existing_aliases": [
+      "pronominal imperative",
+      "reflexive verbs"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "pronunciation",
+    "existing_description": "How words are pronounced.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "reflexive passive",
+    "existing_description": "Use of reflexive verbs to express passive meaning.",
+    "existing_aliases": [
+      "passive pronominal"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "school and education vocabulary",
+    "existing_description": "Vocabulary related to school, exams, and learning.",
+    "existing_aliases": [
+      "education terms"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "si seulement regret",
+    "existing_description": "Use of si seulement + plus-que-parfait to express regret about past.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "spelling changes",
+    "existing_description": "Orthographic adjustments in certain verbs to maintain pronunciation.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "spelling changes in future",
+    "existing_description": "Verbs with spelling modifications in the futur simple (e.g., acheter, appeler, employer, essuyer, jeter, nettoyer, préférer).",
+    "existing_aliases": [
+      "orthographic changes"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "spelling changes in present participle",
+    "existing_description": "Some -cer and -ger verbs have spelling changes when forming the present participle.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "subject difference",
+    "existing_description": "When main and dependent clause subjects differ, use que clause.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "suggestion",
+    "existing_description": "Using si on + imparfait to make a suggestion or invitation.",
+    "existing_aliases": [
+      "proposal"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "superlative",
+    "existing_description": "Superlative forms of adjectives and adverbs.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "tense balance with conjunctions",
+    "existing_description": "Use of future tense in both main and dependent clauses after certain conjunctions.",
+    "existing_aliases": [
+      "future after conjunctions"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "time expressions",
+    "existing_description": "Words and phrases that signal habitual or repetitive actions in the past.",
+    "existing_aliases": [
+      "signal words"
+    ],
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

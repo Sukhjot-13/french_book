@@ -1,0 +1,471 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 116_examples_batch_007
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags, related_verbs, related_tenses
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 116_examples_batch_007_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "116_examples_batch_007",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "examples",
+  "natural_key": "french",
+  "required_fields": [
+    "french",
+    "english",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_tenses",
+    "related_concepts",
+    "focus_spans",
+    "tags",
+    "chapters",
+    "notes",
+    "sources"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "tags",
+    "related_verbs",
+    "related_tenses"
+  ],
+  "properties": {
+    "french": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "related_verbs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true
+    },
+    "related_tenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tenseRef"
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "tenseRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Elle a plus de temps que Valérie.",
+    "existing_english": "She has more time than Valérie.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Elle a pris une décision.",
+    "existing_english": "She made a decision. / She has made a decision. / She did make a decision.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "prendre"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Elle a refusé de nous donner sa recette.",
+    "existing_english": "She refused to give us her recipe.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "Elle a rentré les géraniums dans le salon.",
+    "existing_english": "She brought the geraniums into the living room.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "rentrer"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Elle a retourné l'omelette.",
+    "existing_english": "She turned over the omelette.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "retourner"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Elle a sorti la voiture du garage.",
+    "existing_english": "She took the car out of the garage.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "sortir"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Elle a vu la biche sauter par-dessus la clôture.",
+    "existing_english": "She saw the doe jumping (jump) over the fence.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "voir"
+    ],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "Elle apprendra le russe quand elle sera en Russie.",
+    "existing_english": "She'll learn Russian when she is in Russia.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "apprendre",
+      "être"
+    ],
+    "existing_related_tenses": [
+      "futur simple"
+    ]
+  },
+  {
+    "french": "Elle attend le train.",
+    "existing_english": "She is waiting for the train.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "attendre"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Elle aura beau essayer, ce sera inutile.",
+    "existing_english": "However much she tries, it will be useless.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir",
+      "verb_essayer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Elle aura encore échoué à ses examens!",
+    "existing_english": "She probably failed her exams again!",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "échouer"
+    ],
+    "existing_related_tenses": [
+      "futur antérieur"
+    ]
+  },
+  {
+    "french": "Elle aurait accepté votre offre.",
+    "existing_english": "She would have accepted your offer.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "accepter"
+    ],
+    "existing_related_tenses": [
+      "conditionnel passé"
+    ]
+  },
+  {
+    "french": "Elle aurait aimé le féliciter.",
+    "existing_english": "She would have liked to congratulate him.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "aimer",
+      "féliciter"
+    ],
+    "existing_related_tenses": [
+      "conditionnel passé"
+    ]
+  },
+  {
+    "french": "Elle aurait fini plus tôt si vous l'aviez aidée.",
+    "existing_english": "She would have finished earlier if you had helped her.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "finir",
+      "verb_aider"
+    ],
+    "existing_related_tenses": [
+      "conditionnel passé",
+      "plus-que-parfait"
+    ]
+  },
+  {
+    "french": "Elle avait faim parce qu'elle n'avait pas eu le temps de déjeuner.",
+    "existing_english": "She was hungry because she had not had time for lunch.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "avoir"
+    ],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  },
+  {
+    "french": "elle chante",
+    "existing_english": "she sings",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "chanter"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Elle connaît bien Paris.",
+    "existing_english": "She knows Paris well.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "connaître"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Elle devrait se détendre un peu.",
+    "existing_english": "She should relax a bit.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "devoir"
+    ],
+    "existing_related_tenses": [
+      "conditionnel présent"
+    ]
+  },
+  {
+    "french": "Elle est américaine.",
+    "existing_english": "She is American.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": [
+      "présent"
+    ]
+  },
+  {
+    "french": "Elle est arrivée en retard.",
+    "existing_english": "She arrived late.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "arriver"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Elle est arrivée la veille de mon anniversaire.",
+    "existing_english": "She arrived the day before my birthday.",
+    "existing_tags": [],
+    "existing_related_verbs": [],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Elle est assise à écosser des petits pois.",
+    "existing_english": "She is sitting shelling peas.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "Elle est descendue au rez-de-chaussée.",
+    "existing_english": "She went down to the ground floor.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "descendre"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Elle est originaire du Brésil.",
+    "existing_english": "She comes from Brazil.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "verb_etre_originaire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Elle est rentrée de Suède hier soir.",
+    "existing_english": "She came back from Sweden last night.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "rentrer"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Elle est rentrée de vacances hier.",
+    "existing_english": "She came back from vacation yesterday.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "rentrer"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Elle est sortie avec des amis.",
+    "existing_english": "She went out with some friends.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "sortir"
+    ],
+    "existing_related_tenses": [
+      "passé composé"
+    ]
+  },
+  {
+    "french": "Elle est vietnamienne.",
+    "existing_english": "She is Vietnamese.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "Elle est à genoux à arracher les mauvaises herbes.",
+    "existing_english": "She is kneeling pulling out weeds.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": [
+      "infinitif"
+    ]
+  },
+  {
+    "french": "elle exigeait",
+    "existing_english": "she demanded",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "exiger"
+    ],
+    "existing_related_tenses": [
+      "imparfait"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

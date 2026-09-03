@@ -1,0 +1,438 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 111_examples_batch_002
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags, related_verbs, related_tenses
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 111_examples_batch_002_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "111_examples_batch_002",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "examples",
+  "natural_key": "french",
+  "required_fields": [
+    "french",
+    "english",
+    "related_verbs",
+    "related_expressions",
+    "related_vocabulary",
+    "related_grammar_rules",
+    "related_tenses",
+    "related_concepts",
+    "focus_spans",
+    "tags",
+    "chapters",
+    "notes",
+    "sources"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "tags",
+    "related_verbs",
+    "related_tenses"
+  ],
+  "properties": {
+    "french": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "related_verbs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true
+    },
+    "related_tenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tenseRef"
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "tenseRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "C'est l'endroit le moins ennuyeux de toute la ville.",
+    "existing_english": "It’s the least boring place in the whole city.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est la personne la plus sympathique qu'il connaisse.",
+    "existing_english": "He's/She's the friendliest person he knows.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "connaître"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "C'est la pire chose qui puisse lui arriver.",
+    "existing_english": "It's the worst thing that could happen to him.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "arriver",
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "C'est la plus belle histoire que j'aie jamais lue.",
+    "existing_english": "It’s the most beautiful story I ever read.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "lire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est la société pour laquelle je travaille.",
+    "existing_english": "It’s the company for which I am working.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "travailler"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est la table en marbre que nous avons trouvée au marché aux puces.",
+    "existing_english": "Here’s the marble table we found at the flea market.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "trouver"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est le client pour lequel je travaille.",
+    "existing_english": "It’s the client for whom I am working.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "travailler"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est le magasin dans lequel je fais mes courses.",
+    "existing_english": "It’s the store where I do my shopping.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "faire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est le magasin où je fais mes courses.",
+    "existing_english": "It’s the store where I do my shopping.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "faire"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est le meilleur ordinateur que je connaisse.",
+    "existing_english": "It's the best computer I know.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "connaître"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "C'est le plus grand spectacle du monde.",
+    "existing_english": "It’s the greatest show on earth.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est le seul logiciel qui puisse vous être utile.",
+    "existing_english": "It's the only software that can be of use to you.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "pouvoir"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "C'est le seul marché aux puces que je connaisse dans cette ville.",
+    "existing_english": "It’s the only flea market I know in this city.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "connaître",
+      "être"
+    ],
+    "existing_related_tenses": [
+      "subjonctif présent"
+    ]
+  },
+  {
+    "french": "C'est le tableau auquel je pensais.",
+    "existing_english": "It is the painting (that) I was thinking about.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "penser"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est moi qui lui ai vendu cette lampe.",
+    "existing_english": "I am the one who sold him this lamp.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "vendre",
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est son meilleur roman.",
+    "existing_english": "It’s his best novel.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est son pire cauchemar.",
+    "existing_english": "It’s his worst nightmare.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est toi qui es responsable.",
+    "existing_english": "You are the one who is responsible.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est un beau compliment.",
+    "existing_english": "It’s a beautiful compliment.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est un bon prix.",
+    "existing_english": "It’s a good price.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est un faux témoignage.",
+    "existing_english": "It’s perjury.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est un long trajet.",
+    "existing_english": "It’s a long commute.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est un mauvais cauchemar.",
+    "existing_english": "It’s a bad nightmare.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est un mauvais signe.",
+    "existing_english": "It’s a bad sign.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est un remède efficace.",
+    "existing_english": "This is an efficient remedy.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est une bonne affaire.",
+    "existing_english": "It’s a good deal.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est une fausse alerte.",
+    "existing_english": "It’s a false alarm.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est une longue distance.",
+    "existing_english": "It’s a long distance.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est une mauvaise critique.",
+    "existing_english": "It’s a bad review.",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "être"
+    ],
+    "existing_related_tenses": []
+  },
+  {
+    "french": "C'est vous qui avez restauré cette chaise?",
+    "existing_english": "Did you restore (Was it you who restored) this chair?",
+    "existing_tags": [],
+    "existing_related_verbs": [
+      "restaurer",
+      "être"
+    ],
+    "existing_related_tenses": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

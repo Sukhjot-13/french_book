@@ -1,0 +1,358 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 094_grammar_rules_batch_013
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: grammar_rules
+TOTAL ENTITIES IN THIS BATCH: 15
+TARGET ENRICHMENT FIELDS: explanation, summary, usage, signal_words, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 094_grammar_rules_batch_013_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "094_grammar_rules_batch_013",
+  "collection": "grammar_rules",
+  "patches": [
+    {
+      "entity_key": "<rule_name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "grammar_rules",
+  "natural_key": "rule_name",
+  "required_fields": [
+    "rule_name",
+    "summary",
+    "explanation",
+    "formation",
+    "usage",
+    "restrictions",
+    "conditions",
+    "signal_words",
+    "exceptions",
+    "agreement_rules",
+    "word_order",
+    "negative_form",
+    "interrogative_form",
+    "affirmative_form",
+    "transformations",
+    "contrast_with",
+    "common_traps",
+    "related_tenses",
+    "related_concepts",
+    "related_expressions",
+    "related_verbs",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "explanation",
+    "summary",
+    "usage",
+    "signal_words",
+    "tags"
+  ],
+  "properties": {
+    "rule_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "explanation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "usage": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "signal_words": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "rule_name": "Possessive adjectives agree with the noun they modify",
+    "existing_explanation": "Possessive adjectives modify nouns and agree in gender and number with the noun they modify.",
+    "existing_summary": "Possessive adjectives express relationship/ownership and agree in gender and number with the noun, not the possessor.",
+    "existing_usage": [
+      "Expressing relationship and ownership"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Possessive adjectives express relationship/ownership and agree in gender and number with the noun, not the possessor.",
+    "formation": "Masculine singular: mon, ton, son, notre, votre, leur; feminine singular: ma, ta, sa, notre, votre, leur; plural: mes, tes, ses, nos, vos, leurs."
+  },
+  {
+    "rule_name": "Possessive pronouns replace noun + possessive adjective",
+    "existing_explanation": "Possessive pronouns (le mien, la mienne, etc.) replace a noun modified by a possessive adjective.",
+    "existing_summary": "Possessive pronouns replace nouns used with possessive adjectives and agree with the noun replaced.",
+    "existing_usage": [
+      "Replacing a noun to avoid repetition",
+      "Stressing ownership"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Possessive pronouns replace nouns used with possessive adjectives and agree with the noun replaced.",
+    "formation": "le mien / la mienne / les miens / les miennes / le tien / la tienne / les tiens / les tiennes / le sien / la sienne / les siens / les siennes / le nôtre / la nôtre / les nôtres / le vôtre / la vôtre / les vôtres / le leur / la leur / les leurs."
+  },
+  {
+    "rule_name": "Possessive pronouns with aussi and non plus",
+    "existing_explanation": "The possessive pronoun is used with aussi to confirm an affirmative statement and with non plus to confirm a negative statement.",
+    "existing_summary": "Use possessive pronouns with aussi (affirmative) and non plus (negative) to confirm statements.",
+    "existing_usage": [
+      "Confirming affirmative or negative statements"
+    ],
+    "existing_signal_words": [
+      "aussi",
+      "non plus"
+    ],
+    "existing_tags": [],
+    "summary": "Use possessive pronouns with aussi (affirmative) and non plus (negative) to confirm statements.",
+    "formation": "le mien aussi / le mien non plus"
+  },
+  {
+    "rule_name": "Pourvu que expressing hope",
+    "existing_explanation": "Pourvu que + subjunctive can be used as an exclamation to express a wish or hope.",
+    "existing_summary": "When used in a single clause, pourvu que expresses hope and is followed by the subjunctive.",
+    "existing_usage": [
+      "Expressing hopes and desires."
+    ],
+    "existing_signal_words": [
+      "pourvu que"
+    ],
+    "existing_tags": [],
+    "summary": "When used in a single clause, pourvu que expresses hope and is followed by the subjunctive.",
+    "formation": "Pourvu que + subjunctive (single clause)."
+  },
+  {
+    "rule_name": "Pourvu que meaning 'provided that'",
+    "existing_explanation": "In a two-clause construction, pourvu que introduces a condition.",
+    "existing_summary": "Pourvu que is a conjunction meaning 'provided that' and is followed by the subjunctive.",
+    "existing_usage": [
+      "Expressing a condition."
+    ],
+    "existing_signal_words": [
+      "pourvu que"
+    ],
+    "existing_tags": [],
+    "summary": "Pourvu que is a conjunction meaning 'provided that' and is followed by the subjunctive.",
+    "formation": "Main clause + pourvu que + subjunctive clause."
+  },
+  {
+    "rule_name": "Preposition with cities: à",
+    "existing_explanation": "Cities generally do not take an article and use à.",
+    "existing_summary": "Use à to express in/to for cities.",
+    "existing_usage": [
+      "to express location or direction to a city"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Use à to express in/to for cities.",
+    "formation": "à + city name"
+  },
+  {
+    "rule_name": "Preposition with countries: en, au, aux",
+    "existing_explanation": "Preposition depends on gender and number of country.",
+    "existing_summary": "Use en for feminine countries and masculine starting with vowel; au for masculine; aux for plural.",
+    "existing_usage": [
+      "to express in/to a country"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Use en for feminine countries and masculine starting with vowel; au for masculine; aux for plural.",
+    "formation": "en + feminine or vowel-starting masculine; au + masculine singular; aux + plural"
+  },
+  {
+    "rule_name": "Preposition with islands: à, aux, en",
+    "existing_explanation": "Island usage varies; à is common.",
+    "existing_summary": "Usually à for islands, aux for plural; exceptions with en.",
+    "existing_usage": [
+      "to express in/to an island"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Usually à for islands, aux for plural; exceptions with en.",
+    "formation": "à + island; aux + plural; en for some exceptions"
+  },
+  {
+    "rule_name": "Preposition with states/provinces: en, au, dans le",
+    "existing_explanation": "Similar to countries but with variation.",
+    "existing_summary": "Use en for feminine or vowel-starting masculine states; au for masculine; dans le sometimes replaces au.",
+    "existing_usage": [
+      "to express in/to a state or province"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Use en for feminine or vowel-starting masculine states; au for masculine; dans le sometimes replaces au.",
+    "formation": "en + feminine/vowel masculine; au + masculine; dans le + masculine consonant"
+  },
+  {
+    "rule_name": "Present conditional for polite requests",
+    "existing_explanation": "Used with verbs like pouvoir, vouloir, etc.",
+    "existing_summary": "The present conditional makes statements or requests more polite.",
+    "existing_usage": [
+      "polite request",
+      "polite statement"
+    ],
+    "existing_signal_words": [
+      "pourriez-vous",
+      "voudriez-vous",
+      "est-ce que tu pourrais"
+    ],
+    "existing_tags": [],
+    "summary": "The present conditional makes statements or requests more polite.",
+    "formation": "conditional form of verb"
+  },
+  {
+    "rule_name": "Present conditional for unconfirmed information (journalistic)",
+    "existing_explanation": "Used in press or news to indicate that information is reported but not confirmed.",
+    "existing_summary": "The present conditional expresses unconfirmed or alleged information, known as conditionnel journalistique.",
+    "existing_usage": [
+      "unconfirmed information",
+      "alleged information"
+    ],
+    "existing_signal_words": [
+      "reportedly",
+      "allegedly"
+    ],
+    "existing_tags": [],
+    "summary": "The present conditional expresses unconfirmed or alleged information, known as conditionnel journalistique.",
+    "formation": "present conditional"
+  },
+  {
+    "rule_name": "Present conditional for wish or suggestion",
+    "existing_explanation": "Used to soften requests or express desires.",
+    "existing_summary": "The present conditional expresses a wish or a suggestion.",
+    "existing_usage": [
+      "wish",
+      "suggestion"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "The present conditional expresses a wish or a suggestion.",
+    "formation": "conditional form of verb"
+  },
+  {
+    "rule_name": "Present conditional with si clause in imparfait",
+    "existing_explanation": "Expresses hypothetical situations in the present or future.",
+    "existing_summary": "When the main clause is in the present conditional, the si clause is in the imparfait.",
+    "existing_usage": [
+      "hypothetical condition"
+    ],
+    "existing_signal_words": [
+      "si"
+    ],
+    "existing_tags": [],
+    "summary": "When the main clause is in the present conditional, the si clause is in the imparfait.",
+    "formation": "si + imparfait, main clause in present conditional"
+  },
+  {
+    "rule_name": "Present participle of pronominal verbs",
+    "existing_explanation": "Example with se promener: me promenant, te promenant, se promenant, nous promenant, vous promenant, se promenant.",
+    "existing_summary": "Pronominal verbs follow the same pattern, but include the reflexive pronoun corresponding to the subject.",
+    "existing_usage": [
+      "for pronominal verbs"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Pronominal verbs follow the same pattern, but include the reflexive pronoun corresponding to the subject.",
+    "formation": "pronoun + present participle (stem + -ant)"
+  },
+  {
+    "rule_name": "Present participle used as a noun",
+    "existing_explanation": "Examples: un gagnant/une gagnante, un perdant/une perdante.",
+    "existing_summary": "Some present participles can be used as nouns; when used as a noun, they change according to gender and number.",
+    "existing_usage": [
+      "as noun"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Some present participles can be used as nouns; when used as a noun, they change according to gender and number.",
+    "formation": "present participle as noun with gender/number agreement"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

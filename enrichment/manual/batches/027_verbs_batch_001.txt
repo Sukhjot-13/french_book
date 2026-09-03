@@ -1,0 +1,490 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 027_verbs_batch_001
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 027_verbs_batch_001_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "027_verbs_batch_001",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "verbs",
+  "natural_key": "infinitive",
+  "required_fields": [
+    "infinitive",
+    "display_form",
+    "english",
+    "senses",
+    "verb_group",
+    "regularity",
+    "pronominal",
+    "transitivity",
+    "auxiliary",
+    "past_participle",
+    "present_participle",
+    "stems",
+    "conjugations",
+    "related_expressions",
+    "related_concepts",
+    "aliases",
+    "search_terms",
+    "source_classifications",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "english",
+    "synonyms",
+    "antonyms",
+    "register",
+    "usage_notes",
+    "aliases",
+    "search_terms",
+    "tags"
+  ],
+  "properties": {
+    "infinitive": {
+      "type": "string",
+      "minLength": 1
+    },
+    "english": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to synonymous verbs."
+    },
+    "antonyms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verbRef"
+      },
+      "uniqueItems": true,
+      "description": "Natural references to antonymous verbs."
+    },
+    "register": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "formal",
+        "neutral",
+        "informal",
+        "colloquial",
+        "literary",
+        "slang",
+        "technical",
+        "archaic",
+        "regional",
+        "vulgar",
+        "unknown",
+        null
+      ],
+      "description": "Typical usage register of the item."
+    },
+    "usage_notes": {
+      "$ref": "#/$defs/stringArray",
+      "description": "Usage-specific notes kept separate from general notes."
+    },
+    "aliases": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "search_terms": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "(s')asseoir",
+    "display_form": "(s')asseoir",
+    "existing_english": [],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "abandonner",
+    "display_form": "abandonner",
+    "existing_english": [
+      "to give up"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "abandonner"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "accepter",
+    "display_form": "accepter",
+    "existing_english": [
+      "accept",
+      "to accept"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "acceptant",
+      "accepter",
+      "accepté"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "accompagner",
+    "display_form": "accompagner",
+    "existing_english": [
+      "accompany",
+      "to accompany"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "accomplir",
+    "display_form": "accomplir",
+    "existing_english": [
+      "accomplish",
+      "to accomplish"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "accomplir"
+    ],
+    "existing_tags": [],
+    "verb_group": "2nd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "accorder",
+    "display_form": "accorder",
+    "existing_english": [
+      "grant",
+      "to grant"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "accueillir",
+    "display_form": "accueillir",
+    "existing_english": [
+      "to welcome",
+      "welcome"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "acheter",
+    "display_form": "acheter",
+    "existing_english": [
+      "buy",
+      "to buy"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "achetant",
+      "acheter",
+      "acheté",
+      "achète",
+      "buy"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "achever",
+    "display_form": "achever",
+    "existing_english": [
+      "complete",
+      "to complete"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "achever"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "acquérir",
+    "display_form": "acquérir",
+    "existing_english": [
+      "acquire",
+      "to acquire"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "acquis",
+      "acquérir"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "adoucir",
+    "display_form": "adoucir",
+    "existing_english": [
+      "mellow",
+      "soften",
+      "to mellow",
+      "to soften"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "adoucir"
+    ],
+    "existing_tags": [],
+    "verb_group": "2nd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "affirmer",
+    "display_form": "affirmer",
+    "existing_english": [
+      "claim",
+      "to claim",
+      "to say"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "affirmer"
+    ],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "agrandir",
+    "display_form": "agrandir",
+    "existing_english": [
+      "enlarge",
+      "to enlarge"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "agrandir"
+    ],
+    "existing_tags": [],
+    "verb_group": "2nd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "aimer",
+    "display_form": "aimer",
+    "existing_english": [
+      "like",
+      "love",
+      "to like",
+      "to love"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "aime",
+      "aimer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "aimer + infinitive"
+    ]
+  },
+  {
+    "infinitive": "ajouter",
+    "display_form": "ajouter",
+    "existing_english": [
+      "add",
+      "to add"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ajouter"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "aller",
+    "display_form": "aller",
+    "existing_english": [
+      "go",
+      "to go"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "allant",
+      "aller",
+      "allé",
+      "go"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "Comment allez-vous?",
+      "Comment va la famille?",
+      "aller + [infinitive]",
+      "aller bien à [quelqu'un]",
+      "aller à + city"
+    ]
+  },
+  {
+    "infinitive": "allumer",
+    "display_form": "allumer",
+    "existing_english": [
+      "light",
+      "to turn on",
+      "turn on"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "améliorer",
+    "display_form": "améliorer",
+    "existing_english": [
+      "to improve"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "analyser",
+    "display_form": "analyser",
+    "existing_english": [
+      "analyze",
+      "to analyze"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "analyser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "annoncer",
+    "display_form": "annoncer",
+    "existing_english": [
+      "announce",
+      "to announce"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "annoncer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

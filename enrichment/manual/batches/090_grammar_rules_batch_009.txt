@@ -1,0 +1,355 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 090_grammar_rules_batch_009
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: grammar_rules
+TOTAL ENTITIES IN THIS BATCH: 15
+TARGET ENRICHMENT FIELDS: explanation, summary, usage, signal_words, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects to an array.
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+7. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+8. STRICT OUTPUT FORMAT:
+   - Create one UTF-8 JSON FILE named exactly: 090_grammar_rules_batch_009_RESPONSE.json
+   - Attach that JSON file as your response so it can be downloaded directly.
+   - The file must contain only the JSON object; no Markdown or conversational text.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "090_grammar_rules_batch_009",
+  "collection": "grammar_rules",
+  "patches": [
+    {
+      "entity_key": "<rule_name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):
+--------------------------------------------------------------------------------
+{
+  "collection": "grammar_rules",
+  "natural_key": "rule_name",
+  "required_fields": [
+    "rule_name",
+    "summary",
+    "explanation",
+    "formation",
+    "usage",
+    "restrictions",
+    "conditions",
+    "signal_words",
+    "exceptions",
+    "agreement_rules",
+    "word_order",
+    "negative_form",
+    "interrogative_form",
+    "affirmative_form",
+    "transformations",
+    "contrast_with",
+    "common_traps",
+    "related_tenses",
+    "related_concepts",
+    "related_expressions",
+    "related_verbs",
+    "tags",
+    "study",
+    "chapters",
+    "sources",
+    "notes"
+  ],
+  "allowed_enrichment_fields": [
+    "explanation",
+    "summary",
+    "usage",
+    "signal_words",
+    "tags"
+  ],
+  "properties": {
+    "rule_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "explanation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "usage": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "signal_words": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "tags": {
+      "$ref": "#/$defs/stringArray"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "rule_name": "Interrogative by intonation",
+    "existing_explanation": "Form a question by keeping the affirmative word order (subject + verb) and using an upward intonation at the end of the sentence. Example: Tu finis à cinq heures?",
+    "existing_summary": "Keep subject + verb order and raise intonation.",
+    "existing_usage": [
+      "Very colloquial questions"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Keep subject + verb order and raise intonation.",
+    "formation": "subject + verb + ? (rising intonation)"
+  },
+  {
+    "rule_name": "Interrogative by inversion",
+    "existing_explanation": "Form questions by inverting the subject and verb. Example: Comprenez-vous la question? If the third-person singular verb ends with a vowel, insert -t- between verb and pronoun for pronunciation: Parle-t-elle russe?",
+    "existing_summary": "Invert subject and verb to form a question.",
+    "existing_usage": [
+      "Formal or written questions"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Invert subject and verb to form a question.",
+    "formation": "verb + hyphen + subject pronoun (+ -t- if necessary)"
+  },
+  {
+    "rule_name": "Interrogative forms of reflexive verbs",
+    "existing_explanation": "In the interrogative form, there are three ways of asking questions. Rising intonation (Tu te couches déjà?). With inversion, the reflexive pronoun remains in front of the verb. Also est-ce que.",
+    "existing_summary": "Three ways: rising intonation, est-ce que, inversion; pronoun remains before verb.",
+    "existing_usage": [
+      "All questions"
+    ],
+    "existing_signal_words": [
+      "est-ce que",
+      "inversion"
+    ],
+    "existing_tags": [],
+    "summary": "Three ways: rising intonation, est-ce que, inversion; pronoun remains before verb.",
+    "formation": "Rising intonation: Tu te couches? ; Inversion: Te couches-tu? ; Est-ce que: Est-ce que tu te couches?"
+  },
+  {
+    "rule_name": "Interrogative infinitive",
+    "existing_explanation": "Interrogative words like que, comment, pourquoi, quoi are followed by infinitive.",
+    "existing_summary": "Use question word + infinitive to form an interrogative infinitive.",
+    "existing_usage": [
+      "To ask a question in a concise way."
+    ],
+    "existing_signal_words": [
+      "que",
+      "comment",
+      "pourquoi",
+      "quoi"
+    ],
+    "existing_tags": [],
+    "summary": "Use question word + infinitive to form an interrogative infinitive.",
+    "formation": "question word + infinitive"
+  },
+  {
+    "rule_name": "Interrogative with est-ce que",
+    "existing_explanation": "Place est-ce que before the subject and verb to form a question. Est-ce que becomes est-ce qu' before a vowel. Example: Est-ce que vous habitez à New York? Est-ce qu'ils vendent des timbres?",
+    "existing_summary": "Use est-ce que before subject + verb.",
+    "existing_usage": [
+      "Colloquial or neutral questions"
+    ],
+    "existing_signal_words": [
+      "est-ce que"
+    ],
+    "existing_tags": [],
+    "summary": "Use est-ce que before subject + verb.",
+    "formation": "est-ce que + subject + verb"
+  },
+  {
+    "rule_name": "Interrogative words",
+    "existing_explanation": "These interrogative words are used to form questions.",
+    "existing_summary": "Question words in French: pourquoi, où, quand, comment, combien, que, qui, dans quelle mesure.",
+    "existing_usage": [
+      "To ask about reason (pourquoi), place (où), time (quand), manner (comment), quantity (combien), object (que), person (qui), extent (dans quelle mesure)"
+    ],
+    "existing_signal_words": [
+      "pourquoi",
+      "où",
+      "quand",
+      "comment",
+      "combien",
+      "que",
+      "qui",
+      "dans quelle mesure"
+    ],
+    "existing_tags": [],
+    "summary": "Question words in French: pourquoi, où, quand, comment, combien, que, qui, dans quelle mesure."
+  },
+  {
+    "rule_name": "Irregular -oir verbs (first-person singular and plural)",
+    "existing_explanation": "Many -oir verbs are irregular; here are examples of their first-person singular and plural forms.",
+    "existing_summary": "List of -oir verbs with their first-person singular and plural present forms.",
+    "existing_usage": [
+      "To learn irregular -oir verb forms"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "List of -oir verbs with their first-person singular and plural present forms.",
+    "formation": "apercevoir: j'aperçois/nous apercevons; décevoir: je déçois/nous décevons; devoir: je dois/nous devons; émouvoir: j'émeus/nous émouvons; prévoir: je prévois/nous prévoyons; promouvoir: je promeus/nous promouvons; recevoir: je reçois/nous recevons; valoir: cela vaut/nous valons; voir: je vois/nous voyons"
+  },
+  {
+    "rule_name": "Irregular -re verbs (prendre group) present tense",
+    "existing_explanation": "Some -re verbs are irregular. Prendre conjugates as: je prends, tu prends, il prend, nous prenons, vous prenez, ils prennent. Variations (apprendre, comprendre, entreprendre, surprendre) follow the same pattern with prefixes.",
+    "existing_summary": "Prendre and its derivatives have irregular pattern: je prends, nous prenons, etc.",
+    "existing_usage": [
+      "Present tense conjugation of irregular -re verbs"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Prendre and its derivatives have irregular pattern: je prends, nous prenons, etc.",
+    "formation": "prendre type: stem + -s / -s / - / -ons / -ez / -ent (with -n- in plural)"
+  },
+  {
+    "rule_name": "Irregular comparatives",
+    "existing_explanation": "Bon becomes meilleur (better), bien becomes mieux (better), mauvais becomes pire (worse).",
+    "existing_summary": "Some comparatives have irregular forms: bon -> meilleur, bien -> mieux, mauvais -> pire, petit -> moindre (implied).",
+    "existing_usage": [
+      "For irregular comparison."
+    ],
+    "existing_signal_words": [
+      "meilleur",
+      "mieux",
+      "pire"
+    ],
+    "existing_tags": [],
+    "summary": "Some comparatives have irregular forms: bon -> meilleur, bien -> mieux, mauvais -> pire, petit -> moindre (implied).",
+    "formation": "bon -> meilleur, bien -> mieux, mauvais -> pire"
+  },
+  {
+    "rule_name": "Irregular feminine forms",
+    "existing_explanation": "Certain adjectives have irregular feminine forms: vietnamien -> vietnamienne, italien -> italienne, généreux -> généreuse, dangereux -> dangereuse, interactif -> interactive, passif -> passive, faux -> fausse.",
+    "existing_summary": "Some adjectives have irregular feminine forms, often involving consonant changes or doubling.",
+    "existing_usage": [
+      "To form feminine of irregular adjectives."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Some adjectives have irregular feminine forms, often involving consonant changes or doubling.",
+    "formation": "Various irregular patterns."
+  },
+  {
+    "rule_name": "Irregular imparfait stem: être",
+    "existing_explanation": "Note that the verb être has an irregular stem in the imparfait: j’étais, tu étais, il/elle était, nous étions, vous étiez, ils/elles étaient.",
+    "existing_summary": "The verb être has an irregular stem ét- in the imparfait.",
+    "existing_usage": [],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "The verb être has an irregular stem ét- in the imparfait.",
+    "formation": "ét- + endings"
+  },
+  {
+    "rule_name": "Irregular imperative forms of être, avoir, savoir",
+    "existing_explanation": "The imperative forms of être, avoir, and savoir are irregular and must be memorized.",
+    "existing_summary": "être, avoir, and savoir have irregular imperative forms.",
+    "existing_usage": [
+      "Give commands with these verbs",
+      "Express advice"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "être, avoir, and savoir have irregular imperative forms.",
+    "formation": "être: sois, soyons, soyez; avoir: aie, ayons, ayez; savoir: sache, sachons, sachez"
+  },
+  {
+    "rule_name": "Irregular past participles (memorization)",
+    "existing_explanation": "These past participles must be memorized.",
+    "existing_summary": "A set of common verbs with irregular past participles.",
+    "existing_usage": [],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "A set of common verbs with irregular past participles."
+  },
+  {
+    "rule_name": "Irregular present participles",
+    "existing_explanation": null,
+    "existing_summary": "Three verbs have irregular present participles: être -> étant, avoir -> ayant, savoir -> sachant.",
+    "existing_usage": [
+      "irregular forms"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Three verbs have irregular present participles: être -> étant, avoir -> ayant, savoir -> sachant."
+  },
+  {
+    "rule_name": "Irregular present subjunctive of aller and vouloir",
+    "existing_explanation": "aller: j'aille, tu ailles, il/elle aille, nous allions, vous alliez, ils/elles aillent; vouloir: je veuille, tu veuilles, il/elle veuille, nous voulions, vous vouliez, ils/elles veuillent.",
+    "existing_summary": "Aller and vouloir have irregular stems in je/tu/il/ils forms and are partially irregular in nous/vous.",
+    "existing_usage": [
+      "Used in the present subjunctive."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Aller and vouloir have irregular stems in je/tu/il/ils forms and are partially irregular in nous/vous.",
+    "formation": "Irregular stem in singular and third-person plural; nous/vous use a different stem."
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================
