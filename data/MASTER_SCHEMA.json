@@ -1,0 +1,3108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/letude-master.schema.json",
+  "title": "L'Étude Canonical French Revision Master Dataset",
+  "description": "Canonical global revision schema built from chapter, glossary, verb-table, and answer-key data. Uses natural human-readable references instead of artificial IDs. Duplicate entities are intended to be merged by their documented natural keys while unioning non-conflicting subordinate data.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dataset_type",
+    "metadata",
+    "chapters",
+    "topics",
+    "concepts",
+    "grammar_rules",
+    "tenses",
+    "verbs",
+    "expressions",
+    "vocabulary",
+    "examples",
+    "exercises",
+    "exceptions_and_traps",
+    "unresolved_items",
+    "source_quality"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "dataset_type": {
+      "const": "french_revision_master"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dataset_name",
+        "book_title",
+        "author",
+        "language",
+        "source_language",
+        "target_language",
+        "notes"
+      ],
+      "properties": {
+        "dataset_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "book_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "author": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "language": {
+          "const": "fr"
+        },
+        "source_language": {
+          "const": "fr"
+        },
+        "target_language": {
+          "const": "en"
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/chapter"
+      }
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/topic"
+      }
+    },
+    "concepts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/concept"
+      }
+    },
+    "grammar_rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/grammarRule"
+      }
+    },
+    "tenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tense"
+      }
+    },
+    "verbs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verb"
+      }
+    },
+    "expressions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/expression"
+      }
+    },
+    "vocabulary": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/vocabulary"
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/example"
+      }
+    },
+    "exercises": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/exercise"
+      }
+    },
+    "exceptions_and_traps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/exceptionTrap"
+      }
+    },
+    "unresolved_items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unresolvedItem"
+      }
+    },
+    "source_quality": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sourceQuality"
+      }
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "chapterRefs": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "uniqueItems": true
+    },
+    "study": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "learning_priority",
+        "importance",
+        "frequency",
+        "usefulness",
+        "difficulty",
+        "frequency_note",
+        "notes"
+      ],
+      "properties": {
+        "learning_priority": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 5
+        },
+        "importance": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 5
+        },
+        "frequency": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 5
+        },
+        "usefulness": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 5
+        },
+        "difficulty": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 5
+        },
+        "frequency_note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "pageRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "printed_start",
+        "printed_end",
+        "pdf_start",
+        "pdf_end"
+      ],
+      "properties": {
+        "printed_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "printed_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "pdf_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "pdf_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      }
+    },
+    "sourceEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_type",
+        "source_name",
+        "chapter_number",
+        "section_title",
+        "page_printed",
+        "page_pdf",
+        "context_type",
+        "exercise_code",
+        "question_number",
+        "table_title",
+        "table_type",
+        "row_label",
+        "column",
+        "direction",
+        "source_headword",
+        "source_target",
+        "source_text",
+        "created_by",
+        "notes",
+        "derived_from",
+        "source_classifications"
+      ],
+      "properties": {
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "chapter",
+            "book",
+            "glossary",
+            "verb_table",
+            "answer_key",
+            "ai_enrichment",
+            "user_added",
+            "derived",
+            "other"
+          ]
+        },
+        "source_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "chapter_number": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 999
+        },
+        "section_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "page_printed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "page_pdf": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "context_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "explanation",
+            "example",
+            "exercise",
+            "answer_key",
+            "vocabulary",
+            "table",
+            "note",
+            "dialogue",
+            "caption",
+            "warning",
+            "contrast",
+            "glossary",
+            "other",
+            null
+          ]
+        },
+        "exercise_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "question_number": {
+          "type": [
+            "integer",
+            "string",
+            "null"
+          ]
+        },
+        "table_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "table_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "row_label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "column": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            "single",
+            "unknown",
+            null
+          ]
+        },
+        "direction": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "fr_en",
+            "en_fr",
+            null
+          ]
+        },
+        "source_headword": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "independent_extraction",
+            "rule_expansion",
+            "mapping_script",
+            "ai_enrichment",
+            "manual",
+            "other",
+            null
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "derived_from": {
+          "$ref": "#/$defs/stringArray",
+          "description": "Natural source entity names from which this information was derived."
+        },
+        "source_classifications": {
+          "$ref": "#/$defs/stringArray",
+          "description": "Source-specific classifications worth preserving during migration."
+        }
+      }
+    },
+    "verbRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tenseRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ruleRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expressionRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "conceptRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "topicRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "vocabularyRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_form",
+        "part_of_speech"
+      ],
+      "properties": {
+        "canonical_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "part_of_speech": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "noun",
+            "verb",
+            "adjective",
+            "adverb",
+            "pronoun",
+            "determiner",
+            "preposition",
+            "conjunction",
+            "interjection",
+            "number",
+            "other",
+            "unknown",
+            null
+          ]
+        }
+      }
+    },
+    "variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "form",
+        "variant_type",
+        "note"
+      ],
+      "properties": {
+        "form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "variant_type": {
+          "type": "string",
+          "enum": [
+            "masculine",
+            "feminine",
+            "masculine_before_vowel",
+            "plural",
+            "alternate_spelling",
+            "inflected_form",
+            "other"
+          ]
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "sense": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "english",
+        "note"
+      ],
+      "properties": {
+        "english": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "conjugationForms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "je",
+        "tu",
+        "il_elle_on",
+        "nous",
+        "vous",
+        "ils_elles",
+        "imperative_tu",
+        "imperative_nous",
+        "imperative_vous",
+        "impersonal_form"
+      ],
+      "properties": {
+        "je": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tu": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "il_elle_on": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nous": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vous": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ils_elles": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "imperative_tu": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "imperative_nous": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "imperative_vous": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "impersonal_form": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "stem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tense",
+        "persons",
+        "stem",
+        "note"
+      ],
+      "properties": {
+        "tense": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "persons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "je",
+              "tu",
+              "il_elle_on",
+              "nous",
+              "vous",
+              "ils_elles",
+              "all",
+              "other"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "stem": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "verbConjugation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tense",
+        "mood",
+        "forms",
+        "stems",
+        "endings",
+        "formation_note",
+        "irregularities",
+        "notes",
+        "sources"
+      ],
+      "properties": {
+        "tense": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mood": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "forms": {
+          "$ref": "#/$defs/conjugationForms"
+        },
+        "stems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stem"
+          }
+        },
+        "endings": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "formation_note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "irregularities": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "notes": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        }
+      }
+    },
+    "patternSlot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "display",
+        "slot_type",
+        "required"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display": {
+          "type": "string",
+          "minLength": 1
+        },
+        "slot_type": {
+          "type": "string",
+          "enum": [
+            "person",
+            "thing",
+            "noun",
+            "verb_infinitive",
+            "clause",
+            "adjective",
+            "adverb",
+            "preposition",
+            "other"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "complementStructure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "direct_object",
+        "indirect_object",
+        "preposition",
+        "followed_by"
+      ],
+      "properties": {
+        "direct_object": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "indirect_object": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "preposition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "followed_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "infinitive",
+            "noun",
+            "person",
+            "clause",
+            "adjective",
+            "adverb",
+            "mixed",
+            "none",
+            "unknown",
+            null
+          ]
+        }
+      }
+    },
+    "focusSpan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "focus_type",
+        "entity_name"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "focus_type": {
+          "type": "string",
+          "enum": [
+            "verb",
+            "expression",
+            "vocabulary",
+            "grammar_rule",
+            "tense",
+            "concept",
+            "other"
+          ]
+        },
+        "entity_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "example": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "french",
+        "english",
+        "related_verbs",
+        "related_expressions",
+        "related_vocabulary",
+        "related_grammar_rules",
+        "related_tenses",
+        "related_concepts",
+        "focus_spans",
+        "tags",
+        "chapters",
+        "notes",
+        "sources"
+      ],
+      "properties": {
+        "french": {
+          "type": "string",
+          "minLength": 1
+        },
+        "english": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "related_verbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true
+        },
+        "related_expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true
+        },
+        "related_vocabulary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocabularyRef"
+          }
+        },
+        "related_grammar_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleRef"
+          },
+          "uniqueItems": true
+        },
+        "related_tenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tenseRef"
+          },
+          "uniqueItems": true
+        },
+        "related_concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptRef"
+          },
+          "uniqueItems": true
+        },
+        "focus_spans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/focusSpan"
+          }
+        },
+        "tags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "chapters": {
+          "$ref": "#/$defs/chapterRefs"
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        }
+      }
+    },
+    "verb": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "infinitive"
+      ],
+      "required": [
+        "infinitive",
+        "display_form",
+        "english",
+        "senses",
+        "verb_group",
+        "regularity",
+        "pronominal",
+        "transitivity",
+        "auxiliary",
+        "past_participle",
+        "present_participle",
+        "stems",
+        "conjugations",
+        "related_expressions",
+        "related_concepts",
+        "aliases",
+        "search_terms",
+        "source_classifications",
+        "register",
+        "synonyms",
+        "antonyms",
+        "usage_notes",
+        "tags",
+        "study",
+        "chapters",
+        "sources",
+        "notes"
+      ],
+      "properties": {
+        "infinitive": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "english": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "senses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sense"
+          }
+        },
+        "verb_group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "1st_group",
+            "2nd_group",
+            "3rd_group",
+            "defective",
+            "impersonal",
+            "unknown",
+            null
+          ]
+        },
+        "regularity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "regular",
+            "irregular",
+            "mixed",
+            "unknown",
+            null
+          ]
+        },
+        "pronominal": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "transitivity": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "transitive",
+              "intransitive",
+              "ditransitive",
+              "copular",
+              "unknown"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "auxiliary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "avoir",
+            "etre",
+            "both",
+            "none",
+            "unknown",
+            null
+          ]
+        },
+        "past_participle": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "present_participle": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stem"
+          }
+        },
+        "conjugations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbConjugation"
+          }
+        },
+        "related_expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true
+        },
+        "related_concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptRef"
+          },
+          "uniqueItems": true
+        },
+        "aliases": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "search_terms": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "tags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "study": {
+          "$ref": "#/$defs/study"
+        },
+        "chapters": {
+          "$ref": "#/$defs/chapterRefs"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_classifications": {
+          "$ref": "#/$defs/stringArray",
+          "description": "Legacy/source classifications preserved during mapping."
+        },
+        "register": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "formal",
+            "neutral",
+            "informal",
+            "colloquial",
+            "literary",
+            "slang",
+            "technical",
+            "archaic",
+            "regional",
+            "vulgar",
+            "unknown",
+            null
+          ],
+          "description": "Typical usage register of the item."
+        },
+        "synonyms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true,
+          "description": "Natural references to synonymous verbs."
+        },
+        "antonyms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true,
+          "description": "Natural references to antonymous verbs."
+        },
+        "usage_notes": {
+          "$ref": "#/$defs/stringArray",
+          "description": "Usage-specific notes kept separate from general notes."
+        }
+      }
+    },
+    "expression": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "canonical_form"
+      ],
+      "required": [
+        "canonical_form",
+        "display_form",
+        "english",
+        "expression_type",
+        "productive",
+        "pattern",
+        "pattern_slots",
+        "related_verbs",
+        "related_vocabulary",
+        "related_grammar_rules",
+        "related_concepts",
+        "prepositions",
+        "complement_structure",
+        "restrictions",
+        "transformations",
+        "aliases",
+        "search_terms",
+        "collocation_strength",
+        "source_classifications",
+        "register",
+        "synonyms",
+        "antonyms",
+        "usage_notes",
+        "tags",
+        "study",
+        "chapters",
+        "sources",
+        "notes"
+      ],
+      "properties": {
+        "canonical_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "english": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "expression_type": {
+          "type": "string",
+          "enum": [
+            "construction",
+            "verb_pattern",
+            "collocation",
+            "fixed_expression",
+            "idiom",
+            "sentence_starter",
+            "conversation_phrase",
+            "connector",
+            "functional_phrase",
+            "formulaic_phrase",
+            "time_expression",
+            "quantity_expression",
+            "comparison_structure",
+            "subjunctive_trigger",
+            "conditional_trigger",
+            "negative_construction",
+            "question_construction",
+            "other"
+          ]
+        },
+        "productive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "pattern": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pattern_slots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/patternSlot"
+          }
+        },
+        "related_verbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true
+        },
+        "related_vocabulary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocabularyRef"
+          }
+        },
+        "related_grammar_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleRef"
+          },
+          "uniqueItems": true
+        },
+        "related_concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptRef"
+          },
+          "uniqueItems": true
+        },
+        "prepositions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "complement_structure": {
+          "$ref": "#/$defs/complementStructure"
+        },
+        "restrictions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "transformations": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "aliases": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "search_terms": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "collocation_strength": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "strong",
+            "common",
+            "possible",
+            "unknown",
+            null
+          ]
+        },
+        "tags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "study": {
+          "$ref": "#/$defs/study"
+        },
+        "chapters": {
+          "$ref": "#/$defs/chapterRefs"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_classifications": {
+          "$ref": "#/$defs/stringArray",
+          "description": "Legacy/source classifications preserved during mapping."
+        },
+        "register": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "formal",
+            "neutral",
+            "informal",
+            "colloquial",
+            "literary",
+            "slang",
+            "technical",
+            "archaic",
+            "regional",
+            "vulgar",
+            "unknown",
+            null
+          ],
+          "description": "Typical usage register of the item."
+        },
+        "synonyms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true,
+          "description": "Natural references to synonymous expressions."
+        },
+        "antonyms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true,
+          "description": "Natural references to antonymous expressions."
+        },
+        "usage_notes": {
+          "$ref": "#/$defs/stringArray",
+          "description": "Usage-specific notes kept separate from general notes."
+        }
+      }
+    },
+    "vocabulary": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "canonical_form",
+        "part_of_speech"
+      ],
+      "required": [
+        "canonical_form",
+        "display_form",
+        "english",
+        "part_of_speech",
+        "gender",
+        "article",
+        "plural",
+        "variants",
+        "senses",
+        "aliases",
+        "search_terms",
+        "word_family",
+        "related_expressions",
+        "related_verbs",
+        "related_concepts",
+        "source_classifications",
+        "register",
+        "synonyms",
+        "antonyms",
+        "usage_notes",
+        "tags",
+        "study",
+        "chapters",
+        "sources",
+        "notes"
+      ],
+      "properties": {
+        "canonical_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display_form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "english": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "part_of_speech": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "noun",
+            "verb",
+            "adjective",
+            "adverb",
+            "pronoun",
+            "determiner",
+            "preposition",
+            "conjunction",
+            "interjection",
+            "number",
+            "other",
+            "unknown",
+            null
+          ]
+        },
+        "gender": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "masculine",
+            "feminine",
+            "common",
+            "variable",
+            "none",
+            "unknown",
+            null
+          ]
+        },
+        "article": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "plural": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "variants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/variant"
+          }
+        },
+        "senses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sense"
+          }
+        },
+        "aliases": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "search_terms": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "word_family": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocabularyRef"
+          }
+        },
+        "related_expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true
+        },
+        "related_verbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true
+        },
+        "related_concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptRef"
+          },
+          "uniqueItems": true
+        },
+        "tags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "study": {
+          "$ref": "#/$defs/study"
+        },
+        "chapters": {
+          "$ref": "#/$defs/chapterRefs"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_classifications": {
+          "$ref": "#/$defs/stringArray",
+          "description": "Legacy/source classifications preserved during mapping."
+        },
+        "register": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "formal",
+            "neutral",
+            "informal",
+            "colloquial",
+            "literary",
+            "slang",
+            "technical",
+            "archaic",
+            "regional",
+            "vulgar",
+            "unknown",
+            null
+          ],
+          "description": "Typical usage register of the item."
+        },
+        "synonyms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          "description": "Natural vocabulary references for synonyms."
+        },
+        "antonyms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocabularyRef"
+          },
+          "description": "Natural vocabulary references for antonyms."
+        },
+        "usage_notes": {
+          "$ref": "#/$defs/stringArray",
+          "description": "Usage-specific notes kept separate from general notes."
+        }
+      }
+    },
+    "concept": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "name"
+      ],
+      "required": [
+        "name",
+        "description",
+        "aliases",
+        "related_grammar_rules",
+        "related_verbs",
+        "related_expressions",
+        "related_vocabulary",
+        "related_tenses",
+        "tags",
+        "study",
+        "chapters",
+        "sources",
+        "notes"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "aliases": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "related_grammar_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleRef"
+          },
+          "uniqueItems": true
+        },
+        "related_verbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true
+        },
+        "related_expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true
+        },
+        "related_vocabulary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocabularyRef"
+          }
+        },
+        "related_tenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tenseRef"
+          },
+          "uniqueItems": true
+        },
+        "tags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "study": {
+          "$ref": "#/$defs/study"
+        },
+        "chapters": {
+          "$ref": "#/$defs/chapterRefs"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "grammarRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "rule_name"
+      ],
+      "required": [
+        "rule_name",
+        "summary",
+        "explanation",
+        "formation",
+        "usage",
+        "restrictions",
+        "conditions",
+        "signal_words",
+        "exceptions",
+        "agreement_rules",
+        "word_order",
+        "negative_form",
+        "interrogative_form",
+        "affirmative_form",
+        "transformations",
+        "contrast_with",
+        "common_traps",
+        "related_tenses",
+        "related_concepts",
+        "related_expressions",
+        "related_verbs",
+        "tags",
+        "study",
+        "chapters",
+        "sources",
+        "notes"
+      ],
+      "properties": {
+        "rule_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "explanation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "formation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "usage": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "restrictions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "conditions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "signal_words": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "exceptions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "agreement_rules": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "word_order": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "negative_form": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "interrogative_form": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "affirmative_form": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "transformations": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "contrast_with": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleRef"
+          },
+          "uniqueItems": true
+        },
+        "common_traps": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "related_tenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tenseRef"
+          },
+          "uniqueItems": true
+        },
+        "related_concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptRef"
+          },
+          "uniqueItems": true
+        },
+        "related_expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true
+        },
+        "related_verbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true
+        },
+        "tags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "study": {
+          "$ref": "#/$defs/study"
+        },
+        "chapters": {
+          "$ref": "#/$defs/chapterRefs"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "regularPattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verb_group",
+        "stem_rule",
+        "endings",
+        "example_verb",
+        "notes"
+      ],
+      "properties": {
+        "verb_group": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stem_rule": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "endings": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "example_verb": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "irregularStem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verb",
+        "stem",
+        "notes"
+      ],
+      "properties": {
+        "verb": {
+          "$ref": "#/$defs/verbRef"
+        },
+        "stem": {
+          "type": "string",
+          "minLength": 1
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "compoundStructure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "is_compound",
+        "auxiliary_tense",
+        "participle_rule",
+        "agreement_notes"
+      ],
+      "properties": {
+        "is_compound": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "auxiliary_tense": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "participle_rule": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "agreement_notes": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "tense": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "name"
+      ],
+      "required": [
+        "name",
+        "english_name",
+        "mood",
+        "formation",
+        "usage",
+        "signal_words",
+        "regular_patterns",
+        "irregular_stems",
+        "compound_structure",
+        "agreement_rules",
+        "negative_form",
+        "interrogative_form",
+        "affirmative_form",
+        "common_traps",
+        "related_tenses",
+        "related_grammar_rules",
+        "tags",
+        "study",
+        "chapters",
+        "sources",
+        "notes"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "english_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "mood": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "formation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "usage": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "signal_words": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "regular_patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/regularPattern"
+          }
+        },
+        "irregular_stems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/irregularStem"
+          }
+        },
+        "compound_structure": {
+          "$ref": "#/$defs/compoundStructure"
+        },
+        "agreement_rules": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "negative_form": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "interrogative_form": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "affirmative_form": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "common_traps": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "related_tenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tenseRef"
+          },
+          "uniqueItems": true
+        },
+        "related_grammar_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleRef"
+          },
+          "uniqueItems": true
+        },
+        "tags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "study": {
+          "$ref": "#/$defs/study"
+        },
+        "chapters": {
+          "$ref": "#/$defs/chapterRefs"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "parent_section",
+        "order",
+        "pages",
+        "related_concepts",
+        "related_grammar_rules",
+        "related_verbs",
+        "related_expressions",
+        "related_vocabulary",
+        "related_tenses",
+        "notes",
+        "sources"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parent_section": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pages": {
+          "$ref": "#/$defs/pageRange"
+        },
+        "related_concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptRef"
+          },
+          "uniqueItems": true
+        },
+        "related_grammar_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleRef"
+          },
+          "uniqueItems": true
+        },
+        "related_verbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true
+        },
+        "related_expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true
+        },
+        "related_vocabulary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocabularyRef"
+          }
+        },
+        "related_tenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tenseRef"
+          },
+          "uniqueItems": true
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        }
+      }
+    },
+    "chapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "chapter_number"
+      ],
+      "required": [
+        "chapter_number",
+        "chapter_title",
+        "pages",
+        "sections",
+        "concepts",
+        "grammar_rules",
+        "verbs",
+        "expressions",
+        "vocabulary",
+        "tenses",
+        "topics",
+        "notes",
+        "sources"
+      ],
+      "properties": {
+        "chapter_number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 999
+        },
+        "chapter_title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pages": {
+          "$ref": "#/$defs/pageRange"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section"
+          }
+        },
+        "concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptRef"
+          },
+          "uniqueItems": true
+        },
+        "grammar_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleRef"
+          },
+          "uniqueItems": true
+        },
+        "verbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true
+        },
+        "expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true
+        },
+        "vocabulary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocabularyRef"
+          }
+        },
+        "tenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tenseRef"
+          },
+          "uniqueItems": true
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/topicRef"
+          },
+          "uniqueItems": true
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        }
+      }
+    },
+    "topic": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "name"
+      ],
+      "required": [
+        "name",
+        "description",
+        "aliases",
+        "related_concepts",
+        "related_grammar_rules",
+        "related_verbs",
+        "related_expressions",
+        "related_vocabulary",
+        "related_tenses",
+        "tags",
+        "study",
+        "chapters",
+        "sources",
+        "notes"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "aliases": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "related_concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptRef"
+          },
+          "uniqueItems": true
+        },
+        "related_grammar_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleRef"
+          },
+          "uniqueItems": true
+        },
+        "related_verbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true
+        },
+        "related_expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true
+        },
+        "related_vocabulary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocabularyRef"
+          }
+        },
+        "related_tenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tenseRef"
+          },
+          "uniqueItems": true
+        },
+        "tags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "study": {
+          "$ref": "#/$defs/study"
+        },
+        "chapters": {
+          "$ref": "#/$defs/chapterRefs"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "answerOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "answer_type",
+        "is_complete",
+        "continues_across_pages",
+        "notes",
+        "sources"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "answer_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "text",
+            "sentence",
+            "word",
+            "phrase",
+            "multiple_values",
+            "numeric",
+            "date_or_year",
+            "other",
+            null
+          ]
+        },
+        "is_complete": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "continues_across_pages": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        }
+      }
+    },
+    "exerciseQuestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "number"
+      ],
+      "required": [
+        "number",
+        "prompt",
+        "answers",
+        "open_ended",
+        "related_verbs",
+        "related_expressions",
+        "related_vocabulary",
+        "related_grammar_rules",
+        "related_tenses",
+        "related_concepts",
+        "notes",
+        "sources"
+      ],
+      "properties": {
+        "number": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "prompt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/answerOption"
+          }
+        },
+        "open_ended": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "related_verbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true
+        },
+        "related_expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true
+        },
+        "related_vocabulary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocabularyRef"
+          }
+        },
+        "related_grammar_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleRef"
+          },
+          "uniqueItems": true
+        },
+        "related_tenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tenseRef"
+          },
+          "uniqueItems": true
+        },
+        "related_concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptRef"
+          },
+          "uniqueItems": true
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        }
+      }
+    },
+    "exercise": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "chapter_number",
+        "exercise_code"
+      ],
+      "required": [
+        "chapter_number",
+        "exercise_code",
+        "title",
+        "exercise_type",
+        "instructions",
+        "section_title",
+        "pages",
+        "questions",
+        "related_verbs",
+        "related_expressions",
+        "related_vocabulary",
+        "related_grammar_rules",
+        "related_tenses",
+        "related_concepts",
+        "notes",
+        "sources"
+      ],
+      "properties": {
+        "chapter_number": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 999
+        },
+        "exercise_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "exercise_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instructions": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "section_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pages": {
+          "$ref": "#/$defs/pageRange"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/exerciseQuestion"
+          }
+        },
+        "related_verbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true
+        },
+        "related_expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true
+        },
+        "related_vocabulary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocabularyRef"
+          }
+        },
+        "related_grammar_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleRef"
+          },
+          "uniqueItems": true
+        },
+        "related_tenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tenseRef"
+          },
+          "uniqueItems": true
+        },
+        "related_concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptRef"
+          },
+          "uniqueItems": true
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        }
+      }
+    },
+    "exceptionTrap": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "title",
+        "category"
+      ],
+      "required": [
+        "title",
+        "category",
+        "description",
+        "correct_form",
+        "incorrect_form",
+        "related_grammar_rules",
+        "related_verbs",
+        "related_expressions",
+        "related_examples",
+        "tags",
+        "study",
+        "chapters",
+        "sources",
+        "notes"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "exception",
+            "contrast",
+            "restriction",
+            "agreement",
+            "spelling",
+            "word_order",
+            "usage",
+            "confusion",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "correct_form": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "incorrect_form": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "related_grammar_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleRef"
+          },
+          "uniqueItems": true
+        },
+        "related_verbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "uniqueItems": true
+        },
+        "related_expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/expressionRef"
+          },
+          "uniqueItems": true
+        },
+        "related_examples": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "Natural references using the French example sentence."
+        },
+        "tags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "study": {
+          "$ref": "#/$defs/study"
+        },
+        "chapters": {
+          "$ref": "#/$defs/chapterRefs"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "unresolvedItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_type",
+        "raw_text",
+        "normalized_candidate",
+        "reason_uncertain",
+        "possible_values",
+        "notes",
+        "sources"
+      ],
+      "properties": {
+        "candidate_type": {
+          "type": "string",
+          "enum": [
+            "expression",
+            "vocabulary",
+            "verb",
+            "conjugation",
+            "grammar_rule",
+            "example",
+            "exercise",
+            "answer",
+            "glossary_row",
+            "verb_table_row",
+            "other"
+          ]
+        },
+        "raw_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "normalized_candidate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reason_uncertain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "possible_values": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceEvidence"
+          }
+        }
+      }
+    },
+    "sourceQuality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "extraction_mode",
+        "schema_version",
+        "source_name",
+        "source_type",
+        "direction",
+        "source_pages",
+        "exercise_codes_seen",
+        "exercise_codes_emitted",
+        "answer_identities_seen",
+        "answers_emitted",
+        "uncertain_answers",
+        "multi_page_answers",
+        "tables_seen",
+        "rows_seen",
+        "rows_emitted",
+        "entries_emitted",
+        "uncertain_rows",
+        "header_footer_rows_removed",
+        "cross_column_fragments_rejected",
+        "duplicate_rows_collapsed",
+        "duplicate_answer_identities",
+        "notes",
+        "tables"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "extraction_mode": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "chapter",
+            "glossary",
+            "verb_table",
+            "answer_key",
+            "other"
+          ]
+        },
+        "direction": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "fr_en",
+            "en_fr",
+            null
+          ]
+        },
+        "source_pages": {
+          "$ref": "#/$defs/pageRange"
+        },
+        "tables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceTable"
+          }
+        },
+        "exercise_codes_seen": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "exercise_codes_emitted": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "answer_identities_seen": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "answers_emitted": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "uncertain_answers": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "multi_page_answers": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "tables_seen": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "rows_seen": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "rows_emitted": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "entries_emitted": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "uncertain_rows": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "header_footer_rows_removed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "cross_column_fragments_rejected": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "duplicate_rows_collapsed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "duplicate_answer_identities": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "sourceTable": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-natural-key": [
+        "title",
+        "table_type",
+        "pages"
+      ],
+      "required": [
+        "title",
+        "table_type",
+        "column_order",
+        "pages",
+        "notes"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "table_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "principal_parts",
+            "present_indicative",
+            "full_conjugation",
+            "irregular_forms",
+            "mixed",
+            "other",
+            null
+          ]
+        },
+        "column_order": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "pages": {
+          "$ref": "#/$defs/pageRange"
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}
