@@ -12,6 +12,29 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ---
 
+## Key User & Data Flows
+
+### 1. The 3-Level Progressive Disclosure Flow (Scan → Peek → Deep Dive)
+- **Level 1 (Scan)**: High-density tables and lists designed for fast visual triage and revision (e.g., [`VerbLibraryTable`](file:///Users/sukhjot/codes/book/src/components/verbs/VerbLibraryTable.tsx), [`VocabDictionaryTable`](file:///Users/sukhjot/codes/book/src/components/vocabulary/VocabDictionaryTable.tsx), [`GrammarLibraryTable`](file:///Users/sukhjot/codes/book/src/components/grammar/GrammarLibraryTable.tsx), [`ExpressionLibraryTable`](file:///Users/sukhjot/codes/book/src/components/expressions/ExpressionLibraryTable.tsx)). Emphasizes compact rows, monospace formatting, instant alphabet jump bars, and facet filters without overwhelming whitespace.
+- **Level 2 (Peek)**: Non-disruptive slide-over drawer ([`PeekDrawer`](file:///Users/sukhjot/codes/book/src/components/peek/PeekDrawer.tsx) on desktop / bottom sheet on mobile) managed by [`PeekContext`](file:///Users/sukhjot/codes/book/src/components/peek/PeekContext.tsx) and served by the lightweight [`/api/peek`](file:///Users/sukhjot/codes/book/app/api/peek/route.ts) route. Users can click any table row or "Peek" badge to inspect key facts, core stems, traps, and verbal constructions in <150ms without losing scroll position or leaving their current revision workflow.
+- **Level 3 (Deep Dive)**: Dedicated full-page routes ([`/verbs/[id]`](file:///Users/sukhjot/codes/book/app/verbs/[id]/page.tsx), [`/grammar/[id]`](file:///Users/sukhjot/codes/book/app/grammar/[id]/page.tsx), [`/expressions/[id]`](file:///Users/sukhjot/codes/book/app/expressions/[id]/page.tsx), [`/tenses/[id]`](file:///Users/sukhjot/codes/book/app/tenses/[id]/page.tsx), [`/chapters/[id]`](file:///Users/sukhjot/codes/book/app/chapters/[id]/page.tsx)). Houses exhaustive pedagogical materials: 6-form mood conjugation grids, syntactic pattern slot breakdowns, contrast-with rules, and practice drills with revealable answers.
+
+### 2. Universal Search & Command Palette Flow
+- **Trigger**: Pressing `Cmd+K` (macOS), `Ctrl+K` (Windows/Linux), or `/` anywhere opens [`CommandPalette`](file:///Users/sukhjot/codes/book/src/components/search/CommandPalette.tsx).
+- **Execution**: Debounced live input queries [`/api/search?q=...`](file:///Users/sukhjot/codes/book/app/api/search/route.ts) which runs [`searchDataset()`](file:///Users/sukhjot/codes/book/src/lib/data/search.ts). Searches across all 10 master collections simultaneously using accent/diacritic-insensitive French normalization ([`normalizeFrenchText`](file:///Users/sukhjot/codes/book/src/lib/data/search.ts)).
+- **Action**: Results are categorized by entity type with direct navigation (`Enter`), arrow-key selection, or Level 2 inspection.
+
+### 3. Resilient ID Resolution & URL Routing Flow
+- **Resolution Strategy**: Dynamic routes receive parameters that may be percent-encoded (`Present%20tense...`), accented (`(s')asseoir`), or slugified (`present_tense...`).
+- **Pipeline**: Selectors in [`selectors.ts`](file:///Users/sukhjot/codes/book/src/lib/data/selectors.ts) utilize `safeDecode()` to resolve both raw and decoded strings against primary keys, canonical forms, display forms, and normalized slugs.
+
+### 4. Server-Side Master Data Pipeline
+- **Storage**: Master JSON database stored in [`data/MASTER_DATA.json`](file:///Users/sukhjot/codes/book/data/MASTER_DATA.json) (15.4 MB, validated against [`data/MASTER_SCHEMA.json`](file:///Users/sukhjot/codes/book/data/MASTER_SCHEMA.json)).
+- **Loader**: [`getMasterDataset()`](file:///Users/sukhjot/codes/book/src/lib/data/loader.ts) loads the JSON once from disk and caches the parsed in-memory representation in process memory, delivering zero-latency server-side rendering.
+- **View-Model Mapping**: Specialized selector functions in [`selectors.ts`](file:///Users/sukhjot/codes/book/src/lib/data/selectors.ts) sanitize and transform raw JSON into UI-safe contracts (e.g. flattening nested article objects, cross-linking related verbs, building reverse index lookups).
+
+---
+
 ## Codebase File Inventory & Functions
 
 ### 1. Configuration & Guidelines
