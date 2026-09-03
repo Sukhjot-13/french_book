@@ -14,19 +14,31 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ## Codebase File Inventory & Functions
 
-### 1. Configuration & Tooling
+### 1. Configuration & Guidelines
 
 #### `package.json`
-- **Purpose**: Project metadata, dependencies (Next.js 16, React 19, Zod 4), and npm run scripts.
+- **Purpose**: Project metadata, scripts (`dev`, `build`, `start`, `lint`, `test`), and dependencies (Next.js 16, React 19, Tailwind CSS, Zod 4, tsx).
 - **Functions**: N/A (JSON configuration).
+
+#### `package-lock.json`
+- **Purpose**: Deterministic lockfile tracking exact package versions and dependency tree resolutions.
+- **Functions**: N/A (JSON lockfile).
 
 #### `next.config.ts`
-- **Purpose**: Next.js framework configuration.
-- **Functions**: N/A (configuration object).
+- **Purpose**: Next.js framework configuration object.
+- **Functions**: N/A (configuration object export).
+
+#### `next-env.d.ts`
+- **Purpose**: Auto-generated Next.js TypeScript declarations and compiler ambient types.
+- **Functions**: N/A (TypeScript ambient definitions).
 
 #### `tsconfig.json`
-- **Purpose**: TypeScript compiler options, strict mode, path aliases (`@/*`).
+- **Purpose**: TypeScript compiler options, strict mode, path aliases (`@/*`), and build target definitions.
 - **Functions**: N/A (JSON configuration).
+
+#### `tsconfig.tsbuildinfo`
+- **Purpose**: Incremental TypeScript compiler cache maintaining project graph and speed-ups.
+- **Functions**: N/A (Binary compiler state cache).
 
 #### `postcss.config.mjs`
 - **Purpose**: PostCSS configuration loading `@tailwindcss/postcss`.
@@ -37,16 +49,16 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**: N/A (ES module export).
 
 #### `GEMINI.md` / `CLAUDE.md`
-- **Purpose**: AI behavior rules, testing standards, architecture documentation requirements, and local commit workflow guidelines.
+- **Purpose**: AI pair-programming rules, architectural guidelines, test requirements, docs synchronization rules, and local commit workflow standards.
 - **Functions**: N/A (Markdown guidelines).
 
 #### `docs/architecture.md`
-- **Purpose**: Always-current file and function inventory, architectural blueprint, and environment variable catalog.
-- **Functions**: N/A (Project documentation).
+- **Purpose**: Exhaustive codebase inventory documenting every file's purpose, all functions and their roles, and environment variables.
+- **Functions**: N/A (Markdown documentation).
 
 #### `docs/suggestions.md`
-- **Purpose**: Categorized log of improvements, new features, and potential vulnerabilities.
-- **Functions**: N/A (Project roadmap documentation).
+- **Purpose**: Living roadmap tracking feature suggestions, architectural improvements, and vulnerability audits.
+- **Functions**: N/A (Markdown documentation).
 
 ---
 
@@ -65,6 +77,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 #### `app/globals.css`
 - **Purpose**: Global stylesheet declaring Tailwind CSS v4 directives, custom properties, color palette tokens, and scrollbar utilities.
 - **Functions**: N/A (CSS stylesheet).
+
+#### `app/favicon.ico`
+- **Purpose**: Browser tab favicon icon branding the French revision platform.
+- **Functions**: N/A (Binary icon file).
 
 #### `app/chapters/page.tsx`
 - **Purpose**: Chapter index explorer displaying all 27 chapters with printed page ranges, section breakdowns, rule counts, and verb counts.
@@ -219,7 +235,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ---
 
-### 5. Dataset Pipeline & Utilities (`src/lib/dataset/`)
+### 5. Dataset Engine & Utilities (`src/lib/dataset/`)
 
 #### `src/lib/dataset/masterSchema.ts`
 - **Purpose**: Authoritative TypeScript type definitions matching the complete `MASTER_SCHEMA.json` specifications and entity structures.
@@ -229,6 +245,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Comprehensive Zod schemas defining types and contracts for chapters, rules, verbs, conjugations, vocabulary, expressions, and quality reports.
 - **Functions**: Schema definitions and type exports.
 
+#### `src/lib/dataset/schemas.js`
+- **Purpose**: Compiled JavaScript companion module for schemas.
+- **Functions**: Compiled schema objects.
+
 #### `src/lib/dataset/ids.ts`
 - **Purpose**: Deterministic identifier generation and slugification for all dataset entities.
 - **Functions**:
@@ -237,10 +257,18 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `makeBookId()`, `makeChapterId()`, `makeSectionId()`, `makeConceptId()`, `makeTenseId()`, `makeRuleId()`, `makeVerbId()`, `makeConjugationId()`, `makeExpressionId()`, `makeVocabId(word, pos)` (supports string or object), `makeExampleId()`, `makeExerciseId()`, `makeQuestionId()`, `makeStudySetId()`: Entity-specific slug builders.
   - `isValidId(id)`: Validates ID prefix and format.
 
+#### `src/lib/dataset/ids.js`
+- **Purpose**: Compiled JavaScript companion module for entity ID generators.
+- **Functions**: Compiled ID helper functions.
+
 #### `src/lib/dataset/canonicalize.ts`
 - **Purpose**: De-duplication and canonicalization of lexical items from disparate extraction sources.
 - **Functions**:
   - `mergeAttestations()`, `deduplicateArray()`, `canonicalizeVerb()`, `canonicalizeVocabularyEntry()`, `canonicalizeExpressionEntry()`, `canonicalizeVerbs()`, `canonicalizeVocabulary()`, `canonicalizeExpressions()`.
+
+#### `src/lib/dataset/canonicalize.js`
+- **Purpose**: Compiled JavaScript companion module for canonicalization routines.
+- **Functions**: Compiled canonicalization helper functions.
 
 #### `src/lib/dataset/normalize.ts`
 - **Purpose**: Text cleaning, OCR artifact cleanup, and normalization routines.
@@ -271,7 +299,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ---
 
-### 6. Stylesheets & Tokens (`src/styles/`)
+### 6. Stylesheets & Design Tokens (`src/styles/`)
 
 #### `src/styles/theme.css`
 - **Purpose**: Universal CSS design tokens declaring the Oxford Blue palette, CEFR colors, priority colors, surface containers, and typography variables.
@@ -279,33 +307,96 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ---
 
-### 7. Testing (`tests/`)
+### 7. Data Assets (`data/`) [READ-ONLY]
+
+#### `data/MASTER_DATA.json`
+- **Purpose**: Unified, authoritative master database (15.4 MB) containing all 10 collections: 27 chapters, 496 verbs, 284 grammar rules, 24 tenses, 557 expressions, 1,002 vocabulary entries, 1,011 examples, 217 exercises, 108 exceptions & traps, and 206 concepts.
+- **Functions**: N/A (JSON database).
+
+#### `data/MASTER_SCHEMA.json`
+- **Purpose**: Formal JSON Schema defining schema specifications, entity model `$defs`, and type validations for all collections in `MASTER_DATA.json`.
+- **Functions**: N/A (JSON Schema).
+
+---
+
+### 8. Testing Suite (`tests/`)
 
 #### `tests/run-all.test.ts`
-- **Purpose**: Unified single test runner entry-point validating data presence, entity counts, selectors, and schema compliance.
+- **Purpose**: Unified single test runner entry-point validating data presence, entity counts, selectors, and schema compliance across the platform.
 - **Functions**: Executable test script asserting data health and selector accuracy.
 
 ---
 
-### 8. UI Design Prototypes & Specifications (`ui/`)
+### 9. UI Design Prototypes & Specifications (`ui/stitch_l_atlas_de_fran_ais/`)
 
 #### `ui/stitch_l_atlas_de_fran_ais/l_acad_mie_digitale/DESIGN.md`
-- **Purpose**: Comprehensive visual design guidelines, typography scale (Hanken Grotesk, JetBrains Mono, Source Serif 4), color philosophy, layout constraints, component rules, and micro-interaction specifications.
-- **Functions**: N/A (Design specification document).
+- **Purpose**: Master design system specifications documenting typography scale, Oxford Blue / French academic palette, layout grid, elevation, and component guidelines.
+- **Functions**: N/A (Design specification).
 
-#### `ui/stitch_l_atlas_de_fran_ais/*/` (Static HTML & Visual Mockups)
-- **Purpose**: High-fidelity static HTML prototypes and screenshot reference captures (`code.html` and `screen.png`) used as visual blueprints for page implementation:
-  - `revision_home`: Dashboard and curriculum landing blueprint.
-  - `chapters_library` & `chapter_12_detail_advanced_revision`: Chapter index and single-chapter study layout.
-  - `verbs_library` & `verbs_library_refined`: Filterable verb catalog and transitivity layout.
-  - `verb_detail_prendre`: Full verb detail and conjugation matrix blueprint.
-  - `tenses_moods_library` & `tense_detail_conditionnel_pr_sent`: Tense catalog and tense detail page layout.
-  - `grammar_library`: Categorized grammar rules catalog blueprint.
-  - `expressions_library`, `constructions_library`, `constructions_library_refined`: Idiomatic expressions and pattern slots layout.
-  - `global_dictionary_refined_table_view` & `vocabulary_library`: Comprehensive vocabulary dictionary tables.
-  - `global_example_explorer`: Bilingual example sentence explorer with highlight spans.
-  - `exceptions_traps_library`: Pitfalls and common traps side-by-side comparison layout.
-  - `global_search_command_palette`: Keyboard-first command palette dialog.
-- **Functions**: N/A (Design mockups and static reference code).
+#### `ui/stitch_l_atlas_de_fran_ais/revision_home/code.html` & `screen.png`
+- **Purpose**: High-fidelity static HTML prototype and screenshot reference for the Revision Home dashboard.
+- **Functions**: N/A (Prototype & visual reference).
 
+#### `ui/stitch_l_atlas_de_fran_ais/chapters_library/code.html` & `screen.png`
+- **Purpose**: Static HTML prototype and screenshot reference for the Chapters Library directory.
+- **Functions**: N/A (Prototype & visual reference).
 
+#### `ui/stitch_l_atlas_de_fran_ais/chapter_12_detail_advanced_revision/code.html` & `screen.png`
+- **Purpose**: Static HTML prototype and screenshot reference for the single-chapter study view.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/verbs_library/code.html` & `screen.png`
+- **Purpose**: Initial static HTML prototype and screenshot reference for the Verbs Library catalog.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/verbs_library_refined/code.html` & `screen.png`
+- **Purpose**: Refined static HTML prototype and screenshot reference for the Verbs Library catalog with transitivity and CEFR filters.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/verb_detail_prendre/code.html` & `screen.png`
+- **Purpose**: Static HTML prototype and screenshot reference for the Verb Detail page and conjugation matrix.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/tenses_moods_library/code.html` & `screen.png`
+- **Purpose**: Static HTML prototype and screenshot reference for the Tenses & Moods Atlas directory.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/tense_detail_conditionnel_pr_sent/code.html` & `screen.png`
+- **Purpose**: Static HTML prototype and screenshot reference for the Tense Detail view with formation formulas.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/grammar_library/code.html` & `screen.png`
+- **Purpose**: Static HTML prototype and screenshot reference for the Grammar Rules Library directory.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/expressions_library/code.html` & `screen.png`
+- **Purpose**: Initial static HTML prototype and screenshot reference for the Expressions Library.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/constructions_library/code.html` & `screen.png`
+- **Purpose**: Static HTML prototype and screenshot reference for the Verbal Constructions directory.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/constructions_library_refined/code.html` & `screen.png`
+- **Purpose**: Refined static HTML prototype and screenshot reference for the Verbal Constructions directory with pattern slots.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/vocabulary_library/code.html` & `screen.png`
+- **Purpose**: Initial static HTML prototype and screenshot reference for the Vocabulary Lexicon.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/global_dictionary_refined_table_view/code.html` & `screen.png`
+- **Purpose**: Refined static HTML prototype and screenshot reference for the Lexicon table view with articles and gender tags.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/global_example_explorer/code.html` & `screen.png`
+- **Purpose**: Static HTML prototype and screenshot reference for the Global Example Explorer with highlight spans.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/exceptions_traps_library/code.html` & `screen.png`
+- **Purpose**: Static HTML prototype and screenshot reference for the Exceptions & Pitfalls Library with correct vs. incorrect comparison cards.
+- **Functions**: N/A (Prototype & visual reference).
+
+#### `ui/stitch_l_atlas_de_fran_ais/global_search_command_palette/code.html` & `screen.png`
+- **Purpose**: Static HTML prototype and screenshot reference for the quick command palette modal.
+- **Functions**: N/A (Prototype & visual reference).
