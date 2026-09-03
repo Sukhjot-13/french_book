@@ -53,7 +53,9 @@ export function makeTenseId(nameEnglishOrKey: string): string {
 }
 
 export function makeRuleId(titleOrKey: string): string {
-  const slug = slugify(titleOrKey);
+  // Disambiguate accented markers like -é vs -e if slugification would otherwise collide
+  const normalizedKey = titleOrKey.replace(/[-–]é(?=[^a-zA-Z0-9]|$)/g, "-e-acute");
+  const slug = slugify(normalizedKey);
   return `rule_${slug}`;
 }
 

@@ -64,7 +64,8 @@ function makeTenseId(nameEnglishOrKey) {
     return "tense_".concat(slug);
 }
 function makeRuleId(titleOrKey) {
-    var slug = slugify(titleOrKey);
+    var normalizedKey = titleOrKey.replace(/[-–]é(?=[^a-zA-Z0-9]|$)/g, "-e-acute");
+    var slug = slugify(normalizedKey);
     return "rule_".concat(slug);
 }
 function makeVerbId(infinitive) {

@@ -95,8 +95,8 @@ export function ChapterDetailView({
             </div>
             {keyVerbs.length > 0 ? (
               <div className="space-y-1">
-                {keyVerbs.map((v) => (
-                  <div key={v.id} className="flex items-center justify-between">
+                {keyVerbs.map((v, idx) => (
+                  <div key={`${v.id}_${idx}`} className="flex items-center justify-between">
                     <button
                       type="button"
                       onClick={() => openPeek("verb", v.lemma)}
@@ -147,8 +147,8 @@ export function ChapterDetailView({
             </div>
             {essentialVocab.length > 0 ? (
               <div className="space-y-1">
-                {essentialVocab.map((voc) => (
-                  <div key={voc.id} className="flex items-center justify-between">
+                {essentialVocab.map((voc, idx) => (
+                  <div key={`${voc.id}_${idx}`} className="flex items-center justify-between">
                     <button
                       type="button"
                       onClick={() => openPeek("vocab", voc.french)}
@@ -265,7 +265,7 @@ export function ChapterDetailView({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {sections.map((sec, idx) => (
                   <div
-                    key={sec.id || idx}
+                    key={sec.id ? `${sec.id}_${idx}` : `sec_${idx}`}
                     className="p-3.5 rounded-lg bg-surface-container-lowest border border-outline-variant text-xs space-y-1 shadow-xs"
                   >
                     <div className="font-bold text-primary text-sm">{sec.title}</div>
@@ -298,9 +298,9 @@ export function ChapterDetailView({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/40">
-                    {grammarRules.map((rule) => (
+                    {grammarRules.map((rule, idx) => (
                       <tr
-                        key={rule.id}
+                        key={`${rule.id}_${idx}`}
                         onClick={() => openPeek("grammar", rule.title)}
                         className="hover:bg-surface-container-low transition-colors cursor-pointer group"
                       >
@@ -359,9 +359,9 @@ export function ChapterDetailView({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/40">
-                    {verbs.map((verb) => (
+                    {verbs.map((verb, idx) => (
                       <tr
-                        key={verb.id}
+                        key={`${verb.id}_${idx}`}
                         onClick={() => openPeek("verb", verb.lemma)}
                         className="hover:bg-surface-container-low transition-colors cursor-pointer group"
                       >
@@ -418,9 +418,9 @@ export function ChapterDetailView({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/40">
-                    {vocabulary.map((voc) => (
+                    {vocabulary.map((voc, idx) => (
                       <tr
-                        key={voc.id}
+                        key={`${voc.id}_${idx}`}
                         onClick={() => openPeek("vocab", voc.french)}
                         className="hover:bg-surface-container-low transition-colors cursor-pointer group"
                       >
@@ -472,9 +472,9 @@ export function ChapterDetailView({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/40">
-                    {expressions.map((exp) => (
+                    {expressions.map((exp, idx) => (
                       <tr
-                        key={exp.id}
+                        key={`${exp.id}_${idx}`}
                         onClick={() => openPeek("expression", exp.french)}
                         className="hover:bg-surface-container-low transition-colors cursor-pointer group"
                       >
@@ -529,7 +529,7 @@ export function ChapterDetailView({
                 <div className="space-y-3">
                   {exercises.map((ex, idx) => (
                     <div
-                      key={ex.id || idx}
+                      key={ex.id ? `${ex.id}_${idx}` : `exercise_${idx}`}
                       className="p-3.5 rounded-lg bg-surface-container-low border border-outline-variant/50 space-y-2 text-xs"
                     >
                       <div className="font-bold text-primary">
@@ -538,7 +538,7 @@ export function ChapterDetailView({
                       {ex.questions && ex.questions.length > 0 && (
                         <div className="space-y-1.5 pt-1">
                           {ex.questions.map((item, iIdx) => (
-                            <div key={iIdx} className="p-2 rounded bg-surface-container-lowest border border-outline-variant/30 space-y-1">
+                            <div key={`q_${idx}_${iIdx}`} className="p-2 rounded bg-surface-container-lowest border border-outline-variant/30 space-y-1">
                               <p className="font-serif text-primary">{item.prompt}</p>
                               {item.correct_answer && (
                                 <details className="text-[11px] font-mono text-on-surface-variant cursor-pointer">
@@ -568,8 +568,8 @@ export function ChapterDetailView({
                   <span>Contextual Sentence Examples ({examples.length})</span>
                 </h3>
                 <div className="divide-y divide-outline-variant/30">
-                  {examples.map((ex) => (
-                    <div key={ex.id} className="py-2.5 space-y-0.5">
+                  {examples.map((ex, idx) => (
+                    <div key={ex.id ? `${ex.id}_${idx}` : `example_${idx}`} className="py-2.5 space-y-0.5">
                       <p className="text-sm text-primary font-serif font-medium">{ex.french}</p>
                       <p className="text-xs text-on-surface-variant font-sans">{ex.english}</p>
                     </div>

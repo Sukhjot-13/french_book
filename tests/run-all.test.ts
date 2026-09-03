@@ -147,6 +147,34 @@ const avoirExpressions = getExpressions({ baseVerb: "avoir" });
 assert(avoirExpressions.total > 0, "Expressions based on 'avoir' must return items");
 console.log(`✅ Selector getExpressions({ baseVerb: 'avoir' }) verified with ${avoirExpressions.total} expressions.`);
 
+// 7. Validate ID Uniqueness Across Rules & Exercises (including Chapter 1)
+const allRuleIds = ruleList.rules.map((r) => r.id);
+const uniqueRuleIds = new Set(allRuleIds);
+assert.strictEqual(
+  uniqueRuleIds.size,
+  allRuleIds.length,
+  `All ${allRuleIds.length} grammar rules must have unique IDs (found ${allRuleIds.length - uniqueRuleIds.size} duplicates)`
+);
+console.log(`✅ Grammar rule IDs verified 100% unique across all ${allRuleIds.length} rules.`);
+
+const ch1RuleIds = chapterDetail.grammarRules.map((r) => r.id);
+const uniqueCh1RuleIds = new Set(ch1RuleIds);
+assert.strictEqual(
+  uniqueCh1RuleIds.size,
+  ch1RuleIds.length,
+  `Chapter 1 must have unique grammar rule IDs (found duplicates: ${ch1RuleIds.filter((id, i) => ch1RuleIds.indexOf(id) !== i).join(", ")})`
+);
+console.log(`✅ Chapter 1 grammar rule IDs verified unique without collisions.`);
+
+const allExIds = exercises.exercises.map((e) => e.id);
+const uniqueExIds = new Set(allExIds);
+assert.strictEqual(
+  uniqueExIds.size,
+  allExIds.length,
+  `All ${allExIds.length} exercises must have unique IDs (found ${allExIds.length - uniqueExIds.size} duplicates)`
+);
+console.log(`✅ Exercise IDs verified 100% unique across all ${allExIds.length} exercises.`);
+
 console.log("\n🎉 All tests passed successfully!");
 
 

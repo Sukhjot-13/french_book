@@ -534,7 +534,8 @@ function mapExample(ex: MasterExample, index: number): ExampleUI {
 
 function mapExercise(ex: MasterExercise): ExerciseUI {
   const chapterId = makeChapterId(ex.chapter_number);
-  const id = `exercise_${slugify(ex.exercise_code)}`;
+  const code = ex.exercise_code.replace(/\./g, "_dot_");
+  const id = `exercise_${slugify(code)}`;
 
   return {
     id,
@@ -1321,8 +1322,10 @@ export function getExercises(filters?: ExerciseFilterOptions): { exercises: Exer
 export function getExerciseById(exerciseId: string): ExerciseUI | null {
   const data = getMasterDataset();
   const rawExercise = (data.exercises || []).find((ex) => {
-    const id = `exercise_${slugify(ex.exercise_code)}`;
-    return id === exerciseId || ex.exercise_code === exerciseId || slugify(ex.exercise_code) === slugify(exerciseId);
+    const code = ex.exercise_code.replace(/\./g, "_dot_");
+    const id = `exercise_${slugify(code)}`;
+    const legacyId = `exercise_${slugify(ex.exercise_code)}`;
+    return id === exerciseId || legacyId === exerciseId || ex.exercise_code === exerciseId || slugify(ex.exercise_code) === slugify(exerciseId);
   });
 
   if (!rawExercise) return null;
