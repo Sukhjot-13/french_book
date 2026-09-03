@@ -223,11 +223,18 @@ export function VerbDetailView({
               const isExpanded = expandedTense === conj.tense;
               return (
                 <div key={conj.tense} className="bg-surface-container-lowest transition-colors">
-                  {/* Accordion header button */}
-                  <button
-                    type="button"
+                  {/* Accordion header */}
+                  <div
+                    role="button"
+                    tabIndex={0}
                     onClick={() => setExpandedTense(isExpanded ? "" : conj.tense)}
-                    className="w-full p-3 flex items-center justify-between text-left hover:bg-surface-container-low transition-colors"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setExpandedTense(isExpanded ? "" : conj.tense);
+                      }
+                    }}
+                    className="w-full p-3 flex items-center justify-between text-left hover:bg-surface-container-low transition-colors cursor-pointer select-none"
                   >
                     <div className="flex items-center gap-2">
                       <span className="material-symbols-outlined text-[18px] text-primary transition-transform duration-150">
@@ -257,7 +264,7 @@ export function VerbDetailView({
                         {isExpanded ? "Collapse" : "Open"}
                       </span>
                     </div>
-                  </button>
+                  </div>
 
                   {/* Accordion expanded body: Clean dense 6-form grid */}
                   {isExpanded && (

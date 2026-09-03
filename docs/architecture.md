@@ -207,7 +207,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `VerbLibraryTable({ verbs, total, currentPage, pageSize, initialGroup, initialRegularity, initialAuxiliary, initialQuery })`: Interactive client table component.
 
 #### `src/components/verbs/VerbDetailView.tsx`
-- **Purpose**: Systematic 3-level detail view for verbs featuring mood tabs (Indicatif, Conditionnel, Subjonctif, Impératif), accordion tense conjugations, smart "Show More" limits, peek triggers for expressions, and demoted technical metadata.
+- **Purpose**: Systematic 3-level detail view for verbs featuring mood tabs (Indicatif, Conditionnel, Subjonctif, Impératif), accessible keyboard-navigable tense accordion rows with embedded peek triggers, smart "Show More" limits, peek triggers for expressions, and demoted technical metadata.
 - **Functions**:
   - `VerbDetailView({ verb, conjugations, expressions, grammarRules, examples })`: Client detail component.
 
