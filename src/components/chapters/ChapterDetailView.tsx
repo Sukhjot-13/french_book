@@ -425,7 +425,9 @@ export function ChapterDetailView({
                         className="hover:bg-surface-container-low transition-colors cursor-pointer group"
                       >
                         <td className="py-2.5 px-3.5 font-bold text-primary text-sm">
-                          {voc.article && <span className="font-serif font-normal mr-1">{voc.article}</span>}
+                          {voc.article && typeof voc.article === "string" && (
+                            <span className="font-serif font-normal mr-1">{voc.article}</span>
+                          )}
                           {voc.french}
                         </td>
                         <td className="py-2.5 px-3.5 font-mono text-on-surface-variant">

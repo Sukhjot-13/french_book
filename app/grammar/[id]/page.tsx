@@ -10,7 +10,11 @@ interface GrammarDetailPageProps {
 
 export default async function GrammarDetailPage({ params }: GrammarDetailPageProps) {
   const { id } = await params;
-  const data = getGrammarRuleById(id);
+  let decodedId = id;
+  try {
+    decodedId = decodeURIComponent(id);
+  } catch {}
+  const data = getGrammarRuleById(decodedId) || getGrammarRuleById(id);
 
   if (!data) {
     notFound();

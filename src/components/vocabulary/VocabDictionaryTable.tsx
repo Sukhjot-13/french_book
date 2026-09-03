@@ -202,7 +202,7 @@ export function VocabDictionaryTable({
                       {/* Term + Article */}
                       <td className="py-2.5 px-3.5 font-semibold text-primary">
                         <div className="flex items-center gap-1.5">
-                          {item.article && (
+                          {item.article && typeof item.article === "string" && (
                             <span className="text-on-surface-variant/80 font-normal font-serif">
                               {item.article}
                             </span>

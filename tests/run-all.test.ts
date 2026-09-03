@@ -175,6 +175,27 @@ assert.strictEqual(
 );
 console.log(`✅ Exercise IDs verified 100% unique across all ${allExIds.length} exercises.`);
 
+// 8. Validate URL-encoded ID resolution in selectors (e.g. grammar rules with spaces)
+const encodedRuleName = "Present%20tense%20for%20historical%20facts";
+const resolvedEncodedRule = getGrammarRuleById(encodedRuleName);
+assert(resolvedEncodedRule !== null, `getGrammarRuleById('${encodedRuleName}') must resolve successfully`);
+assert.strictEqual(
+  resolvedEncodedRule.rule.title,
+  "Present tense for historical facts",
+  "Resolved rule title must match"
+);
+console.log(`✅ URL-encoded ID lookup verified for getGrammarRuleById('${encodedRuleName}').`);
+
+// 9. Validate that all vocabulary items map article as string or null (never object)
+const allVocab = getVocabulary({ limit: 2000 });
+for (const v of allVocab.vocabulary) {
+  assert(
+    v.article === null || typeof v.article === "string",
+    `Vocabulary article for '${v.french}' must be string or null, but found ${typeof v.article}`
+  );
+}
+console.log(`✅ All ${allVocab.total} vocabulary items verified to have string or null article field.`);
+
 console.log("\n🎉 All tests passed successfully!");
 
 

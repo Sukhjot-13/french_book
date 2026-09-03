@@ -10,7 +10,11 @@ interface TenseDetailPageProps {
 
 export default async function TenseDetailPage({ params }: TenseDetailPageProps) {
   const { id } = await params;
-  const data = getTenseById(id);
+  let decodedId = id;
+  try {
+    decodedId = decodeURIComponent(id);
+  } catch {}
+  const data = getTenseById(decodedId) || getTenseById(id);
 
   if (!data) {
     notFound();

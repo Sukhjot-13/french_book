@@ -454,7 +454,26 @@ function mapExpression(e: MasterExpression): ExpressionUI {
 function mapVocab(vc: MasterVocabulary): VocabUI {
   const id = makeVocabId(vc.canonical_form);
   const chapterIds = (vc.chapters || []).map((ch) => makeChapterId(ch));
-  const article = vc.article || (Array.isArray(vc.articles) ? vc.articles.join(", ") : vc.articles) || null;
+
+  let article: string | null = null;
+  if (typeof vc.article === "string" && vc.article) {
+    article = vc.article;
+  } else if (Array.isArray(vc.articles)) {
+    article = vc.articles.filter(Boolean).join(", ") || null;
+  } else if (vc.articles && typeof vc.articles === "object") {
+    const artObj = vc.articles as {
+      definite?: string | null;
+      indefinite?: string | null;
+      partitive?: string | null;
+      other?: string[];
+    };
+    article =
+      artObj.definite ||
+      artObj.indefinite ||
+      artObj.partitive ||
+      (Array.isArray(artObj.other) ? artObj.other[0] : null) ||
+      null;
+  }
 
   return {
     id,
@@ -715,15 +734,30 @@ export interface VerbDetailWithGraph {
   examples: ExampleUI[];
 }
 
+function safeDecode(str: string): string {
+  try {
+    return decodeURIComponent(str);
+  } catch {
+    return str;
+  }
+}
+
 export function getVerbById(verbId: string): VerbDetailWithGraph | null {
   const data = getMasterDataset();
+  const rawId = verbId;
+  const decoded = safeDecode(verbId);
   const rawVerb = (data.verbs || []).find((v) => {
     const id = makeVerbId(v.infinitive);
     return (
-      id === verbId ||
-      v.infinitive === verbId ||
-      slugify(v.infinitive) === slugify(verbId) ||
-      (v.display_form && slugify(v.display_form) === slugify(verbId))
+      id === rawId ||
+      id === decoded ||
+      v.infinitive === rawId ||
+      v.infinitive === decoded ||
+      (v.display_form && (v.display_form === rawId || v.display_form === decoded)) ||
+      slugify(v.infinitive) === slugify(rawId) ||
+      slugify(v.infinitive) === slugify(decoded) ||
+      (v.display_form &&
+        (slugify(v.display_form) === slugify(rawId) || slugify(v.display_form) === slugify(decoded)))
     );
   });
 
@@ -772,13 +806,20 @@ export interface TenseDetailWithGraph {
 
 export function getTenseById(tenseId: string): TenseDetailWithGraph | null {
   const data = getMasterDataset();
+  const rawId = tenseId;
+  const decoded = safeDecode(tenseId);
   const rawTense = (data.tenses || []).find((t) => {
     const id = makeTenseId(t.name);
     return (
-      id === tenseId ||
-      t.name === tenseId ||
-      slugify(t.name) === slugify(tenseId) ||
-      (t.english_name && slugify(t.english_name) === slugify(tenseId))
+      id === rawId ||
+      id === decoded ||
+      t.name === rawId ||
+      t.name === decoded ||
+      (t.english_name && (t.english_name === rawId || t.english_name === decoded)) ||
+      slugify(t.name) === slugify(rawId) ||
+      slugify(t.name) === slugify(decoded) ||
+      (t.english_name &&
+        (slugify(t.english_name) === slugify(rawId) || slugify(t.english_name) === slugify(decoded)))
     );
   });
 
@@ -905,9 +946,18 @@ export interface GrammarRuleDetailWithGraph {
 
 export function getGrammarRuleById(ruleId: string): GrammarRuleDetailWithGraph | null {
   const data = getMasterDataset();
+  const rawId = ruleId;
+  const decoded = safeDecode(ruleId);
   const rawRule = (data.grammar_rules || []).find((r) => {
     const id = makeRuleId(r.rule_name);
-    return id === ruleId || r.rule_name === ruleId || slugify(r.rule_name) === slugify(ruleId);
+    return (
+      id === rawId ||
+      id === decoded ||
+      r.rule_name === rawId ||
+      r.rule_name === decoded ||
+      slugify(r.rule_name) === slugify(rawId) ||
+      slugify(r.rule_name) === slugify(decoded)
+    );
   });
 
   if (!rawRule) return null;
@@ -1020,9 +1070,18 @@ export interface ExpressionDetailWithGraph {
 
 export function getExpressionById(expressionId: string): ExpressionDetailWithGraph | null {
   const data = getMasterDataset();
+  const rawId = expressionId;
+  const decoded = safeDecode(expressionId);
   const rawExpression = (data.expressions || []).find((e) => {
     const id = makeExpressionId(e.canonical_form);
-    return id === expressionId || e.canonical_form === expressionId || slugify(e.canonical_form) === slugify(expressionId);
+    return (
+      id === rawId ||
+      id === decoded ||
+      e.canonical_form === rawId ||
+      e.canonical_form === decoded ||
+      slugify(e.canonical_form) === slugify(rawId) ||
+      slugify(e.canonical_form) === slugify(decoded)
+    );
   });
 
   if (!rawExpression) return null;
@@ -1119,12 +1178,17 @@ export interface VocabDetailWithGraph {
 
 export function getVocabularyById(vocabId: string): VocabDetailWithGraph | null {
   const data = getMasterDataset();
+  const rawId = vocabId;
+  const decoded = safeDecode(vocabId);
   const rawVocab = (data.vocabulary || []).find((v) => {
     const id = makeVocabId(v.canonical_form);
     return (
-      id === vocabId ||
-      v.canonical_form === vocabId ||
-      slugify(v.canonical_form) === slugify(vocabId)
+      id === rawId ||
+      id === decoded ||
+      v.canonical_form === rawId ||
+      v.canonical_form === decoded ||
+      slugify(v.canonical_form) === slugify(rawId) ||
+      slugify(v.canonical_form) === slugify(decoded)
     );
   });
 
@@ -1184,11 +1248,16 @@ export interface ChapterDetailWithGraph {
 
 export function getChapterById(chapterId: string): ChapterDetailWithGraph | null {
   const data = getMasterDataset();
+  const rawId = chapterId;
+  const decoded = safeDecode(chapterId);
   const rawChapter = (data.chapters || []).find(
     (c) =>
-      makeChapterId(c.chapter_number) === chapterId ||
-      String(c.chapter_number) === chapterId ||
-      `chapter_${c.chapter_number}` === chapterId
+      makeChapterId(c.chapter_number) === rawId ||
+      makeChapterId(c.chapter_number) === decoded ||
+      String(c.chapter_number) === rawId ||
+      String(c.chapter_number) === decoded ||
+      `chapter_${c.chapter_number}` === rawId ||
+      `chapter_${c.chapter_number}` === decoded
   );
   if (!rawChapter) return null;
 
@@ -1321,11 +1390,22 @@ export function getExercises(filters?: ExerciseFilterOptions): { exercises: Exer
 
 export function getExerciseById(exerciseId: string): ExerciseUI | null {
   const data = getMasterDataset();
+  const rawId = exerciseId;
+  const decoded = safeDecode(exerciseId);
   const rawExercise = (data.exercises || []).find((ex) => {
     const code = ex.exercise_code.replace(/\./g, "_dot_");
     const id = `exercise_${slugify(code)}`;
     const legacyId = `exercise_${slugify(ex.exercise_code)}`;
-    return id === exerciseId || legacyId === exerciseId || ex.exercise_code === exerciseId || slugify(ex.exercise_code) === slugify(exerciseId);
+    return (
+      id === rawId ||
+      id === decoded ||
+      legacyId === rawId ||
+      legacyId === decoded ||
+      ex.exercise_code === rawId ||
+      ex.exercise_code === decoded ||
+      slugify(ex.exercise_code) === slugify(rawId) ||
+      slugify(ex.exercise_code) === slugify(decoded)
+    );
   });
 
   if (!rawExercise) return null;

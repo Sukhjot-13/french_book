@@ -10,7 +10,11 @@ interface ExpressionDetailPageProps {
 
 export default async function ExpressionDetailPage({ params }: ExpressionDetailPageProps) {
   const { id } = await params;
-  const data = getExpressionById(id);
+  let decodedId = id;
+  try {
+    decodedId = decodeURIComponent(id);
+  } catch {}
+  const data = getExpressionById(decodedId) || getExpressionById(id);
 
   if (!data) {
     notFound();

@@ -10,7 +10,11 @@ interface VerbDetailPageProps {
 
 export default async function VerbDetailPage({ params }: VerbDetailPageProps) {
   const { id } = await params;
-  const data = getVerbById(id);
+  let decodedId = id;
+  try {
+    decodedId = decodeURIComponent(id);
+  } catch {}
+  const data = getVerbById(decodedId) || getVerbById(id);
 
   if (!data) {
     notFound();

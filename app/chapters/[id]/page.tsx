@@ -10,7 +10,11 @@ interface ChapterDetailPageProps {
 
 export default async function ChapterDetailPage({ params }: ChapterDetailPageProps) {
   const { id } = await params;
-  const data = getChapterById(id);
+  let decodedId = id;
+  try {
+    decodedId = decodeURIComponent(id);
+  } catch {}
+  const data = getChapterById(decodedId) || getChapterById(id);
 
   if (!data) {
     notFound();

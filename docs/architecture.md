@@ -291,19 +291,20 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `getHomeStats()`: Aggregates total counts of verbs, rules, vocabulary, tenses, expressions, examples, exercises, traps, concepts, and chapters.
   - `getVerbs(filters)`: Retrieves filtered and sorted list of verbs with rich attributes (transitivity, senses, conjugations, stems, synonyms).
-  - `getVerbById(id)`: Retrieves full detail for a single verb including conjugations, expressions, rules, and examples.
+  - `getVerbById(id)`: Retrieves full detail for a single verb including conjugations, expressions, rules, and examples. Supports raw and URL-decoded IDs.
   - `getExpressions(filters)`: Retrieves filtered list of idiomatic expressions with pattern slots and collocations.
-  - `getExpressionById(id)`: Retrieves single expression detail.
-  - `getVocabulary(filters)`: Retrieves filtered vocabulary words with articles, gender, plural forms, and senses.
+  - `getExpressionById(id)`: Retrieves single expression detail. Supports raw and URL-decoded IDs.
+  - `getVocabulary(filters)`: Retrieves filtered vocabulary words with safely normalized articles (defensively handles string, array, and object representations), gender, plural forms, and senses.
+  - `getVocabularyById(id)`: Retrieves single vocabulary detail with related expressions and examples. Supports raw and URL-decoded IDs.
   - `getGrammarRules(filters)`: Retrieves grammar rules list.
-  - `getGrammarRuleById(id)`: Retrieves single grammar rule with formation, transformations, traps, and cross-links.
+  - `getGrammarRuleById(id)`: Retrieves single grammar rule with formation, transformations, traps, and cross-links. Supports raw, URL-decoded, and slugified rule titles.
   - `getTenses()`: Retrieves all 24 tenses organized by mood.
-  - `getTenseById(id)`: Retrieves single tense detail with regular patterns, irregular stems, agreement rules, and common traps.
+  - `getTenseById(id)`: Retrieves single tense detail with regular patterns, irregular stems, agreement rules, and common traps. Supports raw and URL-decoded IDs.
   - `getChapters()`: Retrieves all 27 chapters.
-  - `getChapterById(id)`: Retrieves chapter with linked concepts, rules, verbs, expressions, vocabulary, and exercises.
+  - `getChapterById(id)`: Retrieves chapter with linked concepts, rules, verbs, expressions, vocabulary, and exercises. Supports numeric and slug IDs.
   - `getExamples(filters)`: Retrieves example sentences with focus spans.
   - `getExercises(filters)`: Retrieves exercises with questions, options, hints, and answers.
-  - `getExerciseById(id)`: Retrieves single exercise detail.
+  - `getExerciseById(id)`: Retrieves single exercise detail. Supports raw, dotted, and legacy slug IDs.
   - `getExceptionsAndTraps(filters)`: Retrieves the 108 curated common pitfalls with correct vs incorrect forms.
   - `getConcepts()`: Retrieves the 206 grammatical concepts.
 
