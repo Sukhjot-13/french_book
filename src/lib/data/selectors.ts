@@ -283,6 +283,9 @@ export interface ExceptionTrapUI {
   notes?: string | null;
 }
 
+export type TrapUI = ExceptionTrapUI;
+export type VerbConjugationUI = ConjugationUI;
+
 export interface ConceptUI {
   id: string;
   name: string;
@@ -945,6 +948,8 @@ export interface ExpressionFilterOptions {
   register?: string;
   cefr?: string;
   chapterId?: string;
+  preposition?: string;
+  baseVerb?: string;
   limit?: number;
   offset?: number;
 }
@@ -958,7 +963,8 @@ export function getExpressions(filters?: ExpressionFilterOptions): { expressions
     list = list.filter((e) => {
       const fr = normalizeFrenchText(e.french);
       const en = normalizeFrenchText(e.english);
-      return fr.includes(q) || en.includes(q);
+      const pat = normalizeFrenchText(e.pattern || "");
+      return fr.includes(q) || en.includes(q) || pat.includes(q);
     });
   }
 
@@ -968,6 +974,22 @@ export function getExpressions(filters?: ExpressionFilterOptions): { expressions
 
   if (filters?.register && filters.register !== "all") {
     list = list.filter((e) => e.register === filters.register);
+  }
+
+  if (filters?.preposition && filters.preposition !== "all") {
+    const prep = filters.preposition.toLowerCase();
+    list = list.filter((e) =>
+      (e.prepositions || []).some((p) => p.toLowerCase() === prep) ||
+      (e.pattern || "").toLowerCase().includes(prep)
+    );
+  }
+
+  if (filters?.baseVerb && filters.baseVerb !== "all") {
+    const verb = filters.baseVerb.toLowerCase();
+    list = list.filter((e) =>
+      (e.related_verbs || []).some((v) => v.toLowerCase() === verb) ||
+      normalizeFrenchText(e.french).includes(verb)
+    );
   }
 
   if (filters?.cefr && filters.cefr !== "all") {
@@ -1036,6 +1058,7 @@ export interface VocabFilterOptions {
   gender?: string;
   cefr?: string;
   chapterId?: string;
+  letter?: string;
   limit?: number;
   offset?: number;
 }
@@ -1043,6 +1066,14 @@ export interface VocabFilterOptions {
 export function getVocabulary(filters?: VocabFilterOptions): { vocabulary: VocabUI[]; total: number } {
   const data = getMasterDataset();
   let list = (data.vocabulary || []).map(mapVocab);
+
+  // Alphabetical sort by default for dictionary view
+  list.sort((a, b) => a.french.localeCompare(b.french, "fr", { sensitivity: "base" }));
+
+  if (filters?.letter && filters.letter !== "all") {
+    const l = filters.letter.toLowerCase();
+    list = list.filter((v) => normalizeFrenchText(v.french).startsWith(l));
+  }
 
   if (filters?.query) {
     const q = normalizeFrenchText(filters.query);
@@ -1077,6 +1108,55 @@ export function getVocabulary(filters?: VocabFilterOptions): { vocabulary: Vocab
   }
 
   return { vocabulary: list, total };
+}
+
+export interface VocabDetailWithGraph {
+  vocab: VocabUI;
+  expressions: ExpressionUI[];
+  examples: ExampleUI[];
+}
+
+export function getVocabularyById(vocabId: string): VocabDetailWithGraph | null {
+  const data = getMasterDataset();
+  const rawVocab = (data.vocabulary || []).find((v) => {
+    const id = makeVocabId(v.canonical_form);
+    return (
+      id === vocabId ||
+      v.canonical_form === vocabId ||
+      slugify(v.canonical_form) === slugify(vocabId)
+    );
+  });
+
+  if (!rawVocab) return null;
+
+  const vocab = mapVocab(rawVocab);
+  const normWord = normalizeFrenchText(rawVocab.canonical_form);
+
+  const expressions = (data.expressions || [])
+    .filter((e) => {
+      const normExp = normalizeFrenchText(e.canonical_form);
+      return (
+        (rawVocab.related_expressions || []).includes(e.canonical_form) ||
+        (e.related_vocabulary || []).includes(rawVocab.canonical_form) ||
+        normExp.includes(normWord)
+      );
+    })
+    .slice(0, 10)
+    .map(mapExpression);
+
+  const examples = (data.examples || [])
+    .filter((ex, i) => {
+      const normFr = normalizeFrenchText(ex.french);
+      return normFr.includes(normWord);
+    })
+    .slice(0, 5)
+    .map((ex, i) => mapExample(ex, i));
+
+  return {
+    vocab,
+    expressions,
+    examples,
+  };
 }
 
 // =======================================================================

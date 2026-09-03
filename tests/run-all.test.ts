@@ -117,13 +117,35 @@ const traps = getExceptionsAndTraps();
 assert.strictEqual(traps.total, 108, "getExceptionsAndTraps() must return 108 traps");
 const concepts = getConcepts();
 assert.strictEqual(concepts.length, 206, "getConcepts() must return 206 concepts");
-import { searchDataset } from "../src/lib/data/search";
+import { searchDataset, normalizeFrenchText } from "../src/lib/data/search";
 
 // 4. Validate Search Functionality
 const searchMatches = searchDataset(loadedData, "etre");
 assert(searchMatches.length > 0, "Search for 'etre' should return results");
 assert(searchMatches.some((m) => m.type === "verb"), "Search for 'etre' should find the verb être");
 console.log(`✅ Search searchDataset('etre') verified with ${searchMatches.length} results.`);
+
+// 5. Validate Vocabulary Alphabetical Sorting and A-Z Filtering
+const vocabA = getVocabulary({ letter: "A" });
+assert(vocabA.total > 0, "Vocabulary starting with 'A' should return items");
+assert(
+  vocabA.vocabulary.every((v) => normalizeFrenchText(v.french).startsWith("a")),
+  "All items returned under letter A must normalize to starting with a (handling A, À, Â, etc.)"
+);
+console.log(`✅ Selector getVocabulary({ letter: 'A' }) verified with ${vocabA.total} items.`);
+
+// 6. Validate Expressions Preposition and Base Verb Filtering
+const prepAExpressions = getExpressions({ preposition: "à" });
+assert(prepAExpressions.total > 0, "Expressions with preposition 'à' should return items");
+assert(
+  prepAExpressions.expressions.every((e) => e.french.toLowerCase().includes("à") || e.pattern?.toLowerCase().includes("à")),
+  "Expressions filtered by 'à' must contain 'à'"
+);
+console.log(`✅ Selector getExpressions({ preposition: 'à' }) verified with ${prepAExpressions.total} expressions.`);
+
+const avoirExpressions = getExpressions({ baseVerb: "avoir" });
+assert(avoirExpressions.total > 0, "Expressions based on 'avoir' must return items");
+console.log(`✅ Selector getExpressions({ baseVerb: 'avoir' }) verified with ${avoirExpressions.total} expressions.`);
 
 console.log("\n🎉 All tests passed successfully!");
 

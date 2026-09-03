@@ -60,6 +60,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Living roadmap tracking feature suggestions, architectural improvements, and vulnerability audits.
 - **Functions**: N/A (Markdown documentation).
 
+#### `gptsugg.txt`
+- **Purpose**: User-supplied architectural improvement specifications and checklist establishing the "Scan → Peek → Deep Dive" design paradigm across the platform.
+- **Functions**: N/A (Text specification).
+
 ---
 
 ### 2. Application Shell & Pages (`app/`)
@@ -162,14 +166,90 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `GET(request)`: Handles search queries and returns matched items grouped by category.
 
+#### `app/api/peek/route.ts`
+- **Purpose**: Universal Level 2 Peek API endpoint providing lightweight preview summaries for verbs, expressions, grammar rules, tenses, and vocabulary without full-page reloads.
+- **Functions**:
+  - `GET(request)`: Handles `?type={verb|expression|grammar|tense|vocab}&id={id}` requests and returns structured peek payloads.
+
 ---
 
 ### 3. UI Components (`src/components/`)
 
 #### `src/components/layout/AppShell.tsx`
-- **Purpose**: Responsive layout shell providing desktop sidebar navigation (with live counts for all 10 entity collections), mobile drawer, breadcrumbs, and command palette integration.
+- **Purpose**: Responsive layout shell providing desktop sidebar navigation (with live counts for all 10 entity collections), mobile drawer, breadcrumbs, command palette integration, PeekDrawer mount, and global keyboard shortcuts.
 - **Functions**:
   - `AppShell({ children })`: Client component wrapping pages with consistent application chrome.
+
+#### `src/components/common/GlobalKeyboardShortcuts.tsx`
+- **Purpose**: Global keyboard event handler providing power-user navigation across table rows and modal views (`/`, `Cmd+K`, `Esc`, `j`, `k`, `o`, `Enter`, `Space`).
+- **Functions**:
+  - `GlobalKeyboardShortcuts()`: Client listener mounted in AppShell.
+
+#### `src/components/peek/PeekContext.tsx`
+- **Purpose**: Global React Context provider managing Level 2 peek drawer state, selected entity type and ID, and asynchronous data fetching.
+- **Functions**:
+  - `PeekProvider({ children })`: Context provider component.
+  - `usePeek()`: Hook returning peek state (`activePeek`, `peekData`, `loading`, `openPeek`, `closePeek`).
+
+#### `src/components/peek/PeekDrawer.tsx`
+- **Purpose**: Right-side slide-over drawer (desktop) / bottom sheet (mobile) rendering Level 2 entity previews with key facts, constructions, pitfalls, and deep-dive links.
+- **Functions**:
+  - `PeekDrawer()`: Slide-over UI component mounted globally in AppShell.
+
+#### `src/components/peek/PeekTrigger.tsx`
+- **Purpose**: Reusable interactive trigger button/link that invokes `openPeek(type, id)` from anywhere in the application.
+- **Functions**:
+  - `PeekTrigger({ type, id, label, className, children })`: Clickable trigger component.
+
+#### `src/components/verbs/VerbLibraryTable.tsx`
+- **Purpose**: Dense scan-and-peek table for the 496 verbs library with inline filters, quick preview triggers, and row click handling.
+- **Functions**:
+  - `VerbLibraryTable({ verbs, total, currentPage, pageSize, initialGroup, initialRegularity, initialAuxiliary, initialQuery })`: Interactive client table component.
+
+#### `src/components/verbs/VerbDetailView.tsx`
+- **Purpose**: Systematic 3-level detail view for verbs featuring mood tabs (Indicatif, Conditionnel, Subjonctif, Impératif), accordion tense conjugations, smart "Show More" limits, peek triggers for expressions, and demoted technical metadata.
+- **Functions**:
+  - `VerbDetailView({ verb, conjugations, expressions, grammarRules, examples })`: Client detail component.
+
+#### `src/components/vocabulary/VocabDictionaryTable.tsx`
+- **Purpose**: Dense alphabetical A-Z dictionary table for 1,002 vocabulary items with alphabet jump bar, part of speech filtering, and row-click Level 2 peek.
+- **Functions**:
+  - `VocabDictionaryTable({ vocabulary, total, currentPage, pageSize, initialQuery, initialLetter, initialPos })`: Interactive client dictionary table.
+
+#### `src/components/expressions/ExpressionLibraryTable.tsx`
+- **Purpose**: Dense scan table for 557 idiomatic expressions emphasizing syntactic pattern formulas, preposition filters (à, de, en, sur, pour, avec), and row-click Level 2 peek.
+- **Functions**:
+  - `ExpressionLibraryTable({ expressions, total, currentPage, pageSize, initialQuery, initialPreposition, initialBaseVerb })`: Interactive client expressions table.
+
+#### `src/components/expressions/ExpressionDetailView.tsx`
+- **Purpose**: Syntactic deep dive view for expressions highlighting pattern formulas, base verbs with Peek triggers, sentence examples with smart limits, and demoted attestation metadata.
+- **Functions**:
+  - `ExpressionDetailView({ expression, verbs, examples, vocabulary })`: Client detail component.
+
+#### `src/components/grammar/GrammarLibraryTable.tsx`
+- **Purpose**: Dense scan table for 284 grammar rules with formation formula previews, trap counters, and row-click Level 2 peek.
+- **Functions**:
+  - `GrammarLibraryTable({ rules, total, currentPage, pageSize, initialQuery, initialCategory })`: Interactive client grammar table.
+
+#### `src/components/grammar/GrammarDetailView.tsx`
+- **Purpose**: Grammar rule deep dive featuring 2-box summary capsule ("When to Use" and "Watch Out / Common Trap"), formation formula, peek-enabled related verbs/tenses, and smart examples.
+- **Functions**:
+  - `GrammarDetailView({ rule, tenses, verbs, examples, traps })`: Client detail component.
+
+#### `src/components/tenses/TenseDetailView.tsx`
+- **Purpose**: Tense deep dive with 4-part Quick-Reference Card (Formula, When to Use, Signal Words, Agreement & Traps), verb inflection matrix with search & Peek, and linked grammar rules.
+- **Functions**:
+  - `TenseDetailView({ tense, conjugations, grammarRules, examples, traps })`: Client detail component.
+
+#### `src/components/chapters/ChapterDetailView.tsx`
+- **Purpose**: Chapter dashboard featuring 1-screen Quick Cheat Sheet (Key Verbs, Core Rule, Essential 5 Vocab, #1 Trap to Avoid) and tabbed navigation (Overview, Grammar, Verbs, Vocab, Expressions, Practice).
+- **Functions**:
+  - `ChapterDetailView({ chapter, sections, grammarRules, verbs, vocabulary, expressions, exercises, examples })`: Client detail component.
+
+#### `src/components/examples/ExampleExplorerList.tsx`
+- **Purpose**: Interactive bilingual sentence list with clickable entity tags triggering Level 2 peek for verbs, tenses, and grammar rules directly in context.
+- **Functions**:
+  - `ExampleExplorerList({ examples })`: Client list component with peek triggers.
 
 #### `src/components/search/CommandPalette.tsx`
 - **Purpose**: Modal command palette (`Cmd+K` / `Ctrl+K`) for keyboard-first navigation and instant search.
@@ -400,3 +480,17 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 #### `ui/stitch_l_atlas_de_fran_ais/global_search_command_palette/code.html` & `screen.png`
 - **Purpose**: Static HTML prototype and screenshot reference for the quick command palette modal.
 - **Functions**: N/A (Prototype & visual reference).
+
+---
+
+### 8. Test Suites (`tests/`)
+
+#### `tests/run-all.test.ts`
+- **Purpose**: Unified single entry-point test runner validating master data schema compliance, 10 collection counts, data loader integrity, view model selectors, alphabetical dictionary filtering, expression pattern filtering, and search functionality.
+- **Functions**:
+  - Validates `data/MASTER_DATA.json` integrity and 10 entity count invariants.
+  - Validates `getMasterDataset()` loader caching.
+  - Validates selectors (`getHomeStats`, `getVerbs`, `getVerbById`, `getTenses`, `getTenseById`, `getGrammarRules`, `getGrammarRuleById`, `getChapters`, `getChapterById`, `getExercises`, `getExceptionsAndTraps`, `getConcepts`).
+  - Validates search indexing and diacritic-insensitive query execution via `searchDataset()`.
+  - Validates alphabetical dictionary sort and A-Z letter filtration via `getVocabulary({ letter })`.
+  - Validates expression preposition and base-verb filtration via `getExpressions({ preposition, baseVerb })`.

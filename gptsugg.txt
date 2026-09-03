@@ -1,0 +1,559 @@
+L’ÉTUDE — UI IMPROVEMENT PLAN
+
+Goal
+Make the interface feel like a fast revision/reference tool rather than a collection of oversized information cards.
+
+Core design principle:
+SCAN → PEEK → DEEP DIVE
+
+The data architecture is already strong enough. The main improvement should now be how information is displayed, how much is visible at once, and how users move between related concepts.
+
+1. USE A 3-LEVEL INFORMATION MODEL EVERYWHERE
+
+LEVEL 1 — SCAN
+Show only enough information for the user to identify whether the item is relevant.
+
+Example verb row:
+prendre · to take
+3rd group · irregular · avoir
+6 expressions · 8 tenses · 14 examples
+
+Do not immediately show:
+- all senses
+- all stems
+- all conjugations
+- every usage note
+- all sources
+- all chapters
+- too many badges
+
+LEVEL 2 — PEEK
+Click the row, chevron, or Quick View button.
+
+Example:
+prendre — to take, to catch
+Past participle: pris
+Future stem: prendr-
+
+Common constructions:
+- prendre une décision
+- prendre sa retraite
+- prendre le train
+
+Common examples:
+- Je prends le bus.
+- J’ai pris le train.
+
+Open full verb →
+
+LEVEL 3 — FULL DETAIL
+The full entity page contains everything:
+- meanings
+- all conjugations
+- stems
+- expressions
+- examples
+- grammar links
+- usage notes
+- sources
+- chapters
+- related entities
+
+2. STOP MAKING EVERYTHING A CARD
+
+Cards should be used mainly for:
+- homepage modules
+- important traps
+- summary panels
+- chapter overview
+- highlighted concepts
+
+Dense lists/tables are better for:
+- 496 verbs
+- 1,002 vocabulary items
+- 557 expressions
+- 284 grammar rules
+- 1,011 examples
+- exercises
+
+Recommended pattern:
+Dense table/list → expandable row / side peek → full detail page
+
+3. VERB LIBRARY — MAKE IT DENSER
+
+Recommended columns:
+Verb | Meaning | Group | Past Participle | Auxiliary | Usage
+
+Example:
+prendre | to take | 3rd · irregular | pris | avoir | 12 expr · 18 ex
+venir | to come | 3rd · irregular | venu | être | 8 expr · 14 ex
+parler | to speak | 1st · regular | parlé | avoir | 4 expr · 11 ex
+
+Clicking a row should:
+- expand a quick view, OR
+- open a right-side preview panel
+
+The user should be able to scan many verbs without seeing huge cards.
+
+4. VERB DETAIL — DO NOT SHOW EVERY CONJUGATION AT ONCE
+
+Top area:
+prendre
+to take · to catch · to have
+irregular · 3rd group · avoir · pris
+
+Then compact section navigation:
+Overview · Conjugations · Expressions · Examples · Usage
+
+OVERVIEW:
+- primary meanings
+- participles
+- important stems
+- most important constructions
+- 2–3 examples
+- traps
+
+CONJUGATIONS:
+Use mood tabs:
+Indicatif | Conditionnel | Subjonctif | Impératif
+
+Inside Indicatif:
+Présent | Passé composé | Imparfait | Plus-que-parfait | Futur | Futur antérieur
+
+Only one tense needs to be expanded at a time.
+
+Example:
+Présent
+
+je prends
+tu prends
+il/elle/on prend
+nous prenons
+vous prenez
+ils/elles prennent
+
+Stem: pren-/prenn-
+Show formation details
+
+Then collapsed sections:
+▸ Passé composé
+▸ Imparfait
+▸ Plus-que-parfait
+▸ Futur simple
+
+5. ADD A UNIVERSAL PEEK SYSTEM
+
+Cross-links should not always force the user onto another page.
+
+Clicking:
+conditionnel présent
+
+can open a small preview:
+Conditionnel présent
+Stem: futur stem
+Endings: -ais, -ais, -ait, -ions, -iez, -aient
+Used for hypothetical situations, politeness, etc.
+
+Open tense →
+
+Clicking:
+prendre une décision
+
+can show:
+prendre une décision
+to make a decision
+collocation · neutral
+
+Open expression →
+
+This keeps users in context while revising.
+
+6. USE A RIGHT-SIDE DETAIL DRAWER ON DESKTOP
+
+Desktop structure:
+Navigation | Main Library | Quick Detail
+
+Example:
+Sidebar:
+- Verbs
+- Tenses
+- Grammar
+- Expressions
+- Vocabulary
+
+Main:
+- prendre
+- produire
+- recevoir
+- venir
+- voir
+
+Right panel:
+PRENDRE
+to take
+pris
+Expressions
+Examples
+Open full →
+
+On mobile, this can become a bottom sheet.
+
+7. USE RELATIONSHIPS AS A MAJOR PART OF THE UI
+
+For a verb like prendre, group relations clearly.
+
+Constructions:
+- prendre + noun
+- prendre pour
+
+Collocations:
+- prendre une décision
+- prendre sa retraite
+- prendre le train
+
+Grammar:
+- passé composé with avoir
+- participle rules
+
+Tenses:
+- présent
+- imparfait
+- conditionnel présent
+- conditionnel passé
+- etc.
+
+Found in chapters:
+- Chapter 7
+- Chapter 11
+- Chapter 12
+
+Examples:
+- 18 sentences
+
+Everything should be clickable and ideally peekable.
+
+8. USE SMART "SHOW MORE"
+
+Suggested defaults:
+
+Meanings:
+show first 3
+
+Examples:
+show first 3
+
+Expressions:
+show first 5
+
+Usage notes:
+show first 2
+
+Related rules:
+show first 4
+
+Vocabulary:
+show first 10
+
+Sources:
+collapsed by default
+
+Use labels like:
+Show 11 more examples
+Show 7 more expressions
+
+9. KEEP SOURCES HIDDEN BY DEFAULT
+
+At the bottom of detail pages:
+Source information ▸
+
+Then when expanded:
+Chapter 12 · p. 95
+Verb table · p. 141
+Glossary FR→EN
+
+Sources should be tertiary information.
+
+10. REDUCE BADGE OVERLOAD
+
+For prendre, this may be enough:
+3rd group · irregular · avoir
+
+Avoid showing every possible badge simultaneously.
+
+Metadata should support filtering more often than decoration.
+
+11. MAKE FILTERS COMPACT AND PROGRESSIVE
+
+Top bar:
+Search...                         Filters
+
+Visible high-value filters:
+Group ▾
+Regularity ▾
+Auxiliary ▾
+
+Then:
+More filters (4)
+
+This can open:
+- transitivity
+- register
+- importance
+- frequency
+- chapter
+- has expressions
+- has examples
+
+Selected filters appear as removable chips:
+Irregular ×
+Avoir ×
+Essential ×
+
+12. GRAMMAR LIBRARY — USE RULE PREVIEWS
+
+Example:
+Si + imparfait → conditionnel présent
+
+Hypothetical present/future situations
+
+Conditionnel · 3 traps · 12 examples
+
+Example sentence:
+Si j’avais plus de temps, je voyagerais davantage.
+
+Click or expand to reveal:
+- formation
+- restrictions
+- common mistakes
+
+Full rule page only when needed.
+
+13. EXPRESSIONS — EMPHASIZE THE PATTERN
+
+Example:
+demander  à quelqu’un  de  + infinitif
+
+Meaning:
+ask someone to do something
+
+Metadata:
+construction · neutral · common
+
+Peek can show:
+Base verb: demander
+Indirect object: à quelqu’un
+Following preposition: de
+Complement: infinitive
+
+14. VOCABULARY SHOULD FEEL LIKE A DICTIONARY
+
+Do not show 1,002 cards.
+
+Use alphabetical/dense table style:
+
+A
+
+abandonner      v.       to abandon
+abeille         f.       bee
+abordable       adj.     affordable
+accord          m.       agreement
+
+Click row:
+accord
+un accord / l’accord
+noun · masculine
+
+agreement
+arrangement
+
+Expressions:
+- être d’accord
+- d’un commun accord
+
+Examples:
+...
+
+15. EXAMPLE EXPLORER — MAKE SENTENCES INTERACTIVE
+
+Example:
+Si j’avais su, je ne serais pas venu.
+
+Under it, show subtle linked metadata:
+plus-que-parfait → conditionnel passé
+savoir
+venir
+
+Allow users to click the highlighted phrase itself.
+
+Clicking:
+j’avais su
+
+could peek:
+savoir
+plus-que-parfait
+j’avais su
+
+Avoid placing too many badges under every sentence.
+
+16. TENSE DETAIL — ADD TWO MODES
+
+Use:
+Learn | Reference
+
+LEARN:
+- what the tense means
+- formation
+- when to use it
+- 3 examples
+- common traps
+
+REFERENCE:
+- endings
+- irregular stems
+- linked verbs
+- all related examples
+- agreement details
+- negative form
+- interrogative form
+- advanced notes
+
+17. CHAPTER PAGES SHOULD BE DASHBOARDS
+
+Do not recreate the entire textbook inside each chapter.
+
+Example:
+Chapter 12 — Could, Should, Would?
+
+Summary:
+3 major verbs · 4 grammar rules · 11 expressions · 6 exercises
+
+What you need to know:
+- conditionnel passé
+- pouvoir
+- devoir
+- vouloir
+- si type 3
+- au cas où
+
+Then:
+Grammar (4) →
+Verbs (13) →
+Expressions (11) →
+Examples (37) →
+Exercises (6) →
+
+18. SEARCH SHOULD BECOME NAVIGATION
+
+The command palette should understand:
+prendre
+prendre conditionnel
+expressions prendre
+verbs with être
+construction de infinitive
+conditionnel examples
+chapter 12 pouvoir
+
+Results should be grouped:
+Verb
+Expression
+Grammar
+Tense
+Example
+Vocabulary
+Chapter
+
+Support keyboard navigation.
+
+19. PRESERVE FILTER AND BROWSING STATE
+
+If a user filters:
+Irregular
+Auxiliary = avoir
+3rd group
+
+then opens prendre and goes Back, restore:
+- same filters
+- same search query
+- same page
+- ideally same scroll position
+
+20. USE A STRONG INFORMATION HIERARCHY
+
+Preferred page hierarchy:
+
+ENTITY NAME
+important meaning / key information
+
+secondary meaning / explanation
+
+----------------------------
+
+essential facts
+
+----------------------------
+
+high-value related knowledge
+
+----------------------------
+
+expandable deep details
+
+----------------------------
+
+sources / metadata
+
+Avoid:
+CARD
+CARD
+CARD
+CARD
+CARD
+CARD
+
+21. FIVE CORE INTERACTION PRIMITIVES
+
+1. Dense searchable lists/tables
+2. Inline expansion or side-panel peek
+3. Full entity pages
+4. Natural cross-links
+5. Progressive disclosure
+
+22. VISUAL STYLE
+
+Keep the existing academic/Oxford Blue design direction.
+
+Do not spend most of the redesign effort on:
+- new colors
+- extra shadows
+- decorative card layouts
+- excessive gradients
+- unnecessary animations
+
+Focus on:
+- better information density
+- stronger hierarchy
+- less overblocking
+- fast peeking
+- better cross-linking
+- cleaner tables/lists
+- contextual navigation
+- fewer unnecessary badges
+- smarter expandable sections
+
+FINAL DESIGN PHILOSOPHY
+
+L’Étude should feel like:
+a searchable French knowledge atlas
+
+rather than:
+a digital textbook
+or
+a dashboard full of cards
+
+The user should be able to:
+SCAN quickly
+→ PEEK without losing context
+→ OPEN full detail only when necessary
+→ MOVE naturally between verbs, grammar, tenses, expressions, vocabulary, examples, and chapters.
+
+The master dataset is rich enough to support this approach. The UI should now focus on exposing that richness gradually rather than showing everything simultaneously.
