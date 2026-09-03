@@ -567,6 +567,14 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Generated audit metadata for the active 162-batch queue: natural-key targets, source hash, requested fields, batch locations, and generation progress.
 - **Functions**: N/A (generated JSON audit metadata).
 
+#### `enrichment/MASTER_DATA_ENRICHED.json`
+- **Purpose**: Schema-valid enrichment-only copy of the immutable master dataset. It is created or updated exclusively by applying validated response patches; `data/MASTER_DATA.json` remains unchanged.
+- **Functions**: N/A (generated dataset artifact).
+
+#### `enrichment/manual/validated/*.json` / `enrichment/manual/review/*.json` / `enrichment/manual/reports/*.txt` / `enrichment/manual/logs/<batch_id>.json`
+- **Purpose**: Generated validation-safe patch payloads, validation reports, human-readable apply reports, and per-batch application audit logs for the responses processed so far.
+- **Functions**: N/A (generated audit artifacts).
+
 #### `enrichment/plan.txt`
 - **Purpose**: Authoritative 86-section specification document for the safe, deterministic, auditable manual AI enrichment pipeline for `MASTER_DATA.json`.
 - **Functions**: N/A (Specification document).
