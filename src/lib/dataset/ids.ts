@@ -84,13 +84,13 @@ export function makeExpressionId(canonicalForm: string): string {
   return `expr_${slug}`;
 }
 
-export function makeVocabId(canonicalWord: string, pos?: string): string {
+export function makeVocabId(canonicalWord: string | { canonical_form?: string; display_form?: string }, pos?: string): string {
+  const rawStr = typeof canonicalWord === "string" 
+    ? canonicalWord 
+    : canonicalWord?.canonical_form || canonicalWord?.display_form || "";
   // Remove leading articles like 'le ', 'la ', 'l'', 'un ', 'une '
-  let clean = canonicalWord.trim().replace(/^(le|la|l'|l’|les|un|une|des)\s+/i, "");
+  let clean = rawStr.trim().replace(/^(le|la|l'|l’|les|un|une|des)\s+/i, "");
   const slug = slugify(clean);
-  if (pos && (pos === "verb" || pos === "adverb" || pos === "adjective")) {
-    return `vocab_${slug}`;
-  }
   return `vocab_${slug}`;
 }
 

@@ -1,11 +1,12 @@
-import { SuperDatasetRoot } from "../dataset/schemas";
+import { MasterDataset } from "../dataset/masterSchema";
+import { makeVerbId, makeTenseId, makeRuleId, makeExpressionId, makeChapterId, slugify } from "../dataset/ids";
 
 /**
  * Normalizes French text by stripping diacritics and converting to lowercase.
  * e.g., "Être" -> "etre", "Connaître" -> "connaitre", "garçon" -> "garcon"
  */
-export function normalizeFrenchText(text: string | null | undefined): string {
-  if (!text) return "";
+export function normalizeFrenchText(text: unknown): string {
+  if (typeof text !== "string") return "";
   return text
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -20,7 +21,9 @@ export type SearchResultType =
   | "grammar_rule"
   | "tense"
   | "chapter"
-  | "example";
+  | "example"
+  | "exercise"
+  | "trap";
 
 export interface SearchResultItem {
   id: string;
@@ -35,10 +38,10 @@ export interface SearchResultItem {
 }
 
 /**
- * Performs fast accent-insensitive search across all 7 dataset collections.
+ * Performs fast accent-insensitive search across master dataset collections.
  */
 export function searchDataset(
-  dataset: SuperDatasetRoot,
+  dataset: MasterDataset,
   rawQuery: string,
   limit: number = 25
 ): SearchResultItem[] {
@@ -51,9 +54,8 @@ export function searchDataset(
 
   // 1. VERBS
   for (const verb of dataset.verbs || []) {
-    const lemma = (verb as any).infinitive || (verb as any).lemma || "";
-    const enArr = Array.isArray(verb.english) ? verb.english : [(verb as any).english_translation || ""];
-    const enStr = enArr.join(", ");
+    const lemma = verb.infinitive || "";
+    const enStr = verb.english || "";
     const normLemma = normalizeFrenchText(lemma);
     const normTrans = normalizeFrenchText(enStr);
 
@@ -65,13 +67,13 @@ export function searchDataset(
 
     if (score > 0) {
       results.push({
-        id: verb.id,
+        id: makeVerbId(lemma),
         type: "verb",
         title: lemma,
         subtitle: enStr || verb.verb_group || "Verb",
-        url: `/verbs/${encodeURIComponent(verb.id)}`,
+        url: `/verbs/${encodeURIComponent(lemma)}`,
         badge: verb.verb_group || "verb",
-        priority: verb.study?.learning_priority,
+        priority: verb.study?.learning_priority ?? undefined,
         score,
       });
     }
@@ -79,9 +81,8 @@ export function searchDataset(
 
   // 2. EXPRESSIONS
   for (const exp of dataset.expressions || []) {
-    const fr = (exp as any).canonical_form || (exp as any).french || "";
-    const enArr = Array.isArray(exp.english) ? exp.english : [(exp as any).english || ""];
-    const enStr = enArr.join("; ");
+    const fr = exp.canonical_form || "";
+    const enStr = exp.english || "";
     const normFr = normalizeFrenchText(fr);
     const normEn = normalizeFrenchText(enStr);
 
@@ -93,14 +94,14 @@ export function searchDataset(
 
     if (score > 0) {
       results.push({
-        id: exp.id,
+        id: makeExpressionId(fr),
         type: "expression",
         title: fr,
         subtitle: enStr,
         snippet: exp.expression_type || "Expression",
-        url: `/expressions/${encodeURIComponent(exp.id)}`,
+        url: `/expressions/${encodeURIComponent(fr)}`,
         badge: exp.expression_type || "expression",
-        priority: exp.study?.learning_priority,
+        priority: exp.study?.learning_priority ?? undefined,
         score,
       });
     }
@@ -108,9 +109,8 @@ export function searchDataset(
 
   // 3. VOCABULARY
   for (const item of dataset.vocabulary || []) {
-    const fr = (item as any).canonical_form || (item as any).french || "";
-    const enArr = Array.isArray(item.english) ? item.english : [(item as any).english || ""];
-    const enStr = enArr.join(", ");
+    const fr = item.canonical_form || "";
+    const enStr = item.english || "";
     const normFr = normalizeFrenchText(fr);
     const normEn = normalizeFrenchText(enStr);
 
@@ -122,14 +122,14 @@ export function searchDataset(
 
     if (score > 0) {
       results.push({
-        id: item.id,
+        id: `vocab_${slugify(fr)}`,
         type: "vocabulary",
         title: fr,
         subtitle: enStr,
         snippet: item.part_of_speech,
         url: `/vocabulary?query=${encodeURIComponent(fr)}`,
         badge: item.part_of_speech || "vocab",
-        priority: item.study?.learning_priority,
+        priority: item.study?.learning_priority ?? undefined,
         score,
       });
     }
@@ -137,7 +137,7 @@ export function searchDataset(
 
   // 4. GRAMMAR RULES
   for (const rule of dataset.grammar_rules || []) {
-    const title = rule.title || "";
+    const title = rule.rule_name || "";
     const normTitle = normalizeFrenchText(title);
     const normExpl = normalizeFrenchText(rule.explanation || rule.summary || "");
 
@@ -147,13 +147,13 @@ export function searchDataset(
 
     if (score > 0) {
       results.push({
-        id: rule.id,
+        id: makeRuleId(title),
         type: "grammar_rule",
-        title: title,
-        snippet: rule.summary || rule.explanation?.slice(0, 100),
-        url: `/grammar/${encodeURIComponent(rule.id)}`,
-        badge: rule.grammar_category || "grammar",
-        priority: rule.study?.learning_priority,
+        title,
+        snippet: rule.summary || rule.explanation?.slice(0, 100) || undefined,
+        url: `/grammar/${encodeURIComponent(title)}`,
+        badge: (rule.tags && rule.tags[0]) || "grammar",
+        priority: rule.study?.learning_priority ?? undefined,
         score,
       });
     }
@@ -161,8 +161,8 @@ export function searchDataset(
 
   // 5. TENSES
   for (const tense of dataset.tenses || []) {
-    const fr = tense.name_french || "";
-    const en = tense.name_english || "";
+    const fr = tense.name || "";
+    const en = tense.english_name || "";
     const normFr = normalizeFrenchText(fr);
     const normEn = normalizeFrenchText(en);
 
@@ -172,11 +172,11 @@ export function searchDataset(
 
     if (score > 0) {
       results.push({
-        id: tense.id,
+        id: makeTenseId(fr),
         type: "tense",
-        title: `${fr} (${en})`,
+        title: en ? `${fr} (${en})` : fr,
         subtitle: tense.mood || "Tense",
-        url: `/tenses/${encodeURIComponent(tense.id)}`,
+        url: `/tenses/${encodeURIComponent(fr)}`,
         badge: tense.mood || "tense",
         score,
       });
@@ -185,7 +185,7 @@ export function searchDataset(
 
   // 6. CHAPTERS
   for (const ch of dataset.chapters || []) {
-    const title = ch.title || "";
+    const title = ch.chapter_title || "";
     const normTitle = normalizeFrenchText(title);
     const num = String(ch.chapter_number);
 
@@ -198,17 +198,67 @@ export function searchDataset(
 
     if (score > 0) {
       results.push({
-        id: ch.id,
+        id: makeChapterId(ch.chapter_number),
         type: "chapter",
         title: `Chapter ${ch.chapter_number}: ${title}`,
-        url: `/chapters/${encodeURIComponent(ch.id)}`,
+        url: `/chapters/${ch.chapter_number}`,
         badge: `ch ${ch.chapter_number}`,
         score,
       });
     }
   }
 
-  // 7. EXAMPLES
+  // 7. EXERCISES
+  for (const ex of dataset.exercises || []) {
+    const title = ex.title || `Exercise ${ex.exercise_code}`;
+    const normTitle = normalizeFrenchText(title);
+    const normCode = normalizeFrenchText(ex.exercise_code);
+    const normInst = normalizeFrenchText(ex.instructions);
+
+    let score = 0;
+    if (normCode === query) score = 80;
+    else if (normTitle.includes(query)) score = 60;
+    else if (normInst.includes(query)) score = 40;
+
+    if (score > 0) {
+      results.push({
+        id: `exercise_${slugify(ex.exercise_code)}`,
+        type: "exercise",
+        title,
+        subtitle: `Chapter ${ex.chapter_number} • ${ex.exercise_type || "Exercise"}`,
+        snippet: ex.instructions?.slice(0, 100),
+        url: `/chapters/${ex.chapter_number}`,
+        badge: "exercise",
+        score,
+      });
+    }
+  }
+
+  // 8. EXCEPTIONS & TRAPS
+  for (const trap of dataset.exceptions_and_traps || []) {
+    const title = trap.title;
+    const normTitle = normalizeFrenchText(title);
+    const normDesc = normalizeFrenchText(trap.description);
+
+    let score = 0;
+    if (normTitle.includes(query)) score = 70;
+    else if (normDesc.includes(query)) score = 35;
+
+    if (score > 0) {
+      results.push({
+        id: `trap_${slugify(title)}`,
+        type: "trap",
+        title,
+        subtitle: trap.category || "Pitfall",
+        snippet: trap.description.slice(0, 100),
+        url: `/traps`,
+        badge: "trap",
+        score,
+      });
+    }
+  }
+
+  // 9. EXAMPLES
   for (const ex of dataset.examples || []) {
     const normFr = normalizeFrenchText(ex.french);
     const normEn = normalizeFrenchText(ex.english);
@@ -219,7 +269,7 @@ export function searchDataset(
 
     if (score > 0) {
       results.push({
-        id: ex.id,
+        id: `example_${slugify(ex.french.slice(0, 20))}`,
         type: "example",
         title: ex.french,
         subtitle: ex.english,

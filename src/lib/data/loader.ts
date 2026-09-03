@@ -1,80 +1,64 @@
 import fs from "fs";
 import path from "path";
-import { SuperDatasetRoot, SuperDatasetRootSchema } from "../dataset/schemas";
+import { MasterDataset } from "../dataset/masterSchema";
 
-let cachedDataset: SuperDatasetRoot | null = null;
+let cachedMasterDataset: MasterDataset | null = null;
 
 /**
- * Loads the French Grammar Super Dataset defensively.
+ * Loads the French Grammar Master Dataset defensively from data/MASTER_DATA.json.
  * Caches the parsed object in memory during server execution.
  */
-export function getDataset(): SuperDatasetRoot {
-  if (cachedDataset) {
-    return cachedDataset;
+export function getMasterDataset(): MasterDataset {
+  if (cachedMasterDataset) {
+    return cachedMasterDataset;
   }
 
-  const defaultPath = path.resolve(process.cwd(), "data/final/french_grammar.json");
+  const defaultPath = path.resolve(process.cwd(), "data/MASTER_DATA.json");
 
   if (!fs.existsSync(defaultPath)) {
-    console.warn(`Dataset file not found at ${defaultPath}. Returning empty schema default.`);
+    console.warn(`Master dataset file not found at ${defaultPath}. Returning empty schema default.`);
     return {
       schema_version: "1.0.0",
-      dataset_id: "pmp_complete_french_grammar_revision",
-      generated_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      book: {
-        id: "book_pmp_complete_french_grammar",
-        title: "Practice Makes Perfect: Complete French Grammar",
+      dataset_type: "french_revision_master",
+      metadata: {
+        dataset_name: "Complete French Grammar Master Dataset",
+        book_title: "Practice Makes Perfect: Complete French Grammar",
         author: "Annie Heminway",
         language: "French",
-        instruction_language: "English",
-        source_file: {
-          filename: "source_book.pdf",
-          page_count_pdf: 286,
-        },
-        chapter_ids: [],
+        source_language: "French",
+        target_language: "English",
+        notes: "Fallback empty master dataset",
       },
-      taxonomy: {},
       chapters: [],
-      sections: [],
+      topics: [],
       concepts: [],
-      tenses: [],
       grammar_rules: [],
+      tenses: [],
       verbs: [],
-      conjugations: [],
       expressions: [],
       vocabulary: [],
       examples: [],
       exercises: [],
-      study_sets: [],
-      quality_report: {
-        counts: {},
-        unresolved_relations: [],
-        duplicate_candidates: [],
-        low_confidence_items: [],
-        missing_answers: [],
-        missing_translations: [],
-        missing_gender_for_nouns: [],
-        missing_conjugation_forms: [],
-      },
+      exceptions_and_traps: [],
+      unresolved_items: [],
+      source_quality: [],
     };
   }
 
   try {
     const raw = fs.readFileSync(defaultPath, "utf-8");
-    const parsed = JSON.parse(raw);
-    const validated = SuperDatasetRootSchema.parse(parsed);
-    cachedDataset = validated;
-    return validated;
+    const parsed = JSON.parse(raw) as MasterDataset;
+    cachedMasterDataset = parsed;
+    return parsed;
   } catch (error) {
-    console.error("Failed to strictly parse dataset with zod; using raw JSON fallback:", error);
-    try {
-      const raw = fs.readFileSync(defaultPath, "utf-8");
-      const fallback = JSON.parse(raw) as SuperDatasetRoot;
-      cachedDataset = fallback;
-      return fallback;
-    } catch {
-      throw error;
-    }
+    console.error("Failed to parse master dataset from data/MASTER_DATA.json:", error);
+    throw error;
   }
+}
+
+/**
+ * Alias for backward-compatibility with existing selectors.
+ */
+export function getDataset(): MasterDataset {
+  return getMasterDataset();
 }

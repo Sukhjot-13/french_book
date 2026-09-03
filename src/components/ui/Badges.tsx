@@ -18,8 +18,7 @@ export function PriorityBadge({ priority }: { priority?: number | null }) {
       className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono font-medium ${style.bg}`}
       title={`Learning Priority ${priority}/5`}
     >
-      <span className="material-symbols-outlined text-[12px]">star</span>
-      {style.label}
+      ★ {style.label}
     </span>
   );
 }
@@ -39,7 +38,7 @@ export function GroupBadge({ group }: { group?: string | null }) {
   const label = labels[group] || group;
 
   return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono bg-surface-container-high text-on-surface-variant font-medium">
+    <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-800 font-medium">
       {label}
     </span>
   );
@@ -72,7 +71,7 @@ export function RegularityBadge({ regularity }: { regularity?: string | null }) 
   return (
     <span
       className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-medium ${
-        isReg ? "bg-emerald-50 text-emerald-800" : "bg-rose-50 text-rose-800 border border-rose-200"
+        isReg ? "bg-emerald-50 text-emerald-800 border border-emerald-200" : "bg-rose-50 text-rose-800 border border-rose-200"
       }`}
     >
       {isReg ? "Régulier" : "Irrégulier"}
@@ -80,10 +79,28 @@ export function RegularityBadge({ regularity }: { regularity?: string | null }) 
   );
 }
 
+export function TransitivityBadge({ transitivity }: { transitivity?: string | null }) {
+  if (!transitivity) return null;
+
+  const labels: Record<string, string> = {
+    transitive: "Transitif direct",
+    transitive_indirect: "Transitif indirect",
+    intransitive: "Intransitif",
+    both: "Transitif & Intransitif",
+    ditransitive: "Ditransitif",
+  };
+
+  return (
+    <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-cyan-50 text-cyan-900 border border-cyan-200">
+      {labels[transitivity] || transitivity}
+    </span>
+  );
+}
+
 export function PosBadge({ pos }: { pos?: string | null }) {
   if (!pos) return null;
   return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono bg-surface-container-high text-on-surface font-medium uppercase tracking-wider">
+    <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-700 font-medium uppercase tracking-wider">
       {pos}
     </span>
   );
@@ -130,8 +147,34 @@ export function RegisterBadge({ register }: { register?: string | null }) {
 export function CEFRBadge({ cefr }: { cefr?: string | null }) {
   if (!cefr) return null;
   return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-primary text-white tracking-wider">
+    <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-[#002147] text-white tracking-wider">
       {cefr.toUpperCase()}
+    </span>
+  );
+}
+
+export function MoodBadge({ mood }: { mood?: string | null }) {
+  if (!mood) return null;
+
+  const labels: Record<string, string> = {
+    indicative: "Indicatif",
+    subjunctive: "Subjonctif",
+    conditional: "Conditionnel",
+    imperative: "Impératif",
+  };
+
+  return (
+    <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200 uppercase tracking-wider">
+      {labels[mood] || mood}
+    </span>
+  );
+}
+
+export function CollocationBadge({ strength }: { strength?: string | null }) {
+  if (!strength) return null;
+  return (
+    <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-amber-50 text-amber-900 border border-amber-200">
+      {strength}
     </span>
   );
 }

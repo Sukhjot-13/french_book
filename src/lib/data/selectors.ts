@@ -1,100 +1,172 @@
-import { getDataset } from "./loader";
+import { getMasterDataset } from "./loader";
 import {
-  SuperDatasetRoot,
-  Verb as RawVerb,
-  Conjugation as RawConjugation,
-  Expression as RawExpression,
-  Vocabulary as RawVocabulary,
-  GrammarRule as RawGrammarRule,
-  Tense as RawTense,
-  Chapter as RawChapter,
-  Example as RawExample,
-  Exercise as RawExercise,
-} from "../dataset/schemas";
+  MasterVerb,
+  MasterTense,
+  MasterGrammarRule,
+  MasterExpression,
+  MasterVocabulary,
+  MasterExample,
+  MasterExercise,
+  MasterExceptionTrap,
+  MasterConcept,
+  MasterChapter,
+  Sense,
+  VerbConjugation,
+  VerbStem,
+  PatternSlot,
+  FocusSpan,
+  ExerciseQuestion,
+  ChapterSection,
+} from "../dataset/masterSchema";
 import { normalizeFrenchText } from "./search";
+import { slugify, makeVerbId, makeTenseId, makeRuleId, makeExpressionId, makeVocabId, makeChapterId } from "../dataset/ids";
 
 // =======================================================================
-// UNIFIED UI DATA VIEW MODELS
+// MASTER SCHEMA UI VIEW MODELS
 // =======================================================================
 
 export interface VerbUI {
   id: string;
   lemma: string;
+  display_form?: string | null;
   english: string;
+  senses: Sense[];
   group: string;
   auxiliary: string;
   regularity: string;
   pronominal: boolean;
+  transitivity: string;
   past_participle?: string | null;
   present_participle?: string | null;
+  stems: (string | VerbStem)[];
+  conjugations: VerbConjugation[];
+  conjugation_ids: string[];
+  expression_ids: string[];
+  related_expressions: string[];
+  related_concepts: string[];
   priority: number;
   usefulness: number;
   difficulty: number;
   cefr?: string | null;
   register?: string | null;
-  conjugation_ids: string[];
-  expression_ids: string[];
+  synonyms: string[];
+  antonyms: string[];
+  usage_notes: string[];
+  tags: string[];
   chapter_ids: string[];
+  raw_chapters: number[];
 }
 
 export interface ConjugationUI {
   id: string;
   verb_id: string;
   tense_id: string;
-  tense_name_fr?: string;
+  tense_name_fr: string;
   tense_name_en?: string;
-  mood?: string;
+  mood: string;
   je?: string | null;
   tu?: string | null;
   il_elle_on?: string | null;
   nous?: string | null;
   vous?: string | null;
   ils_elles?: string | null;
+  imperative_tu?: string | null;
+  imperative_nous?: string | null;
+  imperative_vous?: string | null;
+  impersonal_form?: string | null;
   notes?: string | null;
+  stems?: string[];
+  endings?: string[];
 }
 
 export interface ExpressionUI {
   id: string;
   french: string;
+  display_form?: string | null;
   english: string;
-  literal_english?: string | null;
   type: string;
+  productive: boolean;
+  pattern?: string | null;
+  pattern_slots: PatternSlot[];
   register: string;
   strength?: string | null;
+  prepositions: string[];
+  complement_structure?: string | null;
+  restrictions: string[];
+  transformations: unknown[];
+  synonyms: string[];
+  antonyms: string[];
+  usage_notes: string[];
   base_verb_ids: string[];
+  related_verbs: string[];
+  related_vocabulary: string[];
+  related_grammar_rules: string[];
+  related_concepts: string[];
   priority: number;
   cefr?: string | null;
-  pattern?: string | null;
   chapter_ids: string[];
+  raw_chapters: number[];
 }
 
 export interface VocabUI {
   id: string;
   french: string;
+  display_form?: string | null;
   english: string;
   part_of_speech: string;
   gender?: string | null;
+  article?: string | null;
   plural_form?: string | null;
+  variants: string[];
+  senses: Sense[];
+  word_family: string[];
   category?: string | null;
+  register?: string | null;
+  synonyms: string[];
+  antonyms: string[];
+  usage_notes: string[];
   priority: number;
   cefr?: string | null;
+  related_expressions: string[];
+  related_verbs: string[];
+  related_concepts: string[];
   chapter_ids: string[];
+  raw_chapters: number[];
 }
 
 export interface GrammarRuleUI {
   id: string;
   title: string;
   title_fr?: string | null;
+  summary?: string | null;
   category: string;
   explanation: string;
+  formation?: string | null;
   formation_pattern?: string | null;
+  usage: string[];
+  restrictions: string[];
+  conditions: string[];
+  signal_words: string[];
   exceptions: string[];
+  agreement_rules: string[];
+  word_order?: string | null;
+  negative_form?: string | null;
+  interrogative_form?: string | null;
+  affirmative_form?: string | null;
+  transformations: unknown[];
+  contrast_with: string[];
+  common_traps: string[];
   priority: number;
   difficulty: number;
   cefr?: string | null;
   tense_ids: string[];
   verb_ids: string[];
+  related_tenses: string[];
+  related_concepts: string[];
+  related_verbs: string[];
+  related_expressions: string[];
   chapter_ids: string[];
+  raw_chapters: number[];
 }
 
 export interface TenseUI {
@@ -102,280 +174,452 @@ export interface TenseUI {
   name_fr: string;
   name_en: string;
   mood: string;
-  aspect?: string | null;
+  formation?: string | null;
   formation_rule?: string | null;
-  temporal_reference?: string | null;
+  usage: string[];
+  signal_words: string[];
+  regular_patterns: unknown[];
+  irregular_stems: unknown[];
+  compound_structure: unknown | null;
+  agreement_rules: string[];
+  negative_form?: string | null;
+  interrogative_form?: string | null;
+  affirmative_form?: string | null;
+  common_traps: string[];
+  related_tenses: string[];
+  related_grammar_rules: string[];
+  tags: string[];
+  cefr?: string | null;
+  priority: number;
+  chapter_ids: string[];
+  raw_chapters: number[];
 }
 
 export interface ChapterUI {
   id: string;
   chapter_number: number;
   title: string;
-  subtitle?: string | null;
-  summary?: string | null;
-  page_start?: number | null;
-  page_end?: number | null;
+  pages?: {
+    printed_start?: number | null;
+    printed_end?: number | null;
+    pdf_start?: number | null;
+    pdf_end?: number | null;
+  };
+  sections: ChapterSection[];
+  concepts: string[];
+  grammar_rules: string[];
+  verbs: string[];
+  expressions: string[];
+  vocabulary: string[];
+  tenses: string[];
+  exercises_count: number;
+  exercise_ids: string[];
+  notes?: string | null;
+  // Legacy compatibility aliases
   rule_ids: string[];
   verb_ids: string[];
   vocab_ids: string[];
   expression_ids: string[];
-  exercise_ids: string[];
 }
 
 export interface ExampleUI {
   id: string;
   french: string;
   english: string;
-  literal_english?: string | null;
-  related_verb_ids: string[];
-  related_tense_ids: string[];
-  related_rule_ids: string[];
+  focus_spans: FocusSpan[];
+  related_verbs: string[];
+  related_expressions: string[];
+  related_vocabulary: string[];
+  related_grammar_rules: string[];
+  related_tenses: string[];
+  related_concepts: string[];
+  tags: string[];
   chapter_ids: string[];
+  raw_chapters: number[];
+  notes?: string | null;
 }
 
 export interface ExerciseUI {
   id: string;
+  chapter_number: number;
   chapter_id: string;
+  exercise_code: string;
   title: string;
+  exercise_type: string;
   instructions: string;
+  section_title?: string | null;
+  pages?: {
+    printed_start?: number | null;
+    printed_end?: number | null;
+    pdf_start?: number | null;
+    pdf_end?: number | null;
+  };
   questions_count: number;
-  questions: Array<{
-    number: number | string;
-    prompt: string;
-    answer?: string | null;
-  }>;
+  questions: ExerciseQuestion[];
+  related_verbs: string[];
+  related_expressions: string[];
+  related_vocabulary: string[];
+  related_grammar_rules: string[];
+  related_tenses: string[];
+  related_concepts: string[];
+}
+
+export interface ExceptionTrapUI {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  correct_form?: string | null;
+  incorrect_form?: string | null;
+  related_grammar_rules: string[];
+  related_verbs: string[];
+  related_expressions: string[];
+  related_examples: string[];
+  tags: string[];
+  cefr?: string | null;
+  priority: number;
+  chapter_ids: string[];
+  raw_chapters: number[];
+  notes?: string | null;
+}
+
+export interface ConceptUI {
+  id: string;
+  name: string;
+  description?: string | null;
+  aliases: string[];
+  related_grammar_rules: string[];
+  related_verbs: string[];
+  related_expressions: string[];
+  related_vocabulary: string[];
+  related_tenses: string[];
+  tags: string[];
+  cefr?: string | null;
+  priority: number;
+  chapter_ids: string[];
+  raw_chapters: number[];
 }
 
 // =======================================================================
-// NORMALIZATION HELPERS
+// MAPPING HELPERS
 // =======================================================================
 
-function mapVerb(v: any): VerbUI {
-  const english = Array.isArray(v.english) ? v.english.join(", ") : v.english || "";
-  const cefr = typeof v.study?.cefr === "string" ? v.study.cefr : v.study?.cefr?.level || null;
-  const chapterIds = (v.attestations || [])
-    .map((a: any) => a.chapter_id)
-    .filter(Boolean) as string[];
+function mapVerb(v: MasterVerb): VerbUI {
+  const id = makeVerbId(v.infinitive);
+  const chapterIds = (v.chapters || []).map((ch) => makeChapterId(ch));
 
   return {
-    id: v.id,
-    lemma: v.infinitive || v.lemma || v.display_form || "",
-    english,
-    group: v.verb_group || v.group || "1st_group",
-    auxiliary: v.auxiliary || v.auxiliary_verb || "avoir",
+    id,
+    lemma: v.infinitive,
+    display_form: v.display_form || v.infinitive,
+    english: v.english || "",
+    senses: v.senses || [],
+    group: v.verb_group || "1st_group",
+    auxiliary: v.auxiliary || "avoir",
     regularity: v.regularity || "regular",
-    pronominal: Boolean(v.pronominal || v.reflexive),
-    past_participle: v.past_participle,
-    present_participle: v.present_participle,
+    pronominal: Boolean(v.pronominal),
+    transitivity: v.transitivity || "transitive",
+    past_participle: v.past_participle || null,
+    present_participle: v.present_participle || null,
+    stems: v.stems || [],
+    conjugations: v.conjugations || [],
+    conjugation_ids: (v.conjugations || []).map((_, idx) => `${id}_conj_${idx}`),
+    expression_ids: (v.related_expressions || []).map((e) => makeExpressionId(e)),
+    related_expressions: v.related_expressions || [],
+    related_concepts: v.related_concepts || [],
     priority: v.study?.learning_priority ?? 3,
     usefulness: v.study?.usefulness ?? 3,
     difficulty: v.study?.difficulty ?? 2,
-    cefr,
-    register: v.usage?.register || "neutral",
-    conjugation_ids: v.conjugation_ids || [],
-    expression_ids: v.expression_ids || [],
+    cefr: v.study?.cefr_level || null,
+    register: v.register || "neutral",
+    synonyms: v.synonyms || [],
+    antonyms: v.antonyms || [],
+    usage_notes: v.usage_notes || [],
+    tags: v.tags || [],
     chapter_ids: chapterIds,
+    raw_chapters: v.chapters || [],
   };
 }
 
-function mapConjugation(c: any, tenseMap?: Map<string, RawTense>): ConjugationUI {
-  const forms = c.forms || {};
-  const tInfo = tenseMap?.get(c.tense_id);
+function mapTense(t: MasterTense): TenseUI {
+  const id = makeTenseId(t.name);
+  const chapterIds = (t.chapters || []).map((ch) => makeChapterId(ch));
+  const usage = Array.isArray(t.usage) ? t.usage : t.usage ? [t.usage] : [];
 
   return {
-    id: c.id,
-    verb_id: c.verb_id,
-    tense_id: c.tense_id,
-    tense_name_fr: tInfo?.name_french,
-    tense_name_en: tInfo?.name_english,
-    mood: tInfo?.mood,
-    je: forms.je || forms["j'"] || c.je || null,
-    tu: forms.tu || c.tu || null,
-    il_elle_on: forms.il_elle_on || forms.il || c.il_elle_on || null,
-    nous: forms.nous || c.nous || null,
-    vous: forms.vous || c.vous || null,
-    ils_elles: forms.ils_elles || forms.ils || c.ils_elles || null,
-    notes: (c.irregularity_notes || []).concat(c.agreement_notes || []).join(". ") || null,
-  };
-}
-
-function mapExpression(e: any): ExpressionUI {
-  const english = Array.isArray(e.english) ? e.english.join("; ") : e.english || "";
-  const cefr = typeof e.study?.cefr === "string" ? e.study.cefr : e.study?.cefr?.level || null;
-  const chapterIds = (e.attestations || [])
-    .map((a: any) => a.chapter_id)
-    .filter(Boolean) as string[];
-
-  return {
-    id: e.id,
-    french: e.canonical_form || e.french || "",
-    english,
-    literal_english: e.literal_english || null,
-    type: e.expression_type || "verb_pattern",
-    register: e.usage?.register || "neutral",
-    strength: e.collocation_strength || null,
-    base_verb_ids: e.base_verb_ids || [],
-    priority: e.study?.learning_priority ?? 3,
-    cefr,
-    pattern: e.pattern || null,
+    id,
+    name_fr: t.name,
+    name_en: t.english_name || t.name,
+    mood: t.mood || "indicative",
+    formation: t.formation || null,
+    formation_rule: t.formation || null,
+    usage,
+    signal_words: t.signal_words || [],
+    regular_patterns: t.regular_patterns || [],
+    irregular_stems: t.irregular_stems || [],
+    compound_structure: t.compound_structure || null,
+    agreement_rules: t.agreement_rules || [],
+    negative_form: t.negative_form || null,
+    interrogative_form: t.interrogative_form || null,
+    affirmative_form: t.affirmative_form || null,
+    common_traps: t.common_traps || [],
+    related_tenses: t.related_tenses || [],
+    related_grammar_rules: t.related_grammar_rules || [],
+    tags: t.tags || [],
+    cefr: t.study?.cefr_level || null,
+    priority: t.study?.learning_priority ?? 3,
     chapter_ids: chapterIds,
+    raw_chapters: t.chapters || [],
   };
 }
 
-function mapVocab(vc: any): VocabUI {
-  const english = Array.isArray(vc.english) ? vc.english.join(", ") : vc.english || "";
-  const cefr = typeof vc.study?.cefr === "string" ? vc.study.cefr : vc.study?.cefr?.level || null;
-  const chapterIds = (vc.attestations || [])
-    .map((a: any) => a.chapter_id)
-    .filter(Boolean) as string[];
+function mapRule(r: MasterGrammarRule): GrammarRuleUI {
+  const id = makeRuleId(r.rule_name);
+  const chapterIds = (r.chapters || []).map((ch) => makeChapterId(ch));
+  const usage = Array.isArray(r.usage) ? r.usage : r.usage ? [r.usage] : [];
 
   return {
-    id: vc.id,
-    french: vc.canonical_form || vc.french || "",
-    english,
-    part_of_speech: vc.part_of_speech || "noun",
-    gender: vc.noun?.gender || null,
-    plural_form: vc.noun?.plural || null,
-    category: vc.semantic_domains?.[0] || null,
-    priority: vc.study?.learning_priority ?? 3,
-    cefr,
-    chapter_ids: chapterIds,
-  };
-}
-
-function mapRule(r: any): GrammarRuleUI {
-  const cefr = typeof r.study?.cefr === "string" ? r.study.cefr : r.study?.cefr?.level || null;
-  const chapterIds = (r.attestations || [])
-    .map((a: any) => a.chapter_id)
-    .filter(Boolean) as string[];
-
-  const formationPattern = r.formation?.patterns?.join(" | ") || null;
-
-  return {
-    id: r.id,
-    title: r.title || "Grammar Rule",
-    title_fr: r.short_label || null,
-    category: r.grammar_category || "general",
+    id,
+    title: r.rule_name,
+    title_fr: r.rule_name,
+    summary: r.summary || null,
+    category: (r.tags && r.tags[0]) || "General",
     explanation: r.explanation || r.summary || "",
-    formation_pattern: formationPattern,
+    formation: r.formation || null,
+    formation_pattern: r.formation || null,
+    usage,
+    restrictions: r.restrictions || [],
+    conditions: r.conditions || [],
+    signal_words: r.signal_words || [],
     exceptions: r.exceptions || [],
+    agreement_rules: r.agreement_rules || [],
+    word_order: r.word_order || null,
+    negative_form: r.negative_form || null,
+    interrogative_form: r.interrogative_form || null,
+    affirmative_form: r.affirmative_form || null,
+    transformations: r.transformations || [],
+    contrast_with: r.contrast_with || [],
+    common_traps: r.common_traps || [],
     priority: r.study?.learning_priority ?? 3,
     difficulty: r.study?.difficulty ?? 2,
-    cefr,
-    tense_ids: r.tense_ids || [],
-    verb_ids: r.verb_ids || [],
+    cefr: r.study?.cefr_level || null,
+    tense_ids: (r.related_tenses || []).map(makeTenseId),
+    verb_ids: (r.related_verbs || []).map(makeVerbId),
+    related_tenses: r.related_tenses || [],
+    related_concepts: r.related_concepts || [],
+    related_verbs: r.related_verbs || [],
+    related_expressions: r.related_expressions || [],
     chapter_ids: chapterIds,
+    raw_chapters: r.chapters || [],
   };
 }
 
-function mapTense(t: any): TenseUI {
+function mapExpression(e: MasterExpression): ExpressionUI {
+  const id = makeExpressionId(e.canonical_form);
+  const chapterIds = (e.chapters || []).map((ch) => makeChapterId(ch));
+
   return {
-    id: t.id,
-    name_fr: t.name_french,
-    name_en: t.name_english,
-    mood: t.mood || "indicative",
-    aspect: t.aspect_notes || null,
-    formation_rule: t.summary || null,
-    temporal_reference: t.time_reference?.join(", ") || null,
+    id,
+    french: e.canonical_form,
+    display_form: e.display_form || e.canonical_form,
+    english: e.english || "",
+    type: e.expression_type || "idiomatic_expression",
+    productive: Boolean(e.productive),
+    pattern: e.pattern || null,
+    pattern_slots: e.pattern_slots || [],
+    register: e.register || "neutral",
+    strength: e.collocation_strength || null,
+    prepositions: e.prepositions || [],
+    complement_structure: e.complement_structure || null,
+    restrictions: e.restrictions || [],
+    transformations: e.transformations || [],
+    synonyms: e.synonyms || [],
+    antonyms: e.antonyms || [],
+    usage_notes: e.usage_notes || [],
+    base_verb_ids: (e.related_verbs || []).map(makeVerbId),
+    related_verbs: e.related_verbs || [],
+    related_vocabulary: e.related_vocabulary || [],
+    related_grammar_rules: e.related_grammar_rules || [],
+    related_concepts: e.related_concepts || [],
+    priority: e.study?.learning_priority ?? 3,
+    cefr: e.study?.cefr_level || null,
+    chapter_ids: chapterIds,
+    raw_chapters: e.chapters || [],
   };
 }
 
-function mapChapter(ch: any): ChapterUI {
+function mapVocab(vc: MasterVocabulary): VocabUI {
+  const id = makeVocabId(vc.canonical_form);
+  const chapterIds = (vc.chapters || []).map((ch) => makeChapterId(ch));
+  const article = vc.article || (Array.isArray(vc.articles) ? vc.articles.join(", ") : vc.articles) || null;
+
   return {
-    id: ch.id,
+    id,
+    french: vc.canonical_form,
+    display_form: vc.display_form || vc.canonical_form,
+    english: vc.english || "",
+    part_of_speech: vc.part_of_speech || "noun",
+    gender: vc.gender || null,
+    article,
+    plural_form: vc.plural || null,
+    variants: vc.variants || [],
+    senses: vc.senses || [],
+    word_family: vc.word_family || [],
+    category: (vc.tags && vc.tags[0]) || null,
+    register: vc.register || "neutral",
+    synonyms: vc.synonyms || [],
+    antonyms: vc.antonyms || [],
+    usage_notes: vc.usage_notes || [],
+    priority: vc.study?.learning_priority ?? 3,
+    cefr: vc.study?.cefr_level || null,
+    related_expressions: vc.related_expressions || [],
+    related_verbs: vc.related_verbs || [],
+    related_concepts: vc.related_concepts || [],
+    chapter_ids: chapterIds,
+    raw_chapters: vc.chapters || [],
+  };
+}
+
+function mapChapter(ch: MasterChapter): ChapterUI {
+  const id = makeChapterId(ch.chapter_number);
+  const sections = ch.sections || [];
+  const exerciseIds = Array.from({ length: 10 }).map((_, i) => `${ch.chapter_number}.${i + 1}`);
+
+  return {
+    id,
     chapter_number: ch.chapter_number,
-    title: ch.title,
-    subtitle: ch.tags?.[0] || null,
-    summary: null,
-    page_start: ch.source?.page_start_printed || null,
-    page_end: ch.source?.page_end_printed || null,
-    rule_ids: ch.grammar_rule_ids || [],
-    verb_ids: ch.verb_ids || [],
-    vocab_ids: ch.vocabulary_ids || [],
-    expression_ids: ch.expression_ids || [],
-    exercise_ids: ch.exercise_ids || [],
+    title: ch.chapter_title,
+    pages: ch.pages,
+    sections,
+    concepts: ch.concepts || [],
+    grammar_rules: ch.grammar_rules || [],
+    verbs: ch.verbs || [],
+    expressions: ch.expressions || [],
+    vocabulary: ch.vocabulary || [],
+    tenses: ch.tenses || [],
+    exercises_count: sections.length,
+    exercise_ids: exerciseIds,
+    notes: ch.notes || null,
+    rule_ids: (ch.grammar_rules || []).map((r) => makeRuleId(r)),
+    verb_ids: (ch.verbs || []).map((v) => makeVerbId(v)),
+    vocab_ids: (ch.vocabulary || []).map((w) => makeVocabId(w)),
+    expression_ids: (ch.expressions || []).map((e) => makeExpressionId(e)),
   };
 }
 
-function mapExample(ex: any): ExampleUI {
-  const chapterIds = (ex.attestations || [])
-    .map((a: any) => a.chapter_id)
-    .filter(Boolean) as string[];
+function mapExample(ex: MasterExample, index: number): ExampleUI {
+  const id = `example_${index + 1}_${slugify(ex.french.slice(0, 30))}`;
+  const chapterIds = (ex.chapters || []).map((ch) => makeChapterId(ch));
 
   return {
-    id: ex.id,
+    id,
     french: ex.french,
     english: ex.english,
-    literal_english: ex.literal_english || null,
-    related_verb_ids: ex.annotations?.focus_spans?.map((s: any) => s.text) || [],
-    related_tense_ids: [],
-    related_rule_ids: [],
+    focus_spans: ex.focus_spans || [],
+    related_verbs: ex.related_verbs || [],
+    related_expressions: ex.related_expressions || [],
+    related_vocabulary: ex.related_vocabulary || [],
+    related_grammar_rules: ex.related_grammar_rules || [],
+    related_tenses: ex.related_tenses || [],
+    related_concepts: ex.related_concepts || [],
+    tags: ex.tags || [],
     chapter_ids: chapterIds,
+    raw_chapters: ex.chapters || [],
+    notes: ex.notes || null,
+  };
+}
+
+function mapExercise(ex: MasterExercise): ExerciseUI {
+  const chapterId = makeChapterId(ex.chapter_number);
+  const id = `exercise_${slugify(ex.exercise_code)}`;
+
+  return {
+    id,
+    chapter_number: ex.chapter_number,
+    chapter_id: chapterId,
+    exercise_code: ex.exercise_code,
+    title: ex.title || `Exercise ${ex.exercise_code}`,
+    exercise_type: ex.exercise_type || "fill_in_the_blank",
+    instructions: ex.instructions || "",
+    section_title: ex.section_title || null,
+    pages: ex.pages,
+    questions_count: (ex.questions || []).length,
+    questions: ex.questions || [],
+    related_verbs: ex.related_verbs || [],
+    related_expressions: ex.related_expressions || [],
+    related_vocabulary: ex.related_vocabulary || [],
+    related_grammar_rules: ex.related_grammar_rules || [],
+    related_tenses: ex.related_tenses || [],
+    related_concepts: ex.related_concepts || [],
+  };
+}
+
+function mapTrap(t: MasterExceptionTrap): ExceptionTrapUI {
+  const id = `trap_${slugify(t.title)}`;
+  const chapterIds = (t.chapters || []).map((ch) => makeChapterId(ch));
+
+  return {
+    id,
+    title: t.title,
+    category: t.category || "General",
+    description: t.description,
+    correct_form: t.correct_form || null,
+    incorrect_form: t.incorrect_form || null,
+    related_grammar_rules: t.related_grammar_rules || [],
+    related_verbs: t.related_verbs || [],
+    related_expressions: t.related_expressions || [],
+    related_examples: t.related_examples || [],
+    tags: t.tags || [],
+    cefr: t.study?.cefr_level || null,
+    priority: t.study?.learning_priority ?? 3,
+    chapter_ids: chapterIds,
+    raw_chapters: t.chapters || [],
+    notes: t.notes || null,
+  };
+}
+
+function mapConcept(c: MasterConcept): ConceptUI {
+  const id = `concept_${slugify(c.name)}`;
+  const chapterIds = (c.chapters || []).map((ch) => makeChapterId(ch));
+
+  return {
+    id,
+    name: c.name,
+    description: c.description || null,
+    aliases: c.aliases || [],
+    related_grammar_rules: c.related_grammar_rules || [],
+    related_verbs: c.related_verbs || [],
+    related_expressions: c.related_expressions || [],
+    related_vocabulary: c.related_vocabulary || [],
+    related_tenses: c.related_tenses || [],
+    tags: c.tags || [],
+    cefr: c.study?.cefr_level || null,
+    priority: c.study?.learning_priority ?? 3,
+    chapter_ids: chapterIds,
+    raw_chapters: c.chapters || [],
   };
 }
 
 // =======================================================================
-// DASHBOARD & SUMMARY STATS
+// HOME STATS SELECTOR
 // =======================================================================
 
-export interface DatasetHomeStats {
-  verbsCount: number;
-  regularVerbsCount: number;
-  irregularVerbsCount: number;
-  expressionsCount: number;
-  vocabCount: number;
-  grammarRulesCount: number;
-  tensesCount: number;
-  chaptersCount: number;
-  examplesCount: number;
-  exercisesCount: number;
-  essentialPriorityCount: number;
-  highPriorityCount: number;
-}
-
-export function getHomeStats(): DatasetHomeStats {
-  const data = getDataset();
-  const verbs = (data.verbs || []).map(mapVerb);
-  const expressions = (data.expressions || []).map(mapExpression);
-  const vocab = (data.vocabulary || []).map(mapVocab);
-  const rules = (data.grammar_rules || []).map(mapRule);
-
-  const regularVerbsCount = verbs.filter((v) => v.regularity === "regular").length;
-  const irregularVerbsCount = verbs.filter((v) => v.regularity === "irregular").length;
-
-  let essentialPriorityCount = 0;
-  let highPriorityCount = 0;
-
-  for (const v of verbs) {
-    if (v.priority === 5) essentialPriorityCount++;
-    if (v.priority === 4) highPriorityCount++;
-  }
-  for (const e of expressions) {
-    if (e.priority === 5) essentialPriorityCount++;
-    if (e.priority === 4) highPriorityCount++;
-  }
-  for (const vc of vocab) {
-    if (vc.priority === 5) essentialPriorityCount++;
-    if (vc.priority === 4) highPriorityCount++;
-  }
-  for (const r of rules) {
-    if (r.priority === 5) essentialPriorityCount++;
-    if (r.priority === 4) highPriorityCount++;
-  }
-
+export function getHomeStats() {
+  const data = getMasterDataset();
   return {
-    verbsCount: verbs.length,
-    regularVerbsCount,
-    irregularVerbsCount,
-    expressionsCount: expressions.length,
-    vocabCount: vocab.length,
-    grammarRulesCount: rules.length,
-    tensesCount: (data.tenses || []).length,
-    chaptersCount: (data.chapters || []).length,
-    examplesCount: (data.examples || []).length,
-    exercisesCount: (data.exercises || []).length,
-    essentialPriorityCount,
-    highPriorityCount,
+    totalChapters: (data.chapters || []).length,
+    totalVerbs: (data.verbs || []).length,
+    totalRules: (data.grammar_rules || []).length,
+    totalTenses: (data.tenses || []).length,
+    totalExpressions: (data.expressions || []).length,
+    totalVocabulary: (data.vocabulary || []).length,
+    totalExamples: (data.examples || []).length,
+    totalExercises: (data.exercises || []).length,
+    totalTraps: (data.exceptions_and_traps || []).length,
+    totalConcepts: (data.concepts || []).length,
+    bookTitle: data.metadata?.book_title || "Practice Makes Perfect: Complete French Grammar",
+    author: data.metadata?.author || "Annie Heminway",
+    datasetVersion: data.schema_version,
   };
 }
 
@@ -388,21 +632,25 @@ export interface VerbFilterOptions {
   group?: string;
   regularity?: string;
   auxiliary?: string;
-  priority?: number;
+  transitivity?: string;
+  cefr?: string;
+  chapterId?: string;
   limit?: number;
   offset?: number;
+  sortBy?: "infinitive" | "priority" | "difficulty";
+  sortOrder?: "asc" | "desc";
 }
 
 export function getVerbs(filters?: VerbFilterOptions): { verbs: VerbUI[]; total: number } {
-  const data = getDataset();
+  const data = getMasterDataset();
   let list = (data.verbs || []).map(mapVerb);
 
   if (filters?.query) {
     const q = normalizeFrenchText(filters.query);
     list = list.filter((v) => {
-      const lemma = normalizeFrenchText(v.lemma);
-      const en = normalizeFrenchText(v.english);
-      return lemma.includes(q) || en.includes(q);
+      const lemmaNorm = normalizeFrenchText(v.lemma);
+      const enNorm = normalizeFrenchText(v.english);
+      return lemmaNorm.includes(q) || enNorm.includes(q);
     });
   }
 
@@ -418,11 +666,32 @@ export function getVerbs(filters?: VerbFilterOptions): { verbs: VerbUI[]; total:
     list = list.filter((v) => v.auxiliary === filters.auxiliary);
   }
 
-  if (filters?.priority) {
-    list = list.filter((v) => v.priority === filters.priority);
+  if (filters?.transitivity && filters.transitivity !== "all") {
+    list = list.filter((v) => v.transitivity === filters.transitivity);
   }
 
-  list = list.sort((a, b) => a.lemma.localeCompare(b.lemma, "fr"));
+  if (filters?.cefr && filters.cefr !== "all") {
+    list = list.filter((v) => v.cefr === filters.cefr);
+  }
+
+  if (filters?.chapterId && filters.chapterId !== "all") {
+    list = list.filter((v) => v.chapter_ids.includes(filters.chapterId!));
+  }
+
+  // Sorting
+  const sortBy = filters?.sortBy || "infinitive";
+  const sortOrder = filters?.sortOrder || "asc";
+  list.sort((a, b) => {
+    let diff = 0;
+    if (sortBy === "infinitive") {
+      diff = a.lemma.localeCompare(b.lemma, "fr");
+    } else if (sortBy === "priority") {
+      diff = (b.priority ?? 0) - (a.priority ?? 0);
+    } else if (sortBy === "difficulty") {
+      diff = (b.difficulty ?? 0) - (a.difficulty ?? 0);
+    }
+    return sortOrder === "asc" ? diff : -diff;
+  });
 
   const total = list.length;
   if (filters?.offset !== undefined || filters?.limit !== undefined) {
@@ -436,224 +705,142 @@ export function getVerbs(filters?: VerbFilterOptions): { verbs: VerbUI[]; total:
 
 export interface VerbDetailWithGraph {
   verb: VerbUI;
-  conjugations: ConjugationUI[];
+  conjugations: VerbConjugation[];
   expressions: ExpressionUI[];
   grammarRules: GrammarRuleUI[];
   examples: ExampleUI[];
-  chapters: ChapterUI[];
 }
 
 export function getVerbById(verbId: string): VerbDetailWithGraph | null {
-  const data = getDataset();
-  const rawVerb = (data.verbs || []).find(
-    (v) => v.id === verbId || normalizeFrenchText(v.infinitive) === normalizeFrenchText(verbId)
-  );
+  const data = getMasterDataset();
+  const rawVerb = (data.verbs || []).find((v) => {
+    const id = makeVerbId(v.infinitive);
+    return (
+      id === verbId ||
+      v.infinitive === verbId ||
+      slugify(v.infinitive) === slugify(verbId) ||
+      (v.display_form && slugify(v.display_form) === slugify(verbId))
+    );
+  });
 
   if (!rawVerb) return null;
 
   const verb = mapVerb(rawVerb);
-  const tenseMap = new Map((data.tenses || []).map((t) => [t.id, t]));
 
-  // Conjugations
-  const conjugations = (data.conjugations || [])
-    .filter((c) => c.verb_id === rawVerb.id)
-    .map((c) => mapConjugation(c, tenseMap));
-
-  // Expressions
   const expressions = (data.expressions || [])
-    .filter(
-      (e) =>
-        (e.base_verb_ids || []).includes(rawVerb.id) ||
-        normalizeFrenchText(e.canonical_form).includes(normalizeFrenchText(verb.lemma))
-    )
+    .filter((e) => (e.related_verbs || []).some((rv) => rv === rawVerb.infinitive))
     .map(mapExpression);
 
-  // Grammar rules
   const grammarRules = (data.grammar_rules || [])
-    .filter((r) => verb.chapter_ids.some((chId: string) => (r.attestations || []).some((a) => a.chapter_id === chId)))
+    .filter((r) => (r.related_verbs || []).some((rv) => rv === rawVerb.infinitive))
     .map(mapRule);
 
-  // Examples
-  const normLemma = normalizeFrenchText(verb.lemma);
   const examples = (data.examples || [])
-    .filter((ex) => normalizeFrenchText(ex.french).split(/\s+/).includes(normLemma))
-    .map(mapExample);
-
-  // Chapters
-  const chapterIds = new Set(verb.chapter_ids);
-  const chapters = (data.chapters || [])
-    .filter((ch) => chapterIds.has(ch.id))
-    .map(mapChapter);
+    .filter((ex) => (ex.related_verbs || []).some((rv) => rv === rawVerb.infinitive))
+    .map((ex, i) => mapExample(ex, i));
 
   return {
     verb,
-    conjugations,
+    conjugations: rawVerb.conjugations || [],
     expressions,
     grammarRules,
     examples,
-    chapters,
   };
 }
 
 // =======================================================================
-// EXPRESSIONS SELECTORS
+// TENSES SELECTORS
 // =======================================================================
 
-export interface ExpressionFilterOptions {
-  query?: string;
-  type?: string;
-  register?: string;
-  strength?: string;
-  priority?: number;
-  verbId?: string;
-  limit?: number;
-  offset?: number;
+export function getTenses(): TenseUI[] {
+  const data = getMasterDataset();
+  return (data.tenses || []).map(mapTense);
 }
 
-export function getExpressions(
-  filters?: ExpressionFilterOptions
-): { expressions: ExpressionUI[]; total: number } {
-  const data = getDataset();
-  let list = (data.expressions || []).map(mapExpression);
-
-  if (filters?.query) {
-    const q = normalizeFrenchText(filters.query);
-    list = list.filter((e) => {
-      const fr = normalizeFrenchText(e.french);
-      const en = normalizeFrenchText(e.english);
-      const lit = normalizeFrenchText(e.literal_english);
-      return fr.includes(q) || en.includes(q) || lit.includes(q);
-    });
-  }
-
-  if (filters?.type && filters.type !== "all") {
-    list = list.filter((e) => e.type === filters.type);
-  }
-
-  if (filters?.register && filters.register !== "all") {
-    list = list.filter((e) => e.register === filters.register);
-  }
-
-  if (filters?.strength && filters.strength !== "all") {
-    list = list.filter((e) => e.strength === filters.strength);
-  }
-
-  if (filters?.priority) {
-    list = list.filter((e) => e.priority === filters.priority);
-  }
-
-  if (filters?.verbId) {
-    list = list.filter((e) => e.base_verb_ids.includes(filters.verbId!));
-  }
-
-  list = list.sort((a, b) => a.french.localeCompare(b.french, "fr"));
-
-  const total = list.length;
-  if (filters?.offset !== undefined || filters?.limit !== undefined) {
-    const offset = filters.offset || 0;
-    const limit = filters.limit || 50;
-    list = list.slice(offset, offset + limit);
-  }
-
-  return { expressions: list, total };
-}
-
-export interface ExpressionDetailWithGraph {
-  expression: ExpressionUI;
-  primaryVerb: VerbUI | null;
-  relatedVerbs: VerbUI[];
+export interface TenseDetailWithGraph {
+  tense: TenseUI;
+  conjugations: ConjugationUI[];
+  verbs: VerbUI[];
+  grammarRules: GrammarRuleUI[];
   examples: ExampleUI[];
-  chapters: ChapterUI[];
+  traps: ExceptionTrapUI[];
 }
 
-export function getExpressionById(expressionId: string): ExpressionDetailWithGraph | null {
-  const data = getDataset();
-  const rawExp = (data.expressions || []).find((e) => e.id === expressionId);
-  if (!rawExp) return null;
+export function getTenseById(tenseId: string): TenseDetailWithGraph | null {
+  const data = getMasterDataset();
+  const rawTense = (data.tenses || []).find((t) => {
+    const id = makeTenseId(t.name);
+    return (
+      id === tenseId ||
+      t.name === tenseId ||
+      slugify(t.name) === slugify(tenseId) ||
+      (t.english_name && slugify(t.english_name) === slugify(tenseId))
+    );
+  });
 
-  const expression = mapExpression(rawExp);
+  if (!rawTense) return null;
 
-  const baseVerbs = (data.verbs || [])
-    .filter((v) => expression.base_verb_ids.includes(v.id))
-    .map(mapVerb);
+  const tense = mapTense(rawTense);
 
-  const primaryVerb = baseVerbs[0] || null;
-  const relatedVerbs = baseVerbs.slice(1);
+  // Gather conjugations for this tense across verbs
+  const conjugations: ConjugationUI[] = [];
+  const verbList: VerbUI[] = [];
 
-  const normFr = normalizeFrenchText(expression.french);
+  for (const v of data.verbs || []) {
+    const matches = (v.conjugations || []).filter(
+      (c) =>
+        c.tense === rawTense.name ||
+        slugify(c.tense) === slugify(rawTense.name) ||
+        (rawTense.english_name && slugify(c.tense) === slugify(rawTense.english_name))
+    );
+    if (matches.length > 0) {
+      verbList.push(mapVerb(v));
+      for (const m of matches) {
+        conjugations.push({
+          id: `${makeVerbId(v.infinitive)}_${slugify(m.tense)}`,
+          verb_id: makeVerbId(v.infinitive),
+          tense_id: tense.id,
+          tense_name_fr: m.tense,
+          tense_name_en: rawTense.english_name || undefined,
+          mood: m.mood || rawTense.mood || "indicative",
+          je: m.forms?.je || null,
+          tu: m.forms?.tu || null,
+          il_elle_on: m.forms?.il_elle_on || null,
+          nous: m.forms?.nous || null,
+          vous: m.forms?.vous || null,
+          ils_elles: m.forms?.ils_elles || null,
+          imperative_tu: m.forms?.imperative_tu || null,
+          imperative_nous: m.forms?.imperative_nous || null,
+          imperative_vous: m.forms?.imperative_vous || null,
+          impersonal_form: m.forms?.impersonal_form || null,
+          notes: Array.isArray(m.notes) ? m.notes.join(". ") : m.notes || null,
+          stems: m.stems || [],
+          endings: m.endings || [],
+        });
+      }
+    }
+  }
+
+  const grammarRules = (data.grammar_rules || [])
+    .filter((r) => (r.related_tenses || []).some((rt) => rt === rawTense.name || slugify(rt) === slugify(rawTense.name)))
+    .map(mapRule);
+
   const examples = (data.examples || [])
-    .filter((ex) => normalizeFrenchText(ex.french).includes(normFr))
-    .map(mapExample);
+    .filter((ex) => (ex.related_tenses || []).some((rt) => rt === rawTense.name || slugify(rt) === slugify(rawTense.name)))
+    .map((ex, i) => mapExample(ex, i));
 
-  const chapterIds = new Set(expression.chapter_ids);
-  const chapters = (data.chapters || [])
-    .filter((ch) => chapterIds.has(ch.id))
-    .map(mapChapter);
+  const traps = (data.exceptions_and_traps || [])
+    .filter((tr) => (tr.tags || []).some((tag) => slugify(tag) === slugify(rawTense.name)))
+    .map(mapTrap);
 
   return {
-    expression,
-    primaryVerb,
-    relatedVerbs,
+    tense,
+    conjugations,
+    verbs: verbList.slice(0, 30),
+    grammarRules,
     examples,
-    chapters,
+    traps,
   };
-}
-
-// =======================================================================
-// VOCABULARY SELECTORS
-// =======================================================================
-
-export interface VocabFilterOptions {
-  query?: string;
-  pos?: string;
-  gender?: string;
-  category?: string;
-  priority?: number;
-  limit?: number;
-  offset?: number;
-}
-
-export function getVocabulary(
-  filters?: VocabFilterOptions
-): { vocabulary: VocabUI[]; total: number } {
-  const data = getDataset();
-  let list = (data.vocabulary || []).map(mapVocab);
-
-  if (filters?.query) {
-    const q = normalizeFrenchText(filters.query);
-    list = list.filter((item) => {
-      const fr = normalizeFrenchText(item.french);
-      const en = normalizeFrenchText(item.english);
-      return fr.includes(q) || en.includes(q);
-    });
-  }
-
-  if (filters?.pos && filters.pos !== "all") {
-    list = list.filter((item) => item.part_of_speech === filters.pos);
-  }
-
-  if (filters?.gender && filters.gender !== "all") {
-    list = list.filter((item) => item.gender === filters.gender);
-  }
-
-  if (filters?.category && filters.category !== "all") {
-    list = list.filter((item) => item.category === filters.category);
-  }
-
-  if (filters?.priority) {
-    list = list.filter((item) => item.priority === filters.priority);
-  }
-
-  list = list.sort((a, b) => a.french.localeCompare(b.french, "fr"));
-
-  const total = list.length;
-  if (filters?.offset !== undefined || filters?.limit !== undefined) {
-    const offset = filters.offset || 0;
-    const limit = filters.limit || 50;
-    list = list.slice(offset, offset + limit);
-  }
-
-  return { vocabulary: list, total };
 }
 
 // =======================================================================
@@ -662,34 +849,36 @@ export function getVocabulary(
 
 export interface GrammarFilterOptions {
   query?: string;
-  priority?: number;
-  difficulty?: number;
+  category?: string;
+  cefr?: string;
+  chapterId?: string;
   limit?: number;
   offset?: number;
 }
 
-export function getGrammarRules(
-  filters?: GrammarFilterOptions
-): { rules: GrammarRuleUI[]; total: number } {
-  const data = getDataset();
+export function getGrammarRules(filters?: GrammarFilterOptions): { rules: GrammarRuleUI[]; total: number } {
+  const data = getMasterDataset();
   let list = (data.grammar_rules || []).map(mapRule);
 
   if (filters?.query) {
     const q = normalizeFrenchText(filters.query);
     list = list.filter((r) => {
-      const tEn = normalizeFrenchText(r.title);
-      const tFr = normalizeFrenchText(r.title_fr);
-      const exp = normalizeFrenchText(r.explanation);
-      return tEn.includes(q) || tFr.includes(q) || exp.includes(q);
+      const titleNorm = normalizeFrenchText(r.title);
+      const expNorm = normalizeFrenchText(r.explanation);
+      return titleNorm.includes(q) || expNorm.includes(q);
     });
   }
 
-  if (filters?.priority) {
-    list = list.filter((r) => r.priority === filters.priority);
+  if (filters?.category && filters.category !== "all") {
+    list = list.filter((r) => r.category.toLowerCase() === filters.category!.toLowerCase());
   }
 
-  if (filters?.difficulty) {
-    list = list.filter((r) => r.difficulty === filters.difficulty);
+  if (filters?.cefr && filters.cefr !== "all") {
+    list = list.filter((r) => r.cefr === filters.cefr);
+  }
+
+  if (filters?.chapterId && filters.chapterId !== "all") {
+    list = list.filter((r) => r.chapter_ids.includes(filters.chapterId!));
   }
 
   const total = list.length;
@@ -704,112 +893,190 @@ export function getGrammarRules(
 
 export interface GrammarRuleDetailWithGraph {
   rule: GrammarRuleUI;
-  tenses: TenseUI[];
   verbs: VerbUI[];
+  tenses: TenseUI[];
   examples: ExampleUI[];
-  exercises: ExerciseUI[];
-  chapters: ChapterUI[];
+  traps: ExceptionTrapUI[];
 }
 
 export function getGrammarRuleById(ruleId: string): GrammarRuleDetailWithGraph | null {
-  const data = getDataset();
-  const rawRule = (data.grammar_rules || []).find((r) => r.id === ruleId);
+  const data = getMasterDataset();
+  const rawRule = (data.grammar_rules || []).find((r) => {
+    const id = makeRuleId(r.rule_name);
+    return id === ruleId || r.rule_name === ruleId || slugify(r.rule_name) === slugify(ruleId);
+  });
+
   if (!rawRule) return null;
 
   const rule = mapRule(rawRule);
 
-  const tenses = (data.tenses || [])
-    .filter((t) => rule.tense_ids.includes(t.id))
-    .map(mapTense);
-
   const verbs = (data.verbs || [])
-    .filter((v) => rule.verb_ids.includes(v.id))
+    .filter((v) => (rawRule.related_verbs || []).includes(v.infinitive))
     .map(mapVerb);
 
+  const tenses = (data.tenses || [])
+    .filter((t) => (rawRule.related_tenses || []).includes(t.name))
+    .map(mapTense);
+
   const examples = (data.examples || [])
-    .filter((ex) => (rawRule.example_ids || []).includes(ex.id))
-    .map(mapExample);
+    .filter((ex) => (ex.related_grammar_rules || []).includes(rawRule.rule_name))
+    .map((ex, i) => mapExample(ex, i));
 
-  const exercises = (data.exercises || [])
-    .filter((ex) => (rawRule.exercise_ids || []).includes(ex.id))
-    .map((ex: any) => ({
-      id: ex.id,
-      chapter_id: ex.chapter_id,
-      title: (ex as any).title || `Exercise ${ex.id}`,
-      instructions: ex.instructions_english || "",
-      questions_count: (ex.questions || []).length,
-      questions: (ex.questions || []).map((q: any, i: number) => ({
-        number: q.question_number || i + 1,
-        prompt: q.prompt || q.target_fr || "",
-        answer: q.answer || null,
-      })),
-    }));
-
-  const chapterIds = new Set(rule.chapter_ids);
-  const chapters = (data.chapters || [])
-    .filter((ch) => chapterIds.has(ch.id))
-    .map(mapChapter);
+  const traps = (data.exceptions_and_traps || [])
+    .filter((tr) => (tr.related_grammar_rules || []).includes(rawRule.rule_name))
+    .map(mapTrap);
 
   return {
     rule,
-    tenses,
     verbs,
+    tenses,
     examples,
-    exercises,
-    chapters,
+    traps,
   };
 }
 
 // =======================================================================
-// TENSES SELECTORS
+// EXPRESSIONS SELECTORS
 // =======================================================================
 
-export function getTenses(): { tenses: TenseUI[]; total: number } {
-  const data = getDataset();
-  const list = (data.tenses || []).map(mapTense);
-  return { tenses: list, total: list.length };
+export interface ExpressionFilterOptions {
+  query?: string;
+  type?: string;
+  register?: string;
+  cefr?: string;
+  chapterId?: string;
+  limit?: number;
+  offset?: number;
 }
 
-export interface TenseDetailWithGraph {
-  tense: TenseUI;
-  conjugations: ConjugationUI[];
+export function getExpressions(filters?: ExpressionFilterOptions): { expressions: ExpressionUI[]; total: number } {
+  const data = getMasterDataset();
+  let list = (data.expressions || []).map(mapExpression);
+
+  if (filters?.query) {
+    const q = normalizeFrenchText(filters.query);
+    list = list.filter((e) => {
+      const fr = normalizeFrenchText(e.french);
+      const en = normalizeFrenchText(e.english);
+      return fr.includes(q) || en.includes(q);
+    });
+  }
+
+  if (filters?.type && filters.type !== "all") {
+    list = list.filter((e) => e.type === filters.type);
+  }
+
+  if (filters?.register && filters.register !== "all") {
+    list = list.filter((e) => e.register === filters.register);
+  }
+
+  if (filters?.cefr && filters.cefr !== "all") {
+    list = list.filter((e) => e.cefr === filters.cefr);
+  }
+
+  if (filters?.chapterId && filters.chapterId !== "all") {
+    list = list.filter((e) => e.chapter_ids.includes(filters.chapterId!));
+  }
+
+  const total = list.length;
+  if (filters?.offset !== undefined || filters?.limit !== undefined) {
+    const offset = filters.offset || 0;
+    const limit = filters.limit || 50;
+    list = list.slice(offset, offset + limit);
+  }
+
+  return { expressions: list, total };
+}
+
+export interface ExpressionDetailWithGraph {
+  expression: ExpressionUI;
   verbs: VerbUI[];
-  grammarRules: GrammarRuleUI[];
   examples: ExampleUI[];
+  vocabulary: VocabUI[];
 }
 
-export function getTenseById(tenseId: string): TenseDetailWithGraph | null {
-  const data = getDataset();
-  const rawTense = (data.tenses || []).find((t) => t.id === tenseId);
-  if (!rawTense) return null;
+export function getExpressionById(expressionId: string): ExpressionDetailWithGraph | null {
+  const data = getMasterDataset();
+  const rawExpression = (data.expressions || []).find((e) => {
+    const id = makeExpressionId(e.canonical_form);
+    return id === expressionId || e.canonical_form === expressionId || slugify(e.canonical_form) === slugify(expressionId);
+  });
 
-  const tense = mapTense(rawTense);
-  const tenseMap = new Map((data.tenses || []).map((t) => [t.id, t]));
+  if (!rawExpression) return null;
 
-  const conjugations = (data.conjugations || [])
-    .filter((c) => c.tense_id === rawTense.id)
-    .map((c) => mapConjugation(c, tenseMap));
+  const expression = mapExpression(rawExpression);
 
-  const verbIds = new Set(conjugations.map((c) => c.verb_id));
   const verbs = (data.verbs || [])
-    .filter((v) => verbIds.has(v.id))
+    .filter((v) => (rawExpression.related_verbs || []).includes(v.infinitive))
     .map(mapVerb);
 
-  const grammarRules = (data.grammar_rules || [])
-    .filter((r) => (r.tense_ids || []).includes(rawTense.id))
-    .map(mapRule);
-
   const examples = (data.examples || [])
-    .filter((ex) => (rawTense.example_ids || []).includes(ex.id))
-    .map(mapExample);
+    .filter((ex) => (ex.related_expressions || []).includes(rawExpression.canonical_form))
+    .map((ex, i) => mapExample(ex, i));
+
+  const vocabulary = (data.vocabulary || [])
+    .filter((vc) => (rawExpression.related_vocabulary || []).includes(vc.canonical_form))
+    .map(mapVocab);
 
   return {
-    tense,
-    conjugations,
+    expression,
     verbs,
-    grammarRules,
     examples,
+    vocabulary,
   };
+}
+
+// =======================================================================
+// VOCABULARY SELECTORS
+// =======================================================================
+
+export interface VocabFilterOptions {
+  query?: string;
+  pos?: string;
+  gender?: string;
+  cefr?: string;
+  chapterId?: string;
+  limit?: number;
+  offset?: number;
+}
+
+export function getVocabulary(filters?: VocabFilterOptions): { vocabulary: VocabUI[]; total: number } {
+  const data = getMasterDataset();
+  let list = (data.vocabulary || []).map(mapVocab);
+
+  if (filters?.query) {
+    const q = normalizeFrenchText(filters.query);
+    list = list.filter((v) => {
+      const fr = normalizeFrenchText(v.french);
+      const en = normalizeFrenchText(v.english);
+      return fr.includes(q) || en.includes(q);
+    });
+  }
+
+  if (filters?.pos && filters.pos !== "all") {
+    list = list.filter((v) => v.part_of_speech === filters.pos);
+  }
+
+  if (filters?.gender && filters.gender !== "all") {
+    list = list.filter((v) => v.gender === filters.gender);
+  }
+
+  if (filters?.cefr && filters.cefr !== "all") {
+    list = list.filter((v) => v.cefr === filters.cefr);
+  }
+
+  if (filters?.chapterId && filters.chapterId !== "all") {
+    list = list.filter((v) => v.chapter_ids.includes(filters.chapterId!));
+  }
+
+  const total = list.length;
+  if (filters?.offset !== undefined || filters?.limit !== undefined) {
+    const offset = filters.offset || 0;
+    const limit = filters.limit || 50;
+    list = list.slice(offset, offset + limit);
+  }
+
+  return { vocabulary: list, total };
 }
 
 // =======================================================================
@@ -817,7 +1084,7 @@ export function getTenseById(tenseId: string): TenseDetailWithGraph | null {
 // =======================================================================
 
 export function getChapters(): ChapterUI[] {
-  const data = getDataset();
+  const data = getMasterDataset();
   return (data.chapters || [])
     .map(mapChapter)
     .sort((a, b) => a.chapter_number - b.chapter_number);
@@ -835,56 +1102,47 @@ export interface ChapterDetailWithGraph {
 }
 
 export function getChapterById(chapterId: string): ChapterDetailWithGraph | null {
-  const data = getDataset();
+  const data = getMasterDataset();
   const rawChapter = (data.chapters || []).find(
-    (c) => c.id === chapterId || String(c.chapter_number) === chapterId
+    (c) =>
+      makeChapterId(c.chapter_number) === chapterId ||
+      String(c.chapter_number) === chapterId ||
+      `chapter_${c.chapter_number}` === chapterId
   );
   if (!rawChapter) return null;
 
   const chapter = mapChapter(rawChapter);
+  const chNum = rawChapter.chapter_number;
 
-  const sections = (data.sections || [])
-    .filter((s) => s.chapter_id === rawChapter.id)
-    .map((s) => ({
-      id: s.id,
-      title: s.title,
-      summary: null,
-    }));
+  const sections = (rawChapter.sections || []).map((s, idx) => ({
+    id: `sec_${chNum}_${idx + 1}`,
+    title: s.title,
+    summary: (s.key_points || []).join(". ") || null,
+  }));
 
   const grammarRules = (data.grammar_rules || [])
-    .filter((r) => (chapter.rule_ids || []).includes(r.id) || (r.attestations || []).some((a) => a.chapter_id === rawChapter.id))
+    .filter((r) => (r.chapters || []).includes(chNum))
     .map(mapRule);
 
   const verbs = (data.verbs || [])
-    .filter((v) => (chapter.verb_ids || []).includes(v.id) || (v.attestations || []).some((a) => a.chapter_id === rawChapter.id))
+    .filter((v) => (v.chapters || []).includes(chNum))
     .map(mapVerb);
 
   const vocabulary = (data.vocabulary || [])
-    .filter((vc) => (chapter.vocab_ids || []).includes(vc.id) || (vc.attestations || []).some((a) => a.chapter_id === rawChapter.id))
+    .filter((vc) => (vc.chapters || []).includes(chNum))
     .map(mapVocab);
 
   const expressions = (data.expressions || [])
-    .filter((e) => (chapter.expression_ids || []).includes(e.id) || (e.attestations || []).some((a) => a.chapter_id === rawChapter.id))
+    .filter((e) => (e.chapters || []).includes(chNum))
     .map(mapExpression);
 
   const exercises = (data.exercises || [])
-    .filter((ex) => ex.chapter_id === rawChapter.id || (chapter.exercise_ids || []).includes(ex.id))
-    .map((ex: any) => ({
-      id: ex.id,
-      chapter_id: ex.chapter_id,
-      title: (ex as any).title || `Exercise ${ex.id}`,
-      instructions: ex.instructions_english || "",
-      questions_count: (ex.questions || []).length,
-      questions: (ex.questions || []).map((q: any, i: number) => ({
-        number: q.question_number || i + 1,
-        prompt: q.prompt || q.target_fr || "",
-        answer: q.answer || null,
-      })),
-    }));
+    .filter((ex) => ex.chapter_number === chNum)
+    .map(mapExercise);
 
   const examples = (data.examples || [])
-    .filter((ex) => (ex.attestations || []).some((a) => a.chapter_id === rawChapter.id))
-    .map(mapExample);
+    .filter((ex) => (ex.chapters || []).includes(chNum))
+    .map((ex, i) => mapExample(ex, i));
 
   return {
     chapter,
@@ -904,19 +1162,14 @@ export function getChapterById(chapterId: string): ChapterDetailWithGraph | null
 
 export interface ExampleFilterOptions {
   query?: string;
-  tenseId?: string;
-  verbId?: string;
-  ruleId?: string;
   chapterId?: string;
   limit?: number;
   offset?: number;
 }
 
-export function getExamples(
-  filters?: ExampleFilterOptions
-): { examples: ExampleUI[]; total: number } {
-  const data = getDataset();
-  let list = (data.examples || []).map(mapExample);
+export function getExamples(filters?: ExampleFilterOptions): { examples: ExampleUI[]; total: number } {
+  const data = getMasterDataset();
+  let list = (data.examples || []).map((ex, i) => mapExample(ex, i));
 
   if (filters?.query) {
     const q = normalizeFrenchText(filters.query);
@@ -939,4 +1192,111 @@ export function getExamples(
   }
 
   return { examples: list, total };
+}
+
+// =======================================================================
+// EXERCISES SELECTORS
+// =======================================================================
+
+export interface ExerciseFilterOptions {
+  query?: string;
+  chapterId?: string;
+  type?: string;
+  limit?: number;
+  offset?: number;
+}
+
+export function getExercises(filters?: ExerciseFilterOptions): { exercises: ExerciseUI[]; total: number } {
+  const data = getMasterDataset();
+  let list = (data.exercises || []).map(mapExercise);
+
+  if (filters?.query) {
+    const q = normalizeFrenchText(filters.query);
+    list = list.filter((ex) => {
+      const titleNorm = normalizeFrenchText(ex.title);
+      const instNorm = normalizeFrenchText(ex.instructions);
+      const codeNorm = normalizeFrenchText(ex.exercise_code);
+      return titleNorm.includes(q) || instNorm.includes(q) || codeNorm.includes(q);
+    });
+  }
+
+  if (filters?.chapterId && filters.chapterId !== "all") {
+    list = list.filter((ex) => ex.chapter_id === filters.chapterId!);
+  }
+
+  if (filters?.type && filters.type !== "all") {
+    list = list.filter((ex) => ex.exercise_type === filters.type);
+  }
+
+  const total = list.length;
+  if (filters?.offset !== undefined || filters?.limit !== undefined) {
+    const offset = filters.offset || 0;
+    const limit = filters.limit || 50;
+    list = list.slice(offset, offset + limit);
+  }
+
+  return { exercises: list, total };
+}
+
+export function getExerciseById(exerciseId: string): ExerciseUI | null {
+  const data = getMasterDataset();
+  const rawExercise = (data.exercises || []).find((ex) => {
+    const id = `exercise_${slugify(ex.exercise_code)}`;
+    return id === exerciseId || ex.exercise_code === exerciseId || slugify(ex.exercise_code) === slugify(exerciseId);
+  });
+
+  if (!rawExercise) return null;
+  return mapExercise(rawExercise);
+}
+
+// =======================================================================
+// EXCEPTIONS & TRAPS SELECTORS
+// =======================================================================
+
+export interface TrapFilterOptions {
+  query?: string;
+  category?: string;
+  chapterId?: string;
+  limit?: number;
+  offset?: number;
+}
+
+export function getExceptionsAndTraps(filters?: TrapFilterOptions): { traps: ExceptionTrapUI[]; total: number } {
+  const data = getMasterDataset();
+  let list = (data.exceptions_and_traps || []).map(mapTrap);
+
+  if (filters?.query) {
+    const q = normalizeFrenchText(filters.query);
+    list = list.filter((t) => {
+      const titleNorm = normalizeFrenchText(t.title);
+      const descNorm = normalizeFrenchText(t.description);
+      return titleNorm.includes(q) || descNorm.includes(q);
+    });
+  }
+
+  if (filters?.category && filters.category !== "all") {
+    list = list.filter((t) => t.category.toLowerCase() === filters.category!.toLowerCase());
+  }
+
+  if (filters?.chapterId && filters.chapterId !== "all") {
+    list = list.filter((t) => t.chapter_ids.includes(filters.chapterId!));
+  }
+
+  const total = list.length;
+  if (filters?.offset !== undefined || filters?.limit !== undefined) {
+    const offset = filters.offset || 0;
+    const limit = filters.limit || 50;
+    list = list.slice(offset, offset + limit);
+  }
+
+  return { traps: list, total };
+}
+
+// =======================================================================
+// CONCEPTS SELECTORS
+// =======================================================================
+
+export function getConcepts(): ConceptUI[] {
+  const data = getMasterDataset();
+  return (data.concepts || []).map(mapConcept);
 }

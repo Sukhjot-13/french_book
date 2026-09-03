@@ -24,6 +24,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     tense: "history_toggle_off",
     chapter: "import_contacts",
     example: "format_quote",
+    exercise: "quiz",
+    exception_trap: "warning",
   };
 
   const typeLabels: Record<string, string> = {
@@ -34,6 +36,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     tense: "Tense / Mood",
     chapter: "Chapter",
     example: "Example Sentence",
+    exercise: "Exercise",
+    exception_trap: "Trap / Pitfall",
   };
 
   return (
@@ -47,11 +51,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           {rawQuery.trim() ? (
             <>
               Found <strong className="text-primary">{results.length}</strong> matches for &ldquo;
-              <strong className="text-primary">{rawQuery}</strong>&rdquo; across all collections
+              <strong className="text-primary">{rawQuery}</strong>&rdquo; across all 10 master collections
               (accent-insensitive).
             </>
           ) : (
-            "Enter a search term to find verbs, expressions, rules, tenses, vocabulary, or examples."
+            "Enter a search term to find verbs, expressions, rules, tenses, vocabulary, exercises, traps, or examples."
           )}
         </p>
       </div>
@@ -64,7 +68,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             name="q"
             defaultValue={rawQuery}
             placeholder="Search across entire repository..."
-            className="w-full px-4 py-2.5 pl-10 rounded bg-surface-container-lowest border border-outline-variant text-sm text-on-surface focus:outline-none focus:border-primary"
+            className="w-full px-4 py-2.5 pl-10 rounded-lg bg-surface-container-lowest border border-outline-variant text-sm text-on-surface focus:outline-none focus:border-primary"
           />
           <span className="material-symbols-outlined absolute left-3 top-2.5 text-[20px] text-on-surface-variant">
             search
@@ -72,7 +76,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </div>
         <button
           type="submit"
-          className="px-5 py-2.5 rounded bg-primary text-white text-xs font-semibold hover:bg-primary-container transition-colors"
+          className="px-5 py-2.5 rounded-lg bg-[#002147] text-white text-xs font-semibold hover:bg-primary transition-colors"
         >
           Search
         </button>
@@ -80,7 +84,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
       {/* RESULTS LIST */}
       {results.length > 0 ? (
-        <div className="divide-y divide-outline-variant/50 rounded-lg border border-outline-variant overflow-hidden bg-surface-container-lowest shadow-xs">
+        <div className="divide-y divide-outline-variant/50 rounded-xl border border-outline-variant overflow-hidden bg-surface-container-lowest shadow-xs">
           {results.map((item) => (
             <Link
               key={`${item.type}-${item.id}`}
@@ -88,7 +92,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               className="p-4 md:p-5 flex items-start justify-between gap-4 hover:bg-surface-container-low transition-colors group block"
             >
               <div className="flex items-start gap-3.5">
-                <div className="w-9 h-9 rounded bg-surface-container-high text-primary flex items-center justify-center mt-0.5 group-hover:bg-primary group-hover:text-white transition-colors">
+                <div className="w-9 h-9 rounded-lg bg-surface-container-high text-primary flex items-center justify-center mt-0.5 group-hover:bg-[#002147] group-hover:text-white transition-colors shrink-0">
                   <span className="material-symbols-outlined text-[18px]">
                     {typeIcons[item.type] || "search"}
                   </span>
@@ -113,7 +117,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 shrink-0">
                 <PriorityBadge priority={item.priority} />
                 <span className="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:translate-x-1 transition-transform">
                   arrow_forward
@@ -123,7 +127,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           ))}
         </div>
       ) : rawQuery.trim() ? (
-        <div className="p-12 text-center rounded-lg border border-dashed border-outline-variant bg-surface-container-lowest">
+        <div className="p-12 text-center rounded-xl border border-dashed border-outline-variant bg-surface-container-lowest">
           <span className="material-symbols-outlined text-4xl text-outline mb-2">search_off</span>
           <h3 className="text-base font-bold text-primary">No results found</h3>
           <p className="text-xs text-on-surface-variant mt-1">

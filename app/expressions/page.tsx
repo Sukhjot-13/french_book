@@ -1,15 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import { getExpressions } from "@/src/lib/data/selectors";
-import { PriorityBadge, RegisterBadge } from "@/src/components/ui/Badges";
+import { PriorityBadge, RegisterBadge, CollocationBadge } from "@/src/components/ui/Badges";
 
 interface ExpressionsPageProps {
   searchParams: Promise<{
     query?: string;
     type?: string;
     register?: string;
-    strength?: string;
-    priority?: string;
     page?: string;
   }>;
 }
@@ -19,8 +17,6 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
   const query = params.query || "";
   const type = params.type || "all";
   const register = params.register || "all";
-  const strength = params.strength || "all";
-  const priority = params.priority ? parseInt(params.priority, 10) : undefined;
   const currentPage = params.page ? parseInt(params.page, 10) : 1;
   const pageSize = 50;
 
@@ -28,8 +24,6 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
     query,
     type,
     register,
-    strength,
-    priority,
     limit: pageSize,
     offset: (currentPage - 1) * pageSize,
   });
@@ -45,17 +39,17 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
             Expressions & Collocations Library
           </h1>
           <p className="text-xs md:text-sm text-on-surface-variant mt-1">
-            Idioms, verb constructions, connectors, conversational phrases, and lexical collocations.
+            Master {total} French idiomatic expressions, verbal constructions, connectors, and pattern formulas from the Master Schema.
           </p>
         </div>
-        <div className="text-xs font-mono px-3 py-1.5 rounded bg-surface-container-high border border-outline-variant/50 self-start md:self-auto">
+        <div className="text-xs font-mono px-3 py-1.5 rounded-lg bg-surface-container-high border border-outline-variant/50 self-start md:self-auto">
           Showing <strong className="text-primary">{expressions.length}</strong> of{" "}
           <strong className="text-primary">{total}</strong> expressions
         </div>
       </div>
 
       {/* FILTER BAR */}
-      <form method="GET" className="p-4 rounded-lg bg-surface-container-low border border-outline-variant space-y-3">
+      <form method="GET" className="p-4 rounded-xl bg-surface-container-low border border-outline-variant space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Search text */}
           <div className="lg:col-span-2">
@@ -70,7 +64,7 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
                 placeholder="e.g. avoir besoin de, faire attention, taking decision..."
                 className="w-full px-3 py-2 pl-8 rounded bg-surface-container-lowest border border-outline-variant text-sm text-on-surface focus:outline-none focus:border-primary"
               />
-              <span className="material-symbols-outlined absolute left-2 top-2 text-[18px] text-on-surface-variant">
+              <span className="material-symbols-outlined absolute left-2 top-2.5 text-[18px] text-on-surface-variant">
                 search
               </span>
             </div>
@@ -87,13 +81,11 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
               className="w-full px-3 py-2 rounded bg-surface-container-lowest border border-outline-variant text-sm text-on-surface focus:outline-none focus:border-primary"
             >
               <option value="all">All Types</option>
-              <option value="verb_pattern">Verb Pattern</option>
-              <option value="collocation">Collocation</option>
-              <option value="fixed_expression">Fixed Expression</option>
               <option value="idiom">Idiom</option>
-              <option value="connector">Connector / Transition</option>
-              <option value="sentence_starter">Sentence Starter</option>
-              <option value="conversation_phrase">Conversation Phrase</option>
+              <option value="collocation">Collocation</option>
+              <option value="verbal_expression">Verbal Expression</option>
+              <option value="fixed_expression">Fixed Expression</option>
+              <option value="connector">Connector / Preposition</option>
             </select>
           </div>
 
@@ -117,51 +109,33 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
           </div>
         </div>
 
-        <div className="flex items-center justify-between pt-2 border-t border-outline-variant/40">
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono text-on-surface-variant">Priority:</span>
-            {[5, 4, 3, 2, 1].map((p) => (
-              <Link
-                key={p}
-                href={`/expressions?query=${encodeURIComponent(query)}&type=${type}&register=${register}&strength=${strength}&priority=${priority === p ? "" : p}`}
-                className={`px-2 py-0.5 rounded text-xs font-mono ${
-                  priority === p
-                    ? "bg-primary text-white font-bold"
-                    : "bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest"
-                }`}
-              >
-                P{p}
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Link
-              href="/expressions"
-              className="px-3 py-1.5 text-xs text-on-surface-variant hover:text-primary transition-colors"
-            >
-              Reset
-            </Link>
-            <button
-              type="submit"
-              className="px-4 py-1.5 rounded bg-primary text-white text-xs font-semibold hover:bg-primary-container transition-colors"
-            >
-              Apply Filters
-            </button>
-          </div>
+        <div className="flex items-center justify-end gap-2 pt-2 border-t border-outline-variant/40">
+          <Link
+            href="/expressions"
+            className="px-3 py-1.5 text-xs text-on-surface-variant hover:text-primary transition-colors"
+          >
+            Reset
+          </Link>
+          <button
+            type="submit"
+            className="px-4 py-1.5 rounded bg-[#002147] text-white text-xs font-semibold hover:bg-primary transition-colors"
+          >
+            Apply Filters
+          </button>
         </div>
       </form>
 
       {/* EXPRESSIONS TABLE */}
       {expressions.length > 0 ? (
-        <div className="rounded-lg border border-outline-variant overflow-hidden bg-surface-container-lowest shadow-xs">
+        <div className="rounded-xl border border-outline-variant overflow-hidden bg-surface-container-lowest shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm border-collapse">
               <thead>
                 <tr className="bg-surface-container border-b border-outline-variant text-[11px] font-mono uppercase text-on-surface-variant tracking-wider">
                   <th className="py-3 px-4">French Expression</th>
                   <th className="py-3 px-4">English Meaning</th>
-                  <th className="py-3 px-4">Type / Register</th>
+                  <th className="py-3 px-4">Pattern / Structure</th>
+                  <th className="py-3 px-4">Classification</th>
                   <th className="py-3 px-4">Priority</th>
                   <th className="py-3 px-4 text-right">Details</th>
                 </tr>
@@ -174,18 +148,22 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
                   >
                     <td className="py-3 px-4 font-semibold text-primary">
                       <Link
-                        href={`/expressions/${encodeURIComponent(exp.id)}`}
-                        className="hover:underline text-base"
+                        href={`/expressions/${encodeURIComponent(exp.french)}`}
+                        className="hover:underline text-base font-bold"
                       >
                         {exp.french}
                       </Link>
                     </td>
                     <td className="py-3 px-4 text-on-surface-variant">
-                      <div>{exp.english || "—"}</div>
-                      {exp.literal_english && (
-                        <div className="text-xs text-on-surface-variant/70 italic">
-                          Lit: &ldquo;{exp.literal_english}&rdquo;
-                        </div>
+                      <div className="text-on-surface font-medium">{exp.english || "—"}</div>
+                    </td>
+                    <td className="py-3 px-4 text-xs font-mono text-primary">
+                      {exp.pattern ? (
+                        <span className="bg-blue-50 text-blue-900 px-2 py-0.5 rounded border border-blue-200">
+                          {exp.pattern}
+                        </span>
+                      ) : (
+                        <span className="text-on-surface-variant">—</span>
                       )}
                     </td>
                     <td className="py-3 px-4">
@@ -196,6 +174,7 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
                           </span>
                         )}
                         <RegisterBadge register={exp.register} />
+                        <CollocationBadge strength={exp.strength} />
                       </div>
                     </td>
                     <td className="py-3 px-4">
@@ -203,8 +182,8 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
                     </td>
                     <td className="py-3 px-4 text-right">
                       <Link
-                        href={`/expressions/${encodeURIComponent(exp.id)}`}
-                        className="inline-flex items-center gap-1 text-xs font-mono font-medium text-primary hover:underline px-2.5 py-1 rounded bg-surface-container group-hover:bg-primary group-hover:text-white transition-colors"
+                        href={`/expressions/${encodeURIComponent(exp.french)}`}
+                        className="inline-flex items-center gap-1 text-xs font-mono font-medium text-primary hover:underline px-2.5 py-1 rounded bg-surface-container group-hover:bg-[#002147] group-hover:text-white transition-colors"
                       >
                         <span>View</span>
                         <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
@@ -217,7 +196,7 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
           </div>
         </div>
       ) : (
-        <div className="p-12 text-center rounded-lg border border-dashed border-outline-variant bg-surface-container-lowest">
+        <div className="p-12 text-center rounded-xl border border-dashed border-outline-variant bg-surface-container-lowest">
           <span className="material-symbols-outlined text-4xl text-outline mb-2">chat_bubble</span>
           <h3 className="text-base font-bold text-primary">No expressions found</h3>
           <p className="text-xs text-on-surface-variant mt-1">
@@ -241,7 +220,7 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
           <div className="flex items-center gap-2">
             {currentPage > 1 && (
               <Link
-                href={`/expressions?query=${encodeURIComponent(query)}&type=${type}&register=${register}&strength=${strength}&priority=${priority || ""}&page=${currentPage - 1}`}
+                href={`/expressions?query=${encodeURIComponent(query)}&type=${type}&register=${register}&page=${currentPage - 1}`}
                 className="px-3 py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant"
               >
                 &larr; Previous
@@ -249,7 +228,7 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
             )}
             {currentPage < totalPages && (
               <Link
-                href={`/expressions?query=${encodeURIComponent(query)}&type=${type}&register=${register}&strength=${strength}&priority=${priority || ""}&page=${currentPage + 1}`}
+                href={`/expressions?query=${encodeURIComponent(query)}&type=${type}&register=${register}&page=${currentPage + 1}`}
                 className="px-3 py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant"
               >
                 Next &rarr;

@@ -15,24 +15,26 @@ export function AppShell({ children }: AppShellProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "Revision Home", href: "/", icon: "home" },
-    { label: "Chapters", href: "/chapters", icon: "import_contacts" },
-    { label: "Verbs Library", href: "/verbs", icon: "translate" },
-    { label: "Tenses & Moods", href: "/tenses", icon: "history_toggle_off" },
-    { label: "Grammar Rules", href: "/grammar", icon: "menu_book" },
-    { label: "Expressions", href: "/expressions", icon: "chat_bubble" },
-    { label: "Vocabulary", href: "/vocabulary", icon: "dictionary" },
-    { label: "Example Explorer", href: "/examples", icon: "format_quote" },
+    { label: "Revision Home", href: "/", icon: "home", count: null },
+    { label: "Chapters", href: "/chapters", icon: "import_contacts", count: "27" },
+    { label: "Verbs Library", href: "/verbs", icon: "translate", count: "496" },
+    { label: "Tenses & Moods", href: "/tenses", icon: "history_toggle_off", count: "24" },
+    { label: "Grammar Rules", href: "/grammar", icon: "menu_book", count: "284" },
+    { label: "Expressions", href: "/expressions", icon: "chat_bubble", count: "557" },
+    { label: "Vocabulary", href: "/vocabulary", icon: "dictionary", count: "1,002" },
+    { label: "Exercises", href: "/exercises", icon: "quiz", count: "217" },
+    { label: "Traps & Pitfalls", href: "/traps", icon: "warning", count: "108" },
+    { label: "Example Explorer", href: "/examples", icon: "format_quote", count: "1,011" },
   ];
 
   return (
     <div className="min-h-screen flex bg-surface text-on-surface antialiased">
       {/* SIDEBAR NAVIGATION (Desktop) */}
-      <aside className="w-[270px] bg-surface-container-low border-r border-outline-variant/60 hidden lg:flex flex-col justify-between sticky top-0 h-screen py-6 px-4 z-30 select-none">
-        <div className="flex flex-col gap-6">
+      <aside className="w-[280px] bg-surface-container-low border-r border-outline-variant/60 hidden lg:flex flex-col justify-between sticky top-0 h-screen py-6 px-4 z-30 select-none overflow-y-auto">
+        <div className="flex flex-col gap-5">
           {/* Brand Header */}
           <Link href="/" className="flex items-center gap-3 px-2 group">
-            <div className="w-10 h-10 rounded bg-primary-container text-white flex items-center justify-center font-serif text-xl font-bold tracking-tighter shadow-sm group-hover:bg-primary transition-colors">
+            <div className="w-10 h-10 rounded bg-[#002147] text-white flex items-center justify-center font-serif text-xl font-bold tracking-tighter shadow-sm group-hover:bg-primary transition-colors">
               L'É
             </div>
             <div>
@@ -40,7 +42,7 @@ export function AppShell({ children }: AppShellProps) {
                 L'Étude
               </h1>
               <p className="text-[11px] font-mono text-on-surface-variant uppercase tracking-wider mt-1">
-                French Revision Portal
+                French Master Revision
               </p>
             </div>
           </Link>
@@ -75,20 +77,33 @@ export function AppShell({ children }: AppShellProps) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 rounded text-sm font-medium transition-all ${
+                  className={`flex items-center justify-between px-3 py-2 rounded text-sm font-medium transition-all ${
                     isActive
                       ? "bg-primary text-white font-semibold shadow-xs"
                       : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high"
                   }`}
                 >
-                  <span
-                    className={`material-symbols-outlined text-[20px] ${
-                      isActive ? "text-white fill-icon" : "text-secondary"
-                    }`}
-                  >
-                    {item.icon}
-                  </span>
-                  <span>{item.label}</span>
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span
+                      className={`material-symbols-outlined text-[20px] ${
+                        isActive ? "text-white fill-icon" : "text-secondary"
+                      }`}
+                    >
+                      {item.icon}
+                    </span>
+                    <span className="truncate">{item.label}</span>
+                  </div>
+                  {item.count && (
+                    <span
+                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
+                        isActive
+                          ? "bg-white/20 text-white font-bold"
+                          : "bg-surface-container-highest text-on-surface-variant"
+                      }`}
+                    >
+                      {item.count}
+                    </span>
+                  )}
                 </Link>
               );
             })}
@@ -96,15 +111,15 @@ export function AppShell({ children }: AppShellProps) {
         </div>
 
         {/* Sidebar Footer Metadata */}
-        <div className="border-t border-outline-variant/60 pt-4 px-2 space-y-2">
+        <div className="border-t border-outline-variant/60 pt-4 px-2 space-y-2 mt-4">
           <div className="flex items-center justify-between text-[11px] font-mono text-on-surface-variant">
-            <span>Edition: PMP 4th Ed.</span>
+            <span>Edition: Master Schema</span>
             <span className="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-bold">
-              v1.0
+              v1.0.0
             </span>
           </div>
           <p className="text-[10px] text-on-surface-variant/80 font-sans leading-tight">
-            Academic graph revision dataset with bidirectional cross-linking.
+            Comprehensive French Grammar revision platform with full master schema data.
           </p>
         </div>
       </aside>
@@ -151,14 +166,19 @@ export function AppShell({ children }: AppShellProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded text-base font-medium ${
+                className={`flex items-center justify-between px-4 py-3 rounded text-base font-medium ${
                   isActive
                     ? "bg-primary text-white font-semibold"
                     : "text-on-surface hover:bg-surface-container-high"
                 }`}
               >
-                <span className="material-symbols-outlined text-[22px]">{item.icon}</span>
-                <span>{item.label}</span>
+                <div className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-[22px]">{item.icon}</span>
+                  <span>{item.label}</span>
+                </div>
+                {item.count && (
+                  <span className="text-xs font-mono opacity-80">{item.count}</span>
+                )}
               </Link>
             );
           })}

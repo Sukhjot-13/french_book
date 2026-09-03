@@ -2,15 +2,12 @@ import React from "react";
 import Link from "next/link";
 import { getVocabulary } from "@/src/lib/data/selectors";
 import { PriorityBadge, PosBadge, GenderBadge } from "@/src/components/ui/Badges";
-import { CrossLink } from "@/src/components/ui/CrossLink";
 
 interface VocabPageProps {
   searchParams: Promise<{
     query?: string;
     pos?: string;
     gender?: string;
-    category?: string;
-    priority?: string;
     page?: string;
   }>;
 }
@@ -20,8 +17,6 @@ export default async function VocabularyPage({ searchParams }: VocabPageProps) {
   const query = params.query || "";
   const pos = params.pos || "all";
   const gender = params.gender || "all";
-  const category = params.category || "all";
-  const priority = params.priority ? parseInt(params.priority, 10) : undefined;
   const currentPage = params.page ? parseInt(params.page, 10) : 1;
   const pageSize = 50;
 
@@ -29,8 +24,6 @@ export default async function VocabularyPage({ searchParams }: VocabPageProps) {
     query,
     pos,
     gender,
-    category,
-    priority,
     limit: pageSize,
     offset: (currentPage - 1) * pageSize,
   });
@@ -46,17 +39,17 @@ export default async function VocabularyPage({ searchParams }: VocabPageProps) {
             Vocabulary Lexicon
           </h1>
           <p className="text-xs md:text-sm text-on-surface-variant mt-1">
-            Global dictionary with grammatical categories, gender tags, and contextual learning priorities.
+            Global dictionary of {total} French lexical entries with articles, grammatical categories, gender tags, and senses.
           </p>
         </div>
-        <div className="text-xs font-mono px-3 py-1.5 rounded bg-surface-container-high border border-outline-variant/50 self-start md:self-auto">
+        <div className="text-xs font-mono px-3 py-1.5 rounded-lg bg-surface-container-high border border-outline-variant/50 self-start md:self-auto">
           Showing <strong className="text-primary">{vocabulary.length}</strong> of{" "}
           <strong className="text-primary">{total}</strong> terms
         </div>
       </div>
 
       {/* FILTER BAR */}
-      <form method="GET" className="p-4 rounded-lg bg-surface-container-low border border-outline-variant space-y-3">
+      <form method="GET" className="p-4 rounded-xl bg-surface-container-low border border-outline-variant space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Search */}
           <div className="lg:col-span-2">
@@ -71,7 +64,7 @@ export default async function VocabularyPage({ searchParams }: VocabPageProps) {
                 placeholder="e.g. maison, travail, book..."
                 className="w-full px-3 py-2 pl-8 rounded bg-surface-container-lowest border border-outline-variant text-sm text-on-surface focus:outline-none focus:border-primary"
               />
-              <span className="material-symbols-outlined absolute left-2 top-2 text-[18px] text-on-surface-variant">
+              <span className="material-symbols-outlined absolute left-2 top-2.5 text-[18px] text-on-surface-variant">
                 search
               </span>
             </div>
@@ -115,67 +108,53 @@ export default async function VocabularyPage({ searchParams }: VocabPageProps) {
           </div>
         </div>
 
-        <div className="flex items-center justify-between pt-2 border-t border-outline-variant/40">
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono text-on-surface-variant">Priority:</span>
-            {[5, 4, 3, 2, 1].map((p) => (
-              <Link
-                key={p}
-                href={`/vocabulary?query=${encodeURIComponent(query)}&pos=${pos}&gender=${gender}&category=${category}&priority=${priority === p ? "" : p}`}
-                className={`px-2 py-0.5 rounded text-xs font-mono ${
-                  priority === p
-                    ? "bg-primary text-white font-bold"
-                    : "bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest"
-                }`}
-              >
-                P{p}
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Link
-              href="/vocabulary"
-              className="px-3 py-1.5 text-xs text-on-surface-variant hover:text-primary transition-colors"
-            >
-              Reset
-            </Link>
-            <button
-              type="submit"
-              className="px-4 py-1.5 rounded bg-primary text-white text-xs font-semibold hover:bg-primary-container transition-colors"
-            >
-              Apply Filters
-            </button>
-          </div>
+        <div className="flex items-center justify-end gap-2 pt-2 border-t border-outline-variant/40">
+          <Link
+            href="/vocabulary"
+            className="px-3 py-1.5 text-xs text-on-surface-variant hover:text-primary transition-colors"
+          >
+            Reset
+          </Link>
+          <button
+            type="submit"
+            className="px-4 py-1.5 rounded bg-[#002147] text-white text-xs font-semibold hover:bg-primary transition-colors"
+          >
+            Apply Filters
+          </button>
         </div>
       </form>
 
       {/* VOCABULARY TABLE */}
       {vocabulary.length > 0 ? (
-        <div className="rounded-lg border border-outline-variant overflow-hidden bg-surface-container-lowest shadow-xs">
+        <div className="rounded-xl border border-outline-variant overflow-hidden bg-surface-container-lowest shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm border-collapse">
               <thead>
                 <tr className="bg-surface-container border-b border-outline-variant text-[11px] font-mono uppercase text-on-surface-variant tracking-wider">
                   <th className="py-3 px-4">French Term</th>
                   <th className="py-3 px-4">English Translation</th>
-                  <th className="py-3 px-4">Grammar / Gender</th>
-                  <th className="py-3 px-4">Category / Topic</th>
+                  <th className="py-3 px-4">Grammar & Article</th>
+                  <th className="py-3 px-4">Word Family & Senses</th>
                   <th className="py-3 px-4">Priority</th>
                   <th className="py-3 px-4 text-right">Chapter</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant/50">
                 {vocabulary.map((item) => {
-                  const firstChapter = item.chapter_ids?.[0];
+                  const firstChapter = item.raw_chapters?.[0];
                   return (
                     <tr
                       key={item.id}
                       className="hover:bg-surface-container-low transition-colors group"
                     >
                       <td className="py-3 px-4 font-semibold text-primary">
-                        <div className="flex items-center gap-2">
-                          <span className="text-base">{item.french}</span>
+                        <div className="flex items-center gap-1.5">
+                          {item.article && (
+                            <span className="text-on-surface-variant/70 font-mono text-xs">
+                              {item.article}
+                            </span>
+                          )}
+                          <span className="text-base font-bold">{item.french}</span>
                           {item.plural_form && (
                             <span className="text-[11px] font-mono text-on-surface-variant/70">
                               (pl. {item.plural_form})
@@ -184,7 +163,7 @@ export default async function VocabularyPage({ searchParams }: VocabPageProps) {
                         </div>
                       </td>
                       <td className="py-3 px-4 text-on-surface-variant">
-                        {item.english || "—"}
+                        <div className="text-on-surface font-medium">{item.english || "—"}</div>
                       </td>
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-1.5">
@@ -192,19 +171,30 @@ export default async function VocabularyPage({ searchParams }: VocabPageProps) {
                           <GenderBadge gender={item.gender} />
                         </div>
                       </td>
-                      <td className="py-3 px-4 text-xs font-mono text-on-surface-variant">
-                        {item.category || "—"}
+                      <td className="py-3 px-4 text-xs">
+                        {item.word_family && item.word_family.length > 0 ? (
+                          <div className="flex flex-wrap gap-1 font-mono text-[11px] text-primary">
+                            {item.word_family.slice(0, 3).map((w, idx) => (
+                              <span key={idx} className="bg-surface-container px-1.5 py-0.2 rounded">
+                                {w}
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          <span className="text-on-surface-variant/60">—</span>
+                        )}
                       </td>
                       <td className="py-3 px-4">
                         <PriorityBadge priority={item.priority} />
                       </td>
                       <td className="py-3 px-4 text-right">
                         {firstChapter ? (
-                          <CrossLink
-                            type="chapter"
-                            id={firstChapter}
-                            label={`Ch ${firstChapter.replace(/^chapter_?/, "")}`}
-                          />
+                          <Link
+                            href={`/chapters/${firstChapter}`}
+                            className="px-2 py-1 rounded bg-surface-container text-xs font-mono text-primary hover:bg-primary hover:text-white transition-colors"
+                          >
+                            Ch {firstChapter}
+                          </Link>
                         ) : (
                           <span className="text-xs font-mono text-on-surface-variant/50">—</span>
                         )}
@@ -217,7 +207,7 @@ export default async function VocabularyPage({ searchParams }: VocabPageProps) {
           </div>
         </div>
       ) : (
-        <div className="p-12 text-center rounded-lg border border-dashed border-outline-variant bg-surface-container-lowest">
+        <div className="p-12 text-center rounded-xl border border-dashed border-outline-variant bg-surface-container-lowest">
           <span className="material-symbols-outlined text-4xl text-outline mb-2">dictionary</span>
           <h3 className="text-base font-bold text-primary">No vocabulary found</h3>
           <p className="text-xs text-on-surface-variant mt-1">
@@ -241,7 +231,7 @@ export default async function VocabularyPage({ searchParams }: VocabPageProps) {
           <div className="flex items-center gap-2">
             {currentPage > 1 && (
               <Link
-                href={`/vocabulary?query=${encodeURIComponent(query)}&pos=${pos}&gender=${gender}&category=${category}&priority=${priority || ""}&page=${currentPage - 1}`}
+                href={`/vocabulary?query=${encodeURIComponent(query)}&pos=${pos}&gender=${gender}&page=${currentPage - 1}`}
                 className="px-3 py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant"
               >
                 &larr; Previous
@@ -249,7 +239,7 @@ export default async function VocabularyPage({ searchParams }: VocabPageProps) {
             )}
             {currentPage < totalPages && (
               <Link
-                href={`/vocabulary?query=${encodeURIComponent(query)}&pos=${pos}&gender=${gender}&category=${category}&priority=${priority || ""}&page=${currentPage + 1}`}
+                href={`/vocabulary?query=${encodeURIComponent(query)}&pos=${pos}&gender=${gender}&page=${currentPage + 1}`}
                 className="px-3 py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant"
               >
                 Next &rarr;

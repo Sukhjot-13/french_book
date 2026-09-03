@@ -14,11 +14,11 @@ export default async function ChaptersPage() {
             Curriculum Chapters
           </h1>
           <p className="text-xs md:text-sm text-on-surface-variant mt-1">
-            Browse French grammar lessons and chapter structures from Practice Makes Perfect.
+            Browse all {chapters.length} structured grammar lessons and textbook chapters from the Master Schema.
           </p>
         </div>
-        <div className="text-xs font-mono px-3 py-1.5 rounded bg-surface-container-high border border-outline-variant/50 self-start md:self-auto">
-          <strong className="text-primary">{chapters.length}</strong> Chapters in Dataset
+        <div className="text-xs font-mono px-3 py-1.5 rounded-lg bg-surface-container-high border border-outline-variant/50 self-start md:self-auto">
+          <strong className="text-primary">{chapters.length}</strong> Chapters in Curriculum
         </div>
       </div>
 
@@ -27,41 +27,35 @@ export default async function ChaptersPage() {
         {chapters.map((ch) => (
           <Link
             key={ch.id}
-            href={`/chapters/${encodeURIComponent(ch.id)}`}
-            className="p-5 rounded-lg bg-surface-container-lowest border border-outline-variant hover:border-primary transition-all duration-150 flex flex-col justify-between shadow-xs group"
+            href={`/chapters/${ch.chapter_number}`}
+            className="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant hover:border-primary transition-all duration-150 flex flex-col justify-between shadow-xs group"
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono font-bold uppercase text-primary-container bg-primary-fixed px-2 py-0.5 rounded">
+                <span className="text-[11px] font-mono font-bold uppercase text-white bg-[#002147] px-2 py-0.5 rounded">
                   Chapter {ch.chapter_number}
                 </span>
-                {ch.page_start && ch.page_end && (
+                {ch.pages?.printed_start && ch.pages?.printed_end && (
                   <span className="text-[11px] font-mono text-on-surface-variant">
-                    pp. {ch.page_start}–{ch.page_end}
+                    pp. {ch.pages.printed_start}–{ch.pages.printed_end}
                   </span>
                 )}
               </div>
 
-              <h2 className="font-bold text-base text-primary group-hover:text-primary-container leading-snug">
+              <h2 className="font-bold text-base text-primary group-hover:underline leading-snug">
                 {ch.title}
               </h2>
 
-              {ch.subtitle && (
-                <p className="text-xs text-on-surface-variant font-serif italic line-clamp-1">
-                  {ch.subtitle}
-                </p>
-              )}
-
-              {ch.summary && (
-                <p className="text-xs text-on-surface-variant line-clamp-2 leading-relaxed">
-                  {ch.summary}
-                </p>
+              {ch.sections && ch.sections.length > 0 && (
+                <div className="text-xs text-on-surface-variant line-clamp-2 leading-relaxed">
+                  {ch.sections.map((s) => s.title).join(" • ")}
+                </div>
               )}
             </div>
 
             <div className="flex items-center justify-between pt-3 mt-3 border-t border-surface-container text-xs font-mono text-on-surface-variant">
               <span>
-                {ch.rule_ids.length} rules • {ch.verb_ids.length} verbs
+                {ch.grammar_rules.length} rules • {ch.verbs.length} verbs • {ch.sections.length} sections
               </span>
               <span className="text-primary font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1">
                 <span>Study</span>
