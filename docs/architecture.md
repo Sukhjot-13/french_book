@@ -285,3 +285,27 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Unified single test runner entry-point validating data presence, entity counts, selectors, and schema compliance.
 - **Functions**: Executable test script asserting data health and selector accuracy.
 
+---
+
+### 8. UI Design Prototypes & Specifications (`ui/`)
+
+#### `ui/stitch_l_atlas_de_fran_ais/l_acad_mie_digitale/DESIGN.md`
+- **Purpose**: Comprehensive visual design guidelines, typography scale (Hanken Grotesk, JetBrains Mono, Source Serif 4), color philosophy, layout constraints, component rules, and micro-interaction specifications.
+- **Functions**: N/A (Design specification document).
+
+#### `ui/stitch_l_atlas_de_fran_ais/*/` (Static HTML & Visual Mockups)
+- **Purpose**: High-fidelity static HTML prototypes and screenshot reference captures (`code.html` and `screen.png`) used as visual blueprints for page implementation:
+  - `revision_home`: Dashboard and curriculum landing blueprint.
+  - `chapters_library` & `chapter_12_detail_advanced_revision`: Chapter index and single-chapter study layout.
+  - `verbs_library` & `verbs_library_refined`: Filterable verb catalog and transitivity layout.
+  - `verb_detail_prendre`: Full verb detail and conjugation matrix blueprint.
+  - `tenses_moods_library` & `tense_detail_conditionnel_pr_sent`: Tense catalog and tense detail page layout.
+  - `grammar_library`: Categorized grammar rules catalog blueprint.
+  - `expressions_library`, `constructions_library`, `constructions_library_refined`: Idiomatic expressions and pattern slots layout.
+  - `global_dictionary_refined_table_view` & `vocabulary_library`: Comprehensive vocabulary dictionary tables.
+  - `global_example_explorer`: Bilingual example sentence explorer with highlight spans.
+  - `exceptions_traps_library`: Pitfalls and common traps side-by-side comparison layout.
+  - `global_search_command_palette`: Keyboard-first command palette dialog.
+- **Functions**: N/A (Design mockups and static reference code).
+
+
