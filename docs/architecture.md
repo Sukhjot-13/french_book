@@ -559,20 +559,20 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ### 10. Manual AI Enrichment Pipeline (`enrichment/`)
 
-#### `enrichment/manual/batches/*.txt` (`001_vocabulary_batch_001.txt` through `162_chapters_batch_004.txt`)
-- **Purpose**: The active, complete manual enrichment queue for all existing enrichable records. It contains 162 self-contained prompts: 26 vocabulary, 25 verbs, 19 expressions, 11 concepts, 19 grammar rules, 3 tenses, 6 exceptions/traps, 34 examples, 15 exercises, and 4 chapters. Each prompt includes its collection schema excerpt and JSON-file response contract. The source data has no `topics` records, so it produces no topic prompts.
+#### `enrichment/manual/batches/*.txt` (`071_concepts_batch_001.txt` through `162_chapters_batch_004.txt`)
+- **Purpose**: The active remaining manual enrichment queue for unapplied enrichable records. Batches 001 through 070 (26 vocabulary, 25 verbs, 19 expressions) have been processed and applied to `enrichment/MASTER_DATA_ENRICHED.json`. The remaining 92 batches include 11 concepts, 19 grammar rules, 3 tenses, 6 exceptions/traps, 34 examples, 15 exercises, and 4 chapters. Each prompt includes its collection schema excerpt and JSON-file response contract.
 - **Functions**: N/A (generated manual AI prompts).
 
 #### `enrichment/manual/logs/BATCH_MANIFEST.json` / `PROGRESS.json`
-- **Purpose**: Generated audit metadata for the active 162-batch queue: natural-key targets, source hash, requested fields, batch locations, and generation progress.
+- **Purpose**: Generated audit metadata for the 162-batch queue: natural-key targets, source hash, requested fields, batch locations, and generation progress.
 - **Functions**: N/A (generated JSON audit metadata).
 
 #### `enrichment/MASTER_DATA_ENRICHED.json`
-- **Purpose**: Schema-valid enrichment-only copy of the immutable master dataset. It is created or updated exclusively by applying validated response patches; `data/MASTER_DATA.json` remains unchanged.
+- **Purpose**: Schema-valid enrichment-only copy of the immutable master dataset. It is created or updated exclusively by applying validated response patches (batches 001-070 applied); `data/MASTER_DATA.json` remains unchanged.
 - **Functions**: N/A (generated dataset artifact).
 
 #### `enrichment/manual/validated/*.json` / `enrichment/manual/review/*.json` / `enrichment/manual/reports/*.txt` / `enrichment/manual/logs/<batch_id>.json`
-- **Purpose**: Generated validation-safe patch payloads, validation reports, human-readable apply reports, and per-batch application audit logs for the responses processed so far.
+- **Purpose**: Generated validation-safe patch payloads, validation reports, human-readable apply reports, and per-batch application audit logs for active/incoming responses. Prior completed batch artifacts (001-070) have been cleaned up to prepare for batches 071+.
 - **Functions**: N/A (generated audit artifacts).
 
 #### `enrichment/plan.txt`
