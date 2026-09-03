@@ -1,0 +1,184 @@
+{
+  "batch_id": "016_vocabulary_batch_016",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "orange",
+        "part_of_speech": "adjective"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "As a color adjective, « orange » is normally invariable: « des chemises orange »."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": {
+        "canonical_form": "ordonnance",
+        "part_of_speech": "noun"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "english",
+          "values": [
+            "medical prescription"
+          ]
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "In everyday healthcare contexts, « ordonnance » most often means a prescription written by a medical professional."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": {
+        "canonical_form": "ours",
+        "part_of_speech": "noun"
+      },
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "plural",
+          "value": "ours"
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "The written form is unchanged in the plural: « un ours », « des ours »."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": {
+        "canonical_form": "ouvre-boîtes",
+        "part_of_speech": "noun"
+      },
+      "operations": [
+        {
+          "operation": "set_if_empty",
+          "field": "plural",
+          "value": "ouvre-boîtes"
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "The compound noun is normally unchanged in the plural: « des ouvre-boîtes »."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": {
+        "canonical_form": "panne",
+        "part_of_speech": "noun"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "english",
+          "values": [
+            "failure",
+            "outage"
+          ]
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "The fixed expression « être en panne » means to have broken down or to be out of order."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": {
+        "canonical_form": "parti",
+        "part_of_speech": "noun"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "« Un parti » is a political party; do not confuse it with feminine « une partie », meaning a part or a game."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": {
+        "canonical_form": "pauvre",
+        "part_of_speech": "adjective"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "Before a noun, « pauvre » often expresses pity (“unfortunate”); after a noun, it more often describes lack of money or resources."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": {
+        "canonical_form": "peine",
+        "part_of_speech": "noun"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "english",
+          "values": [
+            "sorrow",
+            "difficulty",
+            "effort"
+          ]
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "« Peine » occurs in common phrases such as « avoir de la peine à » (have difficulty) and « à peine » (hardly or barely)."
+          ]
+        }
+      ]
+    },
+    {
+      "entity_key": {
+        "canonical_form": "peinture",
+        "part_of_speech": "noun"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "english",
+          "values": [
+            "paint"
+          ]
+        },
+        {
+          "operation": "add_unique",
+          "field": "usage_notes",
+          "values": [
+            "« Peinture » can denote paint, the activity or art of painting, or a painted work."
+          ]
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Added invariant-form guidance, common fixed expressions, and important distinctions among everyday noun senses."
+}

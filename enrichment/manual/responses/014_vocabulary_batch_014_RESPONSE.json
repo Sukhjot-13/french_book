@@ -1,0 +1,59 @@
+{
+  "batch_id": "014_vocabulary_batch_014",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {"canonical_form": "marron", "part_of_speech": "adjective"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["As a color adjective, « marron » is normally invariable: « des chaussures marron »."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "match", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["« Match » is especially common for a sports contest; the regular plural is « matchs »."]},
+        {"operation": "set_if_empty", "field": "plural", "value": "matchs"}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "merci", "part_of_speech": "interjection"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["Use « merci pour » before a noun and commonly « merci de » before an infinitive: « merci de patienter »."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "meuble", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["A single item of furniture is « un meuble »; furniture collectively is normally « les meubles » or « le mobilier »."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "mode", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["« La mode » means fashion, while masculine « le mode » has other senses such as method, setting, or grammatical mood."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "morceau", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "english", "values": ["piece of music", "track"]},
+        {"operation": "add_unique", "field": "usage_notes", "values": ["« Morceau » often takes « de » before what the piece consists of, and can also denote a piece of music."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "mouton", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "english", "values": ["mutton"]},
+        {"operation": "add_unique", "field": "usage_notes", "values": ["« Mouton » can refer to the animal or to mutton; « brebis » specifically denotes an adult female sheep."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "médicament", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["The usual collocation for taking medicine is « prendre un médicament »."]}
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Added guidance on invariant color agreement, noun gender contrasts, common complements, and everyday collocations."
+}

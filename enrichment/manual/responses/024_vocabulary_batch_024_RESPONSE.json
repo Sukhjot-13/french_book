@@ -1,0 +1,75 @@
+{
+  "batch_id": "024_vocabulary_batch_024",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {"canonical_form": "vieux", "part_of_speech": "adjective"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["Before a masculine singular noun beginning with a vowel or mute h, « vieux » becomes « vieil »; the feminine singular is « vieille »."]},
+        {"operation": "add_unique", "field": "search_terms", "values": ["vieil", "vieille", "vieilles"]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "vingt", "part_of_speech": "number"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["« Vingt » takes an s when multiplied and final, as in « quatre-vingts », but loses it before another number, as in « quatre-vingt-un »."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "violet", "part_of_speech": "adjective"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["Unlike many color adjectives derived directly from nouns, « violet » agrees normally: « violette », « violets », « violettes »."]},
+        {"operation": "add_unique", "field": "search_terms", "values": ["violette", "violets", "violettes"]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "voile", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["Feminine « la voile » means a sail or sailing; masculine « le voile » means a veil."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "voix", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "set_if_empty", "field": "plural", "value": "voix"},
+        {"operation": "add_unique", "field": "usage_notes", "values": ["The written form is unchanged in the plural; in elections, « voix » means a vote or votes cast."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "vol", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "english", "values": ["flight"]},
+        {"operation": "add_unique", "field": "usage_notes", "values": ["« Vol » can mean theft or flight; context distinguishes « un vol de voiture » from « un vol international »."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "volley-ball", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "aliases", "values": ["volleyball", "volley"]},
+        {"operation": "add_unique", "field": "search_terms", "values": ["volleyball", "volley"]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "vélo", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "aliases", "values": ["bicyclette"]},
+        {"operation": "add_unique", "field": "usage_notes", "values": ["« Vélo » is the usual everyday term for a bicycle; « bicyclette » is a standard synonym."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "États-Unis", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["The country name is plural: « les États-Unis »; use the contraction « aux États-Unis » after « à »."]},
+        {"operation": "add_unique", "field": "search_terms", "values": ["les États-Unis", "aux États-Unis", "United States of America"]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "à carreaux", "part_of_speech": "adjective"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["The adjectival phrase is invariable: « une chemise à carreaux », « des chemises à carreaux »."]}
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Added adjective inflections, number agreement, gender-based noun meanings, polysemy, and common modern variants."
+}

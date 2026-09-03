@@ -1,0 +1,55 @@
+{
+  "batch_id": "012_vocabulary_batch_012",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {"canonical_form": "jouer", "part_of_speech": "verb"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["Use « jouer à » for games and sports, but « jouer de » for musical instruments."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "jour", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "english", "values": ["daytime"]},
+        {"operation": "add_unique", "field": "usage_notes", "values": ["« Jour » can refer to a calendar day or to daytime, in contrast with « nuit »."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "la terre", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["When it denotes the planet Earth, « Terre » is written with a capital initial; lowercase « terre » has meanings such as land, soil, or ground."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "langue", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "english", "values": ["tongue"]},
+        {"operation": "add_unique", "field": "usage_notes", "values": ["« Langue » denotes both a language and the anatomical tongue."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "lave-vaisselle", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "set_if_empty", "field": "plural", "value": "lave-vaisselle"},
+        {"operation": "add_unique", "field": "usage_notes", "values": ["The compound noun is normally unchanged in the plural: « des lave-vaisselle »."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "le long de", "part_of_speech": "preposition"},
+      "operations": [
+        {"operation": "add_unique", "field": "english", "values": ["alongside"]},
+        {"operation": "add_unique", "field": "usage_notes", "values": ["This compound preposition is followed directly by a noun phrase: « le long de la rivière »."]}
+      ]
+    },
+    {
+      "entity_key": {"canonical_form": "les devoirs (m.pl.)", "part_of_speech": "noun"},
+      "operations": [
+        {"operation": "add_unique", "field": "usage_notes", "values": ["In the sense of school homework, « devoirs » is normally used in the plural."]},
+        {"operation": "add_unique", "field": "search_terms", "values": ["devoirs", "homework", "schoolwork"]}
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Added usage guidance for common complements, capitalization, polysemy, and invariant plural forms."
+}
