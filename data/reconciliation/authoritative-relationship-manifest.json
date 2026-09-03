@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generated_at": "2026-09-02T23:27:45.038Z",
-    "total_references_traversed": 22443,
-    "resolved_directly": 21428,
-    "resolved_via_alias": 715,
-    "resolved_via_reconstruction": 255,
+    "generated_at": "2026-09-03T00:00:00.191Z",
+    "total_references_traversed": 41740,
+    "resolved_directly": 40474,
+    "resolved_via_alias": 814,
+    "resolved_via_reconstruction": 407,
     "dangling_pointers_rejected": 46
   },
   "resolutions": [
@@ -6449,10 +6449,87 @@
       "status": "RESOLVED_VIA_RECONSTRUCTION"
     },
     {
+      "from": "rule_immediate_future",
+      "field": "relations.tenses",
+      "original_target": "tense_future",
+      "resolved_target": "tense_futur_simple",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
       "from": "rule_weather_impersonal_verbs",
       "field": "relations.verbs",
       "original_target": "verb_greler",
       "resolved_target": "verb_greler",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "rule_future_simple_substitution",
+      "field": "relations.tenses",
+      "original_target": "tense_future",
+      "resolved_target": "tense_futur_simple",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_devoir_debt",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_devoir_obligation",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_devoir_probability",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_devoir_suggestion",
+      "field": "relations.tenses",
+      "original_target": "tense_conditional_present",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_ilya_expression",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_ilya_expression",
+      "field": "relations.tenses",
+      "original_target": "tense_imperfect",
+      "resolved_target": "tense_imparfait",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_ilsagit_expression",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_eindre_aindre_conjugation",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_subjective_pronominal",
+      "field": "relations.grammar_rules",
+      "original_target": "rule_reflexive_verbs",
+      "resolved_target": "rule_reflexive_verbs",
       "status": "RESOLVED_VIA_RECONSTRUCTION"
     },
     {
@@ -6491,11 +6568,298 @@
       "status": "RESOLVED_VIA_RECONSTRUCTION"
     },
     {
+      "from": "rule_present_conditional_formation",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_present_conditional_wish_suggestion",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_present_conditional_polite_request",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_present_conditional_si_imparfait",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_present_conditional_journalistic",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_savoir_conditional_pouvoir",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_past_conditional_formation",
+      "field": "relations.tenses",
+      "original_target": "tense_past_conditional",
+      "resolved_target": "tense_conditionnel_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_past_conditional_regret_reproach",
+      "field": "relations.tenses",
+      "original_target": "tense_past_conditional",
+      "resolved_target": "tense_conditionnel_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_past_conditional_si_plus_que_parfait",
+      "field": "relations.tenses",
+      "original_target": "tense_past_conditional",
+      "resolved_target": "tense_conditionnel_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_past_conditional_journalistic",
+      "field": "relations.tenses",
+      "original_target": "tense_past_conditional",
+      "resolved_target": "tense_conditionnel_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_au_cas_ou_conditional",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_au_cas_ou_conditional",
+      "field": "relations.tenses",
+      "original_target": "tense_past_conditional",
+      "resolved_target": "tense_conditionnel_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_present_subjunctive_formation",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_irregular_subjunctive_etre_avoir",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_irregular_subjunctive_pouvoir_savoir_faire",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_irregular_subjunctive_aller_vouloir",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_subjunctive_after_wish_verbs",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_subjunctive_after_wish_verbs",
+      "field": "relations.grammar_rules",
+      "original_target": "rule_infinitive_after_wish_same_subject",
+      "resolved_target": "rule_infinitive_after_wish_same_subject",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "rule_subjunctive_after_emotion",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_subjunctive_after_doubt",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_penser_croire_affirmative_indicative",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_penser_croire_affirmative_indicative",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
       "from": "rule_penser_croire_affirmative_indicative",
       "field": "relations.expressions",
       "original_target": "expr_croire_que_indicative",
       "resolved_target": "expr_croire_que_indicative",
       "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "rule_impersonal_expressions_indicative",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_impersonal_expressions_subjunctive",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_conjunctions_subjunctive",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_pourvu_que_provided_that",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_pourvu_que_hope",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_subjunctive_after_superlative",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_subjunctive_in_relative_clauses",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_past_subjunctive_formation",
+      "field": "relations.tenses",
+      "original_target": "tense_past_subjunctive",
+      "resolved_target": "tense_subjonctif_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_infinitive_as_subject",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_infinitive_for_instructions",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_infinitive_negation",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_infinitive_after_perception_verbs",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_interrogative_infinitive",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_faire_causative",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_infinitive_after_spending_time",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_infinitive_after_position",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_avant_de_present_infinitive",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_verbs_without_preposition_before_infinitive",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_verbs_with_preposition_a",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
     },
     {
       "from": "rule_verbs_with_preposition_a",
@@ -6594,6 +6958,13 @@
       "original_target": "verb_songer",
       "resolved_target": "verb_songer",
       "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "rule_verbs_with_preposition_de",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
     },
     {
       "from": "rule_verbs_with_preposition_de",
@@ -6715,6 +7086,48 @@
       "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
     },
     {
+      "from": "rule_imperative_formation_regular",
+      "field": "relations.tenses",
+      "original_target": "tense_imperative",
+      "resolved_target": "tense_imperatif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_imperative_negative_object_pronouns",
+      "field": "relations.tenses",
+      "original_target": "tense_imperative",
+      "resolved_target": "tense_imperatif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_imperative_irregular_etre_avoir_savoir",
+      "field": "relations.tenses",
+      "original_target": "tense_imperative",
+      "resolved_target": "tense_imperatif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_imperative_vouloir_veuillez",
+      "field": "relations.tenses",
+      "original_target": "tense_imperative",
+      "resolved_target": "tense_imperatif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_imperative_pronominal_affirmative",
+      "field": "relations.tenses",
+      "original_target": "tense_imperative",
+      "resolved_target": "tense_imperatif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_imperative_pronominal_negative",
+      "field": "relations.tenses",
+      "original_target": "tense_imperative",
+      "resolved_target": "tense_imperatif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
       "from": "rule_preposition_cities",
       "field": "relations.expressions",
       "original_target": "expr_a_paris",
@@ -6741,6 +7154,20 @@
       "original_target": "verb_s_opposer",
       "resolved_target": "verb_s_opposer",
       "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "rule_subjunctive_relative_doubt",
+      "field": "relations.tenses",
+      "original_target": "tense_subjunctive_present",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "rule_subjunctive_relative_superlative",
+      "field": "relations.tenses",
+      "original_target": "tense_subjunctive_present",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
     },
     {
       "from": "rule_adverb_placement_passe_compose",
@@ -6785,6 +7212,174 @@
       "status": "RESOLVED_VIA_RECONSTRUCTION"
     },
     {
+      "from": "verb_habiter",
+      "field": "relations.expressions",
+      "original_target": "expr_habiter_en",
+      "resolved_target": "expr_habiter_en",
+      "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "verb_preter",
+      "field": "relations.expressions",
+      "original_target": "expr_preter_de_l_argent",
+      "resolved_target": "expr_preter_de_l_argent",
+      "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "verb_etre",
+      "field": "relations.expressions",
+      "original_target": "expr_etre_ravi",
+      "resolved_target": "expr_etre_ravi",
+      "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "verb_etre",
+      "field": "relations.expressions",
+      "original_target": "expr_etre_contente",
+      "resolved_target": "expr_etre_contente",
+      "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "verb_revenir",
+      "field": "relations.expressions",
+      "original_target": "expr_revenir_de",
+      "resolved_target": "expr_revenir_de",
+      "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "verb_repondre",
+      "field": "relations.expressions",
+      "original_target": "expr_repondre_a_qqch",
+      "resolved_target": "expr_repondre_a_qqch",
+      "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "verb_vouloir",
+      "field": "relations.expressions",
+      "original_target": "expr_voudrais_inf",
+      "resolved_target": "expr_voudrais_inf",
+      "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "verb_aller",
+      "field": "relations.expressions",
+      "original_target": "expr_aller_en",
+      "resolved_target": "expr_aller_en",
+      "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "verb_aller",
+      "field": "relations.expressions",
+      "original_target": "expr_aller_au",
+      "resolved_target": "expr_aller_au",
+      "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "verb_venir",
+      "field": "relations.expressions",
+      "original_target": "expr_venir_de",
+      "resolved_target": "expr_venir_de",
+      "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "verb_faire",
+      "field": "relations.expressions",
+      "original_target": "expr_faire_pousser",
+      "resolved_target": "expr_faire_pousser",
+      "status": "RESOLVED_VIA_SOURCE_BACKED_MISSING_TARGET"
+    },
+    {
+      "from": "expr_faire_un_voyage",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_voyage",
+      "resolved_target": "vocab_voyage",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_il_grele",
+      "field": "relations.verbs",
+      "original_target": "verb_greler",
+      "resolved_target": "verb_greler",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_tourner_un_film",
+      "field": "relations.verbs",
+      "original_target": "verb_tourner",
+      "resolved_target": "verb_tourner",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_s_ennuyer",
+      "field": "relations.verbs",
+      "original_target": "verb_s_ennuyer",
+      "resolved_target": "verb_s_ennuyer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_s_offrir_qqch",
+      "field": "relations.verbs",
+      "original_target": "verb_s_offrir",
+      "resolved_target": "verb_s_offrir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_se_couper_les_ongles",
+      "field": "relations.verbs",
+      "original_target": "verb_se_couper",
+      "resolved_target": "verb_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_se_faire_arracher_une_dent",
+      "field": "relations.verbs",
+      "original_target": "verb_se_faire_arracher",
+      "resolved_target": "verb_se_faire_arracher",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_se_parler",
+      "field": "relations.verbs",
+      "original_target": "verb_se_parler",
+      "resolved_target": "verb_se_parler",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_monter_les_malles",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_malles",
+      "resolved_target": "vocab_malles",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_descendre_les_poubelles",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_poubelles",
+      "resolved_target": "vocab_poubelles",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_prendre_un_cachet_d_aspirine",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_cachet",
+      "resolved_target": "vocab_cachet",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_prendre_un_cachet_d_aspirine",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_aspirine",
+      "resolved_target": "vocab_aspirine",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "expr_la_premiere_fois_que",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_fois",
+      "resolved_target": "vocab_fois",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
       "from": "vocab_tournage",
       "field": "relations.verbs",
       "original_target": "verb_tourner",
@@ -6796,6 +7391,1168 @@
       "field": "relations.expressions",
       "original_target": "expr_la_premiere_fois_que",
       "resolved_target": "expr_la_premiere_fois_que",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch04_weather_09",
+      "field": "relations.verbs",
+      "original_target": "verb_greler",
+      "resolved_target": "verb_greler",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch06_il_se_leve",
+      "field": "relations.grammar_rules",
+      "original_target": "rule_reflexive_verbs",
+      "resolved_target": "rule_reflexive_verbs",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch06_je_me_couche",
+      "field": "relations.grammar_rules",
+      "original_target": "rule_reflexive_verbs",
+      "resolved_target": "rule_reflexive_verbs",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch06_ils_saiment",
+      "field": "relations.verbs",
+      "original_target": "verb_s_aimer",
+      "resolved_target": "verb_s_aimer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch06_ils_saiment",
+      "field": "relations.expressions",
+      "original_target": "expr_s_aimer",
+      "resolved_target": "expr_s_aimer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch06_nous_nous_parlons",
+      "field": "relations.verbs",
+      "original_target": "verb_se_parler",
+      "resolved_target": "verb_se_parler",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch06_ca_ne_se_dit_pas",
+      "field": "relations.verbs",
+      "original_target": "verb_se_dire",
+      "resolved_target": "verb_se_dire",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch06_ca_ne_se_dit_pas",
+      "field": "relations.expressions",
+      "original_target": "expr_se_dire",
+      "resolved_target": "expr_se_dire",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch06_comment_ca_se_traduit",
+      "field": "relations.verbs",
+      "original_target": "verb_se_traduire",
+      "resolved_target": "verb_se_traduire",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch06_le_vin_rouge_se_boit",
+      "field": "relations.verbs",
+      "original_target": "verb_se_boire",
+      "resolved_target": "verb_se_boire",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch06_le_vin_rouge_se_boit",
+      "field": "relations.expressions",
+      "original_target": "expr_se_boire",
+      "resolved_target": "expr_se_boire",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_marcher",
+      "field": "relations.verbs",
+      "original_target": "verb_marcher",
+      "resolved_target": "verb_marcher",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ils_se_sont_ennuyes",
+      "field": "relations.verbs",
+      "original_target": "verb_s_ennuyer",
+      "resolved_target": "verb_s_ennuyer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_elle_s_est_offert",
+      "field": "relations.verbs",
+      "original_target": "verb_s_offrir",
+      "resolved_target": "verb_s_offrir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_elle_s_est_coupe_ongles",
+      "field": "relations.verbs",
+      "original_target": "verb_se_couper",
+      "resolved_target": "verb_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_elle_s_est_fait_arracher",
+      "field": "relations.verbs",
+      "original_target": "verb_se_faire_arracher",
+      "resolved_target": "verb_se_faire_arracher",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_vous_vous_etes_parle",
+      "field": "relations.verbs",
+      "original_target": "verb_se_parler",
+      "resolved_target": "verb_se_parler",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch10_06",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_canal",
+      "resolved_target": "vocab_canal",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch10_07",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_pont",
+      "resolved_target": "vocab_pont",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch22_032",
+      "field": "relations.verbs",
+      "original_target": "verb_adorer",
+      "resolved_target": "verb_adorer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_008",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_proprietaire",
+      "resolved_target": "vocab_proprietaire",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_009",
+      "field": "relations.verbs",
+      "original_target": "verb_montrer",
+      "resolved_target": "verb_montrer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_016",
+      "field": "relations.verbs",
+      "original_target": "verb_fabriquer",
+      "resolved_target": "verb_fabriquer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_019",
+      "field": "relations.verbs",
+      "original_target": "verb_montrer",
+      "resolved_target": "verb_montrer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_019",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_photo",
+      "resolved_target": "vocab_photo",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_022",
+      "field": "relations.verbs",
+      "original_target": "verb_nommer",
+      "resolved_target": "verb_nommer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_023",
+      "field": "relations.verbs",
+      "original_target": "verb_ignorer",
+      "resolved_target": "verb_ignorer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_031",
+      "field": "relations.verbs",
+      "original_target": "verb_presenter",
+      "resolved_target": "verb_presenter",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_032",
+      "field": "relations.verbs",
+      "original_target": "verb_authentifier",
+      "resolved_target": "verb_authentifier",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_044",
+      "field": "relations.verbs",
+      "original_target": "verb_montrer",
+      "resolved_target": "verb_montrer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_049",
+      "field": "relations.verbs",
+      "original_target": "verb_fabriquer",
+      "resolved_target": "verb_fabriquer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_050",
+      "field": "relations.verbs",
+      "original_target": "verb_provoquer",
+      "resolved_target": "verb_provoquer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_061",
+      "field": "relations.verbs",
+      "original_target": "verb_ignorer",
+      "resolved_target": "verb_ignorer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch24_066",
+      "field": "relations.verbs",
+      "original_target": "verb_adorer",
+      "resolved_target": "verb_adorer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch25_007",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_pharmacienne",
+      "resolved_target": "vocab_pharmacienne",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch25_008",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_pharmacienne",
+      "resolved_target": "vocab_pharmacienne",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch25_012",
+      "field": "relations.expressions",
+      "original_target": "expr_beaucoup",
+      "resolved_target": "expr_beaucoup",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch25_013",
+      "field": "relations.expressions",
+      "original_target": "expr_trop",
+      "resolved_target": "expr_trop",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch25_026",
+      "field": "relations.expressions",
+      "original_target": "expr_beaucoup",
+      "resolved_target": "expr_beaucoup",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch25_026",
+      "field": "relations.expressions",
+      "original_target": "expr_trop",
+      "resolved_target": "expr_trop",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch26_first_time",
+      "field": "relations.expressions",
+      "original_target": "expr_la_premiere_fois_que",
+      "resolved_target": "expr_la_premiere_fois_que",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "example_ch27_016",
+      "field": "relations.verbs",
+      "original_target": "verb_ennuyer",
+      "resolved_target": "verb_ennuyer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch05_5_1",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch05_5_2",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch05_5_2",
+      "field": "relations.tenses",
+      "original_target": "tense_conditional_present",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch05_5_3",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch05_5_4",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch05_5_5",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch06_6_1",
+      "field": "relations.verbs",
+      "original_target": "verb_se_couper",
+      "resolved_target": "verb_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch06_6_1",
+      "field": "relations.expressions",
+      "original_target": "expr_se_couper",
+      "resolved_target": "expr_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch06_6_5",
+      "field": "relations.verbs",
+      "original_target": "verb_s_aimer",
+      "resolved_target": "verb_s_aimer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch06_6_5",
+      "field": "relations.verbs",
+      "original_target": "verb_se_parler",
+      "resolved_target": "verb_se_parler",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch06_6_5",
+      "field": "relations.expressions",
+      "original_target": "expr_s_aimer",
+      "resolved_target": "expr_s_aimer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch06_6_6",
+      "field": "relations.verbs",
+      "original_target": "verb_se_couper",
+      "resolved_target": "verb_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch06_6_6",
+      "field": "relations.verbs",
+      "original_target": "verb_s_aimer",
+      "resolved_target": "verb_s_aimer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch06_6_6",
+      "field": "relations.expressions",
+      "original_target": "expr_se_couper",
+      "resolved_target": "expr_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch06_6_6",
+      "field": "relations.expressions",
+      "original_target": "expr_s_aimer",
+      "resolved_target": "expr_s_aimer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch07_7_1",
+      "field": "relations.verbs",
+      "original_target": "verb_louer",
+      "resolved_target": "verb_louer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch07_7_8",
+      "field": "relations.verbs",
+      "original_target": "verb_s_arreter",
+      "resolved_target": "verb_s_arreter",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch07_7_8",
+      "field": "relations.verbs",
+      "original_target": "verb_se_couper",
+      "resolved_target": "verb_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch07_7_10",
+      "field": "relations.verbs",
+      "original_target": "verb_se_brosser",
+      "resolved_target": "verb_se_brosser",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch07_7_10",
+      "field": "relations.verbs",
+      "original_target": "verb_s_arreter",
+      "resolved_target": "verb_s_arreter",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch08_04",
+      "field": "relations.verbs",
+      "original_target": "verb_interrompre",
+      "resolved_target": "verb_interrompre",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch08_04",
+      "field": "relations.verbs",
+      "original_target": "verb_retentir",
+      "resolved_target": "verb_retentir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch11_1",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch11_2",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch11_3",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch11_4",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch11_5",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch11_6",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch11_7",
+      "field": "relations.tenses",
+      "original_target": "tense_past_conditional",
+      "resolved_target": "tense_conditionnel_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch11_8",
+      "field": "relations.tenses",
+      "original_target": "tense_past_conditional",
+      "resolved_target": "tense_conditionnel_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch11_9",
+      "field": "relations.tenses",
+      "original_target": "tense_past_conditional",
+      "resolved_target": "tense_conditionnel_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch11_9",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch11_10",
+      "field": "relations.tenses",
+      "original_target": "tense_present_conditional",
+      "resolved_target": "tense_conditionnel_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch11_10",
+      "field": "relations.tenses",
+      "original_target": "tense_past_conditional",
+      "resolved_target": "tense_conditionnel_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_1",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_2",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_3",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_4",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_4",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_5",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_5",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_6",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_7",
+      "field": "relations.tenses",
+      "original_target": "tense_past_subjunctive",
+      "resolved_target": "tense_subjonctif_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_8",
+      "field": "relations.tenses",
+      "original_target": "tense_past_subjunctive",
+      "resolved_target": "tense_subjonctif_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_9",
+      "field": "relations.tenses",
+      "original_target": "tense_present_indicative",
+      "resolved_target": "tense_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_9",
+      "field": "relations.tenses",
+      "original_target": "tense_present_subjunctive",
+      "resolved_target": "tense_subjonctif_present",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch13_13_9",
+      "field": "relations.tenses",
+      "original_target": "tense_past_subjunctive",
+      "resolved_target": "tense_subjonctif_passe",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch14_1",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch14_2",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch14_6",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch14_7",
+      "field": "relations.tenses",
+      "original_target": "tense_infinitive_present",
+      "resolved_target": "tense_infinitif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch15_15_3",
+      "field": "relations.verbs",
+      "original_target": "verb_marcher",
+      "resolved_target": "verb_marcher",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch19_1",
+      "field": "relations.tenses",
+      "original_target": "tense_imperative",
+      "resolved_target": "tense_imperatif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch19_2",
+      "field": "relations.tenses",
+      "original_target": "tense_imperative",
+      "resolved_target": "tense_imperatif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch19_3",
+      "field": "relations.tenses",
+      "original_target": "tense_imperative",
+      "resolved_target": "tense_imperatif",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch21_9",
+      "field": "relations.grammar_rules",
+      "original_target": "rule_order_of_object_pronouns",
+      "resolved_target": "rule_order_object_pronouns",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch21_9",
+      "field": "relations.concepts",
+      "original_target": "concept_pronoun_order",
+      "resolved_target": "concept_object_pronoun_order",
+      "status": "RESOLVED_VIA_ALIAS"
+    },
+    {
+      "from": "exercise_ch24_3",
+      "field": "relations.verbs",
+      "original_target": "verb_consulter",
+      "resolved_target": "verb_consulter",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch24_3",
+      "field": "relations.verbs",
+      "original_target": "verb_raconter",
+      "resolved_target": "verb_raconter",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch24_4",
+      "field": "relations.verbs",
+      "original_target": "verb_recouvrir",
+      "resolved_target": "verb_recouvrir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch24_6",
+      "field": "relations.verbs",
+      "original_target": "verb_asseoir",
+      "resolved_target": "verb_asseoir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch24_7",
+      "field": "relations.verbs",
+      "original_target": "verb_risquer",
+      "resolved_target": "verb_risquer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch24_7",
+      "field": "relations.verbs",
+      "original_target": "verb_decrire",
+      "resolved_target": "verb_decrire",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch24_8",
+      "field": "relations.verbs",
+      "original_target": "verb_utiliser",
+      "resolved_target": "verb_utiliser",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch24_8",
+      "field": "relations.verbs",
+      "original_target": "verb_adorer",
+      "resolved_target": "verb_adorer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch24_9",
+      "field": "relations.verbs",
+      "original_target": "verb_asseoir",
+      "resolved_target": "verb_asseoir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch24_9",
+      "field": "relations.verbs",
+      "original_target": "verb_repeindre",
+      "resolved_target": "verb_repeindre",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch24_9",
+      "field": "relations.verbs",
+      "original_target": "verb_recouvrir",
+      "resolved_target": "verb_recouvrir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch25_06",
+      "field": "relations.expressions",
+      "original_target": "expr_bien",
+      "resolved_target": "expr_bien",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch25_06",
+      "field": "relations.expressions",
+      "original_target": "expr_beaucoup",
+      "resolved_target": "expr_beaucoup",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch25_06",
+      "field": "relations.expressions",
+      "original_target": "expr_assez",
+      "resolved_target": "expr_assez",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch25_06",
+      "field": "relations.expressions",
+      "original_target": "expr_trop",
+      "resolved_target": "expr_trop",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch25_06",
+      "field": "relations.expressions",
+      "original_target": "expr_mal",
+      "resolved_target": "expr_mal",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch25_08",
+      "field": "relations.expressions",
+      "original_target": "expr_trop",
+      "resolved_target": "expr_trop",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "exercise_ch26_26_2",
+      "field": "relations.expressions",
+      "original_target": "expr_la_premiere_fois_que",
+      "resolved_target": "expr_la_premiere_fois_que",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch06_6_1_3",
+      "field": "relations.verbs",
+      "original_target": "verb_se_couper",
+      "resolved_target": "verb_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch06_6_1_3",
+      "field": "relations.expressions",
+      "original_target": "expr_se_couper",
+      "resolved_target": "expr_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch06_6_5_1",
+      "field": "relations.verbs",
+      "original_target": "verb_s_aimer",
+      "resolved_target": "verb_s_aimer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch06_6_5_1",
+      "field": "relations.expressions",
+      "original_target": "expr_s_aimer",
+      "resolved_target": "expr_s_aimer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch06_6_5_5",
+      "field": "relations.verbs",
+      "original_target": "verb_se_parler",
+      "resolved_target": "verb_se_parler",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch06_6_6_3",
+      "field": "relations.verbs",
+      "original_target": "verb_se_couper",
+      "resolved_target": "verb_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch06_6_6_3",
+      "field": "relations.expressions",
+      "original_target": "expr_se_couper",
+      "resolved_target": "expr_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch06_6_6_10",
+      "field": "relations.verbs",
+      "original_target": "verb_s_aimer",
+      "resolved_target": "verb_s_aimer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch06_6_6_10",
+      "field": "relations.expressions",
+      "original_target": "expr_s_aimer",
+      "resolved_target": "expr_s_aimer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch07_7_1_7",
+      "field": "relations.verbs",
+      "original_target": "verb_louer",
+      "resolved_target": "verb_louer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch07_7_8_5",
+      "field": "relations.verbs",
+      "original_target": "verb_s_arreter",
+      "resolved_target": "verb_s_arreter",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch07_7_8_9",
+      "field": "relations.verbs",
+      "original_target": "verb_se_couper",
+      "resolved_target": "verb_se_couper",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch07_7_10_6",
+      "field": "relations.verbs",
+      "original_target": "verb_se_brosser",
+      "resolved_target": "verb_se_brosser",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch07_7_10_9",
+      "field": "relations.verbs",
+      "original_target": "verb_s_arreter",
+      "resolved_target": "verb_s_arreter",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch08_04_1",
+      "field": "relations.verbs",
+      "original_target": "verb_interrompre",
+      "resolved_target": "verb_interrompre",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch08_04_4",
+      "field": "relations.verbs",
+      "original_target": "verb_retentir",
+      "resolved_target": "verb_retentir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch15_15_3_1",
+      "field": "relations.verbs",
+      "original_target": "verb_marcher",
+      "resolved_target": "verb_marcher",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch21_1_2",
+      "field": "relations.verbs",
+      "original_target": "verb_consulter",
+      "resolved_target": "verb_consulter",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch24_3_2",
+      "field": "relations.verbs",
+      "original_target": "verb_consulter",
+      "resolved_target": "verb_consulter",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch24_3_4",
+      "field": "relations.verbs",
+      "original_target": "verb_raconter",
+      "resolved_target": "verb_raconter",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch24_4_3",
+      "field": "relations.verbs",
+      "original_target": "verb_recouvrir",
+      "resolved_target": "verb_recouvrir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch24_6_5",
+      "field": "relations.verbs",
+      "original_target": "verb_asseoir",
+      "resolved_target": "verb_asseoir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch24_7_6",
+      "field": "relations.verbs",
+      "original_target": "verb_risquer",
+      "resolved_target": "verb_risquer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch24_7_10",
+      "field": "relations.verbs",
+      "original_target": "verb_decrire",
+      "resolved_target": "verb_decrire",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch24_8_2",
+      "field": "relations.verbs",
+      "original_target": "verb_utiliser",
+      "resolved_target": "verb_utiliser",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch24_8_9",
+      "field": "relations.verbs",
+      "original_target": "verb_adorer",
+      "resolved_target": "verb_adorer",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch24_9_3",
+      "field": "relations.verbs",
+      "original_target": "verb_asseoir",
+      "resolved_target": "verb_asseoir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch24_9_3",
+      "field": "relations.verbs",
+      "original_target": "verb_repeindre",
+      "resolved_target": "verb_repeindre",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch24_9_9",
+      "field": "relations.verbs",
+      "original_target": "verb_recouvrir",
+      "resolved_target": "verb_recouvrir",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch25_06_2",
+      "field": "relations.expressions",
+      "original_target": "expr_bien",
+      "resolved_target": "expr_bien",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch25_06_3",
+      "field": "relations.expressions",
+      "original_target": "expr_beaucoup",
+      "resolved_target": "expr_beaucoup",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch25_06_5",
+      "field": "relations.expressions",
+      "original_target": "expr_assez",
+      "resolved_target": "expr_assez",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch25_06_6",
+      "field": "relations.expressions",
+      "original_target": "expr_trop",
+      "resolved_target": "expr_trop",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch25_06_7",
+      "field": "relations.expressions",
+      "original_target": "expr_tres_peu",
+      "resolved_target": "expr_tres_peu",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch25_06_9",
+      "field": "relations.expressions",
+      "original_target": "expr_mal",
+      "resolved_target": "expr_mal",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch25_06_10",
+      "field": "relations.expressions",
+      "original_target": "expr_bien",
+      "resolved_target": "expr_bien",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch25_08_7",
+      "field": "relations.expressions",
+      "original_target": "expr_trop",
+      "resolved_target": "expr_trop",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_2_1",
+      "field": "relations.expressions",
+      "original_target": "expr_la_premiere_fois_que",
+      "resolved_target": "expr_la_premiere_fois_que",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_2_5",
+      "field": "relations.expressions",
+      "original_target": "expr_la_premiere_fois_que",
+      "resolved_target": "expr_la_premiere_fois_que",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_2_6",
+      "field": "relations.expressions",
+      "original_target": "expr_la_premiere_fois_que",
+      "resolved_target": "expr_la_premiere_fois_que",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_3_3",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_soixante",
+      "resolved_target": "vocab_soixante",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_3_4",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_soixante_dix",
+      "resolved_target": "vocab_soixante_dix",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_3_5",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_soixante_et_onze",
+      "resolved_target": "vocab_soixante_et_onze",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_3_6",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_soixante_dix_huit",
+      "resolved_target": "vocab_soixante_dix_huit",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_3_7",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_quatre_vingt_trois",
+      "resolved_target": "vocab_quatre_vingt_trois",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_3_8",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_quatre_vingt_sept",
+      "resolved_target": "vocab_quatre_vingt_sept",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_3_9",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_quatre_vingt_dix",
+      "resolved_target": "vocab_quatre_vingt_dix",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_3_10",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_quatre_vingt_treize",
+      "resolved_target": "vocab_quatre_vingt_treize",
+      "status": "RESOLVED_VIA_RECONSTRUCTION"
+    },
+    {
+      "from": "question_ch26_26_8_4",
+      "field": "relations.vocabulary",
+      "original_target": "vocab_soixantieme",
+      "resolved_target": "vocab_soixantieme",
       "status": "RESOLVED_VIA_RECONSTRUCTION"
     }
   ],
@@ -9012,6 +10769,1941 @@
       "resolved_canonical_target": "verb_aspirer",
       "classification": "SOURCE_BACKED_MISSING_TARGET",
       "evidence": "The canonical target verb_aspirer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_habiter",
+      "source_field": "relations.expressions",
+      "original_target": "expr_habiter_en",
+      "resolved_canonical_target": "expr_habiter_en",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The authoritative relationship explicitly names expr_habiter_en; the minimal canonical expression preserves that edge and its source provenance.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_preter",
+      "source_field": "relations.expressions",
+      "original_target": "expr_preter_de_l_argent",
+      "resolved_canonical_target": "expr_preter_de_l_argent",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The authoritative relationship explicitly names expr_preter_de_l_argent; the minimal canonical expression preserves that edge and its source provenance.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_etre",
+      "source_field": "relations.expressions",
+      "original_target": "expr_etre_ravi",
+      "resolved_canonical_target": "expr_etre_ravi",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The authoritative relationship explicitly names expr_etre_ravi; the minimal canonical expression preserves that edge and its source provenance.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_etre",
+      "source_field": "relations.expressions",
+      "original_target": "expr_etre_contente",
+      "resolved_canonical_target": "expr_etre_contente",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The authoritative relationship explicitly names expr_etre_contente; the minimal canonical expression preserves that edge and its source provenance.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_revenir",
+      "source_field": "relations.expressions",
+      "original_target": "expr_revenir_de",
+      "resolved_canonical_target": "expr_revenir_de",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The authoritative relationship explicitly names expr_revenir_de; the minimal canonical expression preserves that edge and its source provenance.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_repondre",
+      "source_field": "relations.expressions",
+      "original_target": "expr_repondre_a_qqch",
+      "resolved_canonical_target": "expr_repondre_a_qqch",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The authoritative relationship explicitly names expr_repondre_a_qqch; the minimal canonical expression preserves that edge and its source provenance.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_prendre",
+      "source_field": "relations.expressions",
+      "original_target": "expr_prendre_une_tournure",
+      "resolved_canonical_target": "expr_prendre_une_tournure",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_prendre_une_tournure was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_vouloir",
+      "source_field": "relations.expressions",
+      "original_target": "expr_voudrais_inf",
+      "resolved_canonical_target": "expr_voudrais_inf",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The authoritative relationship explicitly names expr_voudrais_inf; the minimal canonical expression preserves that edge and its source provenance.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_aller",
+      "source_field": "relations.expressions",
+      "original_target": "expr_aller_en",
+      "resolved_canonical_target": "expr_aller_en",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The authoritative relationship explicitly names expr_aller_en; the minimal canonical expression preserves that edge and its source provenance.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_aller",
+      "source_field": "relations.expressions",
+      "original_target": "expr_aller_au",
+      "resolved_canonical_target": "expr_aller_au",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The authoritative relationship explicitly names expr_aller_au; the minimal canonical expression preserves that edge and its source provenance.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_venir",
+      "source_field": "relations.expressions",
+      "original_target": "expr_venir_de",
+      "resolved_canonical_target": "expr_venir_de",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The authoritative relationship explicitly names expr_venir_de; the minimal canonical expression preserves that edge and its source provenance.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_faire",
+      "source_field": "relations.expressions",
+      "original_target": "expr_faire_pousser",
+      "resolved_canonical_target": "expr_faire_pousser",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The authoritative relationship explicitly names expr_faire_pousser; the minimal canonical expression preserves that edge and its source provenance.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_croire",
+      "source_field": "relations.expressions",
+      "original_target": "expr_croire_que_indicative",
+      "resolved_canonical_target": "expr_croire_que_indicative",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_croire_que_indicative was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "verb_penser",
+      "source_field": "relations.expressions",
+      "original_target": "expr_penser_que_indicative",
+      "resolved_canonical_target": "expr_penser_que_indicative",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_penser_que_indicative was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "expr_prendre_la_fuite",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_fuite",
+      "resolved_canonical_target": "vocab_fuite",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_fuite was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "expr_passer_les_menottes_a_qqn",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_menottes",
+      "resolved_canonical_target": "vocab_menottes",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_menottes was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "expr_droit_de_vote",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_droit",
+      "resolved_canonical_target": "vocab_droit",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_droit was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "expr_droit_de_vote",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_vote",
+      "resolved_canonical_target": "vocab_vote",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_vote was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "expr_suffrage_universel",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_suffrage",
+      "resolved_canonical_target": "vocab_suffrage",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_suffrage was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "expr_suffrage_universel",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_universel",
+      "resolved_canonical_target": "vocab_universel",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_universel was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "expr_bulletin_de_vote",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_bulletin",
+      "resolved_canonical_target": "vocab_bulletin",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_bulletin was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "expr_bulletin_de_vote",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_vote",
+      "resolved_canonical_target": "vocab_vote",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_vote was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "expr_premier_tour",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_premier",
+      "resolved_canonical_target": "vocab_premier",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_premier was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "expr_etre_elu",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_elire",
+      "resolved_canonical_target": "vocab_elire",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_elire was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch06_ca_ne_se_fait_pas",
+      "source_field": "relations.expressions",
+      "original_target": "expr_se_faire",
+      "resolved_canonical_target": "expr_se_faire",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_se_faire was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch06_comment_ca_se_traduit",
+      "source_field": "relations.expressions",
+      "original_target": "expr_se_traduire",
+      "resolved_canonical_target": "expr_se_traduire",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_se_traduire was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch06_ca_se_voit",
+      "source_field": "relations.expressions",
+      "original_target": "expr_se_voir_passive",
+      "resolved_canonical_target": "expr_se_voir_passive",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_se_voir_passive was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch06_ne_vous_installez_pas",
+      "source_field": "relations.expressions",
+      "original_target": "expr_s_installer",
+      "resolved_canonical_target": "expr_s_installer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_s_installer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_elle_m_a_dit",
+      "source_field": "relations.expressions",
+      "original_target": "expr_dire_bonjour",
+      "resolved_canonical_target": "expr_dire_bonjour",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_dire_bonjour was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch09_future_event_2",
+      "source_field": "relations.verbs",
+      "original_target": "verb_recommencer",
+      "resolved_canonical_target": "verb_recommencer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_recommencer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch09_narration_future_1",
+      "source_field": "relations.verbs",
+      "original_target": "verb_reconnaitre",
+      "resolved_canonical_target": "verb_reconnaitre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_reconnaitre was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch09_si_whether_2",
+      "source_field": "relations.verbs",
+      "original_target": "verb_regler",
+      "resolved_canonical_target": "verb_regler",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_regler was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch09_si_whether_3",
+      "source_field": "relations.verbs",
+      "original_target": "verb_terminer",
+      "resolved_canonical_target": "verb_terminer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_terminer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch09_conjunction_indicative_4",
+      "source_field": "relations.verbs",
+      "original_target": "verb_fondre",
+      "resolved_canonical_target": "verb_fondre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_fondre was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch09_conjunction_indicative_4",
+      "source_field": "relations.verbs",
+      "original_target": "verb_rater",
+      "resolved_canonical_target": "verb_rater",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_rater was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch09_conjunction_indicative_5",
+      "source_field": "relations.verbs",
+      "original_target": "verb_aider",
+      "resolved_canonical_target": "verb_aider",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_aider was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch09_conjunction_indicative_10",
+      "source_field": "relations.verbs",
+      "original_target": "verb_sonner",
+      "resolved_canonical_target": "verb_sonner",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_sonner was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_03",
+      "source_field": "relations.verbs",
+      "original_target": "verb_joindre",
+      "resolved_canonical_target": "verb_joindre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_joindre was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_05",
+      "source_field": "relations.verbs",
+      "original_target": "verb_se_evanouir",
+      "resolved_canonical_target": "verb_se_evanouir",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_se_evanouir was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_08",
+      "source_field": "relations.verbs",
+      "original_target": "verb_revoir",
+      "resolved_canonical_target": "verb_revoir",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_revoir was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_08",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_incident",
+      "resolved_canonical_target": "vocab_incident",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_incident was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_08",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_amie",
+      "resolved_canonical_target": "vocab_amie",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_amie was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_10",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_temps",
+      "resolved_canonical_target": "vocab_temps",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_temps was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_10",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_dejeuner",
+      "resolved_canonical_target": "vocab_dejeuner",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_dejeuner was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_11",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_medecin",
+      "resolved_canonical_target": "vocab_medecin",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_medecin was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_12",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_reaction",
+      "resolved_canonical_target": "vocab_reaction",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_reaction was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_13",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_annee",
+      "resolved_canonical_target": "vocab_annee",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_annee was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_14",
+      "source_field": "relations.verbs",
+      "original_target": "verb_essayer",
+      "resolved_canonical_target": "verb_essayer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_essayer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_14",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_annee",
+      "resolved_canonical_target": "vocab_annee",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_annee was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_15",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_vitamine",
+      "resolved_canonical_target": "vocab_vitamine",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_vitamine was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_16",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_vitamine",
+      "resolved_canonical_target": "vocab_vitamine",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_vitamine was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_16",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_calcium",
+      "resolved_canonical_target": "vocab_calcium",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_calcium was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_18",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_medecin",
+      "resolved_canonical_target": "vocab_medecin",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_medecin was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch10_19",
+      "source_field": "relations.verbs",
+      "original_target": "verb_rater",
+      "resolved_canonical_target": "verb_rater",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_rater was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch11_si_pqp_1",
+      "source_field": "relations.verbs",
+      "original_target": "verb_aider",
+      "resolved_canonical_target": "verb_aider",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_aider was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch11_au_cas_ou_4",
+      "source_field": "relations.verbs",
+      "original_target": "verb_retrouver",
+      "resolved_canonical_target": "verb_retrouver",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_retrouver was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_il_faut_que_vous_refassiez",
+      "source_field": "relations.verbs",
+      "original_target": "verb_refaire",
+      "resolved_canonical_target": "verb_refaire",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_refaire was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_il_est_tolerant_pourvu",
+      "source_field": "relations.verbs",
+      "original_target": "verb_respecter",
+      "resolved_canonical_target": "verb_respecter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_respecter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_quoiquil_fasse_froid",
+      "source_field": "relations.verbs",
+      "original_target": "verb_promener",
+      "resolved_canonical_target": "verb_promener",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_promener was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_il_cherche_quelquun_qui_puisse",
+      "source_field": "relations.verbs",
+      "original_target": "verb_creer",
+      "resolved_canonical_target": "verb_creer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_creer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch15_028",
+      "source_field": "relations.verbs",
+      "original_target": "verb_pleurer",
+      "resolved_canonical_target": "verb_pleurer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_pleurer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch20_001",
+      "source_field": "relations.verbs",
+      "original_target": "verb_se_trouver",
+      "resolved_canonical_target": "verb_se_trouver",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_se_trouver was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch20_040",
+      "source_field": "relations.verbs",
+      "original_target": "verb_se_trouver",
+      "resolved_canonical_target": "verb_se_trouver",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_se_trouver was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch20_042",
+      "source_field": "relations.verbs",
+      "original_target": "verb_se_trouver",
+      "resolved_canonical_target": "verb_se_trouver",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_se_trouver was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch20_045",
+      "source_field": "relations.verbs",
+      "original_target": "verb_etre_originaire",
+      "resolved_canonical_target": "verb_etre_originaire",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_etre_originaire was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch24_011",
+      "source_field": "relations.verbs",
+      "original_target": "verb_contacter",
+      "resolved_canonical_target": "verb_contacter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_contacter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch24_012",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_livre",
+      "resolved_canonical_target": "vocab_livre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_livre was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "example_ch27_012",
+      "source_field": "relations.verbs",
+      "original_target": "verb_essayer",
+      "resolved_canonical_target": "verb_essayer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_essayer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch07_7_1",
+      "source_field": "relations.verbs",
+      "original_target": "verb_sous_titrer",
+      "resolved_canonical_target": "verb_sous_titrer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_sous_titrer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch07_7_4",
+      "source_field": "relations.expressions",
+      "original_target": "expr_prendre_le_train",
+      "resolved_canonical_target": "expr_prendre_le_train",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_prendre_le_train was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch08_05",
+      "source_field": "relations.verbs",
+      "original_target": "verb_sonner",
+      "resolved_canonical_target": "verb_sonner",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_sonner was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch08_06",
+      "source_field": "relations.verbs",
+      "original_target": "verb_promener",
+      "resolved_canonical_target": "verb_promener",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_promener was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch09_9_3",
+      "source_field": "relations.verbs",
+      "original_target": "verb_avoir_lieu",
+      "resolved_canonical_target": "verb_avoir_lieu",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_avoir_lieu was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch09_9_6",
+      "source_field": "relations.verbs",
+      "original_target": "verb_completer",
+      "resolved_canonical_target": "verb_completer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_completer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch09_9_8",
+      "source_field": "relations.verbs",
+      "original_target": "verb_rater",
+      "resolved_canonical_target": "verb_rater",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_rater was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch09_9_8",
+      "source_field": "relations.verbs",
+      "original_target": "verb_geler",
+      "resolved_canonical_target": "verb_geler",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_geler was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch09_9_8",
+      "source_field": "relations.verbs",
+      "original_target": "verb_terminer",
+      "resolved_canonical_target": "verb_terminer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_terminer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch09_9_8",
+      "source_field": "relations.verbs",
+      "original_target": "verb_contacter",
+      "resolved_canonical_target": "verb_contacter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_contacter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_1",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_situation",
+      "resolved_canonical_target": "vocab_situation",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_situation was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_1",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_detail",
+      "resolved_canonical_target": "vocab_detail",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_detail was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_1",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_entreprise",
+      "resolved_canonical_target": "vocab_entreprise",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_entreprise was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_1",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_reception",
+      "resolved_canonical_target": "vocab_reception",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_reception was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_1",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_russie",
+      "resolved_canonical_target": "vocab_russie",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_russie was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_1",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_vin",
+      "resolved_canonical_target": "vocab_vin",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_vin was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_aube",
+      "resolved_canonical_target": "vocab_aube",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_aube was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_soiree",
+      "resolved_canonical_target": "vocab_soiree",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_soiree was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_tard",
+      "resolved_canonical_target": "vocab_tard",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_tard was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_homme",
+      "resolved_canonical_target": "vocab_homme",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_homme was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_banc",
+      "resolved_canonical_target": "vocab_banc",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_banc was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_annee",
+      "resolved_canonical_target": "vocab_annee",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_annee was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_3",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_autoroute",
+      "resolved_canonical_target": "vocab_autoroute",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_autoroute was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_3",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_medecin",
+      "resolved_canonical_target": "vocab_medecin",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_medecin was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_3",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_situation",
+      "resolved_canonical_target": "vocab_situation",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_situation was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_3",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_furieuse",
+      "resolved_canonical_target": "vocab_furieuse",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_furieuse was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_3",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_heure",
+      "resolved_canonical_target": "vocab_heure",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_heure was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_3",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_bouquet",
+      "resolved_canonical_target": "vocab_bouquet",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_bouquet was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_4",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_sandwich",
+      "resolved_canonical_target": "vocab_sandwich",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_sandwich was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_4",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_carnet",
+      "resolved_canonical_target": "vocab_carnet",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_carnet was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_longtemps",
+      "resolved_canonical_target": "vocab_longtemps",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_longtemps was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_situation",
+      "resolved_canonical_target": "vocab_situation",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_situation was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_clairement",
+      "resolved_canonical_target": "vocab_clairement",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_clairement was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_reception",
+      "resolved_canonical_target": "vocab_reception",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_reception was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_probleme",
+      "resolved_canonical_target": "vocab_probleme",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_probleme was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_autre",
+      "resolved_canonical_target": "vocab_autre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_autre was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_chose",
+      "resolved_canonical_target": "vocab_chose",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_chose was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_medecin",
+      "resolved_canonical_target": "vocab_medecin",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_medecin was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_erreur",
+      "resolved_canonical_target": "vocab_erreur",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_erreur was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_dessert",
+      "resolved_canonical_target": "vocab_dessert",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_dessert was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_vienne",
+      "resolved_canonical_target": "vocab_vienne",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_vienne was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_probleme",
+      "resolved_canonical_target": "vocab_probleme",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_probleme was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_fatiguee",
+      "resolved_canonical_target": "vocab_fatiguee",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_fatiguee was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_heure",
+      "resolved_canonical_target": "vocab_heure",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_heure was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_10_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_livre",
+      "resolved_canonical_target": "vocab_livre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_livre was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch11_2",
+      "source_field": "relations.verbs",
+      "original_target": "verb_nourrir",
+      "resolved_canonical_target": "verb_nourrir",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_nourrir was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch11_3",
+      "source_field": "relations.verbs",
+      "original_target": "verb_planter",
+      "resolved_canonical_target": "verb_planter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_planter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch11_3",
+      "source_field": "relations.verbs",
+      "original_target": "verb_s_organiser",
+      "resolved_canonical_target": "verb_s_organiser",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_s_organiser was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch11_8",
+      "source_field": "relations.verbs",
+      "original_target": "verb_se_presenter",
+      "resolved_canonical_target": "verb_se_presenter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_se_presenter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch11_8",
+      "source_field": "relations.expressions",
+      "original_target": "expr_prendre_une_tournure",
+      "resolved_canonical_target": "expr_prendre_une_tournure",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_prendre_une_tournure was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch11_9",
+      "source_field": "relations.verbs",
+      "original_target": "verb_tuer",
+      "resolved_canonical_target": "verb_tuer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_tuer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch11_9",
+      "source_field": "relations.verbs",
+      "original_target": "verb_detruire",
+      "resolved_canonical_target": "verb_detruire",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_detruire was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch11_9",
+      "source_field": "relations.verbs",
+      "original_target": "verb_diminuer",
+      "resolved_canonical_target": "verb_diminuer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_diminuer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch11_9",
+      "source_field": "relations.verbs",
+      "original_target": "verb_se_reproduire",
+      "resolved_canonical_target": "verb_se_reproduire",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_se_reproduire was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch13_13_1",
+      "source_field": "relations.expressions",
+      "original_target": "expr_avoir_peur_que_subj",
+      "resolved_canonical_target": "expr_avoir_peur_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_avoir_peur_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch13_13_1",
+      "source_field": "relations.expressions",
+      "original_target": "expr_craindre_que_subj",
+      "resolved_canonical_target": "expr_craindre_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_craindre_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch13_13_3",
+      "source_field": "relations.verbs",
+      "original_target": "verb_se_sentir",
+      "resolved_canonical_target": "verb_se_sentir",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_se_sentir was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch13_13_7",
+      "source_field": "relations.expressions",
+      "original_target": "expr_etre_surpris_que_subj",
+      "resolved_canonical_target": "expr_etre_surpris_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_etre_surpris_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch13_13_7",
+      "source_field": "relations.expressions",
+      "original_target": "expr_avoir_peur_que_subj",
+      "resolved_canonical_target": "expr_avoir_peur_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_avoir_peur_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch13_13_7",
+      "source_field": "relations.expressions",
+      "original_target": "expr_craindre_que_subj",
+      "resolved_canonical_target": "expr_craindre_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_craindre_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch13_13_8",
+      "source_field": "relations.expressions",
+      "original_target": "expr_avoir_peur_que_subj",
+      "resolved_canonical_target": "expr_avoir_peur_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_avoir_peur_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch13_13_8",
+      "source_field": "relations.expressions",
+      "original_target": "expr_etre_desole_que_subj",
+      "resolved_canonical_target": "expr_etre_desole_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_etre_desole_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch13_13_9",
+      "source_field": "relations.expressions",
+      "original_target": "expr_penser_que_indicative",
+      "resolved_canonical_target": "expr_penser_que_indicative",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_penser_que_indicative was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch13_13_9",
+      "source_field": "relations.expressions",
+      "original_target": "expr_avoir_peur_que_subj",
+      "resolved_canonical_target": "expr_avoir_peur_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_avoir_peur_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch15_15_3",
+      "source_field": "relations.verbs",
+      "original_target": "verb_tricoter",
+      "resolved_canonical_target": "verb_tricoter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_tricoter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_20_1",
+      "source_field": "relations.verbs",
+      "original_target": "verb_planter",
+      "resolved_canonical_target": "verb_planter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_planter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_20_8",
+      "source_field": "relations.verbs",
+      "original_target": "verb_rapporter",
+      "resolved_canonical_target": "verb_rapporter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_rapporter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_20_8",
+      "source_field": "relations.verbs",
+      "original_target": "verb_provenir",
+      "resolved_canonical_target": "verb_provenir",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_provenir was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_20_9",
+      "source_field": "relations.verbs",
+      "original_target": "verb_importer",
+      "resolved_canonical_target": "verb_importer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_importer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch24_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_livre",
+      "resolved_canonical_target": "vocab_livre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_livre was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "exercise_ch24_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_livre",
+      "resolved_canonical_target": "vocab_livre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_livre was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch07_7_1_8",
+      "source_field": "relations.verbs",
+      "original_target": "verb_sous_titrer",
+      "resolved_canonical_target": "verb_sous_titrer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_sous_titrer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch07_7_4_1",
+      "source_field": "relations.expressions",
+      "original_target": "expr_prendre_le_train",
+      "resolved_canonical_target": "expr_prendre_le_train",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_prendre_le_train was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch08_05_2",
+      "source_field": "relations.verbs",
+      "original_target": "verb_sonner",
+      "resolved_canonical_target": "verb_sonner",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_sonner was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch08_06_1",
+      "source_field": "relations.verbs",
+      "original_target": "verb_promener",
+      "resolved_canonical_target": "verb_promener",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_promener was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch09_9_3_3",
+      "source_field": "relations.verbs",
+      "original_target": "verb_avoir_lieu",
+      "resolved_canonical_target": "verb_avoir_lieu",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_avoir_lieu was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch09_9_6_8",
+      "source_field": "relations.verbs",
+      "original_target": "verb_completer",
+      "resolved_canonical_target": "verb_completer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_completer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch09_9_8_1",
+      "source_field": "relations.verbs",
+      "original_target": "verb_rater",
+      "resolved_canonical_target": "verb_rater",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_rater was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch09_9_8_4",
+      "source_field": "relations.verbs",
+      "original_target": "verb_geler",
+      "resolved_canonical_target": "verb_geler",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_geler was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch09_9_8_6",
+      "source_field": "relations.verbs",
+      "original_target": "verb_terminer",
+      "resolved_canonical_target": "verb_terminer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_terminer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch09_9_8_10",
+      "source_field": "relations.verbs",
+      "original_target": "verb_contacter",
+      "resolved_canonical_target": "verb_contacter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_contacter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_1_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_situation",
+      "resolved_canonical_target": "vocab_situation",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_situation was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_1_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_detail",
+      "resolved_canonical_target": "vocab_detail",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_detail was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_1_3",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_entreprise",
+      "resolved_canonical_target": "vocab_entreprise",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_entreprise was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_1_4",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_reception",
+      "resolved_canonical_target": "vocab_reception",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_reception was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_1_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_russie",
+      "resolved_canonical_target": "vocab_russie",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_russie was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_1_10",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_vin",
+      "resolved_canonical_target": "vocab_vin",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_vin was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_2_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_aube",
+      "resolved_canonical_target": "vocab_aube",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_aube was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_2_4",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_soiree",
+      "resolved_canonical_target": "vocab_soiree",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_soiree was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_2_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_tard",
+      "resolved_canonical_target": "vocab_tard",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_tard was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_2_7",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_homme",
+      "resolved_canonical_target": "vocab_homme",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_homme was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_2_9",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_banc",
+      "resolved_canonical_target": "vocab_banc",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_banc was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_2_10",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_annee",
+      "resolved_canonical_target": "vocab_annee",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_annee was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_3_1",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_autoroute",
+      "resolved_canonical_target": "vocab_autoroute",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_autoroute was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_3_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_medecin",
+      "resolved_canonical_target": "vocab_medecin",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_medecin was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_3_3",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_situation",
+      "resolved_canonical_target": "vocab_situation",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_situation was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_3_4",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_medecin",
+      "resolved_canonical_target": "vocab_medecin",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_medecin was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_3_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_furieuse",
+      "resolved_canonical_target": "vocab_furieuse",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_furieuse was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_3_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_lucie",
+      "resolved_canonical_target": "vocab_lucie",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_lucie was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_3_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_paul",
+      "resolved_canonical_target": "vocab_paul",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_paul was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_3_9",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_heure",
+      "resolved_canonical_target": "vocab_heure",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_heure was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_3_10",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_bouquet",
+      "resolved_canonical_target": "vocab_bouquet",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_bouquet was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_4_1",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_sandwich",
+      "resolved_canonical_target": "vocab_sandwich",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_sandwich was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_4_3",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_carnet",
+      "resolved_canonical_target": "vocab_carnet",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_carnet was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_5_4",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_longtemps",
+      "resolved_canonical_target": "vocab_longtemps",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_longtemps was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_5_7",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_situation",
+      "resolved_canonical_target": "vocab_situation",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_situation was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_5_7",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_clairement",
+      "resolved_canonical_target": "vocab_clairement",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_clairement was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_5_8",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_reception",
+      "resolved_canonical_target": "vocab_reception",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_reception was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_5_9",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_probleme",
+      "resolved_canonical_target": "vocab_probleme",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_probleme was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_5_10",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_autre",
+      "resolved_canonical_target": "vocab_autre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_autre was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_5_10",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_chose",
+      "resolved_canonical_target": "vocab_chose",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_chose was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_6_1",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_medecin",
+      "resolved_canonical_target": "vocab_medecin",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_medecin was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_6_2",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_erreur",
+      "resolved_canonical_target": "vocab_erreur",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_erreur was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_6_3",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_dessert",
+      "resolved_canonical_target": "vocab_dessert",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_dessert was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_6_4",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_vienne",
+      "resolved_canonical_target": "vocab_vienne",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_vienne was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_6_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_probleme",
+      "resolved_canonical_target": "vocab_probleme",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_probleme was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_6_7",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_fatiguee",
+      "resolved_canonical_target": "vocab_fatiguee",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_fatiguee was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_6_7",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_heure",
+      "resolved_canonical_target": "vocab_heure",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_heure was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_6_8",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_heure",
+      "resolved_canonical_target": "vocab_heure",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_heure was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_10_6_10",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_livre",
+      "resolved_canonical_target": "vocab_livre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_livre was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch11_2_6",
+      "source_field": "relations.verbs",
+      "original_target": "verb_nourrir",
+      "resolved_canonical_target": "verb_nourrir",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_nourrir was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch11_3_3",
+      "source_field": "relations.verbs",
+      "original_target": "verb_planter",
+      "resolved_canonical_target": "verb_planter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_planter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch11_3_9",
+      "source_field": "relations.verbs",
+      "original_target": "verb_s_organiser",
+      "resolved_canonical_target": "verb_s_organiser",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_s_organiser was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch11_8_4",
+      "source_field": "relations.expressions",
+      "original_target": "expr_prendre_une_tournure",
+      "resolved_canonical_target": "expr_prendre_une_tournure",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_prendre_une_tournure was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch11_8_6",
+      "source_field": "relations.verbs",
+      "original_target": "verb_se_presenter",
+      "resolved_canonical_target": "verb_se_presenter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_se_presenter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch11_9_3",
+      "source_field": "relations.verbs",
+      "original_target": "verb_tuer",
+      "resolved_canonical_target": "verb_tuer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_tuer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch11_9_5",
+      "source_field": "relations.verbs",
+      "original_target": "verb_detruire",
+      "resolved_canonical_target": "verb_detruire",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_detruire was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch11_9_6",
+      "source_field": "relations.verbs",
+      "original_target": "verb_diminuer",
+      "resolved_canonical_target": "verb_diminuer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_diminuer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch11_9_8",
+      "source_field": "relations.verbs",
+      "original_target": "verb_se_reproduire",
+      "resolved_canonical_target": "verb_se_reproduire",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_se_reproduire was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch13_13_1_6",
+      "source_field": "relations.expressions",
+      "original_target": "expr_avoir_peur_que_subj",
+      "resolved_canonical_target": "expr_avoir_peur_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_avoir_peur_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch13_13_1_8",
+      "source_field": "relations.expressions",
+      "original_target": "expr_craindre_que_subj",
+      "resolved_canonical_target": "expr_craindre_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_craindre_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch13_13_3_4",
+      "source_field": "relations.verbs",
+      "original_target": "verb_se_sentir",
+      "resolved_canonical_target": "verb_se_sentir",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_se_sentir was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch13_13_7_4",
+      "source_field": "relations.expressions",
+      "original_target": "expr_etre_surpris_que_subj",
+      "resolved_canonical_target": "expr_etre_surpris_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_etre_surpris_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch13_13_7_5",
+      "source_field": "relations.expressions",
+      "original_target": "expr_avoir_peur_que_subj",
+      "resolved_canonical_target": "expr_avoir_peur_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_avoir_peur_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch13_13_7_7",
+      "source_field": "relations.expressions",
+      "original_target": "expr_craindre_que_subj",
+      "resolved_canonical_target": "expr_craindre_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_craindre_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch13_13_8_5",
+      "source_field": "relations.expressions",
+      "original_target": "expr_avoir_peur_que_subj",
+      "resolved_canonical_target": "expr_avoir_peur_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_avoir_peur_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch13_13_8_7",
+      "source_field": "relations.expressions",
+      "original_target": "expr_etre_desole_que_subj",
+      "resolved_canonical_target": "expr_etre_desole_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_etre_desole_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch13_13_9_1",
+      "source_field": "relations.expressions",
+      "original_target": "expr_penser_que_indicative",
+      "resolved_canonical_target": "expr_penser_que_indicative",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_penser_que_indicative was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch13_13_9_1",
+      "source_field": "relations.expressions",
+      "original_target": "expr_avoir_peur_que_subj",
+      "resolved_canonical_target": "expr_avoir_peur_que_subj",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target expr_avoir_peur_que_subj was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch15_15_3_9",
+      "source_field": "relations.verbs",
+      "original_target": "verb_tricoter",
+      "resolved_canonical_target": "verb_tricoter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_tricoter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_20_1_9",
+      "source_field": "relations.verbs",
+      "original_target": "verb_planter",
+      "resolved_canonical_target": "verb_planter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_planter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_20_8_4",
+      "source_field": "relations.verbs",
+      "original_target": "verb_rapporter",
+      "resolved_canonical_target": "verb_rapporter",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_rapporter was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_20_8_8",
+      "source_field": "relations.verbs",
+      "original_target": "verb_provenir",
+      "resolved_canonical_target": "verb_provenir",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_provenir was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_20_9_6",
+      "source_field": "relations.verbs",
+      "original_target": "verb_importer",
+      "resolved_canonical_target": "verb_importer",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_importer was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch24_1_7",
+      "source_field": "relations.verbs",
+      "original_target": "verb_aider",
+      "resolved_canonical_target": "verb_aider",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target verb_aider was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch24_2_5",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_livre",
+      "resolved_canonical_target": "vocab_livre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_livre was materialized from the same authoritative relationship family and preserves this source edge.",
+      "confidence": "source-explicit"
+    },
+    {
+      "source_owner": "question_ch24_5_6",
+      "source_field": "relations.vocabulary",
+      "original_target": "vocab_livre",
+      "resolved_canonical_target": "vocab_livre",
+      "classification": "SOURCE_BACKED_MISSING_TARGET",
+      "evidence": "The canonical target vocab_livre was materialized from the same authoritative relationship family and preserves this source edge.",
       "confidence": "source-explicit"
     }
   ],

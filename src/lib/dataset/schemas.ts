@@ -368,6 +368,7 @@ export const SectionSchema = z.object({
     page_start_pdf: z.number().int().positive().nullable().optional(),
     page_end_pdf: z.number().int().positive().nullable().optional(),
   }),
+  attestations: z.array(AttestationSchema).default([]),
 });
 
 // 4. CONCEPT
@@ -377,6 +378,7 @@ export const ConceptSchema = z.object({
   name_french: z.string().optional(),
   description: z.string().nullable().optional(),
   relations: RelationsSchema.default({}).optional(),
+  attestations: z.array(AttestationSchema).default([]),
   study: StudyMetadataSchema.default({ learning_priority: 3, usefulness: 3, difficulty: 2 }),
   tags: z.array(z.string()).default([]),
 });
@@ -632,6 +634,8 @@ export const ExerciseQuestionSchema = z.object({
     .optional(),
   open_ended: z.boolean().default(false),
   relations: RelationsSchema.default({}),
+  // Question-level source anchors are needed to retain authoritative exercise provenance.
+  attestations: z.array(AttestationSchema).default([]),
 });
 
 export const ExerciseSchema = z.object({
@@ -644,6 +648,7 @@ export const ExerciseSchema = z.object({
   instructions_french: z.string().default(""),
   instructions_english: z.string().nullable().optional(),
   questions: z.array(ExerciseQuestionSchema).default([]),
+  relations: RelationsSchema.default({}),
   answer_key_source: z
     .object({
       page_printed: z.number().int().positive().nullable().optional(),

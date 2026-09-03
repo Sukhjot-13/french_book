@@ -5,12 +5,12 @@
 Generated from the current two-run authoritative merge.
 
 - Authoritative inputs: 31
-- Master SHA256: `c26b73fe00ad779bc8542fd4db0a4db1b2a1cf94c47f0b59ec5fe04be51f24fa`
+- Master SHA256: `e06468536ee5aa8d038072ebc2862cfe34b6b66a2c6f580d555c78c0d7f49348`
 - Idempotence: IDEMPOTENCE_PASS
 - Source evidence: 9557
 - Represented evidence: 6548
 - Unaccounted evidence: 3009
-- Relationships traversed: 22443
+- Relationships traversed: 41740
 - Relationships rejected: 46
 
 ## Canonical Counts
@@ -22,7 +22,7 @@ Generated from the current two-run authoritative merge.
 - grammar_rules: 286
 - verbs: 593
 - conjugations: 314
-- expressions: 662
+- expressions: 673
 - vocabulary: 1088
 - examples: 1015
 - exercises: 197

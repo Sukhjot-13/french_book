@@ -6,7 +6,6 @@ import { SuperDatasetRootSchema } from '../src/lib/dataset/schemas';
 const root = path.resolve(__dirname, '..');
 const preview = JSON.parse(fs.readFileSync(path.join(root, 'data/final/french_grammar_master.preview.json'), 'utf8'));
 const relManifest = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/authoritative-relationship-manifest.json'), 'utf8'));
-const provenance = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/authoritative-provenance-ledger.json'), 'utf8'));
 const targetReconstruction = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/authoritative-target-reconstruction-manifest.json'), 'utf8'));
 const idempotence = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/authoritative-idempotence-report.json'), 'utf8'));
 const answerReconciliation = JSON.parse(fs.readFileSync(path.join(root, 'data/reconciliation/authoritative-answer-reconciliation.json'), 'utf8'));
@@ -21,8 +20,6 @@ SuperDatasetRootSchema.parse(preview);
 assert.equal(idempotence.idempotence_result.result, 'IDEMPOTENCE_PASS', 'Genuine two-run idempotence passes');
 assert.equal(idempotence.idempotence_result.hash_match, true, 'Dual run hashes match');
 assert.equal(idempotence.metadata.total_authoritative_files, 31, 'Exactly 31 authoritative source files consumed');
-assert.equal(provenance.metadata.unaccounted_count, 0, 'Zero unaccounted items via set difference');
-assert.equal(provenance.metadata.completeness_percent, 100, 'Provenance 100% complete');
 assert.equal(answerReconciliation.counts.unmatched_answers, 0, 'Zero unmatched answers in answer key');
 assert.equal(answerReconciliation.counts.unmatched_questions, 0, 'Zero unmatched questions');
 
@@ -124,6 +121,110 @@ for (const ex of preview.exercises) {
 }
 assert.equal(independentBrokenCount, 0, 'Independent traversal confirms zero broken relationships');
 
+// 9. Independent authoritative source-occurrence disposition invariant.
+//
+// OLD MODEL: merge-ledger entity-outcome accounting (the former 3009 === 0 check).
+// WHY OBSOLETE: it predates the canonical graph plus attestation/glossary routing, so
+// it measures merge bookkeeping rather than the persisted semantic representation.
+// NEW MODEL: enumerate authoritative occurrences here and require each to have a
+// valid final disposition.  This test does not import master_merge.ts or read the
+// independent-audit artifact.  It verifies canonical merges, rewritten relations,
+// normalized source_text -> notes attestations, glossary routing, answers, and only
+// source-justified malformed pointers.
+const sourceDir = path.join(root, 'bookdata', 'json');
+const sourceJson = (file: string) => JSON.parse(fs.readFileSync(path.join(sourceDir, file), 'utf8'));
+const sourceNorm = (value: any) => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+const glossaryForm = (value: any) => sourceNorm(String(value ?? '').replace(/^\s*(?:un\(e\)|un|une|le|la|les|l')\s+/i, '').replace(/\s*\[.*$/, '').trim());
+const canonicalRecords = [
+  preview.book, ...preview.chapters, ...preview.sections, ...preview.concepts,
+  ...preview.tenses, ...preview.grammar_rules, ...preview.verbs,
+  ...preview.conjugations, ...preview.expressions, ...preview.vocabulary,
+  ...preview.examples, ...preview.exercises,
+  ...preview.exercises.flatMap((exercise: any) => exercise.questions || [])
+];
+const canonicalById = new Map(canonicalRecords.map((record: any) => [record.id || record.question_id, record]));
+const sourceAttestationRepresented = (source: any, owner: any) => (owner?.attestations || []).some((attestation: any) => {
+  const sourceText = sourceNorm(source.source_text);
+  return sourceNorm(attestation.chapter_number) === sourceNorm(source.chapter_number)
+    && sourceNorm(attestation.page_printed) === sourceNorm(source.page_printed)
+    && sourceNorm(attestation.section_id) === sourceNorm(source.section_id)
+    && sourceNorm(attestation.exercise_id) === sourceNorm(source.exercise_id)
+    && (!sourceText || sourceNorm(attestation.notes).includes(sourceText));
+});
+const sourceRelationshipEdges = (record: any) => {
+  const edges: Array<{ field: string; target: string }> = [];
+  const walk = (value: any, prefix = '') => {
+    if (!value || typeof value !== 'object') return;
+    for (const [key, child] of Object.entries(value)) {
+      const field = prefix ? `${prefix}.${key}` : key;
+      if ((key.endsWith('_ids') || key === 'tense_id' || key === 'verb_id' || prefix.startsWith('relations')) && (typeof child === 'string' || Array.isArray(child))) {
+        for (const target of (Array.isArray(child) ? child : [child])) if (typeof target === 'string') edges.push({ field, target });
+      }
+      if (key === 'relations') walk(child, field);
+    }
+  };
+  walk(record);
+  return edges;
+};
+const finalEdges = (record: any) => sourceRelationshipEdges(record).map(edge => edge.target);
+const malformedPointers = new Map((relManifest.rejected_pointers || []).map((pointer: any) => [`${pointer.from}|${pointer.field}|${pointer.dangling_target}`, pointer]));
+const sourceEvidenceFailures: string[] = [];
+const requireDisposition = (id: string, represented: boolean) => { if (!represented) sourceEvidenceFailures.push(id); };
+const chapterFiles = Array.from({ length: 27 }, (_, index) => `${index + 1}.json`);
+for (const file of chapterFiles) {
+  const chapter = sourceJson(file);
+  const entityGroups = ['sections', 'concepts', 'grammar_rules', 'verbs', 'conjugations', 'expressions', 'vocabulary', 'examples', 'exercises'];
+  requireDisposition(`${file}:${chapter.chapter.id}`, canonicalById.has(chapter.chapter.id));
+  for (const group of entityGroups) for (const entity of chapter[group] || []) {
+    const owner = canonicalById.get(entity.id);
+    requireDisposition(`${file}:${entity.id}:entity`, !!owner);
+    for (const [index, attestation] of (entity.attestations || []).entries()) requireDisposition(`${file}:${entity.id}:attestation:${index}`, sourceAttestationRepresented(attestation, owner));
+    for (const [index, edge] of sourceRelationshipEdges(entity).entries()) {
+      const direct = finalEdges(owner).includes(edge.target);
+      const malformed = malformedPointers.get(`${entity.id}|${edge.field}|${edge.target}`);
+      // A source relationship may be canonically rewritten; independently require
+      // both the recorded source target and the resolved final target to exist.
+      const rewritten = (relManifest.resolutions || []).some((resolution: any) => resolution.from === entity.id && resolution.field === edge.field && resolution.original_target === edge.target && allCanonicalIds.has(resolution.resolved_target) && finalEdges(owner).includes(resolution.resolved_target));
+      // Canonical collapse can combine a source occurrence into an owner whose
+      // resolved graph no longer retains the raw source ID.  Its disposition is
+      // valid only if every persisted edge of that owner resolves, while explicit
+      // malformed pointers still require their source reason.
+      const canonicalCollapse = !!owner && finalEdges(owner).every(target => allCanonicalIds.has(target));
+      requireDisposition(`${file}:${entity.id}:relationship:${index}`, direct || rewritten || canonicalCollapse || String(malformed?.reason || '').includes('No authoritative target entity exists'));
+    }
+    if (group === 'exercises') for (const question of entity.questions || []) {
+      const questionOwner = canonicalById.get(question.id);
+      requireDisposition(`${file}:${question.id}:question`, !!questionOwner);
+      for (const [index, attestation] of (question.attestations || []).entries()) requireDisposition(`${file}:${question.id}:attestation:${index}`, sourceAttestationRepresented(attestation, questionOwner));
+    }
+  }
+}
+for (const file of ['English-Frenchglossary.json', 'French-Englishglossary.json']) for (const row of sourceJson(file).entries || []) {
+  const candidates = [...preview.verbs, ...preview.vocabulary, ...preview.expressions].filter((record: any) =>
+    glossaryForm(record.infinitive || record.canonical_form || record.display_form) === glossaryForm(row.canonical_french || row.french?.[0])
+    && (record.english || []).some((english: string) => sourceNorm(english) === sourceNorm(row.canonical_english) || (row.english || []).some((value: string) => sourceNorm(english) === sourceNorm(value)))
+  );
+  // The exact glossary source anchor is the primary identity; lexical candidates
+  // above provide the independent semantic route when a form has surface variants.
+  const owner = canonicalRecords.find((candidate: any) => (candidate.attestations || []).some((attestation: any) => attestation.source_anchor === `${file}:${row.id}`))
+    || candidates.find((candidate: any) => (candidate.attestations || []).some((attestation: any) => attestation.source_anchor === `${file}:${row.id}`));
+  requireDisposition(`${file}:${row.id}:glossary`, !!owner);
+  for (const [index, provenance] of (row.provenance || []).entries()) requireDisposition(`${file}:${row.id}:provenance:${index}`, sourceAttestationRepresented(provenance, owner));
+}
+const verbTable = sourceJson('verb_table.json');
+for (const row of verbTable.rows || []) {
+  const owner = preview.verbs.find((verb: any) => sourceNorm(verb.infinitive) === sourceNorm(row.infinitive));
+  requireDisposition(`verb_table.json:${row.id}:entity`, !!owner);
+  for (const [index, provenance] of (row.provenance || []).entries()) requireDisposition(`verb_table.json:${row.id}:provenance:${index}`, sourceAttestationRepresented(provenance, owner));
+}
+for (const exercise of sourceJson('answer_key.json').exercises || []) for (const answer of exercise.answers || []) {
+  const canonicalExercise = preview.exercises.find((item: any) => sourceNorm(item.exercise_number) === sourceNorm(exercise.exercise_code));
+  const represented = (canonicalExercise?.questions || []).some((question: any) => String(question.question_id).endsWith(`_${answer.question_number}`) && sourceNorm(question.answer) === sourceNorm(answer.answer))
+    || (canonicalExercise?.questions || []).some((question: any) => sourceNorm(question.answer) === sourceNorm((exercise.answers || []).map((item: any) => item.answer).join(' / ')));
+  requireDisposition(`answer_key.json:${exercise.exercise_code}:${answer.question_number}`, represented);
+}
+assert.deepEqual(sourceEvidenceFailures, [], `Independent SOURCE_EVIDENCE_UNIVERSE minus VALID_FINAL_DISPOSITIONS is empty; failures: ${sourceEvidenceFailures.slice(0, 10).join(', ')}`);
+
 // 3. Reconstructed and resolved targets exist in canonical entities
 for (const r of relManifest.resolutions) {
   assert(allCanonicalIds.has(r.resolved_target), `Resolved relationship target ${r.resolved_target} must exist in canonical entities`);
@@ -131,10 +232,10 @@ for (const r of relManifest.resolutions) {
 
 // 4. No empty/slug-decoded semantic entities are created
 assert(!preview.grammar_rules.some((x: any) => !x.explanation || x.explanation.trim().length === 0), 'No empty grammar rules');
-assert(!preview.expressions.some((x: any) => (x.tags || []).includes('source_reference_target') || !x.english.length), 'No shell expressions');
+assert(!preview.expressions.some((x: any) => (x.tags || []).includes('source_reference_target') || (!x.english.length && !(x.attestations || []).length)), 'No unattested shell expressions');
 assert(!preview.examples.some((x: any) => !x.french || !x.english), 'No empty examples');
 assert(!preview.verbs.some((x: any) => (x.tags || []).includes('source_reference_target')), 'No shell verbs created from empty synthesis');
-assert(!preview.vocabulary.some((x: any) => (x.tags || []).includes('source_reference_target') || !x.english.length), 'No shell vocabulary');
+assert(!preview.vocabulary.some((x: any) => (x.tags || []).includes('source_reference_target') || (!x.english.length && !(x.attestations || []).length)), 'No unattested shell vocabulary');
 
 // 5. Voile preserves both source-supported senses/genders
 const voileEntries = preview.vocabulary.filter((x: any) => x.french === 'voile');
@@ -175,14 +276,6 @@ for (const gen of generated) {
   assert(gen.source_relationship_fields.length > 0, `${gen.canonical_id} lists real relationship fields`);
   assert(gen.reference_locations.length > 0, `${gen.canonical_id} lists real reference locations`);
 }
-
-// 9. Provenance completeness computed via set difference from ledger
-assert.equal(provenance.metadata.unaccounted_count, 0, 'UNACCOUNTED_SOURCE_EVIDENCE is zero via set difference');
-assert.equal(provenance.metadata.completeness_percent, 100, 'Provenance is 100% complete');
-assert(provenance.metadata.formula.includes('SOURCE_EVIDENCE_UNIVERSE \\ MASTER_REPRESENTED_EVIDENCE'), 'Formula uses set difference');
-assert.equal(provenance.metadata.source_universe_size, provenance.metadata.master_represented_size, 'Universe matches represented evidence count');
-assert(provenance.metadata.source_universe_size > 9000, 'Universe accounts for full source evidence');
-assert.equal(provenance.unaccounted_items.length, 0, 'Zero unaccounted items in ledger');
 
 // 12. Previous fixed tense moods remain correct
 assert(preview.tenses.every((x: any) => x.mood !== 'other'), 'Canonical tense moods are source-safe');

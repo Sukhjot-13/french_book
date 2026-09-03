@@ -645,7 +645,9 @@ export function executePipeline(runIndex: number): ExecutionResult {
           usage_notes: e.usage_notes || [],
           restrictions: e.restrictions || [],
           common_mistakes: normalizeCommonMistakes(e.common_mistakes),
-          relations: e.relations || {},
+          // Keep source rule links in the general relation graph as well as
+          // retaining the specialized verb/vocabulary/concept projections.
+          relations: normalizeRelations({ ...e, verb_ids: [], vocabulary_ids: [], concept_ids: [] }),
           study: normalizeStudyMetadata(e.study),
           usage: e.usage || { register: 'neutral', spoken_written: 'both', contexts: [] },
           attestations: normalizeAttestations(e.attestations),
@@ -728,6 +730,7 @@ export function executePipeline(runIndex: number): ExecutionResult {
           answer: null, // Will be linked in Phase 5 from answer_key.json
           answer_explanation: null,
           open_ended: Boolean(q.open_ended),
+          attestations: normalizeAttestations(q.attestations),
           relations: {
             verbs: q.verb_ids || [],
             expressions: q.expression_ids || [],
@@ -749,6 +752,7 @@ export function executePipeline(runIndex: number): ExecutionResult {
         instructions_french: ex.instructions || '',
         instructions_english: ex.instructions_english || null,
         questions,
+        relations: {},
         answer_key_source: {},
         study: { difficulty: 2 },
         attestations: normalizeAttestations(ex.attestations),
@@ -926,10 +930,21 @@ export function executePipeline(runIndex: number): ExecutionResult {
       page_pdf: baseProv.page_pdf,
       source_anchor: `${baseProv.table_id || 'verb_table'}:${row.id}`
     };
+    // A row can occur in several authoritative tables.  Retain every occurrence
+    // on the verb as normalized provenance; the per-tense conjugations below
+    // remain the structural representation of the corresponding forms.
+    const rowAttestations: Attestation[] = (row.provenance || []).map((p: any) => ({
+      source_type: 'book',
+      context_type: 'verb_table',
+      page_printed: p.page_printed ?? baseProv.page_printed,
+      page_pdf: p.page_pdf ?? baseProv.page_pdf,
+      source_anchor: `${p.table_id || 'verb_table'}:${row.id}`,
+      notes: p.source_text ? `Source text: ${p.source_text}` : null
+    }));
 
     if (verbsMap.has(vId)) {
       const v = verbsMap.get(vId)!;
-      v.attestations.push(attestation);
+      v.attestations.push(...rowAttestations);
       if (row.past_participle && !v.past_participle) v.past_participle = row.past_participle;
     } else {
       verbsMap.set(vId, {
@@ -953,7 +968,7 @@ export function executePipeline(runIndex: number): ExecutionResult {
         complement_frame_ids: [],
         functional_roles: [],
         transitivity: [],
-        attestations: [attestation],
+        attestations: rowAttestations,
         study: { learning_priority: 3, usefulness: 3, difficulty: 2 },
         usage: { register: 'neutral', spoken_written: 'both', contexts: [] },
         frequency: { book_occurrences: 1 },
@@ -1597,6 +1612,42 @@ export function executePipeline(runIndex: number): ExecutionResult {
     return deduplicateArray(validTargets);
   };
 
+  // Preserve every authoritative source edge, including edges contributed by a
+  // later occurrence of an entity whose scalar fields were already registered.
+  // Specialized fields remain intact; this normalized graph is the lossless
+  // relationship evidence surface used for reconciliation.
+  const sourceRelationName: Record<string, string> = {
+    verb_ids: 'verbs', expression_ids: 'expressions', vocabulary_ids: 'vocabulary',
+    rule_ids: 'grammar_rules', grammar_rule_ids: 'grammar_rules', tense_ids: 'tenses',
+    concept_ids: 'concepts', conjugation_ids: 'conjugations', example_ids: 'examples',
+    contrast_with_ids: 'grammar_rules', related_rule_ids: 'grammar_rules',
+    prerequisite_rule_ids: 'grammar_rules', related_verb_ids: 'verbs', contrast_verb_ids: 'verbs',
+    confused_with_ids: 'verbs', word_family_ids: 'vocabulary'
+  };
+  const addSourceGraph = (owner: any, raw: any) => {
+    if (!owner || !raw) return;
+    if (Array.isArray(raw.attestations)) owner.attestations = mergeAttestations([...(owner.attestations || []), ...normalizeAttestations(raw.attestations)]);
+    owner.relations ||= {};
+    for (const [field, relation] of Object.entries(sourceRelationName)) {
+      const ids = raw[field]; if (!Array.isArray(ids)) continue;
+      const sourceBackedIds = field === 'example_ids' ? ids.filter((id: string) => examplesMap.has(id)) : ids;
+      owner.relations[relation] = deduplicateArray([...(owner.relations[relation] || []), ...sourceBackedIds]);
+    }
+    for (const [relation, ids] of Object.entries(raw.relations || {})) if (Array.isArray(ids)) owner.relations[relation] = deduplicateArray([...(owner.relations[relation] || []), ...ids]);
+  };
+  for (const filename of AUTHORITATIVE_FILES.chapters) {
+    const data = JSON.parse(fs.readFileSync(path.join(BOOKDATA_DIR, filename), 'utf-8'));
+    for (const [key, map] of Object.entries({ sections: sectionsMap, concepts: conceptsMap, grammar_rules: rulesMap, verbs: verbsMap, conjugations: conjugationsMap, expressions: expressionsMap, vocabulary: vocabularyMap, examples: examplesMap, exercises: exercisesMap }) as any[]) {
+      for (const raw of data[key] || []) {
+        addSourceGraph(map.get(raw.id), raw);
+        if (key === 'exercises') for (const q of raw.questions || []) {
+          const canonicalQuestion = map.get(raw.id)?.questions?.find((candidate: any) => candidate.question_id === q.id);
+          addSourceGraph(canonicalQuestion, q);
+        }
+      }
+    }
+  }
+
   // Run reconciliation across all entities
   for (const ch of chaptersMap.values()) {
     ch.section_ids = reconcileIdArray(ch.id, 'section_ids', ch.section_ids);
@@ -1700,12 +1751,13 @@ export function executePipeline(runIndex: number): ExecutionResult {
   }
 
   // Reconcile normalized graph edges after all canonical targets are registered.
-  for (const entity of [...rulesMap.values(), ...verbsMap.values(), ...expressionsMap.values(), ...vocabularyMap.values()] as any[]) {
+  for (const entity of [...rulesMap.values(), ...verbsMap.values(), ...expressionsMap.values(), ...vocabularyMap.values(), ...examplesMap.values(), ...exercisesMap.values()] as any[]) {
     if (!entity.relations) continue;
     for (const [field, targets] of Object.entries(entity.relations)) {
       entity.relations[field] = reconcileIdArray(entity.id, `relations.${field}`, targets as string[]);
     }
   }
+  for (const ex of exercisesMap.values()) for (const q of ex.questions) if (q.relations) for (const [field, targets] of Object.entries(q.relations)) q.relations[field] = reconcileIdArray(q.question_id, `relations.${field}`, targets as string[]);
 
   console.log(`[Phase 6] Relationship reconciliation: ${relationshipManifest.metadata.total_references_traversed} references traversed, ${relationshipManifest.metadata.resolved_directly} direct, ${relationshipManifest.metadata.resolved_via_alias} alias, ${relationshipManifest.metadata.resolved_via_reconstruction} reconstructed, ${relationshipManifest.metadata.dangling_pointers_rejected} rejected.`);
 
