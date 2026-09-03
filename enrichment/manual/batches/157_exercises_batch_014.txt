@@ -25,12 +25,17 @@ CRITICAL RULES & INTEGRITY DIRECTIVES:
    - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
    - 'add_relation': Adds a cross-reference link to another verified existing entity.
    - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
-5. UNCERTAINTY BEHAVIOR:
+5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):
+   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.
+   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.
+   - Only add high-frequency, natural, authentic French usage when genuinely missing.
+   - If an entity needs no additions, simply omit it from the 'patches' array.
+6. UNCERTAINTY BEHAVIOR:
    - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
    - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
-6. ACCURACY & ORTHOGRAPHY:
+7. ACCURACY & ORTHOGRAPHY:
    - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
-7. STRICT OUTPUT FORMAT:
+8. STRICT OUTPUT FORMAT:
    - Respond with VALID JSON ONLY.
    - Do NOT wrap in markdown conversational commentary outside the JSON.
 

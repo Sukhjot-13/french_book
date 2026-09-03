@@ -46,9 +46,12 @@ def run_apply_approved(force_validated: bool = False) -> None:
     subprocess.run(cmd)
 
 
-def run_generate_queue() -> None:
+def run_generate_queue(reset: bool = False) -> None:
     """Generates all batch TXT prompt files across all 11 enrichable master collections."""
-    subprocess.run([PYTHON, str(SCRIPT_DIR / "make_enrichment_batch.py"), "--all", "--full-queue"])
+    cmd = [PYTHON, str(SCRIPT_DIR / "make_enrichment_batch.py"), "--all", "--full-queue"]
+    if reset:
+        cmd.append("--reset")
+    subprocess.run(cmd)
 
 
 def main() -> None:
@@ -57,6 +60,8 @@ def main() -> None:
                         help="Workflow action to execute.")
     parser.add_argument("--force-validated", action="store_true",
                         help="When applying, allow applying directly from validated/ without copying to approved/.")
+    parser.add_argument("--reset", action="store_true",
+                        help="When generating queue, reset progress counters and regenerate from scratch.")
     args = parser.parse_args()
 
     if args.action == "process-responses":
@@ -64,7 +69,8 @@ def main() -> None:
     elif args.action == "apply-approved":
         run_apply_approved(force_validated=args.force_validated)
     elif args.action == "generate-queue":
-        run_generate_queue()
+        run_generate_queue(reset=args.reset)
+
 
 
 if __name__ == "__main__":

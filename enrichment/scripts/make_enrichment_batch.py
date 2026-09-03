@@ -166,14 +166,20 @@ def format_batch_prompt(
         "   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).",
         "   - 'add_relation': Adds a cross-reference link to another verified existing entity.",
         "   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.",
-        "5. UNCERTAINTY BEHAVIOR:",
+        "5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):",
+        "   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.",
+        "   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.",
+        "   - Only add high-frequency, natural, authentic French usage when genuinely missing.",
+        "   - If an entity needs no additions, simply omit it from the 'patches' array.",
+        "6. UNCERTAINTY BEHAVIOR:",
         "   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.",
         "   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.",
-        "6. ACCURACY & ORTHOGRAPHY:",
+        "7. ACCURACY & ORTHOGRAPHY:",
         "   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.",
-        "7. STRICT OUTPUT FORMAT:",
+        "8. STRICT OUTPUT FORMAT:",
         "   - Respond with VALID JSON ONLY.",
         "   - Do NOT wrap in markdown conversational commentary outside the JSON.",
+
         "",
         "--------------------------------------------------------------------------------",
         "EXPECTED JSON RESPONSE CONTRACT:",
@@ -259,10 +265,15 @@ def run_batch_generation(args: argparse.Namespace) -> None:
     master_hash = calculate_hash(dataset)
     
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
-    manifest = load_json(BATCH_MANIFEST_FILE) if BATCH_MANIFEST_FILE.exists() else {"batches": []}
-    progress = load_json(PROGRESS_FILE) if PROGRESS_FILE.exists() else {}
+    if getattr(args, "reset", False):
+        manifest = {"batches": []}
+        progress = {}
+    else:
+        manifest = load_json(BATCH_MANIFEST_FILE) if BATCH_MANIFEST_FILE.exists() else {"batches": []}
+        progress = load_json(PROGRESS_FILE) if PROGRESS_FILE.exists() else {}
     
     collections_to_process: List[str] = []
+
     if args.all:
         collections_to_process = [c for c in COLLECTION_ORDER if c in dataset and c not in PROTECTED_COLLECTIONS]
     elif args.collection:
@@ -379,9 +390,11 @@ def main() -> None:
     parser.add_argument("--fields", nargs="+", help="Specific target fields to enrich.")
     parser.add_argument("--entities", nargs="+", help="Specific natural key identifiers to include.")
     parser.add_argument("--missing-only", action="store_true", help="Only batch entities missing requested fields.")
+    parser.add_argument("--reset", action="store_true", help="Reset batch manifest and progress counters from scratch.")
     parser.add_argument("--force", action="store_true", help="Force generation even for protected collections.")
     
     args = parser.parse_args()
+
     run_batch_generation(args)
 
 
