@@ -559,6 +559,14 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ### 10. Manual AI Enrichment Pipeline (`enrichment/`)
 
+#### `enrichment/manual/batches/001_verbs_batch_001.txt` / `002_expressions_batch_001.txt` / `003_tenses_batch_001.txt`
+- **Purpose**: Three independently randomized pilot prompts for comparing GPT‑5.6 and DeepSeek output quality. They contain 20 verbs, 30 expressions, and 8 tenses respectively, plus each collection's schema excerpt and JSON-file response contract.
+- **Functions**: N/A (generated manual AI prompts).
+
+#### `enrichment/manual/logs/BATCH_MANIFEST.json` / `PROGRESS.json`
+- **Purpose**: Generated queue audit metadata recording the three pilot batches, their natural-key targets, source hash, requested fields, and generation progress.
+- **Functions**: N/A (generated JSON audit metadata).
+
 #### `enrichment/plan.txt`
 - **Purpose**: Authoritative 86-section specification document for the safe, deterministic, auditable manual AI enrichment pipeline for `MASTER_DATA.json`.
 - **Functions**: N/A (Specification document).
