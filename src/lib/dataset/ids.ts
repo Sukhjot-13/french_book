@@ -42,8 +42,11 @@ export function makeSectionId(chapterNumber: number, sectionOrder: number, title
   return `section_${chStr}_${secStr}`;
 }
 
-export function makeConceptId(name: string): string {
+export function makeConceptId(name: string, suffix?: string | number): string {
   const slug = slugify(name);
+  if (suffix !== undefined && suffix !== null && suffix !== "") {
+    return `concept_${slug}_${suffix}`;
+  }
   return `concept_${slug}`;
 }
 
@@ -93,6 +96,9 @@ export function makeVocabId(canonicalWord: string | { canonical_form?: string; d
   // Remove leading articles like 'le ', 'la ', 'l'', 'un ', 'une '
   let clean = rawStr.trim().replace(/^(le|la|l'|l’|les|un|une|des)\s+/i, "");
   const slug = slugify(clean);
+  if (pos && typeof pos === "string") {
+    return `vocab_${slug}_${slugify(pos)}`;
+  }
   return `vocab_${slug}`;
 }
 

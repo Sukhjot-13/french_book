@@ -499,8 +499,9 @@ function mapExpression(e: MasterExpression): ExpressionUI {
   };
 }
 
-function mapVocab(vc: MasterVocabulary): VocabUI {
-  const id = makeVocabId(vc.canonical_form);
+function mapVocab(vc: MasterVocabulary, explicitIdOrIndex?: string | number): VocabUI {
+  const explicitId = typeof explicitIdOrIndex === "string" ? explicitIdOrIndex : undefined;
+  const id = explicitId || makeVocabId(vc.canonical_form, vc.part_of_speech);
   const chapterIds = (vc.chapters || []).map((ch) => makeChapterId(ch));
 
   let article: string | null = null;
@@ -649,8 +650,9 @@ function mapTrap(t: MasterExceptionTrap): ExceptionTrapUI {
   };
 }
 
-function mapConcept(c: MasterConcept): ConceptUI {
-  const id = `concept_${slugify(c.name)}`;
+function mapConcept(c: MasterConcept, explicitIdOrIndex?: string | number): ConceptUI {
+  const explicitId = typeof explicitIdOrIndex === "string" ? explicitIdOrIndex : undefined;
+  const id = explicitId || `concept_${slugify(c.name)}`;
   const chapterIds = (c.chapters || []).map((ch) => makeChapterId(ch));
 
   return {
@@ -1180,7 +1182,16 @@ export interface VocabFilterOptions {
 
 export function getVocabulary(filters?: VocabFilterOptions): { vocabulary: VocabUI[]; total: number } {
   const data = getMasterDataset();
-  let list = (data.vocabulary || []).map(mapVocab);
+  const seenIds = new Set<string>();
+  let list = (data.vocabulary || []).map((v, idx) => {
+    let id = makeVocabId(v.canonical_form, v.part_of_speech);
+    if (seenIds.has(id)) {
+      const ch = v.chapters && v.chapters.length > 0 ? `ch${v.chapters[0]}` : String(idx + 1);
+      id = `${id}_${ch}`;
+    }
+    seenIds.add(id);
+    return mapVocab(v, id);
+  });
 
   // Alphabetical sort by default for dictionary view
   list.sort((a, b) => a.french.localeCompare(b.french, "fr", { sensitivity: "base" }));
@@ -1238,14 +1249,21 @@ export function getVocabularyById(vocabId: string): VocabDetailWithGraph | null 
   const rawId = vocabId;
   const decoded = safeDecode(vocabId);
   const rawVocab = (data.vocabulary || []).find((v) => {
-    const id = makeVocabId(v.canonical_form);
+    const idWithPos = makeVocabId(v.canonical_form, v.part_of_speech);
+    const idBare = makeVocabId(v.canonical_form);
     return (
-      id === rawId ||
-      id === decoded ||
+      idWithPos === rawId ||
+      idWithPos === decoded ||
+      idBare === rawId ||
+      idBare === decoded ||
       v.canonical_form === rawId ||
       v.canonical_form === decoded ||
       slugify(v.canonical_form) === slugify(rawId) ||
-      slugify(v.canonical_form) === slugify(decoded)
+      slugify(v.canonical_form) === slugify(decoded) ||
+      rawId.startsWith(idWithPos) ||
+      decoded.startsWith(idWithPos) ||
+      rawId.startsWith(idBare) ||
+      decoded.startsWith(idBare)
     );
   });
 
@@ -1584,7 +1602,16 @@ export function getExceptionsAndTraps(filters?: TrapFilterOptions): { traps: Exc
 
 export function getConcepts(): ConceptUI[] {
   const data = getMasterDataset();
-  return (data.concepts || []).map(mapConcept);
+  const seenIds = new Set<string>();
+  return (data.concepts || []).map((c, idx) => {
+    let id = `concept_${slugify(c.name)}`;
+    if (seenIds.has(id)) {
+      const ch = c.chapters && c.chapters.length > 0 ? `ch${c.chapters[0]}` : String(idx + 1);
+      id = `${id}_${ch}`;
+    }
+    seenIds.add(id);
+    return mapConcept(c, id);
+  });
 }
 
 export interface ConceptDetailWithGraph {
@@ -1601,21 +1628,24 @@ export function getConceptById(conceptId: string): ConceptDetailWithGraph | null
   const data = getMasterDataset();
   const rawId = conceptId;
   const decoded = safeDecode(conceptId);
-  const rawConcept = (data.concepts || []).find((c) => {
-    const id = `concept_${slugify(c.name)}`;
+  const concepts = getConcepts();
+  const foundConcept = concepts.find((c) => {
     return (
-      id === rawId ||
-      id === decoded ||
+      c.id === rawId ||
+      c.id === decoded ||
       c.name === rawId ||
       c.name === decoded ||
       slugify(c.name) === slugify(rawId) ||
-      slugify(c.name) === slugify(decoded)
+      slugify(c.name) === slugify(decoded) ||
+      rawId.startsWith(c.id) ||
+      decoded.startsWith(c.id)
     );
   });
 
-  if (!rawConcept) return null;
+  if (!foundConcept) return null;
 
-  const concept = mapConcept(rawConcept);
+  const concept = foundConcept;
+  const rawConcept = (data.concepts || []).find((c) => c.name === foundConcept.name) || (data.concepts || [])[0];
   const normName = normalizeFrenchText(rawConcept.name);
 
   const grammarRules = (data.grammar_rules || [])

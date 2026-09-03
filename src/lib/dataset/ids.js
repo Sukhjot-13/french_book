@@ -55,8 +55,11 @@ function makeSectionId(chapterNumber, sectionOrder, title) {
     }
     return "section_".concat(chStr, "_").concat(secStr);
 }
-function makeConceptId(name) {
+function makeConceptId(name, suffix) {
     var slug = slugify(name);
+    if (suffix !== undefined && suffix !== null && suffix !== "") {
+        return "concept_".concat(slug, "_").concat(suffix);
+    }
     return "concept_".concat(slug);
 }
 function makeTenseId(nameEnglishOrKey) {
@@ -94,10 +97,13 @@ function makeExpressionId(canonicalForm) {
 }
 function makeVocabId(canonicalWord, pos) {
     // Remove leading articles like 'le ', 'la ', 'l'', 'un ', 'une '
-    var clean = canonicalWord.trim().replace(/^(le|la|l'|l’|les|un|une|des)\s+/i, "");
+    var rawStr = typeof canonicalWord === "string" 
+      ? canonicalWord 
+      : (canonicalWord && (canonicalWord.canonical_form || canonicalWord.display_form)) || "";
+    var clean = rawStr.trim().replace(/^(le|la|l'|l’|les|un|une|des)\s+/i, "");
     var slug = slugify(clean);
-    if (pos && (pos === "verb" || pos === "adverb" || pos === "adjective")) {
-        return "vocab_".concat(slug);
+    if (pos && typeof pos === "string") {
+        return "vocab_".concat(slug, "_").concat(slugify(pos));
     }
     return "vocab_".concat(slug);
 }

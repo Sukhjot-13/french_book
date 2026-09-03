@@ -194,11 +194,11 @@ export function VocabDictionaryTable({
         <div className="rounded-xl border border-outline-variant overflow-hidden bg-surface-container-lowest shadow-xs">
           {/* MOBILE PURPOSE-BUILT TWO-LINE LIST (<768px) */}
           <div className="md:hidden divide-y divide-outline-variant/30">
-            {vocabulary.map((item) => {
+            {vocabulary.map((item, idx) => {
               const meaning = formatMeaning(item.english);
               return (
                 <div
-                  key={item.id}
+                  key={`${item.id}-${idx}`}
                   data-id={item.french}
                   onClick={() => openPeek("vocab", item.french)}
                   className="p-3 active:bg-surface-container-low hover:bg-surface-container-low/60 transition-colors cursor-pointer flex items-center justify-between gap-3 group"
@@ -285,11 +285,11 @@ export function VocabDictionaryTable({
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant/30">
-                {vocabulary.map((item) => {
+                {vocabulary.map((item, idx) => {
                   const meaning = formatMeaning(item.english);
                   return (
                     <tr
-                      key={item.id}
+                      key={`${item.id}-${idx}`}
                       data-id={item.french}
                       onClick={() => openPeek("vocab", item.french)}
                       className="even:bg-surface-container-lowest odd:bg-surface-container-low/25 hover:bg-primary/[0.04] [&[data-selected='true']]:bg-primary/[0.08] [&[data-selected='true']]:border-l-4 [&[data-selected='true']]:border-primary transition-colors cursor-pointer group"

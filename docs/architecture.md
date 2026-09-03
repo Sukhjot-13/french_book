@@ -384,8 +384,8 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `getVerbById(id)`: Retrieves full detail for a single verb including conjugations, expressions, rules, and examples. Supports raw and URL-decoded IDs.
   - `getExpressions(filters)`: Retrieves filtered list of idiomatic expressions with pattern slots and collocations.
   - `getExpressionById(id)`: Retrieves single expression detail. Supports raw and URL-decoded IDs.
-  - `getVocabulary(filters)`: Retrieves filtered vocabulary words with safely normalized articles (defensively handles string, array, and object representations), gender, plural forms, and senses.
-  - `getVocabularyById(id)`: Retrieves single vocabulary detail with related expressions, related verbs, related chapters, and examples. Supports raw and URL-decoded IDs.
+  - `getVocabulary(filters)`: Retrieves filtered vocabulary words with safely normalized articles, guaranteed 100% unique IDs via automatic homograph and chapter/index collision resolution, gender, plural forms, and senses.
+  - `getVocabularyById(id)`: Retrieves single vocabulary detail with related expressions, related verbs, related chapters, and examples. Supports raw, composite, and URL-decoded IDs.
   - `getGrammarRules(filters)`: Retrieves grammar rules list.
   - `getGrammarRuleById(id)`: Retrieves single grammar rule with formation, transformations, traps, and cross-links. Supports raw, URL-decoded, and slugified rule titles.
   - `getTenses()`: Retrieves all 24 tenses organized by mood.
@@ -396,8 +396,8 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `getExercises(filters)`: Retrieves exercises with questions, options, hints, and answers.
   - `getExerciseById(id)`: Retrieves single exercise detail. Supports raw, dotted, and legacy slug IDs.
   - `getExceptionsAndTraps(filters)`: Retrieves the 108 curated common pitfalls with correct vs incorrect forms.
-  - `getConcepts()`: Retrieves the 206 grammatical concepts.
-  - `getConceptById(id)`: Retrieves single concept detail with linked grammar rules, tenses, verbs, expressions, vocabulary, and examples. Supports raw, slugified, and URL-decoded IDs.
+  - `getConcepts()`: Retrieves all 206 grammatical concepts with guaranteed 100% unique IDs across case-variant duplicates.
+  - `getConceptById(id)`: Retrieves single concept detail with linked grammar rules, tenses, verbs, expressions, vocabulary, and examples. Supports raw, slugified, disambiguated, and URL-decoded IDs.
   - `safeDecode(str)`: Defensive URL decoding helper preventing URI malformed exceptions.
   - `formatEnglishList(val, isVerb)`: Normalizes English translation strings or arrays into a clean comma-separated list, intelligently deduplicating bare and to-infinitive pairs for verbs.
   - `mapVerb(v)`: View-model normalizer for verbs.
@@ -452,13 +452,13 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `makeBookId()`: Generates root book identifier.
   - `makeChapterId(chapterNum)`: Generates formatted chapter identifier.
   - `makeSectionId(chapterNum, sectionNum)`: Generates chapter section identifier.
-  - `makeConceptId(name)`: Generates slugified concept identifier.
+  - `makeConceptId(name, suffix)`: Generates slugified concept identifier with optional chapter or index suffix to prevent duplicate key collisions.
   - `makeTenseId(name)`: Generates slugified tense identifier.
   - `makeRuleId(ruleName, order)`: Generates rule identifier with accented discriminator to avoid collisions.
   - `makeVerbId(infinitive)`: Generates verb lemma identifier.
   - `makeConjugationId(verbId, mood, tense)`: Generates composite conjugation record identifier.
   - `makeExpressionId(text)`: Generates expression identifier.
-  - `makeVocabId(word, pos)`: Generates vocabulary identifier (supports string or object input).
+  - `makeVocabId(word, pos)`: Generates vocabulary identifier with part-of-speech discriminator to prevent homograph collisions (supports string or object input).
   - `makeExampleId(text)`: Generates deterministic example sentence identifier.
   - `makeExerciseId(chapterNum, exerciseNum)`: Generates exercise identifier.
   - `makeQuestionId(exerciseId, questionNum)`: Generates individual drill question identifier.

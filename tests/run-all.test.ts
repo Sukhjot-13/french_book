@@ -209,10 +209,16 @@ for (const v of allVocab.vocabulary) {
   );
 }
 console.log(`✅ All ${allVocab.total} vocabulary items verified to have string or null article field.`);
+const vocabIdSet = new Set(allVocab.vocabulary.map((v) => v.id));
+assert.strictEqual(vocabIdSet.size, allVocab.vocabulary.length, "All vocabulary items must have 100% unique IDs");
+console.log(`✅ All ${allVocab.total} vocabulary items verified to have 100% unique IDs without React key collisions.`);
 
 // 10. Validate getConceptById resolution and relationships
 const allConcepts = getConcepts();
 assert(allConcepts.length >= 200, "Must have at least 200 concepts");
+const conceptIdSet = new Set(allConcepts.map((c) => c.id));
+assert.strictEqual(conceptIdSet.size, allConcepts.length, "All concepts must have 100% unique IDs");
+console.log(`✅ All ${allConcepts.length} concepts verified to have 100% unique IDs without React key collisions.`);
 const firstConcept = allConcepts[0];
 const conceptDetail = getConceptById(firstConcept.name);
 assert(conceptDetail !== null, `getConceptById('${firstConcept.name}') must return concept detail`);

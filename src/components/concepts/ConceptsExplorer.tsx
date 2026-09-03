@@ -131,9 +131,9 @@ export function ConceptsExplorer({ concepts }: ConceptsExplorerProps) {
       {/* CONCEPTS GRID */}
       {filteredConcepts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredConcepts.map((concept) => (
+          {filteredConcepts.map((concept, idx) => (
             <div
-              key={concept.id}
+              key={`${concept.id}-${idx}`}
               className="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant shadow-xs flex flex-col justify-between hover:border-primary/50 transition-all group"
             >
               <div className="space-y-2">
@@ -160,9 +160,9 @@ export function ConceptsExplorer({ concepts }: ConceptsExplorerProps) {
                 {/* Tag Pills */}
                 {concept.tags && concept.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1 pt-1">
-                    {concept.tags.slice(0, 3).map((tag, idx) => (
+                    {concept.tags.slice(0, 3).map((tag, tagIdx) => (
                       <span
-                        key={idx}
+                        key={`${concept.id}-tag-${tagIdx}`}
                         className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-surface-container text-on-surface-variant"
                       >
                         #{tag}
