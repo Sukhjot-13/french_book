@@ -1,0 +1,385 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 038_verbs_batch_012
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "038_verbs_batch_012",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "lacer",
+    "display_form": "lacer",
+    "existing_english": [
+      "to lace up",
+      "to tie"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "lacer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "laisser",
+    "display_form": "laisser",
+    "existing_english": [
+      "let (allow)",
+      "to allow",
+      "to let"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "laisser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "lancer",
+    "display_form": "lancer",
+    "existing_english": [
+      "throw",
+      "to throw"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "lancer",
+      "lancé",
+      "lançant"
+    ],
+    "existing_tags": [],
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "laver",
+    "display_form": "laver",
+    "existing_english": [
+      "to wash",
+      "wash"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "laver"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "lever",
+    "display_form": "lever",
+    "existing_english": [
+      "raise",
+      "to raise"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "lever"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "lire",
+    "display_form": "lire",
+    "existing_english": [
+      "read",
+      "to read"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "lire",
+      "lu",
+      "read"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "louer",
+    "display_form": "louer",
+    "existing_english": [
+      "rent"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "lécher",
+    "display_form": "lécher",
+    "existing_english": [
+      "lick",
+      "to lick"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "lecher",
+      "lécher"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "macérer",
+    "display_form": "macérer",
+    "existing_english": [
+      "macerate (cooking)",
+      "soak (cooking)",
+      "to macerate",
+      "to soak"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "macerer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "maigrir",
+    "display_form": "maigrir",
+    "existing_english": [
+      "lose weight",
+      "to lose weight"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "maigrir"
+    ],
+    "existing_tags": [],
+    "verb_group": "2nd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "manger",
+    "display_form": "manger",
+    "existing_english": [
+      "eat",
+      "to eat"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "eat",
+      "manger"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "manquer",
+    "display_form": "manquer",
+    "existing_english": [
+      "miss the train",
+      "to lack",
+      "to miss"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "lack",
+      "manquant",
+      "manquer",
+      "manqué",
+      "miss"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "manquer de + nom",
+      "manquer le train",
+      "manquer à + personne",
+      "manquer à + promesse/devoir"
+    ]
+  },
+  {
+    "infinitive": "marchander",
+    "display_form": "marchander",
+    "existing_english": [
+      "bargain"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "marcher",
+    "display_form": "marcher",
+    "existing_english": [
+      "walk"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "mariner",
+    "display_form": "mariner",
+    "existing_english": [
+      "marinate (cooking)",
+      "to marinate"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "mariner"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "marquer",
+    "display_form": "marquer",
+    "existing_english": [
+      "to score"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "marquant",
+      "marquer",
+      "marqué"
+    ],
+    "existing_tags": [],
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "marquer un but"
+    ]
+  },
+  {
+    "infinitive": "menacer",
+    "display_form": "menacer",
+    "existing_english": [
+      "threaten",
+      "to threaten"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "menacer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "mener",
+    "display_form": "mener",
+    "existing_english": [
+      "lead",
+      "to lead"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "mener"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "mentir",
+    "display_form": "mentir",
+    "existing_english": [
+      "lie",
+      "to lie"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "mentir"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "mettre",
+    "display_form": "mettre",
+    "existing_english": [
+      "put",
+      "put in the oven",
+      "to put"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "mettre",
+      "mis",
+      "put"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

@@ -1,0 +1,604 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 054_expressions_batch_003
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "054_expressions_batch_003",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "avoir beau + infinitif",
+    "display_form": "avoir beau + infinitive",
+    "existing_english": [
+      "although (subject) does/is",
+      "however much (subject) does/is"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "although",
+      "avoir beau",
+      "however"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir (conjugué) + beau + INF",
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "avoir besoin de",
+    "display_form": "avoir besoin de [infinitive/noun]",
+    "existing_english": [
+      "to need"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir besoin de",
+      "besoin de",
+      "need"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir besoin de [infinitive/noun]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "avoir chaud",
+    "display_form": "j'ai chaud",
+    "existing_english": [
+      "to be hot",
+      "to be warm"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir chaud",
+      "hot",
+      "warm"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir chaud",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir confiance en",
+    "display_form": "avoir confiance en [quelqu'un/quelque chose]",
+    "existing_english": [
+      "to have confidence in",
+      "to trust"
+    ],
+    "existing_aliases": [
+      "avoir confiance"
+    ],
+    "existing_search_terms": [
+      "confiance",
+      "trust"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir confiance en + NOUN",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "en"
+    ]
+  },
+  {
+    "canonical_form": "avoir de la chance",
+    "display_form": "j'ai de la chance",
+    "existing_english": [
+      "to be lucky"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir de la chance",
+      "lucky"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir de la chance",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir de la patience",
+    "display_form": "avoir de la patience",
+    "existing_english": [
+      "to have patience"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir de la patience",
+      "have patience"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "avoir de la patience",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir des dettes",
+    "display_form": "avoir des dettes",
+    "existing_english": [
+      "to have debts"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir des dettes"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir du mal à + infinitive",
+    "display_form": "avoir du mal à faire quelque chose",
+    "existing_english": [
+      "to have trouble doing something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir du mal à",
+      "have trouble"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir du mal à + infinitive",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "avoir du succès",
+    "display_form": "avoir du succès",
+    "existing_english": [
+      "to be successful"
+    ],
+    "existing_aliases": [
+      "avoir du succès"
+    ],
+    "existing_search_terms": [
+      "success",
+      "succès"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir envie de",
+    "display_form": "avoir envie de [infinitive/noun]",
+    "existing_english": [
+      "to feel like",
+      "to want",
+      "to want to, to feel like"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir envie de",
+      "feel like",
+      "want"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir envie de [infinitive/noun]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "avoir faim",
+    "display_form": "avoir faim",
+    "existing_english": [
+      "to be hungry"
+    ],
+    "existing_aliases": [
+      "avoir faim"
+    ],
+    "existing_search_terms": [
+      "avoir faim",
+      "be hungry",
+      "faim",
+      "hungry"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "avoir froid",
+    "display_form": "avoir froid",
+    "existing_english": [
+      "to be cold"
+    ],
+    "existing_aliases": [
+      "avoir froid"
+    ],
+    "existing_search_terms": [
+      "avoir froid",
+      "cold",
+      "froid"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir honte",
+    "display_form": "j'ai honte",
+    "existing_english": [
+      "to be ashamed"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ashamed",
+      "avoir honte"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir honte",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir l'air",
+    "display_form": "avoir l’air",
+    "existing_english": [
+      "to look",
+      "to seem"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir l’air + adjectif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "avoir l'air + adjectif",
+    "display_form": "avoir l'air + adjectif",
+    "existing_english": [
+      "to seem + adjective",
+      "to look + adjective"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir l'air",
+      "look",
+      "seem"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "avoir l'air + [adjective]",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir l'air de",
+    "display_form": "j'ai l'air de...",
+    "existing_english": [
+      "to seem",
+      "to look like"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir l'air de",
+      "look",
+      "seem"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir l'air de + noun/infinitive",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "avoir la grippe",
+    "display_form": "avoir la grippe",
+    "existing_english": [
+      "to have the flu"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir la grippe",
+      "have the flu"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "avoir lieu",
+    "display_form": "avoir lieu",
+    "existing_english": [
+      "to take place"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir lieu",
+      "take place"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir lieu",
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "avoir mal",
+    "display_form": "j'ai mal",
+    "existing_english": [
+      "to have a pain",
+      "to hurt"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir mal",
+      "hurt",
+      "pain"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir mal",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir mal au dos",
+    "display_form": "avoir mal au dos",
+    "existing_english": [
+      "to have a backache"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir mal au dos",
+      "have a backache"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression",
+    "prepositions": [
+      "au"
+    ]
+  },
+  {
+    "canonical_form": "avoir mal au ventre",
+    "display_form": "avoir mal au ventre",
+    "existing_english": [
+      "to have a stomachache"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir mal au ventre",
+      "have a stomachache"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression",
+    "prepositions": [
+      "au"
+    ]
+  },
+  {
+    "canonical_form": "avoir mal à",
+    "display_form": "avoir mal à + body part",
+    "existing_english": [
+      "to have a pain in",
+      "to hurt (body part)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir mal à",
+      "pain in"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir mal à + article + body part",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "avoir mal à la tête",
+    "display_form": "avoir mal à la tête",
+    "existing_english": [
+      "to have a headache"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir mal à la tête",
+      "have a headache"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "avoir peur",
+    "display_form": "j'ai peur",
+    "existing_english": [
+      "to be afraid"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "afraid",
+      "avoir peur"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir peur",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir peur de",
+    "display_form": "avoir peur de [thing/person]",
+    "existing_english": [
+      "to be afraid of"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir peur de",
+      "be afraid of"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir peur de [thing/person]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "avoir raison",
+    "display_form": "j'ai raison",
+    "existing_english": [
+      "to be right"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir raison",
+      "right"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir raison",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir soif",
+    "display_form": "j'ai soif",
+    "existing_english": [
+      "to be thirsty"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir soif",
+      "thirsty"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir soif",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir tort",
+    "display_form": "j'ai tort",
+    "existing_english": [
+      "to be wrong"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir tort",
+      "wrong"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir tort",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "avoir un rhume",
+    "display_form": "avoir un rhume",
+    "existing_english": [
+      "to have a cold"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir un rhume",
+      "have a cold"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "avoir une chance de + infinitif",
+    "display_form": "avoir une chance de + infinitif",
+    "existing_english": [
+      "to have a chance to"
+    ],
+    "existing_aliases": [
+      "avoir une chance de"
+    ],
+    "existing_search_terms": [
+      "chance de"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "avoir une chance de + INF",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

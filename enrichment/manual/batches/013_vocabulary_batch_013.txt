@@ -1,0 +1,967 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 013_vocabulary_batch_013
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: vocabulary
+TOTAL ENTITIES IN THIS BATCH: 40
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, word_family, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "013_vocabulary_batch_013",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "<canonical_form_value>",
+        "part_of_speech": "<part_of_speech_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "les vacances",
+    "part_of_speech": "noun",
+    "display_form": "les vacances",
+    "existing_english": [
+      "vacation"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "lettre",
+    "part_of_speech": "noun",
+    "display_form": "une lettre",
+    "existing_english": [
+      "a letter"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "letter",
+      "lettre"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "libraire",
+    "part_of_speech": "noun",
+    "display_form": "un(e) libraire",
+    "existing_english": [
+      "a bookseller",
+      "bookseller"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bookseller"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "librairie",
+    "part_of_speech": "noun",
+    "display_form": "une librairie",
+    "existing_english": [
+      "a bookstore",
+      "bookstore"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bookshop",
+      "bookstore"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "libre",
+    "part_of_speech": "adjective",
+    "display_form": "libre",
+    "existing_english": [
+      "free"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "free",
+      "libre"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "lien de parenté",
+    "part_of_speech": "noun",
+    "display_form": "un lien de parenté",
+    "existing_english": [
+      "a family tie"
+    ],
+    "existing_aliases": [
+      "family tie"
+    ],
+    "existing_search_terms": [
+      "family tie",
+      "lien de parente",
+      "lien de parenté"
+    ],
+    "existing_word_family": [
+      {
+        "canonical_form": "parenté",
+        "part_of_speech": "noun"
+      }
+    ],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "word_family": [
+      {
+        "canonical_form": "parenté",
+        "part_of_speech": "noun"
+      }
+    ]
+  },
+  {
+    "canonical_form": "lieu",
+    "part_of_speech": "noun",
+    "display_form": "le lieu",
+    "existing_english": [
+      "location",
+      "place"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "lieu",
+      "location",
+      "place"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "lieu de naissance",
+    "part_of_speech": "noun",
+    "display_form": "le lieu de naissance",
+    "existing_english": [
+      "place of birth"
+    ],
+    "existing_aliases": [
+      "birthplace"
+    ],
+    "existing_search_terms": [
+      "lieu de naissance",
+      "place of birth"
+    ],
+    "existing_word_family": [
+      {
+        "canonical_form": "naissance",
+        "part_of_speech": "noun"
+      },
+      {
+        "canonical_form": "date de naissance",
+        "part_of_speech": "noun"
+      }
+    ],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "word_family": [
+      {
+        "canonical_form": "naissance",
+        "part_of_speech": "noun"
+      },
+      {
+        "canonical_form": "date de naissance",
+        "part_of_speech": "noun"
+      }
+    ]
+  },
+  {
+    "canonical_form": "lion",
+    "part_of_speech": "noun",
+    "display_form": "un lion",
+    "existing_english": [
+      "lion"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "lion"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "lit",
+    "part_of_speech": "noun",
+    "display_form": "lit",
+    "existing_english": [
+      "bed"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bed",
+      "lit"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "livres",
+    "part_of_speech": "noun",
+    "display_form": "livres",
+    "existing_english": [
+      "pounds (currency, weight)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "logiciel",
+    "part_of_speech": "noun",
+    "display_form": "un logiciel",
+    "existing_english": [
+      "a software program",
+      "software"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "logiciel"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "loisirs",
+    "part_of_speech": "noun",
+    "display_form": "les loisirs",
+    "existing_english": [
+      "leisure time"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "long",
+    "part_of_speech": "adjective",
+    "display_form": "long",
+    "existing_english": [
+      "long"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "long",
+      "longue"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "louche",
+    "part_of_speech": "noun",
+    "display_form": "une louche",
+    "existing_english": [
+      "a ladle"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ladle",
+      "louche"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "loup",
+    "part_of_speech": "noun",
+    "display_form": "un loup",
+    "existing_english": [
+      "wolf"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "loup",
+      "wolf"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "loyer",
+    "part_of_speech": "noun",
+    "display_form": "loyer",
+    "existing_english": [
+      "rent"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "lundi",
+    "part_of_speech": "noun",
+    "display_form": "lundi",
+    "existing_english": [
+      "Monday"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Monday",
+      "lundi"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "lunettes",
+    "part_of_speech": "noun",
+    "display_form": "lunettes",
+    "existing_english": [
+      "glasses (eye)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "lustre",
+    "part_of_speech": "noun",
+    "display_form": "lustre",
+    "existing_english": [
+      "chandelier"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "chandelier",
+      "lustre"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "lutte",
+    "part_of_speech": "noun",
+    "display_form": "la lutte",
+    "existing_english": [
+      "wrestling"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "lutte",
+      "wrestling"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "lèvres",
+    "part_of_speech": "noun",
+    "display_form": "les lèvres",
+    "existing_english": [
+      "lips"
+    ],
+    "existing_aliases": [
+      "lèvre"
+    ],
+    "existing_search_terms": [
+      "lèvre",
+      "lèvres"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "légume",
+    "part_of_speech": "noun",
+    "display_form": "légume",
+    "existing_english": [
+      "vegetable"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "magasin",
+    "part_of_speech": "noun",
+    "display_form": "un magasin",
+    "existing_english": [
+      "a store",
+      "store"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "shop",
+      "store"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "magasin d'appareils photo",
+    "part_of_speech": "noun",
+    "display_form": "un magasin d'appareils photo",
+    "existing_english": [
+      "a camera store",
+      "camera store"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "camera store"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "magasin de chaussures",
+    "part_of_speech": "noun",
+    "display_form": "un magasin de chaussures",
+    "existing_english": [
+      "a shoe shop",
+      "shoe store"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "shoe shop"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "magasin de disques",
+    "part_of_speech": "noun",
+    "display_form": "un magasin de disques",
+    "existing_english": [
+      "a record store",
+      "record store"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "record store"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "magasin de jouets",
+    "part_of_speech": "noun",
+    "display_form": "un magasin de jouets",
+    "existing_english": [
+      "a toy store",
+      "toy store"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "toy store"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "magie",
+    "part_of_speech": "noun",
+    "display_form": "magie",
+    "existing_english": [
+      "magic"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mai",
+    "part_of_speech": "noun",
+    "display_form": "mai",
+    "existing_english": [
+      "May"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "May",
+      "mai"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "main",
+    "part_of_speech": "noun",
+    "display_form": "la main",
+    "existing_english": [
+      "hand"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "main"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "maison",
+    "part_of_speech": "noun",
+    "display_form": "maison",
+    "existing_english": [
+      "house",
+      "home"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "house",
+      "maison"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mal",
+    "part_of_speech": "noun",
+    "display_form": "le mal",
+    "existing_english": [
+      "ache",
+      "hurt",
+      "pain"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "hurt",
+      "mal",
+      "pain"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "malade",
+    "part_of_speech": "adjective",
+    "display_form": "malade",
+    "existing_english": [
+      "sick"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "malheureusement",
+    "part_of_speech": "adverb",
+    "display_form": "malheureusement",
+    "existing_english": [
+      "unfortunately"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "malle",
+    "part_of_speech": "noun",
+    "display_form": "malle",
+    "existing_english": [
+      "trunk"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "marchand au détail",
+    "part_of_speech": "noun",
+    "display_form": "un(e) marchand(e) au détail",
+    "existing_english": [
+      "a retailer",
+      "retailer"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "retailer"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "marchand de gros",
+    "part_of_speech": "noun",
+    "display_form": "un(e) marchand(e) de gros",
+    "existing_english": [
+      "a wholesaler"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "wholesaler"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "marchand de journaux",
+    "part_of_speech": "noun",
+    "display_form": "un(e) marchand(e) de journaux",
+    "existing_english": [
+      "a newspaper dealer",
+      "news dealer"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "newspaper dealer"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "marchand de légumes",
+    "part_of_speech": "noun",
+    "display_form": "un(e) marchand(e) de légumes",
+    "existing_english": [
+      "a produce dealer",
+      "greengrocer"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "produce dealer"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

@@ -1,0 +1,946 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 009_vocabulary_batch_009
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: vocabulary
+TOTAL ENTITIES IN THIS BATCH: 40
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, word_family, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "009_vocabulary_batch_009",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "<canonical_form_value>",
+        "part_of_speech": "<part_of_speech_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "entraîneur",
+    "part_of_speech": "noun",
+    "display_form": "un entraîneur",
+    "existing_english": [
+      "a trainer",
+      "a coach"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "coach",
+      "entraîneur",
+      "trainer"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "envie",
+    "part_of_speech": "noun",
+    "display_form": "envie",
+    "existing_english": [
+      "desire",
+      "urge"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "desire",
+      "envie"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "escalier",
+    "part_of_speech": "noun",
+    "display_form": "escalier",
+    "existing_english": [
+      "staircase"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "escroc",
+    "part_of_speech": "noun",
+    "display_form": "un escroc",
+    "existing_english": [
+      "a crook",
+      "crook"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "escroc"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "escroquerie",
+    "part_of_speech": "noun",
+    "display_form": "l'escroquerie",
+    "existing_english": [
+      "fraud",
+      "swindle"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "escroquerie"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "espagnol",
+    "part_of_speech": "noun",
+    "display_form": "l'espagnol",
+    "existing_english": [
+      "Spanish"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "espagnol",
+      "l'espagnol"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "euro",
+    "part_of_speech": "noun",
+    "display_form": "euro",
+    "existing_english": [
+      "euro"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "euro"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "examen",
+    "part_of_speech": "noun",
+    "display_form": "examen",
+    "existing_english": [
+      "exam"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "exposition",
+    "part_of_speech": "noun",
+    "display_form": "une exposition",
+    "existing_english": [
+      "an exhibition",
+      "exhibition"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "exhibition",
+      "exposition"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "expédition",
+    "part_of_speech": "noun",
+    "display_form": "une expédition",
+    "existing_english": [
+      "expedition"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "extrait de naissance",
+    "part_of_speech": "noun",
+    "display_form": "un extrait de naissance",
+    "existing_english": [
+      "a birth certificate"
+    ],
+    "existing_aliases": [
+      "birth certificate"
+    ],
+    "existing_search_terms": [
+      "birth certificate",
+      "extrait de naissance"
+    ],
+    "existing_word_family": [
+      {
+        "canonical_form": "naissance",
+        "part_of_speech": "noun"
+      }
+    ],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "word_family": [
+      {
+        "canonical_form": "naissance",
+        "part_of_speech": "noun"
+      }
+    ]
+  },
+  {
+    "canonical_form": "extranet",
+    "part_of_speech": "noun",
+    "display_form": "extranet",
+    "existing_english": [
+      "extranet"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "faim",
+    "part_of_speech": "noun",
+    "display_form": "la faim",
+    "existing_english": [
+      "hunger"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faim",
+      "hunger"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "famille",
+    "part_of_speech": "noun",
+    "display_form": "une famille",
+    "existing_english": [
+      "a family",
+      "family"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "famille"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "faute",
+    "part_of_speech": "noun",
+    "display_form": "faute",
+    "existing_english": [
+      "mistake"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faute",
+      "mistake"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fauteuil",
+    "part_of_speech": "noun",
+    "display_form": "fauteuil",
+    "existing_english": [
+      "armchair"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "armchair",
+      "fauteuil"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "faux",
+    "part_of_speech": "adjective",
+    "display_form": "faux",
+    "existing_english": [
+      "false"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "false",
+      "fausse",
+      "faux"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "femme",
+    "part_of_speech": "noun",
+    "display_form": "une femme",
+    "existing_english": [
+      "a wife",
+      "a woman"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "femme"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fenêtre",
+    "part_of_speech": "noun",
+    "display_form": "fenêtre",
+    "existing_english": [
+      "a window",
+      "window"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "fenêtre",
+      "window"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "festival",
+    "part_of_speech": "noun",
+    "display_form": "un festival",
+    "existing_english": [
+      "festival"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "feu",
+    "part_of_speech": "noun",
+    "display_form": "feu",
+    "existing_english": [
+      "fire"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "feux de la rampe",
+    "part_of_speech": "noun",
+    "display_form": "les feux de la rampe",
+    "existing_english": [
+      "footlights"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "feux de la rampe",
+      "footlights"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fil RSS",
+    "part_of_speech": "noun",
+    "display_form": "fil RSS",
+    "existing_english": [
+      "RSS feed",
+      "an RSS feed"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "RSS feed",
+      "fil RSS"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "filière",
+    "part_of_speech": "noun",
+    "display_form": "filière",
+    "existing_english": [
+      "channel(s)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fille",
+    "part_of_speech": "noun",
+    "display_form": "une fille",
+    "existing_english": [
+      "a daughter",
+      "a girl"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "fille"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "film",
+    "part_of_speech": "noun",
+    "display_form": "le film",
+    "existing_english": [
+      "film"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "film"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fils",
+    "part_of_speech": "noun",
+    "display_form": "un fils",
+    "existing_english": [
+      "a son"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "fils"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fin",
+    "part_of_speech": "noun",
+    "display_form": "fin",
+    "existing_english": [
+      "end"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fleur",
+    "part_of_speech": "noun",
+    "display_form": "fleur",
+    "existing_english": [
+      "flower"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fleuriste",
+    "part_of_speech": "noun",
+    "display_form": "un(e) fleuriste",
+    "existing_english": [
+      "a florist",
+      "florist"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "florist"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "flûte",
+    "part_of_speech": "noun",
+    "display_form": "la flûte",
+    "existing_english": [
+      "flute"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "flute",
+      "flûte"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "foire aux questions",
+    "part_of_speech": "noun",
+    "display_form": "foire aux questions",
+    "existing_english": [
+      "FAQ",
+      "frequently asked questions (FAQ)"
+    ],
+    "existing_aliases": [
+      "FAQ"
+    ],
+    "existing_search_terms": [
+      "FAQ",
+      "foire aux questions"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fois",
+    "part_of_speech": "noun",
+    "display_form": "fois",
+    "existing_english": [
+      "time"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "football",
+    "part_of_speech": "noun",
+    "display_form": "le football",
+    "existing_english": [
+      "soccer"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "football",
+      "soccer"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "football américain",
+    "part_of_speech": "noun",
+    "display_form": "le football américain",
+    "existing_english": [
+      "football"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "football",
+      "football américain"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "forme",
+    "part_of_speech": "noun",
+    "display_form": "la forme",
+    "existing_english": [
+      "shape",
+      "form"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "form",
+      "forme",
+      "shape"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "formulaire",
+    "part_of_speech": "noun",
+    "display_form": "formulaire",
+    "existing_english": [
+      "form"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "fou",
+    "part_of_speech": "adjective",
+    "display_form": "fou",
+    "existing_english": [
+      "crazy"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "crazy",
+      "fol",
+      "folle",
+      "fou"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "foulard",
+    "part_of_speech": "noun",
+    "display_form": "foulard",
+    "existing_english": [
+      "scarf"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "four",
+    "part_of_speech": "noun",
+    "display_form": "un four",
+    "existing_english": [
+      "an oven"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "four",
+      "oven"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

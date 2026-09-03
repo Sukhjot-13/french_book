@@ -1,0 +1,225 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 121_examples_batch_012
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "121_examples_batch_012",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Il a mal au bras.",
+    "existing_english": "His arm hurts.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il a moins de chance que toi.",
+    "existing_english": "He is less lucky than you are.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il a ouvert un restaurant à Washington.",
+    "existing_english": "He opened a restaurant in Washington, D.C.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il a pris la bonne décision.",
+    "existing_english": "He made the right decision.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il a promis de ne pas ajouter trop d'ail.",
+    "existing_english": "He promised not to add too much garlic.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il a pu obtenir les fonds.",
+    "existing_english": "He succeeded in obtaining the funding.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il a regretté d'avoir oublié l'anniversaire de Clara.",
+    "existing_english": "He regretted having forgotten Clara's birthday.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il a un nouveau chien.",
+    "existing_english": "He has a new dog.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il a vendu sa voiture.",
+    "existing_english": "He sold his car.",
+    "existing_tags": []
+  },
+  {
+    "french": "il a été construit",
+    "existing_english": "it has been built",
+    "existing_tags": []
+  },
+  {
+    "french": "Il achète de la viande.",
+    "existing_english": "He is buying meat.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il aime les histoires qui finissent bien.",
+    "existing_english": "He likes stories that end well.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il aimerait avoir une tortue.",
+    "existing_english": "He would like to have a turtle.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il aimerait rencontrer la femme de sa vie.",
+    "existing_english": "He would like to meet the woman of his dreams.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il assiste rarement aux réunions.",
+    "existing_english": "He rarely attends meetings.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il aura encore brûlé le gigot d'agneau!",
+    "existing_english": "He probably burnt the leg of lamb again!",
+    "existing_tags": []
+  },
+  {
+    "french": "Il aura enseigné le français toute sa vie.",
+    "existing_english": "He'll have taught French all his life.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il aurait volé la voiture de son voisin.",
+    "existing_english": "He allegedly stole his neighbor’s car.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il avait beau habiter au bord de la mer, il n'a jamais appris à nager.",
+    "existing_english": "Although he lived by the sea, he never learned how to swim.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il avait faim.",
+    "existing_english": "He was hungry.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il avait toujours fini avant les autres.",
+    "existing_english": "He had always finished before the others.",
+    "existing_tags": []
+  },
+  {
+    "french": "il avançait",
+    "existing_english": "he moved forward",
+    "existing_tags": []
+  },
+  {
+    "french": "Il bruine.",
+    "existing_english": "It is drizzling.",
+    "existing_tags": []
+  },
+  {
+    "french": "il chante",
+    "existing_english": "he sings",
+    "existing_tags": []
+  },
+  {
+    "french": "Il cherche quelqu'un qui puisse créer un logiciel pour son entreprise.",
+    "existing_english": "He is looking for someone who can create a piece of software for his company.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il cherche un artisan qui puisse restaurer ce fauteuil Louis XV.",
+    "existing_english": "He is looking for an artisan who might be able to restore this Louis XV armchair.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il commence à travailler à huit heures.",
+    "existing_english": "He starts to work at eight o'clock.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il demande que nous soyons plus efficaces.",
+    "existing_english": "He is asking us to be more efficient.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il doit sa vie à son chirurgien.",
+    "existing_english": "He owes his life to his surgeon.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est accroupi dans le jardin à cueillir des fraises.",
+    "existing_english": "He is squatting in the garden picking strawberries.",
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

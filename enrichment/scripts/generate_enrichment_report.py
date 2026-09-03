@@ -19,24 +19,15 @@ for p in [str(REPO_ROOT), str(SCRIPT_DIR)]:
     if p not in sys.path:
         sys.path.insert(0, p)
 
-try:
-    from enrichment.scripts.enrichment_config import (
-        REVIEW_DIR,
-        REPORTS_DIR,
-        LOGS_DIR,
-    )
-    from enrichment.scripts.enrichment_helpers import (
-        load_json,
-    )
-except ImportError:
-    from enrichment_config import (
-        REVIEW_DIR,
-        REPORTS_DIR,
-        LOGS_DIR,
-    )
-    from enrichment_helpers import (
-        load_json,
-    )
+from enrichment.scripts.enrichment_config import (
+    REVIEW_DIR,
+    REPORTS_DIR,
+    LOGS_DIR,
+)
+from enrichment.scripts.enrichment_helpers import (
+    load_json,
+)
+
 
 
 

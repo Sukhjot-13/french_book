@@ -1,0 +1,275 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 093_grammar_rules_batch_012
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: grammar_rules
+TOTAL ENTITIES IN THIS BATCH: 15
+TARGET ENRICHMENT FIELDS: explanation, summary, usage, signal_words, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "093_grammar_rules_batch_012",
+  "collection": "grammar_rules",
+  "patches": [
+    {
+      "entity_key": "<rule_name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "rule_name": "Past conditional for unconfirmed past information (journalistic)",
+    "existing_explanation": "Often translated with 'reportedly' or 'allegedly'.",
+    "existing_summary": "The past conditional is used like the present conditional as a conditionnel journalistique to express unconfirmed past information.",
+    "existing_usage": [
+      "unconfirmed past information",
+      "alleged past actions"
+    ],
+    "existing_signal_words": [
+      "reportedly",
+      "allegedly"
+    ],
+    "existing_tags": [],
+    "summary": "The past conditional is used like the present conditional as a conditionnel journalistique to express unconfirmed past information.",
+    "formation": "past conditional"
+  },
+  {
+    "rule_name": "Past conditional with si clause in plus-que-parfait",
+    "existing_explanation": "Expresses hypothetical situations in the past.",
+    "existing_summary": "The past conditional is usually found in sentences where the si clause is in the plus-que-parfait.",
+    "existing_usage": [
+      "hypothetical past condition"
+    ],
+    "existing_signal_words": [
+      "si"
+    ],
+    "existing_tags": [],
+    "summary": "The past conditional is usually found in sentences where the si clause is in the plus-que-parfait.",
+    "formation": "si + plus-que-parfait, main clause in past conditional"
+  },
+  {
+    "rule_name": "Past infinitive formation",
+    "existing_explanation": "For verbs conjugated with être in compound tenses, the past participle agrees with the subject.",
+    "existing_summary": "Infinitif passé = avoir or être infinitive + past participle of main verb.",
+    "existing_usage": [
+      "To mark anteriority."
+    ],
+    "existing_signal_words": [
+      "après"
+    ],
+    "existing_tags": [],
+    "summary": "Infinitif passé = avoir or être infinitive + past participle of main verb.",
+    "formation": "avoir/être (infinitive) + past participle"
+  },
+  {
+    "rule_name": "Past main clause: future → conditionnel",
+    "existing_explanation": "Future recounted in the present conditional.",
+    "existing_summary": "If the main clause verb is in passé composé and direct speech is in future, change the dependent verb to conditionnel.",
+    "existing_usage": [
+      "When reporting future statements with a past main clause"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "If the main clause verb is in passé composé and direct speech is in future, change the dependent verb to conditionnel.",
+    "formation": "Main clause passé composé + dependent verb conditionnel"
+  },
+  {
+    "rule_name": "Past main clause: passé composé → plus-que-parfait",
+    "existing_explanation": "Passé composé recounted in the plus-que-parfait.",
+    "existing_summary": "If the main clause verb is in passé composé and direct speech is in passé composé, change the dependent verb to plus-que-parfait.",
+    "existing_usage": [
+      "When reporting passé composé statements with a past main clause"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "If the main clause verb is in passé composé and direct speech is in passé composé, change the dependent verb to plus-que-parfait.",
+    "formation": "Main clause passé composé + dependent verb plus-que-parfait"
+  },
+  {
+    "rule_name": "Past main clause: present → imparfait",
+    "existing_explanation": "Present recounted in the imparfait.",
+    "existing_summary": "If the main clause verb is in passé composé and direct speech is in present, change the dependent verb to imparfait.",
+    "existing_usage": [
+      "When reporting present tense statements with a past main clause"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "If the main clause verb is in passé composé and direct speech is in present, change the dependent verb to imparfait.",
+    "formation": "Main clause passé composé + dependent verb imparfait"
+  },
+  {
+    "rule_name": "Past participle agreement with preceding direct object (que)",
+    "existing_explanation": "C’est la table en marbre que nous avons trouvée au marché aux puces. La pièce qu’il a écrite n’a jamais été jouée. Montrez-moi la photo que vous avez prise. Les chaises qu’ils ont restaurées sont comme neuves.",
+    "existing_summary": "In compound tenses, if the direct object is placed before the verb, the past participle agrees in gender and number with that direct object, including when que refers back to it.",
+    "existing_usage": [
+      "agreement with preceding direct object"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "In compound tenses, if the direct object is placed before the verb, the past participle agrees in gender and number with that direct object, including when que refers back to it.",
+    "formation": "direct object + avoir/être + past participle agreeing with object"
+  },
+  {
+    "rule_name": "Past participle agreement with être",
+    "existing_explanation": "For verbs conjugated with être (non-pronominal), past participle agrees with subject.",
+    "existing_summary": "Past participle agrees with subject in gender and number.",
+    "existing_usage": [],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Past participle agrees with subject in gender and number."
+  },
+  {
+    "rule_name": "Pendant vs pour for past duration",
+    "existing_explanation": "Pendant means 'for' or 'during' and is used with the passé composé to indicate how long an action lasted. It may be omitted. Pour is never used for duration in the past.",
+    "existing_summary": "Use pendant (or omit it) to express duration in the past. Do not use pour for duration in the past.",
+    "existing_usage": [
+      "To express duration of a completed past action"
+    ],
+    "existing_signal_words": [
+      "pendant"
+    ],
+    "existing_tags": [],
+    "summary": "Use pendant (or omit it) to express duration in the past. Do not use pour for duration in the past.",
+    "formation": "pendant + duration (optional)"
+  },
+  {
+    "rule_name": "Penser/croire: affirmative vs negative/interrogative",
+    "existing_explanation": "Affirmative: Je pense qu'il vient (indicative). Negative: Je ne pense pas qu'il vienne (subjunctive) may indicate doubt. The choice can convey different degrees of certainty.",
+    "existing_summary": "Penser and croire in the affirmative are followed by the indicative; in negative or interrogative, the subjunctive may be used to express uncertainty.",
+    "existing_usage": [
+      "Distinguishing certainty vs doubt."
+    ],
+    "existing_signal_words": [
+      "penser que",
+      "croire que",
+      "ne pas penser que",
+      "ne pas croire que"
+    ],
+    "existing_tags": [],
+    "summary": "Penser and croire in the affirmative are followed by the indicative; in negative or interrogative, the subjunctive may be used to express uncertainty.",
+    "formation": "Affirmative: penser/croire + que + indicative. Negative/interrogative: ne pas penser/croire + que + subjunctive (optional)."
+  },
+  {
+    "rule_name": "Perfect participle (having + past participle)",
+    "existing_explanation": "Forms: ayant vu, ayant compris, ayant joué, ayant traversé, étant allé(e)(s), étant parti(e)(s), nous étant promené(e)s, nous étant retrouvé(e)s.",
+    "existing_summary": "When an action precedes another, use avoir or être in the present participle combined with a past participle. The past participle agrees with the subject if the verb is conjugated with être.",
+    "existing_usage": [
+      "to express anteriority"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "When an action precedes another, use avoir or être in the present participle combined with a past participle. The past participle agrees with the subject if the verb is conjugated with être.",
+    "formation": "ayant/étant + past participle"
+  },
+  {
+    "rule_name": "Placement of short adverbs in passé composé",
+    "existing_explanation": "In compound tenses, short adverbs like beaucoup, trop, assez, bien, mal, souvent, rarement, toujours, etc., appear between the auxiliary and the past participle.",
+    "existing_summary": "Short adverbs of quantity, quality, and frequency are placed between the auxiliary (avoir/être) and the past participle in the passé composé.",
+    "existing_usage": [
+      "To modify a verb in the passé composé with a short adverb"
+    ],
+    "existing_signal_words": [
+      "beaucoup",
+      "trop",
+      "assez",
+      "bien",
+      "mal",
+      "souvent",
+      "rarement"
+    ],
+    "existing_tags": [],
+    "summary": "Short adverbs of quantity, quality, and frequency are placed between the auxiliary (avoir/être) and the past participle in the passé composé.",
+    "formation": "auxiliary + adverb + past participle"
+  },
+  {
+    "rule_name": "Plural by adding -s",
+    "existing_explanation": "Basic plural formation.",
+    "existing_summary": "Most nouns add -s to form plural.",
+    "existing_usage": [
+      "to make nouns plural"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Most nouns add -s to form plural.",
+    "formation": "singular + -s"
+  },
+  {
+    "rule_name": "Plural of cent",
+    "existing_explanation": "Add an -s to cent greater than one hundred (deux cents, trois cents), except when cent is followed by another number (deux cent trois).",
+    "existing_summary": "Cent takes -s when multiplied by a number greater than 1 and not followed by another number (deux cents); no -s when followed by another number (deux cent trois).",
+    "existing_usage": [
+      "Writing numbers from 200 to 999."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Cent takes -s when multiplied by a number greater than 1 and not followed by another number (deux cents); no -s when followed by another number (deux cent trois).",
+    "formation": "cent (100), deux cents (200), trois cents (300); but deux cent trois (203)."
+  },
+  {
+    "rule_name": "Plural of mille, million, milliard",
+    "existing_explanation": "Never add an -s to mille (one thousand). In French, an -s is added to million and milliard greater than un (one).",
+    "existing_summary": "Mille never takes -s; million and milliard take -s when greater than one.",
+    "existing_usage": [
+      "Writing large numbers."
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Mille never takes -s; million and milliard take -s when greater than one.",
+    "formation": "mille (1000), deux mille (2000); un million, deux millions; un milliard, deux milliards."
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

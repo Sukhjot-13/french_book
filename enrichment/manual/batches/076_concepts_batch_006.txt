@@ -1,0 +1,229 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 076_concepts_batch_006
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: concepts
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: description, aliases, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "076_concepts_batch_006",
+  "collection": "concepts",
+  "patches": [
+    {
+      "entity_key": "<name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "name": "Regular -er verbs",
+    "existing_description": "Verbs belonging to the first group, ending in -er in the infinitive, which follow a standard conjugation pattern.",
+    "existing_aliases": [
+      "-er verbs",
+      "first group verbs"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Regular conjugation",
+    "existing_description": "Conjugation patterns that follow predictable rules, such as Type 1 -ir verbs and regular -re verbs.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Regular past participle formation",
+    "existing_description": "Past participle endings for regular verbs: -er → -é, -ir → -i, -re → -u.",
+    "existing_aliases": [
+      "regular participles"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Relative clauses",
+    "existing_description": "The subjunctive may be used after relative pronouns when there is doubt about existence.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Relative pronouns",
+    "existing_description": "Pronouns that link a dependent clause to a main clause, referring to persons or things.",
+    "existing_aliases": [
+      "pronoms relatifs"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Reporting verbs",
+    "existing_description": "Verbs used in the main clause of indirect speech",
+    "existing_aliases": [
+      "verbes introducteurs"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Savoir vs. connaître",
+    "existing_description": "Distinction between knowing facts/how to do something (savoir) and being acquainted with (connaître).",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Spelling changes in -er verbs",
+    "existing_description": "Certain -er verbs undergo spelling or stem changes in the present tense to maintain pronunciation, including verbs ending in -cer, -ger, -e+consonant+er, -é+consonant+er, and -e+l+er.",
+    "existing_aliases": [
+      "spelling changes",
+      "stem changes"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Subject pronoun",
+    "existing_description": "Pronoun used as the subject of a verb.",
+    "existing_aliases": [
+      "pronom sujet"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Subject pronouns",
+    "existing_description": "The French subject pronouns: je, tu, il, elle, on, nous, vous, ils, elles.",
+    "existing_aliases": [
+      "personal pronouns",
+      "subject pronouns"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Subjective pronominal",
+    "existing_description": "Idiomatic or historical use of pronominal form; neither reflexive nor reciprocal.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Subjunctive",
+    "existing_description": "Use of subjunctive after relative pronouns to express doubt or after superlative antecedents.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Subjunctive mood",
+    "existing_description": "The subjunctive is a mood, not a tense. It refers to someone's opinion or deals with hypothetical actions.",
+    "existing_aliases": [
+      "subjonctif"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Subjunctive with indefinite expressions",
+    "existing_description": "Use of the present subjunctive after indefinite expressions equivalent to whatever, whenever, wherever, whoever.",
+    "existing_aliases": [
+      "indefinite subjunctive",
+      "où que",
+      "quel que",
+      "qui que",
+      "quoi que"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Superlative",
+    "existing_description": "The subjunctive is used after superlatives and adjectives with superlative meaning.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Tense concordance",
+    "existing_description": "la concordance des temps",
+    "existing_aliases": [
+      "concordance des temps"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "The verb manquer",
+    "existing_description": "The verb manquer and its meanings depending on preposition or lack thereof.",
+    "existing_aliases": [
+      "manquer",
+      "to lack",
+      "to miss"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Time",
+    "existing_description": "Expressions and adverbs relating to time (today, tomorrow, yesterday, etc.)",
+    "existing_aliases": [
+      "adverbs of time",
+      "temporal expressions"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Time expressions",
+    "existing_description": "Vocabulary items related to time, such as days, parts of day, frequency adverbs.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Usage",
+    "existing_description": "The various contexts in which the present tense is used in French.",
+    "existing_aliases": [],
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

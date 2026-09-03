@@ -1,0 +1,929 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 011_vocabulary_batch_011
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: vocabulary
+TOTAL ENTITIES IN THIS BATCH: 40
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, word_family, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "011_vocabulary_batch_011",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "<canonical_form_value>",
+        "part_of_speech": "<part_of_speech_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "habituellement",
+    "part_of_speech": "adverb",
+    "display_form": "habituellement",
+    "existing_english": [
+      "usually"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "hanche",
+    "part_of_speech": "noun",
+    "display_form": "la hanche",
+    "existing_english": [
+      "hip"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "hanche"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "harcèlement",
+    "part_of_speech": "noun",
+    "display_form": "le harcèlement",
+    "existing_english": [
+      "harassment"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "harcèlement"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "haricot",
+    "part_of_speech": "noun",
+    "display_form": "haricot",
+    "existing_english": [
+      "bean"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "haricot vert",
+    "part_of_speech": "noun",
+    "display_form": "haricot vert",
+    "existing_english": [
+      "green bean"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "green bean",
+      "haricot vert"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "harmonica",
+    "part_of_speech": "noun",
+    "display_form": "l'harmonica",
+    "existing_english": [
+      "harmonica"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "harmonica"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "harpe",
+    "part_of_speech": "noun",
+    "display_form": "la harpe",
+    "existing_english": [
+      "harp"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "harp",
+      "harpe"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "hautbois",
+    "part_of_speech": "noun",
+    "display_form": "le hautbois",
+    "existing_english": [
+      "oboe"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "hautbois",
+      "oboe"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "heureux",
+    "part_of_speech": "adjective",
+    "display_form": "heureux, heureuse",
+    "existing_english": [
+      "content",
+      "glad",
+      "happy"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "content",
+      "glad",
+      "happy",
+      "heureuse",
+      "heureux"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "hier",
+    "part_of_speech": "adverb",
+    "display_form": "hier",
+    "existing_english": [
+      "yesterday"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "hier"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "hindi",
+    "part_of_speech": "noun",
+    "display_form": "l'hindi",
+    "existing_english": [
+      "Hindi"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "hindi",
+      "l'hindi"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "hippopotame",
+    "part_of_speech": "noun",
+    "display_form": "un hippopotame",
+    "existing_english": [
+      "hippopotamus"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "hippo",
+      "hippopotame"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "histoire",
+    "part_of_speech": "noun",
+    "display_form": "histoire",
+    "existing_english": [
+      "story"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "honte",
+    "part_of_speech": "noun",
+    "display_form": "honte",
+    "existing_english": [
+      "shame"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "honte",
+      "shame"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "horloge",
+    "part_of_speech": "noun",
+    "display_form": "horloge",
+    "existing_english": [
+      "clock"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "clock",
+      "horloge"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "horloger",
+    "part_of_speech": "noun",
+    "display_form": "un horloger",
+    "existing_english": [
+      "a watchmaker",
+      "watchmaker"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "watchmaker"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "huile",
+    "part_of_speech": "noun",
+    "display_form": "huile",
+    "existing_english": [
+      "oil"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "huit",
+    "part_of_speech": "number",
+    "display_form": "huit",
+    "existing_english": [
+      "eight"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "eight",
+      "huit"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "huitième",
+    "part_of_speech": "adjective",
+    "display_form": "huitième",
+    "existing_english": [
+      "eighth"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "eighth",
+      "huitième"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "humeur",
+    "part_of_speech": "noun",
+    "display_form": "l'humeur",
+    "existing_english": [
+      "mood"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "humeur",
+      "mood"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "idée",
+    "part_of_speech": "noun",
+    "display_form": "idée",
+    "existing_english": [
+      "idea"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "immobilier",
+    "part_of_speech": "noun",
+    "display_form": "immobilier",
+    "existing_english": [
+      "real estate"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "impliqué",
+    "part_of_speech": "adjective",
+    "display_form": "impliqué",
+    "existing_english": [
+      "implicated"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "imprimante",
+    "part_of_speech": "noun",
+    "display_form": "une imprimante",
+    "existing_english": [
+      "a printer",
+      "printer (device)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "imprimante"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "inconnu",
+    "part_of_speech": "adjective",
+    "display_form": "inconnu(e)",
+    "existing_english": [
+      "foreign, unknown",
+      "unknown"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "inconnu",
+      "unknown"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "informatique",
+    "part_of_speech": "noun",
+    "display_form": "l'informatique",
+    "existing_english": [
+      "computer science"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "informatique"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "inquiétant",
+    "part_of_speech": "adjective",
+    "display_form": "inquiétant",
+    "existing_english": [
+      "disturbing"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "instruments",
+    "part_of_speech": "noun",
+    "display_form": "les instruments",
+    "existing_english": [
+      "instruments"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "instruments",
+      "les instruments"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "interactif",
+    "part_of_speech": "adjective",
+    "display_form": "interactif",
+    "existing_english": [
+      "interactive"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "interactif",
+      "interactive"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "internaute",
+    "part_of_speech": "noun",
+    "display_form": "un(e) internaute",
+    "existing_english": [
+      "Web user",
+      "a Internet surfer",
+      "a Web user",
+      "a cybernaut",
+      "cybernaut"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Web user",
+      "cybernaut",
+      "internaute"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "intranet",
+    "part_of_speech": "noun",
+    "display_form": "intranet",
+    "existing_english": [
+      "intranet"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "intrigue",
+    "part_of_speech": "noun",
+    "display_form": "l'intrigue",
+    "existing_english": [
+      "plot"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "intrigue",
+      "plot"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "italien",
+    "part_of_speech": "adjective",
+    "display_form": "italien",
+    "existing_english": [
+      "Italian"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Italian",
+      "italien",
+      "italienne"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "italien",
+    "part_of_speech": "noun",
+    "display_form": "l'italien",
+    "existing_english": [
+      "Italian"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "italien",
+      "l'italien"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "jadis",
+    "part_of_speech": "adverb",
+    "display_form": "jadis",
+    "existing_english": [
+      "in times past"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "jambe",
+    "part_of_speech": "noun",
+    "display_form": "la jambe",
+    "existing_english": [
+      "leg"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "jambe"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "janvier",
+    "part_of_speech": "noun",
+    "display_form": "janvier",
+    "existing_english": [
+      "January"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "January",
+      "janvier"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "japonais",
+    "part_of_speech": "noun",
+    "display_form": "le japonais",
+    "existing_english": [
+      "Japanese"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "japonais",
+      "le japonais"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "jardin",
+    "part_of_speech": "noun",
+    "display_form": "jardin",
+    "existing_english": [
+      "garden"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "jaune",
+    "part_of_speech": "adjective",
+    "display_form": "jaune",
+    "existing_english": [
+      "yellow"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "jaune",
+      "yellow"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

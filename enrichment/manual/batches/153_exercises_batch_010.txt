@@ -1,0 +1,207 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 153_exercises_batch_010
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: exercises
+TOTAL ENTITIES IN THIS BATCH: 15
+TARGET ENRICHMENT FIELDS: instructions, notes, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "153_exercises_batch_010",
+  "collection": "exercises",
+  "patches": [
+    {
+      "entity_key": {
+        "chapter_number": "<chapter_number_value>",
+        "exercise_code": "<exercise_code_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "chapter_number": 17,
+    "exercise_code": "17-2",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 17,
+    "exercise_code": "17-3",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 17,
+    "exercise_code": "17.1",
+    "title": "Exercice 17·1",
+    "existing_instructions": "Mettre les phrases suivantes à la voix passive. Attention aux temps de verbe!",
+    "existing_notes": null,
+    "instructions": "Mettre les phrases suivantes à la voix passive. Attention aux temps de verbe!",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 17,
+    "exercise_code": "17.2",
+    "title": "Exercice 17·2",
+    "existing_instructions": "Mettre les phrases suivantes à la voix active. Attention aux temps de verbe!",
+    "existing_notes": null,
+    "instructions": "Mettre les phrases suivantes à la voix active. Attention aux temps de verbe!",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 17,
+    "exercise_code": "17.3",
+    "title": "Exercice 17·3",
+    "existing_instructions": "Traduire les phrases suivantes en utilisant la voix passive.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases suivantes en utilisant la voix passive.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 18,
+    "exercise_code": "18-1",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 18,
+    "exercise_code": "18-2",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 18,
+    "exercise_code": "18-3",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 18,
+    "exercise_code": "18-4",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 18,
+    "exercise_code": "18.1",
+    "title": null,
+    "existing_instructions": "Mettre les phrases suivantes au discours indirect en commençant la phrase par Il veut savoir si.",
+    "existing_notes": null,
+    "instructions": "Mettre les phrases suivantes au discours indirect en commençant la phrase par Il veut savoir si.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 18,
+    "exercise_code": "18.2",
+    "title": null,
+    "existing_instructions": "Relier les deux membres de phrase.",
+    "existing_notes": null,
+    "instructions": "Relier les deux membres de phrase.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 18,
+    "exercise_code": "18.3",
+    "title": null,
+    "existing_instructions": "Commencer les phrases par J'ai entendu dire que. Attention à la concordance des temps.",
+    "existing_notes": null,
+    "instructions": "Commencer les phrases par J'ai entendu dire que. Attention à la concordance des temps.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 18,
+    "exercise_code": "18.4",
+    "title": null,
+    "existing_instructions": "Traduire les phrases suivantes en utilisant vous si nécessaire.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases suivantes en utilisant vous si nécessaire.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 19,
+    "exercise_code": "19-1",
+    "title": null,
+    "existing_instructions": "Mettre à l’impératif les phrases suivantes.",
+    "existing_notes": null,
+    "instructions": "Mettre à l’impératif les phrases suivantes.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 19,
+    "exercise_code": "19-2",
+    "title": null,
+    "existing_instructions": "Mettre à l’impératif les phrases suivantes.",
+    "existing_notes": null,
+    "instructions": "Mettre à l’impératif les phrases suivantes.",
+    "questions_count": 10
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

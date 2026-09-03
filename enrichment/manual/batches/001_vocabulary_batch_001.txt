@@ -1,0 +1,930 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 001_vocabulary_batch_001
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: vocabulary
+TOTAL ENTITIES IN THIS BATCH: 40
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, word_family, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "001_vocabulary_batch_001",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "<canonical_form_value>",
+        "part_of_speech": "<part_of_speech_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "ADN",
+    "part_of_speech": "noun",
+    "display_form": "l'ADN",
+    "existing_english": [
+      "DNA"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ADN"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "Brésil",
+    "part_of_speech": "noun",
+    "display_form": "Brésil",
+    "existing_english": [
+      "Brazil"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Brazil",
+      "Brésil"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "Canada",
+    "part_of_speech": "noun",
+    "display_form": "Canada",
+    "existing_english": [
+      "Canada"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Canada"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "Europe",
+    "part_of_speech": "noun",
+    "display_form": "Europe",
+    "existing_english": [
+      "Europe"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "France",
+    "part_of_speech": "noun",
+    "display_form": "France",
+    "existing_english": [
+      "France"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "France"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "Internet",
+    "part_of_speech": "noun",
+    "display_form": "Internet",
+    "existing_english": [
+      "Internet"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "Pennsylvanie",
+    "part_of_speech": "noun",
+    "display_form": "Pennsylvanie",
+    "existing_english": [
+      "Pennsylvania"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Pennsylvania",
+      "Pennsylvanie"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "Texas",
+    "part_of_speech": "noun",
+    "display_form": "Texas",
+    "existing_english": [
+      "Texas"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Texas"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "Toile",
+    "part_of_speech": "noun",
+    "display_form": "la Toile",
+    "existing_english": [
+      "World Wide Web",
+      "the Web"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Toile",
+      "la Toile"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "Venise",
+    "part_of_speech": "noun",
+    "display_form": "Venise",
+    "existing_english": [
+      "Venice"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Venice",
+      "Venise"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "Web 2.0",
+    "part_of_speech": "noun",
+    "display_form": "Web 2.0",
+    "existing_english": [
+      "Web 2.0"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "abri",
+    "part_of_speech": "noun",
+    "display_form": "abri",
+    "existing_english": [
+      "shelter"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "abstention",
+    "part_of_speech": "noun",
+    "display_form": "l'abstention (f.)",
+    "existing_english": [
+      "abstention"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "abstention"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "accessoire",
+    "part_of_speech": "noun",
+    "display_form": "accessoire",
+    "existing_english": [
+      "accessory",
+      "stage prop"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "accessoires",
+    "part_of_speech": "noun",
+    "display_form": "les accessoires",
+    "existing_english": [
+      "props"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "accessoires",
+      "props"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "accordéon",
+    "part_of_speech": "noun",
+    "display_form": "l'accordéon",
+    "existing_english": [
+      "accordion"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "accordion",
+      "accordéon"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "accusé(e)",
+    "part_of_speech": "noun",
+    "display_form": "l'accusé(e)",
+    "existing_english": [
+      "accused (person)",
+      "the accused"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "accusé",
+      "accusée"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "accès haut-débit",
+    "part_of_speech": "noun",
+    "display_form": "accès haut-débit",
+    "existing_english": [
+      "high-speed Internet access",
+      "high-speed access"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "accès haut-débit",
+      "high-speed Internet"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "acteur",
+    "part_of_speech": "noun",
+    "display_form": "un acteur",
+    "existing_english": [
+      "actor",
+      "actress"
+    ],
+    "existing_aliases": [
+      "acteur, actrice"
+    ],
+    "existing_search_terms": [
+      "acteur",
+      "actor"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "acteur, actrice",
+    "part_of_speech": "noun",
+    "display_form": "acteur, actrice",
+    "existing_english": [
+      "actor",
+      "actress"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "actrice",
+    "part_of_speech": "noun",
+    "display_form": "une actrice",
+    "existing_english": [
+      "actress"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [
+      {
+        "canonical_form": "acteur",
+        "part_of_speech": "noun"
+      }
+    ],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    },
+    "word_family": [
+      {
+        "canonical_form": "acteur",
+        "part_of_speech": "noun"
+      }
+    ]
+  },
+  {
+    "canonical_form": "actuel(le)",
+    "part_of_speech": "adjective",
+    "display_form": "actuel(le)",
+    "existing_english": [
+      "present",
+      "present day"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "actuellement",
+    "part_of_speech": "adverb",
+    "display_form": "actuellement",
+    "existing_english": [
+      "currently"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "addition",
+    "part_of_speech": "noun",
+    "display_form": "addition",
+    "existing_english": [
+      "bill"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "administrateur",
+    "part_of_speech": "noun",
+    "display_form": "administrateur",
+    "existing_english": [
+      "webmaster"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "administrateur",
+      "webmaster"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "administrateur de site",
+    "part_of_speech": "noun",
+    "display_form": "administrateur de site",
+    "existing_english": [
+      "webmaster"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "administrateur, administratrice de site",
+    "part_of_speech": "noun",
+    "display_form": "administrateur, administratrice de site",
+    "existing_english": [
+      "webmaster"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "adresse",
+    "part_of_speech": "noun",
+    "display_form": "une adresse",
+    "existing_english": [
+      "an address"
+    ],
+    "existing_aliases": [
+      "address"
+    ],
+    "existing_search_terms": [
+      "address",
+      "adresse"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "adresse IP",
+    "part_of_speech": "noun",
+    "display_form": "adresse IP",
+    "existing_english": [
+      "Internet protocol address",
+      "an Internet protocol address"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "IP address",
+      "adresse IP"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "adresse URL",
+    "part_of_speech": "noun",
+    "display_form": "adresse URL",
+    "existing_english": [
+      "URL",
+      "URL address",
+      "a URL"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "URL",
+      "adresse URL"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "adulte",
+    "part_of_speech": "noun",
+    "display_form": "un(e) adulte",
+    "existing_english": [
+      "an adult"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "adulte"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "adversaire",
+    "part_of_speech": "noun",
+    "display_form": "un(e) adversaire",
+    "existing_english": [
+      "an opponent"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "adversaire",
+      "opponent"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "affaires",
+    "part_of_speech": "noun",
+    "display_form": "affaires",
+    "existing_english": [
+      "business"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "affiche",
+    "part_of_speech": "noun",
+    "display_form": "affiche",
+    "existing_english": [
+      "poster"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "agence de voyages",
+    "part_of_speech": "noun",
+    "display_form": "une agence de voyages",
+    "existing_english": [
+      "a travel agency",
+      "travel agency"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "travel agency"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "agneau",
+    "part_of_speech": "noun",
+    "display_form": "un agneau",
+    "existing_english": [
+      "lamb"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "agneau",
+      "lamb"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "agression",
+    "part_of_speech": "noun",
+    "display_form": "une agression",
+    "existing_english": [
+      "a mugging",
+      "an assault",
+      "assault",
+      "mugging"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "agression"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "l'",
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "agréable",
+    "part_of_speech": "adjective",
+    "display_form": "agréable",
+    "existing_english": [
+      "pleasant"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "agreable",
+      "pleasant"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "aigle",
+    "part_of_speech": "noun",
+    "display_form": "un aigle",
+    "existing_english": [
+      "eagle"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "aigle",
+      "eagle"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "ainsi",
+    "part_of_speech": "adverb",
+    "display_form": "ainsi",
+    "existing_english": [
+      "thus"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

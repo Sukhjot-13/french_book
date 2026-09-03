@@ -1,0 +1,367 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 030_verbs_batch_004
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "030_verbs_batch_004",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "brûler",
+    "display_form": "brûler",
+    "existing_english": [
+      "burn"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "bâtir",
+    "display_form": "bâtir",
+    "existing_english": [
+      "to build"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bâtir"
+    ],
+    "existing_tags": [],
+    "verb_group": "2nd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "bénir",
+    "display_form": "bénir",
+    "existing_english": [
+      "to bless"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bénir"
+    ],
+    "existing_tags": [],
+    "verb_group": "2nd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "cambrioler",
+    "display_form": "cambrioler",
+    "existing_english": [
+      "burglarize",
+      "to burglarize"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "caraméliser",
+    "display_form": "caraméliser",
+    "existing_english": [
+      "to caramelize"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "carameliser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "casser",
+    "display_form": "casser",
+    "existing_english": [
+      "break",
+      "to break"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "casser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "ceindre",
+    "display_form": "ceindre",
+    "existing_english": [
+      "to encircle"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ceindre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "unknown"
+  },
+  {
+    "infinitive": "cesser",
+    "display_form": "cesser",
+    "existing_english": [
+      "cease",
+      "stop"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "changer",
+    "display_form": "changer",
+    "existing_english": [
+      "change",
+      "to change"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "changer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "chanter",
+    "display_form": "chanter",
+    "existing_english": [
+      "sing",
+      "to sing"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "chante",
+      "chanter",
+      "chantons"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "chercher",
+    "display_form": "chercher",
+    "existing_english": [
+      "look for",
+      "to look for"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "chercher"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "choisir",
+    "display_form": "choisir",
+    "existing_english": [
+      "choose",
+      "to choose"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "choisir",
+      "choose"
+    ],
+    "existing_tags": [],
+    "verb_group": "2nd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "cliquer",
+    "display_form": "cliquer",
+    "existing_english": [
+      "click",
+      "to click"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cliquer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "cocher",
+    "display_form": "cocher",
+    "existing_english": [
+      "check off",
+      "to check off"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "check off",
+      "cocher"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "collectionner",
+    "display_form": "collectionner",
+    "existing_english": [
+      "to collect"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "collect",
+      "collectionner"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "commander",
+    "display_form": "commander",
+    "existing_english": [
+      "order",
+      "to order"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "commander"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "commencer",
+    "display_form": "commencer",
+    "existing_english": [
+      "begin",
+      "to begin",
+      "to start"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "begin",
+      "commencer",
+      "start"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "commencer par + nom/infinitif",
+      "commencer à + infinitif"
+    ]
+  },
+  {
+    "infinitive": "comporter",
+    "display_form": "comporter",
+    "existing_english": [
+      "consist of"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "comprendre",
+    "display_form": "comprendre",
+    "existing_english": [
+      "to understand",
+      "understand"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "comprendre",
+      "compris"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "compter",
+    "display_form": "compter",
+    "existing_english": [
+      "intend",
+      "plan",
+      "to intend",
+      "to plan"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "compter"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

@@ -1,0 +1,409 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 035_verbs_batch_009
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "035_verbs_batch_009",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "essuyer",
+    "display_form": "essuyer",
+    "existing_english": [
+      "to wipe",
+      "wipe"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "essuyer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "estimer",
+    "display_form": "estimer",
+    "existing_english": [
+      "to respect",
+      "to esteem"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "exagérer",
+    "display_form": "exagérer",
+    "existing_english": [
+      "exaggerate",
+      "to exaggerate"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "exagerer",
+      "exagérer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "excuser",
+    "display_form": "excuser",
+    "existing_english": [
+      "to excuse",
+      "to apologize"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "excuser",
+      "s'excuser"
+    ],
+    "existing_tags": [],
+    "auxiliary": "etre"
+  },
+  {
+    "infinitive": "exercer",
+    "display_form": "exercer",
+    "existing_english": [
+      "to exercise",
+      "to exert"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "exercer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "exiger",
+    "display_form": "exiger",
+    "existing_english": [
+      "demand",
+      "to demand"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "exiger"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "exiger que + subjonctif"
+    ]
+  },
+  {
+    "infinitive": "expliquer",
+    "display_form": "expliquer",
+    "existing_english": [
+      "explain",
+      "to explain"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "expliquer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "explorer",
+    "display_form": "explorer",
+    "existing_english": [
+      "explore",
+      "to explore"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "explore",
+      "explorer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "exprimer",
+    "display_form": "exprimer",
+    "existing_english": [
+      "express",
+      "to express"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "exprimer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "faire",
+    "display_form": "faire",
+    "existing_english": [
+      "bid",
+      "brown (cooking)",
+      "cook",
+      "do",
+      "do the housework",
+      "fill up",
+      "make",
+      "make faces",
+      "play hooky",
+      "sauté (cooking)",
+      "... (4 more items)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "causative",
+      "do",
+      "faire",
+      "faisant",
+      "fait",
+      "make",
+      "weather"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "expr_faire_pousser",
+      "faire + [infinitive]",
+      "faire de l'exercice",
+      "faire de l'équitation",
+      "faire de la natation"
+    ]
+  },
+  {
+    "infinitive": "faire l’école buissonnière",
+    "display_form": "faire l’école buissonnière",
+    "existing_english": [
+      "to play hooky"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire ecole buissonniere"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "faire l'école buissonnière"
+    ]
+  },
+  {
+    "infinitive": "faire la cuisine",
+    "display_form": "faire la cuisine",
+    "existing_english": [
+      "to cook"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire la cuisine"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "faire la cuisine"
+    ]
+  },
+  {
+    "infinitive": "faire revenir",
+    "display_form": "faire revenir",
+    "existing_english": [
+      "to brown"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire revenir"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "faire sauter",
+    "display_form": "faire sauter",
+    "existing_english": [
+      "to sauté"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire sauter"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "faire semblant",
+    "display_form": "faire semblant",
+    "existing_english": [
+      "to pretend"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire semblant"
+    ],
+    "existing_tags": [],
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "faire semblant de + infinitif"
+    ]
+  },
+  {
+    "infinitive": "falloir",
+    "display_form": "falloir",
+    "existing_english": [
+      "be necessary",
+      "must",
+      "to be necessary",
+      "to be necessary to",
+      "to have to"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "falloir",
+      "fallu",
+      "necessary",
+      "to be necessary"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "il faut"
+    ]
+  },
+  {
+    "infinitive": "farcir",
+    "display_form": "farcir",
+    "existing_english": [
+      "stuff (cooking)",
+      "to stuff"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "farcir"
+    ],
+    "existing_tags": [],
+    "verb_group": "2nd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "façonner",
+    "display_form": "façonner",
+    "existing_english": [
+      "craft",
+      "manufacture",
+      "to craft",
+      "to manufacture"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faconner",
+      "façonner"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "feindre",
+    "display_form": "feindre",
+    "existing_english": [
+      "feign",
+      "pretend",
+      "to feign"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "feindre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "unknown"
+  },
+  {
+    "infinitive": "fermer",
+    "display_form": "fermer",
+    "existing_english": [
+      "close"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

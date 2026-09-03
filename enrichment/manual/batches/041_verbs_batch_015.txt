@@ -1,0 +1,400 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 041_verbs_batch_015
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "041_verbs_batch_015",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "placer",
+    "display_form": "placer",
+    "existing_english": [
+      "place",
+      "to place"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "placer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "plagier",
+    "display_form": "plagier",
+    "existing_english": [
+      "plagiarize"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "plaindre",
+    "display_form": "plaindre",
+    "existing_english": [
+      "pity",
+      "to pity"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "plaindre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "unknown"
+  },
+  {
+    "infinitive": "plaire",
+    "display_form": "plaire",
+    "existing_english": [
+      "please",
+      "to please"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "plaire",
+      "please",
+      "plu"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "plaisanter",
+    "display_form": "plaisanter",
+    "existing_english": [
+      "joke"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "pleuvoir",
+    "display_form": "pleuvoir",
+    "existing_english": [
+      "rain",
+      "to rain"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "pleuvoir",
+      "plu",
+      "rain",
+      "to rain"
+    ],
+    "existing_tags": [],
+    "verb_group": "impersonal",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "il pleut"
+    ]
+  },
+  {
+    "infinitive": "plonger",
+    "display_form": "plonger",
+    "existing_english": [
+      "dive",
+      "to dive"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "plonger"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "pocher",
+    "display_form": "pocher",
+    "existing_english": [
+      "poach (cooking)",
+      "to poach"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "pocher"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "poncer",
+    "display_form": "poncer",
+    "existing_english": [
+      "sand",
+      "to sand"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "poncer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "porter",
+    "display_form": "porter",
+    "existing_english": [
+      "carry",
+      "to carry",
+      "wear"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "porter"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "posséder",
+    "display_form": "posséder",
+    "existing_english": [
+      "own",
+      "to own"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "posseder",
+      "posséder"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "poursuivre",
+    "display_form": "poursuivre",
+    "existing_english": [
+      "chase",
+      "to chase",
+      "to pursue"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "pouvoir",
+    "display_form": "pouvoir",
+    "existing_english": [
+      "can",
+      "may",
+      "to be able to"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "able",
+      "can",
+      "could",
+      "may",
+      "pouvoir",
+      "pu"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "Est-ce que tu pourrais + infinitive",
+      "Pourrais-tu / Pourriez-vous + infinitif ?",
+      "Pourriez-vous + infinitive",
+      "Puis-je + infinitive",
+      "pouvoir + infinitive"
+    ]
+  },
+  {
+    "infinitive": "prendre",
+    "display_form": "prendre",
+    "existing_english": [
+      "have a glass of wine",
+      "take",
+      "to have (food/drink)",
+      "to take"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "have",
+      "prendre",
+      "pris",
+      "take"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "expr_prendre_une_tournure",
+      "prendre des vacances",
+      "prendre la fuite",
+      "prendre le métro",
+      "prendre le petit déjeuner"
+    ]
+  },
+  {
+    "infinitive": "prescrire",
+    "display_form": "prescrire",
+    "existing_english": [
+      "to prescribe"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "prescrire"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "promettre",
+    "display_form": "promettre",
+    "existing_english": [
+      "promise",
+      "to promise"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "promettre"
+    ],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "promouvoir",
+    "display_form": "promouvoir",
+    "existing_english": [
+      "promote",
+      "to promote"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "promouvoir",
+      "to promote"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "prononcer",
+    "display_form": "prononcer",
+    "existing_english": [
+      "pronounce",
+      "to make (a speech)",
+      "to pronounce"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "make speech",
+      "prononce",
+      "prononcer",
+      "prononcé",
+      "prononçant",
+      "prononçons"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "prononcer un discours"
+    ]
+  },
+  {
+    "infinitive": "proposer",
+    "display_form": "proposer",
+    "existing_english": [],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "protéger",
+    "display_form": "protéger",
+    "existing_english": [
+      "protect",
+      "to protect"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "proteger",
+      "protégeant",
+      "protéger",
+      "protégé"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

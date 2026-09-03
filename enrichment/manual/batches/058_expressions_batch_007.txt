@@ -1,0 +1,571 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 058_expressions_batch_007
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "058_expressions_batch_007",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "faire du vélo",
+    "display_form": "faire du vélo",
+    "existing_english": [
+      "to ride a bike"
+    ],
+    "existing_aliases": [
+      "faire du vélo"
+    ],
+    "existing_search_terms": [
+      "bike",
+      "vélo"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire escale",
+    "display_form": "faire escale",
+    "existing_english": [
+      "to make a stopover",
+      "to lay over"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire escale"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire l'école buissonnière",
+    "display_form": "faire l’école buissonnière",
+    "existing_english": [
+      "to play hooky"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire ecole buissonniere",
+      "play hooky"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "faire + l’école buissonnière",
+    "expression_type": "idiom"
+  },
+  {
+    "canonical_form": "faire la cuisine",
+    "display_form": "faire la cuisine",
+    "existing_english": [
+      "to cook",
+      "to do the cooking"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cook",
+      "faire la cuisine"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "faire la grasse matinée",
+    "display_form": "faire la grasse matinée",
+    "existing_english": [
+      "to have a lie-in",
+      "to sleep in"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire la grasse matinée",
+      "sleep in"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "idiom"
+  },
+  {
+    "canonical_form": "faire la queue",
+    "display_form": "faire la queue",
+    "existing_english": [
+      "to stand in line"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire queue",
+      "stand in line"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire la sieste",
+    "display_form": "faire la sieste",
+    "existing_english": [
+      "to take a nap"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "nap",
+      "sieste"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire la vaisselle",
+    "display_form": "faire la vaisselle",
+    "existing_english": [
+      "to do the dishes"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "dishes",
+      "faire vaisselle"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire le marché",
+    "display_form": "faire le marché",
+    "existing_english": [
+      "to do the market shopping"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "marché",
+      "market"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire le ménage",
+    "display_form": "faire le ménage",
+    "existing_english": [
+      "to do the housecleaning"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire le ménage",
+      "housecleaning"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire le plein",
+    "display_form": "faire le plein",
+    "existing_english": [
+      "to fill up"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire le plein"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire les courses",
+    "display_form": "faire les courses",
+    "existing_english": [
+      "to do the shopping",
+      "to shop"
+    ],
+    "existing_aliases": [
+      "faire les achats"
+    ],
+    "existing_search_terms": [
+      "faire les courses",
+      "shop"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire pression",
+    "display_form": "faire pression",
+    "existing_english": [
+      "to exert pressure"
+    ],
+    "existing_aliases": [
+      "faire pression sur"
+    ],
+    "existing_search_terms": [
+      "pression",
+      "pressure"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire semblant de + infinitif",
+    "display_form": "faire semblant de + infinitif",
+    "existing_english": [
+      "to pretend to + infinitive"
+    ],
+    "existing_aliases": [
+      "faire semblant"
+    ],
+    "existing_search_terms": [
+      "faire semblant de",
+      "pretend"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "faire semblant de + [infinitive]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "faire ses devoirs",
+    "display_form": "faire ses devoirs",
+    "existing_english": [
+      "to do one's homework"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire un compliment",
+    "display_form": "faire un compliment",
+    "existing_english": [
+      "to pay a compliment"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "compliment",
+      "faire un compliment"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "faire + un compliment (à quelqu'un)",
+    "expression_type": "collocation",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "faire un discours",
+    "display_form": "faire un discours",
+    "existing_english": [
+      "to give a speech"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire un effort",
+    "display_form": "faire un effort",
+    "existing_english": [
+      "to make an effort"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire un effort",
+      "make an effort"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "faire un effort",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire un gâteau",
+    "display_form": "faire un gâteau",
+    "existing_english": [
+      "to make a cake"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cake",
+      "gâteau"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "faire un gâteau",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire un tour",
+    "display_form": "faire un tour",
+    "existing_english": [
+      "to take a tour",
+      "to go for a walk"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire un tour",
+      "take a tour"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "faire + un tour (de + lieu)",
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "faire un voyage",
+    "display_form": "faire un voyage",
+    "existing_english": [
+      "to go on a trip",
+      "to take a trip"
+    ],
+    "existing_aliases": [
+      "faire un voyage"
+    ],
+    "existing_search_terms": [
+      "trip",
+      "voyage"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "faire un voyage",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire une offre",
+    "display_form": "faire une offre",
+    "existing_english": [
+      "to bid"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bid",
+      "faire une offre"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire une promenade",
+    "display_form": "faire une promenade",
+    "existing_english": [
+      "to take a walk"
+    ],
+    "existing_aliases": [
+      "faire un tour",
+      "faire une balade"
+    ],
+    "existing_search_terms": [
+      "faire promenade",
+      "promenade",
+      "take walk",
+      "walk"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "finir de + infinitif",
+    "display_form": "finir de + infinitive",
+    "existing_english": [
+      "to finish doing something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "finir de",
+      "finish doing"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "finir de + INF",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "finir par + infinitif",
+    "display_form": "finir par + infinitive",
+    "existing_english": [
+      "to end up doing something",
+      "to finally do something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "end up",
+      "finally",
+      "finir par"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "finir par + INF",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "par"
+    ]
+  },
+  {
+    "canonical_form": "fournisseur d'accès",
+    "display_form": "fournisseur d'accès",
+    "existing_english": [
+      "access provider"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "frapper à la porte",
+    "display_form": "frapper à la porte",
+    "existing_english": [
+      "to knock on the door"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "frapper a la porte",
+      "knock door"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "frapper + à + la porte",
+    "expression_type": "collocation",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "gagner ... euros par mois",
+    "display_form": "gagner ... euros par mois",
+    "existing_english": [
+      "to earn ... euros per month"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "gagner euros par mois"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "gagner [amount] euros par mois",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "par"
+    ]
+  },
+  {
+    "canonical_form": "gagner de l'argent",
+    "display_form": "gagner de l'argent",
+    "existing_english": [
+      "to earn money",
+      "to make money"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "earn money",
+      "gagner de l'argent"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "gagner les élections",
+    "display_form": "gagner les élections",
+    "existing_english": [
+      "to win the elections"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "gagner les élections"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

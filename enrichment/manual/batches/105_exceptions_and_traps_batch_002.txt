@@ -1,0 +1,228 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 105_exceptions_and_traps_batch_002
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: exceptions_and_traps
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: description, why_incorrect, why_correct, memory_tip, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "105_exceptions_and_traps_batch_002",
+  "collection": "exceptions_and_traps",
+  "patches": [
+    {
+      "entity_key": {
+        "title": "<title_value>",
+        "category": "<category_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "title": "Could: unique past vs habitual past",
+    "category": "contrast",
+    "existing_description": "Distinguish between a single completed past ability (passé composé) and a habitual or descriptive past ability (imparfait).",
+    "existing_tags": [],
+    "correct_form": "J'ai pu (unique) / Je pouvais (habitual)",
+    "incorrect_form": "Using imparfait for unique action or passé composé for habitual action"
+  },
+  {
+    "title": "Depuis tense choice",
+    "category": "usage",
+    "existing_description": "Depuis with present tense indicates ongoing action to present; with imparfait indicates ongoing action to a past point. Avoid using passé composé with depuis.",
+    "existing_tags": [],
+    "correct_form": "present + depuis or imparfait + depuis",
+    "incorrect_form": "passé composé + depuis"
+  },
+  {
+    "title": "Devoir: obligation vs probability ambiguity",
+    "category": "contrast",
+    "existing_description": "The meaning of devoir (obligation vs probability) is often determined by voice intonation and gestures.",
+    "existing_tags": []
+  },
+  {
+    "title": "Direct vs indirect time expressions",
+    "category": "confusion",
+    "existing_description": "Use direct speech time expressions when speaking directly; use indirect speech expressions when narrating or reporting.",
+    "existing_tags": [],
+    "correct_form": "Elle est arrivée la veille de mon anniversaire.",
+    "incorrect_form": "Elle est arrivée hier de mon anniversaire."
+  },
+  {
+    "title": "Distinguishing imparfait and passé composé usage",
+    "category": "usage",
+    "existing_description": "Use imparfait for description, habitual action, and interrupted continuous action; use passé composé for specific completed events.",
+    "existing_tags": []
+  },
+  {
+    "title": "Dont replaces duquel, de laquelle, etc.",
+    "category": "contrast",
+    "existing_description": "In modern French, dont usually replaces duquel, de laquelle, desquels, and desquelles.",
+    "existing_tags": [],
+    "correct_form": "dont",
+    "incorrect_form": "duquel (often considered more formal or less common)"
+  },
+  {
+    "title": "English simple past may require French plus-que-parfait",
+    "category": "confusion",
+    "existing_description": "In English, the simple past is often used for an anterior action. In French, if anteriority is present, the plus-que-parfait must be used instead of passé composé or imparfait.",
+    "existing_tags": [],
+    "correct_form": "French plus-que-parfait for anterior action",
+    "incorrect_form": "French passé composé or imparfait when anteriority is required"
+  },
+  {
+    "title": "Exceptions to ordinal number formation",
+    "category": "exception",
+    "existing_description": "Premier/première (first) and dernier/dernière (last) do not follow the regular -ième pattern.",
+    "existing_tags": [],
+    "correct_form": "premier, première; dernier, dernière",
+    "incorrect_form": "un-ième, dernière-ième"
+  },
+  {
+    "title": "Faire weather vs impersonal verbs",
+    "category": "contrast",
+    "existing_description": "Most weather descriptions use il fait + adjective, but some specific conditions use il pleut, il neige, il grêle, il bruine. Do not use faire with these verbs.",
+    "existing_tags": [],
+    "correct_form": "il fait beau/froid/chaud; il pleut; il neige; il grêle; il bruine",
+    "incorrect_form": "il fait pleut, il fait neige, etc."
+  },
+  {
+    "title": "Family names in plural",
+    "category": "restriction",
+    "existing_description": "Family names used in plural do not take -s.",
+    "existing_tags": [],
+    "correct_form": "les Renaud",
+    "incorrect_form": "les Renauds"
+  },
+  {
+    "title": "Floor numbering difference between France and America",
+    "category": "contrast",
+    "existing_description": "In France, le premier étage corresponds to the American second floor. The American first or ground floor is called le rez-de-chaussée.",
+    "existing_tags": [],
+    "correct_form": "premier étage = second floor (US), rez-de-chaussée = first floor (US)",
+    "incorrect_form": "premier étage = first floor"
+  },
+  {
+    "title": "Forgetting agreement with être verbs",
+    "category": "agreement",
+    "existing_description": "Past participle must agree with subject when using être; common to forget -e/-s.",
+    "existing_tags": [],
+    "correct_form": "Elle est arrivée.",
+    "incorrect_form": "Elle est arrivé."
+  },
+  {
+    "title": "Futur antérieur after 'si' meaning 'whether'",
+    "category": "contrast",
+    "existing_description": "After 'si' meaning 'whether', futur antérieur can be used to imply a completed action. This is different from 'si' meaning 'if'.",
+    "existing_tags": [],
+    "correct_form": "Je me demande s'ils auront signé le contrat.",
+    "incorrect_form": "Je me demande s'ils signeront le contrat."
+  },
+  {
+    "title": "Futur simple vs futur antérieur in dependent clauses",
+    "category": "contrast",
+    "existing_description": "When both clauses are in futur simple, actions are simultaneous. To mark anteriority, use futur antérieur in the dependent clause.",
+    "existing_tags": [],
+    "correct_form": "Elle vous téléphonera dès qu'elle aura fini son roman.",
+    "incorrect_form": "Elle vous téléphonera dès qu'elle finira son roman. (if anteriority intended)"
+  },
+  {
+    "title": "Future tenses for probability",
+    "category": "contrast",
+    "existing_description": "Futur simple expresses probability in present; futur antérieur expresses probability of past.",
+    "existing_tags": [],
+    "correct_form": "Il sera distrait. (present probability) / Il aura encore brûlé le gigot. (past probability)"
+  },
+  {
+    "title": "Immediate future vs future simple",
+    "category": "contrast",
+    "existing_description": "In everyday conversation, the immediate future often replaces the future simple. Learners may overuse the future simple in informal contexts.",
+    "existing_tags": [],
+    "correct_form": "aller + infinitive for colloquial future",
+    "incorrect_form": "future simple in casual speech"
+  },
+  {
+    "title": "Impersonal expressions: indicative vs subjunctive",
+    "category": "contrast",
+    "existing_description": "Some impersonal expressions take the indicative, others take the subjunctive. The lists must be memorized.",
+    "existing_tags": [],
+    "correct_form": "Il est certain qu'il viendra. (indicative) / Il est possible qu'il vienne. (subjunctive)",
+    "incorrect_form": "Il est certain qu'il vienne. (incorrect use of subjunctive after certainty expression)"
+  },
+  {
+    "title": "Irregular comparatives",
+    "category": "exception",
+    "existing_description": "Bon, bien, mauvais have irregular comparative forms: meilleur, mieux, pire.",
+    "existing_tags": []
+  },
+  {
+    "title": "Irregular feminine forms",
+    "category": "exception",
+    "existing_description": "Several adjectives have irregular feminine forms (e.g., vietnamien -> vietnamienne, généreux -> généreuse).",
+    "existing_tags": []
+  },
+  {
+    "title": "Irregular imperative of être, avoir, savoir",
+    "category": "exception",
+    "existing_description": "The verbs être, avoir, and savoir have irregular imperative forms that do not follow regular patterns.",
+    "existing_tags": [],
+    "correct_form": "sois, soyons, soyez / aie, ayons, ayez / sache, sachons, sachez"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

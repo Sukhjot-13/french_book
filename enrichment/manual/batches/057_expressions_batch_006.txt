@@ -1,0 +1,592 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 057_expressions_batch_006
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "057_expressions_batch_006",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "dessus",
+    "display_form": "dessus",
+    "existing_english": [
+      "on top"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "on top"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "devant",
+    "display_form": "devant",
+    "existing_english": [
+      "in front of"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "in front of"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "devoir + infinitif",
+    "display_form": "devoir + infinitif",
+    "existing_english": [
+      "must do",
+      "should/ought to do something",
+      "to be supposed to do"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "devoir",
+      "devoir + infinitif",
+      "should"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "devoir + infinitif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "devoir quelque chose à quelqu'un",
+    "display_form": "devoir quelque chose à quelqu'un",
+    "existing_english": [
+      "to owe something to someone"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "devoir quelque chose à quelqu'un"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "devoir [quelque chose] à [quelqu'un]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "donner sur + nom",
+    "display_form": "donner sur + noun",
+    "existing_english": [
+      "to face (a place)",
+      "to look out onto"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "donner sur",
+      "face",
+      "look out"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "donner sur + NOM",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "sur"
+    ]
+  },
+  {
+    "canonical_form": "donner un coup de main",
+    "display_form": "donner un coup de main",
+    "existing_english": [
+      "to give a hand",
+      "to help"
+    ],
+    "existing_aliases": [
+      "donner un coup de main à quelqu'un"
+    ],
+    "existing_search_terms": [
+      "coup de main",
+      "help"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "donner votre avis",
+    "display_form": "donner votre avis",
+    "existing_english": [
+      "to give your opinion"
+    ],
+    "existing_aliases": [
+      "donner son avis"
+    ],
+    "existing_search_terms": [
+      "avis",
+      "opinion"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "dormir de la nuit",
+    "display_form": "dormir de la nuit",
+    "existing_english": [
+      "to sleep all night",
+      "to sleep through the night"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "dormir de la nuit"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "douter que + subjonctif",
+    "display_form": "douter que",
+    "existing_english": [
+      "to doubt that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "douter que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "douter que + subjonctif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "du + masculine country",
+    "display_form": "du Brésil",
+    "existing_english": [
+      "from Brazil"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "du Brésil",
+      "from Brazil"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "du + masculine singular country",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "du"
+    ]
+  },
+  {
+    "canonical_form": "du pain",
+    "display_form": "du pain",
+    "existing_english": [
+      "some bread"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "du pain",
+      "some bread"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "du + masculine singular noun",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "décider de + infinitif",
+    "display_form": "décider de + infinitive",
+    "existing_english": [
+      "to decide to do something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "decide to",
+      "décider de"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "décider de + INF",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "désirer que + subjonctif",
+    "display_form": "désirer que",
+    "existing_english": [
+      "to desire (someone) to"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "désirer que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "désirer que + subjonctif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "en + feminine country",
+    "display_form": "en France",
+    "existing_english": [
+      "in/to France"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "en France",
+      "in France"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "en + feminine country or region",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "en"
+    ]
+  },
+  {
+    "canonical_form": "en + feminine state",
+    "display_form": "en Pennsylvanie",
+    "existing_english": [
+      "in Pennsylvania"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "en Pennsylvanie",
+      "in Pennsylvania"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "en + feminine state/province",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "en"
+    ]
+  },
+  {
+    "canonical_form": "en + island (exception)",
+    "display_form": "en Haïti",
+    "existing_english": [
+      "in/to Haiti"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "en Haïti",
+      "in Haiti"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "en + specific island",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "en"
+    ]
+  },
+  {
+    "canonical_form": "en attendant que + subjonctif",
+    "display_form": "en attendant que",
+    "existing_english": [
+      "waiting for"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "en attendant que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "en attendant que + subjonctif",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "en ce moment",
+    "display_form": "en ce moment",
+    "existing_english": [
+      "at this present time"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "at this present time",
+      "currently"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression",
+    "prepositions": [
+      "en"
+    ]
+  },
+  {
+    "canonical_form": "exiger que + subjonctif",
+    "display_form": "exiger que",
+    "existing_english": [
+      "to demand that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "exiger que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "exiger que + subjonctif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "faire + [infinitive]",
+    "display_form": "faire (conjugated) + infinitive",
+    "existing_english": [
+      "to have something done",
+      "to cause something to happen"
+    ],
+    "existing_aliases": [
+      "faire + inf",
+      "faire causatif"
+    ],
+    "existing_search_terms": [
+      "faire + infinitive",
+      "have something done"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "faire + [infinitive]",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "faire de l'exercice",
+    "display_form": "faire de l'exercice",
+    "existing_english": [
+      "to do exercise",
+      "to exercise"
+    ],
+    "existing_aliases": [
+      "faire du sport"
+    ],
+    "existing_search_terms": [
+      "exercice",
+      "exercise",
+      "faire de l'exercice",
+      "faire du sport"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "faire de + [sport/activity]",
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "faire de l'équitation",
+    "display_form": "faire de l’équitation",
+    "existing_english": [
+      "to go horseback riding"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "faire de la natation",
+    "display_form": "faire de la natation",
+    "existing_english": [
+      "to go swimming"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "faire demi-tour",
+    "display_form": "faire demi-tour",
+    "existing_english": [
+      "to turn around"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire demi-tour",
+      "turn around"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "faire des fautes",
+    "display_form": "faire des fautes",
+    "existing_english": [
+      "to make mistakes"
+    ],
+    "existing_aliases": [
+      "faire une faute"
+    ],
+    "existing_search_terms": [
+      "faute",
+      "mistake"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire des grimaces",
+    "display_form": "faire des grimaces",
+    "existing_english": [
+      "to make faces"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faces",
+      "grimaces"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "faire des grimaces",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire des siennes",
+    "display_form": "faire des siennes",
+    "existing_english": [
+      "to act up"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "des siennes"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "idiom"
+  },
+  {
+    "canonical_form": "faire du ski",
+    "display_form": "faire du ski",
+    "existing_english": [
+      "to go skiing"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire du ski",
+      "skiing"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "du"
+    ]
+  },
+  {
+    "canonical_form": "faire du ski de fond",
+    "display_form": "faire du ski de fond",
+    "existing_english": [
+      "to do cross-country skiing"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "faire du ski de fond"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "faire du sport",
+    "display_form": "faire du sport",
+    "existing_english": [
+      "to do sports",
+      "to play sports"
+    ],
+    "existing_aliases": [
+      "faire du sport"
+    ],
+    "existing_search_terms": [
+      "play sports",
+      "sport"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

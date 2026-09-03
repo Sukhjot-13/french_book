@@ -1,0 +1,209 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 154_exercises_batch_011
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: exercises
+TOTAL ENTITIES IN THIS BATCH: 15
+TARGET ENRICHMENT FIELDS: instructions, notes, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "154_exercises_batch_011",
+  "collection": "exercises",
+  "patches": [
+    {
+      "entity_key": {
+        "chapter_number": "<chapter_number_value>",
+        "exercise_code": "<exercise_code_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "chapter_number": 19,
+    "exercise_code": "19-3",
+    "title": null,
+    "existing_instructions": "Traduire les phrases suivantes en utilisant l’impératif.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases suivantes en utilisant l’impératif.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 20,
+    "exercise_code": "20-1",
+    "title": null,
+    "existing_instructions": "Compléter avec l’article partitif approprié.",
+    "existing_notes": null,
+    "instructions": "Compléter avec l’article partitif approprié.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 20,
+    "exercise_code": "20-2",
+    "title": null,
+    "existing_instructions": "Masculin ou féminin? Le ou la?",
+    "existing_notes": null,
+    "instructions": "Masculin ou féminin? Le ou la?",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 20,
+    "exercise_code": "20-3",
+    "title": null,
+    "existing_instructions": "Mettre au masculin les noms suivants. Ne pas oublier l’article défini.",
+    "existing_notes": null,
+    "instructions": "Mettre au masculin les noms suivants. Ne pas oublier l’article défini.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 20,
+    "exercise_code": "20-4",
+    "title": null,
+    "existing_instructions": "Mettre au féminin les noms suivants.",
+    "existing_notes": null,
+    "instructions": "Mettre au féminin les noms suivants.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 20,
+    "exercise_code": "20-5",
+    "title": null,
+    "existing_instructions": "Masculin ou féminin? Mettre l’article défini.",
+    "existing_notes": null,
+    "instructions": "Masculin ou féminin? Mettre l’article défini.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 20,
+    "exercise_code": "20-6",
+    "title": null,
+    "existing_instructions": "Compléter avec la préposition appropriée.",
+    "existing_notes": null,
+    "instructions": "Compléter avec la préposition appropriée.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 20,
+    "exercise_code": "20-7",
+    "title": null,
+    "existing_instructions": "Formuler une phrase complète en utilisant le verbe habiter et les prépositions appropriées.",
+    "existing_notes": null,
+    "instructions": "Formuler une phrase complète en utilisant le verbe habiter et les prépositions appropriées.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 20,
+    "exercise_code": "20-8",
+    "title": null,
+    "existing_instructions": "Compléter les phrases suivantes.",
+    "existing_notes": null,
+    "instructions": "Compléter les phrases suivantes.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 20,
+    "exercise_code": "20-9",
+    "title": null,
+    "existing_instructions": "Traduire les phrases suivantes.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases suivantes.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 21,
+    "exercise_code": "21-1",
+    "title": null,
+    "existing_instructions": "Remplacer les mots en caractères gras par un pronom objet direct.",
+    "existing_notes": null,
+    "instructions": "Remplacer les mots en caractères gras par un pronom objet direct.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 21,
+    "exercise_code": "21-10",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 21,
+    "exercise_code": "21-11",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 21,
+    "exercise_code": "21-12",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 5
+  },
+  {
+    "chapter_number": 21,
+    "exercise_code": "21-2",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

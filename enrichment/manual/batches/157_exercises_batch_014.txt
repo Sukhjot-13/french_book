@@ -1,0 +1,213 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 157_exercises_batch_014
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: exercises
+TOTAL ENTITIES IN THIS BATCH: 15
+TARGET ENRICHMENT FIELDS: instructions, notes, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "157_exercises_batch_014",
+  "collection": "exercises",
+  "patches": [
+    {
+      "entity_key": {
+        "chapter_number": "<chapter_number_value>",
+        "exercise_code": "<exercise_code_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "chapter_number": 24,
+    "exercise_code": "24-8",
+    "title": null,
+    "existing_instructions": "Traduire les phrases suivantes en commençant par ce qui, ce que, ce à quoi ou ce dont.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases suivantes en commençant par ce qui, ce que, ce à quoi ou ce dont.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 24,
+    "exercise_code": "24-9",
+    "title": null,
+    "existing_instructions": "Compléter avec le pronom relatif qui convient.",
+    "existing_notes": null,
+    "instructions": "Compléter avec le pronom relatif qui convient.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 25,
+    "exercise_code": "25-1",
+    "title": "EXERCICE 25·1",
+    "existing_instructions": "Compléter les phrases avec l’adverbe approprié.",
+    "existing_notes": null,
+    "instructions": "Compléter les phrases avec l’adverbe approprié.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 25,
+    "exercise_code": "25-2",
+    "title": "EXERCICE 25·2",
+    "existing_instructions": "Traduire les phrases suivantes en utilisant tu et la forme est-ce que si nécessaire.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases suivantes en utilisant tu et la forme est-ce que si nécessaire.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 25,
+    "exercise_code": "25-3",
+    "title": "EXERCICE 25·3",
+    "existing_instructions": "Traduire les éléments entre parenthèses.",
+    "existing_notes": null,
+    "instructions": "Traduire les éléments entre parenthèses.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 25,
+    "exercise_code": "25-4",
+    "title": "EXERCICE 25·4",
+    "existing_instructions": "Répondre aux questions à l’aide des éléments entre parenthèses.",
+    "existing_notes": null,
+    "instructions": "Répondre aux questions à l’aide des éléments entre parenthèses.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 25,
+    "exercise_code": "25-5",
+    "title": "EXERCICE 25·5",
+    "existing_instructions": "Changer depuis ou cela fait... que en il y a... que.",
+    "existing_notes": null,
+    "instructions": "Changer depuis ou cela fait... que en il y a... que.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 25,
+    "exercise_code": "25-6",
+    "title": "EXERCICE 25·6",
+    "existing_instructions": "Mettre les phrases suivantes au passé composé.",
+    "existing_notes": null,
+    "instructions": "Mettre les phrases suivantes au passé composé.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 25,
+    "exercise_code": "25-7",
+    "title": "EXERCICE 25·7",
+    "existing_instructions": "Traduire les mots entre parenthèses.",
+    "existing_notes": null,
+    "instructions": "Traduire les mots entre parenthèses.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 25,
+    "exercise_code": "25-8",
+    "title": "EXERCICE 25·8",
+    "existing_instructions": "Traduire les phrases suivantes en utilisant vous et l’inversion si nécessaire.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases suivantes en utilisant vous et l’inversion si nécessaire.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 26,
+    "exercise_code": "26-1",
+    "title": null,
+    "existing_instructions": "Écrire les nombres suivants en toutes lettres.",
+    "existing_notes": null,
+    "instructions": "Écrire les nombres suivants en toutes lettres.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 26,
+    "exercise_code": "26-2",
+    "title": null,
+    "existing_instructions": "Traduire en anglais les phrases suivantes.",
+    "existing_notes": null,
+    "instructions": "Traduire en anglais les phrases suivantes.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 26,
+    "exercise_code": "26-3",
+    "title": null,
+    "existing_instructions": "Transcrire en chiffres les nombres suivants.",
+    "existing_notes": null,
+    "instructions": "Transcrire en chiffres les nombres suivants.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 26,
+    "exercise_code": "26-4",
+    "title": null,
+    "existing_instructions": "Écrire les nombres suivants en toutes lettres.",
+    "existing_notes": null,
+    "instructions": "Écrire les nombres suivants en toutes lettres.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 26,
+    "exercise_code": "26-5",
+    "title": null,
+    "existing_instructions": "Traduire (en toutes lettres) les nombres suivants.",
+    "existing_notes": null,
+    "instructions": "Traduire (en toutes lettres) les nombres suivants.",
+    "questions_count": 10
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

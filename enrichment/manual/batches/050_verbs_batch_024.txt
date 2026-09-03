@@ -1,0 +1,411 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 050_verbs_batch_024
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "050_verbs_batch_024",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "valoir",
+    "display_form": "valoir",
+    "existing_english": [
+      "to be worth"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "to be worth",
+      "valoir",
+      "worth"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "vendre",
+    "display_form": "vendre",
+    "existing_english": [
+      "sell",
+      "to sell"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "sell",
+      "vendant",
+      "vendre",
+      "vendu"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "venger",
+    "display_form": "venger",
+    "existing_english": [
+      "avenge",
+      "to avenge"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "venger"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "venir",
+    "display_form": "venir",
+    "existing_english": [
+      "to arrive",
+      "to come"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "come",
+      "venir",
+      "venu"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "expr_venir_de",
+      "venir de + [infinitive]",
+      "venir de + infinitif"
+    ]
+  },
+  {
+    "infinitive": "verser",
+    "display_form": "verser",
+    "existing_english": [
+      "pour",
+      "to pour"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "verser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "vieillir",
+    "display_form": "vieillir",
+    "existing_english": [
+      "grow old",
+      "to grow old"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "vieillir"
+    ],
+    "existing_tags": [],
+    "verb_group": "2nd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "viser",
+    "display_form": "viser",
+    "existing_english": [
+      "aim at"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "visiter",
+    "display_form": "visiter",
+    "existing_english": [
+      "to visit",
+      "to visit (a place)",
+      "visit (place)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "visitant",
+      "visiter",
+      "visité"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "vivre",
+    "display_form": "vivre",
+    "existing_english": [
+      "to live"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "live",
+      "vivre",
+      "vécu"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "voir",
+    "display_form": "voir",
+    "existing_english": [
+      "see",
+      "to see"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "to see",
+      "voir",
+      "vu"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "ça se voit"
+    ]
+  },
+  {
+    "infinitive": "voler",
+    "display_form": "voler",
+    "existing_english": [
+      "steal",
+      "to fly",
+      "to steal"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "voler"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "voter",
+    "display_form": "voter",
+    "existing_english": [
+      "to vote"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "voter"
+    ],
+    "existing_tags": [],
+    "related_expressions": [
+      "voter pour + personne"
+    ]
+  },
+  {
+    "infinitive": "vouloir",
+    "display_form": "vouloir",
+    "existing_english": [
+      "to want",
+      "to want to",
+      "to wish",
+      "want"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "to want",
+      "vouloir",
+      "voulu",
+      "want"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "Est-ce que tu voudrais bien + infinitif ?",
+      "Je voudrais + infinitive",
+      "Voudrais-tu / Voudriez-vous + infinitif ?",
+      "Voudriez-vous + infinitive",
+      "expr_voudrais_inf"
+    ]
+  },
+  {
+    "infinitive": "voyager",
+    "display_form": "voyager",
+    "existing_english": [
+      "to travel",
+      "travel"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "voyage",
+      "voyageons",
+      "voyager"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "écailler",
+    "display_form": "écailler",
+    "existing_english": [
+      "scale (fish)",
+      "to scale (fish)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ecailler"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "échouer",
+    "display_form": "échouer",
+    "existing_english": [
+      "fail an exam",
+      "to fail (an exam)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "echouer",
+      "échouer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "échouer à un examen"
+    ]
+  },
+  {
+    "infinitive": "éclaircir",
+    "display_form": "éclaircir",
+    "existing_english": [
+      "clear",
+      "lighten",
+      "to clear",
+      "to lighten"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "éclaircir"
+    ],
+    "existing_tags": [],
+    "verb_group": "2nd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "écosser",
+    "display_form": "écosser",
+    "existing_english": [
+      "shell (peas)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "écouter",
+    "display_form": "écouter",
+    "existing_english": [
+      "listen",
+      "to listen",
+      "to listen to"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ecouter",
+      "écoutant",
+      "écouter",
+      "écouté"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "écraser",
+    "display_form": "écraser",
+    "existing_english": [
+      "squash",
+      "to crush",
+      "to squash"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ecraser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

@@ -21,56 +21,31 @@ for p in [str(REPO_ROOT), str(SCRIPT_DIR)]:
     if p not in sys.path:
         sys.path.insert(0, p)
 
-try:
-    from enrichment.scripts.enrichment_config import (
-        APPROVED_DIR,
-        VALIDATED_DIR,
-        LOGS_DIR,
-        BACKUPS_DIR,
-        REPORTS_DIR,
-        PROGRESS_FILE,
-        NATURAL_KEYS,
-    )
-    from enrichment.scripts.enrichment_helpers import (
-        load_json,
-        save_json,
-        load_master_data,
-        save_master_data_atomically,
-        backup_master_data,
-        calculate_hash,
-        validate_against_master_schema,
-        find_entity_by_natural_key,
-        build_natural_key_index,
-        natural_key_to_str,
-        normalize_french_text,
-        resolve_field_name,
-    )
-    from enrichment.scripts.generate_enrichment_report import generate_report_for_file
-except ImportError:
-    from enrichment_config import (
-        APPROVED_DIR,
-        VALIDATED_DIR,
-        LOGS_DIR,
-        BACKUPS_DIR,
-        REPORTS_DIR,
-        PROGRESS_FILE,
-        NATURAL_KEYS,
-    )
-    from enrichment_helpers import (
-        load_json,
-        save_json,
-        load_master_data,
-        save_master_data_atomically,
-        backup_master_data,
-        calculate_hash,
-        validate_against_master_schema,
-        find_entity_by_natural_key,
-        build_natural_key_index,
-        natural_key_to_str,
-        normalize_french_text,
-        resolve_field_name,
-    )
-    from generate_enrichment_report import generate_report_for_file
+from enrichment.scripts.enrichment_config import (
+    APPROVED_DIR,
+    VALIDATED_DIR,
+    LOGS_DIR,
+    BACKUPS_DIR,
+    REPORTS_DIR,
+    PROGRESS_FILE,
+    NATURAL_KEYS,
+)
+from enrichment.scripts.enrichment_helpers import (
+    load_json,
+    save_json,
+    load_master_data,
+    save_master_data_atomically,
+    backup_master_data,
+    calculate_hash,
+    validate_against_master_schema,
+    find_entity_by_natural_key,
+    build_natural_key_index,
+    natural_key_to_str,
+    normalize_french_text,
+    resolve_field_name,
+)
+from enrichment.scripts.generate_enrichment_report import generate_report_for_file
+
 
 
 

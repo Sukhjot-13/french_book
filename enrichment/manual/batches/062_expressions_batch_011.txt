@@ -1,0 +1,567 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 062_expressions_batch_011
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "062_expressions_batch_011",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "moi non plus",
+    "display_form": "moi non plus",
+    "existing_english": [
+      "me neither"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "conversation_phrase"
+  },
+  {
+    "canonical_form": "monter en haut de",
+    "display_form": "monter en haut de",
+    "existing_english": [
+      "to go up to the top of"
+    ],
+    "existing_aliases": [
+      "monter au sommet de"
+    ],
+    "existing_search_terms": [
+      "go up",
+      "monter en haut de"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "monter en haut de + [place]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "en haut de"
+    ]
+  },
+  {
+    "canonical_form": "monter les malles",
+    "display_form": "monter les malles",
+    "existing_english": [
+      "to take the trunks up"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "monter les malles",
+      "take up trunks"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "monter + [object]",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "n'importe quoi",
+    "display_form": "n'importe quoi",
+    "existing_english": [
+      "anything"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "ne pas croire que + subjonctif",
+    "display_form": "ne pas croire que",
+    "existing_english": [
+      "not to believe that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ne pas croire que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "ne pas croire que + subjonctif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "ne pas penser que + subjonctif",
+    "display_form": "ne pas penser que",
+    "existing_english": [
+      "not to think that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ne pas penser que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "ne pas penser que + subjonctif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "ne... jamais",
+    "display_form": "ne... jamais",
+    "existing_english": [
+      "never"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "never"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "ne + verb + jamais",
+    "expression_type": "negative_construction"
+  },
+  {
+    "canonical_form": "ne...guère",
+    "display_form": "ne...guère",
+    "existing_english": [
+      "hardly"
+    ],
+    "existing_aliases": [
+      "ne ... guère"
+    ],
+    "existing_search_terms": [
+      "ne guère"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "ne + verb + guère",
+    "expression_type": "negative_construction"
+  },
+  {
+    "canonical_form": "ne...jamais",
+    "display_form": "ne...jamais",
+    "existing_english": [
+      "never"
+    ],
+    "existing_aliases": [
+      "ne ... jamais"
+    ],
+    "existing_search_terms": [
+      "ne jamais"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "ne + verb + jamais",
+    "expression_type": "negative_construction"
+  },
+  {
+    "canonical_form": "ne...pas",
+    "display_form": "ne...pas",
+    "existing_english": [
+      "not"
+    ],
+    "existing_aliases": [
+      "ne ... pas"
+    ],
+    "existing_search_terms": [
+      "ne pas"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "ne + verb + pas",
+    "expression_type": "negative_construction"
+  },
+  {
+    "canonical_form": "ne...personne",
+    "display_form": "ne...personne",
+    "existing_english": [
+      "nobody",
+      "not anybody"
+    ],
+    "existing_aliases": [
+      "ne ... personne"
+    ],
+    "existing_search_terms": [
+      "ne personne"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "ne + verb + personne",
+    "expression_type": "negative_construction"
+  },
+  {
+    "canonical_form": "ne...plus",
+    "display_form": "ne...plus",
+    "existing_english": [
+      "no longer",
+      "no more"
+    ],
+    "existing_aliases": [
+      "ne ... plus"
+    ],
+    "existing_search_terms": [
+      "ne plus"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "ne + verb + plus",
+    "expression_type": "negative_construction"
+  },
+  {
+    "canonical_form": "ne...rien",
+    "display_form": "ne...rien",
+    "existing_english": [
+      "nothing",
+      "not anything"
+    ],
+    "existing_aliases": [
+      "ne ... rien"
+    ],
+    "existing_search_terms": [
+      "ne rien"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "ne + verb + rien",
+    "expression_type": "negative_construction"
+  },
+  {
+    "canonical_form": "ni...ni...",
+    "display_form": "ni...ni...",
+    "existing_english": [
+      "neither...nor..."
+    ],
+    "existing_aliases": [
+      "ne ... ni ... ni ..."
+    ],
+    "existing_search_terms": [
+      "ni ni"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "ne + verb + ni + noun1 + ni + noun2",
+    "expression_type": "negative_construction"
+  },
+  {
+    "canonical_form": "obtenir la ... place",
+    "display_form": "obtenir la ... place",
+    "existing_english": [
+      "to get the ... place"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "obtenir place"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "obtenir la [ordinal] place",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "obéir à",
+    "display_form": "obéir à",
+    "existing_english": [
+      "to obey"
+    ],
+    "existing_aliases": [
+      "obéir à quelqu'un"
+    ],
+    "existing_search_terms": [
+      "obéir à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "obéir à + [person/authority]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "oublier son anniversaire",
+    "display_form": "oublier son anniversaire",
+    "existing_english": [
+      "to forget someone's birthday"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "forget birthday",
+      "oublier son anniversaire"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "oublier son anniversaire",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "où",
+    "display_form": "où",
+    "existing_english": [
+      "where"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "where"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "question_construction"
+  },
+  {
+    "canonical_form": "où que + subjonctif",
+    "display_form": "où que + subjunctive",
+    "existing_english": [
+      "wherever"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "où que",
+      "wherever"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "où que + SUJET + VERBE (subjonctif)",
+    "expression_type": "subjunctive_trigger"
+  },
+  {
+    "canonical_form": "par cœur",
+    "display_form": "par cœur",
+    "existing_english": [
+      "by heart"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "par hasard",
+    "display_form": "par hasard",
+    "existing_english": [
+      "by chance"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "parfois",
+    "display_form": "parfois",
+    "existing_english": [
+      "sometimes"
+    ],
+    "existing_aliases": [
+      "quelquefois"
+    ],
+    "existing_search_terms": [
+      "sometimes"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "parler de",
+    "display_form": "parler de",
+    "existing_english": [
+      "to talk about",
+      "to speak about"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "parler de",
+      "talk about"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "parler de + noun/person",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "parler de + quelque chose",
+    "display_form": "parler de + something",
+    "existing_english": [
+      "to talk about something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "parler de",
+      "talk about"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "parler de + SUJET",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "parler fort",
+    "display_form": "parler fort",
+    "existing_english": [
+      "to speak loudly"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "parler fort",
+      "speak loudly"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "parler fort",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "parler l'anglais couramment",
+    "display_form": "parler l’anglais couramment",
+    "existing_english": [
+      "to be fluent in English"
+    ],
+    "existing_aliases": [
+      "parler couramment une langue"
+    ],
+    "existing_search_terms": [
+      "be fluent in English",
+      "parler anglais couramment"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "parler + [language] + couramment",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "parler à + personne",
+    "display_form": "parler à + person",
+    "existing_english": [
+      "to talk to someone"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "parler à",
+      "talk to"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "parler à + PERSONNE",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "parler à quelqu'un",
+    "display_form": "parler à [person]",
+    "existing_english": [
+      "to talk to someone"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "parler à [person]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "partout",
+    "display_form": "partout",
+    "existing_english": [
+      "everywhere"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "everywhere"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "passer devant",
+    "display_form": "passer devant",
+    "existing_english": [
+      "to pass by"
+    ],
+    "existing_aliases": [
+      "passer devant quelque chose"
+    ],
+    "existing_search_terms": [
+      "pass by",
+      "passer devant"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "passer devant + [place]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "devant"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

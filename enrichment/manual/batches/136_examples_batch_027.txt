@@ -1,0 +1,225 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 136_examples_batch_027
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "136_examples_batch_027",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Où allez-vous?",
+    "existing_english": "Where are you going?",
+    "existing_tags": []
+  },
+  {
+    "french": "Où habite le souffleur de verre dont tu nous as parlé?",
+    "existing_english": "Where does the glassblower you told us about live?",
+    "existing_tags": []
+  },
+  {
+    "french": "Où qu'elle aille, il ira aussi.",
+    "existing_english": "Wherever she goes, he will go, too.",
+    "existing_tags": []
+  },
+  {
+    "french": "Où que tu sois, appelle-moi.",
+    "existing_english": "Wherever you are, call me.",
+    "existing_tags": []
+  },
+  {
+    "french": "Où se trouve le pont Alexandre III?",
+    "existing_english": "Where is the Alexandre III bridge?",
+    "existing_tags": []
+  },
+  {
+    "french": "Paolo est le meilleur artisan qui vende des objets à Burano.",
+    "existing_english": "Paolo is the best artisan who sells pieces in Burano.",
+    "existing_tags": []
+  },
+  {
+    "french": "Parle!",
+    "existing_english": "Speak!",
+    "existing_tags": []
+  },
+  {
+    "french": "Parle-t-elle russe?",
+    "existing_english": "Does she speak Russian?",
+    "existing_tags": []
+  },
+  {
+    "french": "parler → parlé",
+    "existing_english": "to speak → spoken",
+    "existing_tags": []
+  },
+  {
+    "french": "Parlez!",
+    "existing_english": "Speak!",
+    "existing_tags": []
+  },
+  {
+    "french": "Parlez-vous italien?",
+    "existing_english": "Do you speak Italian?",
+    "existing_tags": []
+  },
+  {
+    "french": "Parlons!",
+    "existing_english": "Let's speak!",
+    "existing_tags": []
+  },
+  {
+    "french": "partant",
+    "existing_english": "leaving",
+    "existing_tags": []
+  },
+  {
+    "french": "Paul dit que ce n'est pas important.",
+    "existing_english": "Paul says it is not important.",
+    "existing_tags": []
+  },
+  {
+    "french": "perdre → perdu",
+    "existing_english": "to lose → lost",
+    "existing_tags": []
+  },
+  {
+    "french": "Pierre dit que le président est à Milan.",
+    "existing_english": "Pierre is saying that the president is in Milan.",
+    "existing_tags": []
+  },
+  {
+    "french": "Pierre dit: « Le président est à Milan. »",
+    "existing_english": "Pierre says: “The president is in Milan.”",
+    "existing_tags": []
+  },
+  {
+    "french": "Pourquoi protester?",
+    "existing_english": "Why protest?",
+    "existing_tags": []
+  },
+  {
+    "french": "Pourquoi étudiez-vous le français?",
+    "existing_english": "Why do you study French?",
+    "existing_tags": []
+  },
+  {
+    "french": "Pourrais-tu me prêter le livre dont tu m'as parlé?",
+    "existing_english": "Could you lend me the book you told me about?",
+    "existing_tags": []
+  },
+  {
+    "french": "Pourriez-vous m'expliquer votre méthode de travail?",
+    "existing_english": "Could you explain to me your working method?",
+    "existing_tags": []
+  },
+  {
+    "french": "Pourriez-vous nous donner votre avis?",
+    "existing_english": "Could you give us your opinion?",
+    "existing_tags": []
+  },
+  {
+    "french": "Pourriez-vous résoudre ce problème?",
+    "existing_english": "Could you solve this problem?",
+    "existing_tags": []
+  },
+  {
+    "french": "Pourvu qu'il réussisse!",
+    "existing_english": "Let's hope he succeeds!",
+    "existing_tags": []
+  },
+  {
+    "french": "Pourvu qu'il y ait un cybercafé!",
+    "existing_english": "Let's hope there is a cybercafé!",
+    "existing_tags": []
+  },
+  {
+    "french": "Pourvu qu'ils aient l'adresse!",
+    "existing_english": "Let's hope they have the address!",
+    "existing_tags": []
+  },
+  {
+    "french": "Pourvu que leur base de données soit à jour!",
+    "existing_english": "Let's hope their database is up to date!",
+    "existing_tags": []
+  },
+  {
+    "french": "Prendre une fois par jour.",
+    "existing_english": "Take once a day.",
+    "existing_tags": []
+  },
+  {
+    "french": "Prends un café avant de partir!",
+    "existing_english": "Have a coffee before you leave!",
+    "existing_tags": []
+  },
+  {
+    "french": "Prenez le chemin sur la droite.",
+    "existing_english": "Take the path on the (your) right.",
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

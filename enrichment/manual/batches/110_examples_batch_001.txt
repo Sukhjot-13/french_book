@@ -1,0 +1,225 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 110_examples_batch_001
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "110_examples_batch_001",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Achète ces coussins bleu azur!",
+    "existing_english": "Buy these azur blue cushions!",
+    "existing_tags": []
+  },
+  {
+    "french": "Aie plus de patience!",
+    "existing_english": "Have more patience!",
+    "existing_tags": []
+  },
+  {
+    "french": "Allons leur rendre visite!",
+    "existing_english": "Let's go visit them!",
+    "existing_tags": []
+  },
+  {
+    "french": "Apprendre une langue étrangère est très utile.",
+    "existing_english": "Learning a foreign language is very useful.",
+    "existing_tags": []
+  },
+  {
+    "french": "Après la mort de sa femme, il ne pouvait plus écrire.",
+    "existing_english": "After his wife’s death, he could no longer write.",
+    "existing_tags": []
+  },
+  {
+    "french": "Au cas où ce cadeau ne vous plairait pas, dites-le-moi.",
+    "existing_english": "In case you do not like this present, let me know.",
+    "existing_tags": []
+  },
+  {
+    "french": "Au cas où il aurait échoué à l'examen, on lui donnera une autre chance.",
+    "existing_english": "In case he failed the exam, we’ll give him another chance.",
+    "existing_tags": []
+  },
+  {
+    "french": "Au cas où le projet ne serait pas fini cet après-midi, appelez-moi.",
+    "existing_english": "In case the project is not finished by this afternoon, call me.",
+    "existing_tags": []
+  },
+  {
+    "french": "Au cas où tu n'aurais pas retrouvé tes clés, Christian s'occupera de toi.",
+    "existing_english": "In case you did not find your keys, Christian will take care of you.",
+    "existing_tags": []
+  },
+  {
+    "french": "Aucun rapport n'a été envoyé.",
+    "existing_english": "No report was sent.",
+    "existing_tags": []
+  },
+  {
+    "french": "Aucune décision ne sera prise avant l'arrivée du nouveau directeur.",
+    "existing_english": "No decision will be made before the new director’s arrival.",
+    "existing_tags": []
+  },
+  {
+    "french": "Aussitôt qu'il arrivera, nous partirons.",
+    "existing_english": "As soon as he arrives, we'll leave.",
+    "existing_tags": []
+  },
+  {
+    "french": "Autrefois, elle faisait partie de la chorale.",
+    "existing_english": "In the past, she used to belong to the choir.",
+    "existing_tags": []
+  },
+  {
+    "french": "Avez-vous aimé la pièce?",
+    "existing_english": "Did you like the play?",
+    "existing_tags": []
+  },
+  {
+    "french": "Ayant accepté la défaite, les joueurs sont rentrés chez eux.",
+    "existing_english": "Having accepted the defeat, the players went home.",
+    "existing_tags": []
+  },
+  {
+    "french": "ayant compris",
+    "existing_english": "having understood",
+    "existing_tags": []
+  },
+  {
+    "french": "ayant joué",
+    "existing_english": "having played",
+    "existing_tags": []
+  },
+  {
+    "french": "ayant traversé",
+    "existing_english": "having crossed",
+    "existing_tags": []
+  },
+  {
+    "french": "ayant vu",
+    "existing_english": "having seen",
+    "existing_tags": []
+  },
+  {
+    "french": "Bertrand est chirurgien.",
+    "existing_english": "Bertrand is a surgeon.",
+    "existing_tags": []
+  },
+  {
+    "french": "Bois!",
+    "existing_english": "Drink!",
+    "existing_tags": []
+  },
+  {
+    "french": "buvant",
+    "existing_english": "drinking",
+    "existing_tags": []
+  },
+  {
+    "french": "Buvez!",
+    "existing_english": "Drink!",
+    "existing_tags": []
+  },
+  {
+    "french": "Buvons!",
+    "existing_english": "Let's drink!",
+    "existing_tags": []
+  },
+  {
+    "french": "C'est beaucoup trop loin.",
+    "existing_english": "It is much too far.",
+    "existing_tags": []
+  },
+  {
+    "french": "C'est de l'eau potable.",
+    "existing_english": "It’s drinkable water.",
+    "existing_tags": []
+  },
+  {
+    "french": "C'est de la porcelaine.",
+    "existing_english": "It’s porcelain.",
+    "existing_tags": []
+  },
+  {
+    "french": "C'est du fromage de chèvre.",
+    "existing_english": "It’s goat cheese.",
+    "existing_tags": []
+  },
+  {
+    "french": "C'est exactement ce à quoi je m'attendais de sa part.",
+    "existing_english": "It’s exactly what I expected from him.",
+    "existing_tags": []
+  },
+  {
+    "french": "C'est l'antiquaire à qui je pensais.",
+    "existing_english": "He’s the antiques dealer I was thinking about.",
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

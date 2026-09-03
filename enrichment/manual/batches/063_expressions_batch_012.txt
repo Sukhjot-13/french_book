@@ -1,0 +1,568 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 063_expressions_batch_012
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "063_expressions_batch_012",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "passer les menottes à quelqu'un",
+    "display_form": "passer les menottes à quelqu'un",
+    "existing_english": [
+      "to handcuff someone"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "passer les menottes"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "passer les menottes à [person]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "passer ses vacances à + infinitif",
+    "display_form": "passer ses vacances à lire",
+    "existing_english": [
+      "to spend one's vacation doing something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "passer ses vacances à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "passer + possessive + vacances + à + infinitif",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "passer son temps à + infinitif",
+    "display_form": "passer son temps à faire quelque chose",
+    "existing_english": [
+      "to spend one's time doing something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "passer ses vacances à",
+      "passer son temps à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "passer + possessive + temps + à + infinitif",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "passer trois semaines à Tokyo",
+    "display_form": "passer trois semaines à Tokyo",
+    "existing_english": [
+      "to spend three weeks in Tokyo"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "passer trois semaines",
+      "spend three weeks"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "passer + [duration] + à + [place]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "passer un examen",
+    "display_form": "passer un examen",
+    "existing_english": [
+      "to take an exam"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "passer un examen",
+      "take an exam"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "passer + un examen",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "pendant",
+    "display_form": "pendant",
+    "existing_english": [
+      "for",
+      "during"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "during",
+      "for"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "pendant + [duration]",
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "penser à",
+    "display_form": "penser à",
+    "existing_english": [
+      "to think about"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "penser a",
+      "think about"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "penser à + noun/person",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "penser à quelque chose",
+    "display_form": "penser à [thing]",
+    "existing_english": [
+      "to think about something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "penser à [thing]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "perdre les élections",
+    "display_form": "perdre les élections",
+    "existing_english": [
+      "to lose the elections"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "perdre les élections"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "perdre ses clés",
+    "display_form": "perdre ses clés",
+    "existing_english": [
+      "to lose one's keys"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "lose keys",
+      "perdre ses clés"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "poser une question",
+    "display_form": "poser une question",
+    "existing_english": [
+      "to ask a question"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ask a question",
+      "poser une question"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "pour que + subjonctif",
+    "display_form": "pour que",
+    "existing_english": [
+      "so that",
+      "in order to"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "pour que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "pour que + subjonctif",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "pourquoi",
+    "display_form": "pourquoi",
+    "existing_english": [
+      "why"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "why"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "question_construction"
+  },
+  {
+    "canonical_form": "pourvu que + subjonctif",
+    "display_form": "pourvu que",
+    "existing_english": [
+      "provided that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "pourvu que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "pourvu que + subjonctif",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "pourvu que + subjonctif (souhait)",
+    "display_form": "pourvu que",
+    "existing_english": [
+      "let's hope that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "pourvu que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "pourvu que + subjonctif",
+    "expression_type": "conversation_phrase"
+  },
+  {
+    "canonical_form": "pouvoir + infinitif",
+    "display_form": "pouvoir + infinitif",
+    "existing_english": [
+      "can/could do something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "can",
+      "could",
+      "pouvoir"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "pouvoir + infinitif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "pouvoir + infinitive",
+    "display_form": "pouvoir faire quelque chose",
+    "existing_english": [
+      "can do something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "can",
+      "pouvoir infinitive"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "pouvoir + infinitive",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "prendre des vacances",
+    "display_form": "prendre des vacances",
+    "existing_english": [
+      "to take a vacation",
+      "to take some vacation"
+    ],
+    "existing_aliases": [
+      "prendre de longues vacances"
+    ],
+    "existing_search_terms": [
+      "prendre des vacances",
+      "take vacation"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "prendre + des vacances",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "prendre l'avion",
+    "display_form": "prendre l'avion",
+    "existing_english": [
+      "to take the plane"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "prendre l'avion",
+      "take plane"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "prendre la fuite",
+    "display_form": "prendre la fuite",
+    "existing_english": [
+      "to flee"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "prendre la fuite"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "prendre le métro",
+    "display_form": "prendre le métro",
+    "existing_english": [
+      "to take the subway"
+    ],
+    "existing_aliases": [
+      "prendre le métro"
+    ],
+    "existing_search_terms": [
+      "prendre le métro"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "prendre + le métro",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "prendre le petit déjeuner",
+    "display_form": "prendre le petit déjeuner",
+    "existing_english": [
+      "to have breakfast"
+    ],
+    "existing_aliases": [
+      "prendre son petit déjeuner"
+    ],
+    "existing_search_terms": [
+      "prendre le petit déjeuner"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "prendre + le petit déjeuner",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "prendre sa retraite",
+    "display_form": "prendre sa retraite",
+    "existing_english": [
+      "to retire"
+    ],
+    "existing_aliases": [
+      "prendre sa retraite"
+    ],
+    "existing_search_terms": [
+      "retire",
+      "retraite"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "prendre sa voiture",
+    "display_form": "prendre sa voiture",
+    "existing_english": [
+      "to take one's car"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "prendre sa voiture",
+      "take one's car"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "prendre sa voiture",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "prendre un cachet d'aspirine",
+    "display_form": "prendre un cachet d'aspirine",
+    "existing_english": [
+      "to take an aspirin tablet"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "prendre un cachet d'aspirine",
+      "take an aspirin"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "prendre un café",
+    "display_form": "prendre un café",
+    "existing_english": [
+      "to have a coffee"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "have a coffee",
+      "prendre un café"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "prendre une direction",
+    "display_form": "prendre une direction",
+    "existing_english": [
+      "to take a direction"
+    ],
+    "existing_aliases": [
+      "prendre une autre direction"
+    ],
+    "existing_search_terms": [
+      "prendre une direction"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "prendre + une direction",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "prendre une décision",
+    "display_form": "prendre une décision",
+    "existing_english": [
+      "to make a decision"
+    ],
+    "existing_aliases": [
+      "prendre la décision"
+    ],
+    "existing_search_terms": [
+      "make a decision",
+      "prendre une décision"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "prononcer un discours",
+    "display_form": "prononcer un discours",
+    "existing_english": [
+      "to make a speech"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "make a speech",
+      "prononcer un discours"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "prononcer + article + discours",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "près",
+    "display_form": "près",
+    "existing_english": [
+      "near",
+      "close"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "close",
+      "near"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

@@ -1,0 +1,379 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 070_expressions_batch_019
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 17
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "070_expressions_batch_019",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "être assis à + infinitif",
+    "display_form": "être assise à écosser des petits pois",
+    "existing_english": [
+      "to be sitting doing something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "être assis à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "être assis(e) + à + infinitif",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "être condamné(e) à",
+    "display_form": "être condamné(e) à",
+    "existing_english": [
+      "to be sentenced to"
+    ],
+    "existing_aliases": [
+      "être condamné à"
+    ],
+    "existing_search_terms": [
+      "être condamné à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "être condamné(e) à [something]",
+    "expression_type": "fixed_expression",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "être content(e)(s) que + subjonctif",
+    "display_form": "être content que",
+    "existing_english": [
+      "to be happy that"
+    ],
+    "existing_aliases": [
+      "être content que"
+    ],
+    "existing_search_terms": [
+      "être content que"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "être content(e)(s) que + subjonctif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "être de mauvaise humeur",
+    "display_form": "être de mauvaise humeur",
+    "existing_english": [
+      "to be in a bad mood"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bad mood",
+      "être de mauvaise humeur"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "être de nouveau parmi les siens",
+    "display_form": "être de nouveau parmi les siens",
+    "existing_english": [
+      "to be back with one's family"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "parmi les siens"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "idiom",
+    "prepositions": [
+      "parmi"
+    ]
+  },
+  {
+    "canonical_form": "être debout à + infinitif",
+    "display_form": "être debout à éplucher des carottes",
+    "existing_english": [
+      "to be standing doing something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "être debout à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "être debout + à + infinitif",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "être déçu(e)(s) que + subjonctif",
+    "display_form": "être déçu que",
+    "existing_english": [
+      "to be disappointed that"
+    ],
+    "existing_aliases": [
+      "être déçu que"
+    ],
+    "existing_search_terms": [
+      "être déçu que"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "être déçu(e)(s) que + subjonctif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "être en forme",
+    "display_form": "être en forme",
+    "existing_english": [
+      "to be in shape",
+      "to be fit"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "in shape",
+      "être en forme"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "en"
+    ]
+  },
+  {
+    "canonical_form": "être en panne",
+    "display_form": "être en panne",
+    "existing_english": [
+      "to be broken down"
+    ],
+    "existing_aliases": [
+      "tomber en panne"
+    ],
+    "existing_search_terms": [
+      "breakdown",
+      "panne"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "être en train de + infinitif",
+    "display_form": "être en train de + infinitif",
+    "existing_english": [
+      "to be in the process of",
+      "to be doing"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "en train de",
+      "être en train de"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "être (conjugated) + en train de + infinitive",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "être en vacances",
+    "display_form": "être en vacances",
+    "existing_english": [
+      "to be on vacation"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "on vacation"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "en"
+    ]
+  },
+  {
+    "canonical_form": "être ravi(e)(s) que + subjonctif",
+    "display_form": "être ravi que",
+    "existing_english": [
+      "to be delighted that"
+    ],
+    "existing_aliases": [
+      "être ravi que"
+    ],
+    "existing_search_terms": [
+      "être ravi que"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "être ravi(e)(s) que + subjonctif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "être rouillé(e)",
+    "display_form": "être rouillé(e)",
+    "existing_english": [
+      "to be rusty"
+    ],
+    "existing_aliases": [
+      "être rouillé"
+    ],
+    "existing_search_terms": [
+      "be rusty",
+      "etre rouille"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "être + rouillé(e)",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "être sage",
+    "display_form": "être sage",
+    "existing_english": [
+      "to be good"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "be good",
+      "être sage"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "être sage",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "être à + disjunctive pronoun",
+    "display_form": "être à + pronom disjoint",
+    "existing_english": [
+      "to belong to"
+    ],
+    "existing_aliases": [
+      "être à + nom"
+    ],
+    "existing_search_terms": [
+      "c'est à moi",
+      "être à moi"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "être à [disjunctive pronoun]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "être à genoux à + infinitif",
+    "display_form": "être à genoux à arracher les mauvaises herbes",
+    "existing_english": [
+      "to be kneeling doing something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "être à genoux à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "être à genoux + à + infinitif",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "être élu(e)",
+    "display_form": "être élu(e)",
+    "existing_english": [
+      "to be elected"
+    ],
+    "existing_aliases": [
+      "être élu(e)"
+    ],
+    "existing_search_terms": [
+      "être élu"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

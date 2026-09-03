@@ -1,0 +1,206 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 148_exercises_batch_005
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: exercises
+TOTAL ENTITIES IN THIS BATCH: 15
+TARGET ENRICHMENT FIELDS: instructions, notes, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "148_exercises_batch_005",
+  "collection": "exercises",
+  "patches": [
+    {
+      "entity_key": {
+        "chapter_number": "<chapter_number_value>",
+        "exercise_code": "<exercise_code_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "chapter_number": 7,
+    "exercise_code": "7-8",
+    "title": null,
+    "existing_instructions": "Mettre au passé composé les verbes entre parenthèses.",
+    "existing_notes": null,
+    "instructions": "Mettre au passé composé les verbes entre parenthèses.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 7,
+    "exercise_code": "7-9",
+    "title": null,
+    "existing_instructions": "Faire correspondre les deux colonnes.",
+    "existing_notes": null,
+    "instructions": "Faire correspondre les deux colonnes.",
+    "questions_count": 5
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8-1",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8-2",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8-3",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8-4",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8-5",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8-6",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8-7",
+    "title": null,
+    "existing_instructions": null,
+    "existing_notes": null,
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8.1",
+    "title": null,
+    "existing_instructions": "Mettre les verbes entre parenthèses à l’imparfait.",
+    "existing_notes": null,
+    "instructions": "Mettre les verbes entre parenthèses à l’imparfait.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8.2",
+    "title": null,
+    "existing_instructions": "Mettre les verbes entre parenthèses à l’imparfait.",
+    "existing_notes": null,
+    "instructions": "Mettre les verbes entre parenthèses à l’imparfait.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8.3",
+    "title": null,
+    "existing_instructions": "Mettre les verbes entre parenthèses à l’imparfait.",
+    "existing_notes": null,
+    "instructions": "Mettre les verbes entre parenthèses à l’imparfait.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8.4",
+    "title": null,
+    "existing_instructions": "Mettre les verbes entre parenthèses à l’imparfait.",
+    "existing_notes": null,
+    "instructions": "Mettre les verbes entre parenthèses à l’imparfait.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8.5",
+    "title": null,
+    "existing_instructions": "Traduire les phrases suivantes en utilisant la forme tu si nécessaire.",
+    "existing_notes": null,
+    "instructions": "Traduire les phrases suivantes en utilisant la forme tu si nécessaire.",
+    "questions_count": 10
+  },
+  {
+    "chapter_number": 8,
+    "exercise_code": "8.6",
+    "title": null,
+    "existing_instructions": "Mettre les verbes entre parenthèses à l’imparfait.",
+    "existing_notes": null,
+    "instructions": "Mettre les verbes entre parenthèses à l’imparfait.",
+    "questions_count": 10
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

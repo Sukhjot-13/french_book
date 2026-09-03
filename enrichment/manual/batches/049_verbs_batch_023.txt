@@ -1,0 +1,385 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 049_verbs_batch_023
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "049_verbs_batch_023",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "surprendre",
+    "display_form": "surprendre",
+    "existing_english": [
+      "discover",
+      "surprise",
+      "to discover",
+      "to surprise"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "surprendre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "survenir",
+    "display_form": "survenir",
+    "existing_english": [
+      "occur",
+      "to occur"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "occur",
+      "survenir"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "etre"
+  },
+  {
+    "infinitive": "séduire",
+    "display_form": "séduire",
+    "existing_english": [
+      "seduce"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "teindre",
+    "display_form": "teindre",
+    "existing_english": [
+      "dye",
+      "to dye"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "teindre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "unknown"
+  },
+  {
+    "infinitive": "tendre",
+    "display_form": "tendre",
+    "existing_english": [
+      "hold out",
+      "stretch",
+      "to hold out",
+      "to stretch"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "tendre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "tenir",
+    "display_form": "tenir",
+    "existing_english": [
+      "insist on",
+      "take into account",
+      "to be eager",
+      "to hold"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "attached",
+      "hold",
+      "keep",
+      "resemble",
+      "take after",
+      "tenir"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "Tiens, tiens",
+      "tenir [quelqu'un] par la main",
+      "tenir compte de",
+      "tenir de + personne",
+      "tenir de [quelqu'un]"
+    ]
+  },
+  {
+    "infinitive": "tomber",
+    "display_form": "tomber",
+    "existing_english": [
+      "break down",
+      "fall",
+      "to fall"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "tomber",
+      "tombé"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "tomber en panne"
+    ]
+  },
+  {
+    "infinitive": "tordre",
+    "display_form": "tordre",
+    "existing_english": [
+      "to twist"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "tordre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "tourner",
+    "display_form": "tourner un film",
+    "existing_english": [
+      "shoot a film"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "tousser",
+    "display_form": "tousser",
+    "existing_english": [
+      "cough",
+      "to cough"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cough",
+      "tousser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "traduire",
+    "display_form": "traduire",
+    "existing_english": [
+      "to translate",
+      "translate"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": [],
+    "related_expressions": [
+      "comment ça se traduit"
+    ]
+  },
+  {
+    "infinitive": "travailler",
+    "display_form": "travailler",
+    "existing_english": [
+      "to work",
+      "work"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "travailler"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "traverser",
+    "display_form": "traverser",
+    "existing_english": [
+      "cross",
+      "to cross"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "traversant",
+      "traverser",
+      "traversé"
+    ],
+    "existing_tags": [],
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "trembler",
+    "display_form": "trembler",
+    "existing_english": [
+      "to tremble",
+      "to shake"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "shake",
+      "trembler"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "tremper",
+    "display_form": "tremper",
+    "existing_english": [
+      "soak",
+      "to soak"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "tremper"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "trouver",
+    "display_form": "trouver",
+    "existing_english": [
+      "find",
+      "to find"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "télécharger",
+    "display_form": "télécharger",
+    "existing_english": [
+      "download",
+      "to download"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "telecharger",
+      "télécharger"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "téléphoner",
+    "display_form": "téléphoner",
+    "existing_english": [
+      "telephone",
+      "to call",
+      "to telephone"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "call",
+      "telephone",
+      "telephoner",
+      "téléphoner"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "téléphoner à quelqu'un"
+    ]
+  },
+  {
+    "infinitive": "témoigner",
+    "display_form": "témoigner",
+    "existing_english": [
+      "testify",
+      "to testify"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "vaincre",
+    "display_form": "vaincre",
+    "existing_english": [],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

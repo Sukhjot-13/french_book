@@ -1,0 +1,225 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 132_examples_batch_023
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "132_examples_batch_023",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Le témoignage de M. Baulieu a été entendu ce matin.",
+    "existing_english": "Mr. Baulieu’s testimony was heard this morning.",
+    "existing_tags": []
+  },
+  {
+    "french": "Le vin blanc se boit frais.",
+    "existing_english": "White wine is to be drunk chilled.",
+    "existing_tags": []
+  },
+  {
+    "french": "Le vin rouge se boit chambré.",
+    "existing_english": "Red wine is drunk at room temperature.",
+    "existing_tags": []
+  },
+  {
+    "french": "Le vol arrive des États-Unis.",
+    "existing_english": "The flight is arriving from the United States.",
+    "existing_tags": []
+  },
+  {
+    "french": "Le voleur est suivi de ses complices.",
+    "existing_english": "The thief is followed by his accomplices.",
+    "existing_tags": []
+  },
+  {
+    "french": "Le voleur est suivi par la police.",
+    "existing_english": "The thief is followed by the police.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les articles qu'il vend sont chers.",
+    "existing_english": "The items he sells are expensive.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les chaises qu'ils ont restaurées sont comme neuves.",
+    "existing_english": "The chairs they restored look new.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les Corbin aiment manger au restaurant.",
+    "existing_english": "The Corbins love to eat out.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les cours recommenceront en décembre.",
+    "existing_english": "Courses will resume in December.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les croisés envahissent le pays.",
+    "existing_english": "The crusaders are invading the country.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les enfants jouent dans le jardin.",
+    "existing_english": "The children are playing in the garden.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les erreurs qu'elle a faites! C'est idiot!",
+    "existing_english": "The mistakes she made! It's so stupid!",
+    "existing_tags": []
+  },
+  {
+    "french": "Les femmes d'ici sont très belles.",
+    "existing_english": "Local women are very beautiful.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les fleurs sur la table sont rouges.",
+    "existing_english": "The flowers on the table are red.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les hôtes ont remercié le chef d'avoir préparé un si bon repas.",
+    "existing_english": "The guests thanked the chef for having prepared such a good meal.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les objets qu'ils fabriquent sont de grande valeur.",
+    "existing_english": "The objects they make are of great value.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les rues étaient embouteillées.",
+    "existing_english": "The streets were jammed.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les statues qu'il a chez lui viennent d'Afrique.",
+    "existing_english": "The statues that he has at home come from Africa.",
+    "existing_tags": []
+  },
+  {
+    "french": "Les étudiants passeront leurs examens en mai.",
+    "existing_english": "Students will take their exams in May.",
+    "existing_tags": []
+  },
+  {
+    "french": "Leur cabane se trouve dans l'État de New York.",
+    "existing_english": "Their cabin is in New York State.",
+    "existing_tags": []
+  },
+  {
+    "french": "Lire le mode d'emploi avant utilisation.",
+    "existing_english": "Read the instructions before using.",
+    "existing_tags": []
+  },
+  {
+    "french": "Luc est aussi célèbre que Bertrand.",
+    "existing_english": "Luc is as famous as Bertrand.",
+    "existing_tags": []
+  },
+  {
+    "french": "Lève-toi!",
+    "existing_english": "Get up!",
+    "existing_tags": []
+  },
+  {
+    "french": "Léa a dû prendre le médicament que le médecin lui avait prescrit.",
+    "existing_english": "Léa had to take the medicine the doctor (had) prescribed for her.",
+    "existing_tags": []
+  },
+  {
+    "french": "Léa va à la bibliothèque.",
+    "existing_english": "Léa is going to the library.",
+    "existing_tags": []
+  },
+  {
+    "french": "M. Vincent a gagné beaucoup d'argent en achetant ces toiles.",
+    "existing_english": "Mr. Vincent made a lot of money buying (when he bought) these paintings.",
+    "existing_tags": []
+  },
+  {
+    "french": "ma chère Carole",
+    "existing_english": "my dear Carole",
+    "existing_tags": []
+  },
+  {
+    "french": "Malheureusement, ses œuvres ne seront reconnues qu'après sa mort.",
+    "existing_english": "Unfortunately, her works would become recognized only after her death.",
+    "existing_tags": []
+  },
+  {
+    "french": "Mangez ceci!",
+    "existing_english": "Eat this!",
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

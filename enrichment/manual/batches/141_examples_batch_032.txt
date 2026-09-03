@@ -1,0 +1,225 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 141_examples_batch_032
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "141_examples_batch_032",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "tu étais",
+    "existing_english": "you were",
+    "existing_tags": []
+  },
+  {
+    "french": "Téléphone à Jérôme immédiatement!",
+    "existing_english": "Call Jérôme immediately!",
+    "existing_tags": []
+  },
+  {
+    "french": "Un artisan, dont j'ai aussi rencontré le père, m'a encouragé à devenir verrier.",
+    "existing_english": "A craftsman, whose father I also met, encouraged me to become a glassworker.",
+    "existing_tags": []
+  },
+  {
+    "french": "un cadeau cher",
+    "existing_english": "an expensive gift",
+    "existing_tags": []
+  },
+  {
+    "french": "un commentateur fascinant",
+    "existing_english": "a fascinating commentator",
+    "existing_tags": []
+  },
+  {
+    "french": "Un des génies du dix-huitième siècle et il mourra dans la misère.",
+    "existing_english": "One of the geniuses of the eighteenth century, and he would die in misery.",
+    "existing_tags": []
+  },
+  {
+    "french": "un grand homme",
+    "existing_english": "an important man",
+    "existing_tags": []
+  },
+  {
+    "french": "Un instant, s'il vous plaît, je suis en train de parler à Rémi.",
+    "existing_english": "One moment, please, I am talking to Rémi.",
+    "existing_tags": []
+  },
+  {
+    "french": "Un sous-marin hollandais serait au large des côtes bretonnes.",
+    "existing_english": "A Dutch submarine is reportedly off the coast of Brittany.",
+    "existing_tags": []
+  },
+  {
+    "french": "un sport exigeant",
+    "existing_english": "a demanding sport",
+    "existing_tags": []
+  },
+  {
+    "french": "une femme grande",
+    "existing_english": "a tall woman",
+    "existing_tags": []
+  },
+  {
+    "french": "une fenêtre sale",
+    "existing_english": "a dirty window",
+    "existing_tags": []
+  },
+  {
+    "french": "une nappe propre",
+    "existing_english": "a clean tablecloth",
+    "existing_tags": []
+  },
+  {
+    "french": "une pièce amusante",
+    "existing_english": "an amusing play",
+    "existing_tags": []
+  },
+  {
+    "french": "une sale affaire",
+    "existing_english": "a nasty business",
+    "existing_tags": []
+  },
+  {
+    "french": "une statue ancienne",
+    "existing_english": "an antique statue",
+    "existing_tags": []
+  },
+  {
+    "french": "Une écharpe blanche a été retrouvée sur les lieux du crime.",
+    "existing_english": "A white scarf was found on the crime scene.",
+    "existing_tags": []
+  },
+  {
+    "french": "Valérie parle à son ami Ludovic.",
+    "existing_english": "Valérie is talking (talks, does talk) to her friend Ludovic.",
+    "existing_tags": []
+  },
+  {
+    "french": "vendre → vendu",
+    "existing_english": "to sell → sold",
+    "existing_tags": []
+  },
+  {
+    "french": "Veuillez signer le contrat.",
+    "existing_english": "Please sign the contract.",
+    "existing_tags": []
+  },
+  {
+    "french": "Viens faire une promenade!",
+    "existing_english": "Come take a walk!",
+    "existing_tags": []
+  },
+  {
+    "french": "Voici le collègue avec qui j'écris le rapport.",
+    "existing_english": "Here is the colleague with whom I am writing the report.",
+    "existing_tags": []
+  },
+  {
+    "french": "Voici le lustre que Daniel a acheté.",
+    "existing_english": "Here’s the chandelier Daniel bought.",
+    "existing_tags": []
+  },
+  {
+    "french": "Voici les documents dont il a besoin.",
+    "existing_english": "Here are the documents he needs.",
+    "existing_tags": []
+  },
+  {
+    "french": "Vos réponses ne sont pas correctes. —Les siennes non plus.",
+    "existing_english": "Your answers are not right. —His either. (Nor are his.)",
+    "existing_tags": []
+  },
+  {
+    "french": "Voudrais-tu me montrer le chemin?",
+    "existing_english": "Would you mind showing me the way?",
+    "existing_tags": []
+  },
+  {
+    "french": "Voudriez-vous dîner avec nous ce soir?",
+    "existing_english": "Would you like to have dinner with us this evening?",
+    "existing_tags": []
+  },
+  {
+    "french": "Vous allez partir la semaine prochaine?",
+    "existing_english": "You’re going to leave next week?",
+    "existing_tags": []
+  },
+  {
+    "french": "Vous allez prendre des vacances?",
+    "existing_english": "Are you going to take any vacation?",
+    "existing_tags": []
+  },
+  {
+    "french": "Vous allez vous apercevoir de votre erreur.",
+    "existing_english": "You are going to realize your mistake.",
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

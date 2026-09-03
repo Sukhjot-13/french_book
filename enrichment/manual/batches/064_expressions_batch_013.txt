@@ -1,0 +1,599 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 064_expressions_batch_013
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "064_expressions_batch_013",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "prévenir la police",
+    "display_form": "prévenir la police",
+    "existing_english": [
+      "to call the police"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "prévenir la police"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "prévenir que + proposition",
+    "display_form": "prévenir que + proposition",
+    "existing_english": [
+      "to warn that ..."
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "prévenir que",
+      "warn that"
+    ],
+    "existing_collocation_strength": "possible",
+    "existing_tags": [],
+    "pattern": "prévenir que + clause",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "quand",
+    "display_form": "quand",
+    "existing_english": [
+      "when"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "when"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "question_construction"
+  },
+  {
+    "canonical_form": "que",
+    "display_form": "que",
+    "existing_english": [
+      "what"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "what"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "question_construction"
+  },
+  {
+    "canonical_form": "quel que + nom + être (subjonctif)",
+    "display_form": "quel/quelle/quels/quelles que + noun + être (subjunctive)",
+    "existing_english": [
+      "whatever (with noun)"
+    ],
+    "existing_aliases": [
+      "quel que",
+      "quelle que",
+      "quelles que",
+      "quels que"
+    ],
+    "existing_search_terms": [
+      "quel que",
+      "whatever noun"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "quel/quelle/quels/quelles que + SUJET + être (subjonctif) + NOM",
+    "expression_type": "subjunctive_trigger"
+  },
+  {
+    "canonical_form": "quelquefois",
+    "display_form": "quelquefois",
+    "existing_english": [
+      "sometimes"
+    ],
+    "existing_aliases": [
+      "parfois"
+    ],
+    "existing_search_terms": [
+      "sometimes"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "qui",
+    "display_form": "qui",
+    "existing_english": [
+      "who",
+      "whom"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "who",
+      "whom"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "question_construction"
+  },
+  {
+    "canonical_form": "qui que + subjonctif",
+    "display_form": "qui que + subjunctive",
+    "existing_english": [
+      "whoever"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "qui que",
+      "whoever"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "qui que + SUJET + VERBE (subjonctif)",
+    "expression_type": "subjunctive_trigger"
+  },
+  {
+    "canonical_form": "quitte à + infinitif",
+    "display_form": "quitte à + infinitive",
+    "existing_english": [
+      "even if it means (doing something)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "even if it means",
+      "quitte à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "quitte à + INF",
+    "expression_type": "fixed_expression",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "quoi que + subjonctif",
+    "display_form": "quoi que + subjunctive",
+    "existing_english": [
+      "whatever (with verb)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "quoi que",
+      "whatever"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "quoi que + SUJET + VERBE (subjonctif)",
+    "expression_type": "subjunctive_trigger"
+  },
+  {
+    "canonical_form": "quoique + subjonctif",
+    "display_form": "quoique",
+    "existing_english": [
+      "although"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "quoique"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "quoique + subjonctif",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "rarement",
+    "display_form": "rarement",
+    "existing_english": [
+      "seldom"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "rarely",
+      "seldom"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "recevoir son diplôme",
+    "display_form": "recevoir son diplôme",
+    "existing_english": [
+      "to get one's degree"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "get one's degree",
+      "recevoir son diplome"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "recevoir + son diplôme",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "regretter que + subjonctif",
+    "display_form": "regretter que",
+    "existing_english": [
+      "to be sorry that",
+      "to regret that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "regretter que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "regretter que + subjonctif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "remporter la médaille d'or",
+    "display_form": "remporter la médaille d'or",
+    "existing_english": [
+      "to win the gold medal"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "gold medal",
+      "remporter médaille d'or"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "remporter une victoire",
+    "display_form": "remporter une victoire",
+    "existing_english": [
+      "to win a victory"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "gagner",
+      "remporter une victoire"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "rendre visite à",
+    "display_form": "rendre visite à",
+    "existing_english": [
+      "to visit (someone)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "rendre visite à",
+      "visit someone"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "rendre visite à + person",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "rendre visite à quelqu'un",
+    "display_form": "rendre visite à quelqu'un",
+    "existing_english": [
+      "to visit someone"
+    ],
+    "existing_aliases": [
+      "rendre visite à"
+    ],
+    "existing_search_terms": [
+      "rendre visite",
+      "visit someone"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "rendre visite à + personne",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "renoncer à quelque chose",
+    "display_form": "renoncer à [thing]",
+    "existing_english": [
+      "to give up something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "renoncer à [thing]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "rentrer de vacances",
+    "display_form": "rentrer de vacances",
+    "existing_english": [
+      "to come back from vacation"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "rentrer de vacances",
+      "return from vacation"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "rentrer de + [place/activity]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "rentrer les géraniums",
+    "display_form": "rentrer les géraniums",
+    "existing_english": [
+      "to bring the geraniums in"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bring in geraniums",
+      "rentrer les géraniums"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "rentrer + [object]",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "retourner l'omelette",
+    "display_form": "retourner l'omelette",
+    "existing_english": [
+      "to flip the omelette"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "flip omelette",
+      "retourner l'omelette"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "retourner + [food item]",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "retourner à Venise",
+    "display_form": "retourner à Venise",
+    "existing_english": [
+      "to go back to Venice"
+    ],
+    "existing_aliases": [
+      "retourner à"
+    ],
+    "existing_search_terms": [
+      "go back to",
+      "retourner à"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "retourner à + [place]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "réfléchir à",
+    "display_form": "réfléchir à",
+    "existing_english": [
+      "to think about"
+    ],
+    "existing_aliases": [
+      "réfléchir à quelque chose"
+    ],
+    "existing_search_terms": [
+      "réfléchir à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "réfléchir à + [something]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "répondre à",
+    "display_form": "répondre à",
+    "existing_english": [
+      "to answer",
+      "to answer (someone/something)"
+    ],
+    "existing_aliases": [
+      "répondre à quelqu'un",
+      "répondre à quelque chose"
+    ],
+    "existing_search_terms": [
+      "answer to",
+      "repondre a",
+      "répondre à"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "répondre + à + noun/person",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "répondre à quelqu'un",
+    "display_form": "répondre à [person]",
+    "existing_english": [
+      "to answer someone"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "répondre à [person]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "réussir à",
+    "display_form": "réussir à",
+    "existing_english": [
+      "to succeed in"
+    ],
+    "existing_aliases": [
+      "réussir à faire"
+    ],
+    "existing_search_terms": [
+      "réussir à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "réussir à + [infinitive]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "réussir à un examen",
+    "display_form": "réussir à un examen",
+    "existing_english": [
+      "to pass an exam"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "pass an exam",
+      "reussir a un examen"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "réussir + à + un examen",
+    "expression_type": "collocation",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "rêver de + quelque chose/quelqu'un",
+    "display_form": "rêver de + something/someone",
+    "existing_english": [
+      "to dream about something/someone"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "dream about",
+      "rêver de"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "rêver de + NOM",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "rêver à + quelque chose",
+    "display_form": "rêver à + something",
+    "existing_english": [
+      "to dream of something",
+      "to hope for something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "dream of",
+      "hope for",
+      "rêver à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "rêver à + NOM",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

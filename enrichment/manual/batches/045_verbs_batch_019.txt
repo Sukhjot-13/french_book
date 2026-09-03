@@ -1,0 +1,450 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 045_verbs_batch_019
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "045_verbs_batch_019",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "s'apercevoir",
+    "display_form": "s'apercevoir",
+    "existing_english": [
+      "realize",
+      "to realize"
+    ],
+    "existing_aliases": [
+      "apercevoir",
+      "s'apercevoir"
+    ],
+    "existing_search_terms": [
+      "apercevoir",
+      "s'apercevoir"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'apercevoir de",
+      "s'apercevoir que"
+    ]
+  },
+  {
+    "infinitive": "s'appeler",
+    "display_form": "s'appeler",
+    "existing_english": [
+      "to call oneself",
+      "to be named"
+    ],
+    "existing_aliases": [
+      "appeler"
+    ],
+    "existing_search_terms": [
+      "be named",
+      "s appeler",
+      "s'appeler"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "Comment vous appelez-vous ?",
+      "Je m'appelle…"
+    ]
+  },
+  {
+    "infinitive": "s'asseoir",
+    "display_form": "s'asseoir",
+    "existing_english": [
+      "to sit down"
+    ],
+    "existing_aliases": [
+      "asseoir"
+    ],
+    "existing_search_terms": [
+      "asseoir",
+      "s'asseoir"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'asseoir"
+    ]
+  },
+  {
+    "infinitive": "s'attendre",
+    "display_form": "s'attendre",
+    "existing_english": [
+      "to expect"
+    ],
+    "existing_aliases": [
+      "attendre"
+    ],
+    "existing_search_terms": [
+      "attendre",
+      "s'attendre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'attendre à"
+    ]
+  },
+  {
+    "infinitive": "s’attendre à",
+    "display_form": "s’attendre à",
+    "existing_english": [
+      "to expect"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "expect",
+      "s'attendre a"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'attendre à"
+    ]
+  },
+  {
+    "infinitive": "s'embrasser",
+    "display_form": "s'embrasser",
+    "existing_english": [
+      "to kiss each other"
+    ],
+    "existing_aliases": [
+      "embrasser"
+    ],
+    "existing_search_terms": [
+      "embrasser",
+      "s'embrasser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'embrasser"
+    ]
+  },
+  {
+    "infinitive": "s'emparer",
+    "display_form": "s'emparer",
+    "existing_english": [
+      "to seize"
+    ],
+    "existing_aliases": [
+      "emparer"
+    ],
+    "existing_search_terms": [
+      "emparer",
+      "s'emparer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'emparer de"
+    ]
+  },
+  {
+    "infinitive": "s'en aller",
+    "display_form": "s'en aller",
+    "existing_english": [
+      "to leave, to go away"
+    ],
+    "existing_aliases": [
+      "en aller"
+    ],
+    "existing_search_terms": [
+      "en aller",
+      "s'en aller"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'en aller"
+    ]
+  },
+  {
+    "infinitive": "s'enfuir",
+    "display_form": "s'enfuir",
+    "existing_english": [
+      "to flee",
+      "to run away"
+    ],
+    "existing_aliases": [
+      "enfuir"
+    ],
+    "existing_search_terms": [
+      "enfuir",
+      "s'enfuir"
+    ],
+    "existing_tags": [],
+    "verb_group": "2nd_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'enfuir"
+    ]
+  },
+  {
+    "infinitive": "s'entendre",
+    "display_form": "s'entendre",
+    "existing_english": [
+      "to get along"
+    ],
+    "existing_aliases": [
+      "entendre"
+    ],
+    "existing_search_terms": [
+      "entendre",
+      "s'entendre"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'entendre avec"
+    ]
+  },
+  {
+    "infinitive": "s'entendre dire",
+    "display_form": "s'entendre dire",
+    "existing_english": [
+      "to hear oneself told"
+    ],
+    "existing_aliases": [
+      "s'entendre dire"
+    ],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "s'entraîner",
+    "display_form": "s'entraîner",
+    "existing_english": [
+      "to train",
+      "train"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "entraîner",
+      "s'entraîner"
+    ],
+    "existing_tags": [],
+    "auxiliary": "etre"
+  },
+  {
+    "infinitive": "s'envoler",
+    "display_form": "s'envoler",
+    "existing_english": [
+      "to vanish, fly away"
+    ],
+    "existing_aliases": [
+      "envoler"
+    ],
+    "existing_search_terms": [
+      "envoler",
+      "s'envoler"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'envoler"
+    ]
+  },
+  {
+    "infinitive": "s'habiller",
+    "display_form": "s'habiller",
+    "existing_english": [
+      "to get dressed"
+    ],
+    "existing_aliases": [
+      "habiller",
+      "s habiller"
+    ],
+    "existing_search_terms": [
+      "get dressed",
+      "habiller",
+      "s habiller",
+      "s'habiller"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'habiller"
+    ]
+  },
+  {
+    "infinitive": "s'habituer",
+    "display_form": "s'habituer",
+    "existing_english": [],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'habituer à quelque chose"
+    ]
+  },
+  {
+    "infinitive": "s'installer",
+    "display_form": "s'installer",
+    "existing_english": [
+      "to settle",
+      "to move in"
+    ],
+    "existing_aliases": [
+      "installer"
+    ],
+    "existing_search_terms": [
+      "s'installer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre"
+  },
+  {
+    "infinitive": "s'intéresser",
+    "display_form": "s'intéresser",
+    "existing_english": [],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'intéresser à quelque chose"
+    ]
+  },
+  {
+    "infinitive": "s’intéresser à",
+    "display_form": "s’intéresser à",
+    "existing_english": [
+      "to be interested in"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "be interested in",
+      "s'interesser a"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'intéresser à"
+    ]
+  },
+  {
+    "infinitive": "s'occuper",
+    "display_form": "s'occuper",
+    "existing_english": [
+      "to take care of"
+    ],
+    "existing_aliases": [
+      "occuper"
+    ],
+    "existing_search_terms": [
+      "occuper",
+      "s'occuper"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'occuper de",
+      "s'occuper de quelque chose"
+    ]
+  },
+  {
+    "infinitive": "s’opposer à",
+    "display_form": "s’opposer à",
+    "existing_english": [
+      "to oppose"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "oppose",
+      "s'opposer a"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "etre",
+    "related_expressions": [
+      "s'opposer à"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

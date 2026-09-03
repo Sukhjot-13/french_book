@@ -1,0 +1,957 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 014_vocabulary_batch_014
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: vocabulary
+TOTAL ENTITIES IN THIS BATCH: 40
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, word_family, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "014_vocabulary_batch_014",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "<canonical_form_value>",
+        "part_of_speech": "<part_of_speech_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "marchand de poisson",
+    "part_of_speech": "noun",
+    "display_form": "un(e) marchand(e) de poisson",
+    "existing_english": [
+      "a fishmonger",
+      "fishmonger"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "fish dealer",
+      "fishmonger"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "marchand de tableaux",
+    "part_of_speech": "noun",
+    "display_form": "un(e) marchand(e) de tableaux",
+    "existing_english": [
+      "an art dealer",
+      "art dealer"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "art dealer"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "marchand de vin",
+    "part_of_speech": "noun",
+    "display_form": "un(e) marchand(e) de vin",
+    "existing_english": [
+      "a wine merchant",
+      "wine merchant"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "wine merchant"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "marchand en gros",
+    "part_of_speech": "noun",
+    "display_form": "marchand en gros",
+    "existing_english": [
+      "wholesaler"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "marchandise",
+    "part_of_speech": "noun",
+    "display_form": "marchandise",
+    "existing_english": [
+      "merchandise"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "marché",
+    "part_of_speech": "noun",
+    "display_form": "marché",
+    "existing_english": [
+      "market"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "marché aux puces",
+    "part_of_speech": "noun",
+    "display_form": "marché aux puces",
+    "existing_english": [
+      "flea market"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "flea market",
+      "marche aux puces"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mardi",
+    "part_of_speech": "noun",
+    "display_form": "mardi",
+    "existing_english": [
+      "Tuesday"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Tuesday",
+      "mardi"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "marguerite",
+    "part_of_speech": "noun",
+    "display_form": "marguerite",
+    "existing_english": [
+      "daisy"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mari",
+    "part_of_speech": "noun",
+    "display_form": "un mari",
+    "existing_english": [
+      "a husband"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "mari"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mariage",
+    "part_of_speech": "noun",
+    "display_form": "un mariage",
+    "existing_english": [
+      "a marriage",
+      "a wedding"
+    ],
+    "existing_aliases": [
+      "marriage",
+      "wedding"
+    ],
+    "existing_search_terms": [
+      "mariage",
+      "marriage",
+      "wedding"
+    ],
+    "existing_word_family": [
+      {
+        "canonical_form": "marié",
+        "part_of_speech": "adjective"
+      }
+    ],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    },
+    "word_family": [
+      {
+        "canonical_form": "marié",
+        "part_of_speech": "adjective"
+      }
+    ]
+  },
+  {
+    "canonical_form": "marié",
+    "part_of_speech": "adjective",
+    "display_form": "marié(e)",
+    "existing_english": [
+      "married"
+    ],
+    "existing_aliases": [
+      "married"
+    ],
+    "existing_search_terms": [
+      "marie",
+      "marié",
+      "mariée",
+      "married"
+    ],
+    "existing_word_family": [
+      {
+        "canonical_form": "mariage",
+        "part_of_speech": "noun"
+      }
+    ],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    },
+    "word_family": [
+      {
+        "canonical_form": "mariage",
+        "part_of_speech": "noun"
+      }
+    ]
+  },
+  {
+    "canonical_form": "marron",
+    "part_of_speech": "adjective",
+    "display_form": "marron",
+    "existing_english": [
+      "brown"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "brown",
+      "marron"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mars",
+    "part_of_speech": "noun",
+    "display_form": "mars",
+    "existing_english": [
+      "March"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "March",
+      "mars"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "match",
+    "part_of_speech": "noun",
+    "display_form": "un match",
+    "existing_english": [
+      "a game",
+      "a match"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "game",
+      "match"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mauvais",
+    "part_of_speech": "adjective",
+    "display_form": "mauvais",
+    "existing_english": [
+      "bad"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bad",
+      "mauvais",
+      "mauvaise"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mer",
+    "part_of_speech": "noun",
+    "display_form": "la mer",
+    "existing_english": [
+      "sea",
+      "seaside"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "mer",
+      "sea"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "merci",
+    "part_of_speech": "interjection",
+    "display_form": "merci",
+    "existing_english": [
+      "thank you"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mercredi",
+    "part_of_speech": "noun",
+    "display_form": "mercredi",
+    "existing_english": [
+      "Wednesday"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Wednesday",
+      "mercredi"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "metteur en scène",
+    "part_of_speech": "noun",
+    "display_form": "le metteur en scène",
+    "existing_english": [
+      "director (film, theater)",
+      "director (theater, film)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "director",
+      "metteur en scène"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "meuble",
+    "part_of_speech": "noun",
+    "display_form": "meuble",
+    "existing_english": [
+      "piece of furniture"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "furniture",
+      "meuble"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "meubles",
+    "part_of_speech": "noun",
+    "display_form": "meubles",
+    "existing_english": [
+      "furniture"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "meurtre",
+    "part_of_speech": "noun",
+    "display_form": "un meurtre",
+    "existing_english": [
+      "a murder",
+      "murder"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "meurtre"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "meurtrier",
+    "part_of_speech": "noun",
+    "display_form": "un meurtrier / une meurtrière",
+    "existing_english": [
+      "a murderer",
+      "murderer"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "meurtrier",
+      "meurtrière"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un / une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "miroir",
+    "part_of_speech": "noun",
+    "display_form": "miroir",
+    "existing_english": [
+      "mirror"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "miroir",
+      "mirror"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mode",
+    "part_of_speech": "noun",
+    "display_form": "mode",
+    "existing_english": [
+      "fashion"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mois",
+    "part_of_speech": "noun",
+    "display_form": "mois",
+    "existing_english": [
+      "month"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "mois",
+      "month"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "monarchie",
+    "part_of_speech": "noun",
+    "display_form": "la monarchie",
+    "existing_english": [
+      "monarchy"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "monarchie"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "montre",
+    "part_of_speech": "noun",
+    "display_form": "montre",
+    "existing_english": [
+      "watch (wristwatch)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "morceau",
+    "part_of_speech": "noun",
+    "display_form": "morceau",
+    "existing_english": [
+      "piece"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mot",
+    "part_of_speech": "noun",
+    "display_form": "mot",
+    "existing_english": [
+      "word"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "moteur de recherche",
+    "part_of_speech": "noun",
+    "display_form": "moteur de recherche",
+    "existing_english": [
+      "a search engine",
+      "search engine"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "moteur de recherche",
+      "search engine"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mouton",
+    "part_of_speech": "noun",
+    "display_form": "un mouton",
+    "existing_english": [
+      "sheep"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "mouton",
+      "sheep"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "multipartisme",
+    "part_of_speech": "noun",
+    "display_form": "le multipartisme",
+    "existing_english": [
+      "multiparty system"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "multipartisme"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mur",
+    "part_of_speech": "noun",
+    "display_form": "mur",
+    "existing_english": [
+      "wall"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "musicien",
+    "part_of_speech": "noun",
+    "display_form": "musicien",
+    "existing_english": [
+      "musician"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "musée",
+    "part_of_speech": "noun",
+    "display_form": "un musée",
+    "existing_english": [
+      "a museum",
+      "museum"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "musee",
+      "museum"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "mère",
+    "part_of_speech": "noun",
+    "display_form": "une mère",
+    "existing_english": [
+      "a mother"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "mère"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "médaille",
+    "part_of_speech": "noun",
+    "display_form": "médaille",
+    "existing_english": [
+      "medal"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "medal",
+      "médaille"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "médicament",
+    "part_of_speech": "noun",
+    "display_form": "un médicament",
+    "existing_english": [
+      "a medication",
+      "medicine"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "medication",
+      "medicine",
+      "médicament"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

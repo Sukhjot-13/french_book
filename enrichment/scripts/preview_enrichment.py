@@ -20,38 +20,22 @@ for p in [str(REPO_ROOT), str(SCRIPT_DIR)]:
     if p not in sys.path:
         sys.path.insert(0, p)
 
-try:
-    from enrichment.scripts.enrichment_config import (
-        VALIDATED_DIR,
-        REVIEW_DIR,
-        NATURAL_KEYS,
-    )
-    from enrichment.scripts.enrichment_helpers import (
-        load_json,
-        save_json,
-        load_master_data,
-        find_entity_by_natural_key,
-        build_natural_key_index,
-        natural_key_to_str,
-        normalize_french_text,
-        resolve_field_name,
-    )
-except ImportError:
-    from enrichment_config import (
-        VALIDATED_DIR,
-        REVIEW_DIR,
-        NATURAL_KEYS,
-    )
-    from enrichment_helpers import (
-        load_json,
-        save_json,
-        load_master_data,
-        find_entity_by_natural_key,
-        build_natural_key_index,
-        natural_key_to_str,
-        normalize_french_text,
-        resolve_field_name,
-    )
+from enrichment.scripts.enrichment_config import (
+    VALIDATED_DIR,
+    REVIEW_DIR,
+    NATURAL_KEYS,
+)
+from enrichment.scripts.enrichment_helpers import (
+    load_json,
+    save_json,
+    load_master_data,
+    find_entity_by_natural_key,
+    build_natural_key_index,
+    natural_key_to_str,
+    normalize_french_text,
+    resolve_field_name,
+)
+
 
 
 

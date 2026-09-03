@@ -1,0 +1,512 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 069_expressions_batch_018
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "069_expressions_batch_018",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "Ça ne fait rien",
+    "display_form": "Ça ne fait rien",
+    "existing_english": [
+      "It does not matter"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ça ne fait rien"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "Ça va?",
+    "display_form": "Ça va?",
+    "existing_english": [
+      "How are you?",
+      "How are things going?"
+    ],
+    "existing_aliases": [
+      "comment ça va"
+    ],
+    "existing_search_terms": [
+      "how are you",
+      "ça va"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "conversation_phrase"
+  },
+  {
+    "canonical_form": "à + island",
+    "display_form": "à Tahiti",
+    "existing_english": [
+      "in/to Tahiti"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "in Tahiti",
+      "à Tahiti"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "à + island",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "à carreaux",
+    "display_form": "à carreaux",
+    "existing_english": [
+      "checked"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "à cet endroit",
+    "display_form": "à cet endroit",
+    "existing_english": [
+      "in this place"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "in this place"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "à condition que + subjonctif",
+    "display_form": "à condition que",
+    "existing_english": [
+      "on the condition that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "à condition que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "à condition que + subjonctif",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "à côté",
+    "display_form": "à côté",
+    "existing_english": [
+      "next to",
+      "beside"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "beside",
+      "next to"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "à fleurs",
+    "display_form": "à fleurs",
+    "existing_english": [
+      "flowered"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "à l'heure actuelle",
+    "display_form": "à l'heure actuelle",
+    "existing_english": [
+      "at this very moment"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "at this very moment",
+      "right now"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "à la campagne",
+    "display_form": "à la campagne",
+    "existing_english": [
+      "in the country"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "à la mer",
+    "display_form": "à la mer",
+    "existing_english": [
+      "by the sea"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "à la montagne",
+    "display_form": "à la montagne",
+    "existing_english": [
+      "in the mountains"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "à la plage",
+    "display_form": "à la plage",
+    "existing_english": [
+      "at the beach"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "à midi",
+    "display_form": "à midi",
+    "existing_english": [
+      "at noon"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "à minuit",
+    "display_form": "à minuit",
+    "existing_english": [
+      "at midnight"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "à moins que + subjonctif",
+    "display_form": "à moins que",
+    "existing_english": [
+      "unless"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "à moins que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "à moins que + subjonctif",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "à plis",
+    "display_form": "à plis",
+    "existing_english": [
+      "pleated"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "à pois",
+    "display_form": "à pois",
+    "existing_english": [
+      "polka-dotted"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "à rayures",
+    "display_form": "à rayures",
+    "existing_english": [
+      "striped"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "à volants",
+    "display_form": "à volants",
+    "existing_english": [
+      "flounced"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "ça et là",
+    "display_form": "ça et là",
+    "existing_english": [
+      "here and there"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "here and there"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "ça fait ... que",
+    "display_form": "ça fait [duration] que",
+    "existing_english": [
+      "it has been ... since",
+      "for"
+    ],
+    "existing_aliases": [
+      "cela fait ... que"
+    ],
+    "existing_search_terms": [
+      "ca fait que",
+      "ça fait que"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "ça fait + duration + que + clause",
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "ça fait combien de temps que",
+    "display_form": "ça fait combien de temps que",
+    "existing_english": [
+      "how long"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ca fait combien de temps que",
+      "ça fait combien de temps que"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "ça fait combien de temps que + clause",
+    "expression_type": "question_construction"
+  },
+  {
+    "canonical_form": "ça se dit",
+    "display_form": "ça se dit",
+    "existing_english": [
+      "that is said"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ça se dit"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "ça se voit",
+    "display_form": "ça se voit",
+    "existing_english": [
+      "it shows"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ça se voit"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "échouer à un examen",
+    "display_form": "échouer à un examen",
+    "existing_english": [
+      "to fail an exam"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "echouer a un examen",
+      "fail an exam"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "échouer + à + un examen",
+    "expression_type": "collocation",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "épeler son nom",
+    "display_form": "épeler son nom",
+    "existing_english": [
+      "to spell one's name"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "spell one's name",
+      "épeler son nom"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "épeler son nom",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "étant donné que",
+    "display_form": "étant donné que",
+    "existing_english": [
+      "given",
+      "in view of"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "être accroupi à + infinitif",
+    "display_form": "être accroupi dans le jardin à cueillir des fraises",
+    "existing_english": [
+      "to be squatting doing something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "être accroupi à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "être accroupi + (lieu) + à + infinitif",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "être allergique",
+    "display_form": "être allergique",
+    "existing_english": [
+      "to be allergic"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "be allergic",
+      "être allergique"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

@@ -1,0 +1,222 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 075_concepts_batch_005
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: concepts
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: description, aliases, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "075_concepts_batch_005",
+  "collection": "concepts",
+  "patches": [
+    {
+      "entity_key": "<name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "name": "Polite requests",
+    "existing_description": "Using the present conditional to make statements or requests more polite.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Political vocabulary",
+    "existing_description": "Vocabulary related to politics and elections",
+    "existing_aliases": [
+      "political vocabulary",
+      "vocabulaire politique"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Possession",
+    "existing_description": "Expressing possession using the relative pronoun dont.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Possessive adjectives",
+    "existing_description": "Adjectives that express ownership (mon, ma, mes, etc.)",
+    "existing_aliases": [
+      "possessive adjectives"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Possessive pronouns",
+    "existing_description": "Pronouns that replace possessive adjective + noun (le mien, la mienne, etc.)",
+    "existing_aliases": [
+      "possessive pronouns"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Pourvu que",
+    "existing_description": "A conjunction meaning 'provided that' or used to express hope in a single clause.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Preposition de",
+    "existing_description": "Used with venir to form immediate past, and with tenir to mean 'to take after'.",
+    "existing_aliases": [
+      "de"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Preposition à",
+    "existing_description": "Used to indicate destination, attachment, etc.",
+    "existing_aliases": [
+      "à"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Prepositions",
+    "existing_description": "Use of prepositions before relative pronouns such as à, de, pour, avec, sans, etc.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Present conditional",
+    "existing_description": "The present conditional tense (conditionnel présent) used to express hypothetical actions, polite requests, wishes, and unconfirmed information.",
+    "existing_aliases": [
+      "conditionnel présent",
+      "présent du conditionnel"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Present subjunctive",
+    "existing_description": "The present tense of the subjunctive mood.",
+    "existing_aliases": [
+      "présent du subjonctif"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Present tense",
+    "existing_description": "The present indicative tense of French verbs, covering various uses including general statements, ongoing actions, close future, habitual actions, past connected to present, historical/dramatic present, and actions in progress.",
+    "existing_aliases": [
+      "present indicative",
+      "présent"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Pronominal verbs",
+    "existing_description": "Verbs preceded by me, te, se, nous, vous, se in infinitive and conjugated forms.",
+    "existing_aliases": [
+      "reflexive verbs"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Pronominal verbs with infinitive",
+    "existing_description": "Reflexive pronoun agrees with subject and precedes infinitive.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Pronoun en",
+    "existing_description": "Indirect object pronoun replacing inanimate objects preceded by de.",
+    "existing_aliases": [
+      "en"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Pronoun y",
+    "existing_description": "Indirect object pronoun replacing inanimate objects preceded by à or sometimes sur.",
+    "existing_aliases": [
+      "y"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Pronunciation of final consonants in certain numbers",
+    "existing_description": "Special pronunciation of final consonants in cinq, six, sept, huit, neuf, dix, and mute consonant rule before consonant-initial words.",
+    "existing_aliases": [
+      "pronunciation of numbers"
+    ],
+    "existing_tags": []
+  },
+  {
+    "name": "Reciprocal verbs",
+    "existing_description": "Action two or more people perform with or for each other.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Reflexive verbs",
+    "existing_description": "Action reflected back on the subject.",
+    "existing_aliases": [],
+    "existing_tags": []
+  },
+  {
+    "name": "Regret or reproach",
+    "existing_description": "Using the past conditional to express regret or reproach about past actions.",
+    "existing_aliases": [],
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

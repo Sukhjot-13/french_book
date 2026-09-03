@@ -20,52 +20,29 @@ for p in [str(REPO_ROOT), str(SCRIPT_DIR)]:
     if p not in sys.path:
         sys.path.insert(0, p)
 
-try:
-    from enrichment.scripts.enrichment_config import (
-        RESPONSES_DIR,
-        VALIDATED_DIR,
-        REVIEW_DIR,
-        LOGS_DIR,
-        BATCH_MANIFEST_FILE,
-        ALLOWED_OPERATIONS,
-        REVIEW_ONLY_OPERATIONS,
-        NATURAL_KEYS,
-        SAFE_FIELDS,
-        HIGH_RISK_FIELDS,
-    )
-    from enrichment.scripts.enrichment_helpers import (
-        load_json,
-        save_json,
-        load_master_data,
-        load_master_schema,
-        find_entity_by_natural_key,
-        build_natural_key_index,
-        natural_key_to_str,
-        resolve_field_name,
-    )
-except ImportError:
-    from enrichment_config import (
-        RESPONSES_DIR,
-        VALIDATED_DIR,
-        REVIEW_DIR,
-        LOGS_DIR,
-        BATCH_MANIFEST_FILE,
-        ALLOWED_OPERATIONS,
-        REVIEW_ONLY_OPERATIONS,
-        NATURAL_KEYS,
-        SAFE_FIELDS,
-        HIGH_RISK_FIELDS,
-    )
-    from enrichment_helpers import (
-        load_json,
-        save_json,
-        load_master_data,
-        load_master_schema,
-        find_entity_by_natural_key,
-        build_natural_key_index,
-        natural_key_to_str,
-        resolve_field_name,
-    )
+from enrichment.scripts.enrichment_config import (
+    RESPONSES_DIR,
+    VALIDATED_DIR,
+    REVIEW_DIR,
+    LOGS_DIR,
+    BATCH_MANIFEST_FILE,
+    ALLOWED_OPERATIONS,
+    REVIEW_ONLY_OPERATIONS,
+    NATURAL_KEYS,
+    SAFE_FIELDS,
+    HIGH_RISK_FIELDS,
+)
+from enrichment.scripts.enrichment_helpers import (
+    load_json,
+    save_json,
+    load_master_data,
+    load_master_schema,
+    find_entity_by_natural_key,
+    build_natural_key_index,
+    natural_key_to_str,
+    resolve_field_name,
+)
+
 
 
 

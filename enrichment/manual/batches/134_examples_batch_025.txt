@@ -1,0 +1,225 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 134_examples_batch_025
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "134_examples_batch_025",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Notre pauvre chien!",
+    "existing_english": "Our poor dog!",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous aimons votre chien et vous aimez le nôtre.",
+    "existing_english": "We like your dog and you like ours.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous allons faire un voyage en avril.",
+    "existing_english": "We are going to go on a trip in April.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous aurions un chien si notre appartement était plus grand.",
+    "existing_english": "We would have a dog if our apartment were bigger.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous aurions voulu y assister.",
+    "existing_english": "We would have liked to attend.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous aurions été déçus.",
+    "existing_english": "We would have been disappointed.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous aurons résolu tous les problèmes d'ici la fin de l'année.",
+    "existing_english": "We'll have solved all the problems by the end of the year.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous avons compris la situation.",
+    "existing_english": "We understood the situation.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous avons des cartes routières.",
+    "existing_english": "We have road maps.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous avons du mal à accepter sa décision.",
+    "existing_english": "We have trouble accepting his decision.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous avons vu des lapins dans le jardin.",
+    "existing_english": "We saw (some) rabbits in the garden.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous buvons de l'eau minérale.",
+    "existing_english": "We drink mineral water.",
+    "existing_tags": []
+  },
+  {
+    "french": "nous chantons",
+    "existing_english": "we sing",
+    "existing_tags": []
+  },
+  {
+    "french": "nous choisissons",
+    "existing_english": "we choose",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous déménageâmes de nombreuses fois.",
+    "existing_english": "We moved many times.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous désirons voyager ailleurs.",
+    "existing_english": "We want to travel elsewhere.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous faisons un gâteau.",
+    "existing_english": "We’re making a cake.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous félicitons l'artiste qui a pris cette photo.",
+    "existing_english": "We congratulate the artist who took this picture.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous ignorons qui elle renverra.",
+    "existing_english": "We don’t know who(m) she’ll fire.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous irions à Rome si nous pouvions.",
+    "existing_english": "We would go to Rome if we could.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous irons à Tokyo la semaine prochaine.",
+    "existing_english": "We’ll go to Tokyo next week.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous leur avons demandé de nous accorder un peu de temps; ils n'ont pas voulu le faire.",
+    "existing_english": "We asked them to give us a little time; they would not do it.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous n'avons pas de cartes routières.",
+    "existing_english": "We do not have any road maps.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous n'avons pas pu y aller.",
+    "existing_english": "We could not go there.",
+    "existing_tags": []
+  },
+  {
+    "french": "nous nagions",
+    "existing_english": "we swam",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous ne sommes pas allées à Madrid depuis dix ans.",
+    "existing_english": "We have not been to Madrid for ten years.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous nous parlons tous les jours.",
+    "existing_english": "We talk to each other every day.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous nous promenons.",
+    "existing_english": "We take a walk.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous nous sommes excusés d'être partis avant le dessert.",
+    "existing_english": "We apologized for leaving before dessert.",
+    "existing_tags": []
+  },
+  {
+    "french": "Nous nous étions embrassés sur le Pont-Neuf.",
+    "existing_english": "We had kissed on the Pont-Neuf.",
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

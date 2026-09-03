@@ -1,0 +1,949 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 023_vocabulary_batch_023
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: vocabulary
+TOTAL ENTITIES IN THIS BATCH: 40
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, word_family, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "023_vocabulary_batch_023",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "<canonical_form_value>",
+        "part_of_speech": "<part_of_speech_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "une frontière",
+    "part_of_speech": "noun",
+    "display_form": "une frontière",
+    "existing_english": [
+      "a border"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "border",
+      "frontière"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une impasse",
+    "part_of_speech": "noun",
+    "display_form": "une impasse",
+    "existing_english": [
+      "a dead end"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "dead end",
+      "impasse"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une montagne",
+    "part_of_speech": "noun",
+    "display_form": "une montagne",
+    "existing_english": [
+      "a mountain"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "montagne",
+      "mountain"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une note",
+    "part_of_speech": "noun",
+    "display_form": "une note",
+    "existing_english": [
+      "a grade"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "grade",
+      "note"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une plaine",
+    "part_of_speech": "noun",
+    "display_form": "une plaine",
+    "existing_english": [
+      "a plain"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "plain",
+      "plaine"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une planète",
+    "part_of_speech": "noun",
+    "display_form": "une planète",
+    "existing_english": [
+      "a planet"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "planet",
+      "planète"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une province",
+    "part_of_speech": "noun",
+    "display_form": "une province",
+    "existing_english": [
+      "a province"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "province"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une rivière",
+    "part_of_speech": "noun",
+    "display_form": "une rivière",
+    "existing_english": [
+      "a river (tributary)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "river",
+      "rivière"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une route",
+    "part_of_speech": "noun",
+    "display_form": "une route",
+    "existing_english": [
+      "a road"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "road",
+      "route"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une rue",
+    "part_of_speech": "noun",
+    "display_form": "une rue",
+    "existing_english": [
+      "a street"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "rue",
+      "street"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une ruelle",
+    "part_of_speech": "noun",
+    "display_form": "une ruelle",
+    "existing_english": [
+      "an alley, a lane"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "alley",
+      "lane",
+      "ruelle"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une région",
+    "part_of_speech": "noun",
+    "display_form": "une région",
+    "existing_english": [
+      "a region"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "region",
+      "région"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une tribu",
+    "part_of_speech": "noun",
+    "display_form": "une tribu",
+    "existing_english": [
+      "a tribe"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "tribe",
+      "tribu"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une vallée",
+    "part_of_speech": "noun",
+    "display_form": "une vallée",
+    "existing_english": [
+      "a valley"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "valley",
+      "vallée"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une ville",
+    "part_of_speech": "noun",
+    "display_form": "une ville",
+    "existing_english": [
+      "a city"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "city",
+      "ville"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une île",
+    "part_of_speech": "noun",
+    "display_form": "une île",
+    "existing_english": [
+      "an island"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ile",
+      "island",
+      "île"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vacances",
+    "part_of_speech": "noun",
+    "display_form": "les vacances",
+    "existing_english": [
+      "holidays",
+      "vacation"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "holidays",
+      "vacances",
+      "vacation"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "les",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vache",
+    "part_of_speech": "noun",
+    "display_form": "une vache",
+    "existing_english": [
+      "cow"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cow",
+      "vache"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vague",
+    "part_of_speech": "noun",
+    "display_form": "vague",
+    "existing_english": [
+      "wave"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vainqueur",
+    "part_of_speech": "noun",
+    "display_form": "un vainqueur",
+    "existing_english": [
+      "a winner"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "vainqueur",
+      "winner"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "valise",
+    "part_of_speech": "noun",
+    "display_form": "valise",
+    "existing_english": [
+      "suitcase"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "valse",
+    "part_of_speech": "noun",
+    "display_form": "valse",
+    "existing_english": [
+      "waltz"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vase",
+    "part_of_speech": "noun",
+    "display_form": "vase",
+    "existing_english": [
+      "vase"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "vase"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "veau",
+    "part_of_speech": "noun",
+    "display_form": "un veau",
+    "existing_english": [
+      "calf"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "calf",
+      "veau"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vedette",
+    "part_of_speech": "noun",
+    "display_form": "la vedette",
+    "existing_english": [
+      "star (film)",
+      "star (film, sports)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "star",
+      "vedette"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vendredi",
+    "part_of_speech": "noun",
+    "display_form": "vendredi",
+    "existing_english": [
+      "Friday"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Friday",
+      "vendredi"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vente aux enchères",
+    "part_of_speech": "noun",
+    "display_form": "vente aux enchères",
+    "existing_english": [
+      "auction"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "auction",
+      "vente aux encheres"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "ventre",
+    "part_of_speech": "noun",
+    "display_form": "le ventre",
+    "existing_english": [
+      "stomach",
+      "belly"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "stomach",
+      "ventre"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vernissage",
+    "part_of_speech": "noun",
+    "display_form": "un vernissage",
+    "existing_english": [
+      "an opening (art show)",
+      "opening (art)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "opening",
+      "vernissage"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "verre",
+    "part_of_speech": "noun",
+    "display_form": "un verre",
+    "existing_english": [
+      "a glass",
+      "glass"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "glass",
+      "verre"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vers",
+    "part_of_speech": "preposition",
+    "display_form": "vers",
+    "existing_english": [
+      "toward(s)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vert",
+    "part_of_speech": "adjective",
+    "display_form": "vert",
+    "existing_english": [
+      "green"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "green",
+      "vert",
+      "verte"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vert olive",
+    "part_of_speech": "adjective",
+    "display_form": "vert olive",
+    "existing_english": [
+      "olive green"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "olive green",
+      "vert olive"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "veste",
+    "part_of_speech": "noun",
+    "display_form": "veste",
+    "existing_english": [
+      "jacket"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "veuf",
+    "part_of_speech": "noun",
+    "display_form": "veuf",
+    "existing_english": [
+      "widower"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "veuf/veuve",
+    "part_of_speech": "noun",
+    "display_form": "veuf, veuve",
+    "existing_english": [
+      "widow",
+      "widower"
+    ],
+    "existing_aliases": [
+      "widow",
+      "widower"
+    ],
+    "existing_search_terms": [
+      "veuf",
+      "veuve",
+      "widow",
+      "widower"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "veuve",
+    "part_of_speech": "noun",
+    "display_form": "veuve",
+    "existing_english": [
+      "widow"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "viande",
+    "part_of_speech": "noun",
+    "display_form": "viande",
+    "existing_english": [
+      "meat"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "meat",
+      "viande"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "victoire",
+    "part_of_speech": "noun",
+    "display_form": "une victoire",
+    "existing_english": [
+      "victory"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "victoire",
+      "victory"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "vietnamien",
+    "part_of_speech": "adjective",
+    "display_form": "vietnamien",
+    "existing_english": [
+      "Vietnamese"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "Vietnamese",
+      "vietnamien",
+      "vietnamienne"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

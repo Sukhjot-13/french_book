@@ -1,0 +1,594 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 056_expressions_batch_005
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "056_expressions_batch_005",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "dans le + masculine region",
+    "display_form": "dans le Midi",
+    "existing_english": [
+      "in the Midi (southern France)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "dans le Midi",
+      "in the Midi"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "dans le + masculine region starting with consonant",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "dans"
+    ]
+  },
+  {
+    "canonical_form": "dans quelle mesure",
+    "display_form": "dans quelle mesure",
+    "existing_english": [
+      "to what extent"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "to what extent"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "question_construction",
+    "prepositions": [
+      "dans"
+    ]
+  },
+  {
+    "canonical_form": "dans trois jours",
+    "display_form": "dans trois jours",
+    "existing_english": [
+      "in three days (from today)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "in three days"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "pattern": "dans + [number] + jours",
+    "expression_type": "time_expression",
+    "prepositions": [
+      "dans"
+    ]
+  },
+  {
+    "canonical_form": "dans un an",
+    "display_form": "dans un an",
+    "existing_english": [
+      "in a year"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "in a year"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression",
+    "prepositions": [
+      "dans"
+    ]
+  },
+  {
+    "canonical_form": "dans un mois",
+    "display_form": "dans un mois",
+    "existing_english": [
+      "in a month"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "in a month"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "pattern": "dans + [article] + [time unit]",
+    "expression_type": "time_expression",
+    "prepositions": [
+      "dans"
+    ]
+  },
+  {
+    "canonical_form": "dans une quinzaine",
+    "display_form": "dans une quinzaine",
+    "existing_english": [
+      "in two weeks"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "in two weeks"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression",
+    "prepositions": [
+      "dans"
+    ]
+  },
+  {
+    "canonical_form": "de + feminine country",
+    "display_form": "de France",
+    "existing_english": [
+      "from France"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "de France",
+      "from France"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "de/d' + feminine country or region",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "de crainte que + subjonctif",
+    "display_form": "de crainte que",
+    "existing_english": [
+      "for fear that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "de crainte que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "de crainte que + subjonctif",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "de l'eau",
+    "display_form": "de l’eau",
+    "existing_english": [
+      "some water"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "de l'eau",
+      "some water"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "de l' + vowel/mute h singular noun",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "de la viande",
+    "display_form": "de la viande",
+    "existing_english": [
+      "some meat"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "de la viande",
+      "some meat"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "de la + feminine singular noun",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "de peur que + subjonctif",
+    "display_form": "de peur que",
+    "existing_english": [
+      "for fear that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "de peur que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "de peur que + subjonctif",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "de temps en temps",
+    "display_form": "de temps en temps",
+    "existing_english": [
+      "from time to time"
+    ],
+    "existing_aliases": [
+      "de temps à autre"
+    ],
+    "existing_search_terms": [
+      "from time to time",
+      "occasionally"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "de temps à autre",
+    "display_form": "de temps à autre",
+    "existing_english": [
+      "from time to time"
+    ],
+    "existing_aliases": [
+      "de temps en temps"
+    ],
+    "existing_search_terms": [
+      "from time to time"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other",
+    "prepositions": [
+      "de",
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "dedans",
+    "display_form": "dedans",
+    "existing_english": [
+      "inside"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "inside"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "dehors",
+    "display_form": "dehors",
+    "existing_english": [
+      "outside"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "outside"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "demain",
+    "display_form": "demain",
+    "existing_english": [
+      "tomorrow"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "tomorrow"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "demander que + subjonctif",
+    "display_form": "demander que",
+    "existing_english": [
+      "to ask that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "demander que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "demander que + subjonctif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "demander quelque chose à quelqu'un",
+    "display_form": "demander quelque chose à quelqu'un",
+    "existing_english": [
+      "to ask someone for something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ask for",
+      "demander quelque chose à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "demander + OBJET + à + PERSONNE",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "demander à + infinitif",
+    "display_form": "demander à + infinitive",
+    "existing_english": [
+      "to ask to do something",
+      "to request permission to do something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ask to",
+      "demander à",
+      "request permission"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "demander à + INF",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "demander à quelqu'un de + infinitif",
+    "display_form": "demander à quelqu'un de + infinitive",
+    "existing_english": [
+      "to ask someone to do something"
+    ],
+    "existing_aliases": [
+      "demander de + infinitif"
+    ],
+    "existing_search_terms": [
+      "ask someone to",
+      "demander à quelqu'un de"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "demander à + PERSONNE + de + INF",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de",
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "depuis",
+    "display_form": "depuis",
+    "existing_english": [
+      "for",
+      "since"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "depuis",
+      "for",
+      "since"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "depuis + time expression",
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "depuis + time expression",
+    "display_form": "depuis + time expression",
+    "existing_english": [
+      "for",
+      "since"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "depuis"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "depuis + duration/point in time",
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "depuis combien de temps",
+    "display_form": "depuis combien de temps",
+    "existing_english": [
+      "how long"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "depuis combien de temps"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "depuis combien de temps + inverted question",
+    "expression_type": "question_construction"
+  },
+  {
+    "canonical_form": "depuis quand",
+    "display_form": "depuis quand",
+    "existing_english": [
+      "since when",
+      "how long"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "depuis quand"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "depuis quand + inverted question",
+    "expression_type": "question_construction"
+  },
+  {
+    "canonical_form": "derrière",
+    "display_form": "derrière",
+    "existing_english": [
+      "behind"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "behind"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "des + plural country",
+    "display_form": "des États-Unis",
+    "existing_english": [
+      "from the United States"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "des États-Unis",
+      "from the United States"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "des + plural country",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "des"
+    ]
+  },
+  {
+    "canonical_form": "des haricots verts",
+    "display_form": "des haricots verts",
+    "existing_english": [
+      "some green beans"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "des haricots verts",
+      "green beans"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "des + plural noun",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "descendre au rez-de-chaussée",
+    "display_form": "descendre au rez-de-chaussée",
+    "existing_english": [
+      "to go down to the ground floor"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "descendre au rez-de-chaussée",
+      "go downstairs"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "descendre + [preposition + location]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "au"
+    ]
+  },
+  {
+    "canonical_form": "descendre les poubelles",
+    "display_form": "descendre les poubelles",
+    "existing_english": [
+      "to take down the garbage cans"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "descendre les poubelles",
+      "take down garbage"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "descendre + [object]",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "dessous",
+    "display_form": "dessous",
+    "existing_english": [
+      "under"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "under",
+      "underneath"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

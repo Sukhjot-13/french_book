@@ -1,0 +1,225 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 123_examples_batch_014
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "123_examples_batch_014",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Il lisait pendant qu'elle écrivait.",
+    "existing_english": "He was reading while she was writing.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il n'a pas pu lui parler.",
+    "existing_english": "He could not talk to him.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il n'a pas revu sa sœur depuis dix ans.",
+    "existing_english": "He has not seen his sister for ten years.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il n'a pas vendu sa voiture.",
+    "existing_english": "He did not sell his car.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il n'a plus de patience.",
+    "existing_english": "He has no patience left.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il n'aime ni le café ni le chocolat.",
+    "existing_english": "He likes neither coffee nor chocolate.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il n'attend personne.",
+    "existing_english": "He is not waiting for anybody.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il n'aurait pas tant gagné d'argent s'il était resté à Bordeaux.",
+    "existing_english": "He would not have made as much money if he had stayed in Bordeaux.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il n'avait pas pu les joindre.",
+    "existing_english": "He had not been able to reach them.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il n'est pas encore revenu d'Italie.",
+    "existing_english": "He is not yet back from Italy.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il n'y a plus rien dans le frigo.",
+    "existing_english": "There is nothing left in the fridge.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il n'y a qu'à leur dire.",
+    "existing_english": "Just tell them.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il ne craint pas la douleur.",
+    "existing_english": "He is not afraid of pain.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il ne démissionnera pas pourvu que le directeur lui donne une augmentation de salaire.",
+    "existing_english": "He won't resign provided the director gives him a raise.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il ne répond pas à la lettre.",
+    "existing_english": "He does not answer the letter.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il ne s'agit pas de dettes.",
+    "existing_english": "It is not a question of debts.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il ne s'agit pas de plaisanter.",
+    "existing_english": "This is no time for jokes.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il ne sait pas ce qui a provoqué leur réaction.",
+    "existing_english": "He does not know what triggered their reaction.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il ne sait pas quoi faire.",
+    "existing_english": "He does not know what to do.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il ne vend ni oranges ni mangues.",
+    "existing_english": "He sells neither oranges nor mangoes.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il neige.",
+    "existing_english": "It is snowing.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il nous dira lorsqu'il faudra parler.",
+    "existing_english": "He'll tell us when we have to talk.",
+    "existing_tags": []
+  },
+  {
+    "french": "il parle",
+    "existing_english": "he speaks",
+    "existing_tags": []
+  },
+  {
+    "french": "Il part demain soir.",
+    "existing_english": "He’ll leave tomorrow night.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il partagea sa fortune.",
+    "existing_english": "He shared his fortune.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il passe ses vacances à lire des livres de cuisine.",
+    "existing_english": "He spends his vacation reading cookbooks.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il pleut.",
+    "existing_english": "It is raining.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il porte des chaussures noires.",
+    "existing_english": "He is wearing black shoes.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il prête de l'argent à son ami.",
+    "existing_english": "He lends money to his friend.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il randonnait depuis trois jours quand il a trouvé cette belle auberge.",
+    "existing_english": "He had been hiking for three days when he found this beautiful inn.",
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

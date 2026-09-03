@@ -1,0 +1,396 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 029_verbs_batch_003
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: verbs
+TOTAL ENTITIES IN THIS BATCH: 20
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "029_verbs_batch_003",
+  "collection": "verbs",
+  "patches": [
+    {
+      "entity_key": "<infinitive_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "infinitive": "avoir",
+    "display_form": "avoir",
+    "existing_english": [
+      "be lucky",
+      "be right",
+      "be thirsty",
+      "be thirty-five years old",
+      "be wrong",
+      "feel like",
+      "have",
+      "have a cold",
+      "have a headache",
+      "have a stomachache",
+      "... (12 more items)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir",
+      "ayant",
+      "eu",
+      "have",
+      "to have"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "avoir ... ans",
+      "avoir beau + infinitif",
+      "avoir besoin de",
+      "avoir chaud",
+      "avoir confiance en"
+    ]
+  },
+  {
+    "infinitive": "avoir besoin",
+    "display_form": "avoir besoin",
+    "existing_english": [
+      "to need"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": [],
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "avoir besoin de"
+    ]
+  },
+  {
+    "infinitive": "avoir besoin de",
+    "display_form": "avoir besoin de",
+    "existing_english": [
+      "to need"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir besoin de",
+      "need"
+    ],
+    "existing_tags": [],
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "avoir besoin de"
+    ]
+  },
+  {
+    "infinitive": "avoir envie de",
+    "display_form": "avoir envie de",
+    "existing_english": [
+      "to feel like",
+      "to want"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir envie de",
+      "feel like"
+    ],
+    "existing_tags": [],
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "avoir envie de"
+    ]
+  },
+  {
+    "infinitive": "avoir peur",
+    "display_form": "avoir peur",
+    "existing_english": [],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": [],
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "avoir peur de"
+    ]
+  },
+  {
+    "infinitive": "avoir peur de",
+    "display_form": "avoir peur de",
+    "existing_english": [
+      "to be afraid of"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avoir peur de",
+      "be afraid of"
+    ],
+    "existing_tags": [],
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "avoir peur de"
+    ]
+  },
+  {
+    "infinitive": "avouer",
+    "display_form": "avouer",
+    "existing_english": [
+      "confess",
+      "to admit",
+      "to confess"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avouer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "baisser",
+    "display_form": "baisser",
+    "existing_english": [
+      "lower",
+      "lower the price"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "balancer",
+    "display_form": "balancer",
+    "existing_english": [
+      "finger (betray)",
+      "swing",
+      "to swing"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "balancer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "battre",
+    "display_form": "battre",
+    "existing_english": [
+      "beat",
+      "to beat"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "battant",
+      "battre",
+      "battu"
+    ],
+    "existing_tags": [],
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "bavarder",
+    "display_form": "bavarder",
+    "existing_english": [
+      "chat",
+      "to chat"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bavarder"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "boire",
+    "display_form": "boire",
+    "existing_english": [
+      "drink",
+      "to drink"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "boire",
+      "bu",
+      "drink"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "bouger",
+    "display_form": "bouger",
+    "existing_english": [
+      "to move"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bouger"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "bouillir",
+    "display_form": "bouillir",
+    "existing_english": [
+      "boil",
+      "to boil"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bouillir"
+    ],
+    "existing_tags": [],
+    "verb_group": "3rd_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "boycotter",
+    "display_form": "boycotter",
+    "existing_english": [
+      "to boycott"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "boycotter"
+    ],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "braiser",
+    "display_form": "braiser",
+    "existing_english": [
+      "to braise"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "braiser"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "brancher",
+    "display_form": "brancher",
+    "existing_english": [
+      "plug in"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_tags": []
+  },
+  {
+    "infinitive": "bronzer",
+    "display_form": "bronzer",
+    "existing_english": [
+      "to tan",
+      "to sunbathe"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bronzant",
+      "bronzer",
+      "bronzé"
+    ],
+    "existing_tags": [],
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "broyer",
+    "display_form": "broyer",
+    "existing_english": [
+      "crush",
+      "grind",
+      "to crush",
+      "to grind"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "broyer"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir"
+  },
+  {
+    "infinitive": "bruiner",
+    "display_form": "bruiner",
+    "existing_english": [
+      "drizzle",
+      "to drizzle"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bruiner",
+      "drizzle"
+    ],
+    "existing_tags": [],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "related_expressions": [
+      "il bruine"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

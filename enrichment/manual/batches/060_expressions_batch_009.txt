@@ -1,0 +1,576 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 060_expressions_batch_009
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "060_expressions_batch_009",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "il fait chaud",
+    "display_form": "il fait chaud",
+    "existing_english": [
+      "it is hot"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "hot",
+      "il fait chaud"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il fait [weather adjective]",
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "il fait doux",
+    "display_form": "il fait doux",
+    "existing_english": [
+      "it is mild"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il fait doux",
+      "mild"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il fait [weather adjective]",
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "il fait frais",
+    "display_form": "il fait frais",
+    "existing_english": [
+      "it is cool"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cool",
+      "il fait frais"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il fait [weather adjective]",
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "il fait froid",
+    "display_form": "il fait froid",
+    "existing_english": [
+      "it is cold"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cold",
+      "il fait froid"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il fait [weather adjective]",
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "il faut",
+    "display_form": "Il faut",
+    "existing_english": [
+      "it is necessary"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il faut",
+      "it is necessary"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il faut + infinitive",
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "il faut que + subjonctif",
+    "display_form": "il faut que",
+    "existing_english": [
+      "it is necessary that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il faut que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il faut que + subjonctif",
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "il grêle",
+    "display_form": "il grêle",
+    "existing_english": [
+      "it is hailing"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "hail",
+      "il grêle"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "il me semble que + indicatif",
+    "display_form": "il me semble que",
+    "existing_english": [
+      "it seems to me that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il me semble que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il me semble que + indicatif",
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "il n'y a qu'à + infinitif",
+    "display_form": "il n'y a qu'à + infinitif",
+    "existing_english": [
+      "just (do something)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il n'y a qu'à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il n'y a qu'à [infinitif]",
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "il ne s'agit pas de + nom/infinitif",
+    "display_form": "il ne s'agit pas de + nom/infinitif",
+    "existing_english": [
+      "it is not a question of"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il ne s'agit pas de"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il ne s'agit pas de [nom/infinitif]",
+    "expression_type": "negative_construction",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "il neige",
+    "display_form": "il neige",
+    "existing_english": [
+      "it is snowing"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il neige",
+      "snow"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "il pleut",
+    "display_form": "Il pleut",
+    "existing_english": [
+      "it is raining"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il pleut",
+      "rain",
+      "raining"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il pleut",
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "il s'agit de + infinitif",
+    "display_form": "il s'agit de + infinitif",
+    "existing_english": [
+      "we must",
+      "it is necessary to"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il s'agit de + infinitif"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il s'agit de [infinitif]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "il s'agit de + nom",
+    "display_form": "il s'agit de + nom",
+    "existing_english": [
+      "it is about",
+      "it is a matter of"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il s'agit de"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il s'agit de [nom]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "il se peut que + subjonctif",
+    "display_form": "il se peut que",
+    "existing_english": [
+      "it may be that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il se peut que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il se peut que + subjonctif",
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "il vaut mieux que + subjonctif",
+    "display_form": "il vaut mieux que",
+    "existing_english": [
+      "it is better that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il vaut mieux que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il vaut mieux que + subjonctif",
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "il y a",
+    "display_form": "il y a",
+    "existing_english": [
+      "there is",
+      "there are"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il y a"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "il y a ... que",
+    "display_form": "il y a [duration] que",
+    "existing_english": [
+      "it has been ... since",
+      "for"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il y a",
+      "il y a que"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "il y a + duration + que + clause",
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "il y a combien de temps que",
+    "display_form": "il y a combien de temps que",
+    "existing_english": [
+      "how long"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il y a combien de temps que"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "il y a combien de temps que + clause",
+    "expression_type": "question_construction"
+  },
+  {
+    "canonical_form": "il y a plus de",
+    "display_form": "il y a plus de",
+    "existing_english": [
+      "there are more than"
+    ],
+    "existing_aliases": [
+      "il y a plus d'"
+    ],
+    "existing_search_terms": [
+      "il y a plus de",
+      "more than"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il y a plus de [number] [noun]",
+    "expression_type": "quantity_expression",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "il y a... que",
+    "display_form": "il y a [duration] que",
+    "existing_english": [
+      "for (duration)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "for ... now",
+      "il y a que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "il y a + [duration] + que + [clause]",
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "il y avait une fois",
+    "display_form": "il y avait une fois",
+    "existing_english": [
+      "once upon a time"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il y avait une fois"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "il y en a qui",
+    "display_form": "il y en a qui",
+    "existing_english": [
+      "some people"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "il y en a qui"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression"
+  },
+  {
+    "canonical_form": "inviter à dîner",
+    "display_form": "inviter à dîner",
+    "existing_english": [
+      "to invite to dinner"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "invite to dinner",
+      "inviter à dîner"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "je ne saurais",
+    "display_form": "je ne saurais",
+    "existing_english": [
+      "I would not know how to",
+      "I cannot"
+    ],
+    "existing_aliases": [
+      "je ne saurais pas"
+    ],
+    "existing_search_terms": [
+      "saurais",
+      "savoir"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "je ne saurais + infinitive",
+    "expression_type": "formulaic_phrase"
+  },
+  {
+    "canonical_form": "jouer de + instrument",
+    "display_form": "jouer de + instrument",
+    "existing_english": [
+      "to play (a musical instrument)",
+      "to play (an instrument)"
+    ],
+    "existing_aliases": [
+      "jouer d'un instrument"
+    ],
+    "existing_search_terms": [
+      "jouer de",
+      "play instrument"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "jouer de + instrument",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "jouer un rôle",
+    "display_form": "jouer un rôle",
+    "existing_english": [
+      "to play a role"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "jouer un rôle",
+      "play a role"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "jouer + [article] + rôle",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "jouer à + nom (jeu)",
+    "display_form": "jouer à + game",
+    "existing_english": [
+      "to play (a game)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "jouer à",
+      "play game"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "jouer à + NOM (jeu)",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "jouer à + sport/game",
+    "display_form": "jouer à + sport/game",
+    "existing_english": [
+      "to play (a sport/game)"
+    ],
+    "existing_aliases": [
+      "jouer au + sport"
+    ],
+    "existing_search_terms": [
+      "jouer à",
+      "play sport"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "jouer à + sport/game",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "jusqu'à ce que + subjonctif",
+    "display_form": "jusqu'à ce que",
+    "existing_english": [
+      "until"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "jusqu'à ce que",
+      "jusqua ce que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "jusqu'à ce que + subjonctif",
+    "expression_type": "connector"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

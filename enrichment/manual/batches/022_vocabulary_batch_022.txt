@@ -1,0 +1,956 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 022_vocabulary_batch_022
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: vocabulary
+TOTAL ENTITIES IN THIS BATCH: 40
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, word_family, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "022_vocabulary_batch_022",
+  "collection": "vocabulary",
+  "patches": [
+    {
+      "entity_key": {
+        "canonical_form": "<canonical_form_value>",
+        "part_of_speech": "<part_of_speech_value>"
+      },
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "trente-deux",
+    "part_of_speech": "number",
+    "display_form": "trente-deux",
+    "existing_english": [
+      "thirty-two"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "thirty-two",
+      "trente-deux"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "trente-trois",
+    "part_of_speech": "number",
+    "display_form": "trente-trois",
+    "existing_english": [
+      "thirty-three"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "thirty-three",
+      "trente-trois"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "trentième",
+    "part_of_speech": "adjective",
+    "display_form": "trentième",
+    "existing_english": [
+      "thirtieth"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "thirtieth",
+      "trentième"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "triste",
+    "part_of_speech": "adjective",
+    "display_form": "triste",
+    "existing_english": [
+      "sad"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "tristesse",
+    "part_of_speech": "noun",
+    "display_form": "tristesse",
+    "existing_english": [
+      "sadness"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "trois",
+    "part_of_speech": "number",
+    "display_form": "trois",
+    "existing_english": [
+      "three"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "three",
+      "trois"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "troisième",
+    "part_of_speech": "adjective",
+    "display_form": "troisième",
+    "existing_english": [
+      "third"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "third",
+      "troisième"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "trombone",
+    "part_of_speech": "noun",
+    "display_form": "le trombone",
+    "existing_english": [
+      "trombone"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "trombone"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": "le",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "trompette",
+    "part_of_speech": "noun",
+    "display_form": "la trompette",
+    "existing_english": [
+      "trumpet"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "trompette",
+      "trumpet"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "très",
+    "part_of_speech": "adverb",
+    "display_form": "très",
+    "existing_english": [
+      "very"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "trône",
+    "part_of_speech": "noun",
+    "display_form": "trône",
+    "existing_english": [
+      "throne"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "témoignage",
+    "part_of_speech": "noun",
+    "display_form": "un témoignage",
+    "existing_english": [
+      "a piece of evidence",
+      "a testimony",
+      "testimony"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "témoignage"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "témoin",
+    "part_of_speech": "noun",
+    "display_form": "un témoin",
+    "existing_english": [
+      "a witness",
+      "witness"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "témoin"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "tête",
+    "part_of_speech": "noun",
+    "display_form": "la tête",
+    "existing_english": [
+      "head"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "head",
+      "tête"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": "la",
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un",
+    "part_of_speech": "number",
+    "display_form": "un",
+    "existing_english": [
+      "one"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "one",
+      "un"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "none",
+    "articles": {
+      "definite": null,
+      "indefinite": null,
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un arrondissement",
+    "part_of_speech": "noun",
+    "display_form": "un arrondissement",
+    "existing_english": [
+      "a (city) district"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "arrondissement",
+      "district"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un brouillon",
+    "part_of_speech": "noun",
+    "display_form": "un brouillon",
+    "existing_english": [
+      "a first draft"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "brouillon",
+      "first draft"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un continent",
+    "part_of_speech": "noun",
+    "display_form": "un continent",
+    "existing_english": [
+      "a continent"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "continent"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un cours",
+    "part_of_speech": "noun",
+    "display_form": "un cours",
+    "existing_english": [
+      "a course"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "cours",
+      "course"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un curriculum vitae (C.V.)",
+    "part_of_speech": "noun",
+    "display_form": "un curriculum vitae (C.V.)",
+    "existing_english": [
+      "a résumé"
+    ],
+    "existing_aliases": [
+      "CV",
+      "curriculum vitae"
+    ],
+    "existing_search_terms": [
+      "CV",
+      "curriculum vitae",
+      "resume"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un examen",
+    "part_of_speech": "noun",
+    "display_form": "un examen",
+    "existing_english": [
+      "an exam"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "exam",
+      "examen"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un fleuve",
+    "part_of_speech": "noun",
+    "display_form": "un fleuve",
+    "existing_english": [
+      "a river (flowing into the sea)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "fleuve",
+      "river"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un océan",
+    "part_of_speech": "noun",
+    "display_form": "un océan",
+    "existing_english": [
+      "an ocean"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "ocean",
+      "océan"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un pays",
+    "part_of_speech": "noun",
+    "display_form": "un pays",
+    "existing_english": [
+      "a country"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "country",
+      "pays"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un peuple",
+    "part_of_speech": "noun",
+    "display_form": "un peuple",
+    "existing_english": [
+      "a people, a nation"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "nation",
+      "people",
+      "peuple"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un plan de la ville",
+    "part_of_speech": "noun",
+    "display_form": "un plan de la ville",
+    "existing_english": [
+      "a city map"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "city map",
+      "plan de la ville"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un pont",
+    "part_of_speech": "noun",
+    "display_form": "un pont",
+    "existing_english": [
+      "a bridge"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bridge",
+      "pont"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un professeur",
+    "part_of_speech": "noun",
+    "display_form": "un professeur",
+    "existing_english": [
+      "a teacher",
+      "a professor"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "professeur",
+      "professor",
+      "teacher"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un royaume",
+    "part_of_speech": "noun",
+    "display_form": "un royaume",
+    "existing_english": [
+      "a kingdom"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "kingdom",
+      "royaume"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un ruisseau",
+    "part_of_speech": "noun",
+    "display_form": "un ruisseau",
+    "existing_english": [
+      "a brook, a stream"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "brook",
+      "ruisseau",
+      "stream"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un stage",
+    "part_of_speech": "noun",
+    "display_form": "un stage",
+    "existing_english": [
+      "training",
+      "an internship"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "internship",
+      "stage"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un village",
+    "part_of_speech": "noun",
+    "display_form": "un village",
+    "existing_english": [
+      "a village"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "village"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un état",
+    "part_of_speech": "noun",
+    "display_form": "un état",
+    "existing_english": [
+      "a state"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "state",
+      "état"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "masculine",
+    "articles": {
+      "definite": null,
+      "indefinite": "un",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un étudiant, une étudiante",
+    "part_of_speech": "noun",
+    "display_form": "un étudiant, une étudiante",
+    "existing_english": [
+      "a student (university)"
+    ],
+    "existing_aliases": [
+      "étudiant",
+      "étudiante"
+    ],
+    "existing_search_terms": [
+      "etudiant",
+      "student university"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "variable",
+    "articles": {
+      "definite": null,
+      "indefinite": "un/une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "un(e) élève",
+    "part_of_speech": "noun",
+    "display_form": "un(e) élève",
+    "existing_english": [
+      "a student (elementary school)"
+    ],
+    "existing_aliases": [
+      "élève"
+    ],
+    "existing_search_terms": [
+      "eleve",
+      "student"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "common",
+    "articles": {
+      "definite": null,
+      "indefinite": "un(e)",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une autoroute",
+    "part_of_speech": "noun",
+    "display_form": "une autoroute",
+    "existing_english": [
+      "a highway"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "autoroute",
+      "highway"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une capitale",
+    "part_of_speech": "noun",
+    "display_form": "une capitale",
+    "existing_english": [
+      "a capital"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "capital",
+      "capitale"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une carte",
+    "part_of_speech": "noun",
+    "display_form": "une carte",
+    "existing_english": [
+      "a map"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "carte",
+      "map"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une colline",
+    "part_of_speech": "noun",
+    "display_form": "une colline",
+    "existing_english": [
+      "a hill"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "colline",
+      "hill"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  },
+  {
+    "canonical_form": "une côte",
+    "part_of_speech": "noun",
+    "display_form": "une côte",
+    "existing_english": [
+      "a coast(line)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "coast",
+      "côte"
+    ],
+    "existing_word_family": [],
+    "existing_tags": [],
+    "gender": "feminine",
+    "articles": {
+      "definite": null,
+      "indefinite": "une",
+      "partitive": null,
+      "other": []
+    }
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

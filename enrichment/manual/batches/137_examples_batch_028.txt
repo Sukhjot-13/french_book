@@ -1,0 +1,225 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 137_examples_batch_028
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "137_examples_batch_028",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Promenons-nous!",
+    "existing_english": "Let's take a walk!",
+    "existing_tags": []
+  },
+  {
+    "french": "Préférez-vous ces lunettes-ci ou ces lunettes-là?",
+    "existing_english": "Do you prefer these glasses or those glasses?",
+    "existing_tags": []
+  },
+  {
+    "french": "Préférez-vous cette chemise-ci ou cette chemise-là?",
+    "existing_english": "Do you prefer this shirt or that shirt?",
+    "existing_tags": []
+  },
+  {
+    "french": "Puis-je vous aider?",
+    "existing_english": "May I help you?",
+    "existing_tags": []
+  },
+  {
+    "french": "Puisque tu as le temps, aide-moi à finir mes devoirs.",
+    "existing_english": "Since you have time, help me finish my homework.",
+    "existing_tags": []
+  },
+  {
+    "french": "Qu'est-ce qu'il y a?",
+    "existing_english": "What's the matter?",
+    "existing_tags": []
+  },
+  {
+    "french": "Qu'est-ce que tu es en train de faire?",
+    "existing_english": "What are you doing?",
+    "existing_tags": []
+  },
+  {
+    "french": "Qu'est-ce que vous faites ce soir?",
+    "existing_english": "What are you doing tonight?",
+    "existing_tags": []
+  },
+  {
+    "french": "Quand ils étaient adolescents, ils jouaient au volley-ball le jeudi.",
+    "existing_english": "When they were teens, they would play volleyball on Thursdays.",
+    "existing_tags": []
+  },
+  {
+    "french": "Quand j'étais étudiant, je lisais les journaux tous les jours.",
+    "existing_english": "When I was a student, I would read the newspapers every day.",
+    "existing_tags": []
+  },
+  {
+    "french": "Que dire?",
+    "existing_english": "What is there to say?",
+    "existing_tags": []
+  },
+  {
+    "french": "Que fait-elle actuellement?",
+    "existing_english": "What is she presently doing?",
+    "existing_tags": []
+  },
+  {
+    "french": "Que répondre?",
+    "existing_english": "What can I (can we) answer?",
+    "existing_tags": []
+  },
+  {
+    "french": "Quel que soit votre conseil, je prendrai rendez-vous avec le patron.",
+    "existing_english": "Whatever your advice, I will make an appointment with the boss.",
+    "existing_tags": []
+  },
+  {
+    "french": "Quel temps fait-il?",
+    "existing_english": "What’s the weather like?",
+    "existing_tags": []
+  },
+  {
+    "french": "Quelle que soit leur décision, elle démissionnera.",
+    "existing_english": "Whatever their decision, she will resign.",
+    "existing_tags": []
+  },
+  {
+    "french": "Quentin demande où vous allez.",
+    "existing_english": "Quentin is asking where you are going.",
+    "existing_tags": []
+  },
+  {
+    "french": "Qui que tu sois, tu peux lui parler.",
+    "existing_english": "Whoever you are, you can talk to him.",
+    "existing_tags": []
+  },
+  {
+    "french": "Qui que vous soyez, ouvrez votre cœur.",
+    "existing_english": "Whoever you are, open up your heart.",
+    "existing_tags": []
+  },
+  {
+    "french": "Qui sait ce qui est arrivé?",
+    "existing_english": "Who knows what happened?",
+    "existing_tags": []
+  },
+  {
+    "french": "Quitte à payer plus, je préfère voyager en première classe.",
+    "existing_english": "Even if it means paying more, I prefer traveling first class.",
+    "existing_tags": []
+  },
+  {
+    "french": "Quitte à s'ennuyer, ils préfèrent rester chez eux.",
+    "existing_english": "They prefer to stay home even if it means being bored.",
+    "existing_tags": []
+  },
+  {
+    "french": "Quoi faire?",
+    "existing_english": "What can we do?",
+    "existing_tags": []
+  },
+  {
+    "french": "Quoi qu'elle dise, je ne changerai pas d'avis.",
+    "existing_english": "Whatever she says, I will not change my mind.",
+    "existing_tags": []
+  },
+  {
+    "french": "Quoi que tu fasses, je t'aimerai toujours.",
+    "existing_english": "Whatever you do, I will always love you.",
+    "existing_tags": []
+  },
+  {
+    "french": "Quoiqu'il fasse froid, ils se promènent dans la forêt.",
+    "existing_english": "Although it is cold, they take a walk in the forest.",
+    "existing_tags": []
+  },
+  {
+    "french": "Rends-moi le livre que je t'ai prêté.",
+    "existing_english": "Give me back the book I lent you.",
+    "existing_tags": []
+  },
+  {
+    "french": "Reposez-vous!",
+    "existing_english": "Take a rest!",
+    "existing_tags": []
+  },
+  {
+    "french": "Reposons-nous sur un banc.",
+    "existing_english": "Let's rest on a bench.",
+    "existing_tags": []
+  },
+  {
+    "french": "Régis finirait son roman s'il pouvait trouver une maison d'édition.",
+    "existing_english": "Régis would finish his novel if he could find a publisher.",
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

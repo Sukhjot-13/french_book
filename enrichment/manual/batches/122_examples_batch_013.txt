@@ -1,0 +1,225 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 122_examples_batch_013
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "122_examples_batch_013",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "Il est arrivé en retard.",
+    "existing_english": "He arrived late.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est certain qu'il viendra ce soir.",
+    "existing_english": "It is certain he'll come tonight.",
+    "existing_tags": []
+  },
+  {
+    "french": "il est construit",
+    "existing_english": "it is (being) built",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est debout à éplucher des carottes.",
+    "existing_english": "He is standing peeling carrots.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est possible qu'il vienne ce soir.",
+    "existing_english": "It is possible he'll come tonight.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est possible que leurs dossiers soient numériques.",
+    "existing_english": "Their files may be digital.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est rare qu'ils finissent leurs rapports à temps.",
+    "existing_english": "It is rare for them to finish their reports on time.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est regrettable que ce logiciel coûte si cher.",
+    "existing_english": "It is unfortunate this software is so expensive.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est tolérant pourvu qu'on respecte ses idées.",
+    "existing_english": "He is tolerant provided one respects his ideas.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est triste que vous démissionniez cette semaine.",
+    "existing_english": "It is sad you are resigning this week.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est vietnamien.",
+    "existing_english": "He is Vietnamese.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est étonnant que vous demandiez un salaire si élevé.",
+    "existing_english": "It is surprising that you're asking for such a high salary.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il est étrange qu'il télécharge tous vos documents.",
+    "existing_english": "It is strange that he downloads all your documents.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il faisait ses devoirs quand son frère est arrivé.",
+    "existing_english": "He was doing his homework when his brother arrived.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il faisait trop chaud.",
+    "existing_english": "It was too hot.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il fait beau.",
+    "existing_english": "It is nice.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il fait chaud.",
+    "existing_english": "It is hot.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il fait doux.",
+    "existing_english": "It is mild.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il fait frais.",
+    "existing_english": "It is cool.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il fait froid.",
+    "existing_english": "It is cold.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il fait le ménage le samedi.",
+    "existing_english": "He does the housecleaning on Saturdays.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il faut que vous commenciez vos recherches dès que possible.",
+    "existing_english": "You have to begin your research as soon as possible.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il faut que vous refassiez la page d'accueil de votre site.",
+    "existing_english": "You must redo the home page of your website.",
+    "existing_tags": []
+  },
+  {
+    "french": "il fut construit",
+    "existing_english": "it was built",
+    "existing_tags": []
+  },
+  {
+    "french": "Il fut surpris par notre réaction.",
+    "existing_english": "He was surprised by our reaction.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il grêle.",
+    "existing_english": "It is hailing.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il investira aux États-Unis.",
+    "existing_english": "He’ll invest in the United States.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il ira en France dans un an.",
+    "existing_english": "He’ll go to France in a year.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il jouait au tennis le mardi.",
+    "existing_english": "He used to (would) play tennis on Tuesdays.",
+    "existing_tags": []
+  },
+  {
+    "french": "Il l'a prise.",
+    "existing_english": "He made it.",
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

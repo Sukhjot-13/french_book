@@ -1,0 +1,602 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 065_expressions_batch_014
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "065_expressions_batch_014",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "s'abonner à",
+    "display_form": "s’abonner à",
+    "existing_english": [
+      "to subscribe to"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "s'abonner a",
+      "subscribe to"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "s’abonner à + noun",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "s'amuser",
+    "display_form": "s'amuser",
+    "existing_english": [
+      "to have fun"
+    ],
+    "existing_aliases": [
+      "amuser"
+    ],
+    "existing_search_terms": [
+      "s'amuser"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + amuser",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'amuser à la fête",
+    "display_form": "s'amuser à la fête",
+    "existing_english": [
+      "to have fun at the party"
+    ],
+    "existing_aliases": [
+      "s'amuser"
+    ],
+    "existing_search_terms": [
+      "have fun",
+      "s'amuser"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s'amuser + [location/activity]",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'apercevoir de",
+    "display_form": "s'apercevoir de",
+    "existing_english": [
+      "to realize"
+    ],
+    "existing_aliases": [
+      "s'apercevoir"
+    ],
+    "existing_search_terms": [
+      "s'apercevoir de"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + apercevoir + de",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "s'apercevoir que",
+    "display_form": "s'apercevoir que",
+    "existing_english": [
+      "to realize that"
+    ],
+    "existing_aliases": [
+      "s'apercevoir que"
+    ],
+    "existing_search_terms": [
+      "apercevoir que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "s'apercevoir que + clause",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'asseoir",
+    "display_form": "s'asseoir",
+    "existing_english": [
+      "to sit down"
+    ],
+    "existing_aliases": [
+      "asseoir"
+    ],
+    "existing_search_terms": [
+      "s'asseoir"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + asseoir",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'attendre à",
+    "display_form": "s’attendre à",
+    "existing_english": [
+      "to expect"
+    ],
+    "existing_aliases": [
+      "s'attendre"
+    ],
+    "existing_search_terms": [
+      "expect",
+      "s'attendre a",
+      "s'attendre à"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "s’attendre à + noun/infinitive",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "s'embrasser",
+    "display_form": "s'embrasser",
+    "existing_english": [
+      "to kiss each other"
+    ],
+    "existing_aliases": [
+      "embrasser"
+    ],
+    "existing_search_terms": [
+      "kiss",
+      "s'embrasser"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + embrasser",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'emparer de",
+    "display_form": "s'emparer de",
+    "existing_english": [
+      "to seize"
+    ],
+    "existing_aliases": [
+      "s'emparer"
+    ],
+    "existing_search_terms": [
+      "s'emparer de"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + emparer + de",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "s'en aller",
+    "display_form": "s'en aller",
+    "existing_english": [
+      "to leave, to go away"
+    ],
+    "existing_aliases": [
+      "en aller"
+    ],
+    "existing_search_terms": [
+      "s'en aller"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "s' + en + aller",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'enfuir",
+    "display_form": "s'enfuir",
+    "existing_english": [
+      "to run away"
+    ],
+    "existing_aliases": [
+      "enfuir"
+    ],
+    "existing_search_terms": [
+      "s'enfuir"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + enfuir",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'ennuyer",
+    "display_form": "s'ennuyer",
+    "existing_english": [
+      "to get bored",
+      "to be bored"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "bored",
+      "s'ennuyer"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s'ennuyer + [location/activity]",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'entendre avec",
+    "display_form": "s'entendre avec",
+    "existing_english": [
+      "to get along with"
+    ],
+    "existing_aliases": [
+      "s'entendre"
+    ],
+    "existing_search_terms": [
+      "s'entendre avec"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + entendre + avec",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "avec"
+    ]
+  },
+  {
+    "canonical_form": "s'envoler",
+    "display_form": "s'envoler",
+    "existing_english": [
+      "to vanish, fly away"
+    ],
+    "existing_aliases": [
+      "envoler"
+    ],
+    "existing_search_terms": [
+      "s'envoler"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + envoler",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'habiller",
+    "display_form": "s'habiller",
+    "existing_english": [
+      "to get dressed"
+    ],
+    "existing_aliases": [
+      "habiller"
+    ],
+    "existing_search_terms": [
+      "s'habiller"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + habiller",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'habituer à quelque chose",
+    "display_form": "s'habituer à [thing]",
+    "existing_english": [
+      "to get used to something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "s'habituer à [thing]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "s'intéresser à",
+    "display_form": "s’intéresser à",
+    "existing_english": [
+      "to be interested in"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "be interested in",
+      "s'interesser a"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "s’intéresser à + noun",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "s'intéresser à quelque chose",
+    "display_form": "s'intéresser à [thing]",
+    "existing_english": [
+      "to be interested in something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "s'intéresser à [thing]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "s'occuper de",
+    "display_form": "s'occuper de",
+    "existing_english": [
+      "to take care of"
+    ],
+    "existing_aliases": [
+      "s'occuper"
+    ],
+    "existing_search_terms": [
+      "s'occuper de"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + occuper + de",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "s'occuper de quelque chose",
+    "display_form": "s'occuper de [thing]",
+    "existing_english": [
+      "to take care of something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "s'occuper de [thing]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "s'offrir quelque chose",
+    "display_form": "s'offrir quelque chose",
+    "existing_english": [
+      "to treat oneself to something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "s'offrir",
+      "treat oneself"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s'offrir + [direct object]",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'opposer à",
+    "display_form": "s’opposer à",
+    "existing_english": [
+      "to oppose"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "oppose",
+      "s'opposer a"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "s’opposer à + noun",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "s'écrire",
+    "display_form": "s'écrire",
+    "existing_english": [
+      "to write to each other"
+    ],
+    "existing_aliases": [
+      "écrire"
+    ],
+    "existing_search_terms": [
+      "s'écrire",
+      "write to each other"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + écrire",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'écrouler",
+    "display_form": "s'écrouler",
+    "existing_english": [
+      "to collapse"
+    ],
+    "existing_aliases": [
+      "écrouler"
+    ],
+    "existing_search_terms": [
+      "s'écrouler"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + écrouler",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "s'évanouir",
+    "display_form": "s'évanouir",
+    "existing_english": [
+      "to faint"
+    ],
+    "existing_aliases": [
+      "évanouir"
+    ],
+    "existing_search_terms": [
+      "faint",
+      "s'évanouir"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "s' + évanouir",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "sans que + subjonctif",
+    "display_form": "sans que",
+    "existing_english": [
+      "without"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "sans que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "sans que + subjonctif",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "savoir + infinitive",
+    "display_form": "savoir faire quelque chose",
+    "existing_english": [
+      "to know how to do something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "know how to",
+      "savoir infinitive"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "savoir + infinitive",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "savoir que + clause",
+    "display_form": "savoir que...",
+    "existing_english": [
+      "to know that..."
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "know that",
+      "savoir que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "savoir que + clause",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "savoir si",
+    "display_form": "savoir si",
+    "existing_english": [
+      "to know if"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "savoir si"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "savoir si + clause",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "se balader",
+    "display_form": "se balader",
+    "existing_english": [
+      "to stroll, to walk around"
+    ],
+    "existing_aliases": [
+      "balader"
+    ],
+    "existing_search_terms": [
+      "se balader"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "se + balader",
+    "expression_type": "verb_pattern"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

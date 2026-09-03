@@ -1,0 +1,304 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 084_grammar_rules_batch_003
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: grammar_rules
+TOTAL ENTITIES IN THIS BATCH: 15
+TARGET ENRICHMENT FIELDS: explanation, summary, usage, signal_words, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "084_grammar_rules_batch_003",
+  "collection": "grammar_rules",
+  "patches": [
+    {
+      "entity_key": "<rule_name_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "rule_name": "Conjugation of regular -er verbs in present tense",
+    "existing_explanation": "Regular -er verbs follow a consistent pattern: the root is obtained by removing -er from the infinitive. The endings are added according to the subject pronoun. The -e, -es, and -ent endings are silent. Liaison occurs between the final -s of nous, vous, ils, elles and a following vowel sound, producing a z sound.",
+    "existing_summary": "To conjugate a regular -er verb in the present, remove the -er ending to find the root, then add the endings -e, -es, -e, -ons, -ez, -ent.",
+    "existing_usage": [
+      "To express actions in the present tense"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "To conjugate a regular -er verb in the present, remove the -er ending to find the root, then add the endings -e, -es, -e, -ons, -ez, -ent.",
+    "formation": "root + ending: je -e, tu -es, il/elle/on -e, nous -ons, vous -ez, ils/elles -ent"
+  },
+  {
+    "rule_name": "Conjugation of verbs ending in -eindre and -aindre",
+    "existing_explanation": "These -re verbs have a stem ending in -ein-/-ain- in the singular, and -eign-/-aign- in the plural forms.",
+    "existing_summary": "Verbs ending in -eindre or -aindre follow a similar conjugation pattern in the present tense.",
+    "existing_usage": [
+      "To conjugate peindre, craindre, and similar verbs"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Verbs ending in -eindre or -aindre follow a similar conjugation pattern in the present tense.",
+    "formation": "Singular: stem + s, s, t; Plural: stem + ons, ez, ent (with -eign- or -aign-)"
+  },
+  {
+    "rule_name": "Conjunctions followed by indicative mood",
+    "existing_explanation": "Let's learn a few more conjunctions followed by the indicative mood. These include: alors que, après que, comme, étant donné que, maintenant que, parce que, pendant que, puisque, si, sous prétexte que, tandis que, vu que.",
+    "existing_summary": "List of conjunctions that require indicative mood, including those seen with future and additional ones.",
+    "existing_usage": [
+      "to introduce subordinate clauses with indicative"
+    ],
+    "existing_signal_words": [
+      "alors que",
+      "après que",
+      "comme",
+      "étant donné que",
+      "maintenant que",
+      "parce que",
+      "pendant que",
+      "puisque",
+      "si",
+      "sous prétexte que",
+      "... (2 more items)"
+    ],
+    "existing_tags": [],
+    "summary": "List of conjunctions that require indicative mood, including those seen with future and additional ones."
+  },
+  {
+    "rule_name": "Conjunctions followed by the subjunctive",
+    "existing_explanation": "Conjunctions: afin que, pour que, de peur que, de crainte que, avant que, jusqu'à ce que, bien que, quoique, sans que, à moins que, pourvu que, à condition que, en attendant que.",
+    "existing_summary": "A list of conjunctions that require the subjunctive in the following clause.",
+    "existing_usage": [
+      "Expressing purpose, fear, time, concession, condition, etc."
+    ],
+    "existing_signal_words": [
+      "afin que",
+      "pour que",
+      "de peur que",
+      "de crainte que",
+      "avant que",
+      "jusqu'à ce que",
+      "bien que",
+      "quoique",
+      "sans que",
+      "à moins que",
+      "... (3 more items)"
+    ],
+    "existing_tags": [],
+    "summary": "A list of conjunctions that require the subjunctive in the following clause.",
+    "formation": "Conjunction + subjunctive clause."
+  },
+  {
+    "rule_name": "Connaître + direct object",
+    "existing_explanation": "Connaître means to know, to be acquainted with, or to be familiar with. It cannot be followed by a clause; it requires a noun or pronoun as direct object.",
+    "existing_summary": "Connaître is always followed by a direct object, never by a dependent clause.",
+    "existing_usage": [
+      "To express familiarity with people, places, things",
+      "Figuratively: to enjoy or experience"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Connaître is always followed by a direct object, never by a dependent clause.",
+    "formation": "connaître + noun/pronoun"
+  },
+  {
+    "rule_name": "Could for a unique past action",
+    "existing_explanation": "When 'could' refers to a single, unique action in the past (often implying success or achievement), French uses the passé composé of the verb pouvoir.",
+    "existing_summary": "Use passé composé of pouvoir to express a single, unique ability or success in the past.",
+    "existing_usage": [
+      "To express a specific past ability that was realized",
+      "To translate 'managed to' or 'succeeded in'"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Use passé composé of pouvoir to express a single, unique ability or success in the past.",
+    "formation": "passé composé of pouvoir + infinitive"
+  },
+  {
+    "rule_name": "Could for future, hypothesis, suggestion, or request",
+    "existing_explanation": "When 'could' implies a future possibility, a hypothetical scenario, a suggestion, or a polite request, French uses the conditionnel présent of pouvoir.",
+    "existing_summary": "Use conditionnel présent of pouvoir to express could for future possibility, hypothesis, suggestion, or polite request.",
+    "existing_usage": [
+      "Polite requests",
+      "Suggestions",
+      "Hypothetical ability",
+      "Future possibility"
+    ],
+    "existing_signal_words": [
+      "pourrais-tu",
+      "pourriez-vous",
+      "peut-être"
+    ],
+    "existing_tags": [],
+    "summary": "Use conditionnel présent of pouvoir to express could for future possibility, hypothesis, suggestion, or polite request.",
+    "formation": "conditionnel présent of pouvoir + infinitive"
+  },
+  {
+    "rule_name": "Could for habitual past or description",
+    "existing_explanation": "When 'could' describes a general ability, a habitual action, or a state of affairs in the past (without focusing on a single occurrence), French uses the imparfait of pouvoir.",
+    "existing_summary": "Use imparfait of pouvoir to express general ability, habitual action, or state in the past.",
+    "existing_usage": [
+      "To translate 'could' when referring to a general capacity in the past",
+      "To describe what was possible or permitted in a past era"
+    ],
+    "existing_signal_words": [
+      "en ce temps-là",
+      "à cette époque",
+      "quand",
+      "souvent",
+      "tous les jours"
+    ],
+    "existing_tags": [],
+    "summary": "Use imparfait of pouvoir to express general ability, habitual action, or state in the past.",
+    "formation": "imparfait of pouvoir + infinitive"
+  },
+  {
+    "rule_name": "Definite article: le, la, l', les",
+    "existing_explanation": "French nouns have gender. Definite article agrees in gender and number.",
+    "existing_summary": "Use le for masculine singular, la for feminine singular, l' before vowel or mute h, les for plural.",
+    "existing_usage": [
+      "to refer to specific nouns",
+      "to express general concepts"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Use le for masculine singular, la for feminine singular, l' before vowel or mute h, les for plural.",
+    "formation": "le + masculine singular; la + feminine singular; l' + vowel/mute h singular; les + plural"
+  },
+  {
+    "rule_name": "Demonstrative adjectives agree in gender and number",
+    "existing_explanation": "Demonstrative adjectives point out specific nouns and agree in gender and number with the noun they modify.",
+    "existing_summary": "Demonstrative adjectives (ce, cet, cette, ces) agree with the noun they modify.",
+    "existing_usage": [
+      "Pointing out specific people or things"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Demonstrative adjectives (ce, cet, cette, ces) agree with the noun they modify.",
+    "formation": "Masculine singular: ce before consonant, cet before vowel or mute h; feminine singular: cette; plural (masculine and feminine): ces."
+  },
+  {
+    "rule_name": "Demonstrative pronoun ce (c') with être",
+    "existing_explanation": "The demonstrative pronoun ce (c') is invariable and often subject of être. It refers to an idea previously introduced. The adjective following ce is always masculine singular, even if it refers to a feminine antecedent.",
+    "existing_summary": "Ce (c') is invariable, often subject of être, and the following adjective is always masculine singular.",
+    "existing_usage": [
+      "Referring to a previously introduced idea",
+      "Making general statements"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Ce (c') is invariable, often subject of être, and the following adjective is always masculine singular.",
+    "formation": "ce + être + masculine singular adjective"
+  },
+  {
+    "rule_name": "Demonstrative pronouns replace demonstrative adjective + noun",
+    "existing_explanation": "A demonstrative pronoun replaces a demonstrative adjective + a noun. It agrees in gender and number with the noun it replaces.",
+    "existing_summary": "Demonstrative pronouns (celui, celle, ceux, celles) replace a noun with a demonstrative adjective.",
+    "existing_usage": [
+      "Referring to people or things",
+      "Subject or object of verb"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "Demonstrative pronouns (celui, celle, ceux, celles) replace a noun with a demonstrative adjective.",
+    "formation": "Masculine singular: celui; feminine singular: celle; plural: ceux (masc./mixed), celles (fem.)."
+  },
+  {
+    "rule_name": "Depuis + present tense for duration",
+    "existing_explanation": "In English, the past tense or present perfect is often used, but French uses present tense. Questions can be formed with depuis quand, depuis combien de temps, il y a... que, ça fait... que.",
+    "existing_summary": "Use the present tense with depuis to express an action that started in the past and continues in the present.",
+    "existing_usage": [
+      "Duration of ongoing action"
+    ],
+    "existing_signal_words": [
+      "depuis",
+      "il y a... que",
+      "ça fait... que"
+    ],
+    "existing_tags": [],
+    "summary": "Use the present tense with depuis to express an action that started in the past and continues in the present.",
+    "formation": "present tense + depuis + time expression"
+  },
+  {
+    "rule_name": "Depuis with present vs imparfait",
+    "existing_explanation": "Depuis with the present tense indicates an action that began in the past and continues to the present (English present perfect progressive). Depuis with the imparfait indicates an action that had been ongoing up to a past point (English past perfect progressive).",
+    "existing_summary": "Depuis + present = have been doing; depuis + imparfait = had been doing.",
+    "existing_usage": [
+      "Express duration from past to present (present)",
+      "Express duration from earlier past to later past (imparfait)"
+    ],
+    "existing_signal_words": [
+      "depuis"
+    ],
+    "existing_tags": [],
+    "summary": "Depuis + present = have been doing; depuis + imparfait = had been doing.",
+    "formation": "present/imparfait + depuis + duration"
+  },
+  {
+    "rule_name": "Devoir as a debt",
+    "existing_explanation": "Devoir is used to indicate owing something to someone, such as money or a life.",
+    "existing_summary": "The verb devoir can express a debt, both literal and figurative.",
+    "existing_usage": [
+      "To express owing money or something owed"
+    ],
+    "existing_signal_words": [],
+    "existing_tags": [],
+    "summary": "The verb devoir can express a debt, both literal and figurative.",
+    "formation": "devoir + noun (direct object)"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

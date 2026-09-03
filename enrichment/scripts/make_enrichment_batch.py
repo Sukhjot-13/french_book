@@ -20,52 +20,29 @@ for p in [str(REPO_ROOT), str(SCRIPT_DIR)]:
     if p not in sys.path:
         sys.path.insert(0, p)
 
-try:
-    from enrichment.scripts.enrichment_config import (
-        DEFAULT_BATCH_SIZES,
-        COLLECTION_ORDER,
-        PROTECTED_COLLECTIONS,
-        NATURAL_KEYS,
-        SAFE_FIELDS,
-        HIGH_RISK_FIELDS,
-        ALLOWED_OPERATIONS,
-        BATCHES_DIR,
-        LOGS_DIR,
-        BATCH_MANIFEST_FILE,
-        PROGRESS_FILE,
-    )
-    from enrichment.scripts.enrichment_helpers import (
-        load_master_data,
-        calculate_hash,
-        extract_natural_key,
-        natural_key_to_str,
-        save_json,
-        load_json,
-        resolve_field_name,
-    )
-except ImportError:
-    from enrichment_config import (
-        DEFAULT_BATCH_SIZES,
-        COLLECTION_ORDER,
-        PROTECTED_COLLECTIONS,
-        NATURAL_KEYS,
-        SAFE_FIELDS,
-        HIGH_RISK_FIELDS,
-        ALLOWED_OPERATIONS,
-        BATCHES_DIR,
-        LOGS_DIR,
-        BATCH_MANIFEST_FILE,
-        PROGRESS_FILE,
-    )
-    from enrichment_helpers import (
-        load_master_data,
-        calculate_hash,
-        extract_natural_key,
-        natural_key_to_str,
-        save_json,
-        load_json,
-        resolve_field_name,
-    )
+from enrichment.scripts.enrichment_config import (
+    DEFAULT_BATCH_SIZES,
+    COLLECTION_ORDER,
+    PROTECTED_COLLECTIONS,
+    NATURAL_KEYS,
+    SAFE_FIELDS,
+    HIGH_RISK_FIELDS,
+    ALLOWED_OPERATIONS,
+    BATCHES_DIR,
+    LOGS_DIR,
+    BATCH_MANIFEST_FILE,
+    PROGRESS_FILE,
+)
+from enrichment.scripts.enrichment_helpers import (
+    load_master_data,
+    calculate_hash,
+    extract_natural_key,
+    natural_key_to_str,
+    save_json,
+    load_json,
+    resolve_field_name,
+)
+
 
 
 

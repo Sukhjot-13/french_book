@@ -1,0 +1,593 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 053_expressions_batch_002
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "053_expressions_batch_002",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "aller + [infinitive]",
+    "display_form": "aller (conjugated) + infinitive",
+    "existing_english": [
+      "to be going to [do something]"
+    ],
+    "existing_aliases": [
+      "aller + inf",
+      "futur proche"
+    ],
+    "existing_search_terms": [
+      "aller + infinitive",
+      "going to"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "aller + [infinitive]",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "aller bien à [quelqu'un]",
+    "display_form": "aller bien à (qn)",
+    "existing_english": [
+      "to look good on someone",
+      "to suit someone"
+    ],
+    "existing_aliases": [
+      "aller bien",
+      "aller à qn"
+    ],
+    "existing_search_terms": [
+      "aller bien à",
+      "look good on"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "[subject] + aller bien à + [person]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "aller en vacances",
+    "display_form": "aller en vacances",
+    "existing_english": [
+      "to go on vacation"
+    ],
+    "existing_aliases": [
+      "partir en vacances"
+    ],
+    "existing_search_terms": [
+      "aller en vacances",
+      "go on vacation"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "en"
+    ]
+  },
+  {
+    "canonical_form": "aller à + city",
+    "display_form": "aller à + ville",
+    "existing_english": [
+      "to go to + city"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "aller à",
+      "go to city"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "aller à + city",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "aller à [place]",
+    "display_form": "aller à (au/aux) [place]",
+    "existing_english": [
+      "to go to [place]"
+    ],
+    "existing_aliases": [
+      "aller au",
+      "aller aux",
+      "aller à la"
+    ],
+    "existing_search_terms": [
+      "aller à",
+      "go to"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "aller + à + [place]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "au",
+      "aux",
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "aller à la mer",
+    "display_form": "aller à la mer",
+    "existing_english": [
+      "to go to the seaside"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "aller à la mer",
+      "go to the seaside"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "alors que",
+    "display_form": "alors que",
+    "existing_english": [
+      "whereas",
+      "while"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "appeler quelqu'un",
+    "display_form": "appeler quelqu'un",
+    "existing_english": [
+      "to call someone"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "appeler quelqu'un",
+      "call someone"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "appeler + personne",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "après + infinitif passé",
+    "display_form": "après avoir/être + participe passé",
+    "existing_english": [
+      "after having done something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "après avoir",
+      "après être"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "après + avoir/être + participe passé",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "après"
+    ]
+  },
+  {
+    "canonical_form": "après-demain",
+    "display_form": "après-demain",
+    "existing_english": [
+      "the day after tomorrow"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "day after tomorrow"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "arriver sur les lieux du crime",
+    "display_form": "arriver sur les lieux du crime",
+    "existing_english": [
+      "to arrive at the crime scene"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "arriver sur les lieux du crime"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "arriver sur les lieux du crime",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "sur"
+    ]
+  },
+  {
+    "canonical_form": "aspirer à",
+    "display_form": "aspirer à",
+    "existing_english": [
+      "to aspire to"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "aspire to",
+      "aspirer a"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "aspirer à + noun",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "assister à",
+    "display_form": "assister à",
+    "existing_english": [
+      "to attend"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "assister à + événement",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "à"
+    ]
+  },
+  {
+    "canonical_form": "au + masculine country",
+    "display_form": "au Canada",
+    "existing_english": [
+      "in/to Canada"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "au Canada",
+      "in Canada"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "au + masculine singular country",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "au"
+    ]
+  },
+  {
+    "canonical_form": "au + masculine state",
+    "display_form": "au Texas",
+    "existing_english": [
+      "in Texas"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "au Texas",
+      "in Texas"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "au + masculine state",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "au"
+    ]
+  },
+  {
+    "canonical_form": "au ... étage",
+    "display_form": "au ... étage",
+    "existing_english": [
+      "on the ... floor"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "au étage",
+      "floor"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "au [ordinal number] étage",
+    "expression_type": "collocation",
+    "prepositions": [
+      "au"
+    ]
+  },
+  {
+    "canonical_form": "au bord de la mer",
+    "display_form": "au bord de la mer",
+    "existing_english": [
+      "by the sea",
+      "at the seaside"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "fixed_expression",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "au cas où",
+    "display_form": "au cas où",
+    "existing_english": [
+      "in case"
+    ],
+    "existing_aliases": [
+      "au cas où"
+    ],
+    "existing_search_terms": [
+      "au cas où",
+      "in case"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "au cas où + conditional clause",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "au cinéma",
+    "display_form": "au cinéma",
+    "existing_english": [
+      "at the movies"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "aujourd'hui",
+    "display_form": "aujourd'hui",
+    "existing_english": [
+      "today"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "today"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "auprès",
+    "display_form": "auprès",
+    "existing_english": [
+      "next to",
+      "close to"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "close to",
+      "next to"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "aurais dû + infinitive",
+    "display_form": "aurais dû + [infinitive]",
+    "existing_english": [
+      "should have ..."
+    ],
+    "existing_aliases": [
+      "aurais du"
+    ],
+    "existing_search_terms": [
+      "devoir",
+      "should have"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "aurais dû + INF",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "aussitôt que",
+    "display_form": "aussitôt que",
+    "existing_english": [
+      "as soon as"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "autrefois",
+    "display_form": "autrefois",
+    "existing_english": [
+      "formerly",
+      "in times past"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "formerly"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "aux + plural country",
+    "display_form": "aux États-Unis",
+    "existing_english": [
+      "in/to the United States"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "aux États-Unis",
+      "in the United States"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "aux + plural country",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "aux"
+    ]
+  },
+  {
+    "canonical_form": "aux + plural island group",
+    "display_form": "aux Maldives",
+    "existing_english": [
+      "in/to the Maldives"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "aux Maldives",
+      "in the Maldives"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "aux + plural island group",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "aux"
+    ]
+  },
+  {
+    "canonical_form": "avant de + infinitif",
+    "display_form": "avant de faire quelque chose",
+    "existing_english": [
+      "before doing something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avant de"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avant de + infinitif",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "avant de"
+    ]
+  },
+  {
+    "canonical_form": "avant que + subjonctif",
+    "display_form": "avant que",
+    "existing_english": [
+      "before"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "avant que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avant que + subjonctif",
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "avant-hier",
+    "display_form": "avant-hier",
+    "existing_english": [
+      "the day before yesterday"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "day before yesterday"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "avoir ... ans",
+    "display_form": "j'ai trente-cinq ans",
+    "existing_english": [
+      "to be ... years old"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "age",
+      "avoir ans"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "avoir + number + ans",
+    "expression_type": "verb_pattern"
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

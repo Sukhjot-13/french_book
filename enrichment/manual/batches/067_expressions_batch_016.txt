@@ -1,0 +1,593 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 067_expressions_batch_016
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: expressions
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, synonyms, antonyms, register, usage_notes, aliases, search_terms, collocation_strength, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "067_expressions_batch_016",
+  "collection": "expressions",
+  "patches": [
+    {
+      "entity_key": "<canonical_form_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "canonical_form": "se rendre compte de",
+    "display_form": "se rendre compte de",
+    "existing_english": [
+      "to realize"
+    ],
+    "existing_aliases": [
+      "se rendre compte"
+    ],
+    "existing_search_terms": [
+      "se rendre compte de"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "se + rendre + compte + de",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "se rendre compte de quelque chose",
+    "display_form": "se rendre compte de quelque chose",
+    "existing_english": [
+      "to realize something"
+    ],
+    "existing_aliases": [
+      "se rendre compte de"
+    ],
+    "existing_search_terms": [
+      "realize",
+      "se rendre compte"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "se rendre compte de + [noun/clause]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "se rendre compte que",
+    "display_form": "se rendre compte que",
+    "existing_english": [
+      "to realize that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "realize that",
+      "se rendre compte que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "se rendre compte que + clause",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "se reposer",
+    "display_form": "se reposer",
+    "existing_english": [
+      "to rest"
+    ],
+    "existing_aliases": [
+      "reposer"
+    ],
+    "existing_search_terms": [
+      "se reposer"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "se + reposer",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "se retrouver",
+    "display_form": "se retrouver",
+    "existing_english": [
+      "to meet (each other)"
+    ],
+    "existing_aliases": [
+      "retrouver"
+    ],
+    "existing_search_terms": [
+      "se retrouver"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "se + retrouver",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "se réveiller",
+    "display_form": "se réveiller",
+    "existing_english": [
+      "to wake up"
+    ],
+    "existing_aliases": [
+      "réveiller"
+    ],
+    "existing_search_terms": [
+      "se réveiller"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "se + réveiller",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "se servir de",
+    "display_form": "se servir de",
+    "existing_english": [
+      "to use"
+    ],
+    "existing_aliases": [
+      "se servir"
+    ],
+    "existing_search_terms": [
+      "se servir de",
+      "use"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "se servir de + noun",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "se servir de quelque chose",
+    "display_form": "se servir de [thing]",
+    "existing_english": [
+      "to use something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "se servir de [thing]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "se souvenir de",
+    "display_form": "se souvenir de",
+    "existing_english": [
+      "to remember"
+    ],
+    "existing_aliases": [
+      "se rappeler",
+      "se souvenir"
+    ],
+    "existing_search_terms": [
+      "remember",
+      "se souvenir de"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "se souvenir de + noun/pronoun/infinitive",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "se souvenir de quelque chose",
+    "display_form": "se souvenir de [thing]",
+    "existing_english": [
+      "to remember something"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "se souvenir de [thing]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "se tordre la cheville",
+    "display_form": "se tordre la cheville",
+    "existing_english": [
+      "to twist one's ankle"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "se tordre la cheville",
+      "twist ankle"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "se tromper de",
+    "display_form": "se tromper de",
+    "existing_english": [
+      "to be mistaken about"
+    ],
+    "existing_aliases": [
+      "se tromper"
+    ],
+    "existing_search_terms": [
+      "se tromper de"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "se + tromper + de",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "se téléphoner",
+    "display_form": "se téléphoner",
+    "existing_english": [
+      "to call each other",
+      "to telephone each other"
+    ],
+    "existing_aliases": [
+      "téléphoner"
+    ],
+    "existing_search_terms": [
+      "call each other",
+      "se téléphoner"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "se + téléphoner",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "se voir",
+    "display_form": "se voir",
+    "existing_english": [
+      "to see each other"
+    ],
+    "existing_aliases": [
+      "voir"
+    ],
+    "existing_search_terms": [
+      "se voir"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "se + voir",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "se voir contraint de + infinitive",
+    "display_form": "se voir contraint de + infinitif",
+    "existing_english": [
+      "to find oneself forced to"
+    ],
+    "existing_aliases": [
+      "se voir contraint de"
+    ],
+    "existing_search_terms": [
+      "se voir contraint de"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "se voir contraint de + [infinitive]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "si seulement",
+    "display_form": "si seulement",
+    "existing_english": [
+      "if only"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "if only",
+      "si seulement"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "si seulement + plus-que-parfait",
+    "expression_type": "conversation_phrase"
+  },
+  {
+    "canonical_form": "signer son nom",
+    "display_form": "signer son nom",
+    "existing_english": [
+      "to sign one's name"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "sign one's name",
+      "signer son nom"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "signer son nom",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "signer un contrat",
+    "display_form": "signer un contrat",
+    "existing_english": [
+      "to sign a contract"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "sign a contract",
+      "signer un contrat"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "signer un contrat",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "signer un document",
+    "display_form": "signer un document",
+    "existing_english": [
+      "to sign a document"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "sign a document",
+      "signer un document"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "signer un document",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "sortir avec des amis",
+    "display_form": "sortir avec des amis",
+    "existing_english": [
+      "to go out with friends"
+    ],
+    "existing_aliases": [
+      "sortir avec quelqu'un"
+    ],
+    "existing_search_terms": [
+      "go out with",
+      "sortir avec"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "sortir avec + [person]",
+    "expression_type": "verb_pattern",
+    "prepositions": [
+      "avec"
+    ]
+  },
+  {
+    "canonical_form": "sortir la voiture du garage",
+    "display_form": "sortir la voiture du garage",
+    "existing_english": [
+      "to take the car out of the garage"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "sortir la voiture",
+      "take out car"
+    ],
+    "existing_collocation_strength": "common",
+    "existing_tags": [],
+    "pattern": "sortir + [object] + de + [place]",
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  },
+  {
+    "canonical_form": "souhaiter que + subjonctif",
+    "display_form": "souhaiter que",
+    "existing_english": [
+      "to wish (that)"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "souhaiter que"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "souhaiter que + subjonctif",
+    "expression_type": "verb_pattern"
+  },
+  {
+    "canonical_form": "sous prétexte que",
+    "display_form": "sous prétexte que",
+    "existing_english": [
+      "under the pretext that"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "souvent",
+    "display_form": "souvent",
+    "existing_english": [
+      "often"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "often"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "other"
+  },
+  {
+    "canonical_form": "suivre un cours",
+    "display_form": "suivre un cours",
+    "existing_english": [
+      "to take a class"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "suivre un cours",
+      "take a class"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "suivre + un cours",
+    "expression_type": "collocation"
+  },
+  {
+    "canonical_form": "surfer sur Internet",
+    "display_form": "surfer sur Internet",
+    "existing_english": [
+      "to surf the Net"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "surfer sur Internet"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "surfer sur Internet",
+    "expression_type": "collocation",
+    "prepositions": [
+      "sur"
+    ]
+  },
+  {
+    "canonical_form": "tant que",
+    "display_form": "tant que",
+    "existing_english": [
+      "as long as"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "connector"
+  },
+  {
+    "canonical_form": "tard",
+    "display_form": "tard",
+    "existing_english": [
+      "late"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "late"
+    ],
+    "existing_collocation_strength": null,
+    "existing_tags": [],
+    "expression_type": "time_expression"
+  },
+  {
+    "canonical_form": "tenir [quelqu'un] par la main",
+    "display_form": "tenir qn par la main",
+    "existing_english": [
+      "to hold someone's hand"
+    ],
+    "existing_aliases": [
+      "tenir par la main"
+    ],
+    "existing_search_terms": [
+      "hold hand",
+      "tenir la main"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "pattern": "tenir + [person] + par la main",
+    "expression_type": "collocation",
+    "prepositions": [
+      "par"
+    ]
+  },
+  {
+    "canonical_form": "tenir compte de",
+    "display_form": "tenir compte de",
+    "existing_english": [
+      "to take into account"
+    ],
+    "existing_aliases": [],
+    "existing_search_terms": [
+      "take into account",
+      "tenir compte"
+    ],
+    "existing_collocation_strength": "strong",
+    "existing_tags": [],
+    "expression_type": "collocation",
+    "prepositions": [
+      "de"
+    ]
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================

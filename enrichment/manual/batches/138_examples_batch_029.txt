@@ -1,0 +1,225 @@
+================================================================================
+L'ÉTUDE — FRENCH REVISION PLATFORM — MANUAL AI ENRICHMENT BATCH: 138_examples_batch_029
+================================================================================
+
+PROJECT CONTEXT & ROLE:
+You are an expert French pedagogical lexicographer and grammarian enriching L'Étude,
+a high-precision French revision curriculum. You are producing structured patch data.
+
+TARGET COLLECTION: examples
+TOTAL ENTITIES IN THIS BATCH: 30
+TARGET ENRICHMENT FIELDS: english, tags
+
+CRITICAL RULES & INTEGRITY DIRECTIVES:
+1. EXISTING DATA IS AUTHORITATIVE:
+   - Existing textbook-derived information must NEVER be removed, deleted, or overwritten.
+   - Add only missing, high-value pedagogical information.
+2. PATCHES ONLY (NO FULL REPLACEMENTS):
+   - Return ONLY the explicit patch operations specified below.
+   - Do NOT output rewritten full entities.
+3. NATURAL KEYS ONLY (NO ARTIFICIAL IDs):
+   - Every patch must identify the entity using its exact natural key as provided below.
+4. ALLOWED PATCH OPERATIONS:
+   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).
+   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.
+   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).
+   - 'add_relation': Adds a cross-reference link to another verified existing entity.
+   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.
+5. UNCERTAINTY BEHAVIOR:
+   - If you are uncertain of a meaning, usage nuance, or classification, DO NOT GUESS.
+   - Place speculative items into the top-level 'uncertain_suggestions' array or omit them.
+6. ACCURACY & ORTHOGRAPHY:
+   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.
+7. STRICT OUTPUT FORMAT:
+   - Respond with VALID JSON ONLY.
+   - Do NOT wrap in markdown conversational commentary outside the JSON.
+
+--------------------------------------------------------------------------------
+EXPECTED JSON RESPONSE CONTRACT:
+--------------------------------------------------------------------------------
+{
+  "batch_id": "138_examples_batch_029",
+  "collection": "examples",
+  "patches": [
+    {
+      "entity_key": "<french_value>",
+      "operations": [
+        {
+          "operation": "add_unique",
+          "field": "<field_name>",
+          "values": [
+            "<new_value_1>",
+            "<new_value_2>"
+          ]
+        },
+        {
+          "operation": "set_if_empty",
+          "field": "<singleton_field>",
+          "value": "<value>"
+        }
+      ]
+    }
+  ],
+  "uncertain_suggestions": [],
+  "batch_summary": "Short 1-2 sentence description of additions made in this batch."
+}
+
+--------------------------------------------------------------------------------
+ENTITIES TO ENRICH (EXISTING CONTEXT):
+--------------------------------------------------------------------------------
+[
+  {
+    "french": "répondant",
+    "existing_english": "answering",
+    "existing_tags": []
+  },
+  {
+    "french": "Répondez!",
+    "existing_english": "Answer!",
+    "existing_tags": []
+  },
+  {
+    "french": "Répondons!",
+    "existing_english": "Let's answer!",
+    "existing_tags": []
+  },
+  {
+    "french": "répondre",
+    "existing_english": "to answer",
+    "existing_tags": []
+  },
+  {
+    "french": "Réponds!",
+    "existing_english": "Answer!",
+    "existing_tags": []
+  },
+  {
+    "french": "Réveille-toi!",
+    "existing_english": "Wake up!",
+    "existing_tags": []
+  },
+  {
+    "french": "S'est-il rendu compte de son erreur?",
+    "existing_english": "Did he realize his mistake?",
+    "existing_tags": []
+  },
+  {
+    "french": "S'il a le temps, il passera vous voir.",
+    "existing_english": "If he has time, he'll stop by to see you.",
+    "existing_tags": []
+  },
+  {
+    "french": "S'occupent-elles de ce dossier?",
+    "existing_english": "Are they taking care of this case (file)?",
+    "existing_tags": []
+  },
+  {
+    "french": "Sa fille a les cheveux châtain clair.",
+    "existing_english": "Her daughter has light-brown hair.",
+    "existing_tags": []
+  },
+  {
+    "french": "Sa nouvelle armoire est magnifique.",
+    "existing_english": "His new armoire is magnificent.",
+    "existing_tags": []
+  },
+  {
+    "french": "sa propre idée",
+    "existing_english": "his own idea",
+    "existing_tags": []
+  },
+  {
+    "french": "Sa veste gris foncé lui va très bien.",
+    "existing_english": "Her dark gray jacket suits her well.",
+    "existing_tags": []
+  },
+  {
+    "french": "Sachez que je suis avec vous!",
+    "existing_english": "Be aware (Know that) I am with you!",
+    "existing_tags": []
+  },
+  {
+    "french": "Savez-vous ce qu'il fait ces jours-ci?",
+    "existing_english": "Do you know what he is doing these days?",
+    "existing_tags": []
+  },
+  {
+    "french": "Se rase-t-il tous les matins?",
+    "existing_english": "Does he shave every morning?",
+    "existing_tags": []
+  },
+  {
+    "french": "Ses trois chats sont noirs.",
+    "existing_english": "His three cats are black.",
+    "existing_tags": []
+  },
+  {
+    "french": "Si jeune, il pouvait quand même prendre une telle décision!",
+    "existing_english": "So young, he was still able to make such a decision!",
+    "existing_tags": []
+  },
+  {
+    "french": "Si le patron n'avait pas voté la délocalisation, l'usine serait restée ouverte.",
+    "existing_english": "If the boss had not opted for a relocation, the factory would have stayed open.",
+    "existing_tags": []
+  },
+  {
+    "french": "Si on achetait des billets?",
+    "existing_english": "What about buying tickets?",
+    "existing_tags": []
+  },
+  {
+    "french": "Si on allait en France cet été?",
+    "existing_english": "What about going to France this summer?",
+    "existing_tags": []
+  },
+  {
+    "french": "Si on allait nager dans le lac?",
+    "existing_english": "What about going swimming in the lake?",
+    "existing_tags": []
+  },
+  {
+    "french": "Si on allait rendre visite à Léo?",
+    "existing_english": "What about paying a visit to Léo?",
+    "existing_tags": []
+  },
+  {
+    "french": "Si seulement elle n'avait pas raté son examen!",
+    "existing_english": "If only she had not failed her exam!",
+    "existing_tags": []
+  },
+  {
+    "french": "Si seulement elle était à l'heure!",
+    "existing_english": "If only she were on time!",
+    "existing_tags": []
+  },
+  {
+    "french": "Si seulement il n'avait pas attrapé un rhume!",
+    "existing_english": "If only he had not caught a cold!",
+    "existing_tags": []
+  },
+  {
+    "french": "Si seulement il était allé chez le médecin plus tôt!",
+    "existing_english": "If only he had gone to the doctor’s earlier!",
+    "existing_tags": []
+  },
+  {
+    "french": "Si seulement ils habitaient plus près!",
+    "existing_english": "If only they lived closer!",
+    "existing_tags": []
+  },
+  {
+    "french": "Si seulement on pouvait prendre des vacances!",
+    "existing_english": "If only we could take a vacation!",
+    "existing_tags": []
+  },
+  {
+    "french": "Si seulement vous aviez pu être parmi nous!",
+    "existing_english": "If only you had been able to be with us!",
+    "existing_tags": []
+  }
+]
+
+================================================================================
+END OF BATCH PROMPT. PLEASE RETURN THE JSON PATCH OBJECT NOW.
+================================================================================
