@@ -23,6 +23,7 @@ from enrichment.scripts.enrichment_config import (
     PROTECTED_COLLECTIONS,
     NATURAL_KEYS,
     ALLOWED_OPERATIONS,
+    SAFE_FIELDS,
 )
 from enrichment.scripts.enrichment_helpers import (
     normalize_french_text,
@@ -37,6 +38,7 @@ from enrichment.scripts.validate_enrichment_response import validate_response_fi
 from enrichment.scripts.preview_enrichment import preview_patch_file
 from enrichment.scripts.generate_enrichment_report import format_preview_report, format_applied_report
 from enrichment.scripts.apply_enrichment import apply_patch_to_dataset
+from enrichment.scripts.make_enrichment_batch import get_collection_schema_excerpt, format_batch_prompt
 
 
 
@@ -55,6 +57,10 @@ class TestEnrichmentConfiguration(unittest.TestCase):
 
         self.assertIn("unresolved_items", PROTECTED_COLLECTIONS)
         self.assertIn("source_quality", PROTECTED_COLLECTIONS)
+
+    def test_vocabulary_enrichment_includes_inflection_fields(self):
+        for field in ["gender", "articles", "plural", "variants"]:
+            self.assertIn(field, SAFE_FIELDS["vocabulary"])
 
 
 class TestEnrichmentHelpers(unittest.TestCase):
@@ -173,7 +179,44 @@ class TestEnrichmentValidationAndPreview(unittest.TestCase):
             res, _ = validate_response_file(temp_path, self.dataset)
             self.assertFalse(res.is_valid)
             self.assertEqual(res.status, "FAILED")
-            self.assertTrue(any("forbidden" in e.lower() or "artificial id" in e.lower() for e in res.errors))
+            self.assertTrue(any("disallowed" in e.lower() or "approved" in e.lower() for e in res.errors))
+        finally:
+            temp_path.unlink()
+
+    def test_schema_excerpt_and_downloadable_json_instruction(self):
+        excerpt = get_collection_schema_excerpt("vocabulary", ["english", "gender", "articles"])
+        self.assertEqual(excerpt["natural_key"], ["canonical_form", "part_of_speech"])
+        self.assertIn("gender", excerpt["properties"])
+        self.assertIn("articles", excerpt["properties"])
+        self.assertIn("articleSet", excerpt["$defs"])
+
+        prompt = format_batch_prompt("001_vocabulary_batch_001", "vocabulary", [], ["english", "gender"], excerpt)
+        self.assertIn("001_vocabulary_batch_001_RESPONSE.json", prompt)
+        self.assertIn("COLLECTION SCHEMA", prompt)
+
+    def test_validation_rejects_field_not_requested_by_manifest(self):
+        payload = {
+            "batch_id": "test_manifest_001",
+            "collection": "verbs",
+            "patches": [{
+                "entity_key": "prendre",
+                "operations": [{"operation": "set_if_empty", "field": "register", "value": "neutral"}],
+            }],
+        }
+        manifest = {"batches": [{
+            "batch_id": "test_manifest_001",
+            "collection": "verbs",
+            "entity_keys": ["prendre"],
+            "requested_fields": ["english"],
+        }]}
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+            import json
+            json.dump(payload, f)
+            temp_path = Path(f.name)
+        try:
+            result, _ = validate_response_file(temp_path, self.dataset, manifest)
+            self.assertFalse(result.is_valid)
+            self.assertTrue(any("not requested" in error for error in result.errors))
         finally:
             temp_path.unlink()
 
@@ -265,6 +308,31 @@ class TestEnrichmentApplyEngine(unittest.TestCase):
         report = format_applied_report(audit)
         self.assertIn("APPLY AUDIT SUMMARY", report)
         self.assertIn("english", report)
+
+    def test_add_object_unique_preserves_and_appends_objects(self):
+        dataset = {"vocabulary": [{
+            "canonical_form": "chat",
+            "part_of_speech": "noun",
+            "word_family": [{"canonical_form": "chaton", "part_of_speech": "noun"}],
+        }]}
+        patch = {"batch_id": "objects_001", "collection": "vocabulary", "patches": [{
+            "entity_key": {"canonical_form": "chat", "part_of_speech": "noun"},
+            "operations": [{
+                "operation": "add_object_unique",
+                "field": "word_family",
+                "values": [
+                    {"canonical_form": "chaton", "part_of_speech": "noun"},
+                    {"canonical_form": "chatte", "part_of_speech": "noun"},
+                ],
+            }],
+        }]}
+        success, audit, errors = apply_patch_to_dataset(dataset, patch)
+        self.assertTrue(success, errors)
+        self.assertEqual(audit["operations_applied"], 1)
+        self.assertEqual(dataset["vocabulary"][0]["word_family"], [
+            {"canonical_form": "chaton", "part_of_speech": "noun"},
+            {"canonical_form": "chatte", "part_of_speech": "noun"},
+        ])
 
 
 if __name__ == "__main__":

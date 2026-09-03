@@ -9,6 +9,15 @@ ALL MASTER COLLECTIONS
 Build a safe, deterministic, auditable enrichment system for the complete
 `MASTER_DATA.json`.
 
+CURRENT IMPLEMENTATION POLICY (2026-09-03)
+------------------------------------------
+`data/MASTER_DATA.json` is immutable source data. Every apply operation writes
+only to `enrichment/MASTER_DATA_ENRICHED.json` (or an explicitly named output
+inside `enrichment/`). Each generated batch includes the relevant collection
+schema excerpt and asks the AI to attach a single downloadable
+`<batch_id>_RESPONSE.json` file. The schema describes allowed shapes; the
+batch's explicit field allowlist remains the authorization boundary.
+
 The AI side will be MANUAL and high-quality:
 
 1. A local script generates a batch.

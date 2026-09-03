@@ -27,10 +27,8 @@ from enrichment.scripts.enrichment_config import (
     LOGS_DIR,
     BATCH_MANIFEST_FILE,
     ALLOWED_OPERATIONS,
-    REVIEW_ONLY_OPERATIONS,
     NATURAL_KEYS,
     SAFE_FIELDS,
-    HIGH_RISK_FIELDS,
 )
 from enrichment.scripts.enrichment_helpers import (
     load_json,
@@ -137,6 +135,12 @@ def validate_response_file(
             if b.get("batch_id") == batch_id:
                 manifest_entry = b
                 break
+        if manifest_entry is None:
+            res.errors.append(f"Batch '{batch_id}' is not present in the batch manifest.")
+            res.is_valid = False
+        elif manifest_entry.get("collection") != collection:
+            res.errors.append("Response collection does not match its manifest entry.")
+            res.is_valid = False
 
     validated_patches: List[Dict[str, Any]] = []
     res.entity_count = len(patches)
@@ -152,6 +156,13 @@ def validate_response_file(
             res.errors.append(f"Patch at index {p_idx} missing required 'entity_key'.")
             res.is_valid = False
             continue
+
+        if manifest_entry:
+            key_repr = natural_key_to_str(collection, entity_key)
+            if key_repr not in set(manifest_entry.get("entity_keys", [])):
+                res.errors.append(f"Entity '{key_repr}' is not part of batch '{batch_id}'.")
+                res.is_valid = False
+                continue
 
         # Verify entity exists in master collection
         match_idx, target_entity = find_entity_by_natural_key(dataset, collection, entity_key, coll_index)
@@ -192,27 +203,32 @@ def validate_response_file(
                 continue
 
             field = op.get("field")
-            if field:
-                norm_field = resolve_field_name(field)
-                # Check for artificial ID injections
-                if norm_field.lower() in ["id", "_id", "uuid", "guid", "entity_id"]:
-                    res.errors.append(f"Forbidden artificial ID field '{field}'. Master uses natural keys only.")
-                    res.forbidden_operations.append(field)
+            if not isinstance(field, str) or not field.strip():
+                res.errors.append(f"Operation '{op_type}' requires a non-empty field name.")
+                res.is_valid = False
+                continue
+            norm_field = resolve_field_name(field)
+            if norm_field not in SAFE_FIELDS.get(collection, []):
+                res.errors.append(
+                    f"Field '{norm_field}' is not approved for automatic enrichment in '{collection}'."
+                )
+                res.forbidden_operations.append(norm_field)
+                res.is_valid = False
+                continue
+            if manifest_entry:
+                requested_fields = {resolve_field_name(f) for f in manifest_entry.get("requested_fields", [])}
+                if norm_field not in requested_fields:
+                    res.errors.append(f"Field '{norm_field}' was not requested in batch '{batch_id}'.")
                     res.is_valid = False
                     continue
 
-                # Verify field exists in entity schema definition or is known
-                if norm_field not in target_entity and norm_field not in SAFE_FIELDS.get(collection, []) and norm_field not in HIGH_RISK_FIELDS.get(collection, []):
-                    res.warnings.append(f"Field '{norm_field}' does not currently exist on entity '{natural_key_to_str(collection, entity_key)}'.")
-
             # Operation-specific contract checks
-            if op_type == "add_unique":
+            if op_type in {"add_unique", "add_object_unique"}:
                 values = op.get("values")
-                if values is None and "value" in op:
+                if op_type == "add_unique" and values is None and "value" in op:
                     values = [op["value"]]
-                    op["values"] = values
                 if not isinstance(values, list):
-                    res.errors.append(f"Operation 'add_unique' on '{field}' requires an array 'values'.")
+                    res.errors.append(f"Operation '{op_type}' on '{field}' requires an array 'values'.")
                     res.is_valid = False
                     continue
 
@@ -222,23 +238,11 @@ def validate_response_file(
                     res.is_valid = False
                     continue
 
-            elif op_type == "add_relation":
-                target_collection = op.get("target_collection")
-                target_key = op.get("target_key")
-                if not target_collection or not target_key:
-                    res.errors.append("Operation 'add_relation' requires 'target_collection' and 'target_key'.")
-                    res.is_valid = False
-                    continue
-                # Verify cross-reference entity exists if target collection is in dataset
-                if target_collection in dataset:
-                    if target_collection not in indices:
-                        indices[target_collection] = build_natural_key_index(dataset, target_collection)
-                    _, ref_entity = find_entity_by_natural_key(dataset, target_collection, target_key, indices[target_collection])
-                    if ref_entity is None:
-                        ref_str = f"{target_collection}::{natural_key_to_str(target_collection, target_key)}"
-                        res.warnings.append(f"Cross-reference relation target not found in master: '{ref_str}'.")
-
-            validated_ops.append(op)
+            clean_op = dict(op)
+            clean_op["field"] = norm_field
+            if op_type == "add_unique" and "values" not in clean_op and "value" in clean_op:
+                clean_op["values"] = [clean_op["value"]]
+            validated_ops.append(clean_op)
             res.valid_operations_count += 1
 
         validated_patches.append({

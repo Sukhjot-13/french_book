@@ -34,6 +34,7 @@ from enrichment.scripts.enrichment_helpers import (
     natural_key_to_str,
     normalize_french_text,
     resolve_field_name,
+    stable_value_key,
 )
 
 
@@ -117,26 +118,26 @@ def preview_patch_file(
             op_type = op.get("operation")
             field = resolve_field_name(op.get("field", ""))
 
-            if op_type == "add_unique":
+            if op_type in {"add_unique", "add_object_unique"}:
                 raw_values = op.get("values", [])
                 existing_arr = entity.get(field, [])
                 if existing_arr is None:
                     existing_arr = []
 
-                norm_existing = [normalize_french_text(str(v)) for v in existing_arr]
+                norm_existing = [stable_value_key(v) for v in existing_arr]
                 to_add = []
                 already_present = []
 
                 for v in raw_values:
-                    if normalize_french_text(str(v)) in norm_existing:
+                    if stable_value_key(v) in norm_existing:
                         already_present.append(v)
                     else:
                         to_add.append(v)
-                        norm_existing.append(normalize_french_text(str(v)))
+                        norm_existing.append(stable_value_key(v))
 
                 if to_add:
                     item_ops.append(DiffOperation(
-                        op_type="add_unique",
+                        op_type=op_type,
                         field=field,
                         status="ADDITION",
                         existing_value=existing_arr,
@@ -149,7 +150,7 @@ def preview_patch_file(
 
                 if already_present:
                     item_ops.append(DiffOperation(
-                        op_type="add_unique",
+                        op_type=op_type,
                         field=field,
                         status="NO_OP",
                         existing_value=existing_arr,
@@ -198,63 +199,17 @@ def preview_patch_file(
                     ))
                     total_conflicts += 1
 
-            elif op_type == "propose_replace":
-                item_ops.append(DiffOperation(
-                    op_type="propose_replace",
-                    field=field,
-                    status="CONFLICT",
-                    existing_value=entity.get(field),
-                    proposed_value=op.get("proposed"),
-                    applied_value=None,
-                    reason=f"Replacement proposal requires manual review: {op.get('reason', '')}",
-                ))
-                total_conflicts += 1
-
-            elif op_type == "add_relation":
-                target_coll = op.get("target_collection")
-                target_key = op.get("target_key")
-                rel_field = f"related_{target_coll}" if f"related_{target_coll}" in entity else "relations"
-                existing_rels = entity.get(rel_field, [])
-                if existing_rels is None:
-                    existing_rels = []
-
-                key_repr = natural_key_to_str(target_coll, target_key)
-                if any(normalize_french_text(str(r)) == normalize_french_text(key_repr) for r in existing_rels):
-                    item_ops.append(DiffOperation(
-                        op_type="add_relation",
-                        field=rel_field,
-                        status="NO_OP",
-                        existing_value=existing_rels,
-                        proposed_value=key_repr,
-                        applied_value=None,
-                        reason="Relation already exists.",
-                    ))
-                    total_no_ops += 1
-                else:
-                    item_ops.append(DiffOperation(
-                        op_type="add_relation",
-                        field=rel_field,
-                        status="ADDITION",
-                        existing_value=existing_rels,
-                        proposed_value=key_repr,
-                        applied_value=key_repr,
-                        reason="New cross-reference relation link.",
-                    ))
-                    total_additions += 1
-                    entity_has_additions = True
-
             else:
                 item_ops.append(DiffOperation(
                     op_type=op_type,
                     field=field,
-                    status="ADDITION",
+                    status="REJECTED",
                     existing_value=entity.get(field),
                     proposed_value=op.get("value"),
-                    applied_value=op.get("value"),
-                    reason="Applied standard operation.",
+                    applied_value=None,
+                    reason="Unsupported operation; it cannot be applied.",
                 ))
-                total_additions += 1
-                entity_has_additions = True
+                total_rejected += 1
 
         if entity_has_additions:
             entities_with_additions += 1

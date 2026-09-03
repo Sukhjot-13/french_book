@@ -35,6 +35,7 @@ from enrichment.scripts.enrichment_config import (
 )
 from enrichment.scripts.enrichment_helpers import (
     load_master_data,
+    load_master_schema,
     calculate_hash,
     extract_natural_key,
     natural_key_to_str,
@@ -123,14 +124,55 @@ def filter_entity_context(collection: str, entity: Dict[str, Any], requested_fie
     return context
 
 
+def get_collection_schema_excerpt(collection: str, requested_fields: List[str]) -> Dict[str, Any]:
+    """Returns the natural key and allowed-field schema needed for one AI batch."""
+    master_schema = load_master_schema()
+    collection_spec = master_schema.get("properties", {}).get(collection, {})
+    item_ref = collection_spec.get("items", {}).get("$ref", "")
+    definition_name = item_ref.rsplit("/", 1)[-1]
+    entity_schema = master_schema.get("$defs", {}).get(definition_name, {})
+    properties = entity_schema.get("properties", {})
+    natural_key = NATURAL_KEYS.get(collection)
+    key_fields = natural_key if isinstance(natural_key, list) else [natural_key]
+    included_fields = list(dict.fromkeys([*key_fields, *requested_fields]))
+    selected_properties = {field: properties[field] for field in included_fields if field in properties}
+
+    referenced_defs: Dict[str, Any] = {}
+    pending: List[Any] = list(selected_properties.values())
+    while pending:
+        value = pending.pop()
+        if isinstance(value, dict):
+            ref = value.get("$ref")
+            if isinstance(ref, str) and ref.startswith("#/$defs/"):
+                name = ref.rsplit("/", 1)[-1]
+                definition = master_schema.get("$defs", {}).get(name)
+                if definition is not None and name not in referenced_defs:
+                    referenced_defs[name] = definition
+                    pending.append(definition)
+            pending.extend(value.values())
+        elif isinstance(value, list):
+            pending.extend(value)
+
+    return {
+        "collection": collection,
+        "natural_key": natural_key,
+        "required_fields": entity_schema.get("required", []),
+        "allowed_enrichment_fields": requested_fields,
+        "properties": selected_properties,
+        "$defs": referenced_defs,
+    }
+
+
 def format_batch_prompt(
     batch_id: str,
     collection: str,
     entities_context: List[Dict[str, Any]],
     requested_fields: Optional[List[str]] = None,
+    collection_schema: Optional[Dict[str, Any]] = None,
 ) -> str:
     """Builds the complete self-contained prompt for GPT."""
     allowed_fields = requested_fields if requested_fields else SAFE_FIELDS.get(collection, [])
+    response_filename = f"{batch_id}_RESPONSE.json"
     spec = NATURAL_KEYS.get(collection)
     
     if isinstance(spec, list):
@@ -163,9 +205,7 @@ def format_batch_prompt(
         "4. ALLOWED PATCH OPERATIONS:",
         "   - 'add_unique': Appends unique values to an array (e.g. synonyms, english meanings, tags).",
         "   - 'set_if_empty': Sets a singleton string/value ONLY if currently null or empty.",
-        "   - 'add_object_unique': Appends unique structured objects (e.g. senses, pattern_slots).",
-        "   - 'add_relation': Adds a cross-reference link to another verified existing entity.",
-        "   - 'propose_replace': Review-only proposal if you suspect an existing textbook value is erroneous.",
+        "   - 'add_object_unique': Appends unique structured objects to an array.",
         "5. NO FORCEFUL OR ARTIFICIAL ADDITIONS (DO NOT FORCE CONTENT):",
         "   - Do NOT forcefully add synonyms, examples, or senses if an entity is already complete or adequately represented.",
         "   - Do NOT fabricate obscure, archaic, non-standard, or unnatural French.",
@@ -177,8 +217,9 @@ def format_batch_prompt(
         "7. ACCURACY & ORTHOGRAPHY:",
         "   - Maintain rigorous French orthography, accents (é, è, ê, ç, etc.), and elision.",
         "8. STRICT OUTPUT FORMAT:",
-        "   - Respond with VALID JSON ONLY.",
-        "   - Do NOT wrap in markdown conversational commentary outside the JSON.",
+        f"   - Create one UTF-8 JSON FILE named exactly: {response_filename}",
+        "   - Attach that JSON file as your response so it can be downloaded directly.",
+        "   - The file must contain only the JSON object; no Markdown or conversational text.",
 
         "",
         "--------------------------------------------------------------------------------",
@@ -209,6 +250,11 @@ def format_batch_prompt(
         }, indent=2, ensure_ascii=False),
         "",
         "--------------------------------------------------------------------------------",
+        "COLLECTION SCHEMA (REFERENCE ONLY — IT DOES NOT AUTHORIZE EXTRA FIELDS):",
+        "--------------------------------------------------------------------------------",
+        json.dumps(collection_schema or {}, indent=2, ensure_ascii=False),
+        "",
+        "--------------------------------------------------------------------------------",
         "ENTITIES TO ENRICH (EXISTING CONTEXT):",
         "--------------------------------------------------------------------------------",
         json.dumps(entities_context, indent=2, ensure_ascii=False),
@@ -236,7 +282,9 @@ def generate_single_batch(
     txt_filepath = BATCHES_DIR / txt_filename
     
     contexts = [filter_entity_context(collection, e, requested_fields) for e in entities]
-    prompt_text = format_batch_prompt(batch_id, collection, contexts, requested_fields)
+    allowed_fields = requested_fields if requested_fields else SAFE_FIELDS.get(collection, [])
+    collection_schema = get_collection_schema_excerpt(collection, allowed_fields)
+    prompt_text = format_batch_prompt(batch_id, collection, contexts, allowed_fields, collection_schema)
     
     BATCHES_DIR.mkdir(parents=True, exist_ok=True)
     with open(txt_filepath, "w", encoding="utf-8") as f:

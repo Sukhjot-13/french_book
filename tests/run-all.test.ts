@@ -230,19 +230,19 @@ try {
   const output = execSync("python3 -m unittest enrichment/tests/test_enrichment_pipeline.py", {
     encoding: "utf-8",
   });
-  console.log("✅ Enrichment pipeline unit tests passed (8 tests verified):");
+  console.log("✅ Enrichment pipeline unit tests passed (12 tests verified):");
   console.log("   - Configuration & default batch sizes across 11 collections");
   console.log("   - Helpers: natural key matching, extraction, diacritic normalization");
   console.log("   - Response validation: clean patch vs forbidden delete/artificial ID rejection");
   console.log("   - Dry-run diff preview: addition, no-op, conflict calculation");
   console.log("   - In-memory transactional apply and human-readable report formatting");
+  console.log("   - Collection-schema prompts, downloadable JSON response contract, manifest field authorization, and object-safe merging");
 } catch (err: any) {
   console.error("❌ Enrichment pipeline test failure:", err.stdout || err.message);
   process.exit(1);
 }
 
 console.log("\n🎉 All tests passed successfully!");
-
 
 
 

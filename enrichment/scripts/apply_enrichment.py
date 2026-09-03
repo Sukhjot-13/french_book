@@ -1,7 +1,8 @@
 """
 Enrichment Apply Engine (enrichment/scripts/apply_enrichment.py)
 
-Applies approved patch files to MASTER_DATA.json with transaction safety.
+Applies approved patch files to an enrichment-only dataset copy with transaction safety.
+The source data/MASTER_DATA.json is read-only and is never a write target.
 Enforces pre-apply backup, in-memory staging, zero data loss, full MASTER_SCHEMA
 validation, atomic writes, and audit logging.
 Accepts patches from enrichment/manual/approved/ (or manual/validated/ with --force-validated).
@@ -25,10 +26,10 @@ from enrichment.scripts.enrichment_config import (
     APPROVED_DIR,
     VALIDATED_DIR,
     LOGS_DIR,
-    BACKUPS_DIR,
     REPORTS_DIR,
-    PROGRESS_FILE,
-    NATURAL_KEYS,
+    ENRICHED_DATA_PATH,
+    BATCH_MANIFEST_FILE,
+    MASTER_DATA_PATH,
 )
 from enrichment.scripts.enrichment_helpers import (
     load_json,
@@ -41,10 +42,11 @@ from enrichment.scripts.enrichment_helpers import (
     find_entity_by_natural_key,
     build_natural_key_index,
     natural_key_to_str,
-    normalize_french_text,
     resolve_field_name,
+    stable_value_key,
 )
 from enrichment.scripts.generate_enrichment_report import generate_report_for_file
+from enrichment.scripts.validate_enrichment_response import validate_response_file
 
 
 
@@ -94,7 +96,7 @@ def apply_patch_to_dataset(
             op_type = op.get("operation")
             field = resolve_field_name(op.get("field", ""))
 
-            if op_type == "add_unique":
+            if op_type in {"add_unique", "add_object_unique"}:
                 raw_values = op.get("values", [])
                 existing_arr = entity.get(field)
                 if existing_arr is None:
@@ -102,13 +104,13 @@ def apply_patch_to_dataset(
                     entity[field] = existing_arr
 
                 if not isinstance(existing_arr, list):
-                    errors.append(f"Field '{field}' on '{key_str}' is not an array for 'add_unique'.")
+                    errors.append(f"Field '{field}' on '{key_str}' is not an array for '{op_type}'.")
                     continue
 
-                norm_existing = {normalize_french_text(str(v)) for v in existing_arr}
+                norm_existing = {stable_value_key(v) for v in existing_arr}
                 added_count = 0
                 for v in raw_values:
-                    norm_v = normalize_french_text(str(v))
+                    norm_v = stable_value_key(v)
                     if norm_v not in norm_existing:
                         existing_arr.append(v)
                         norm_existing.add(norm_v)
@@ -135,43 +137,8 @@ def apply_patch_to_dataset(
                 else:
                     conflicts_skipped += 1
 
-            elif op_type == "add_relation":
-                target_coll = op.get("target_collection")
-                target_key = op.get("target_key")
-                rel_field = f"related_{target_coll}" if f"related_{target_coll}" in entity else "relations"
-                existing_rels = entity.get(rel_field)
-                if existing_rels is None:
-                    existing_rels = []
-                    entity[rel_field] = existing_rels
-
-                key_repr = natural_key_to_str(target_coll, target_key)
-                norm_existing_rels = {normalize_french_text(str(r)) for r in existing_rels}
-                if normalize_french_text(key_repr) not in norm_existing_rels:
-                    existing_rels.append(key_repr)
-                    operations_applied += 1
-                    entity_changed = True
-                    changes_by_field[rel_field] = changes_by_field.get(rel_field, 0) + 1
-                else:
-                    operations_skipped += 1
-
-            elif op_type == "propose_replace":
-                # Review-only operations are never applied automatically
-                conflicts_skipped += 1
-
-            elif op_type == "replace_existing":
-                # Only applied if explicitly approved in the patch
-                proposed = op.get("value")
-                entity[field] = proposed
-                operations_applied += 1
-                entity_changed = True
-                changes_by_field[field] = changes_by_field.get(field, 0) + 1
-
             else:
-                # Custom operation fallback
-                entity[field] = op.get("value")
-                operations_applied += 1
-                entity_changed = True
-                changes_by_field[field] = changes_by_field.get(field, 0) + 1
+                errors.append(f"Unsupported operation '{op_type}' for '{key_str}'.")
 
         if entity_changed:
             entities_modified += 1
@@ -191,7 +158,9 @@ def apply_patch_to_dataset(
 
 
 def run_apply(args: argparse.Namespace) -> None:
-    dataset = load_master_data()
+    source_dataset = load_master_data()
+    dataset_path = Path(args.output) if args.output else ENRICHED_DATA_PATH
+    dataset = load_json(dataset_path) if dataset_path.exists() else copy.deepcopy(source_dataset)
     master_hash_before = calculate_hash(dataset)
 
     # Determine patch files to apply
@@ -220,16 +189,30 @@ def run_apply(args: argparse.Namespace) -> None:
     print("=" * 65)
     print(f"Found {len(files_to_apply)} patch file(s) to apply.")
 
-    # Create master backup before modifying anything
-    first_batch_name = files_to_apply[0].stem.replace("_APPROVED", "").replace("_VALIDATED", "")
-    backup_path = backup_master_data(first_batch_name)
-    print(f"Pre-apply backup created: {backup_path}")
+    # Verify every selected patch before creating a backup or staging a write.
+    manifest = load_json(BATCH_MANIFEST_FILE) if BATCH_MANIFEST_FILE.exists() else None
+    validation_indices: Dict[str, Any] = {}
+    for patch_file in files_to_apply:
+        validation, _ = validate_response_file(patch_file, source_dataset, manifest, validation_indices)
+        if not validation.is_valid:
+            print(f"❌ Approved patch {patch_file.name} failed safety validation:")
+            for error in validation.errors[:10]:
+                print(f"   {error}")
+            print("\nABORTING! No dataset file was changed.")
+            sys.exit(1)
 
-    # Stage changes in memory on a deep-copied dataset
+    # Create a backup only of the enrichment output; the source dataset is immutable.
+    first_batch_name = files_to_apply[0].stem.replace("_APPROVED", "").replace("_VALIDATED", "")
+    backup_path = backup_master_data(first_batch_name, dataset_path) if dataset_path.exists() else None
+    if backup_path:
+        print(f"Pre-apply enrichment-output backup created: {backup_path}")
+    else:
+        print(f"Creating enrichment output from immutable source: {MASTER_DATA_PATH}")
+
+    # Stage changes in memory on a deep-copied dataset.
     staged_dataset = copy.deepcopy(dataset)
     applied_audits: List[Dict[str, Any]] = []
     indices: Dict[str, Any] = {}
-
     for patch_file in files_to_apply:
         print(f"\nStaging patch: {patch_file.name} ...")
         patch_data = load_json(patch_file)
@@ -243,7 +226,7 @@ def run_apply(args: argparse.Namespace) -> None:
             print("\nABORTING! Master data remains unchanged.")
             sys.exit(1)
 
-        audit["backup_file"] = str(backup_path)
+        audit["backup_file"] = str(backup_path) if backup_path else None
         audit["master_hash_before"] = master_hash_before
         applied_audits.append(audit)
         print(f"  + Applied {audit['operations_applied']} operation(s) across {audit['entities_modified']} entity(s).")
@@ -262,11 +245,11 @@ def run_apply(args: argparse.Namespace) -> None:
 
     print("✅ MASTER_SCHEMA validation passed (100% compliant).")
 
-    # Atomic write to MASTER_DATA.json
-    print("Writing updated master dataset atomically...")
-    save_master_data_atomically(staged_dataset)
+    # Atomic write to the enrichment-only output; MASTER_DATA.json is never modified.
+    print(f"Writing enriched dataset atomically to: {dataset_path}")
+    save_master_data_atomically(staged_dataset, dataset_path)
     master_hash_after = calculate_hash(staged_dataset)
-    print(f"Master dataset updated. SHA-256 after: {master_hash_after}")
+    print(f"Enriched dataset updated. SHA-256 after: {master_hash_after}")
 
     # Write audit logs and generate applied reports
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
@@ -295,6 +278,7 @@ def main() -> None:
     parser.add_argument("file", nargs="?", help="Specific approved patch JSON to apply.")
     parser.add_argument("--all", action="store_true", help="Apply all approved patches.")
     parser.add_argument("--force-validated", action="store_true", help="Allow applying directly from manual/validated/ without moving to approved/.")
+    parser.add_argument("--output", help="Enriched dataset destination (defaults to enrichment/MASTER_DATA_ENRICHED.json).")
     args = parser.parse_args()
     run_apply(args)
 

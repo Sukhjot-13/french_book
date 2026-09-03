@@ -29,7 +29,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Pipeline**: Selectors in [`selectors.ts`](file:///Users/sukhjot/codes/book/src/lib/data/selectors.ts) utilize `safeDecode()` to resolve both raw and decoded strings against primary keys, canonical forms, display forms, and normalized slugs.
 
 ### 4. Server-Side Master Data Pipeline
-- **Storage**: Master JSON database stored in [`data/MASTER_DATA.json`](file:///Users/sukhjot/codes/book/data/MASTER_DATA.json) (15.4 MB, validated against [`data/MASTER_SCHEMA.json`](file:///Users/sukhjot/codes/book/data/MASTER_SCHEMA.json)).
+- **Storage**: Immutable source master JSON database stored in [`data/MASTER_DATA.json`](file:///Users/sukhjot/codes/book/data/MASTER_DATA.json), validated against [`data/MASTER_SCHEMA.json`](file:///Users/sukhjot/codes/book/data/MASTER_SCHEMA.json). Enrichment output is written separately to `enrichment/MASTER_DATA_ENRICHED.json` and never replaces the source dataset.
 - **Loader**: [`getMasterDataset()`](file:///Users/sukhjot/codes/book/src/lib/data/loader.ts) loads the JSON once from disk and caches the parsed in-memory representation in process memory, delivering zero-latency server-side rendering.
 - **View-Model Mapping**: Specialized selector functions in [`selectors.ts`](file:///Users/sukhjot/codes/book/src/lib/data/selectors.ts) sanitize and transform raw JSON into UI-safe contracts (e.g. flattening nested article objects, cross-linking related verbs, building reverse index lookups).
 
@@ -453,7 +453,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**: N/A (JSON database).
 
 #### `data/MASTER_SCHEMA.json`
-- **Purpose**: Formal JSON Schema defining schema specifications, entity model `$defs`, and type validations for all collections in `MASTER_DATA.json`.
+- **Purpose**: Formal JSON Schema defining schema specifications, entity model `$defs`, and type validations for all collections in `MASTER_DATA.json`; supports the dataset’s `articles` object and optional enrichment fields without requiring them on every entity.
 - **Functions**: N/A (JSON Schema).
 
 ---
@@ -564,13 +564,14 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**: N/A (Specification document).
 
 #### `enrichment/scripts/enrichment_config.py`
-- **Purpose**: Central configuration defining directory paths, configurable default batch sizes across all 11 enrichable collections, global sequential collection order, natural key definitions, allowed operations, review-only operations, safe fields, and high-risk fields.
+- **Purpose**: Central configuration defining directory paths, the immutable source path, enrichment-only output path (`enrichment/MASTER_DATA_ENRICHED.json`), batch sizes, natural keys, implemented patch operations, and field authorization boundaries.
 - **Functions**:
   - `DEFAULT_BATCH_SIZES`: Dictionary governing default chunk sizes for batch generation.
   - `COLLECTION_ORDER`: Authoritative global sequence ordering for whole-dataset queue generation.
   - `NATURAL_KEYS`: Mapping of collection names to natural key field specifications.
   - `ALLOWED_OPERATIONS`: Whitelist of permitted JSON patch operations.
-  - `SAFE_FIELDS` & `HIGH_RISK_FIELDS`: Field categorizations for risk-adjusted validation and review.
+  - `SAFE_FIELDS` & `HIGH_RISK_FIELDS`: Field categorizations used to authorize enrichment; vocabulary includes safe fill-only inflection fields (`gender`, `articles`, `plural`, `variants`).
+  - `ENRICHED_DATA_PATH`: Copy-only enrichment output location; `MASTER_DATA_PATH` is never an apply target.
 
 #### `enrichment/scripts/enrichment_helpers.py`
 - **Purpose**: Shared data utilities for the enrichment pipeline including deterministic JSON loading/saving, master schema validation, natural key extraction, resilient entity matching, diacritic normalization, pre-apply backup snapshots, and atomic file replacement.
@@ -588,21 +589,23 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `find_entity_by_natural_key(dataset, collection, natural_key, index=None)`: Finds entity tuple `(index, entity)` by natural key.
   - `backup_master_data(batch_id, source_path=None)`: Creates timestamped snapshot in `enrichment/manual/backups/`.
   - `save_master_data_atomically(data, target_path=None)`: Writes to temporary file before atomic POSIX rename.
+  - `stable_value_key(value)`: Creates deterministic duplicate keys for scalar and structured array values.
   - `validate_against_master_schema(data, schema_path=None)`: Runs jsonschema validation against full dataset.
   - `resolve_field_name(field)`: Resolves field aliases (e.g. `english_meanings` to `english`).
 
 #### `enrichment/scripts/make_enrichment_batch.py`
-- **Purpose**: Generates self-contained, high-quality prompt batch `.txt` files in `enrichment/manual/batches/` ready for direct paste/upload into GPT chat. Supports single collection, custom fields, entity filtering, and whole-dataset queue generation (`--all`).
+- **Purpose**: Generates self-contained prompt batch `.txt` files in `enrichment/manual/batches/`. Each prompt contains the relevant collection-schema excerpt, authorized target fields, entity context, and an instruction to return a downloadable `*_RESPONSE.json` file.
 - **Functions**:
   - `get_next_global_sequence(manifest)`: Calculates the next sequential batch index.
   - `filter_entity_context(collection, entity, requested_fields=None)`: Prepares compact pedagogical context for prompt generation without metadata bloat.
-  - `format_batch_prompt(batch_id, collection, entities_context, requested_fields=None)`: Assembles complete prompt including project guidelines, safety directives, natural keys, and output contract.
+  - `get_collection_schema_excerpt(collection, requested_fields)`: Extracts natural-key and authorized-field schema details plus referenced `$defs` for the selected collection.
+  - `format_batch_prompt(batch_id, collection, entities_context, requested_fields=None, collection_schema=None)`: Assembles a prompt with safety directives, schema excerpt, and downloadable JSON-file contract.
   - `generate_single_batch(dataset, collection, entities, global_seq, collection_batch_num, requested_fields=None, master_hash="")`: Writes `.txt` prompt and creates manifest entry.
   - `run_batch_generation(args)`: Main batch generator coordinator managing CLI options and logging progress.
   - `main()`: CLI entry point.
 
 #### `enrichment/scripts/validate_enrichment_response.py`
-- **Purpose**: Validates raw GPT JSON responses against master integrity rules, schema constraints, natural reference resolution, allowed operations, and safety rules.
+- **Purpose**: Validates raw GPT JSON responses against master integrity rules, manifest batch ownership, explicitly requested fields, natural reference resolution, and the implemented operation whitelist.
 - **Functions**:
   - `ValidationResult.__init__(batch_id, collection)`: Tracks validation metrics, errors, warnings, and status.
   - `ValidationResult.to_dict()`: Serializes validation state.
@@ -629,10 +632,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `main()`: CLI entry point.
 
 #### `enrichment/scripts/apply_enrichment.py`
-- **Purpose**: Applies approved patch files to `MASTER_DATA.json` with transaction safety, pre-apply snapshot backup, in-memory staging, zero data loss, full jsonschema verification, atomic write, and audit logging.
+- **Purpose**: Applies approved patch files only to `enrichment/MASTER_DATA_ENRICHED.json` (or an explicit enrichment output), with pre-validation, output-only backups, in-memory staging, schema verification, atomic write, and audit logging. It never writes `data/MASTER_DATA.json`.
 - **Functions**:
-  - `apply_patch_to_dataset(dataset, patch_data, indices=None)`: Staged in-memory patch applicator with duplicate normalization and conflict skipping.
-  - `run_apply(args)`: Multi-batch transactional apply coordinator with pre-apply backup, schema verification, atomic write, and applied report generation.
+  - `apply_patch_to_dataset(dataset, patch_data, indices=None)`: Staged in-memory applicator for safe scalar fills and scalar/object unique additions, with duplicate normalization and conflict skipping.
+  - `run_apply(args)`: Pre-validates every selected patch, then coordinates output-only backup, schema verification, atomic write, and applied-report generation.
   - `main()`: CLI entry point.
 
 #### `enrichment/scripts/run_pipeline.py`
@@ -645,10 +648,9 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 
 #### `enrichment/tests/test_enrichment_pipeline.py`
-- **Purpose**: Comprehensive test suite validating batch generation, response validation, conflict detection, dry-run diff preview, human-readable reporting, and atomic transactional apply.
+- **Purpose**: Twelve-test suite validating batch generation, collection-schema excerpts, downloadable JSON response instructions, field authorization, response validation, previewing, reporting, and object-safe transactional application.
 - **Functions**:
   - `TestEnrichmentConfiguration`: Asserts configuration completeness across all 11 collections and protected items.
   - `TestEnrichmentHelpers`: Tests text normalization, natural key serialization, and equality matching.
   - `TestEnrichmentValidationAndPreview`: Tests clean patch validation, rejection of forbidden operations and artificial IDs, and dry-run diff categorization.
   - `TestEnrichmentApplyEngine`: Tests in-memory transactional apply, conflict preservation, and applied report generation.
-

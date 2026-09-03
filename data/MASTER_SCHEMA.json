@@ -171,6 +171,22 @@
       },
       "uniqueItems": true
     },
+    "articleSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "definite",
+        "indefinite",
+        "partitive",
+        "other"
+      ],
+      "properties": {
+        "definite": { "type": ["string", "null"] },
+        "indefinite": { "type": ["string", "null"] },
+        "partitive": { "type": ["string", "null"] },
+        "other": { "$ref": "#/$defs/stringArray" }
+      }
+    },
     "study": {
       "type": "object",
       "additionalProperties": false,
@@ -538,6 +554,11 @@
         }
       }
     },
+    "vocabularyWordRef": {
+      "type": "string",
+      "minLength": 1,
+      "description": "A display-form vocabulary relation retained when part-of-speech metadata is unavailable."
+    },
     "variant": {
       "type": "object",
       "additionalProperties": false,
@@ -576,7 +597,10 @@
       "additionalProperties": false,
       "required": [
         "english",
-        "note"
+        "note",
+        "gender",
+        "articles",
+        "plural"
       ],
       "properties": {
         "english": {
@@ -588,6 +612,18 @@
             "string",
             "null"
           ]
+        },
+        "gender": {
+          "type": ["string", "null"]
+        },
+        "articles": {
+          "anyOf": [
+            { "$ref": "#/$defs/articleSet" },
+            { "type": "null" }
+          ]
+        },
+        "plural": {
+          "type": ["string", "null"]
         }
       }
     },
@@ -1010,10 +1046,6 @@
         "aliases",
         "search_terms",
         "source_classifications",
-        "register",
-        "synonyms",
-        "antonyms",
-        "usage_notes",
         "tags",
         "study",
         "chapters",
@@ -1238,10 +1270,6 @@
         "search_terms",
         "collocation_strength",
         "source_classifications",
-        "register",
-        "synonyms",
-        "antonyms",
-        "usage_notes",
         "tags",
         "study",
         "chapters",
@@ -1440,7 +1468,7 @@
         "english",
         "part_of_speech",
         "gender",
-        "article",
+        "articles",
         "plural",
         "variants",
         "senses",
@@ -1451,10 +1479,6 @@
         "related_verbs",
         "related_concepts",
         "source_classifications",
-        "register",
-        "synonyms",
-        "antonyms",
-        "usage_notes",
         "tags",
         "study",
         "chapters",
@@ -1509,11 +1533,8 @@
             null
           ]
         },
-        "article": {
-          "type": [
-            "string",
-            "null"
-          ]
+        "articles": {
+          "$ref": "#/$defs/articleSet"
         },
         "plural": {
           "type": [
@@ -1542,7 +1563,10 @@
         "word_family": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/vocabularyRef"
+            "anyOf": [
+              { "$ref": "#/$defs/vocabularyRef" },
+              { "$ref": "#/$defs/vocabularyWordRef" }
+            ]
           }
         },
         "related_expressions": {
@@ -1615,14 +1639,20 @@
         "synonyms": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/vocabularyRef"
+            "anyOf": [
+              { "$ref": "#/$defs/vocabularyRef" },
+              { "$ref": "#/$defs/vocabularyWordRef" }
+            ]
           },
           "description": "Natural vocabulary references for synonyms."
         },
         "antonyms": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/vocabularyRef"
+            "anyOf": [
+              { "$ref": "#/$defs/vocabularyRef" },
+              { "$ref": "#/$defs/vocabularyWordRef" }
+            ]
           },
           "description": "Natural vocabulary references for antonyms."
         },

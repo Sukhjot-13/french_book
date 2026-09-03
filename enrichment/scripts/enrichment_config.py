@@ -25,6 +25,8 @@ BACKUPS_DIR = MANUAL_DIR / "backups"
 
 MASTER_DATA_PATH = REPO_ROOT / "data" / "MASTER_DATA.json"
 MASTER_SCHEMA_PATH = REPO_ROOT / "data" / "MASTER_SCHEMA.json"
+# Enrichment is deliberately copy-only. The source dataset is never a write target.
+ENRICHED_DATA_PATH = ENRICHMENT_DIR / "MASTER_DATA_ENRICHED.json"
 
 PROGRESS_FILE = LOGS_DIR / "PROGRESS.json"
 BATCH_MANIFEST_FILE = LOGS_DIR / "BATCH_MANIFEST.json"
@@ -81,24 +83,13 @@ NATURAL_KEYS: Dict[str, Union[str, List[str]]] = {
     "topics": "name",
 }
 
-# Supported and Validated Patch Operations
+# Supported and implemented patch operations.  Keep this list in lockstep with
+# apply_enrichment.py and preview_enrichment.py; accepting an operation that is
+# not implemented safely is a data-loss risk.
 ALLOWED_OPERATIONS: List[str] = [
     "add_unique",
     "set_if_empty",
     "add_object_unique",
-    "fill_nested_if_empty",
-    "add_conjugation_if_missing",
-    "fill_conjugation_form_if_empty",
-    "add_example_link",
-    "add_new_example",
-    "add_relation",
-    "propose_replace",
-    "replace_existing",
-]
-
-# Operations that are NEVER automatically applied (review-only)
-REVIEW_ONLY_OPERATIONS: List[str] = [
-    "propose_replace",
 ]
 
 # Field Name Normalization / Aliases (e.g. english_meanings -> english)
@@ -113,10 +104,13 @@ FIELD_ALIASES: Dict[str, str] = {
     "english_translation": "english",
 }
 
-# Safe vs High-Risk Fields per Collection
+# Fields that may be included in an AI enrichment pass.  The collection schema
+# describes each field's shape; this list is the separate authorization boundary.
+# Natural keys, provenance, source text, exercise answers, and destructive fields
+# are intentionally excluded even when they appear in MASTER_SCHEMA.json.
 SAFE_FIELDS: Dict[str, List[str]] = {
     "verbs": ["english", "synonyms", "antonyms", "register", "usage_notes", "aliases", "search_terms", "tags"],
-    "vocabulary": ["english", "synonyms", "antonyms", "register", "usage_notes", "aliases", "search_terms", "word_family", "tags"],
+    "vocabulary": ["english", "synonyms", "antonyms", "register", "usage_notes", "aliases", "search_terms", "word_family", "tags", "gender", "articles", "plural", "variants"],
     "expressions": ["english", "synonyms", "antonyms", "register", "usage_notes", "aliases", "search_terms", "collocation_strength", "tags"],
     "concepts": ["description", "aliases", "tags"],
     "grammar_rules": ["explanation", "summary", "usage", "signal_words", "tags"],

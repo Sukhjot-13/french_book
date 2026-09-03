@@ -9,6 +9,7 @@ import json
 import hashlib
 import unicodedata
 import shutil
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple, Union
 import jsonschema
@@ -163,10 +164,11 @@ def find_entity_by_natural_key(
 
 
 def backup_master_data(batch_id: str, source_path: Optional[Union[str, Path]] = None) -> Path:
-    """Creates a timestamped snapshot of MASTER_DATA.json before any apply."""
+    """Creates a unique timestamped snapshot of the current enrichment output."""
     src = Path(source_path) if source_path else MASTER_DATA_PATH
     BACKUPS_DIR.mkdir(parents=True, exist_ok=True)
-    backup_file = BACKUPS_DIR / f"MASTER_DATA_before_{batch_id}.json"
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    backup_file = BACKUPS_DIR / f"MASTER_DATA_ENRICHED_before_{batch_id}_{timestamp}.json"
     shutil.copy2(src, backup_file)
     return backup_file
 
@@ -185,13 +187,20 @@ def save_master_data_atomically(
     tmp_path.replace(target)
 
 
+def stable_value_key(value: Any) -> str:
+    """Returns a deterministic, accent-insensitive key for scalar or JSON values."""
+    if isinstance(value, (dict, list)):
+        return json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    return normalize_french_text(str(value))
+
+
 def validate_against_master_schema(data: Dict[str, Any], schema_path: Optional[Union[str, Path]] = None) -> List[str]:
     """
     Validates full master dataset against MASTER_SCHEMA.json using jsonschema.
     Returns list of error messages (empty if valid).
     """
     schema = load_master_schema(schema_path)
-    validator = jsonschema.Draft7Validator(schema)
+    validator = jsonschema.Draft202012Validator(schema)
     errors = []
     
     for err in validator.iter_errors(data):
