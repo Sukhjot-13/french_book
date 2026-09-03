@@ -93,6 +93,16 @@ const verbDetail = getVerbById(firstVerb.lemma);
 assert(verbDetail !== null, `Verb detail must be found for ${firstVerb.lemma}`);
 console.log(`✅ Selector getVerbById('${firstVerb.lemma}') verified with ${verbDetail.conjugations.length} conjugations.`);
 
+// Verb English meaning formatting and comma separation
+import { formatEnglishList } from "../src/lib/data/selectors";
+assert.strictEqual(formatEnglishList(["accept", "to accept"], true), "to accept");
+assert.strictEqual(formatEnglishList(["like", "love", "to like", "to love"], true), "to like, to love");
+const aimerDetail = getVerbById("aimer");
+assert.strictEqual(aimerDetail?.verb.english, "to like, to love", "aimer english must be properly joined with comma and space");
+const accepterDetail = getVerbById("accepter");
+assert.strictEqual(accepterDetail?.verb.english, "to accept", "accepter english must be properly deduplicated");
+console.log("✅ Verb English translations verified with comma-space formatting and intelligent deduplication.");
+
 // Tenses selector
 const tenseList = getTenses();
 assert.strictEqual(tenseList.length, 24, "getTenses() must return 24 tenses");

@@ -58,6 +58,17 @@ export function VocabDictionaryTable({
     updateFilters({ query: searchQuery });
   };
 
+  const formatMeaning = (val: unknown): string => {
+    if (!val) return "—";
+    if (typeof val === "string") return val.trim() || "—";
+    if (Array.isArray(val)) {
+      const cleaned = val.map((s) => String(s || "").trim()).filter(Boolean);
+      const unique = Array.from(new Set(cleaned));
+      return unique.join(", ") || "—";
+    }
+    return String(val).trim() || "—";
+  };
+
   const formatPosGender = (item: VocabUI) => {
     if (item.part_of_speech === "noun") {
       if (item.gender === "masculine") return "n.m.";
@@ -183,35 +194,40 @@ export function VocabDictionaryTable({
         <div className="rounded-xl border border-outline-variant overflow-hidden bg-surface-container-lowest shadow-xs">
           {/* MOBILE PURPOSE-BUILT TWO-LINE LIST (<768px) */}
           <div className="md:hidden divide-y divide-outline-variant/30">
-            {vocabulary.map((item) => (
-              <div
-                key={item.id}
-                data-id={item.french}
-                onClick={() => openPeek("vocab", item.french)}
-                className="p-3 active:bg-surface-container-low hover:bg-surface-container-low/60 transition-colors cursor-pointer flex items-center justify-between gap-3 group"
-              >
-                {/* 2-Line Content */}
-                <div className="min-w-0 flex-1">
-                  {/* Line 1: [Article] French Term · English Gloss */}
-                  <div className="flex items-baseline gap-1.5 truncate">
-                    {item.article && typeof item.article === "string" && (
-                      <span className="text-on-surface-variant/70 font-serif text-xs">
-                        {item.article}
+            {vocabulary.map((item) => {
+              const meaning = formatMeaning(item.english);
+              return (
+                <div
+                  key={item.id}
+                  data-id={item.french}
+                  onClick={() => openPeek("vocab", item.french)}
+                  className="p-3 active:bg-surface-container-low hover:bg-surface-container-low/60 transition-colors cursor-pointer flex items-center justify-between gap-3 group"
+                >
+                  {/* 2-Line Content */}
+                  <div className="min-w-0 flex-1">
+                    {/* Line 1: [Article] French Term · English Gloss */}
+                    <div className="flex items-baseline gap-1.5 truncate">
+                      {item.article && typeof item.article === "string" && (
+                        <span className="text-on-surface-variant/70 font-serif text-xs">
+                          {item.article}
+                        </span>
+                      )}
+                      <span className="font-bold text-sm text-primary tracking-tight font-sans">
+                        {item.french}
                       </span>
-                    )}
-                    <span className="font-bold text-sm text-primary tracking-tight font-sans">
-                      {item.french}
-                    </span>
-                    {item.plural_form && (
-                      <span className="text-[10px] text-on-surface-variant/60 font-mono">
-                        (pl. {item.plural_form})
+                      {item.plural_form && (
+                        <span className="text-[10px] text-on-surface-variant/60 font-mono">
+                          (pl. {item.plural_form})
+                        </span>
+                      )}
+                      <span className="text-on-surface-variant/50 text-xs">·</span>
+                      <span
+                        className="text-xs text-on-surface font-medium truncate"
+                        title={meaning !== "—" ? meaning : undefined}
+                      >
+                        {meaning}
                       </span>
-                    )}
-                    <span className="text-on-surface-variant/50 text-xs">·</span>
-                    <span className="text-xs text-on-surface font-medium truncate">
-                      {item.english || "—"}
-                    </span>
-                  </div>
+                    </div>
 
                   {/* Line 2: Category/Gender · CEFR · Word Family / Sense */}
                   <div className="flex items-center gap-1 text-[11px] font-mono text-on-surface-variant/75 mt-0.5 truncate">
@@ -252,7 +268,8 @@ export function VocabDictionaryTable({
                   </span>
                 </div>
               </div>
-            ))}
+            );
+          })}
           </div>
 
           {/* DESKTOP HIGH-DENSITY SCAN TABLE (>=768px) */}
@@ -269,6 +286,7 @@ export function VocabDictionaryTable({
               </thead>
               <tbody className="divide-y divide-outline-variant/30">
                 {vocabulary.map((item) => {
+                  const meaning = formatMeaning(item.english);
                   return (
                     <tr
                       key={item.id}
@@ -308,8 +326,13 @@ export function VocabDictionaryTable({
                       </td>
 
                       {/* English Meaning */}
-                      <td className="py-2.5 px-3.5 text-on-surface">
-                        <span className="font-medium text-xs text-on-surface">{item.english || "—"}</span>
+                      <td className="py-2.5 px-3.5 text-on-surface max-w-[280px]">
+                        <span
+                          className="font-medium text-xs text-on-surface line-clamp-2"
+                          title={meaning !== "—" ? meaning : undefined}
+                        >
+                          {meaning}
+                        </span>
                       </td>
 
                       {/* Word Family / Senses - Faded */}

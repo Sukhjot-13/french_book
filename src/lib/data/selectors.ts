@@ -307,6 +307,54 @@ export interface ConceptUI {
 // MAPPING HELPERS
 // =======================================================================
 
+/**
+ * Safely normalizes english translations (which may be an array in master data)
+ * into a clean, comma-and-space separated string.
+ * When isVerb is true, intelligently avoids redundancies where both bare verb and
+ * infinitive with 'to' exist (e.g. ['accept', 'to accept'] -> 'to accept').
+ */
+export function formatEnglishList(
+  val: unknown,
+  isVerb: boolean = false
+): string {
+  if (!val) return "";
+  if (typeof val === "string") {
+    val = [val];
+  }
+  if (!Array.isArray(val)) return String(val).trim();
+  if (val.length === 0) return "";
+
+  const cleaned = (val as unknown[])
+    .map((s) => (typeof s === "string" ? s.trim() : String(s ?? "").trim()))
+    .filter(Boolean);
+  if (cleaned.length === 0) return "";
+
+  // Deduplicate case-insensitively preserving first appearance
+  const unique: string[] = [];
+  const seen = new Set<string>();
+  for (const item of cleaned) {
+    const lower = item.toLowerCase();
+    if (!seen.has(lower)) {
+      seen.add(lower);
+      unique.push(item);
+    }
+  }
+
+  if (isVerb) {
+    // If 'to <item>' exists in unique, omit bare '<item>' to prevent redundancies
+    const filtered = unique.filter((item) => {
+      const lower = item.toLowerCase();
+      if (!lower.startsWith("to ")) {
+        if (seen.has("to " + lower)) return false;
+      }
+      return true;
+    });
+    return filtered.join(", ");
+  }
+
+  return unique.join(", ");
+}
+
 function mapVerb(v: MasterVerb): VerbUI {
   const id = makeVerbId(v.infinitive);
   const chapterIds = (v.chapters || []).map((ch) => makeChapterId(ch));
@@ -315,7 +363,7 @@ function mapVerb(v: MasterVerb): VerbUI {
     id,
     lemma: v.infinitive,
     display_form: v.display_form || v.infinitive,
-    english: v.english || "",
+    english: formatEnglishList(v.english, true),
     senses: v.senses || [],
     group: v.verb_group || "1st_group",
     auxiliary: v.auxiliary || "avoir",
@@ -425,7 +473,7 @@ function mapExpression(e: MasterExpression): ExpressionUI {
     id,
     french: e.canonical_form,
     display_form: e.display_form || e.canonical_form,
-    english: e.english || "",
+    english: formatEnglishList(e.english, false),
     type: e.expression_type || "idiomatic_expression",
     productive: Boolean(e.productive),
     pattern: e.pattern || null,
@@ -479,7 +527,7 @@ function mapVocab(vc: MasterVocabulary): VocabUI {
     id,
     french: vc.canonical_form,
     display_form: vc.display_form || vc.canonical_form,
-    english: vc.english || "",
+    english: formatEnglishList(vc.english, false),
     part_of_speech: vc.part_of_speech || "noun",
     gender: vc.gender || null,
     article,

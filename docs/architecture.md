@@ -256,10 +256,11 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `handleClick(e)`: Click handler preventing event bubbling and invoking `openPeek`.
 
 #### `src/components/verbs/VerbLibraryTable.tsx`
-- **Purpose**: Scan-and-peek interface for the 496 verbs library featuring enhanced desktop table scanning (sticky header, subtle zebra striping, selected-row styling via `data-selected`, visually dominant French lemma, right-aligned action badges) and a purpose-built mobile two-line list layout (`<768px`: Line 1 = French lemma · English gloss; Line 2 = classification, auxiliary, participle with tap-to-peek and save/review menu).
+- **Purpose**: Scan-and-peek interface for the 496 verbs library featuring enhanced desktop table scanning (sticky header, subtle zebra striping, selected-row styling via `data-selected`, visually dominant French lemma, formatted English meaning with intelligent deduplication, right-aligned action badges) and a purpose-built mobile two-line list layout (`<768px`: Line 1 = French lemma · English gloss; Line 2 = classification, auxiliary, participle with tap-to-peek and save/review menu).
 - **Functions**:
   - `VerbLibraryTable({ verbs, total, currentPage, pageSize, initialFilters })`: Dual-mode responsive table/list component.
   - `formatGroup(g)`: Normalizes verb group string for badge rendering.
+  - `formatMeaning(val)`: Formats and safely joins English translations with commas, removing redundant elements.
   - `updateFilters(newFilters)`: Pushes updated URL search query parameters for verb filters.
   - `handleSearchSubmit(e)`: Form submit handler committing search queries.
 
@@ -270,9 +271,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `formatGroupName(g)`: Formats French verb group name into descriptive label.
 
 #### `src/components/vocabulary/VocabDictionaryTable.tsx`
-- **Purpose**: Alphabetical A-Z dictionary interface for 1,002 vocabulary items featuring enhanced desktop table scanning (sticky header, zebra striping, selected-row styling, dominant French term with article, right-aligned badges) and a purpose-built mobile two-line list layout (`<768px`: Line 1 = article/term · English gloss; Line 2 = category, CEFR, word family with tap-to-peek and save/review menu).
+- **Purpose**: Alphabetical A-Z dictionary interface for 1,002 vocabulary items featuring enhanced desktop table scanning (sticky header, zebra striping, selected-row styling, dominant French term with article, formatted English gloss, right-aligned badges) and a purpose-built mobile two-line list layout (`<768px`: Line 1 = article/term · English gloss; Line 2 = category, CEFR, word family with tap-to-peek and save/review menu).
 - **Functions**:
   - `VocabDictionaryTable({ vocabulary, total, currentPage, pageSize, initialFilters })`: Dual-mode responsive dictionary table/list component.
+  - `formatMeaning(val)`: Formats and safely joins English translations with commas, removing duplicates.
   - `formatPosGender(pos, gender)`: Formats part of speech and gender display badge text.
   - `updateFilters(newFilters)`: Pushes updated URL search parameters for vocabulary filters.
   - `handleSearchSubmit(e)`: Form submit handler committing dictionary search queries.
@@ -397,6 +399,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `getConcepts()`: Retrieves the 206 grammatical concepts.
   - `getConceptById(id)`: Retrieves single concept detail with linked grammar rules, tenses, verbs, expressions, vocabulary, and examples. Supports raw, slugified, and URL-decoded IDs.
   - `safeDecode(str)`: Defensive URL decoding helper preventing URI malformed exceptions.
+  - `formatEnglishList(val, isVerb)`: Normalizes English translation strings or arrays into a clean comma-separated list, intelligently deduplicating bare and to-infinitive pairs for verbs.
   - `mapVerb(v)`: View-model normalizer for verbs.
   - `mapTense(t)`: View-model normalizer for tenses.
   - `mapRule(r)`: View-model normalizer for grammar rules.

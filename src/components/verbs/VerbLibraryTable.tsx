@@ -78,6 +78,17 @@ export function VerbLibraryTable({
     return g;
   };
 
+  const formatMeaning = (val: unknown): string => {
+    if (!val) return "—";
+    if (typeof val === "string") return val.trim() || "—";
+    if (Array.isArray(val)) {
+      const cleaned = val.map((s) => String(s || "").trim()).filter(Boolean);
+      const unique = Array.from(new Set(cleaned));
+      return unique.join(", ") || "—";
+    }
+    return String(val).trim() || "—";
+  };
+
   return (
     <div className="space-y-4">
       {/* FILTER BAR - Compact & Progressive */}
@@ -230,74 +241,80 @@ export function VerbLibraryTable({
         <div className="rounded-xl border border-outline-variant overflow-hidden bg-surface-container-lowest shadow-xs">
           {/* MOBILE PURPOSE-BUILT TWO-LINE LIST (<768px) */}
           <div className="md:hidden divide-y divide-outline-variant/30">
-            {verbs.map((verb) => (
-              <div
-                key={verb.id}
-                data-id={verb.lemma}
-                onClick={() => openPeek("verb", verb.lemma)}
-                className="p-3 active:bg-surface-container-low hover:bg-surface-container-low/60 transition-colors cursor-pointer flex items-center justify-between gap-3 group"
-              >
-                {/* 2-Line Content */}
-                <div className="min-w-0 flex-1">
-                  {/* Line 1: French Term · English Gloss */}
-                  <div className="flex items-baseline gap-1.5 truncate">
-                    <span className="font-bold text-sm text-primary tracking-tight font-sans">
-                      {verb.lemma}
-                    </span>
-                    {verb.pronominal && (
-                      <span className="text-[9px] font-mono text-purple-700 bg-purple-50 border border-purple-200 px-1 rounded">
-                        se
+            {verbs.map((verb) => {
+              const meaning = formatMeaning(verb.english);
+              return (
+                <div
+                  key={verb.id}
+                  data-id={verb.lemma}
+                  onClick={() => openPeek("verb", verb.lemma)}
+                  className="p-3 active:bg-surface-container-low hover:bg-surface-container-low/60 transition-colors cursor-pointer flex items-center justify-between gap-3 group"
+                >
+                  {/* 2-Line Content */}
+                  <div className="min-w-0 flex-1">
+                    {/* Line 1: French Term · English Gloss */}
+                    <div className="flex items-baseline gap-1.5 truncate">
+                      <span className="font-bold text-sm text-primary tracking-tight font-sans">
+                        {verb.lemma}
                       </span>
-                    )}
-                    <span className="text-on-surface-variant/50 text-xs">·</span>
-                    <span className="text-xs text-on-surface font-medium truncate">
-                      {verb.english || "—"}
-                    </span>
-                  </div>
-
-                  {/* Line 2: 3e · irregular · avoir · [participle] */}
-                  <div className="flex items-center gap-1 text-[11px] font-mono text-on-surface-variant/75 mt-0.5 truncate">
-                    <span className="font-semibold text-on-surface">
-                      {formatGroup(verb.group)}
-                    </span>
-                    <span className="text-on-surface-variant/40">·</span>
-                    <span
-                      className={
-                        verb.regularity === "irregular" ? "text-amber-700 font-medium" : ""
-                      }
-                    >
-                      {verb.regularity === "irregular" ? "irrég." : "rég."}
-                    </span>
-                    <span className="text-on-surface-variant/40">·</span>
-                    <span className="text-primary font-medium">{verb.auxiliary}</span>
-                    {verb.past_participle && (
-                      <>
-                        <span className="text-on-surface-variant/40">·</span>
-                        <span className="text-on-surface-variant/90 truncate">
-                          {verb.past_participle}
+                      {verb.pronominal && (
+                        <span className="text-[9px] font-mono text-purple-700 bg-purple-50 border border-purple-200 px-1 rounded">
+                          se
                         </span>
-                      </>
-                    )}
+                      )}
+                      <span className="text-on-surface-variant/50 text-xs">·</span>
+                      <span
+                        className="text-xs text-on-surface font-medium truncate"
+                        title={meaning !== "—" ? meaning : undefined}
+                      >
+                        {meaning}
+                      </span>
+                    </div>
+
+                    {/* Line 2: 3e · irregular · avoir · [participle] */}
+                    <div className="flex items-center gap-1 text-[11px] font-mono text-on-surface-variant/75 mt-0.5 truncate">
+                      <span className="font-semibold text-on-surface">
+                        {formatGroup(verb.group)}
+                      </span>
+                      <span className="text-on-surface-variant/40">·</span>
+                      <span
+                        className={
+                          verb.regularity === "irregular" ? "text-amber-700 font-medium" : ""
+                        }
+                      >
+                        {verb.regularity === "irregular" ? "irrég." : "rég."}
+                      </span>
+                      <span className="text-on-surface-variant/40">·</span>
+                      <span className="text-primary font-medium">{verb.auxiliary}</span>
+                      {verb.past_participle && (
+                        <>
+                          <span className="text-on-surface-variant/40">·</span>
+                          <span className="text-on-surface-variant/90 truncate">
+                            {verb.past_participle}
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Right Controls: Save/Review Action Menu + Peek indicator */}
+                  <div className="flex items-center gap-1 shrink-0">
+                    <RowActionMenu
+                      type="verb"
+                      id={verb.lemma}
+                      fullUrl={`/verbs/${encodeURIComponent(verb.lemma)}`}
+                      label={verb.lemma}
+                    />
+                    <span
+                      className="text-on-surface-variant/50 group-hover:text-primary transition-colors text-base font-mono pl-0.5"
+                      title="Tap to Peek"
+                    >
+                      ›
+                    </span>
                   </div>
                 </div>
-
-                {/* Right Controls: Save/Review Action Menu + Peek indicator */}
-                <div className="flex items-center gap-1 shrink-0">
-                  <RowActionMenu
-                    type="verb"
-                    id={verb.lemma}
-                    fullUrl={`/verbs/${encodeURIComponent(verb.lemma)}`}
-                    label={verb.lemma}
-                  />
-                  <span
-                    className="text-on-surface-variant/50 group-hover:text-primary transition-colors text-base font-mono pl-0.5"
-                    title="Tap to Peek"
-                  >
-                    ›
-                  </span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* DESKTOP HIGH-DENSITY SCAN TABLE (>=768px) */}
@@ -315,6 +332,7 @@ export function VerbLibraryTable({
               </thead>
               <tbody className="divide-y divide-outline-variant/30">
                 {verbs.map((verb) => {
+                  const meaning = formatMeaning(verb.english);
                   return (
                     <tr
                       key={verb.id}
@@ -347,8 +365,13 @@ export function VerbLibraryTable({
                       </td>
 
                       {/* Primary English Meaning */}
-                      <td className="py-2.5 px-3.5 text-on-surface">
-                        <span className="font-medium text-xs text-on-surface">{verb.english || "—"}</span>
+                      <td className="py-2.5 px-3.5 text-on-surface max-w-[280px]">
+                        <span
+                          className="font-medium text-xs text-on-surface line-clamp-2"
+                          title={meaning !== "—" ? meaning : undefined}
+                        >
+                          {meaning}
+                        </span>
                       </td>
 
                       {/* Classification - Subtle / Faded visual weight */}

@@ -1,5 +1,6 @@
 import { MasterDataset } from "../dataset/masterSchema";
 import { makeVerbId, makeTenseId, makeRuleId, makeExpressionId, makeChapterId, slugify } from "../dataset/ids";
+import { formatEnglishList } from "./selectors";
 
 /**
  * Normalizes French text by stripping diacritics and converting to lowercase.
@@ -39,12 +40,12 @@ export interface SearchResultItem {
 }
 
 /**
- * Performs fast accent-insensitive search across master dataset collections.
+ * Executes a fast, client-side, ranked fuzzy/prefix search across all collections.
  */
 export function searchDataset(
   dataset: MasterDataset,
   rawQuery: string,
-  limit: number = 25
+  limit: number = 20
 ): SearchResultItem[] {
   const query = normalizeFrenchText(rawQuery);
   if (!query || query.length < 1) {
@@ -56,7 +57,7 @@ export function searchDataset(
   // 1. VERBS
   for (const verb of dataset.verbs || []) {
     const lemma = verb.infinitive || "";
-    const enStr = verb.english || "";
+    const enStr = formatEnglishList(verb.english, true);
     const normLemma = normalizeFrenchText(lemma);
     const normTrans = normalizeFrenchText(enStr);
 
@@ -83,7 +84,7 @@ export function searchDataset(
   // 2. EXPRESSIONS
   for (const exp of dataset.expressions || []) {
     const fr = exp.canonical_form || "";
-    const enStr = exp.english || "";
+    const enStr = formatEnglishList(exp.english, false);
     const normFr = normalizeFrenchText(fr);
     const normEn = normalizeFrenchText(enStr);
 
@@ -111,7 +112,7 @@ export function searchDataset(
   // 3. VOCABULARY
   for (const item of dataset.vocabulary || []) {
     const fr = item.canonical_form || "";
-    const enStr = item.english || "";
+    const enStr = formatEnglishList(item.english, false);
     const normFr = normalizeFrenchText(fr);
     const normEn = normalizeFrenchText(enStr);
 

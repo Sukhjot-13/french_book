@@ -1,5 +1,6 @@
 # Project Suggestions & Roadmap
 
+- **2026-09-03**: Cleaned up multi-meaning English translation presentation for verbs and vocabulary: added `formatEnglishList` and `formatMeaning` to join definitions with comma and space (`", "`) instead of concatenated text, with automatic deduplication of bare and to-infinitive pairs (e.g. `["accept", "to accept"]` -> `"to accept"`).
 - **2026-09-03**: Enhanced desktop table scanning across Verbs (`VerbLibraryTable`) and Vocabulary (`VocabDictionaryTable`) with sticky column headers, subtle zebra striping, selected-row indicator (`data-selected`), visually dominant French terms, and right-aligned metadata/action badges.
 - **2026-09-03**: Implemented purpose-built mobile two-line list layouts (`<768px`) for Verbs and Vocabulary (Line 1: French term · English gloss; Line 2: classification/aux/participle with tap-to-peek chevron).
 - **2026-09-03**: Converted `PeekDrawer` into a mobile bottom sheet (`<768px`) with top grab indicator bar, rounded top corners, backdrop blur, and bottom slide-in animation.

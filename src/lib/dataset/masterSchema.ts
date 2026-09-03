@@ -75,7 +75,7 @@ export interface VerbStem {
 export interface MasterVerb {
   infinitive: string;
   display_form?: string | null;
-  english: string;
+  english: string | string[];
   senses?: Sense[];
   verb_group?: string | null;
   regularity?: string | null;
@@ -165,7 +165,7 @@ export interface PatternSlot {
 export interface MasterExpression {
   canonical_form: string;
   display_form?: string | null;
-  english: string;
+  english: string | string[];
   expression_type?: string | null;
   productive?: boolean | null;
   pattern?: string | null;
@@ -196,7 +196,7 @@ export interface MasterExpression {
 export interface MasterVocabulary {
   canonical_form: string;
   display_form?: string | null;
-  english: string;
+  english: string | string[];
   part_of_speech: string;
   gender?: string | null;
   article?: string | null;
