@@ -84,7 +84,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**: N/A (Markdown documentation).
 
 #### `gptsugg.txt`
-- **Purpose**: User-supplied architectural improvement specifications and checklist establishing the "Scan → Peek → Deep Dive" design paradigm across the platform.
+- **Purpose**: Tracks remaining optional UI refinements from the original 22-part "Scan → Peek → Deep Dive" design improvement plan.
 - **Functions**: N/A (Text specification).
 
 ---
