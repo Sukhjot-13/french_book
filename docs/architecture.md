@@ -36,6 +36,18 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: ESLint flat configuration for Next.js core web vitals and TypeScript rules.
 - **Functions**: N/A (ES module export).
 
+#### `GEMINI.md` / `CLAUDE.md`
+- **Purpose**: AI behavior rules, testing standards, architecture documentation requirements, and local commit workflow guidelines.
+- **Functions**: N/A (Markdown guidelines).
+
+#### `docs/architecture.md`
+- **Purpose**: Always-current file and function inventory, architectural blueprint, and environment variable catalog.
+- **Functions**: N/A (Project documentation).
+
+#### `docs/suggestions.md`
+- **Purpose**: Categorized log of improvements, new features, and potential vulnerabilities.
+- **Functions**: N/A (Project roadmap documentation).
+
 ---
 
 ### 2. Application Shell & Pages (`app/`)
@@ -247,6 +259,11 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `checkCoverage(dataset)`: Audits entities per chapter and flags missing sections.
 
+#### `src/lib/dataset/load.ts`
+- **Purpose**: Low-level loader for legacy schema dataset files with Zod validation.
+- **Functions**:
+  - `loadSuperDataset(filePath)`: Loads and parses dataset against `SuperDatasetRootSchema`.
+
 #### `src/lib/dataset/validators.ts`
 - **Purpose**: Dataset integrity verification and cross-reference validation.
 - **Functions**:
@@ -254,7 +271,15 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ---
 
-### 6. Testing (`tests/`)
+### 6. Stylesheets & Tokens (`src/styles/`)
+
+#### `src/styles/theme.css`
+- **Purpose**: Universal CSS design tokens declaring the Oxford Blue palette, CEFR colors, priority colors, surface containers, and typography variables.
+- **Functions**: N/A (CSS stylesheet / token definitions).
+
+---
+
+### 7. Testing (`tests/`)
 
 #### `tests/run-all.test.ts`
 - **Purpose**: Unified single test runner entry-point validating data presence, entity counts, selectors, and schema compliance.
