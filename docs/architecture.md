@@ -80,7 +80,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**: N/A (Markdown documentation).
 
 #### `docs/suggestions.md`
-- **Purpose**: Living roadmap tracking feature suggestions, architectural improvements, and vulnerability audits.
+- **Purpose**: Living roadmap tracking feature suggestions, architectural improvements, vulnerability audits, and the planned copy-only new-data intake workflow for proposing missing entities without exposing the full master dataset.
 - **Functions**: N/A (Markdown documentation).
 
 #### `gptsugg.txt`

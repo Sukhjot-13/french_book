@@ -9,6 +9,7 @@
 - **2026-09-02**: (Idea) Add audio pronunciation playback for verb conjugations and vocabulary entries using the Web Speech API.
 
 ## 🟡 New Features
+- **2026-09-03**: (Idea) Build a separate, copy-only new-data intake pipeline for proposing genuinely missing entities (for example, new connectors). It should send the AI a compact collection summary—natural keys, categories, and relevant relationships rather than the full master dataset—then validate duplicate natural keys and cross-references before adding approved records only to `enrichment/MASTER_DATA_ENRICHED.json`.
 - **2026-09-02**: (Implemented) Dedicated **Exceptions & Traps Library** view (`/traps`) exposing the 108 curated pitfalls with side-by-side correct vs incorrect forms, category filters, and cross-references.
 - **2026-09-02**: (Implemented) Interactive **Exercise Mode** (`/exercises` and within `/chapters/[id]`) showing the 217 curriculum exercises with question prompts, multiple-choice options, and interactive revealable answers.
 - **2026-09-02**: (Implemented) Complete **Conjugation Matrix** on `/verbs/[id]` displaying all moods (Indicatif, Subjonctif, Conditionnel, Impératif) and tenses with person forms directly from the verb's conjugations array.
@@ -27,4 +28,3 @@
 
 ## 🔴 Vulnerabilities
 - *(None identified at present)*
-
