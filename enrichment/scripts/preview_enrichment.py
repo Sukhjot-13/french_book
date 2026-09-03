@@ -13,26 +13,46 @@ import argparse
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple, Union
 
-# Ensure scripts directory is in python path
+# Ensure repo root and scripts directory are in python path
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCRIPT_DIR = Path(__file__).resolve().parent
-if str(SCRIPT_DIR) not in sys.path:
-    sys.path.insert(0, str(SCRIPT_DIR))
+for p in [str(REPO_ROOT), str(SCRIPT_DIR)]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
-from enrichment_config import (
-    VALIDATED_DIR,
-    REVIEW_DIR,
-    NATURAL_KEYS,
-)
-from enrichment_helpers import (
-    load_json,
-    save_json,
-    load_master_data,
-    find_entity_by_natural_key,
-    build_natural_key_index,
-    natural_key_to_str,
-    normalize_french_text,
-    resolve_field_name,
-)
+try:
+    from enrichment.scripts.enrichment_config import (
+        VALIDATED_DIR,
+        REVIEW_DIR,
+        NATURAL_KEYS,
+    )
+    from enrichment.scripts.enrichment_helpers import (
+        load_json,
+        save_json,
+        load_master_data,
+        find_entity_by_natural_key,
+        build_natural_key_index,
+        natural_key_to_str,
+        normalize_french_text,
+        resolve_field_name,
+    )
+except ImportError:
+    from enrichment_config import (
+        VALIDATED_DIR,
+        REVIEW_DIR,
+        NATURAL_KEYS,
+    )
+    from enrichment_helpers import (
+        load_json,
+        save_json,
+        load_master_data,
+        find_entity_by_natural_key,
+        build_natural_key_index,
+        natural_key_to_str,
+        normalize_french_text,
+        resolve_field_name,
+    )
+
 
 
 class DiffOperation:

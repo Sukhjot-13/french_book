@@ -13,33 +13,60 @@ import argparse
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Union
 
-# Ensure scripts directory is in python path
+# Ensure repo root and scripts directory are in python path
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCRIPT_DIR = Path(__file__).resolve().parent
-if str(SCRIPT_DIR) not in sys.path:
-    sys.path.insert(0, str(SCRIPT_DIR))
+for p in [str(REPO_ROOT), str(SCRIPT_DIR)]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
-from enrichment_config import (
-    DEFAULT_BATCH_SIZES,
-    COLLECTION_ORDER,
-    PROTECTED_COLLECTIONS,
-    NATURAL_KEYS,
-    SAFE_FIELDS,
-    HIGH_RISK_FIELDS,
-    ALLOWED_OPERATIONS,
-    BATCHES_DIR,
-    LOGS_DIR,
-    BATCH_MANIFEST_FILE,
-    PROGRESS_FILE,
-)
-from enrichment_helpers import (
-    load_master_data,
-    calculate_hash,
-    extract_natural_key,
-    natural_key_to_str,
-    save_json,
-    load_json,
-    resolve_field_name,
-)
+try:
+    from enrichment.scripts.enrichment_config import (
+        DEFAULT_BATCH_SIZES,
+        COLLECTION_ORDER,
+        PROTECTED_COLLECTIONS,
+        NATURAL_KEYS,
+        SAFE_FIELDS,
+        HIGH_RISK_FIELDS,
+        ALLOWED_OPERATIONS,
+        BATCHES_DIR,
+        LOGS_DIR,
+        BATCH_MANIFEST_FILE,
+        PROGRESS_FILE,
+    )
+    from enrichment.scripts.enrichment_helpers import (
+        load_master_data,
+        calculate_hash,
+        extract_natural_key,
+        natural_key_to_str,
+        save_json,
+        load_json,
+        resolve_field_name,
+    )
+except ImportError:
+    from enrichment_config import (
+        DEFAULT_BATCH_SIZES,
+        COLLECTION_ORDER,
+        PROTECTED_COLLECTIONS,
+        NATURAL_KEYS,
+        SAFE_FIELDS,
+        HIGH_RISK_FIELDS,
+        ALLOWED_OPERATIONS,
+        BATCHES_DIR,
+        LOGS_DIR,
+        BATCH_MANIFEST_FILE,
+        PROGRESS_FILE,
+    )
+    from enrichment_helpers import (
+        load_master_data,
+        calculate_hash,
+        extract_natural_key,
+        natural_key_to_str,
+        save_json,
+        load_json,
+        resolve_field_name,
+    )
+
 
 
 def get_next_global_sequence(manifest: Dict[str, Any]) -> int:

@@ -14,35 +14,64 @@ import argparse
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple, Set, Union
 
-# Ensure scripts directory is in python path
+# Ensure repo root and scripts directory are in python path
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCRIPT_DIR = Path(__file__).resolve().parent
-if str(SCRIPT_DIR) not in sys.path:
-    sys.path.insert(0, str(SCRIPT_DIR))
+for p in [str(REPO_ROOT), str(SCRIPT_DIR)]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
-from enrichment_config import (
-    APPROVED_DIR,
-    VALIDATED_DIR,
-    LOGS_DIR,
-    BACKUPS_DIR,
-    REPORTS_DIR,
-    PROGRESS_FILE,
-    NATURAL_KEYS,
-)
-from enrichment_helpers import (
-    load_json,
-    save_json,
-    load_master_data,
-    save_master_data_atomically,
-    backup_master_data,
-    calculate_hash,
-    validate_against_master_schema,
-    find_entity_by_natural_key,
-    build_natural_key_index,
-    natural_key_to_str,
-    normalize_french_text,
-    resolve_field_name,
-)
-from generate_enrichment_report import generate_report_for_file
+try:
+    from enrichment.scripts.enrichment_config import (
+        APPROVED_DIR,
+        VALIDATED_DIR,
+        LOGS_DIR,
+        BACKUPS_DIR,
+        REPORTS_DIR,
+        PROGRESS_FILE,
+        NATURAL_KEYS,
+    )
+    from enrichment.scripts.enrichment_helpers import (
+        load_json,
+        save_json,
+        load_master_data,
+        save_master_data_atomically,
+        backup_master_data,
+        calculate_hash,
+        validate_against_master_schema,
+        find_entity_by_natural_key,
+        build_natural_key_index,
+        natural_key_to_str,
+        normalize_french_text,
+        resolve_field_name,
+    )
+    from enrichment.scripts.generate_enrichment_report import generate_report_for_file
+except ImportError:
+    from enrichment_config import (
+        APPROVED_DIR,
+        VALIDATED_DIR,
+        LOGS_DIR,
+        BACKUPS_DIR,
+        REPORTS_DIR,
+        PROGRESS_FILE,
+        NATURAL_KEYS,
+    )
+    from enrichment_helpers import (
+        load_json,
+        save_json,
+        load_master_data,
+        save_master_data_atomically,
+        backup_master_data,
+        calculate_hash,
+        validate_against_master_schema,
+        find_entity_by_natural_key,
+        build_natural_key_index,
+        natural_key_to_str,
+        normalize_french_text,
+        resolve_field_name,
+    )
+    from generate_enrichment_report import generate_report_for_file
+
 
 
 def apply_patch_to_dataset(

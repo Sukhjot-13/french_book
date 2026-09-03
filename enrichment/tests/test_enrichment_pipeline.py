@@ -10,31 +10,56 @@ import unittest
 import tempfile
 from pathlib import Path
 
-# Add scripts directory to path
+# Add repo root and scripts directory to path
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "scripts"
-if str(SCRIPTS_DIR) not in sys.path:
-    sys.path.insert(0, str(SCRIPTS_DIR))
+for p in [str(REPO_ROOT), str(SCRIPTS_DIR)]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
-from enrichment_config import (
-    DEFAULT_BATCH_SIZES,
-    COLLECTION_ORDER,
-    PROTECTED_COLLECTIONS,
-    NATURAL_KEYS,
-    ALLOWED_OPERATIONS,
-)
-from enrichment_helpers import (
-    normalize_french_text,
-    natural_key_to_str,
-    extract_natural_key,
-    natural_keys_match,
-    load_master_data,
-    find_entity_by_natural_key,
-    build_natural_key_index,
-)
-from validate_enrichment_response import validate_response_file
-from preview_enrichment import preview_patch_file
-from generate_enrichment_report import format_preview_report, format_applied_report
-from apply_enrichment import apply_patch_to_dataset
+try:
+    from enrichment.scripts.enrichment_config import (
+        DEFAULT_BATCH_SIZES,
+        COLLECTION_ORDER,
+        PROTECTED_COLLECTIONS,
+        NATURAL_KEYS,
+        ALLOWED_OPERATIONS,
+    )
+    from enrichment.scripts.enrichment_helpers import (
+        normalize_french_text,
+        natural_key_to_str,
+        extract_natural_key,
+        natural_keys_match,
+        load_master_data,
+        find_entity_by_natural_key,
+        build_natural_key_index,
+    )
+    from enrichment.scripts.validate_enrichment_response import validate_response_file
+    from enrichment.scripts.preview_enrichment import preview_patch_file
+    from enrichment.scripts.generate_enrichment_report import format_preview_report, format_applied_report
+    from enrichment.scripts.apply_enrichment import apply_patch_to_dataset
+except ImportError:
+    from enrichment_config import (
+        DEFAULT_BATCH_SIZES,
+        COLLECTION_ORDER,
+        PROTECTED_COLLECTIONS,
+        NATURAL_KEYS,
+        ALLOWED_OPERATIONS,
+    )
+    from enrichment_helpers import (
+        normalize_french_text,
+        natural_key_to_str,
+        extract_natural_key,
+        natural_keys_match,
+        load_master_data,
+        find_entity_by_natural_key,
+        build_natural_key_index,
+    )
+    from validate_enrichment_response import validate_response_file
+    from preview_enrichment import preview_patch_file
+    from generate_enrichment_report import format_preview_report, format_applied_report
+    from apply_enrichment import apply_patch_to_dataset
+
 
 
 class TestEnrichmentConfiguration(unittest.TestCase):

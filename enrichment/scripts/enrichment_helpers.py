@@ -13,13 +13,23 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple, Union
 import jsonschema
 
-from enrichment_config import (
-    MASTER_DATA_PATH,
-    MASTER_SCHEMA_PATH,
-    BACKUPS_DIR,
-    NATURAL_KEYS,
-    FIELD_ALIASES,
-)
+try:
+    from enrichment.scripts.enrichment_config import (
+        MASTER_DATA_PATH,
+        MASTER_SCHEMA_PATH,
+        BACKUPS_DIR,
+        NATURAL_KEYS,
+        FIELD_ALIASES,
+    )
+except ImportError:
+    from enrichment_config import (
+        MASTER_DATA_PATH,
+        MASTER_SCHEMA_PATH,
+        BACKUPS_DIR,
+        NATURAL_KEYS,
+        FIELD_ALIASES,
+    )
+
 
 
 def load_json(path: Union[str, Path]) -> Any:

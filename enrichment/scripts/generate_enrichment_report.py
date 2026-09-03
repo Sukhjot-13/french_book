@@ -12,19 +12,32 @@ import argparse
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Union
 
-# Ensure scripts directory is in python path
+# Ensure repo root and scripts directory are in python path
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCRIPT_DIR = Path(__file__).resolve().parent
-if str(SCRIPT_DIR) not in sys.path:
-    sys.path.insert(0, str(SCRIPT_DIR))
+for p in [str(REPO_ROOT), str(SCRIPT_DIR)]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
-from enrichment_config import (
-    REVIEW_DIR,
-    REPORTS_DIR,
-    LOGS_DIR,
-)
-from enrichment_helpers import (
-    load_json,
-)
+try:
+    from enrichment.scripts.enrichment_config import (
+        REVIEW_DIR,
+        REPORTS_DIR,
+        LOGS_DIR,
+    )
+    from enrichment.scripts.enrichment_helpers import (
+        load_json,
+    )
+except ImportError:
+    from enrichment_config import (
+        REVIEW_DIR,
+        REPORTS_DIR,
+        LOGS_DIR,
+    )
+    from enrichment_helpers import (
+        load_json,
+    )
+
 
 
 def format_preview_report(preview: Dict[str, Any]) -> str:
