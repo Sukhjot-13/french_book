@@ -71,8 +71,16 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: ESLint flat configuration for Next.js core web vitals and TypeScript rules.
 - **Functions**: N/A (ES module export).
 
-#### `GEMINI.md` / `CLAUDE.md`
-- **Purpose**: AI pair-programming rules, architectural guidelines, test requirements, docs synchronization rules, and local commit workflow standards.
+#### `.gitignore`
+- **Purpose**: Version control ignore rules specifying exclusions for dependencies (`node_modules`), Next.js build artifacts (`.next`, `out`), environment variables (`.env*`), caches (`*.tsbuildinfo`), test coverage, and OS metadata files (`.DS_Store`).
+- **Functions**: N/A (Git configuration).
+
+#### `AGENTS.md`
+- **Purpose**: Authoritative AI behavior, architectural documentation requirements, test runner rules, suggestions logging, and local-first commit workflow guidelines for Antigravity.
+- **Functions**: N/A (Markdown guidelines).
+
+#### `GEMINI.md`
+- **Purpose**: Architectural documentation standards, test runner guidelines, and AI pair-programming rules mirroring AGENTS.md for Gemini.
 - **Functions**: N/A (Markdown guidelines).
 
 #### `docs/architecture.md`
@@ -167,12 +175,12 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 #### `app/vocabulary/[id]/page.tsx`
 - **Purpose**: Vocabulary item deep dive view showing grammatical gender, articles, senses, synonyms/antonyms, related expressions, base verbs, and contextual examples.
 - **Functions**:
-  - `VocabularyDetailPage({ params })`: Server page resolving word entry and rendering `VocabDetailView`.
+  - `VocabDetailPage({ params })`: Server page resolving word entry and rendering `VocabDetailView`.
 
 #### `app/concepts/page.tsx`
 - **Purpose**: Concepts taxonomy directory cataloging all 206 grammatical and pedagogical concepts with CEFR levels, categories, and quick peek integration.
 - **Functions**:
-  - `ConceptsPage({ searchParams })`: Server page rendering `ConceptsDirectoryView`.
+  - `ConceptsPage()`: Server page rendering `ConceptsExplorer`.
 
 #### `app/concepts/[id]/page.tsx`
 - **Purpose**: Concept deep dive view showing definition, CEFR metadata, interconnected grammar rules, verbs, expressions, vocabulary, and related tenses.
@@ -222,6 +230,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Global keyboard event handler providing power-user navigation across table rows and modal views (`/`, `Cmd+K`, `Esc`, `j`, `k`, `o`, `Enter`, `Space`).
 - **Functions**:
   - `GlobalKeyboardShortcuts()`: Client listener mounted in AppShell.
+  - `handleKeyDown(e)`: Internal key event dispatcher for navigation, search, and drawer toggling.
 
 #### `src/components/peek/PeekContext.tsx`
 - **Purpose**: Global React Context provider managing Level 2 peek drawer state, selected entity type and ID, and asynchronous data fetching.
@@ -233,31 +242,47 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Right-side slide-over drawer (desktop) / bottom sheet (mobile) rendering Level 2 entity previews with key facts, constructions, pitfalls, and deep-dive links.
 - **Functions**:
   - `PeekDrawer()`: Slide-over UI component mounted globally in AppShell.
+  - `handleKeyDown(e)`: Internal key event listener closing drawer on Escape.
 
 #### `src/components/peek/PeekTrigger.tsx`
 - **Purpose**: Reusable interactive trigger button/link that invokes `openPeek(type, id)` from anywhere in the application.
 - **Functions**:
   - `PeekTrigger({ type, id, label, className, children })`: Clickable trigger component.
+  - `handleClick(e)`: Click handler preventing event bubbling and invoking `openPeek`.
 
 #### `src/components/verbs/VerbLibraryTable.tsx`
 - **Purpose**: Dense scan-and-peek table for the 496 verbs library with inline filters, quick preview triggers, and row click handling.
 - **Functions**:
   - `VerbLibraryTable({ verbs, total, currentPage, pageSize, initialGroup, initialRegularity, initialAuxiliary, initialQuery })`: Interactive client table component.
+  - `formatGroup(g)`: Normalizes verb group string for badge rendering.
+  - `updateFilters(newFilters)`: Pushes updated URL search query parameters for verb filters.
+  - `handleSearchSubmit(e)`: Form submit handler committing search queries.
 
 #### `src/components/verbs/VerbDetailView.tsx`
 - **Purpose**: Systematic 3-level detail view for verbs featuring mood tabs (Indicatif, Conditionnel, Subjonctif, Impératif), accessible keyboard-navigable tense accordion rows with embedded peek triggers, smart "Show More" limits, peek triggers for expressions, and demoted technical metadata.
 - **Functions**:
   - `VerbDetailView({ verb, conjugations, expressions, grammarRules, examples })`: Client detail component.
+  - `formatGroupName(g)`: Formats French verb group name into descriptive label.
 
 #### `src/components/vocabulary/VocabDictionaryTable.tsx`
 - **Purpose**: Dense alphabetical A-Z dictionary table for 1,002 vocabulary items with alphabet jump bar, part of speech filtering, and row-click Level 2 peek.
 - **Functions**:
   - `VocabDictionaryTable({ vocabulary, total, currentPage, pageSize, initialQuery, initialLetter, initialPos })`: Interactive client dictionary table.
+  - `formatPosGender(pos, gender)`: Formats part of speech and gender display badge text.
+  - `updateFilters(newFilters)`: Pushes updated URL search parameters for vocabulary filters.
+  - `handleSearchSubmit(e)`: Form submit handler committing dictionary search queries.
+
+#### `src/components/vocabulary/VocabDetailView.tsx`
+- **Purpose**: Vocabulary word deep dive with gender tag, article, definitions/senses, synonyms, antonyms, related expressions, base verbs, and contextual sentences.
+- **Functions**:
+  - `VocabDetailView({ vocab, baseVerbs, expressions, examples })`: Interactive client component with peek triggers and external cross-filters.
 
 #### `src/components/expressions/ExpressionLibraryTable.tsx`
 - **Purpose**: Dense scan table for 557 idiomatic expressions emphasizing syntactic pattern formulas, preposition filters (à, de, en, sur, pour, avec), and row-click Level 2 peek.
 - **Functions**:
   - `ExpressionLibraryTable({ expressions, total, currentPage, pageSize, initialQuery, initialPreposition, initialBaseVerb })`: Interactive client expressions table.
+  - `updateFilters(newFilters)`: Pushes updated URL search parameters for expression filters.
+  - `handleSearchSubmit(e)`: Form submit handler committing expression search queries.
 
 #### `src/components/expressions/ExpressionDetailView.tsx`
 - **Purpose**: Syntactic deep dive view for expressions highlighting pattern formulas, base verbs with Peek triggers, sentence examples with smart limits, and demoted attestation metadata.
@@ -268,16 +293,13 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Dense scan table for 284 grammar rules with formation formula previews, trap counters, and row-click Level 2 peek.
 - **Functions**:
   - `GrammarLibraryTable({ rules, total, currentPage, pageSize, initialQuery, initialCategory })`: Interactive client grammar table.
+  - `updateFilters(newFilters)`: Pushes updated URL search parameters for rule filters.
+  - `handleSearchSubmit(e)`: Form submit handler committing grammar search queries.
 
 #### `src/components/grammar/GrammarDetailView.tsx`
 - **Purpose**: Grammar rule deep dive featuring 2-box summary capsule ("When to Use" and "Watch Out / Common Trap"), formation formula, peek-enabled related verbs/tenses, and smart examples.
 - **Functions**:
   - `GrammarDetailView({ rule, tenses, verbs, examples, traps })`: Client detail component.
-
-#### `src/components/vocabulary/VocabDetailView.tsx`
-- **Purpose**: Vocabulary word deep dive with gender tag, article, definitions/senses, synonyms, antonyms, related expressions, base verbs, and contextual sentences.
-- **Functions**:
-  - `VocabDetailView({ vocab, baseVerbs, expressions, examples })`: Interactive client component with peek triggers and external cross-filters.
 
 #### `src/components/tenses/TensesDirectoryTable.tsx`
 - **Purpose**: Dual-view (Card and Table) directory for all 24 French tenses and moods with mood filters, search, quick Peek triggers, and direct navigation.
@@ -289,10 +311,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `TenseDetailView({ tense, conjugations, grammarRules, examples, traps })`: Client detail component.
 
-#### `src/components/concepts/ConceptsDirectoryView.tsx`
+#### `src/components/concepts/ConceptsExplorer.tsx`
 - **Purpose**: Semantic concept explorer cataloging all 206 concepts with live search, CEFR badges, category filters, and quick peek integration.
 - **Functions**:
-  - `ConceptsDirectoryView({ concepts, total, initialQuery, initialCefr })`: Interactive client directory component.
+  - `ConceptsExplorer({ concepts })`: Interactive client directory component with search, CEFR level pill selector, and priority filters.
 
 #### `src/components/concepts/ConceptDetailView.tsx`
 - **Purpose**: Concept deep dive interface displaying semantic taxonomy, CEFR badges, related grammar rules, verbs, expressions, vocabulary, and related tenses with peek and drill links.
@@ -313,6 +335,9 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Modal command palette (`Cmd+K` / `Ctrl+K`) for keyboard-first navigation and instant search.
 - **Functions**:
   - `CommandPalette()`: Client component managing search dialog, keyboard shortcuts, and live results.
+  - `handleKeyDown(e)`: Listens for palette trigger (`Cmd+K`, `/`, `Esc`).
+  - `handleKeyDownInInput(e)`: Handles arrow keys, Enter, and Tab inside palette input.
+  - `handleSelect(type, id)`: Executes selection navigation or triggers Level 2 peek.
 
 #### `src/components/ui/Badges.tsx`
 - **Purpose**: Color-coded badges for linguistic attributes (CEFR, verb group, part of speech, auxiliary, priority, transitivity, mood, register, collocation strength).
@@ -353,18 +378,30 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `getExpressions(filters)`: Retrieves filtered list of idiomatic expressions with pattern slots and collocations.
   - `getExpressionById(id)`: Retrieves single expression detail. Supports raw and URL-decoded IDs.
   - `getVocabulary(filters)`: Retrieves filtered vocabulary words with safely normalized articles (defensively handles string, array, and object representations), gender, plural forms, and senses.
-  - `getVocabularyById(id)`: Retrieves single vocabulary detail with related expressions and examples. Supports raw and URL-decoded IDs.
+  - `getVocabularyById(id)`: Retrieves single vocabulary detail with related expressions, related verbs, related chapters, and examples. Supports raw and URL-decoded IDs.
   - `getGrammarRules(filters)`: Retrieves grammar rules list.
   - `getGrammarRuleById(id)`: Retrieves single grammar rule with formation, transformations, traps, and cross-links. Supports raw, URL-decoded, and slugified rule titles.
   - `getTenses()`: Retrieves all 24 tenses organized by mood.
   - `getTenseById(id)`: Retrieves single tense detail with regular patterns, irregular stems, agreement rules, and common traps. Supports raw and URL-decoded IDs.
   - `getChapters()`: Retrieves all 27 chapters.
   - `getChapterById(id)`: Retrieves chapter with linked concepts, rules, verbs, expressions, vocabulary, and exercises. Supports numeric and slug IDs.
-  - `getExamples(filters)`: Retrieves example sentences with focus spans.
+  - `getExamples(filters)`: Retrieves example sentences with focus spans, verb filter, tense filter, and translation filter.
   - `getExercises(filters)`: Retrieves exercises with questions, options, hints, and answers.
   - `getExerciseById(id)`: Retrieves single exercise detail. Supports raw, dotted, and legacy slug IDs.
   - `getExceptionsAndTraps(filters)`: Retrieves the 108 curated common pitfalls with correct vs incorrect forms.
   - `getConcepts()`: Retrieves the 206 grammatical concepts.
+  - `getConceptById(id)`: Retrieves single concept detail with linked grammar rules, tenses, verbs, expressions, vocabulary, and examples. Supports raw, slugified, and URL-decoded IDs.
+  - `safeDecode(str)`: Defensive URL decoding helper preventing URI malformed exceptions.
+  - `mapVerb(v)`: View-model normalizer for verbs.
+  - `mapTense(t)`: View-model normalizer for tenses.
+  - `mapRule(r)`: View-model normalizer for grammar rules.
+  - `mapExpression(e)`: View-model normalizer for expressions.
+  - `mapVocab(w)`: View-model normalizer for vocabulary entries.
+  - `mapChapter(c)`: View-model normalizer for chapters.
+  - `mapExample(ex)`: View-model normalizer for example sentences.
+  - `mapExercise(ex)`: View-model normalizer for exercises.
+  - `mapTrap(tr)`: View-model normalizer for pitfalls and traps.
+  - `mapConcept(c)`: View-model normalizer for grammatical concepts.
 
 #### `src/lib/data/search.ts`
 - **Purpose**: In-memory search indexing and fuzzy/prefix matching over French text with accent normalization across master dataset entities (verbs, rules, tenses, expressions, vocabulary, exercises, traps, examples, chapters).
@@ -393,21 +430,42 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `stripAccents(str)`: Removes French diacritics.
   - `slugify(str)`: Converts text to standard URL/ID friendly slug.
-  - `makeBookId()`, `makeChapterId()`, `makeSectionId()`, `makeConceptId()`, `makeTenseId()`, `makeRuleId()` (includes accented discriminator to avoid collisions between `-e` and `-é` rules), `makeVerbId()`, `makeConjugationId()`, `makeExpressionId()`, `makeVocabId(word, pos)` (supports string or object), `makeExampleId()`, `makeExerciseId()`, `makeQuestionId()`, `makeStudySetId()`: Entity-specific slug builders.
+  - `makeBookId()`: Generates root book identifier.
+  - `makeChapterId(chapterNum)`: Generates formatted chapter identifier.
+  - `makeSectionId(chapterNum, sectionNum)`: Generates chapter section identifier.
+  - `makeConceptId(name)`: Generates slugified concept identifier.
+  - `makeTenseId(name)`: Generates slugified tense identifier.
+  - `makeRuleId(ruleName, order)`: Generates rule identifier with accented discriminator to avoid collisions.
+  - `makeVerbId(infinitive)`: Generates verb lemma identifier.
+  - `makeConjugationId(verbId, mood, tense)`: Generates composite conjugation record identifier.
+  - `makeExpressionId(text)`: Generates expression identifier.
+  - `makeVocabId(word, pos)`: Generates vocabulary identifier (supports string or object input).
+  - `makeExampleId(text)`: Generates deterministic example sentence identifier.
+  - `makeExerciseId(chapterNum, exerciseNum)`: Generates exercise identifier.
+  - `makeQuestionId(exerciseId, questionNum)`: Generates individual drill question identifier.
+  - `makeStudySetId(name)`: Generates study set identifier.
   - `isValidId(id)`: Validates ID prefix and format.
 
 #### `src/lib/dataset/ids.js`
 - **Purpose**: Compiled JavaScript companion module for entity ID generators.
-- **Functions**: Compiled ID helper functions.
+- **Functions**: Compiled ID helper functions (`stripAccents`, `slugify`, `makeBookId`, `makeChapterId`, `makeSectionId`, `makeConceptId`, `makeTenseId`, `makeRuleId`, `makeVerbId`, `makeConjugationId`, `makeExpressionId`, `makeVocabId`, `makeExampleId`, `makeExerciseId`, `makeQuestionId`, `makeStudySetId`, `isValidId`).
 
 #### `src/lib/dataset/canonicalize.ts`
 - **Purpose**: De-duplication and canonicalization of lexical items from disparate extraction sources.
 - **Functions**:
-  - `mergeAttestations()`, `deduplicateArray()`, `canonicalizeVerb()`, `canonicalizeVocabularyEntry()`, `canonicalizeExpressionEntry()`, `canonicalizeVerbs()`, `canonicalizeVocabulary()`, `canonicalizeExpressions()`.
+  - `mergeAttestations()`: Merges and deduplicates attestation metadata records.
+  - `safeArray(val)`: Normalizes scalar, null, or undefined values into array containers.
+  - `deduplicateArray()`: Removes duplicate primitives from arrays.
+  - `canonicalizeVerb()`: Cleans and standardizes single verb record.
+  - `canonicalizeVocabularyEntry()`: Standardizes vocabulary record fields.
+  - `canonicalizeExpressionEntry()`: Standardizes expression syntactic fields.
+  - `canonicalizeVerbs()`: Bulk canonicalization for verb collections.
+  - `canonicalizeVocabulary()`: Bulk canonicalization for vocabulary collections.
+  - `canonicalizeExpressions()`: Bulk canonicalization for expression collections.
 
 #### `src/lib/dataset/canonicalize.js`
 - **Purpose**: Compiled JavaScript companion module for canonicalization routines.
-- **Functions**: Compiled canonicalization helper functions.
+- **Functions**: Compiled canonicalization helper functions (`mergeAttestations`, `safeArray`, `deduplicateArray`, `canonicalizeVerb`, `canonicalizeVocabularyEntry`, `canonicalizeExpressionEntry`, `canonicalizeVerbs`, `canonicalizeVocabulary`, `canonicalizeExpressions`).
 
 #### `src/lib/dataset/normalize.ts`
 - **Purpose**: Text cleaning, OCR artifact cleanup, and normalization routines.
@@ -420,6 +478,8 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Builds bi-directional indexes connecting verbs, rules, tenses, and chapters.
 - **Functions**:
   - `buildReverseIndexes(dataset)`: Generates reverse lookup tables for relations.
+  - `registerId(id, type, entity)`: Internal helper registering known IDs.
+  - `addLink(fromId, toId, relationType)`: Internal helper recording directional graph links.
 
 #### `src/lib/dataset/coverage.ts`
 - **Purpose**: Evaluates dataset completeness against expected chapter and section coverage.
@@ -435,6 +495,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Dataset integrity verification and cross-reference validation.
 - **Functions**:
   - `validateDataset(dataset)`: Validates foreign key relationships and schema adherence.
+  - `normalizedIdentity(item)`: Normalizes identity strings for duplicate checks.
+  - `checkEntityId(id, expectedPrefix, errors)`: Asserts valid entity identifier formats.
+  - `checkRelation(fromId, toId, validIds, errors)`: Verifies referential graph integrity.
+  - `findDuplicateGroups(items, keyFn)`: Identifies entity clusters with identical natural keys.
 
 ---
 
@@ -461,8 +525,19 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ### 8. Testing Suite (`tests/`)
 
 #### `tests/run-all.test.ts`
-- **Purpose**: Unified single test runner entry-point validating data presence, entity counts, selectors, and schema compliance across the platform.
-- **Functions**: Executable test script asserting data health and selector accuracy.
+- **Purpose**: Unified single entry-point test runner validating master data schema compliance, 10 collection counts, data loader integrity, view model selectors, alphabetical dictionary filtering, expression pattern filtering, and search functionality.
+- **Functions**:
+  - Validates `data/MASTER_DATA.json` integrity and 10 entity count invariants.
+  - Validates `getMasterDataset()` loader caching.
+  - Validates selectors (`getHomeStats`, `getVerbs`, `getVerbById`, `getTenses`, `getTenseById`, `getGrammarRules`, `getGrammarRuleById`, `getChapters`, `getChapterById`, `getExercises`, `getExceptionsAndTraps`, `getConcepts`, `getConceptById`, `getExamples`, `getVocabulary`, `getVocabularyById`, `getExpressions`).
+  - Validates search indexing and diacritic-insensitive query execution via `searchDataset()`.
+  - Validates alphabetical dictionary sort and A-Z letter filtration via `getVocabulary({ letter })`.
+  - Validates expression preposition and base-verb filtration via `getExpressions({ preposition, baseVerb })`.
+  - Validates ID uniqueness across grammar rules and exercises without collisions.
+  - Validates URL-encoded identifier lookups.
+  - Validates vocabulary article sanitization (string or null).
+  - Validates enhanced example filters (`verb`, `tense`, `hasTranslation`).
+  - Executes Python unit test suite `enrichment/tests/test_enrichment_pipeline.py` covering all enrichment pipeline components.
 
 ---
 
@@ -472,98 +547,95 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Master design system specifications documenting typography scale, Oxford Blue / French academic palette, layout grid, elevation, and component guidelines.
 - **Functions**: N/A (Design specification).
 
-#### `ui/stitch_l_atlas_de_fran_ais/revision_home/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/revision_home/code.html` & `ui/stitch_l_atlas_de_fran_ais/revision_home/screen.png`
 - **Purpose**: High-fidelity static HTML prototype and screenshot reference for the Revision Home dashboard.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/chapters_library/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/chapters_library/code.html` & `ui/stitch_l_atlas_de_fran_ais/chapters_library/screen.png`
 - **Purpose**: Static HTML prototype and screenshot reference for the Chapters Library directory.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/chapter_12_detail_advanced_revision/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/chapter_12_detail_advanced_revision/code.html` & `ui/stitch_l_atlas_de_fran_ais/chapter_12_detail_advanced_revision/screen.png`
 - **Purpose**: Static HTML prototype and screenshot reference for the single-chapter study view.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/verbs_library/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/verbs_library/code.html` & `ui/stitch_l_atlas_de_fran_ais/verbs_library/screen.png`
 - **Purpose**: Initial static HTML prototype and screenshot reference for the Verbs Library catalog.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/verbs_library_refined/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/verbs_library_refined/code.html` & `ui/stitch_l_atlas_de_fran_ais/verbs_library_refined/screen.png`
 - **Purpose**: Refined static HTML prototype and screenshot reference for the Verbs Library catalog with transitivity and CEFR filters.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/verb_detail_prendre/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/verb_detail_prendre/code.html` & `ui/stitch_l_atlas_de_fran_ais/verb_detail_prendre/screen.png`
 - **Purpose**: Static HTML prototype and screenshot reference for the Verb Detail page and conjugation matrix.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/tenses_moods_library/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/tenses_moods_library/code.html` & `ui/stitch_l_atlas_de_fran_ais/tenses_moods_library/screen.png`
 - **Purpose**: Static HTML prototype and screenshot reference for the Tenses & Moods Atlas directory.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/tense_detail_conditionnel_pr_sent/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/tense_detail_conditionnel_pr_sent/code.html` & `ui/stitch_l_atlas_de_fran_ais/tense_detail_conditionnel_pr_sent/screen.png`
 - **Purpose**: Static HTML prototype and screenshot reference for the Tense Detail view with formation formulas.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/grammar_library/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/grammar_library/code.html` & `ui/stitch_l_atlas_de_fran_ais/grammar_library/screen.png`
 - **Purpose**: Static HTML prototype and screenshot reference for the Grammar Rules Library directory.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/expressions_library/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/expressions_library/code.html` & `ui/stitch_l_atlas_de_fran_ais/expressions_library/screen.png`
 - **Purpose**: Initial static HTML prototype and screenshot reference for the Expressions Library.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/constructions_library/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/constructions_library/code.html` & `ui/stitch_l_atlas_de_fran_ais/constructions_library/screen.png`
 - **Purpose**: Static HTML prototype and screenshot reference for the Verbal Constructions directory.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/constructions_library_refined/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/constructions_library_refined/code.html` & `ui/stitch_l_atlas_de_fran_ais/constructions_library_refined/screen.png`
 - **Purpose**: Refined static HTML prototype and screenshot reference for the Verbal Constructions directory with pattern slots.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/vocabulary_library/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/vocabulary_library/code.html` & `ui/stitch_l_atlas_de_fran_ais/vocabulary_library/screen.png`
 - **Purpose**: Initial static HTML prototype and screenshot reference for the Vocabulary Lexicon.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/global_dictionary_refined_table_view/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/global_dictionary_refined_table_view/code.html` & `ui/stitch_l_atlas_de_fran_ais/global_dictionary_refined_table_view/screen.png`
 - **Purpose**: Refined static HTML prototype and screenshot reference for the Lexicon table view with articles and gender tags.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/global_example_explorer/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/global_example_explorer/code.html` & `ui/stitch_l_atlas_de_fran_ais/global_example_explorer/screen.png`
 - **Purpose**: Static HTML prototype and screenshot reference for the Global Example Explorer with highlight spans.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/exceptions_traps_library/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/exceptions_traps_library/code.html` & `ui/stitch_l_atlas_de_fran_ais/exceptions_traps_library/screen.png`
 - **Purpose**: Static HTML prototype and screenshot reference for the Exceptions & Pitfalls Library with correct vs. incorrect comparison cards.
 - **Functions**: N/A (Prototype & visual reference).
 
-#### `ui/stitch_l_atlas_de_fran_ais/global_search_command_palette/code.html` & `screen.png`
+#### `ui/stitch_l_atlas_de_fran_ais/global_search_command_palette/code.html` & `ui/stitch_l_atlas_de_fran_ais/global_search_command_palette/screen.png`
 - **Purpose**: Static HTML prototype and screenshot reference for the quick command palette modal.
 - **Functions**: N/A (Prototype & visual reference).
 
 ---
 
-### 8. Test Suites (`tests/`)
-
-#### `tests/run-all.test.ts`
-- **Purpose**: Unified single entry-point test runner validating master data schema compliance, 10 collection counts, data loader integrity, view model selectors, alphabetical dictionary filtering, expression pattern filtering, and search functionality.
-- **Functions**:
-  - Validates `data/MASTER_DATA.json` integrity and 10 entity count invariants.
-  - Validates `getMasterDataset()` loader caching.
-  - Validates selectors (`getHomeStats`, `getVerbs`, `getVerbById`, `getTenses`, `getTenseById`, `getGrammarRules`, `getGrammarRuleById`, `getChapters`, `getChapterById`, `getExercises`, `getExceptionsAndTraps`, `getConcepts`).
-  - Validates search indexing and diacritic-insensitive query execution via `searchDataset()`.
-  - Validates alphabetical dictionary sort and A-Z letter filtration via `getVocabulary({ letter })`.
-  - Validates expression preposition and base-verb filtration via `getExpressions({ preposition, baseVerb })`.
-  - Executes Python unit test suite `enrichment/tests/test_enrichment_pipeline.py` covering all enrichment pipeline components.
-
----
-
 ### 10. Manual AI Enrichment Pipeline (`enrichment/`)
 
-#### `enrichment/manual/batches/*.txt` (`071_concepts_batch_001.txt` through `162_chapters_batch_004.txt`)
-- **Purpose**: The active remaining manual enrichment queue for unapplied enrichable records. Batches 001 through 070 (26 vocabulary, 25 verbs, 19 expressions) have been processed and applied to `enrichment/MASTER_DATA_ENRICHED.json`. The remaining 92 batches include 11 concepts, 19 grammar rules, 3 tenses, 6 exceptions/traps, 34 examples, 15 exercises, and 4 chapters. Each prompt includes its collection schema excerpt and JSON-file response contract.
+#### `enrichment/__init__.py`
+- **Purpose**: Root package initialization file marking the enrichment directory as a Python package.
+- **Functions**: N/A (Package initializer).
+
+#### `enrichment/scripts/__init__.py`
+- **Purpose**: Package initialization file for enrichment pipeline automation and maintenance scripts.
+- **Functions**: N/A (Package initializer).
+
+#### `enrichment/tests/__init__.py`
+- **Purpose**: Package initialization file for the enrichment automated testing suite.
+- **Functions**: N/A (Package initializer).
+
+#### `enrichment/manual/batches/*.txt`
+- **Purpose**: The active remaining manual enrichment queue for unapplied enrichable records (`071_concepts_batch_001.txt` through `162_chapters_batch_004.txt`). Batches 001 through 070 (26 vocabulary, 25 verbs, 19 expressions) have been processed and applied to `enrichment/MASTER_DATA_ENRICHED.json`. The remaining 92 batches include 11 concepts, 19 grammar rules, 3 tenses, 6 exceptions/traps, 34 examples, 15 exercises, and 4 chapters. Each prompt includes its collection schema excerpt and JSON-file response contract.
 - **Functions**: N/A (generated manual AI prompts).
 
-#### `enrichment/manual/logs/BATCH_MANIFEST.json` / `PROGRESS.json`
+#### `enrichment/manual/logs/BATCH_MANIFEST.json` & `enrichment/manual/logs/PROGRESS.json`
 - **Purpose**: Generated audit metadata for the 162-batch queue: natural-key targets, source hash, requested fields, batch locations, and generation progress.
 - **Functions**: N/A (generated JSON audit metadata).
 
@@ -663,11 +735,26 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `run_generate_queue(reset=False)`: Generates all batch prompt files across the entire dataset (supports `--reset` to clear counters and regenerate from scratch).
   - `main()`: CLI entry point.
 
-
 #### `enrichment/tests/test_enrichment_pipeline.py`
 - **Purpose**: Fourteen-test suite validating batch generation, collection-schema excerpts, downloadable JSON response instructions, field authorization, reusable example-link validation, previewing, reporting, and object-safe transactional application.
 - **Functions**:
   - `TestEnrichmentConfiguration`: Asserts configuration completeness across all 11 collections and protected items.
+    - `test_collections_and_batch_sizes()`: Verifies default batch sizes and natural keys exist for all collections.
+    - `test_vocabulary_enrichment_includes_inflection_fields()`: Verifies safe inflection fields (`gender`, `articles`, `plural`, `variants`).
+    - `test_example_enrichment_includes_reusable_links()`: Verifies reusable relation links (`related_verbs`, `related_tenses`).
   - `TestEnrichmentHelpers`: Tests text normalization, natural key serialization, and equality matching.
+    - `test_normalize_french_text()`: Tests diacritic and spacing normalization on French text.
+    - `test_natural_key_to_str()`: Tests scalar and composite natural key serialization.
+    - `test_natural_keys_match()`: Tests resilient natural key matching.
   - `TestEnrichmentValidationAndPreview`: Tests clean patch validation, rejection of forbidden operations and artificial IDs, and dry-run diff categorization.
+    - `setUp()`: Prepares mock master dataset for validation and diff evaluation.
+    - `test_validation_clean_patch()`: Validates clean compliant patch against mock master dataset.
+    - `test_validation_rejects_forbidden_ops_and_artificial_ids()`: Verifies rejection of unauthorized operations and synthetic IDs.
+    - `test_validation_rejects_field_not_requested_by_manifest()`: Verifies strict rejection of unrequested fields.
+    - `test_schema_excerpt_and_downloadable_json_instruction()`: Verifies batch prompt generation and schema excerpt formatting.
+    - `test_example_relationships_must_resolve()`: Verifies cross-reference resolution for example links.
+    - `test_preview_diff_calculations()`: Verifies dry-run addition, no-op, and conflict calculation.
   - `TestEnrichmentApplyEngine`: Tests in-memory transactional apply, conflict preservation, and applied report generation.
+    - `setUp()`: Sets up mock dataset for application engine.
+    - `test_in_memory_apply_and_conflict_handling()`: Tests safe value application and non-destructive conflict skipping.
+    - `test_add_object_unique_preserves_and_appends_objects()`: Tests structured object addition without duplications.
