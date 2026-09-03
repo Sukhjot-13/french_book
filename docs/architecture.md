@@ -640,8 +640,9 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `run_process_responses()`: Validates all responses, computes previews, and generates human-readable diff reports in one command.
   - `run_apply_approved(force_validated=False)`: Atomically stages and applies all approved patches.
-  - `run_generate_queue()`: Generates all batch prompt files across the entire dataset.
+  - `run_generate_queue(reset=False)`: Generates all batch prompt files across the entire dataset (supports `--reset` to clear counters and regenerate from scratch).
   - `main()`: CLI entry point.
+
 
 #### `enrichment/tests/test_enrichment_pipeline.py`
 - **Purpose**: Comprehensive test suite validating batch generation, response validation, conflict detection, dry-run diff preview, human-readable reporting, and atomic transactional apply.
