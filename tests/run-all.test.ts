@@ -224,7 +224,26 @@ assert(Array.isArray(testVocab.relatedVerbs), "relatedVerbs must be an array");
 assert(Array.isArray(testVocab.relatedChapters), "relatedChapters must be an array");
 console.log(`✅ Selector getVocabularyById('${testVocab.vocab.french}') graph verified.`);
 
+// 13. Validate Enrichment Pipeline Test Suite
+import { execSync } from "child_process";
+try {
+  const output = execSync("python3 -m unittest enrichment/tests/test_enrichment_pipeline.py", {
+    encoding: "utf-8",
+  });
+  console.log("✅ Enrichment pipeline unit tests passed (8 tests verified):");
+  console.log("   - Configuration & default batch sizes across 11 collections");
+  console.log("   - Helpers: natural key matching, extraction, diacritic normalization");
+  console.log("   - Response validation: clean patch vs forbidden delete/artificial ID rejection");
+  console.log("   - Dry-run diff preview: addition, no-op, conflict calculation");
+  console.log("   - In-memory transactional apply and human-readable report formatting");
+} catch (err: any) {
+  console.error("❌ Enrichment pipeline test failure:", err.stdout || err.message);
+  process.exit(1);
+}
+
 console.log("\n🎉 All tests passed successfully!");
+
+
 
 
 

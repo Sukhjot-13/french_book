@@ -553,3 +553,101 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - Validates search indexing and diacritic-insensitive query execution via `searchDataset()`.
   - Validates alphabetical dictionary sort and A-Z letter filtration via `getVocabulary({ letter })`.
   - Validates expression preposition and base-verb filtration via `getExpressions({ preposition, baseVerb })`.
+  - Executes Python unit test suite `enrichment/tests/test_enrichment_pipeline.py` covering all enrichment pipeline components.
+
+---
+
+### 10. Manual AI Enrichment Pipeline (`enrichment/`)
+
+#### `enrichment/plan.txt`
+- **Purpose**: Authoritative 86-section specification document for the safe, deterministic, auditable manual AI enrichment pipeline for `MASTER_DATA.json`.
+- **Functions**: N/A (Specification document).
+
+#### `enrichment/scripts/enrichment_config.py`
+- **Purpose**: Central configuration defining directory paths, configurable default batch sizes across all 11 enrichable collections, global sequential collection order, natural key definitions, allowed operations, review-only operations, safe fields, and high-risk fields.
+- **Functions**:
+  - `DEFAULT_BATCH_SIZES`: Dictionary governing default chunk sizes for batch generation.
+  - `COLLECTION_ORDER`: Authoritative global sequence ordering for whole-dataset queue generation.
+  - `NATURAL_KEYS`: Mapping of collection names to natural key field specifications.
+  - `ALLOWED_OPERATIONS`: Whitelist of permitted JSON patch operations.
+  - `SAFE_FIELDS` & `HIGH_RISK_FIELDS`: Field categorizations for risk-adjusted validation and review.
+
+#### `enrichment/scripts/enrichment_helpers.py`
+- **Purpose**: Shared data utilities for the enrichment pipeline including deterministic JSON loading/saving, master schema validation, natural key extraction, resilient entity matching, diacritic normalization, pre-apply backup snapshots, and atomic file replacement.
+- **Functions**:
+  - `load_json(path)`: Reads and parses JSON file.
+  - `save_json(data, path, indent=2)`: Writes formatted JSON file with directory auto-creation.
+  - `load_master_data(path=None)`: Loads authoritative `MASTER_DATA.json`.
+  - `load_master_schema(path=None)`: Loads `MASTER_SCHEMA.json`.
+  - `calculate_hash(data_or_path)`: Computes SHA-256 hash of a file or JSON data structure.
+  - `normalize_french_text(text)`: Lowercases, removes diacritics/accents, and normalizes spacing for duplicate detection.
+  - `natural_key_to_str(collection, key)`: Converts scalar or composite natural keys into deterministic string representations.
+  - `extract_natural_key(collection, entity)`: Extracts natural key from entity dict based on collection rules.
+  - `natural_keys_match(key1, key2)`: Compares two natural keys with defensive normalization.
+  - `build_natural_key_index(dataset, collection)`: Indexes master collection for fast entity resolution.
+  - `find_entity_by_natural_key(dataset, collection, natural_key, index=None)`: Finds entity tuple `(index, entity)` by natural key.
+  - `backup_master_data(batch_id, source_path=None)`: Creates timestamped snapshot in `enrichment/manual/backups/`.
+  - `save_master_data_atomically(data, target_path=None)`: Writes to temporary file before atomic POSIX rename.
+  - `validate_against_master_schema(data, schema_path=None)`: Runs jsonschema validation against full dataset.
+  - `resolve_field_name(field)`: Resolves field aliases (e.g. `english_meanings` to `english`).
+
+#### `enrichment/scripts/make_enrichment_batch.py`
+- **Purpose**: Generates self-contained, high-quality prompt batch `.txt` files in `enrichment/manual/batches/` ready for direct paste/upload into GPT chat. Supports single collection, custom fields, entity filtering, and whole-dataset queue generation (`--all`).
+- **Functions**:
+  - `get_next_global_sequence(manifest)`: Calculates the next sequential batch index.
+  - `filter_entity_context(collection, entity, requested_fields=None)`: Prepares compact pedagogical context for prompt generation without metadata bloat.
+  - `format_batch_prompt(batch_id, collection, entities_context, requested_fields=None)`: Assembles complete prompt including project guidelines, safety directives, natural keys, and output contract.
+  - `generate_single_batch(dataset, collection, entities, global_seq, collection_batch_num, requested_fields=None, master_hash="")`: Writes `.txt` prompt and creates manifest entry.
+  - `run_batch_generation(args)`: Main batch generator coordinator managing CLI options and logging progress.
+  - `main()`: CLI entry point.
+
+#### `enrichment/scripts/validate_enrichment_response.py`
+- **Purpose**: Validates raw GPT JSON responses against master integrity rules, schema constraints, natural reference resolution, allowed operations, and safety rules.
+- **Functions**:
+  - `ValidationResult.__init__(batch_id, collection)`: Tracks validation metrics, errors, warnings, and status.
+  - `ValidationResult.to_dict()`: Serializes validation state.
+  - `validate_response_file(response_path, dataset, manifest=None, indices=None)`: Executes 18-point validation checks on a single response file and produces clean patch payload.
+  - `run_validation(args)`: Processes single or bulk response files and logs validation reports to `enrichment/manual/review/`.
+  - `main()`: CLI entry point.
+
+#### `enrichment/scripts/preview_enrichment.py`
+- **Purpose**: Performs dry-run diff calculation for validated patch files against current master data without modifying master, detecting safe additions, no-ops, and conflicts.
+- **Functions**:
+  - `DiffOperation.__init__(op_type, field, status, existing_value=None, proposed_value=None, applied_value=None, reason=None)`: Models single diff operation.
+  - `DiffOperation.to_dict()`: Serializes diff operation.
+  - `preview_patch_file(patch_path, dataset, indices=None)`: Evaluates patch diff against dataset in memory and calculates summary stats.
+  - `run_preview(args)`: Coordinates single or bulk preview and outputs machine-readable JSON to `enrichment/manual/review/`.
+  - `main()`: CLI entry point.
+
+#### `enrichment/scripts/generate_enrichment_report.py`
+- **Purpose**: Formats dry-run preview JSON or applied audit logs into clean, human-readable `.txt` documents under `enrichment/manual/reports/` for effortless human review without touching raw JSON.
+- **Functions**:
+  - `format_preview_report(preview)`: Formats preview diff into structured ASCII report with summary, entity-by-entity additions, and dedicated conflicts section.
+  - `format_applied_report(audit)`: Formats applied audit log into structured confirmation report with before/after hashes and field additions breakdown.
+  - `generate_report_for_file(input_file, mode)`: Loads JSON and writes corresponding `.txt` report.
+  - `run_report_generation(args)`: Coordinates single or folder-wide report generation.
+  - `main()`: CLI entry point.
+
+#### `enrichment/scripts/apply_enrichment.py`
+- **Purpose**: Applies approved patch files to `MASTER_DATA.json` with transaction safety, pre-apply snapshot backup, in-memory staging, zero data loss, full jsonschema verification, atomic write, and audit logging.
+- **Functions**:
+  - `apply_patch_to_dataset(dataset, patch_data, indices=None)`: Staged in-memory patch applicator with duplicate normalization and conflict skipping.
+  - `run_apply(args)`: Multi-batch transactional apply coordinator with pre-apply backup, schema verification, atomic write, and applied report generation.
+  - `main()`: CLI entry point.
+
+#### `enrichment/scripts/run_pipeline.py`
+- **Purpose**: High-level workflow orchestrator providing one-command execution for multi-step pipelines (`process-responses`, `apply-approved`, `generate-queue`).
+- **Functions**:
+  - `run_process_responses()`: Validates all responses, computes previews, and generates human-readable diff reports in one command.
+  - `run_apply_approved(force_validated=False)`: Atomically stages and applies all approved patches.
+  - `run_generate_queue()`: Generates all batch prompt files across the entire dataset.
+  - `main()`: CLI entry point.
+
+#### `enrichment/tests/test_enrichment_pipeline.py`
+- **Purpose**: Comprehensive test suite validating batch generation, response validation, conflict detection, dry-run diff preview, human-readable reporting, and atomic transactional apply.
+- **Functions**:
+  - `TestEnrichmentConfiguration`: Asserts configuration completeness across all 11 collections and protected items.
+  - `TestEnrichmentHelpers`: Tests text normalization, natural key serialization, and equality matching.
+  - `TestEnrichmentValidationAndPreview`: Tests clean patch validation, rejection of forbidden operations and artificial IDs, and dry-run diff categorization.
+  - `TestEnrichmentApplyEngine`: Tests in-memory transactional apply, conflict preservation, and applied report generation.
+
