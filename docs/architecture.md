@@ -671,6 +671,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Authoritative 86-section specification document for the safe, deterministic, auditable manual AI enrichment pipeline for `MASTER_DATA.json`.
 - **Functions**: N/A (Specification document).
 
+#### `enrichment/high-risk/plan.md`
+- **Purpose**: Separate implementation blueprint for a fail-closed, evidence-backed high-risk enrichment pipeline. It defines isolated artifact directories, field-specific contracts, batch generation, response schema, automated and independent verification, human approval, transactional application, auditing, and rollout procedures; the first proposed scope is fill-only `verbs.conjugations`.
+- **Functions**: N/A (Specification document).
+
 #### `enrichment/scripts/enrichment_config.py`
 - **Purpose**: Central configuration defining directory paths, the immutable source path, enrichment-only output path (`enrichment/MASTER_DATA_ENRICHED.json`), batch sizes, natural keys, implemented patch operations, and field authorization boundaries.
 - **Functions**:
