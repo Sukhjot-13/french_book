@@ -782,3 +782,109 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
     - `setUp()`: Sets up mock dataset for application engine.
     - `test_in_memory_apply_and_conflict_handling()`: Tests safe value application and non-destructive conflict skipping.
     - `test_add_object_unique_preserves_and_appends_objects()`: Tests structured object addition without duplications.
+
+---
+
+### 11. High-Risk Enrichment Pipeline (`enrichment/high-risk/`)
+
+#### `enrichment/HIGH_RISK_DATA_ENRICHED.json`
+- **Purpose**: High-risk derived dataset containing completed verb conjugation paradigms and structural enrichments. Derived from `MASTER_DATA_ENRICHED.json` (or `data/MASTER_DATA.json`) without mutating either baseline; validated against `data/MASTER_SCHEMA.json`.
+- **Functions**: N/A (derived dataset artifact).
+
+#### `enrichment/high-risk/plan.md`
+- **Purpose**: Authoritative specification blueprint for the conservative high-risk enrichment pipeline governing invariants, conjugation contracts, trusted source allowlists, validation gates, dual reviewer approvals, transactional application, and the definition of full-enrichment completion.
+- **Functions**: N/A (specification document).
+
+#### `enrichment/high-risk/config/high_risk_config.py`
+- **Purpose**: Authoritative configuration governing high-risk directory paths, version constants, full 11-collection high-risk field inventories, active collection policy, and allowed operations.
+- **Functions**:
+  - `HIGH_RISK_FIELDS`: Dictionary of high-risk exclusions across 11 collections.
+  - `ALLOWED_OPERATIONS`: Strict allowed operations list (`["set_if_missing_complete"]`).
+  - `NATURAL_KEYS`: Natural key mapping per collection.
+  - `CONTROLLED_NO_PROPOSAL_REASONS`: Approved reason codes for unproposed targets.
+
+#### `enrichment/high-risk/config/conjugation_contract.json`
+- **Purpose**: Versioned machine-readable contract specifying canonical moods, mandatory tenses, person forms, display conventions, diacritics policy, and impersonal/defective verb exceptions.
+- **Functions**: N/A (JSON contract specification).
+
+#### `enrichment/high-risk/config/trusted_sources.json`
+- **Purpose**: Versioned high-risk source registry. A reference remains unusable until it is marked `VERIFIED` and supplies a legal in-repository evidence snapshot plus its SHA-256; the initial entries are intentionally pending that evidence.
+- **Functions**: N/A (JSON configuration).
+
+#### `enrichment/high-risk/config/response_schema.json`
+- **Purpose**: Formal JSON Schema enforcing strict fail-closed structure validation on AI worker `*_RESPONSE.json` files.
+- **Functions**: N/A (JSON Schema).
+
+#### `enrichment/high-risk/fixtures/sample_paradigms.json`
+- **Purpose**: Checked-in reference test fixture containing complete canonical 7-tense conjugation paradigms matching `MASTER_SCHEMA.json` and `conjugation_contract.json`.
+- **Functions**: N/A (JSON test fixture).
+
+#### `enrichment/high-risk/scripts/high_risk_helpers.py`
+- **Purpose**: Shared utilities for deterministic SHA-256 hashing, baseline loading, conjugation contract evaluation, morphological risk classification, and schema normalization.
+- **Functions**:
+  - `compute_file_sha256(path)`: Computes SHA-256 hash of a file on disk.
+  - `compute_content_sha256(content)`: Computes SHA-256 hash of text or bytes.
+  - `get_baseline_dataset_path()`: Resolves baseline dataset path (prefers normal-enriched output if present).
+  - `load_baseline_dataset(path=None)`: Loads baseline dataset and returns parsed dict with SHA-256 hash.
+  - `load_conjugation_contract()`: Loads `conjugation_contract.json`.
+  - `load_trusted_sources()`: Loads `trusted_sources.json`.
+  - `load_response_schema()`: Loads `response_schema.json`.
+  - `is_pronominal(infinitive)`: Detects pronominal/reflexive verbs.
+  - `is_impersonal(infinitive, contract=None)`: Detects impersonal verbs (e.g. `pleuvoir`, `falloir`).
+  - `is_defective(infinitive)`: Detects defective verbs with incomplete paradigms.
+  - `classify_morphological_type(verb, contract=None)`: Classifies verbs into morphological categories (`regular_er`, `regular_ir`, `spelling_change`, `irregular`, `pronominal`, `impersonal`, `defective`).
+  - `evaluate_verb_conjugation_status(verb, contract)`: Evaluates verb against contract and returns status (`COMPLETE`, `MISSING`, `PARTIAL`, `MALFORMED`).
+  - `normalize_conjugations_for_schema(conjs, infinitive)`: Normalizes endings (deduplication) and populates full `$defs/sourceEvidence` properties.
+  - `validate_master_dataset_schema(dataset)`: Validates dataset against `MASTER_SCHEMA.json`.
+
+#### `enrichment/high-risk/scripts/inventory_high_risk.py`
+- **Purpose**: Read-only preflight auditor evaluating all 496 verbs against `MASTER_SCHEMA.json` and `conjugation_contract.json`, segregating verbs by morphological risk and emitting inventory reports.
+- **Functions**:
+  - `run_inventory(baseline_path=None)`: Executes preflight scan, checks natural key uniqueness, counts verb statuses, and writes `inventory.json` and `inventory_report.txt`.
+  - `main()`: CLI entry point.
+
+#### `enrichment/high-risk/scripts/make_high_risk_batch.py`
+- **Purpose**: Deterministic batch generator slicing missing verbs into small (5-10) risk-segregated batches, producing worker `.txt` prompts, and maintaining `BATCH_MANIFEST.json`.
+- **Functions**:
+  - `format_batch_txt(batch_id, baseline_hash, targets, contract, trusted_sources)`: Formats worker prompt with rules, schema excerpts, and response template.
+  - `generate_batch(morphology="regular_er", batch_size=5, batch_num=1, infinitive=None, baseline_path=None)`: Generates batch file and records manifest checksums.
+  - `main()`: CLI entry point.
+
+#### `enrichment/high-risk/scripts/validate_high_risk_response.py`
+- **Purpose**: Fail-closed validator checking candidate `*_RESPONSE.json` files against frozen-manifest metadata/checksums, target ownership, fill-only rules, evidence, canonical mood/tense uniqueness, and an in-memory schema dry run; it emits a hash-linked validated payload only on complete pass.
+- **Functions**:
+  - `validate_response(response_path, baseline_path=None)`: Runs the validation gates and emits the response and validation-report hashes used to bind later approval and application.
+  - `main()`: CLI entry point.
+
+#### `enrichment/high-risk/scripts/preview_high_risk.py`
+- **Purpose**: Dry-run diff preview generator showing entity-by-entity conjugation matrix additions against baseline data.
+- **Functions**:
+  - `generate_preview(validated_file, baseline_path=None)`: Formats human-readable text diff and writes `_PREVIEW.txt` report.
+  - `main()`: CLI entry point.
+
+#### `enrichment/high-risk/scripts/approve_high_risk.py`
+- **Purpose**: Dual-reviewer approval tool that promotes only a validator-produced payload backed by its matching PASS report and records a hash-based approval integrity chain.
+- **Functions**:
+  - `approve_batch(validated_path, linguistic_reviewer, compliance_reviewer, notes=None)`: Requires two distinct reviewers, verifies the matching PASS report, and copies a hash-bound approval payload to `approved/`.
+  - `reject_batch(validated_path, reviewer, reason)`: Records rejection report in `rejected/`.
+  - `main()`: CLI entry point.
+
+#### `enrichment/high-risk/scripts/apply_high_risk_enrichment.py`
+- **Purpose**: Transaction-safe applicator applying only integrity-bound, current-baseline approvals to `enrichment/HIGH_RISK_DATA_ENRICHED.json`, enforcing output provenance state, atomic backups, fill-only invariants, schema validation, and immutable audit logging.
+- **Functions**:
+  - `state_path_for(output_path)`: Resolves the adjacent output-provenance state file.
+  - `apply_approved_batch(approved_file, output_path=None, baseline_path=None)`: Re-runs authoritative validation, rejects stale/tampered approvals and incompatible existing outputs, then backs up, stages, schema-validates, atomically writes, and audits the derived dataset.
+  - `main()`: CLI entry point.
+
+#### `enrichment/high-risk/tests/test_high_risk_pipeline.py`
+- **Purpose**: Fourteen-test automated suite verifying configuration boundaries, contract rules, preflight classification, batch generation, fail-closed validation, the approval-integrity guard, output safety guards, and source immutability.
+- **Functions**:
+  - `TestHighRiskConfiguration`: Tests configuration boundaries, versions, contracts, and allowlists.
+  - `TestInventoryAndClassification`: Tests morphological classification and preflight inventory.
+  - `TestBatchGeneratorAndManifest`: Tests deterministic batch generation and manifest locking.
+  - `TestValidationGatesFailClosed`: Tests fail-closed rejection across gates 1, 2, 7, 8, and 10.
+  - `TestApprovalAndSafeApplication`: Tests dual-reviewer and integrity-chain rejection, protected-output guards, and source dataset immutability.
+
+#### Directory Inventory: `batches/`, `responses/`, `validated/`, `approved/`, `rejected/`, `reports/`, `audits/`, `backups/`
+- **Purpose**: Isolated lifecycle directories housing prompt `.txt` files, worker responses, validated payloads, approved batches with decision metadata, rejection reports, verification/preview/applied text reports, immutable audit logs (`*_AUDIT.json`), and atomic timestamped dataset backups.
+- **Functions**: N/A (high-risk pipeline lifecycle directories).

@@ -14,6 +14,7 @@
 - **2026-09-02**: (Idea) Add audio pronunciation playback for verb conjugations and vocabulary entries using the Web Speech API.
 
 ## 🟡 New Features
+- **2026-09-04**: (Implemented) Conservative **High-Risk Enrichment Pipeline** (`enrichment/high-risk/`) for complete verb conjugation paradigms and structural linguistic facts: includes versioned `conjugation_contract.json`, trusted source allowlists (`trusted_sources.json`), morphological risk segregation, 15 fail-closed validation gates, dual reviewer approvals, transactional application, atomic backups, immutable audit logs, and isolated derived dataset `enrichment/HIGH_RISK_DATA_ENRICHED.json`.
 - **2026-09-03**: (Idea) Build a separate, copy-only new-data intake pipeline for proposing genuinely missing entities (for example, new connectors). It should send the AI a compact collection summary—natural keys, categories, and relevant relationships rather than the full master dataset—then validate duplicate natural keys and cross-references before adding approved records only to `enrichment/MASTER_DATA_ENRICHED.json`.
 - **2026-09-02**: (Implemented) Dedicated **Exceptions & Traps Library** view (`/traps`) exposing the 108 curated pitfalls with side-by-side correct vs incorrect forms, category filters, and cross-references.
 - **2026-09-02**: (Implemented) Interactive **Exercise Mode** (`/exercises` and within `/chapters/[id]`) showing the 217 curriculum exercises with question prompts, multiple-choice options, and interactive revealable answers.

@@ -1,0 +1,59 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-09-04",
+  "policy": "A source is unusable until verification_status is VERIFIED and it points to a legal, in-repository evidence snapshot with a matching evidence_sha256. Proposals citing unknown, unverified, or third-party web scraper sources fail validation immediately.",
+  "sources": [
+    {
+      "source_id": "curated_in_repo_reference_v1",
+      "name": "Curated In-Repository French Grammar & Verb Reference",
+      "source_type": "curated_in_repo",
+      "license_status": "project_curated_educational",
+      "coverage": "Core French verb conjugations, irregular verbs, orthographic changes",
+      "retrieval_date": "2026-09-04",
+      "allowed_fields": ["conjugations", "stems", "auxiliary", "verb_group"],
+      "verifier": "Linguistic Review Panel"
+      ,"verification_status": "PENDING_EVIDENCE_SNAPSHOT",
+      "evidence_path": null,
+      "evidence_sha256": null
+    },
+    {
+      "source_id": "bescherelle_la_conjugaison_pour_tous",
+      "name": "Bescherelle: La conjugaison pour tous (Reference Standard)",
+      "source_type": "reference_lexicon",
+      "license_status": "authoritative_reference_citation",
+      "coverage": "Standard French verb paradigms (12,000 verbs index)",
+      "retrieval_date": "2026-09-04",
+      "allowed_fields": ["conjugations", "stems", "verb_group", "auxiliary", "regularity"],
+      "verifier": "Linguistic Review Panel"
+      ,"verification_status": "PENDING_EVIDENCE_SNAPSHOT",
+      "evidence_path": null,
+      "evidence_sha256": null
+    },
+    {
+      "source_id": "le_bon_usage_grevisse",
+      "name": "Grevisse - Le Bon Usage (Grammaire de l'Académie Française)",
+      "source_type": "authoritative_grammar",
+      "license_status": "authoritative_reference_citation",
+      "coverage": "Defective, literary, and rare French verb forms and agreement rules",
+      "retrieval_date": "2026-09-04",
+      "allowed_fields": ["conjugations", "stems", "agreement_rules", "notes"],
+      "verifier": "Linguistic Review Panel"
+      ,"verification_status": "PENDING_EVIDENCE_SNAPSHOT",
+      "evidence_path": null,
+      "evidence_sha256": null
+    },
+    {
+      "source_id": "master_textbook_verb_tables",
+      "name": "L'Art de Conjuguer / French Grammar Reference Appendix",
+      "source_type": "verb_table",
+      "license_status": "source_book_curriculum",
+      "coverage": "Verb tables in textbook reference pages 238-260",
+      "retrieval_date": "2026-09-04",
+      "allowed_fields": ["conjugations", "stems", "auxiliary", "past_participle"],
+      "verifier": "Linguistic Review Panel"
+      ,"verification_status": "PENDING_EVIDENCE_SNAPSHOT",
+      "evidence_path": null,
+      "evidence_sha256": null
+    }
+  ]
+}

@@ -259,6 +259,24 @@ try {
   process.exit(1);
 }
 
+// 13b. Validate High-Risk Enrichment Pipeline Test Suite
+try {
+  const hrOutput = execSync("python3 -m unittest enrichment/high-risk/tests/test_high_risk_pipeline.py", {
+    encoding: "utf-8",
+  });
+  console.log("✅ High-risk enrichment pipeline unit tests passed (14 tests verified):");
+  console.log("   - Configuration, strict boundaries, and 11 high-risk collection inventories");
+  console.log("   - Machine-readable conjugation contract and trusted sources allowlist");
+  console.log("   - Preflight classification (complete, missing, partial) and morphological risk segregation");
+  console.log("   - Deterministic batch generation and manifest locking");
+  console.log("   - 15 fail-closed validation gates: schema, target ownership, empty precondition, evidence, placeholders");
+  console.log("   - Dual-reviewer approval workflow (linguistic + compliance sign-offs)");
+  console.log("   - Transactional applicator: atomic backup, in-memory schema dry-run, source immutability, and idempotence");
+} catch (err: any) {
+  console.error("❌ High-risk pipeline test failure:", err.stdout || err.message);
+  process.exit(1);
+}
+
 // 14. Validate ReviewStore logic
 assert.strictEqual(typeof isItemSaved, "function", "isItemSaved must be a function");
 assert.strictEqual(typeof toggleItemSaved, "function", "toggleItemSaved must be a function");

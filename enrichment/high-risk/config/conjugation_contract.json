@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "High-Risk Verb Conjugation Paradigm Contract",
+  "version": "1.0.0",
+  "description": "Defines canonical moods, tenses, person forms, display conventions, and morphological rules for complete verb conjugation paradigms.",
+  "canonical_moods": [
+    "indicative",
+    "conditional",
+    "subjunctive",
+    "imperative"
+  ],
+  "canonical_tenses": [
+    {
+      "tense": "présent",
+      "mood": "indicative",
+      "required_forms": ["je", "tu", "il_elle_on", "nous", "vous", "ils_elles"],
+      "allow_impersonal_only": true
+    },
+    {
+      "tense": "imparfait",
+      "mood": "indicative",
+      "required_forms": ["je", "tu", "il_elle_on", "nous", "vous", "ils_elles"],
+      "allow_impersonal_only": true
+    },
+    {
+      "tense": "futur_simple",
+      "mood": "indicative",
+      "required_forms": ["je", "tu", "il_elle_on", "nous", "vous", "ils_elles"],
+      "allow_impersonal_only": true
+    },
+    {
+      "tense": "passé_simple",
+      "mood": "indicative",
+      "required_forms": ["je", "tu", "il_elle_on", "nous", "vous", "ils_elles"],
+      "allow_impersonal_only": true
+    },
+    {
+      "tense": "conditionnel_présent",
+      "mood": "conditional",
+      "required_forms": ["je", "tu", "il_elle_on", "nous", "vous", "ils_elles"],
+      "allow_impersonal_only": true
+    },
+    {
+      "tense": "subjonctif_présent",
+      "mood": "subjunctive",
+      "required_forms": ["je", "tu", "il_elle_on", "nous", "vous", "ils_elles"],
+      "allow_impersonal_only": true
+    },
+    {
+      "tense": "impératif",
+      "mood": "imperative",
+      "required_forms": ["imperative_tu", "imperative_nous", "imperative_vous"],
+      "allow_impersonal_only": false
+    }
+  ],
+  "person_keys": [
+    "je",
+    "tu",
+    "il_elle_on",
+    "nous",
+    "vous",
+    "ils_elles",
+    "imperative_tu",
+    "imperative_nous",
+    "imperative_vous",
+    "impersonal_form"
+  ],
+  "supported_verb_types": [
+    "regular_er",
+    "regular_ir",
+    "spelling_change",
+    "irregular",
+    "pronominal",
+    "impersonal",
+    "defective",
+    "auxiliary"
+  ],
+  "display_conventions": {
+    "je_elision": "Use j' before vowel or mute h (e.g., j'aime, j'habite) when display pronouns are present; bare inflected form stores pure inflected verb word unless pronominal.",
+    "pronominal_forms": {
+      "je": "me / m'",
+      "tu": "te / t'",
+      "il_elle_on": "se / s'",
+      "nous": "nous",
+      "vous": "vous",
+      "ils_elles": "se / s'",
+      "imperative_tu": "-toi / -t'",
+      "imperative_nous": "-nous",
+      "imperative_vous": "-vous"
+    },
+    "diacritics_policy": "Strict preservation of accents (é, è, ê, ë, à, â, î, ï, ô, û, ù, ü, ç) and ligatures (œ, æ). No unaccented substitutes allowed."
+  },
+  "defective_and_impersonal_rules": {
+    "impersonal_verbs": [
+      "pleuvoir",
+      "falloir",
+      "neiger",
+      "geler",
+      "grêler",
+      "bruiner",
+      "tonner"
+    ],
+    "handling": "Impersonal verbs require only il_elle_on or impersonal_form; personal forms must be explicitly null. Defective verbs without attested forms in literary/archaic usage must omit unknown forms with null and explain in notes."
+  },
+  "required_conjugation_fields": [
+    "tense",
+    "mood",
+    "forms",
+    "stems",
+    "endings",
+    "formation_note",
+    "irregularities",
+    "notes",
+    "sources"
+  ],
+  "source_evidence_requirements": {
+    "required_fields": ["source_name", "source_type"],
+    "allowed_source_types": ["authoritative_grammar", "reference_lexicon", "verb_table", "curated_in_repo"],
+    "license_policy": "Only open, reference-verified, educational, or in-repo verified linguistic tables may be cited. No web scraping or unauthorized sources."
+  }
+}

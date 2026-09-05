@@ -172,6 +172,11 @@ The model must never cite an unverified URL, fabricate a source, or turn
 general grammatical knowledge into an asserted provenance record. Conflicting
 trusted sources must create a `REQUIRES_REVIEW` item, not a chosen value.
 
+A source entry is not trusted merely because it has a recognisable title. The
+allowlist must mark it `VERIFIED`, give a repository-relative path to a legally
+permitted local evidence snapshot, and record that snapshot's SHA-256. The
+validator must reject every proposal until all three conditions are met.
+
 ## 8. Batch-generator requirements
 
 Build a dedicated `make_high_risk_batch.py` rather than extending the normal
@@ -421,3 +426,14 @@ Completion means every proposed mutation has passed the field-specific
 contract, evidence, independent verification, human approval, transactional
 application, full schema checks, and audit checks—not merely that every batch
 file has a response.
+
+## 18. Completion definition
+
+Completing the initial `verbs.conjugations` queue does **not** mean every field
+in the database has been enriched. It means only that the explicitly defined
+conjugation contract has been safely completed for eligible verbs. The other
+high-risk field families in section 3 remain unprocessed until each has its own
+field contract, trusted evidence, batch format, validator, tests, review, and
+approved rollout. Never describe the database as "fully enriched with no
+exceptions" until every field family has met that standard and the final
+inventory reports zero permitted gaps.
