@@ -1,0 +1,142 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 502_expressions_restrictions_fill_035
+================================================================================
+Collection: expressions
+Field: restrictions
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 502_expressions_restrictions_fill_035_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "502_expressions_restrictions_fill_035",
+  "collection": "expressions",
+  "field": "restrictions",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": "s'envoler",
+    "field": "restrictions",
+    "current_value": [],
+    "english": [
+      "to vanish, fly away"
+    ],
+    "canonical_form": "s'envoler"
+  },
+  {
+    "entity_key": "s'habiller",
+    "field": "restrictions",
+    "current_value": [],
+    "english": [
+      "to get dressed"
+    ],
+    "canonical_form": "s'habiller"
+  },
+  {
+    "entity_key": "s'habituer à quelque chose",
+    "field": "restrictions",
+    "current_value": [],
+    "english": [
+      "to get used to something"
+    ],
+    "canonical_form": "s'habituer à quelque chose"
+  },
+  {
+    "entity_key": "s'intéresser à quelque chose",
+    "field": "restrictions",
+    "current_value": [],
+    "english": [
+      "to be interested in something"
+    ],
+    "canonical_form": "s'intéresser à quelque chose"
+  },
+  {
+    "entity_key": "s'occuper de",
+    "field": "restrictions",
+    "current_value": [],
+    "english": [
+      "to take care of",
+      "to deal with",
+      "to be in charge of"
+    ],
+    "canonical_form": "s'occuper de"
+  },
+  {
+    "entity_key": "s'occuper de quelque chose",
+    "field": "restrictions",
+    "current_value": [],
+    "english": [
+      "to take care of something"
+    ],
+    "canonical_form": "s'occuper de quelque chose"
+  },
+  {
+    "entity_key": "s'offrir quelque chose",
+    "field": "restrictions",
+    "current_value": [],
+    "english": [
+      "to treat oneself to something"
+    ],
+    "canonical_form": "s'offrir quelque chose"
+  },
+  {
+    "entity_key": "s'écrouler",
+    "field": "restrictions",
+    "current_value": [],
+    "english": [
+      "to collapse"
+    ],
+    "canonical_form": "s'écrouler"
+  },
+  {
+    "entity_key": "s'évanouir",
+    "field": "restrictions",
+    "current_value": [],
+    "english": [
+      "to faint"
+    ],
+    "canonical_form": "s'évanouir"
+  },
+  {
+    "entity_key": "sans que + subjonctif",
+    "field": "restrictions",
+    "current_value": [],
+    "english": [
+      "without"
+    ],
+    "canonical_form": "sans que + subjonctif"
+  }
+]
+================================================================================

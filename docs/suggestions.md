@@ -33,4 +33,4 @@
 - **2026-09-02**: (Idea) Add a Spaced Repetition System (SRS) flashcard review mode for vocabulary and irregular verbs stored in browser LocalStorage.
 
 ## 🔴 Vulnerabilities
-- *(None identified at present)*
+- **2026-09-08**: The full high-risk queue has no VERIFIED local evidence snapshots. It now permits explicitly marked `AI_GENERATED_UNVERIFIED` candidates for later review, but no candidate may be promoted to learner-facing data without field-specific validation and approval.

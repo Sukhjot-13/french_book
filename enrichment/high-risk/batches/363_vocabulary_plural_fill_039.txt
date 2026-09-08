@@ -1,0 +1,183 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 363_vocabulary_plural_fill_039
+================================================================================
+Collection: vocabulary
+Field: plural
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 363_vocabulary_plural_fill_039_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "363_vocabulary_plural_fill_039",
+  "collection": "vocabulary",
+  "field": "plural",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": {
+      "canonical_form": "ski",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "skiing",
+      "ski"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "ski"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "ski de fond",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "cross-country skiing"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "ski de fond"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "ski nautique",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "waterskiing"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "ski nautique"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "soif",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "thirst"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "soif"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "soir",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "evening"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "soir"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "soleil",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "sun"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "soleil"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "sondage",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "poll"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "sondage"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "sorcier",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "witch",
+      "wizard",
+      "sorcerer"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "sorcier"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "soucoupe",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "a saucer"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "soucoupe"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "souffleur de verre",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "glassblower"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "souffleur de verre"
+  }
+]
+================================================================================

@@ -1,0 +1,143 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 706_grammar_rules_transformations_fill_025
+================================================================================
+Collection: grammar_rules
+Field: transformations
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 706_grammar_rules_transformations_fill_025_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "706_grammar_rules_transformations_fill_025",
+  "collection": "grammar_rules",
+  "field": "transformations",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": "Verbs with avoir or être (six verbs)",
+    "field": "transformations",
+    "current_value": [],
+    "summary": "Sortir, rentrer, monter, descendre, passer, retourner can use avoir when transitive, with meaning change.",
+    "usage": [
+      "to express taking/bringing something, spending time, turning over"
+    ],
+    "rule_name": "Verbs with avoir or être (six verbs)"
+  },
+  {
+    "entity_key": "Weather expressions with faire",
+    "field": "transformations",
+    "current_value": [],
+    "summary": "Use impersonal il + faire + adjective to describe weather.",
+    "usage": [
+      "To describe weather conditions."
+    ],
+    "rule_name": "Weather expressions with faire"
+  },
+  {
+    "entity_key": "Would for polite requests",
+    "field": "transformations",
+    "current_value": [],
+    "summary": "Use conditionnel présent of vouloir (or pouvoir) for polite requests.",
+    "usage": [
+      "Polite requests",
+      "Asking for favors"
+    ],
+    "rule_name": "Would for polite requests"
+  },
+  {
+    "entity_key": "Would for repeated past actions",
+    "field": "transformations",
+    "current_value": [],
+    "summary": "Use imparfait of the main verb to express habitual or repeated actions in the past (English 'would').",
+    "usage": [
+      "To describe past habits",
+      "To translate 'used to' or 'would' for repeated past actions"
+    ],
+    "rule_name": "Would for repeated past actions"
+  },
+  {
+    "entity_key": "Would for specific past refusal",
+    "field": "transformations",
+    "current_value": [],
+    "summary": "Use passé composé of vouloir (often in negative) to express a specific refusal in the past (English 'would not').",
+    "usage": [
+      "To express a past refusal",
+      "To translate 'would not' when meaning 'refused to'"
+    ],
+    "rule_name": "Would for specific past refusal"
+  },
+  {
+    "entity_key": "Writing years",
+    "field": "transformations",
+    "current_value": [],
+    "summary": "Years can be written as 'mille neuf cent soixante-dix-huit' or 'dix-neuf cent soixante-dix-huit'.",
+    "usage": [
+      "Writing years in words."
+    ],
+    "rule_name": "Writing years"
+  },
+  {
+    "entity_key": "après + past infinitive",
+    "field": "transformations",
+    "current_value": [],
+    "summary": "Use après + infinitif passé to express an action completed before another.",
+    "usage": [
+      "To indicate anteriority after another action."
+    ],
+    "rule_name": "après + past infinitive"
+  },
+  {
+    "entity_key": "avant de + present infinitive",
+    "field": "transformations",
+    "current_value": [],
+    "summary": "Use avant de + infinitif présent to express an action occurring before another.",
+    "usage": [
+      "To indicate an action that happens before another."
+    ],
+    "rule_name": "avant de + present infinitive"
+  },
+  {
+    "entity_key": "Être en train de + infinitive",
+    "field": "transformations",
+    "current_value": [],
+    "summary": "To express an action in progress, use être en train de + infinitive.",
+    "usage": [
+      "Action in progress"
+    ],
+    "rule_name": "Être en train de + infinitive"
+  }
+]
+================================================================================

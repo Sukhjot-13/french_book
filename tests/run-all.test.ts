@@ -264,7 +264,7 @@ try {
   const hrOutput = execSync("python3 -m unittest enrichment/high-risk/tests/test_high_risk_pipeline.py", {
     encoding: "utf-8",
   });
-  console.log("✅ High-risk enrichment pipeline unit tests passed (14 tests verified):");
+  console.log("✅ High-risk enrichment pipeline unit tests passed (16 tests verified):");
   console.log("   - Configuration, strict boundaries, and 11 high-risk collection inventories");
   console.log("   - Machine-readable conjugation contract and trusted sources allowlist");
   console.log("   - Preflight classification (complete, missing, partial) and morphological risk segregation");
@@ -288,7 +288,6 @@ assert.strictEqual(isItemReviewed("verb", "prendre"), false, "SSR isItemReviewed
 console.log("✅ Review store helper and SSR safety verified.");
 
 console.log("\n🎉 All tests passed successfully!");
-
 
 
 

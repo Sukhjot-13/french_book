@@ -1,0 +1,110 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 016_verbs_conjugations_fill_016
+================================================================================
+Collection: verbs
+Field: conjugations
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 016_verbs_conjugations_fill_016_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "016_verbs_conjugations_fill_016",
+  "collection": "verbs",
+  "field": "conjugations",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": "dessiner",
+    "field": "conjugations",
+    "current_value": [],
+    "english": [
+      "draw",
+      "to draw"
+    ],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "regularity": "regular"
+  },
+  {
+    "entity_key": "devancer",
+    "field": "conjugations",
+    "current_value": [],
+    "english": [
+      "get ahead of",
+      "to get ahead of"
+    ],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "regularity": "regular"
+  },
+  {
+    "entity_key": "discuter",
+    "field": "conjugations",
+    "current_value": [],
+    "english": [
+      "discuss",
+      "to discuss",
+      "to talk"
+    ],
+    "verb_group": null,
+    "auxiliary": null,
+    "regularity": null
+  },
+  {
+    "entity_key": "douter",
+    "field": "conjugations",
+    "current_value": [],
+    "english": [
+      "to doubt"
+    ],
+    "verb_group": "1st_group",
+    "auxiliary": "avoir",
+    "regularity": "regular"
+  },
+  {
+    "entity_key": "débarquer",
+    "field": "conjugations",
+    "current_value": [],
+    "english": [
+      "get off",
+      "to get off"
+    ],
+    "verb_group": "1st_group",
+    "auxiliary": "unknown",
+    "regularity": "regular"
+  }
+]
+================================================================================

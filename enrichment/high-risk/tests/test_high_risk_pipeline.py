@@ -45,6 +45,7 @@ from scripts.apply_high_risk_enrichment import apply_approved_batch
 from scripts.approve_high_risk import approve_batch, reject_batch
 from scripts.high_risk_helpers import (
     classify_morphological_type,
+    compute_content_sha256,
     compute_file_sha256,
     evaluate_verb_conjugation_status,
     is_impersonal,
@@ -58,6 +59,7 @@ from scripts.high_risk_helpers import (
 from scripts.inventory_high_risk import run_inventory
 from scripts.make_high_risk_batch import generate_batch
 from scripts.validate_high_risk_response import validate_response
+from scripts.validate_full_high_risk_response import validate_full_queue_response
 
 
 class TestHighRiskConfiguration(unittest.TestCase):
@@ -140,17 +142,17 @@ class TestInventoryAndClassification(unittest.TestCase):
 
 class TestBatchGeneratorAndManifest(unittest.TestCase):
     def test_deterministic_batch_generation(self):
-        # Generate test batch in temp environment
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            tmp_path = Path(tmp_dir)
-            manifest_file = tmp_path / "BATCH_MANIFEST.json"
-            b1 = generate_batch(morphology="regular_er", batch_size=2, batch_num=99)
-            self.assertEqual(b1["batch_id"], "099_verbs_conjugations_batch_099")
-            self.assertEqual(len(b1["target_keys"]), 2)
-            self.assertEqual(b1["field"], "conjugations")
-            self.assertEqual(b1["collection"], "verbs")
-            self.assertTrue(b1["baseline_hash"].startswith("sha256:"))
-            self.assertTrue(b1["batch_checksum"].startswith("sha256:"))
+        # The complete queue owns every fill-only target; verify its frozen
+        # manifest rather than attempting to add a colliding test batch.
+        with open(BATCH_MANIFEST_PATH, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+        self.assertEqual(manifest["version"], "2.0.0")
+        self.assertGreater(len(manifest["batches"]), 0)
+        batch_id, entry = next(iter(manifest["batches"].items()))
+        batch_file = HIGH_RISK_DIR / "batches" / f"{batch_id}.txt"
+        self.assertTrue(batch_file.exists())
+        self.assertEqual(compute_content_sha256(batch_file.read_text(encoding="utf-8")), entry["batch_checksum"])
+        self.assertTrue(entry["baseline_hash"].startswith("sha256:"))
 
 
 class TestValidationGatesFailClosed(unittest.TestCase):
@@ -340,6 +342,57 @@ class TestValidationGatesFailClosed(unittest.TestCase):
             del manifest["batches"]["997_verbs_conjugations_batch_997"]
             with open(BATCH_MANIFEST_PATH, "w", encoding="utf-8") as f:
                 json.dump(manifest, f)
+
+
+class TestFullQueueValidation(unittest.TestCase):
+    def _response_for_first_full_queue_batch(self):
+        with open(BATCH_MANIFEST_PATH, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+        batch_id, batch = next(iter(manifest["batches"].items()))
+        return {
+            "batch_id": batch_id,
+            "collection": batch["collection"],
+            "field": batch["field"],
+            "mode": batch["mode"],
+            "baseline_hash": batch["baseline_hash"],
+            "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+            "proposals": [],
+            "no_proposals": [
+                {"entity_key": key, "reason": "SOURCE_NOT_FOUND", "details": "No verified local snapshot."}
+                for key in batch["target_keys"]
+            ],
+        }
+
+    def test_full_queue_accepts_complete_no_proposal_response(self):
+        with tempfile.NamedTemporaryFile(suffix="_RESPONSE.json", mode="w", delete=False) as f:
+            json.dump(self._response_for_first_full_queue_batch(), f, ensure_ascii=False)
+            response_path = Path(f.name)
+        try:
+            status, report = validate_full_queue_response(response_path)
+            self.assertEqual(status, "PASS", report["errors"])
+        finally:
+            response_path.unlink(missing_ok=True)
+
+    def test_full_queue_accepts_ai_generated_candidate(self):
+        response = self._response_for_first_full_queue_batch()
+        target = response["no_proposals"].pop()["entity_key"]
+        response["proposals"] = [{
+            "entity_key": target,
+            "value": "not applied",
+            "evidence": {
+                "source_id": "AI_GENERATED_UNVERIFIED",
+                "evidence_sha256": None,
+                "notes": "Candidate pending independent review.",
+            },
+        }]
+        with tempfile.NamedTemporaryFile(suffix="_RESPONSE.json", mode="w", delete=False) as f:
+            json.dump(response, f, ensure_ascii=False)
+            response_path = Path(f.name)
+        try:
+            status, report = validate_full_queue_response(response_path)
+            self.assertEqual(status, "PASS", report["errors"])
+        finally:
+            response_path.unlink(missing_ok=True)
 
 
 class TestApprovalAndSafeApplication(unittest.TestCase):

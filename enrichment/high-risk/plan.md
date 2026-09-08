@@ -437,3 +437,32 @@ field contract, trusted evidence, batch format, validator, tests, review, and
 approved rollout. Never describe the database as "fully enriched with no
 exceptions" until every field family has met that standard and the final
 inventory reports zero permitted gaps.
+
+## 19. Complete high-risk queue generation
+
+Use `scripts/make_full_high_risk_queue.py` only to create the complete work
+queue from the immutable normal-enriched baseline. It creates one fill-only
+batch for every empty high-risk field and separate `REPAIR_REVIEW_ONLY` batches
+for partial verb conjugation records. It never includes populated fields in a
+fill-only batch and never changes a dataset.
+
+The queue manifest is an accountability index, not an authorization to merge.
+Before any non-conjugation batch may be processed, its field family needs the
+field-specific contract, source snapshots, response schema, validator,
+previewer, approval rule, applicator, and regression tests required elsewhere
+in this plan. A batch completed by an AI without those gates is still pending
+review and cannot count as enriched.
+
+The legacy single-field generator must consider only entries from its own
+collection when checking prior targets; the complete queue includes composite
+natural keys for other collections.
+
+## 20. AI candidate mode for the complete queue
+
+The v2 complete queue may generate `AI_GENERATED_UNVERIFIED` candidates when
+the source-evidence workflow is unavailable. These candidates are not
+source-derived facts and must remain outside the learner-facing dataset. The
+v2 validator accepts their response envelope only; it does not approve, apply,
+or certify their linguistic correctness. Before promotion, every candidate
+requires an independent review pass and the relevant field-specific contract,
+validator, and approval workflow.

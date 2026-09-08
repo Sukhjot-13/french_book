@@ -1,0 +1,153 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 578_grammar_rules_conditions_fill_005
+================================================================================
+Collection: grammar_rules
+Field: conditions
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 578_grammar_rules_conditions_fill_005_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "578_grammar_rules_conditions_fill_005",
+  "collection": "grammar_rules",
+  "field": "conditions",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": "Faire for chores, activities, sports",
+    "field": "conditions",
+    "current_value": [],
+    "summary": "The verb faire is used in many expressions related to household chores, activities, and sports.",
+    "usage": [
+      "To talk about chores, hobbies, sports."
+    ],
+    "rule_name": "Faire for chores, activities, sports"
+  },
+  {
+    "entity_key": "Formation of compound numbers 0-50",
+    "field": "conditions",
+    "current_value": [],
+    "summary": "Numbers 21, 31, 41, 51 use 'et' without hyphen; other compound numbers use hyphens.",
+    "usage": [
+      "Counting from 0 to 50."
+    ],
+    "rule_name": "Formation of compound numbers 0-50"
+  },
+  {
+    "entity_key": "Formation of futur antérieur",
+    "field": "conditions",
+    "current_value": [],
+    "summary": "Use future tense of avoir or être + past participle of main verb; agreement same as passé composé.",
+    "usage": [
+      "to express an action completed before a future time or action"
+    ],
+    "rule_name": "Formation of futur antérieur"
+  },
+  {
+    "entity_key": "Formation of futur simple (regular verbs)",
+    "field": "conditions",
+    "current_value": [],
+    "summary": "Use the infinitive as stem and add endings -ai, -as, -a, -ons, -ez, -ont. For -re verbs, drop the e before adding endings.",
+    "usage": [
+      "to express future actions"
+    ],
+    "rule_name": "Formation of futur simple (regular verbs)"
+  },
+  {
+    "entity_key": "Formation of ordinal numbers",
+    "field": "conditions",
+    "current_value": [],
+    "summary": "Ordinal numbers end in -ième; premier/première and dernier/dernière are exceptions.",
+    "usage": [
+      "Expressing order (first, second, etc.)."
+    ],
+    "rule_name": "Formation of ordinal numbers"
+  },
+  {
+    "entity_key": "Formation of passé simple for regular -er verbs",
+    "field": "conditions",
+    "current_value": [],
+    "summary": "Add endings -ai, -as, -a, -âmes, -âtes, -èrent to the infinitive stem.",
+    "usage": [
+      "Used in written and formal French to express completed past actions."
+    ],
+    "rule_name": "Formation of passé simple for regular -er verbs"
+  },
+  {
+    "entity_key": "Formation of passé simple for regular -ir and -re verbs",
+    "field": "conditions",
+    "current_value": [],
+    "summary": "Add endings -is, -is, -it, -îmes, -îtes, -irent to the infinitive stem.",
+    "usage": [
+      "Used in written and formal French."
+    ],
+    "rule_name": "Formation of passé simple for regular -ir and -re verbs"
+  },
+  {
+    "entity_key": "Formation of the gerund",
+    "field": "conditions",
+    "current_value": [],
+    "summary": "The gerund is formed with en + the present participle.",
+    "usage": [
+      "to describe relationship between two actions"
+    ],
+    "rule_name": "Formation of the gerund"
+  },
+  {
+    "entity_key": "Formation of the past conditional",
+    "field": "conditions",
+    "current_value": [],
+    "summary": "The past conditional is formed with the present conditional of être or avoir and the past participle of the main verb.",
+    "usage": [
+      "hypothetical past actions",
+      "regret",
+      "reproach",
+      "unconfirmed past information"
+    ],
+    "rule_name": "Formation of the past conditional"
+  },
+  {
+    "entity_key": "Formation of the plus-que-parfait",
+    "field": "conditions",
+    "current_value": [],
+    "summary": "Use imparfait of avoir or être + past participle of main verb.",
+    "usage": [
+      "To indicate a past action completed before another past action"
+    ],
+    "rule_name": "Formation of the plus-que-parfait"
+  }
+]
+================================================================================

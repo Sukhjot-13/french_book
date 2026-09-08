@@ -1,0 +1,150 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 602_grammar_rules_restrictions_fill_010
+================================================================================
+Collection: grammar_rules
+Field: restrictions
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 602_grammar_rules_restrictions_fill_010_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "602_grammar_rules_restrictions_fill_010",
+  "collection": "grammar_rules",
+  "field": "restrictions",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": "Infinitive after verbs of perception",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Use infinitive after verbs of perception instead of English present participle.",
+    "usage": [
+      "To express an action perceived by the subject."
+    ],
+    "rule_name": "Infinitive after verbs of perception"
+  },
+  {
+    "entity_key": "Infinitive as subject",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "The infinitif présent can be used as the subject of a verb, corresponding to English gerund or present participle.",
+    "usage": [
+      "To express an action as the subject of a sentence."
+    ],
+    "rule_name": "Infinitive as subject"
+  },
+  {
+    "entity_key": "Interrogative by intonation",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Keep subject + verb order and raise intonation.",
+    "usage": [
+      "Very colloquial questions"
+    ],
+    "rule_name": "Interrogative by intonation"
+  },
+  {
+    "entity_key": "Interrogative by inversion",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Invert subject and verb to form a question.",
+    "usage": [
+      "Formal or written questions"
+    ],
+    "rule_name": "Interrogative by inversion"
+  },
+  {
+    "entity_key": "Interrogative forms of reflexive verbs",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Three ways: rising intonation, est-ce que, inversion; pronoun remains before verb.",
+    "usage": [
+      "All questions"
+    ],
+    "rule_name": "Interrogative forms of reflexive verbs"
+  },
+  {
+    "entity_key": "Interrogative infinitive",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Use question word + infinitive to form an interrogative infinitive.",
+    "usage": [
+      "To ask a question in a concise way."
+    ],
+    "rule_name": "Interrogative infinitive"
+  },
+  {
+    "entity_key": "Interrogative with est-ce que",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Use est-ce que before subject + verb.",
+    "usage": [
+      "Colloquial or neutral questions"
+    ],
+    "rule_name": "Interrogative with est-ce que"
+  },
+  {
+    "entity_key": "Interrogative words",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Question words in French: pourquoi, où, quand, comment, combien, que, qui, dans quelle mesure.",
+    "usage": [
+      "To ask about reason (pourquoi), place (où), time (quand), manner (comment), quantity (combien), object (que), person (qui), extent (dans quelle mesure)"
+    ],
+    "rule_name": "Interrogative words"
+  },
+  {
+    "entity_key": "Irregular -oir verbs (first-person singular and plural)",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "List of -oir verbs with their first-person singular and plural present forms.",
+    "usage": [
+      "To learn irregular -oir verb forms"
+    ],
+    "rule_name": "Irregular -oir verbs (first-person singular and plural)"
+  },
+  {
+    "entity_key": "Irregular -re verbs (prendre group) present tense",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Prendre and its derivatives have irregular pattern: je prends, nous prenons, etc.",
+    "usage": [
+      "Present tense conjugation of irregular -re verbs"
+    ],
+    "rule_name": "Irregular -re verbs (prendre group) present tense"
+  }
+]
+================================================================================

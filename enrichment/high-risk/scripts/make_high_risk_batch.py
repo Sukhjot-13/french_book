@@ -201,8 +201,11 @@ def generate_batch(
 
     already_batched = set()
     for b_data in manifest.get("batches", {}).values():
+        if b_data.get("collection") != ACTIVE_COLLECTION:
+            continue
         for t in b_data.get("target_keys", []):
-            already_batched.add(t)
+            if isinstance(t, str):
+                already_batched.add(t)
 
     # Filter eligible targets: MUST be status == MISSING
     eligible: List[Dict[str, Any]] = []

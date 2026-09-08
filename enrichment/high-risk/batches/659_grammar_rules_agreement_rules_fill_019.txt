@@ -1,0 +1,150 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 659_grammar_rules_agreement_rules_fill_019
+================================================================================
+Collection: grammar_rules
+Field: agreement_rules
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 659_grammar_rules_agreement_rules_fill_019_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "659_grammar_rules_agreement_rules_fill_019",
+  "collection": "grammar_rules",
+  "field": "agreement_rules",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": "Si seulement + plus-que-parfait",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Expresses a wish or regret about past events.",
+    "usage": [
+      "To express regret about past events"
+    ],
+    "rule_name": "Si seulement + plus-que-parfait"
+  },
+  {
+    "entity_key": "Some adjectives precede the noun",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Certain short, common adjectives precede the noun; these must be memorized.",
+    "usage": [
+      "For a limited set of common adjectives."
+    ],
+    "rule_name": "Some adjectives precede the noun"
+  },
+  {
+    "entity_key": "Some irregular passé simple stems based on past participle",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "For some verbs, the passé simple stem is based on the past participle, but this is not a fixed rule.",
+    "usage": [
+      "Learn third-person singular and plural forms for reading newspapers and novels."
+    ],
+    "rule_name": "Some irregular passé simple stems based on past participle"
+  },
+  {
+    "entity_key": "Special feminine endings",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Certain endings change: -eur → -euse, -(i)er → -(i)ère, -teur → -trice, -ien → -ienne.",
+    "usage": [
+      "to form feminine of certain masculine nouns"
+    ],
+    "rule_name": "Special feminine endings"
+  },
+  {
+    "entity_key": "Special masculine forms before vowel",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Certain adjectives have a special masculine singular form before a noun starting with a vowel.",
+    "usage": [
+      "Before masculine singular nouns starting with a vowel."
+    ],
+    "rule_name": "Special masculine forms before vowel"
+  },
+  {
+    "entity_key": "Special plural forms",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Nouns ending in -s, -x, -z unchanged; -eu, -eau → -x; -al → -aux; exceptions.",
+    "usage": [
+      "to form plural of irregular nouns"
+    ],
+    "rule_name": "Special plural forms"
+  },
+  {
+    "entity_key": "Spelling change: -cer verbs",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "In verbs ending in -cer, the c changes to ç before the letter o to keep the soft pronunciation.",
+    "usage": [
+      "Present tense, first person plural"
+    ],
+    "rule_name": "Spelling change: -cer verbs"
+  },
+  {
+    "entity_key": "Spelling change: -e + consonant + -er verbs",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Verbs like acheter add an accent grave (è) in all forms except nous and vous.",
+    "usage": [
+      "Present tense, all persons except first and second plural"
+    ],
+    "rule_name": "Spelling change: -e + consonant + -er verbs"
+  },
+  {
+    "entity_key": "Spelling change: -e + l + -er verbs",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Verbs like épeler double the l in all forms except nous and vous.",
+    "usage": [
+      "Present tense, all persons except first and second plural"
+    ],
+    "rule_name": "Spelling change: -e + l + -er verbs"
+  },
+  {
+    "entity_key": "Spelling change: -ger verbs",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "In verbs ending in -ger, the g becomes ge before the letter o to keep the soft pronunciation.",
+    "usage": [
+      "Present tense, first person plural"
+    ],
+    "rule_name": "Spelling change: -ger verbs"
+  }
+]
+================================================================================

@@ -1,0 +1,184 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 346_vocabulary_plural_fill_022
+================================================================================
+Collection: vocabulary
+Field: plural
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 346_vocabulary_plural_fill_022_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "346_vocabulary_plural_fill_022",
+  "collection": "vocabulary",
+  "field": "plural",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": {
+      "canonical_form": "mer",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "sea",
+      "seaside"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "mer"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "merci",
+      "part_of_speech": "interjection"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "thank you"
+    ],
+    "part_of_speech": "interjection",
+    "canonical_form": "merci"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "mercredi",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "Wednesday"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "mercredi"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "metteur en scène",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "director (film, theater)",
+      "director (theater, film)"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "metteur en scène"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "meurtre",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "a murder",
+      "murder"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "meurtre"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "meurtrier",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "a murderer",
+      "murderer"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "meurtrier"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "miroir",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "mirror"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "miroir"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "mode",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "fashion"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "mode"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "mois",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "month"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "mois"
+  },
+  {
+    "entity_key": {
+      "canonical_form": "monarchie",
+      "part_of_speech": "noun"
+    },
+    "field": "plural",
+    "current_value": null,
+    "english": [
+      "monarchy"
+    ],
+    "part_of_speech": "noun",
+    "canonical_form": "monarchie"
+  }
+]
+================================================================================

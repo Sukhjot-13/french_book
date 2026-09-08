@@ -1,0 +1,146 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 385_expressions_pattern_fill_008
+================================================================================
+Collection: expressions
+Field: pattern
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 385_expressions_pattern_fill_008_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "385_expressions_pattern_fill_008",
+  "collection": "expressions",
+  "field": "pattern",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": "faire du ski",
+    "field": "pattern",
+    "current_value": null,
+    "english": [
+      "to go skiing"
+    ],
+    "canonical_form": "faire du ski"
+  },
+  {
+    "entity_key": "faire du ski de fond",
+    "field": "pattern",
+    "current_value": null,
+    "english": [
+      "to do cross-country skiing"
+    ],
+    "canonical_form": "faire du ski de fond"
+  },
+  {
+    "entity_key": "faire du sport",
+    "field": "pattern",
+    "current_value": null,
+    "english": [
+      "to do sports",
+      "to play sports"
+    ],
+    "canonical_form": "faire du sport"
+  },
+  {
+    "entity_key": "faire du vélo",
+    "field": "pattern",
+    "current_value": null,
+    "english": [
+      "to ride a bike"
+    ],
+    "canonical_form": "faire du vélo"
+  },
+  {
+    "entity_key": "faire escale",
+    "field": "pattern",
+    "current_value": null,
+    "english": [
+      "to make a stopover",
+      "to lay over"
+    ],
+    "canonical_form": "faire escale"
+  },
+  {
+    "entity_key": "faire la cuisine",
+    "field": "pattern",
+    "current_value": null,
+    "english": [
+      "to cook",
+      "to do the cooking"
+    ],
+    "canonical_form": "faire la cuisine"
+  },
+  {
+    "entity_key": "faire la grasse matinée",
+    "field": "pattern",
+    "current_value": null,
+    "english": [
+      "to have a lie-in",
+      "to sleep in"
+    ],
+    "canonical_form": "faire la grasse matinée"
+  },
+  {
+    "entity_key": "faire la queue",
+    "field": "pattern",
+    "current_value": null,
+    "english": [
+      "to stand in line",
+      "to queue",
+      "to wait in line"
+    ],
+    "canonical_form": "faire la queue"
+  },
+  {
+    "entity_key": "faire la sieste",
+    "field": "pattern",
+    "current_value": null,
+    "english": [
+      "to take a nap"
+    ],
+    "canonical_form": "faire la sieste"
+  },
+  {
+    "entity_key": "faire la vaisselle",
+    "field": "pattern",
+    "current_value": null,
+    "english": [
+      "to do the dishes"
+    ],
+    "canonical_form": "faire la vaisselle"
+  }
+]
+================================================================================

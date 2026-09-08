@@ -1,0 +1,152 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 597_grammar_rules_restrictions_fill_005
+================================================================================
+Collection: grammar_rules
+Field: restrictions
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 597_grammar_rules_restrictions_fill_005_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "597_grammar_rules_restrictions_fill_005",
+  "collection": "grammar_rules",
+  "field": "restrictions",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": "Dont for possession",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Dont expresses possession, meaning whose, of whom, of which. Word order after this construction is subject + verb + object.",
+    "usage": [
+      "possession"
+    ],
+    "rule_name": "Dont for possession"
+  },
+  {
+    "entity_key": "Dont replacing de + object",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Dont is used as object of verbs or verbal expressions that include the preposition de, referring to people or things.",
+    "usage": [
+      "object of verb with de"
+    ],
+    "rule_name": "Dont replacing de + object"
+  },
+  {
+    "entity_key": "Duration with depuis, il y a... que, cela/ça fait... que",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "To express duration of an action that began in the past and continues in the present, use depuis, il y a... que, or cela (ça) fait... que with the present tense.",
+    "usage": [
+      "To ask about duration: Depuis quand? / Depuis combien de temps?",
+      "To state duration: depuis + point in time or duration; il y a... que; cela fait... que"
+    ],
+    "rule_name": "Duration with depuis, il y a... que, cela/ça fait... que"
+  },
+  {
+    "entity_key": "Elision of que before vowel",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "The -e of que is dropped before a vowel sound, becoming qu'.",
+    "usage": [
+      "elision"
+    ],
+    "rule_name": "Elision of que before vowel"
+  },
+  {
+    "entity_key": "Elision of reflexive pronouns",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Me, te, se drop e before mute h or vowel.",
+    "usage": [
+      "Before vowel or mute h"
+    ],
+    "rule_name": "Elision of reflexive pronouns"
+  },
+  {
+    "entity_key": "English simple past vs French plus-que-parfait",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "English simple past may translate to French plus-que-parfait when anteriority is implied.",
+    "usage": [
+      "When English uses simple past but anteriority is clear"
+    ],
+    "rule_name": "English simple past vs French plus-que-parfait"
+  },
+  {
+    "entity_key": "Expressing from with geographical names",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Use de/d' for continents, feminine countries, provinces, regions, states; du/des for masculine/plural.",
+    "usage": [
+      "to express origin or return from a place"
+    ],
+    "rule_name": "Expressing from with geographical names"
+  },
+  {
+    "entity_key": "Faire for chores, activities, sports",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "The verb faire is used in many expressions related to household chores, activities, and sports.",
+    "usage": [
+      "To talk about chores, hobbies, sports."
+    ],
+    "rule_name": "Faire for chores, activities, sports"
+  },
+  {
+    "entity_key": "Feminine ending -esse",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Some masculine nouns form feminine with -esse.",
+    "usage": [
+      "for prince, comte, duc, dieu, etc."
+    ],
+    "rule_name": "Feminine ending -esse"
+  },
+  {
+    "entity_key": "Feminine formation by adding -e",
+    "field": "restrictions",
+    "current_value": [],
+    "summary": "Many masculine nouns become feminine by adding -e.",
+    "usage": [
+      "To form feminine adjectives from masculine adjectives.",
+      "to form feminine of professions, nationalities, etc."
+    ],
+    "rule_name": "Feminine formation by adding -e"
+  }
+]
+================================================================================

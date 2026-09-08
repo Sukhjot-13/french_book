@@ -847,8 +847,30 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Deterministic batch generator slicing missing verbs into small (5-10) risk-segregated batches, producing worker `.txt` prompts, and maintaining `BATCH_MANIFEST.json`.
 - **Functions**:
   - `format_batch_txt(batch_id, baseline_hash, targets, contract, trusted_sources)`: Formats worker prompt with rules, schema excerpts, and response template.
-  - `generate_batch(morphology="regular_er", batch_size=5, batch_num=1, infinitive=None, baseline_path=None)`: Generates batch file and records manifest checksums.
+  - `generate_batch(morphology="regular_er", batch_size=5, batch_num=1, infinitive=None, baseline_path=None)`: Generates a single-field verb batch, records its checksum, and ignores unrelated/composite-key entries in a complete-queue manifest.
   - `main()`: CLI entry point.
+
+#### `enrichment/high-risk/scripts/make_full_high_risk_queue.py`
+- **Purpose**: Generates the complete high-risk work queue from the normal-enriched baseline, covering every empty high-risk field plus review-only batches for partial verb conjugations without modifying any dataset. Its v2 prompts label generated values as `AI_GENERATED_UNVERIFIED` candidates pending independent review.
+- **Functions**:
+  - `is_empty(value)`: Identifies fields eligible for fill-only batching.
+  - `entity_key(collection, entity)`: Extracts configured scalar or composite natural keys.
+  - `chunks(items, size)`: Creates deterministic fixed-size prompt groups.
+  - `context(collection, field, entity)`: Produces compact target context for a proposal batch.
+  - `prompt(batch_id, collection, field, mode, baseline_hash, targets)`: Formats a self-contained high-risk batch instruction file.
+  - `build_queue(baseline_path=None)`: Writes the full batch set and its checksum manifest.
+  - `main()`: CLI entry point.
+
+#### `enrichment/high-risk/scripts/validate_full_high_risk_response.py`
+- **Purpose**: Validates v2 full-queue response files against their frozen manifest, baseline, target ownership, and fill-only/review-only constraints without authorizing any mutation. It distinguishes `AI_GENERATED_UNVERIFIED` candidates from verified local evidence.
+- **Functions**:
+  - `_key_token(key)`: Canonicalizes scalar and composite natural keys for ownership checks.
+  - `_entity_key(collection, entity)`: Extracts an entity's configured natural key.
+  - `_find_entity(data, collection, key)`: Resolves a target against the immutable baseline.
+  - `_is_empty(value)`: Evaluates the fill-only precondition.
+  - `_candidate_evidence(evidence, field, trusted_sources)`: Validates either the explicit unverified AI-candidate marker or a VERIFIED allowlisted source with a matching in-repository snapshot hash.
+  - `validate_full_queue_response(response_path, baseline_path=None)`: Performs fail-closed v2 response validation and returns status plus report data.
+  - `main()`: CLI entry point for one full-queue response.
 
 #### `enrichment/high-risk/scripts/validate_high_risk_response.py`
 - **Purpose**: Fail-closed validator checking candidate `*_RESPONSE.json` files against frozen-manifest metadata/checksums, target ownership, fill-only rules, evidence, canonical mood/tense uniqueness, and an in-memory schema dry run; it emits a hash-linked validated payload only on complete pass.
@@ -877,11 +899,16 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `main()`: CLI entry point.
 
 #### `enrichment/high-risk/tests/test_high_risk_pipeline.py`
-- **Purpose**: Fourteen-test automated suite verifying configuration boundaries, contract rules, preflight classification, batch generation, fail-closed validation, the approval-integrity guard, output safety guards, and source immutability.
+- **Purpose**: Automated suite verifying configuration boundaries, contract rules, preflight classification, both legacy and full-queue fail-closed validation paths, approval-integrity guards, output safety guards, and source immutability.
 - **Functions**:
   - `TestHighRiskConfiguration`: Tests configuration boundaries, versions, contracts, and allowlists.
   - `TestInventoryAndClassification`: Tests morphological classification and preflight inventory.
-  - `TestBatchGeneratorAndManifest`: Tests deterministic batch generation and manifest locking.
+  - `TestBatchGeneratorAndManifest`: Tests complete-queue manifest presence, checksum locking, and baseline metadata.
+  - `TestFullQueueValidation`: Tests v2 no-proposal and explicit AI-candidate acceptance.
+
+#### `tests/run-all.test.ts`
+- **Purpose**: Single project test entry point; verifies master-data and selector invariants, then launches the normal and high-risk Python pipeline suites with accurate result summaries.
+- **Functions**: N/A (top-level test orchestration).
   - `TestValidationGatesFailClosed`: Tests fail-closed rejection across gates 1, 2, 7, 8, and 10.
   - `TestApprovalAndSafeApplication`: Tests dual-reviewer and integrity-chain rejection, protected-output guards, and source dataset immutability.
 

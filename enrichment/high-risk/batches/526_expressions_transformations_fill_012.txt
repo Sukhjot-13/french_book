@@ -1,0 +1,147 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 526_expressions_transformations_fill_012
+================================================================================
+Collection: expressions
+Field: transformations
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 526_expressions_transformations_fill_012_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "526_expressions_transformations_fill_012",
+  "collection": "expressions",
+  "field": "transformations",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": "croire en + personne/Dieu",
+    "field": "transformations",
+    "current_value": [],
+    "english": [
+      "to believe in (a person or God)",
+      "to have faith in"
+    ],
+    "canonical_form": "croire en + personne/Dieu"
+  },
+  {
+    "entity_key": "croire à + quelque chose",
+    "field": "transformations",
+    "current_value": [],
+    "english": [
+      "to believe in something (abstract)"
+    ],
+    "canonical_form": "croire à + quelque chose"
+  },
+  {
+    "entity_key": "croiser quelqu'un dans la rue",
+    "field": "transformations",
+    "current_value": [],
+    "english": [
+      "to run into someone in the street"
+    ],
+    "canonical_form": "croiser quelqu'un dans la rue"
+  },
+  {
+    "entity_key": "d'accord",
+    "field": "transformations",
+    "current_value": [],
+    "english": [
+      "all right",
+      "okay",
+      "agreed"
+    ],
+    "canonical_form": "d'accord"
+  },
+  {
+    "entity_key": "d'habitude",
+    "field": "transformations",
+    "current_value": [],
+    "english": [
+      "usually",
+      "normally",
+      "as a rule"
+    ],
+    "canonical_form": "d'habitude"
+  },
+  {
+    "entity_key": "d'ordinaire",
+    "field": "transformations",
+    "current_value": [],
+    "english": [
+      "ordinarily",
+      "usually",
+      "normally"
+    ],
+    "canonical_form": "d'ordinaire"
+  },
+  {
+    "entity_key": "dans le + masculine region",
+    "field": "transformations",
+    "current_value": [],
+    "english": [
+      "in the Midi (southern France)"
+    ],
+    "canonical_form": "dans le + masculine region"
+  },
+  {
+    "entity_key": "dans quelle mesure",
+    "field": "transformations",
+    "current_value": [],
+    "english": [
+      "to what extent"
+    ],
+    "canonical_form": "dans quelle mesure"
+  },
+  {
+    "entity_key": "dans trois jours",
+    "field": "transformations",
+    "current_value": [],
+    "english": [
+      "in three days (from today)"
+    ],
+    "canonical_form": "dans trois jours"
+  },
+  {
+    "entity_key": "dans un an",
+    "field": "transformations",
+    "current_value": [],
+    "english": [
+      "in a year"
+    ],
+    "canonical_form": "dans un an"
+  }
+]
+================================================================================

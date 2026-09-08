@@ -1,0 +1,152 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 665_grammar_rules_word_order_fill_002
+================================================================================
+Collection: grammar_rules
+Field: word_order
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 665_grammar_rules_word_order_fill_002_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "665_grammar_rules_word_order_fill_002",
+  "collection": "grammar_rules",
+  "field": "word_order",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": "Ce dont for verbs with de",
+    "field": "word_order",
+    "current_value": null,
+    "summary": "Ce dont is used when the verb or expression requires the preposition de, meaning what.",
+    "usage": [
+      "object of verb with de referring to idea"
+    ],
+    "rule_name": "Ce dont for verbs with de"
+  },
+  {
+    "entity_key": "Ce que as direct object of idea",
+    "field": "word_order",
+    "current_value": null,
+    "summary": "Ce que is used as the direct object of the dependent clause when referring to an idea.",
+    "usage": [
+      "direct object of dependent clause referring to idea"
+    ],
+    "rule_name": "Ce que as direct object of idea"
+  },
+  {
+    "entity_key": "Ce qui as subject of idea",
+    "field": "word_order",
+    "current_value": null,
+    "summary": "Ce qui is used as the subject of a dependent clause when referring to an idea, not a specific noun.",
+    "usage": [
+      "subject of dependent clause referring to idea"
+    ],
+    "rule_name": "Ce qui as subject of idea"
+  },
+  {
+    "entity_key": "Ce à quoi for verbs with à",
+    "field": "word_order",
+    "current_value": null,
+    "summary": "Ce à quoi is used when the verb requires the preposition à, meaning what.",
+    "usage": [
+      "object of verb with à referring to idea"
+    ],
+    "rule_name": "Ce à quoi for verbs with à"
+  },
+  {
+    "entity_key": "Choice between futur simple and futur antérieur in dependent clauses",
+    "field": "word_order",
+    "current_value": null,
+    "summary": "When both clauses use futur simple, actions are simultaneous; use futur antérieur in dependent clause to mark anteriority.",
+    "usage": [
+      "to indicate simultaneity or anteriority in future temporal clauses"
+    ],
+    "rule_name": "Choice between futur simple and futur antérieur in dependent clauses"
+  },
+  {
+    "entity_key": "Conjugation of verbs ending in -eindre and -aindre",
+    "field": "word_order",
+    "current_value": null,
+    "summary": "Verbs ending in -eindre or -aindre follow a similar conjugation pattern in the present tense.",
+    "usage": [
+      "To conjugate peindre, craindre, and similar verbs"
+    ],
+    "rule_name": "Conjugation of verbs ending in -eindre and -aindre"
+  },
+  {
+    "entity_key": "Conjunctions followed by indicative mood",
+    "field": "word_order",
+    "current_value": null,
+    "summary": "List of conjunctions that require indicative mood, including those seen with future and additional ones.",
+    "usage": [
+      "to introduce subordinate clauses with indicative"
+    ],
+    "rule_name": "Conjunctions followed by indicative mood"
+  },
+  {
+    "entity_key": "Conjunctions followed by the subjunctive",
+    "field": "word_order",
+    "current_value": null,
+    "summary": "A list of conjunctions that require the subjunctive in the following clause.",
+    "usage": [
+      "Expressing purpose, fear, time, concession, condition, etc."
+    ],
+    "rule_name": "Conjunctions followed by the subjunctive"
+  },
+  {
+    "entity_key": "Connaître + direct object",
+    "field": "word_order",
+    "current_value": null,
+    "summary": "Connaître is always followed by a direct object, never by a dependent clause.",
+    "usage": [
+      "To express familiarity with people, places, things",
+      "Figuratively: to enjoy or experience"
+    ],
+    "rule_name": "Connaître + direct object"
+  },
+  {
+    "entity_key": "Could for a unique past action",
+    "field": "word_order",
+    "current_value": null,
+    "summary": "Use passé composé of pouvoir to express a single, unique ability or success in the past.",
+    "usage": [
+      "To express a specific past ability that was realized",
+      "To translate 'managed to' or 'succeeded in'"
+    ],
+    "rule_name": "Could for a unique past action"
+  }
+]
+================================================================================

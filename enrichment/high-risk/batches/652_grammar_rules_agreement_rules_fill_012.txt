@@ -1,0 +1,148 @@
+================================================================================
+L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: 652_grammar_rules_agreement_rules_fill_012
+================================================================================
+Collection: grammar_rules
+Field: agreement_rules
+Mode: FILL_ONLY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Expected response: 652_grammar_rules_agreement_rules_fill_012_RESPONSE.json
+Validator: scripts/validate_full_high_risk_response.py
+
+ROLE AND SCOPE
+Return proposals for ONLY the listed entities and ONLY the listed field. Existing
+source-derived values are immutable. Do not add entities, alter natural keys,
+delete data, fabricate evidence, browse the web, or infer unsupported facts.
+
+AI-CANDIDATE POLICY
+Generate a best-effort candidate value when you can do so confidently from
+French linguistic knowledge. Every generated value is UNVERIFIED and will be
+checked later; it is not source-derived data and cannot be applied directly to
+the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
+conflicting forms, or an incomplete existing field.
+
+MODE RULES
+- FILL_ONLY: propose a value only when current_value is null, empty string,
+  empty array, or empty object. Do not modify non-empty values.
+- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
+  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
+  a field-specific repair contract.
+
+RESPONSE JSON CONTRACT
+{
+  "batch_id": "652_grammar_rules_agreement_rules_fill_012",
+  "collection": "grammar_rules",
+  "field": "agreement_rules",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+      "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
+  ],
+  "no_proposals": [
+    {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
+  ]
+}
+
+TARGETS
+[
+  {
+    "entity_key": "Irregular stems in futur simple",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Some irregular verbs have irregular stems in the future tense; the endings remain the same.",
+    "usage": [],
+    "rule_name": "Irregular stems in futur simple"
+  },
+  {
+    "entity_key": "Lequel, laquelle, lesquels, lesquelles after prepositions",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "After prepositions, use lequel (masculine singular), laquelle (feminine singular), lesquels (masculine plural), lesquelles (feminine plural) for specific things; can also be used for people but less common.",
+    "usage": [
+      "object of preposition"
+    ],
+    "rule_name": "Lequel, laquelle, lesquels, lesquelles after prepositions"
+  },
+  {
+    "entity_key": "Main clause verbs followed by que",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Verbs in the main clause of indirect speech are followed by que (où, si, etc.); the dependent clause is usually indicative.",
+    "usage": [
+      "To introduce indirect speech"
+    ],
+    "rule_name": "Main clause verbs followed by que"
+  },
+  {
+    "entity_key": "Masculine noun endings",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Nouns ending in -age, -eau, -ment, -t, -al, -ail, -eil, -isme tend to be masculine.",
+    "usage": [
+      "to predict gender of nouns"
+    ],
+    "rule_name": "Masculine noun endings"
+  },
+  {
+    "entity_key": "Most adjectives follow the noun",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "In French, most qualificative adjectives follow the noun they modify.",
+    "usage": [
+      "For most adjectives."
+    ],
+    "rule_name": "Most adjectives follow the noun"
+  },
+  {
+    "entity_key": "Negation and partitive articles",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "After negation, un, une, des change to de or d'.",
+    "usage": [
+      "Used with negative sentences."
+    ],
+    "rule_name": "Negation and partitive articles"
+  },
+  {
+    "entity_key": "Negation in passé composé",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Place ne (n') before auxiliary and pas after auxiliary.",
+    "usage": [
+      "to express negation in past"
+    ],
+    "rule_name": "Negation in passé composé"
+  },
+  {
+    "entity_key": "Negation with infinitive",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "Negation ne...pas precedes the infinitive and is not separated.",
+    "usage": [
+      "To negate an infinitive."
+    ],
+    "rule_name": "Negation with infinitive"
+  },
+  {
+    "entity_key": "Negation with ni...ni...",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "ni...ni... negates two nouns; ne before verb; articles behave differently.",
+    "usage": [
+      "Negating two items"
+    ],
+    "rule_name": "Negation with ni...ni..."
+  },
+  {
+    "entity_key": "Negative form of reflexive verbs",
+    "field": "agreement_rules",
+    "current_value": [],
+    "summary": "ne follows subject pronoun; pas follows conjugated verb.",
+    "usage": [
+      "All tenses"
+    ],
+    "rule_name": "Negative form of reflexive verbs"
+  }
+]
+================================================================================
