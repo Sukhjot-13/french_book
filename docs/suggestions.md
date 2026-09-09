@@ -1,5 +1,9 @@
 # Project Suggestions & Roadmap
 
+## 🟢 Improvements
+
+- **2026-09-09**: (Implemented) Upgraded the complete high-risk queue to v2.1 so DeepSeek can propose schema-valid completions for both 5,523 empty high-risk fields and 147 partial verb conjugations. Added exact field-schema validation, preservation-only partial repair, aggregate response readiness reporting, generic dual-review approval compatibility, and transaction-safe all-field application with explicit first-run rebuild/provenance state.
+
 - **2026-09-03**: Cleaned up multi-meaning English translation presentation for verbs and vocabulary: added `formatEnglishList` and `formatMeaning` to join definitions with comma and space (`", "`) instead of concatenated text, with automatic deduplication of bare and to-infinitive pairs (e.g. `["accept", "to accept"]` -> `"to accept"`).
 - **2026-09-03**: Enhanced desktop table scanning across Verbs (`VerbLibraryTable`) and Vocabulary (`VocabDictionaryTable`) with sticky column headers, subtle zebra striping, selected-row indicator (`data-selected`), visually dominant French terms, and right-aligned metadata/action badges.
 - **2026-09-03**: Implemented purpose-built mobile two-line list layouts (`<768px`) for Verbs and Vocabulary (Line 1: French term · English gloss; Line 2: classification/aux/participle with tap-to-peek chevron).

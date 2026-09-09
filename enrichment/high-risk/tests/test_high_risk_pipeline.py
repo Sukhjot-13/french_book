@@ -19,6 +19,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 # Add repo root and high-risk dir to sys.path
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
@@ -34,6 +35,9 @@ from config.high_risk_config import (
     APPLICATOR_VERSION,
     BATCH_MANIFEST_PATH,
     CONTRACT_VERSION,
+    FULL_QUEUE_REPAIR_MODE,
+    FULL_QUEUE_VALIDATOR_VERSION,
+    FULL_QUEUE_VERSION,
     GENERATOR_VERSION,
     HIGH_RISK_FIELDS,
     MASTER_DATA_PATH,
@@ -42,7 +46,8 @@ from config.high_risk_config import (
     VALIDATOR_VERSION,
 )
 from scripts.apply_high_risk_enrichment import apply_approved_batch
-from scripts.approve_high_risk import approve_batch, reject_batch
+from scripts.apply_full_high_risk_enrichment import apply_full_approved_batch
+from scripts.approve_high_risk import approve_batch, approve_validated_folder, reject_batch
 from scripts.high_risk_helpers import (
     classify_morphological_type,
     compute_content_sha256,
@@ -57,7 +62,9 @@ from scripts.high_risk_helpers import (
     validate_master_dataset_schema,
 )
 from scripts.inventory_high_risk import run_inventory
+from scripts.inventory_full_high_risk import inventory_full_high_risk
 from scripts.make_high_risk_batch import generate_batch
+from scripts.process_full_high_risk_responses import process_response_folder
 from scripts.validate_high_risk_response import validate_response
 from scripts.validate_full_high_risk_response import validate_full_queue_response
 
@@ -132,12 +139,26 @@ class TestInventoryAndClassification(unittest.TestCase):
         self.assertEqual(classify_morphological_type({"infinitive": "pleuvoir"}, contract), "impersonal")
 
     def test_preflight_inventory_run(self):
-        inv = run_inventory()
+        with tempfile.TemporaryDirectory() as tmp_dir, patch(
+            "scripts.inventory_high_risk.REPORTS_DIR", Path(tmp_dir)
+        ):
+            inv = run_inventory()
         self.assertEqual(inv["total_verbs"], 496)
         self.assertEqual(inv["missing_count"], 349)
         self.assertEqual(inv["partial_count"], 147)
         self.assertEqual(inv["malformed_count"], 0)
         self.assertTrue(inv["baseline_hash"].startswith("sha256:"))
+
+    def test_full_high_risk_inventory_matches_frozen_queue_scope(self):
+        report = inventory_full_high_risk(
+            NORMAL_ENRICHED_DATA_PATH,
+            emit_artifacts=False,
+        )
+        self.assertEqual(report["empty_high_risk_slot_count"], 5523)
+        self.assertEqual(report["incomplete_conjugation_count"], 496)
+        self.assertEqual(report["conjugation_statuses"]["MISSING"], 349)
+        self.assertEqual(report["conjugation_statuses"]["PARTIAL"], 147)
+        self.assertFalse(report["high_risk_complete"])
 
 
 class TestBatchGeneratorAndManifest(unittest.TestCase):
@@ -146,7 +167,8 @@ class TestBatchGeneratorAndManifest(unittest.TestCase):
         # manifest rather than attempting to add a colliding test batch.
         with open(BATCH_MANIFEST_PATH, "r", encoding="utf-8") as f:
             manifest = json.load(f)
-        self.assertEqual(manifest["version"], "2.0.0")
+        self.assertEqual(manifest["version"], FULL_QUEUE_VERSION)
+        self.assertEqual(manifest["validator_version"], FULL_QUEUE_VALIDATOR_VERSION)
         self.assertGreater(len(manifest["batches"]), 0)
         batch_id, entry = next(iter(manifest["batches"].items()))
         batch_file = HIGH_RISK_DIR / "batches" / f"{batch_id}.txt"
@@ -160,6 +182,22 @@ class TestValidationGatesFailClosed(unittest.TestCase):
         self.contract = load_conjugation_contract()
         with open(HIGH_RISK_DIR / "fixtures" / "sample_paradigms.json", "r", encoding="utf-8") as f:
             self.sample_paradigms = json.load(f)
+
+    def _validate_with_temporary_manifest(self, response_path, batch_id, target_keys):
+        with open(BATCH_MANIFEST_PATH, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+        manifest["batches"][batch_id] = {
+            "batch_id": batch_id,
+            "target_keys": target_keys,
+        }
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            temp_manifest = Path(tmp_dir) / "BATCH_MANIFEST.json"
+            temp_manifest.write_text(json.dumps(manifest), encoding="utf-8")
+            with patch(
+                "scripts.validate_high_risk_response.BATCH_MANIFEST_PATH",
+                temp_manifest,
+            ):
+                return validate_response(response_path)
 
     def test_gate_1_malformed_json(self):
         with tempfile.NamedTemporaryFile(suffix="_RESPONSE.json", mode="w", delete=False) as f:
@@ -219,30 +257,18 @@ class TestValidationGatesFailClosed(unittest.TestCase):
             "no_proposals": [],
             "batch_summary": "Test non-empty rejection"
         }
-        # Fake manifest entry
-        with open(BATCH_MANIFEST_PATH, "r", encoding="utf-8") as f:
-            manifest = json.load(f)
-        manifest["batches"]["999_verbs_conjugations_batch_999"] = {
-            "batch_id": "999_verbs_conjugations_batch_999",
-            "target_keys": ["(s')asseoir"]
-        }
-        with open(BATCH_MANIFEST_PATH, "w", encoding="utf-8") as f:
-            json.dump(manifest, f)
-
         with tempfile.NamedTemporaryFile(suffix="_RESPONSE.json", mode="w", delete=False) as f:
             json.dump(data, f)
             temp_path = Path(f.name)
 
         try:
-            status, report = validate_response(temp_path)
+            status, report = self._validate_with_temporary_manifest(
+                temp_path, "999_verbs_conjugations_batch_999", ["(s')asseoir"]
+            )
             self.assertEqual(status, "FAIL")
             self.assertTrue(any("not empty" in err for err in report["errors"]))
         finally:
             temp_path.unlink(missing_ok=True)
-            # clean manifest
-            del manifest["batches"]["999_verbs_conjugations_batch_999"]
-            with open(BATCH_MANIFEST_PATH, "w", encoding="utf-8") as f:
-                json.dump(manifest, f)
 
     def test_gate_8_reject_untrusted_source(self):
         _, baseline_hash = load_baseline_dataset()
@@ -269,28 +295,18 @@ class TestValidationGatesFailClosed(unittest.TestCase):
             "no_proposals": [],
             "batch_summary": "Test untrusted source rejection"
         }
-        with open(BATCH_MANIFEST_PATH, "r", encoding="utf-8") as f:
-            manifest = json.load(f)
-        manifest["batches"]["998_verbs_conjugations_batch_998"] = {
-            "batch_id": "998_verbs_conjugations_batch_998",
-            "target_keys": ["aimer"]
-        }
-        with open(BATCH_MANIFEST_PATH, "w", encoding="utf-8") as f:
-            json.dump(manifest, f)
-
         with tempfile.NamedTemporaryFile(suffix="_RESPONSE.json", mode="w", delete=False) as f:
             json.dump(data, f)
             temp_path = Path(f.name)
 
         try:
-            status, report = validate_response(temp_path)
+            status, report = self._validate_with_temporary_manifest(
+                temp_path, "998_verbs_conjugations_batch_998", ["aimer"]
+            )
             self.assertEqual(status, "FAIL")
             self.assertTrue(any("trusted sources allowlist" in err for err in report["errors"]))
         finally:
             temp_path.unlink(missing_ok=True)
-            del manifest["batches"]["998_verbs_conjugations_batch_998"]
-            with open(BATCH_MANIFEST_PATH, "w", encoding="utf-8") as f:
-                json.dump(manifest, f)
 
     def test_gate_10_reject_placeholder_text(self):
         _, baseline_hash = load_baseline_dataset()
@@ -320,28 +336,18 @@ class TestValidationGatesFailClosed(unittest.TestCase):
             "no_proposals": [],
             "batch_summary": "Test placeholder rejection"
         }
-        with open(BATCH_MANIFEST_PATH, "r", encoding="utf-8") as f:
-            manifest = json.load(f)
-        manifest["batches"]["997_verbs_conjugations_batch_997"] = {
-            "batch_id": "997_verbs_conjugations_batch_997",
-            "target_keys": ["aimer"]
-        }
-        with open(BATCH_MANIFEST_PATH, "w", encoding="utf-8") as f:
-            json.dump(manifest, f)
-
         with tempfile.NamedTemporaryFile(suffix="_RESPONSE.json", mode="w", delete=False) as f:
             json.dump(data, f)
             temp_path = Path(f.name)
 
         try:
-            status, report = validate_response(temp_path)
+            status, report = self._validate_with_temporary_manifest(
+                temp_path, "997_verbs_conjugations_batch_997", ["aimer"]
+            )
             self.assertEqual(status, "FAIL")
             self.assertTrue(any("placeholder text" in err for err in report["errors"]))
         finally:
             temp_path.unlink(missing_ok=True)
-            del manifest["batches"]["997_verbs_conjugations_batch_997"]
-            with open(BATCH_MANIFEST_PATH, "w", encoding="utf-8") as f:
-                json.dump(manifest, f)
 
 
 class TestFullQueueValidation(unittest.TestCase):
@@ -351,6 +357,7 @@ class TestFullQueueValidation(unittest.TestCase):
         batch_id, batch = next(iter(manifest["batches"].items()))
         return {
             "batch_id": batch_id,
+            "queue_version": FULL_QUEUE_VERSION,
             "collection": batch["collection"],
             "field": batch["field"],
             "mode": batch["mode"],
@@ -376,9 +383,11 @@ class TestFullQueueValidation(unittest.TestCase):
     def test_full_queue_accepts_ai_generated_candidate(self):
         response = self._response_for_first_full_queue_batch()
         target = response["no_proposals"].pop()["entity_key"]
+        with open(HIGH_RISK_DIR / "fixtures" / "sample_paradigms.json", "r", encoding="utf-8") as f:
+            sample_paradigms = json.load(f)
         response["proposals"] = [{
             "entity_key": target,
-            "value": "not applied",
+            "value": sample_paradigms["parler"],
             "evidence": {
                 "source_id": "AI_GENERATED_UNVERIFIED",
                 "evidence_sha256": None,
@@ -391,6 +400,84 @@ class TestFullQueueValidation(unittest.TestCase):
         try:
             status, report = validate_full_queue_response(response_path)
             self.assertEqual(status, "PASS", report["errors"])
+        finally:
+            response_path.unlink(missing_ok=True)
+
+    def test_full_queue_rejects_schema_invalid_candidate(self):
+        response = self._response_for_first_full_queue_batch()
+        target = response["no_proposals"].pop()["entity_key"]
+        response["proposals"] = [{
+            "entity_key": target,
+            "value": "not a conjugation array",
+            "evidence": {
+                "source_id": "AI_GENERATED_UNVERIFIED",
+                "evidence_sha256": None,
+                "notes": "Deliberately invalid fixture.",
+            },
+        }]
+        with tempfile.NamedTemporaryFile(suffix="_RESPONSE.json", mode="w", delete=False) as f:
+            json.dump(response, f, ensure_ascii=False)
+            response_path = Path(f.name)
+        try:
+            status, report = validate_full_queue_response(response_path)
+            self.assertEqual(status, "FAIL")
+            self.assertTrue(any("schema error" in error for error in report["errors"]))
+        finally:
+            response_path.unlink(missing_ok=True)
+
+    def test_full_queue_accepts_completion_that_preserves_partial_conjugations(self):
+        with open(BATCH_MANIFEST_PATH, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+        batch_id, batch = next(
+            (batch_id, batch)
+            for batch_id, batch in manifest["batches"].items()
+            if batch["mode"] == FULL_QUEUE_REPAIR_MODE
+        )
+        baseline, _ = load_baseline_dataset()
+        target = batch["target_keys"][0]
+        baseline_verb = next(verb for verb in baseline["verbs"] if verb["infinitive"] == target)
+        existing = copy.deepcopy(baseline_verb["conjugations"])
+        existing_keys = {(record["mood"], record["tense"]) for record in existing}
+        with open(HIGH_RISK_DIR / "fixtures" / "sample_paradigms.json", "r", encoding="utf-8") as f:
+            sample = json.load(f)["parler"]
+        candidate = existing + [
+            copy.deepcopy(record)
+            for record in sample
+            if (record["mood"], record["tense"]) not in existing_keys
+        ]
+        response = {
+            "batch_id": batch_id,
+            "queue_version": FULL_QUEUE_VERSION,
+            "collection": batch["collection"],
+            "field": batch["field"],
+            "mode": batch["mode"],
+            "baseline_hash": batch["baseline_hash"],
+            "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+            "proposals": [{
+                "entity_key": target,
+                "value": candidate,
+                "evidence": {
+                    "source_id": "AI_GENERATED_UNVERIFIED",
+                    "evidence_sha256": None,
+                    "notes": "Structurally complete repair fixture.",
+                },
+            }],
+            "no_proposals": [
+                {"entity_key": key, "reason": "INSUFFICIENT_EVIDENCE", "details": "Test fixture."}
+                for key in batch["target_keys"][1:]
+            ],
+        }
+        with tempfile.NamedTemporaryFile(suffix="_RESPONSE.json", mode="w", delete=False) as f:
+            json.dump(response, f, ensure_ascii=False)
+            response_path = Path(f.name)
+        try:
+            status, report = validate_full_queue_response(response_path)
+            self.assertEqual(status, "PASS", report["errors"])
+            response["proposals"][0]["value"].remove(existing[0])
+            response_path.write_text(json.dumps(response, ensure_ascii=False), encoding="utf-8")
+            status, report = validate_full_queue_response(response_path)
+            self.assertEqual(status, "FAIL")
+            self.assertTrue(any("alters or omits" in error for error in report["errors"]))
         finally:
             response_path.unlink(missing_ok=True)
 
@@ -514,6 +601,128 @@ class TestApprovalAndSafeApplication(unittest.TestCase):
                     self.normal_enriched_hash_before,
                     normal_hash_after,
                     "FATAL INVARIANT VIOLATION: MASTER_DATA_ENRICHED.json was mutated!"
+                )
+
+    def test_full_queue_validation_approval_and_generic_application(self):
+        with open(BATCH_MANIFEST_PATH, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+        batch_id, batch = next(
+            (batch_id, batch)
+            for batch_id, batch in manifest["batches"].items()
+            if batch["collection"] == "verbs" and batch["field"] == "auxiliary"
+        )
+        target = batch["target_keys"][0]
+        response = {
+            "batch_id": batch_id,
+            "queue_version": FULL_QUEUE_VERSION,
+            "collection": batch["collection"],
+            "field": batch["field"],
+            "mode": batch["mode"],
+            "baseline_hash": batch["baseline_hash"],
+            "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+            "proposals": [{
+                "entity_key": target,
+                "value": "avoir",
+                "evidence": {
+                    "source_id": "AI_GENERATED_UNVERIFIED",
+                    "evidence_sha256": None,
+                    "notes": "Schema/application integration fixture.",
+                },
+            }],
+            "no_proposals": [
+                {"entity_key": key, "reason": "INSUFFICIENT_EVIDENCE", "details": "Test fixture."}
+                for key in batch["target_keys"][1:]
+            ],
+        }
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            responses = root / "responses"
+            validated = root / "validated"
+            reports = root / "reports"
+            approved = root / "approved"
+            audits = root / "audits"
+            backups = root / "backups"
+            responses.mkdir()
+            response_path = responses / f"{batch_id}_RESPONSE.json"
+            response_path.write_text(json.dumps(response, ensure_ascii=False), encoding="utf-8")
+
+            status, report = validate_full_queue_response(
+                response_path,
+                emit_artifacts=True,
+                reports_dir=reports,
+                validated_dir=validated,
+            )
+            self.assertEqual(status, "PASS", report["errors"])
+            validated_path = validated / f"{batch_id}_VALIDATED.json"
+            with patch("scripts.approve_high_risk.REPORTS_DIR", reports), patch(
+                "scripts.approve_high_risk.APPROVED_DIR", approved
+            ):
+                approved_path = approve_batch(
+                    validated_path,
+                    "Linguistic Reviewer",
+                    "Compliance Reviewer",
+                    "Reviewed integration fixture.",
+                )
+
+            output = root / "HIGH_RISK_OUTPUT.json"
+            audit = apply_full_approved_batch(
+                approved_path,
+                output,
+                responses_dir=responses,
+                validated_dir=validated,
+                reports_dir=reports,
+                audits_dir=audits,
+                backups_dir=backups,
+            )
+            self.assertEqual(audit["applied_count"], 1)
+            enriched = json.loads(output.read_text(encoding="utf-8"))
+            entity = next(verb for verb in enriched["verbs"] if verb["infinitive"] == target)
+            self.assertEqual(entity["auxiliary"], "avoir")
+            replay = apply_full_approved_batch(
+                approved_path,
+                output,
+                responses_dir=responses,
+                validated_dir=validated,
+                reports_dir=reports,
+                audits_dir=audits,
+                backups_dir=backups,
+            )
+            self.assertTrue(replay["idempotent_replay"])
+            tampered = json.loads(approved_path.read_text(encoding="utf-8"))
+            tampered["patches"][0]["value"] = "etre"
+            approved_path.write_text(json.dumps(tampered), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "does not exactly match"):
+                apply_full_approved_batch(
+                    approved_path,
+                    output,
+                    responses_dir=responses,
+                    validated_dir=validated,
+                    reports_dir=reports,
+                    audits_dir=audits,
+                    backups_dir=backups,
+                )
+
+    def test_bulk_processor_reports_missing_queue_responses(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            responses = root / "responses"
+            responses.mkdir()
+            summary = process_response_folder(
+                responses,
+                reports_dir=root / "reports",
+                validated_dir=root / "validated",
+            )
+            self.assertEqual(summary["responses_found"], 0)
+            self.assertEqual(summary["missing_response_count"], summary["total_batches"])
+            self.assertFalse(summary["ready_for_review"])
+
+    def test_bulk_approval_rejects_incomplete_validated_queue(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            with self.assertRaisesRegex(ValueError, "not validated"):
+                approve_validated_folder(
+                    Path(tmp_dir),
+                    "Linguistic Reviewer",
+                    "Compliance Reviewer",
                 )
 
 

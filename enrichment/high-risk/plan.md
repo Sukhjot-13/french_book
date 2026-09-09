@@ -429,29 +429,28 @@ file has a response.
 
 ## 18. Completion definition
 
-Completing the initial `verbs.conjugations` queue does **not** mean every field
-in the database has been enriched. It means only that the explicitly defined
-conjugation contract has been safely completed for eligible verbs. The other
-high-risk field families in section 3 remain unprocessed until each has its own
-field contract, trusted evidence, batch format, validator, tests, review, and
-approved rollout. Never describe the database as "fully enriched with no
-exceptions" until every field family has met that standard and the final
+Completing only the legacy `verbs.conjugations` queue does **not** mean every
+field in the database has been enriched. The v2.1 complete queue addresses all
+currently empty configured high-risk fields plus partial conjugations, but it
+counts as complete only when every target has a non-empty proposal, passes the
+generic schema/precondition checks and relevant linguistic contract, receives
+independent review and dual approval, is transactionally applied, and the final
 inventory reports zero permitted gaps.
 
 ## 19. Complete high-risk queue generation
 
 Use `scripts/make_full_high_risk_queue.py` only to create the complete work
 queue from the immutable normal-enriched baseline. It creates one fill-only
-batch for every empty high-risk field and separate `REPAIR_REVIEW_ONLY` batches
-for partial verb conjugation records. It never includes populated fields in a
-fill-only batch and never changes a dataset.
+batch for every empty high-risk field and separate
+`COMPLETE_PARTIAL_REVIEW` batches for partial verb conjugation records. It
+never includes populated fields in a fill-only batch and never changes a
+dataset.
 
 The queue manifest is an accountability index, not an authorization to merge.
-Before any non-conjugation batch may be processed, its field family needs the
-field-specific contract, source snapshots, response schema, validator,
-previewer, approval rule, applicator, and regression tests required elsewhere
-in this plan. A batch completed by an AI without those gates is still pending
-review and cannot count as enriched.
+The v2.1 generic validator enforces each field's exact master-schema fragment,
+ownership, preconditions, and full-dataset schema safety. Field-specific
+linguistic correctness still requires independent review before dual approval;
+a batch completed by an AI without those review gates cannot count as enriched.
 
 The legacy single-field generator must consider only entries from its own
 collection when checking prior targets; the complete queue includes composite
@@ -459,10 +458,50 @@ natural keys for other collections.
 
 ## 20. AI candidate mode for the complete queue
 
-The v2 complete queue may generate `AI_GENERATED_UNVERIFIED` candidates when
+The v2.1 complete queue may generate `AI_GENERATED_UNVERIFIED` candidates when
 the source-evidence workflow is unavailable. These candidates are not
-source-derived facts and must remain outside the learner-facing dataset. The
-v2 validator accepts their response envelope only; it does not approve, apply,
-or certify their linguistic correctness. Before promotion, every candidate
-requires an independent review pass and the relevant field-specific contract,
-validator, and approval workflow.
+source-derived facts and must remain outside the learner-facing dataset until
+reviewed. The v2.1 validator checks the response envelope, exact field schema,
+preconditions, conjugation completeness/preservation, placeholders, and a
+full-dataset schema dry run; it does not certify linguistic correctness or
+approve the candidate. Before promotion, every candidate requires independent
+review and dual approval.
+
+## 21. Complete queue v2.1 operational workflow
+
+Queue contract `2.1.0` supports both empty-field completion and conservative
+completion of partial verb conjugations:
+
+- `FILL_ONLY` candidates may set only fields that were empty in the frozen
+  baseline.
+- `COMPLETE_PARTIAL_REVIEW` candidates may provide a complete conjugation list
+  only when every existing conjugation record is retained unchanged and the
+  resulting list satisfies the canonical conjugation contract.
+
+Every candidate value is validated against the exact resolved field schema,
+checked for placeholders, and staged into an in-memory copy of the complete
+dataset for `MASTER_SCHEMA.json` validation. Passing validation creates a
+hash-bound validated artifact; it does not certify linguistic correctness.
+Independent review and two distinct reviewer approvals remain mandatory.
+
+Operational sequence:
+
+1. Give DeepSeek one current `batches/*.txt` file at a time and save its JSON
+   under the exact requested name in `responses/`.
+2. Process available responses incrementally with
+   `python3 enrichment/high-risk/scripts/process_full_high_risk_responses.py`.
+3. Before review completion, rerun that command with `--require-complete`; its
+   summary is ready only when all 753 responses pass and none contains a
+   `NO_PROPOSAL` gap.
+4. Preview each validated payload and complete independent linguistic/compliance
+   review. Record two distinct approvals with `approve_high_risk.py`; its
+   `--folder` mode is available only after every batch is validated and the
+   entire queue contains no `NO_PROPOSAL` gaps.
+5. Apply current-queue approvals with `apply_full_high_risk_enrichment.py`.
+   The first v2.1 application must use `--rebuild` because the historical
+   derived output predates the required provenance-state file. The existing
+   derived output is backed up before replacement.
+6. Run the full tests and
+   `python3 enrichment/high-risk/scripts/inventory_full_high_risk.py --require-complete`.
+   Completion requires zero permitted high-risk gaps, not merely the presence
+   of response files.

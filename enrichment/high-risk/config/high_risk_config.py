@@ -50,6 +50,19 @@ VALIDATOR_VERSION = "1.0.0"
 APPLICATOR_VERSION = "1.0.0"
 SOURCE_ALLOWLIST_VERSION = "1.0.0"
 
+# Complete queue versions are independent from the legacy single-field
+# verbs.conjugations workflow above.  Bumping these values deliberately makes
+# stale worker responses fail closed when the queue contract changes.
+FULL_QUEUE_VERSION = "2.1.0"
+FULL_QUEUE_VALIDATOR_VERSION = "2.1.0"
+FULL_QUEUE_APPLICATOR_VERSION = "2.1.0"
+
+# Complete-queue modes.  FILL_ONLY sets a currently empty field.  The repair
+# mode replaces a partial conjugation list only after validation proves that
+# every existing record is preserved and the proposed list is contract-complete.
+FULL_QUEUE_FILL_MODE = "FILL_ONLY"
+FULL_QUEUE_REPAIR_MODE = "COMPLETE_PARTIAL_REVIEW"
+
 # Sizing Rules (5-10 verbs per batch for human review and failure isolation)
 DEFAULT_BATCH_SIZE = 5
 MAX_BATCH_SIZE = 10

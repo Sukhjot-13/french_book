@@ -17,8 +17,21 @@ for path in (str(REPO_ROOT), str(HIGH_RISK_DIR)):
     if path not in sys.path:
         sys.path.insert(0, path)
 
-from config.high_risk_config import BATCHES_DIR, HIGH_RISK_FIELDS, NATURAL_KEYS
-from scripts.high_risk_helpers import compute_content_sha256, load_baseline_dataset
+from config.high_risk_config import (
+    BATCHES_DIR,
+    FULL_QUEUE_FILL_MODE,
+    FULL_QUEUE_REPAIR_MODE,
+    FULL_QUEUE_VALIDATOR_VERSION,
+    FULL_QUEUE_VERSION,
+    HIGH_RISK_FIELDS,
+    NATURAL_KEYS,
+)
+from scripts.high_risk_helpers import (
+    compute_content_sha256,
+    evaluate_verb_conjugation_status,
+    load_baseline_dataset,
+    load_conjugation_contract,
+)
 
 MANIFEST_PATH = BATCHES_DIR / "BATCH_MANIFEST.json"
 MASTER_SCHEMA_PATH = REPO_ROOT / "data" / "MASTER_SCHEMA.json"
@@ -100,6 +113,7 @@ Mode: {mode}
 Baseline SHA-256: {baseline_hash}
 Expected response: {batch_id}_RESPONSE.json
 Validator: scripts/validate_full_high_risk_response.py
+Queue Contract Version: {FULL_QUEUE_VERSION}
 
 ROLE AND SCOPE
 Return proposals for ONLY the listed entities and ONLY the listed field. Existing
@@ -110,19 +124,24 @@ AI-CANDIDATE POLICY
 Generate a best-effort candidate value when you can do so confidently from
 French linguistic knowledge. Every generated value is UNVERIFIED and will be
 checked later; it is not source-derived data and cannot be applied directly to
-the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
-conflicting forms, or an incomplete existing field.
+the learner-facing dataset. Aim to return one proposal for every target. Return
+NO_PROPOSAL only for genuine uncertainty or conflicting forms; do not use it
+merely because the candidate will require later human review.
 
 MODE RULES
 - FILL_ONLY: propose a value only when current_value is null, empty string,
   empty array, or empty object. Do not modify non-empty values.
-- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
-  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
-  a field-specific repair contract.
+- COMPLETE_PARTIAL_REVIEW: used only for partial verb conjugations. Return one
+  complete replacement candidate satisfying the conjugation contract and field
+  schema. Every existing conjugation record in current_value must be present in
+  the candidate unchanged; add only the missing canonical mood/tense records.
+  The replacement remains review-only until independent validation and dual
+  human approval are complete.
 
 RESPONSE JSON CONTRACT
 {{
   "batch_id": "{batch_id}",
+  "queue_version": "{FULL_QUEUE_VERSION}",
   "collection": "{collection}",
   "field": "{field}",
   "mode": "{mode}",
@@ -140,9 +159,9 @@ RESPONSE JSON CONTRACT
 FIELD VALUE SCHEMA (AUTHORITATIVE)
 The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
 every declared type, enum, required property, item shape, and nullability. Do
-not add properties not permitted by the schema. An empty array is a valid
-proposal only when it is meaningful for the field and target; it is not a
-substitute for uncertain content.
+not add properties not permitted by the schema. A proposal must add meaningful
+content; never return an empty string, array, or object as a proposal value. Use
+NO_PROPOSAL when you cannot supply a non-empty schema-valid candidate.
 {json.dumps(value_schema, ensure_ascii=False, indent=2)}
 
 TARGET CONTEXT RULES
@@ -164,8 +183,13 @@ def build_queue(baseline_path: Optional[Path] = None) -> Dict[str, Any]:
     data, baseline_hash = load_baseline_dataset(baseline_path)
     master_schema = json.loads(MASTER_SCHEMA_PATH.read_text(encoding="utf-8"))
     BATCHES_DIR.mkdir(parents=True, exist_ok=True)
-    manifest: Dict[str, Any] = {"version": "2.0.0", "baseline_hash": baseline_hash,
-                                "created_at": datetime.now(timezone.utc).isoformat(), "batches": {}}
+    manifest: Dict[str, Any] = {
+        "version": FULL_QUEUE_VERSION,
+        "validator_version": FULL_QUEUE_VALIDATOR_VERSION,
+        "baseline_hash": baseline_hash,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "batches": {},
+    }
     sequence = 1
 
     for collection, fields in HIGH_RISK_FIELDS.items():
@@ -175,28 +199,40 @@ def build_queue(baseline_path: Optional[Path] = None) -> Dict[str, Any]:
             targets = [context(collection, field, entity) for entity in entities if is_empty(entity.get(field))]
             for local_number, group in enumerate(chunks(targets, BATCH_SIZES.get(collection, 10)), start=1):
                 batch_id = f"{sequence:03d}_{collection}_{field}_fill_{local_number:03d}"
-                content = prompt(batch_id, collection, field, "FILL_ONLY", baseline_hash, group, value_schema)
+                content = prompt(batch_id, collection, field, FULL_QUEUE_FILL_MODE, baseline_hash, group, value_schema)
                 (BATCHES_DIR / f"{batch_id}.txt").write_text(content, encoding="utf-8")
                 manifest["batches"][batch_id] = {"batch_id": batch_id, "collection": collection,
-                    "field": field, "mode": "FILL_ONLY", "baseline_hash": baseline_hash,
+                    "field": field, "mode": FULL_QUEUE_FILL_MODE, "baseline_hash": baseline_hash,
                     "batch_checksum": compute_content_sha256(content),
                     "target_keys": [item["entity_key"] for item in group]}
                 sequence += 1
 
     # Partial conjugation data is ineligible for fill-only mutation but must be
     # visible in the complete queue so it cannot be mistaken for completion.
-    partials = [context("verbs", "conjugations", entity) for entity in data.get("verbs", [])
-                if isinstance(entity.get("conjugations"), list) and entity.get("conjugations")]
+    contract = load_conjugation_contract()
+    partials: List[Dict[str, Any]] = []
+    invalid_statuses: List[str] = []
+    for entity in data.get("verbs", []):
+        status, reasons = evaluate_verb_conjugation_status(entity, contract)
+        if status == "PARTIAL":
+            partials.append(context("verbs", "conjugations", entity))
+        elif status not in {"MISSING", "COMPLETE"}:
+            invalid_statuses.append(f"{entity.get('infinitive')}: {status} ({'; '.join(reasons)})")
+    if invalid_statuses:
+        raise ValueError(
+            "Cannot generate repair queue for malformed/unsupported conjugations: "
+            + " | ".join(invalid_statuses[:10])
+        )
     conjugation_schema = field_value_schema(master_schema, "verbs", "conjugations")
     for local_number, group in enumerate(chunks(partials, BATCH_SIZES["verbs"]), start=1):
         batch_id = f"{sequence:03d}_verbs_conjugations_repair_{local_number:03d}"
         content = prompt(
-            batch_id, "verbs", "conjugations", "REPAIR_REVIEW_ONLY", baseline_hash,
+            batch_id, "verbs", "conjugations", FULL_QUEUE_REPAIR_MODE, baseline_hash,
             group, conjugation_schema
         )
         (BATCHES_DIR / f"{batch_id}.txt").write_text(content, encoding="utf-8")
         manifest["batches"][batch_id] = {"batch_id": batch_id, "collection": "verbs",
-            "field": "conjugations", "mode": "REPAIR_REVIEW_ONLY", "baseline_hash": baseline_hash,
+            "field": "conjugations", "mode": FULL_QUEUE_REPAIR_MODE, "baseline_hash": baseline_hash,
             "batch_checksum": compute_content_sha256(content),
             "target_keys": [item["entity_key"] for item in group]}
         sequence += 1

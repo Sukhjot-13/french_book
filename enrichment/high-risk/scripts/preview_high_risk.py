@@ -17,8 +17,30 @@ for p in [str(REPO_ROOT), str(HIGH_RISK_DIR)]:
     if p not in sys.path:
         sys.path.insert(0, p)
 
-from config.high_risk_config import REPORTS_DIR, VALIDATED_DIR
+from config.high_risk_config import NATURAL_KEYS, REPORTS_DIR, VALIDATED_DIR
 from scripts.high_risk_helpers import load_baseline_dataset
+
+
+def _key_token(key: Any) -> str:
+    """Returns a stable token for scalar or composite natural keys."""
+    return json.dumps(key, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def _entity_key(collection: str, entity: Dict[str, Any]) -> Any:
+    """Extracts a collection-specific natural key."""
+    fields = NATURAL_KEYS[collection]
+    if isinstance(fields, list):
+        return {field: entity.get(field) for field in fields}
+    return entity.get(fields)
+
+
+def _find_entity(data: Dict[str, Any], collection: str, key: Any) -> Dict[str, Any]:
+    """Resolves an entity by scalar or composite natural key."""
+    target = _key_token(key)
+    return next(
+        (entity for entity in data.get(collection, []) if _key_token(_entity_key(collection, entity)) == target),
+        {},
+    )
 
 
 def generate_preview(
@@ -30,9 +52,9 @@ def generate_preview(
         val_data = json.load(f)
 
     data, baseline_hash = load_baseline_dataset(baseline_path)
-    verbs_by_inf = {v["infinitive"]: v for v in data.get("verbs", [])}
-
     batch_id = val_data["batch_id"]
+    collection = val_data.get("collection", "verbs")
+    field = val_data.get("field", "conjugations")
     patches = val_data.get("patches", [])
     no_proposals = val_data.get("no_proposals", [])
 
@@ -44,26 +66,18 @@ def generate_preview(
     lines.append("=" * 78 + "\n")
 
     for idx, patch in enumerate(patches):
-        inf = patch["entity_key"]
-        baseline_v = verbs_by_inf.get(inf, {})
-        current_conjs = baseline_v.get("conjugations", [])
+        key = patch["entity_key"]
+        baseline_entity = _find_entity(data, collection, key)
+        patch_field = patch.get("field", field)
+        current_value = baseline_entity.get(patch_field)
 
-        lines.append(f"--- ENTITY #{idx + 1}: {inf} ---")
-        lines.append(f"  Field: {patch['field']}")
-        lines.append(f"  Operation: {patch['operation']}")
+        lines.append(f"--- ENTITY #{idx + 1}: {key} ---")
+        lines.append(f"  Collection: {collection}")
+        lines.append(f"  Field: {patch_field}")
+        lines.append(f"  Mode/Operation: {val_data.get('mode', patch.get('operation'))}")
         lines.append(f"  Evidence: {patch.get('evidence', {}).get('source_id')}")
-        lines.append(f"  Before: {len(current_conjs)} conjugations")
-        lines.append(f"  After:  {len(patch['value'])} conjugations\n")
-
-        lines.append("  Proposed Conjugation Matrix:")
-        for c in patch["value"]:
-            tense = c.get("tense")
-            mood = c.get("mood")
-            forms = c.get("forms", {})
-            lines.append(f"    [{mood}/{tense}]")
-            for person, val in forms.items():
-                if val is not None:
-                    lines.append(f"      {person:<15}: {val}")
+        lines.append(f"  Before: {json.dumps(current_value, ensure_ascii=False, sort_keys=True)}")
+        lines.append(f"  After:  {json.dumps(patch['value'], ensure_ascii=False, sort_keys=True)}")
         lines.append("")
 
     if no_proposals:

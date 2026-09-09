@@ -796,12 +796,14 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**: N/A (specification document).
 
 #### `enrichment/high-risk/config/high_risk_config.py`
-- **Purpose**: Authoritative configuration governing high-risk directory paths, version constants, full 11-collection high-risk field inventories, active collection policy, and allowed operations.
+- **Purpose**: Authoritative configuration governing high-risk directory paths, legacy and complete-queue version constants, v2.1 fill/partial-completion modes, full 11-collection high-risk field inventories, active collection policy, and allowed operations.
 - **Functions**:
   - `HIGH_RISK_FIELDS`: Dictionary of high-risk exclusions across 11 collections.
   - `ALLOWED_OPERATIONS`: Strict allowed operations list (`["set_if_missing_complete"]`).
   - `NATURAL_KEYS`: Natural key mapping per collection.
   - `CONTROLLED_NO_PROPOSAL_REASONS`: Approved reason codes for unproposed targets.
+  - `FULL_QUEUE_VERSION`, `FULL_QUEUE_VALIDATOR_VERSION`, `FULL_QUEUE_APPLICATOR_VERSION`: Independent compatibility boundary for current complete-queue prompts, validation, and application.
+  - `FULL_QUEUE_FILL_MODE`, `FULL_QUEUE_REPAIR_MODE`: Authorized v2.1 empty-field and preservation-only partial-conjugation completion modes.
 
 #### `enrichment/high-risk/config/conjugation_contract.json`
 - **Purpose**: Versioned machine-readable contract specifying canonical moods, mandatory tenses, person forms, display conventions, diacritics policy, and impersonal/defective verb exceptions.
@@ -843,6 +845,13 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `run_inventory(baseline_path=None)`: Executes preflight scan, checks natural key uniqueness, counts verb statuses, and writes `inventory.json` and `inventory_report.txt`.
   - `main()`: CLI entry point.
 
+#### `enrichment/high-risk/scripts/inventory_full_high_risk.py`
+- **Purpose**: Audits every configured high-risk field in a selected baseline or derived dataset, reports exact remaining empty slots and conjugation statuses, includes unresolved-source-item counts, and exposes strict high-risk and whole-dataset completion flags.
+- **Functions**:
+  - `_is_empty(value)`: Identifies high-risk values still considered unfilled.
+  - `inventory_full_high_risk(dataset_path=None, emit_artifacts=True, reports_dir=REPORTS_DIR)`: Produces the machine-readable and human-readable all-field completion inventory.
+  - `main()`: CLI entry point with optional `--require-complete` enforcement.
+
 #### `enrichment/high-risk/scripts/make_high_risk_batch.py`
 - **Purpose**: Deterministic batch generator slicing missing verbs into small (5-10) risk-segregated batches, producing worker `.txt` prompts, and maintaining `BATCH_MANIFEST.json`.
 - **Functions**:
@@ -851,7 +860,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `main()`: CLI entry point.
 
 #### `enrichment/high-risk/scripts/make_full_high_risk_queue.py`
-- **Purpose**: Generates the complete high-risk work queue from the normal-enriched baseline, covering every empty high-risk field plus review-only batches for partial verb conjugations without modifying any dataset. Its v2 prompts label generated values as `AI_GENERATED_UNVERIFIED` candidates pending independent review.
+- **Purpose**: Generates the v2.1 complete high-risk work queue from the normal-enriched baseline, covering every empty high-risk field plus completion batches for contract-classified partial verb conjugations. Prompts request non-empty `AI_GENERATED_UNVERIFIED` candidates and require repair candidates to retain every existing conjugation record unchanged.
 - **Functions**:
   - `is_empty(value)`: Identifies fields eligible for fill-only batching.
   - `entity_key(collection, entity)`: Extracts configured scalar or composite natural keys.
@@ -860,19 +869,29 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `resolve_schema_references(schema, definitions, stack=())`: Inlines local JSON Schema definitions into AI-readable field contracts.
   - `field_value_schema(master_schema, collection, field)`: Extracts one fully resolved target-field schema from the master schema.
   - `prompt(batch_id, collection, field, mode, baseline_hash, targets, value_schema)`: Formats a self-contained high-risk batch instruction file with an authoritative field-value schema and complete non-target context.
-  - `build_queue(baseline_path=None)`: Writes the full batch set and its checksum manifest.
+  - `build_queue(baseline_path=None)`: Writes the full batch set and its version/checksum manifest; refuses malformed or unsupported existing conjugation data.
   - `main()`: CLI entry point.
 
 #### `enrichment/high-risk/scripts/validate_full_high_risk_response.py`
-- **Purpose**: Validates v2 full-queue response files against their frozen manifest, baseline, target ownership, and fill-only/review-only constraints without authorizing any mutation. It distinguishes `AI_GENERATED_UNVERIFIED` candidates from verified local evidence.
+- **Purpose**: Validates v2.1 full-queue responses against their frozen manifest, baseline, target ownership, exact resolved field schema, fill/partial-completion preconditions, existing-conjugation preservation, canonical conjugation completeness, placeholder rules, and a full-dataset schema dry run. PASS artifacts remain review candidates rather than merge authorization.
 - **Functions**:
   - `_key_token(key)`: Canonicalizes scalar and composite natural keys for ownership checks.
   - `_entity_key(collection, entity)`: Extracts an entity's configured natural key.
   - `_find_entity(data, collection, key)`: Resolves a target against the immutable baseline.
   - `_is_empty(value)`: Evaluates the fill-only precondition.
+  - `_contains_placeholder(value)`: Recursively rejects strong placeholder markers in proposed values.
   - `_candidate_evidence(evidence, field, trusted_sources)`: Validates either the explicit unverified AI-candidate marker or a VERIFIED allowlisted source with a matching in-repository snapshot hash.
-  - `validate_full_queue_response(response_path, baseline_path=None)`: Performs fail-closed v2 response validation and returns status plus report data.
+  - `_preserves_existing_conjugations(existing, candidate)`: Ensures partial-completion candidates retain all source-derived conjugation records unchanged.
+  - `_validate_conjugation_candidate(entity, candidate, contract)`: Enforces canonical mood/tense uniqueness plus required personal, impersonal, and defective-form semantics.
+  - `_write_validation_artifacts(response_path, response, report, reports_dir, validated_dir)`: Emits a validation report and integrity-bound review artifact only on PASS.
+  - `validate_full_queue_response(response_path, baseline_path=None, emit_artifacts=False, reports_dir=None, validated_dir=None)`: Performs fail-closed v2.1 validation and optionally materializes reports/validated payloads.
   - `main()`: CLI entry point for one full-queue response.
+
+#### `enrichment/high-risk/scripts/process_full_high_risk_responses.py`
+- **Purpose**: Incrementally bulk-validates current v2.1 DeepSeek response files and produces an aggregate completion report that distinguishes missing files, validation failures, proposals, and `NO_PROPOSAL` gaps.
+- **Functions**:
+  - `process_response_folder(response_dir=RESPONSES_DIR, baseline_path=None, reports_dir=REPORTS_DIR, validated_dir=VALIDATED_DIR)`: Validates every current-manifest response found, writes per-batch artifacts and the full-queue summary, and computes strict review readiness.
+  - `main()`: CLI entry point supporting incremental processing and final `--require-complete` enforcement.
 
 #### `enrichment/high-risk/scripts/validate_high_risk_response.py`
 - **Purpose**: Fail-closed validator checking candidate `*_RESPONSE.json` files against frozen-manifest metadata/checksums, target ownership, fill-only rules, evidence, canonical mood/tense uniqueness, and an in-memory schema dry run; it emits a hash-linked validated payload only on complete pass.
@@ -881,16 +900,20 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `main()`: CLI entry point.
 
 #### `enrichment/high-risk/scripts/preview_high_risk.py`
-- **Purpose**: Dry-run diff preview generator showing entity-by-entity conjugation matrix additions against baseline data.
+- **Purpose**: Generic dry-run diff preview generator showing entity-by-entity before/after values for scalar or composite keys across legacy conjugations and all v2.1 high-risk collections/fields.
 - **Functions**:
-  - `generate_preview(validated_file, baseline_path=None)`: Formats human-readable text diff and writes `_PREVIEW.txt` report.
+  - `_key_token(key)`: Canonicalizes scalar or composite keys.
+  - `_entity_key(collection, entity)`: Extracts the configured natural key.
+  - `_find_entity(data, collection, key)`: Resolves a baseline entity for preview.
+  - `generate_preview(validated_file, baseline_path=None)`: Formats generic human-readable before/after diffs and writes `_PREVIEW.txt` report.
   - `main()`: CLI entry point.
 
 #### `enrichment/high-risk/scripts/approve_high_risk.py`
-- **Purpose**: Dual-reviewer approval tool that promotes only a validator-produced payload backed by its matching PASS report and records a hash-based approval integrity chain.
+- **Purpose**: Dual-reviewer approval tool for both legacy and current v2.1 high-risk fields. It accepts only validator-produced payloads bound to their matching PASS report and records a hash-based approval integrity chain.
 - **Functions**:
   - `approve_batch(validated_path, linguistic_reviewer, compliance_reviewer, notes=None)`: Requires two distinct reviewers, verifies the matching PASS report, and copies a hash-bound approval payload to `approved/`.
   - `reject_batch(validated_path, reviewer, reason)`: Records rejection report in `rejected/`.
+  - `approve_validated_folder(validated_dir, linguistic_reviewer, compliance_reviewer, notes=None)`: Bulk-approves only when every current batch is validated and no validated payload contains a `NO_PROPOSAL` gap.
   - `main()`: CLI entry point.
 
 #### `enrichment/high-risk/scripts/apply_high_risk_enrichment.py`
@@ -900,19 +923,32 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `apply_approved_batch(approved_file, output_path=None, baseline_path=None)`: Re-runs authoritative validation, rejects stale/tampered approvals and incompatible existing outputs, then backs up, stages, schema-validates, atomically writes, and audits the derived dataset.
   - `main()`: CLI entry point.
 
+#### `enrichment/high-risk/scripts/apply_full_high_risk_enrichment.py`
+- **Purpose**: Generic v2.1 transaction-safe applicator for integrity-bound approvals across all configured high-risk collections and fields. It revalidates raw responses, protects both baseline datasets, enforces fill/repair preconditions, supports an explicit first-run rebuild of the historical stateless derived output, schema-validates staged data, atomically writes output/state, backs up prior output, and records immutable audits.
+- **Functions**:
+  - `state_path_for(output_path)`: Resolves the adjacent v2.1 provenance-state file.
+  - `_key_token(key)`: Canonicalizes scalar or composite natural keys.
+  - `_entity_key(collection, entity)`: Extracts the configured natural key.
+  - `_find_entity(data, collection, key)`: Resolves one staged entity.
+  - `_is_empty(value)`: Rechecks the fill-only precondition at application time.
+  - `_atomic_write_json(path, payload)`: Atomically writes a JSON artifact beside its destination.
+  - `apply_full_approved_batch(approved_file, output_path=None, baseline_path=None, ...)`: Verifies exact approved-to-validated payload identity plus the complete hash chain, stages one approved change set, enforces idempotence and preconditions, writes the derived output/state, and emits audit/report artifacts.
+  - `apply_full_approved_folder(approved_dir=APPROVED_DIR, output_path=None, baseline_path=None, rebuild_from_baseline=False)`: Applies only current-manifest approvals in deterministic order.
+  - `main()`: CLI entry point for one approval or a folder, including explicit `--rebuild` support.
+
 #### `enrichment/high-risk/tests/test_high_risk_pipeline.py`
-- **Purpose**: Automated suite verifying configuration boundaries, contract rules, preflight classification, both legacy and full-queue fail-closed validation paths, approval-integrity guards, output safety guards, and source immutability.
+- **Purpose**: Automated suite verifying configuration boundaries, contract rules, isolated preflight classification, both legacy and v2.1 fail-closed validation paths, field-schema rejection, preservation-only conjugation completion, generic approval/application, bulk response reporting, idempotence, output safety guards, and source immutability.
 - **Functions**:
   - `TestHighRiskConfiguration`: Tests configuration boundaries, versions, contracts, and allowlists.
-  - `TestInventoryAndClassification`: Tests morphological classification and preflight inventory.
+  - `TestInventoryAndClassification`: Tests morphological classification plus legacy conjugation and full all-field inventory totals.
   - `TestBatchGeneratorAndManifest`: Tests complete-queue manifest presence, checksum locking, and baseline metadata.
-  - `TestFullQueueValidation`: Tests v2 no-proposal and explicit AI-candidate acceptance.
+  - `TestValidationGatesFailClosed`: Tests legacy fail-closed rejection across response, metadata, precondition, evidence, and placeholder gates without mutating the production manifest.
+  - `TestFullQueueValidation`: Tests v2.1 no-proposal accounting, schema-valid candidate acceptance, schema rejection, and partial-conjugation preservation.
+  - `TestApprovalAndSafeApplication`: Tests legacy protections plus v2.1 validation-to-approval-to-generic-application, idempotence, bulk missing-response reporting, and rejection of incomplete bulk approvals.
 
 #### `tests/run-all.test.ts`
 - **Purpose**: Single project test entry point; verifies master-data and selector invariants, then launches the normal and high-risk Python pipeline suites with accurate result summaries.
 - **Functions**: N/A (top-level test orchestration).
-  - `TestValidationGatesFailClosed`: Tests fail-closed rejection across gates 1, 2, 7, 8, and 10.
-  - `TestApprovalAndSafeApplication`: Tests dual-reviewer and integrity-chain rejection, protected-output guards, and source dataset immutability.
 
 #### Directory Inventory: `batches/`, `responses/`, `validated/`, `approved/`, `rejected/`, `reports/`, `audits/`, `backups/`
 - **Purpose**: Isolated lifecycle directories housing prompt `.txt` files, worker responses, validated payloads, approved batches with decision metadata, rejection reports, verification/preview/applied text reports, immutable audit logs (`*_AUDIT.json`), and atomic timestamped dataset backups.

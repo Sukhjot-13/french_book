@@ -7,6 +7,7 @@ Mode: FILL_ONLY
 Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
 Expected response: 532_expressions_transformations_fill_018_RESPONSE.json
 Validator: scripts/validate_full_high_risk_response.py
+Queue Contract Version: 2.1.0
 
 ROLE AND SCOPE
 Return proposals for ONLY the listed entities and ONLY the listed field. Existing
@@ -17,19 +18,24 @@ AI-CANDIDATE POLICY
 Generate a best-effort candidate value when you can do so confidently from
 French linguistic knowledge. Every generated value is UNVERIFIED and will be
 checked later; it is not source-derived data and cannot be applied directly to
-the learner-facing dataset. Return NO_PROPOSAL only for genuine uncertainty,
-conflicting forms, or an incomplete existing field.
+the learner-facing dataset. Aim to return one proposal for every target. Return
+NO_PROPOSAL only for genuine uncertainty or conflicting forms; do not use it
+merely because the candidate will require later human review.
 
 MODE RULES
 - FILL_ONLY: propose a value only when current_value is null, empty string,
   empty array, or empty object. Do not modify non-empty values.
-- REPAIR_REVIEW_ONLY: do not propose an automatic mutation. Describe the exact
-  missing/ambiguous structure and return NO_PROPOSAL until a human has approved
-  a field-specific repair contract.
+- COMPLETE_PARTIAL_REVIEW: used only for partial verb conjugations. Return one
+  complete replacement candidate satisfying the conjugation contract and field
+  schema. Every existing conjugation record in current_value must be present in
+  the candidate unchanged; add only the missing canonical mood/tense records.
+  The replacement remains review-only until independent validation and dual
+  human approval are complete.
 
 RESPONSE JSON CONTRACT
 {
   "batch_id": "532_expressions_transformations_fill_018",
+  "queue_version": "2.1.0",
   "collection": "expressions",
   "field": "transformations",
   "mode": "FILL_ONLY",
@@ -47,9 +53,9 @@ RESPONSE JSON CONTRACT
 FIELD VALUE SCHEMA (AUTHORITATIVE)
 The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
 every declared type, enum, required property, item shape, and nullability. Do
-not add properties not permitted by the schema. An empty array is a valid
-proposal only when it is meaningful for the field and target; it is not a
-substitute for uncertain content.
+not add properties not permitted by the schema. A proposal must add meaningful
+content; never return an empty string, array, or object as a proposal value. Use
+NO_PROPOSAL when you cannot supply a non-empty schema-valid candidate.
 {
   "type": "array",
   "items": {
