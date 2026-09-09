@@ -1,0 +1,1959 @@
+================================================================================
+L'ÉTUDE — HIGH-RISK CORRECTION QUEUE 2.2.0-draft: C22_002_verbs_conjugations_repair_002
+================================================================================
+Collection: verbs
+Field: conjugations
+Remediation type: CANONICAL_REPAIR_DRAFT
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Source v2.1 batches: 726_verbs_conjugations_repair_003, 727_verbs_conjugations_repair_004, 728_verbs_conjugations_repair_005
+
+YOU MAY DO
+Return exactly one JSON response for this prompt. Propose values only for the
+listed natural keys and the single named field. Preserve French spelling,
+diacritics, grammatical gender, agreement, and source objects. This is a
+candidate for later independent linguistic and provenance review.
+
+YOU MAY NOT DO
+Do not alter source or baseline datasets, existing frozen v2.1 batches, the
+v2.1 manifest, natural keys, non-target fields, or any entity outside TARGETS.
+Do not browse, claim unverified external sources, invent citations, include
+Markdown, or create files other than the response JSON.
+
+REPAIR-SPECIFIC REQUIREMENTS
+This is a v2.2 DRAFT correction proposal. It is NOT compatible with the current
+v2.1 validator or applicator and cannot be merged until a separately reviewed
+repair policy is implemented. Do not place this response in the ordinary
+`enrichment/high-risk/responses/` directory.
+
+The failure in every target is caused by partial or noncanonical existing
+conjugation records. Produce one complete canonical replacement list:
+- use exactly the canonical mood/tense pairs below;
+- provide every required non-null person form unless the verb is genuinely
+  impersonal or defective under the existing contract;
+- do not retain duplicate or noncanonical records merely to preserve their
+  spelling;
+- do not repeat, invent, or modify source-evidence objects. Every existing
+  record's evidence is represented by an immutable SHA-256 digest in TARGETS;
+  a future reviewed v2.2 repair script must rebind the exact baseline source
+  objects to the appropriate canonical records;
+- set each output record's `sources` array to `[]`; it is schema-valid staging
+  data, not a replacement for the baseline's immutable source evidence;
+- state any normalization or ambiguity in `evidence.notes`.
+
+CANONICAL MOOD/TENSE/FORM REQUIREMENTS
+[
+  {
+    "mood": "indicative",
+    "tense": "présent",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "indicative",
+    "tense": "imparfait",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "indicative",
+    "tense": "futur_simple",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "indicative",
+    "tense": "passé_simple",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "conditional",
+    "tense": "conditionnel_présent",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "subjunctive",
+    "tense": "subjonctif_présent",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "imperative",
+    "tense": "impératif",
+    "required_forms": [
+      "imperative_tu",
+      "imperative_nous",
+      "imperative_vous"
+    ]
+  }
+]
+
+
+RESPONSE DESTINATION
+Save exactly one file named `C22_002_verbs_conjugations_repair_002_RESPONSE.json` to:
+`enrichment/high-risk/responses/corrections-v2.2/C22_002_verbs_conjugations_repair_002_RESPONSE.json`
+Never overwrite a file in `enrichment/high-risk/responses/` directly. The
+response remains staged until a dedicated v2.2 validator is reviewed.
+
+RESPONSE JSON ENVELOPE (no extra top-level keys)
+{
+  "batch_id": "C22_002_verbs_conjugations_repair_002",
+  "correction_queue_version": "2.2.0-draft",
+  "collection": "verbs",
+  "field": "conjugations",
+  "remediation_type": "CANONICAL_REPAIR_DRAFT",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "source_v2_1_batch_ids": [
+    "726_verbs_conjugations_repair_003",
+    "727_verbs_conjugations_repair_004",
+    "728_verbs_conjugations_repair_005"
+  ],
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {
+      "entity_key": "<exact key from TARGETS>",
+      "value": "<schema-valid value>",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Brief rationale, retained evidence, and uncertainty."
+      }
+    }
+  ],
+  "no_proposals": []
+}
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "tense",
+      "mood",
+      "forms",
+      "stems",
+      "endings",
+      "formation_note",
+      "irregularities",
+      "notes",
+      "sources"
+    ],
+    "properties": {
+      "tense": {
+        "type": "string",
+        "minLength": 1
+      },
+      "mood": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "forms": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "je",
+          "tu",
+          "il_elle_on",
+          "nous",
+          "vous",
+          "ils_elles",
+          "imperative_tu",
+          "imperative_nous",
+          "imperative_vous",
+          "impersonal_form"
+        ],
+        "properties": {
+          "je": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tu": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "il_elle_on": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "vous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ils_elles": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_tu": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_nous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_vous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "impersonal_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "stems": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "tense",
+            "persons",
+            "stem",
+            "note"
+          ],
+          "properties": {
+            "tense": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "persons": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "je",
+                  "tu",
+                  "il_elle_on",
+                  "nous",
+                  "vous",
+                  "ils_elles",
+                  "all",
+                  "other"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "stem": {
+              "type": "string",
+              "minLength": 1
+            },
+            "note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      },
+      "endings": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "formation_note": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "irregularities": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "notes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_type",
+            "source_name",
+            "chapter_number",
+            "section_title",
+            "page_printed",
+            "page_pdf",
+            "context_type",
+            "exercise_code",
+            "question_number",
+            "table_title",
+            "table_type",
+            "row_label",
+            "column",
+            "direction",
+            "source_headword",
+            "source_target",
+            "source_text",
+            "created_by",
+            "notes",
+            "derived_from",
+            "source_classifications"
+          ],
+          "properties": {
+            "source_type": {
+              "type": "string",
+              "enum": [
+                "chapter",
+                "book",
+                "glossary",
+                "verb_table",
+                "answer_key",
+                "ai_enrichment",
+                "user_added",
+                "derived",
+                "other"
+              ]
+            },
+            "source_name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "chapter_number": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1,
+              "maximum": 999
+            },
+            "section_title": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "page_printed": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "page_pdf": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "context_type": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "explanation",
+                "example",
+                "exercise",
+                "answer_key",
+                "vocabulary",
+                "table",
+                "note",
+                "dialogue",
+                "caption",
+                "warning",
+                "contrast",
+                "glossary",
+                "other",
+                null
+              ]
+            },
+            "exercise_code": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "question_number": {
+              "type": [
+                "integer",
+                "string",
+                "null"
+              ]
+            },
+            "table_title": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "table_type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "row_label": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "column": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "left",
+                "right",
+                "single",
+                "unknown",
+                null
+              ]
+            },
+            "direction": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "fr_en",
+                "en_fr",
+                null
+              ]
+            },
+            "source_headword": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_target": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_text": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "created_by": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "independent_extraction",
+                "rule_expansion",
+                "mapping_script",
+                "ai_enrichment",
+                "manual",
+                "other",
+                null
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "derived_from": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true,
+              "description": "Natural source entity names from which this information was derived."
+            },
+            "source_classifications": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true,
+              "description": "Source-specific classifications worth preserving during migration."
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+TARGETS
+[
+  {
+    "entity_key": "avoir",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "imparfait",
+        "mood": "indicative",
+        "forms": {
+          "je": "avais",
+          "tu": "avais",
+          "il_elle_on": "avait",
+          "nous": "avions",
+          "vous": "aviez",
+          "ils_elles": "avaient",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "imparfait",
+            "persons": [
+              "all"
+            ],
+            "stem": "av-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-ais",
+          "-ait",
+          "-ions",
+          "-iez",
+          "-aient"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Irregular stem; used as auxiliary for plus-que-parfait"
+        ]
+      },
+      {
+        "tense": "subjonctif présent",
+        "mood": "subjunctive",
+        "forms": {
+          "je": "aie",
+          "tu": "aies",
+          "il_elle_on": "ait",
+          "nous": "ayons",
+          "vous": "ayez",
+          "ils_elles": "aient",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "subjonctif présent",
+            "persons": [
+              "all"
+            ],
+            "stem": "ai- / ay-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-e",
+          "-es",
+          "-t",
+          "-ons",
+          "-ez",
+          "-ent"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Irregular stem and endings."
+        ]
+      },
+      {
+        "tense": "participe présent",
+        "mood": "participle",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "irregular"
+        ]
+      },
+      {
+        "tense": "passé simple",
+        "mood": "indicative",
+        "forms": {
+          "je": "eus",
+          "tu": "eus",
+          "il_elle_on": "eut",
+          "nous": "eûmes",
+          "vous": "eûtes",
+          "ils_elles": "eurent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "passé simple",
+            "persons": [
+              "all"
+            ],
+            "stem": "eu-",
+            "note": null
+          }
+        ],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Irregular passé simple."
+        ]
+      },
+      {
+        "tense": "impératif",
+        "mood": "imperative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": "aie",
+          "imperative_nous": "ayons",
+          "imperative_vous": "ayez",
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "impératif",
+            "persons": [
+              "all"
+            ],
+            "stem": "ai-/ay-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-e",
+          "-ons",
+          "-ez"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Irregular imperative."
+        ]
+      },
+      {
+        "tense": "présent",
+        "mood": "Indicatif",
+        "forms": {
+          "je": "ai",
+          "tu": "as",
+          "il_elle_on": "a",
+          "nous": "avons",
+          "vous": "avez",
+          "ils_elles": "ont",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Note that the -s of nous, vous, ils, elles is pronounced z when followed by a vowel."
+        ]
+      },
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "ai",
+          "tu": "as",
+          "il_elle_on": "a",
+          "nous": "avons",
+          "vous": "avez",
+          "ils_elles": "ont",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Used as auxiliary in passé composé"
+        ]
+      },
+      {
+        "tense": "futur simple",
+        "mood": "indicative",
+        "forms": {
+          "je": "aurai",
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "futur simple",
+            "persons": [
+              "all"
+            ],
+            "stem": "aur-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-ai"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Irregular stem"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "avoir",
+      "english": [
+        "be lucky",
+        "be right",
+        "be thirsty",
+        "be thirty-five years old",
+        "be wrong",
+        "feel like",
+        "have",
+        "have a cold",
+        "have a headache",
+        "have a stomachache",
+        "have pain",
+        "have the flu",
+        "hurt",
+        "look (seem)",
+        "need",
+        "to be afraid",
+        "to be ashamed",
+        "to be cold",
+        "to be hot",
+        "to be hungry",
+        "to have",
+        "to have a backache"
+      ],
+      "verb_group": "3rd_group",
+      "auxiliary": "avoir",
+      "regularity": "irregular",
+      "transitivity": [
+        "transitive",
+        "unknown"
+      ],
+      "past_participle": "eu",
+      "present_participle": "ayant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "imparfait",
+        "source_count": 1,
+        "sources_sha256": "sha256:3451fda4adca1a7132a003953ab3ed72721cb43b386838cb3ae915c084bb41b2"
+      },
+      {
+        "record_index": 1,
+        "mood": "subjunctive",
+        "tense": "subjonctif présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:f364194a7477022616ac00fa3b99510a26ea4ad8f8b54c3a24137bd5c391739c"
+      },
+      {
+        "record_index": 2,
+        "mood": "participle",
+        "tense": "participe présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:c97e46050531bc4e367041df7d65b2873ca89ace8577c1514661dcdd0c2fedac"
+      },
+      {
+        "record_index": 3,
+        "mood": "indicative",
+        "tense": "passé simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:c185b56cf054caf988f8ce5749eb2b7126114b3bab14865be6bc30e9541e87a9"
+      },
+      {
+        "record_index": 4,
+        "mood": "imperative",
+        "tense": "impératif",
+        "source_count": 1,
+        "sources_sha256": "sha256:30a5576e251bf99487c4692f6e97e09067d51f56b30ea54d0d5f2a19a3945631"
+      },
+      {
+        "record_index": 5,
+        "mood": "Indicatif",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:a5e5974d1ef7e29d212430f07262106d17d9d3a00c85255115d3c1cebc98fe4a"
+      },
+      {
+        "record_index": 6,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 2,
+        "sources_sha256": "sha256:0ba2f2768aae9d9f1f9dc63e1057463e7ce031db3f66644e5d6ded12902535c3"
+      },
+      {
+        "record_index": 7,
+        "mood": "indicative",
+        "tense": "futur simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:96fc6201225ddcd618a22111a58f77d17c441a97995f758e1188fe8468c91e82"
+      }
+    ],
+    "source_v2_1_batch_id": "726_verbs_conjugations_repair_003",
+    "validation_errors": [
+      "Target 'avoir': record #1 has unknown canonical mood/tense ('subjunctive', 'subjonctif présent')",
+      "Target 'avoir': record #2 has unknown canonical mood/tense ('participle', 'participe présent')",
+      "Target 'avoir': record #3 has unknown canonical mood/tense ('indicative', 'passé simple')",
+      "Target 'avoir': record #5 has unknown canonical mood/tense ('Indicatif', 'présent')",
+      "Target 'avoir': record #7 has unknown canonical mood/tense ('indicative', 'futur simple')"
+    ]
+  },
+  {
+    "entity_key": "battre",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "bats",
+          "tu": "bats",
+          "il_elle_on": "bat",
+          "nous": "battons",
+          "vous": "battez",
+          "ils_elles": "battent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      }
+    ],
+    "related_context": {
+      "infinitive": "battre",
+      "english": [
+        "beat",
+        "to beat"
+      ],
+      "verb_group": null,
+      "auxiliary": "avoir",
+      "regularity": null,
+      "transitivity": [
+        "unknown"
+      ],
+      "past_participle": "battu",
+      "present_participle": "battant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:e08a20a059fa49d9a44f48ff9d2c13ea1b9d446274e8ddbdac7919e227c10a9e"
+      }
+    ],
+    "source_v2_1_batch_id": "726_verbs_conjugations_repair_003",
+    "validation_errors": []
+  },
+  {
+    "entity_key": "boire",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "participe présent",
+        "mood": "participle",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      },
+      {
+        "tense": "passé simple",
+        "mood": "indicative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": "but",
+          "nous": null,
+          "vous": null,
+          "ils_elles": "burent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Only third-person singular and plural provided in table."
+        ]
+      },
+      {
+        "tense": "impératif",
+        "mood": "imperative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": "Bois",
+          "imperative_nous": "Buvons",
+          "imperative_vous": "Buvez",
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "impératif",
+            "persons": [
+              "all"
+            ],
+            "stem": "boi-/buv-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-s",
+          "-ons",
+          "-ez"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Irregular stem change."
+        ]
+      },
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "bois",
+          "tu": "bois",
+          "il_elle_on": "boit",
+          "nous": "buvons",
+          "vous": "buvez",
+          "ils_elles": "boivent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      }
+    ],
+    "related_context": {
+      "infinitive": "boire",
+      "english": [
+        "drink",
+        "to drink"
+      ],
+      "verb_group": "3rd_group",
+      "auxiliary": "avoir",
+      "regularity": "irregular",
+      "transitivity": [
+        "transitive",
+        "unknown"
+      ],
+      "past_participle": "bu",
+      "present_participle": "buvant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "participle",
+        "tense": "participe présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:675ce78f8e5caf8ec8fa76ddfb13f07c3978fb5cbe2b375fdf374adc1c19a18a"
+      },
+      {
+        "record_index": 1,
+        "mood": "indicative",
+        "tense": "passé simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:7737166d73d1483d4cdb769693a9ab36b544ecdf09a0a9d9a23b16791a22ee29"
+      },
+      {
+        "record_index": 2,
+        "mood": "imperative",
+        "tense": "impératif",
+        "source_count": 1,
+        "sources_sha256": "sha256:c23c615c0f5266c90a04ec143517a5ef21cf33cf806c9206abe3c1144130155c"
+      },
+      {
+        "record_index": 3,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:4e5584943ebdeaa276994c0af8e175b6aaec96e61cd93da9c75f6d3906273183"
+      }
+    ],
+    "source_v2_1_batch_id": "726_verbs_conjugations_repair_003",
+    "validation_errors": [
+      "Target 'boire': record #0 has unknown canonical mood/tense ('participle', 'participe présent')",
+      "Target 'boire': record #1 has unknown canonical mood/tense ('indicative', 'passé simple')"
+    ]
+  },
+  {
+    "entity_key": "bouillir",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "bous",
+          "tu": null,
+          "il_elle_on": null,
+          "nous": "bouillons",
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Partial: je and nous forms given"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "bouillir",
+      "english": [
+        "boil",
+        "to boil"
+      ],
+      "verb_group": "3rd_group",
+      "auxiliary": "avoir",
+      "regularity": "irregular",
+      "transitivity": [
+        "intransitive",
+        "transitive"
+      ],
+      "past_participle": "bouilli",
+      "present_participle": "bouillant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:24d73ff390cdf60b9c91887a47dc30df4108b57cb1975d8c51c6ebe2fc053b6d"
+      }
+    ],
+    "source_v2_1_batch_id": "727_verbs_conjugations_repair_004",
+    "validation_errors": [
+      "Target 'bouillir': ('indicative', 'présent') requires a non-empty 'tu' form",
+      "Target 'bouillir': ('indicative', 'présent') requires a non-empty 'il_elle_on' form",
+      "Target 'bouillir': ('indicative', 'présent') requires a non-empty 'vous' form",
+      "Target 'bouillir': ('indicative', 'présent') requires a non-empty 'ils_elles' form"
+    ]
+  },
+  {
+    "entity_key": "bâtir",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": "bâtissons",
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [
+          "-issons"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Partial: nous form"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "bâtir",
+      "english": [
+        "to build"
+      ],
+      "verb_group": "2nd_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "transitive"
+      ],
+      "past_participle": null,
+      "present_participle": null,
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:e3a9aed0f39856dce40ad34859a431776eb27711cc2e1b2e49ffea9ba8b6c365"
+      }
+    ],
+    "source_v2_1_batch_id": "727_verbs_conjugations_repair_004",
+    "validation_errors": [
+      "Target 'bâtir': ('indicative', 'présent') requires a non-empty 'je' form",
+      "Target 'bâtir': ('indicative', 'présent') requires a non-empty 'tu' form",
+      "Target 'bâtir': ('indicative', 'présent') requires a non-empty 'il_elle_on' form",
+      "Target 'bâtir': ('indicative', 'présent') requires a non-empty 'vous' form",
+      "Target 'bâtir': ('indicative', 'présent') requires a non-empty 'ils_elles' form"
+    ]
+  },
+  {
+    "entity_key": "bénir",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": "bénissons",
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [
+          "-issons"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Partial: nous form"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "bénir",
+      "english": [
+        "to bless"
+      ],
+      "verb_group": "2nd_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "transitive"
+      ],
+      "past_participle": null,
+      "present_participle": null,
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:f1e48dbff62c4b1a43bec421e42fe2b1a6b0c618520cf8dc162096e1a87b919a"
+      }
+    ],
+    "source_v2_1_batch_id": "727_verbs_conjugations_repair_004",
+    "validation_errors": [
+      "Target 'bénir': ('indicative', 'présent') requires a non-empty 'je' form",
+      "Target 'bénir': ('indicative', 'présent') requires a non-empty 'tu' form",
+      "Target 'bénir': ('indicative', 'présent') requires a non-empty 'il_elle_on' form",
+      "Target 'bénir': ('indicative', 'présent') requires a non-empty 'vous' form",
+      "Target 'bénir': ('indicative', 'présent') requires a non-empty 'ils_elles' form"
+    ]
+  },
+  {
+    "entity_key": "chanter",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "chante",
+          "tu": "chantes",
+          "il_elle_on": "chante",
+          "nous": "chantons",
+          "vous": "chantez",
+          "ils_elles": "chantent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "présent",
+            "persons": [
+              "all"
+            ],
+            "stem": "chant-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-e",
+          "-es",
+          "-ons",
+          "-ez",
+          "-ent"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Regular -er verb"
+        ]
+      },
+      {
+        "tense": "participe présent",
+        "mood": "participle",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      }
+    ],
+    "related_context": {
+      "infinitive": "chanter",
+      "english": [
+        "sing",
+        "to sing"
+      ],
+      "verb_group": "1st_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "intransitive",
+        "transitive",
+        "unknown"
+      ],
+      "past_participle": "chanté",
+      "present_participle": "chantant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:01317e615543b7acd92684856871fdb5d60177d272116091e2b43651dcfc1c31"
+      },
+      {
+        "record_index": 1,
+        "mood": "participle",
+        "tense": "participe présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:5e2840eb9c02420188c578858d2b900dc1b808027b57a82a6b18eae6e5ff6324"
+      }
+    ],
+    "source_v2_1_batch_id": "727_verbs_conjugations_repair_004",
+    "validation_errors": [
+      "Target 'chanter': record #1 has unknown canonical mood/tense ('participle', 'participe présent')"
+    ]
+  },
+  {
+    "entity_key": "choisir",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "participe présent",
+        "mood": "participle",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      },
+      {
+        "tense": "impératif",
+        "mood": "imperative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": "Choisis",
+          "imperative_nous": "Choisissons",
+          "imperative_vous": "Choisissez",
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "impératif",
+            "persons": [
+              "all"
+            ],
+            "stem": "chois-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-is",
+          "-issons",
+          "-issez"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      },
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "choisis",
+          "tu": "choisis",
+          "il_elle_on": "choisit",
+          "nous": "choisissons",
+          "vous": "choisissez",
+          "ils_elles": "choisissent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [
+          "-is",
+          "-it",
+          "-issons",
+          "-issez",
+          "-issent"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Type 1 -ir verb: -iss- inserted in plural forms"
+        ]
+      },
+      {
+        "tense": "futur simple",
+        "mood": "indicative",
+        "forms": {
+          "je": "choisirai",
+          "tu": "choisiras",
+          "il_elle_on": "choisira",
+          "nous": "choisirons",
+          "vous": "choisirez",
+          "ils_elles": "choisiront",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "futur simple",
+            "persons": [
+              "all"
+            ],
+            "stem": "choisir-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-ai",
+          "-as",
+          "-a",
+          "-ons",
+          "-ez",
+          "-ont"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      }
+    ],
+    "related_context": {
+      "infinitive": "choisir",
+      "english": [
+        "choose",
+        "to choose"
+      ],
+      "verb_group": "2nd_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "transitive",
+        "unknown"
+      ],
+      "past_participle": "choisi",
+      "present_participle": "choisissant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "participle",
+        "tense": "participe présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:3fe445d8e8abcce02e50ef42a640e0af3151c9043c21d15da99c672813e4c59a"
+      },
+      {
+        "record_index": 1,
+        "mood": "imperative",
+        "tense": "impératif",
+        "source_count": 1,
+        "sources_sha256": "sha256:1b3e23e967547537dd26a93d75b5b8871895bdfe147b3da2a4a767d1af1a89d3"
+      },
+      {
+        "record_index": 2,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:77f8dc361b82aaa59e31a54e5f174c4ad2b1e12a5690f829d0254b93d08e19a3"
+      },
+      {
+        "record_index": 3,
+        "mood": "indicative",
+        "tense": "futur simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:770a362a11146dd11a15c7e12d864c698dd65cd8e6de38d65c897a98ac29500a"
+      }
+    ],
+    "source_v2_1_batch_id": "727_verbs_conjugations_repair_004",
+    "validation_errors": [
+      "Target 'choisir': record #0 has unknown canonical mood/tense ('participle', 'participe présent')",
+      "Target 'choisir': record #3 has unknown canonical mood/tense ('indicative', 'futur simple')"
+    ]
+  },
+  {
+    "entity_key": "commencer",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "participe présent",
+        "mood": "participle",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "spelling change: c -> ç"
+        ]
+      },
+      {
+        "tense": "passé simple",
+        "mood": "indicative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": "commença",
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "passé simple",
+            "persons": [
+              "all"
+            ],
+            "stem": "commenç-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-a"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Illustrates cedilla before -a."
+        ]
+      },
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "commence",
+          "tu": "commences",
+          "il_elle_on": "commence",
+          "nous": "commençons",
+          "vous": "commencez",
+          "ils_elles": "commencent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      },
+      {
+        "tense": "imparfait",
+        "mood": "indicative",
+        "forms": {
+          "je": "commençais",
+          "tu": "commençais",
+          "il_elle_on": "commençait",
+          "nous": "commencions",
+          "vous": "commenciez",
+          "ils_elles": "commençaient",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      }
+    ],
+    "related_context": {
+      "infinitive": "commencer",
+      "english": [
+        "begin",
+        "to begin",
+        "to start"
+      ],
+      "verb_group": "1st_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "intransitive",
+        "transitive",
+        "unknown"
+      ],
+      "past_participle": "commencé",
+      "present_participle": "commençant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "participle",
+        "tense": "participe présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:bdc95ecaedf286f3bfbf7faa3b76317d65985a1380a8c612324b080743797ace"
+      },
+      {
+        "record_index": 1,
+        "mood": "indicative",
+        "tense": "passé simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:cc2e890dd1db808e9b22ca9620835567a978ca8783d04c06cca3943b263ac968"
+      },
+      {
+        "record_index": 2,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 2,
+        "sources_sha256": "sha256:f7d83d4b0836cade2ecb2c2cfaeeceb195a39dcff2a508f2bc118a01e0a617fe"
+      },
+      {
+        "record_index": 3,
+        "mood": "indicative",
+        "tense": "imparfait",
+        "source_count": 2,
+        "sources_sha256": "sha256:f7d83d4b0836cade2ecb2c2cfaeeceb195a39dcff2a508f2bc118a01e0a617fe"
+      }
+    ],
+    "source_v2_1_batch_id": "728_verbs_conjugations_repair_005",
+    "validation_errors": [
+      "Target 'commencer': record #0 has unknown canonical mood/tense ('participle', 'participe présent')",
+      "Target 'commencer': record #1 has unknown canonical mood/tense ('indicative', 'passé simple')"
+    ]
+  },
+  {
+    "entity_key": "comprendre",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "comprends",
+          "tu": "comprends",
+          "il_elle_on": "comprend",
+          "nous": "comprenons",
+          "vous": "comprenez",
+          "ils_elles": "comprennent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Partial: je form"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "comprendre",
+      "english": [
+        "to understand",
+        "understand",
+        "to include"
+      ],
+      "verb_group": "3rd_group",
+      "auxiliary": "avoir",
+      "regularity": "irregular",
+      "transitivity": [
+        "transitive"
+      ],
+      "past_participle": "compris",
+      "present_participle": "comprenant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 2,
+        "sources_sha256": "sha256:7195659fdd00146a5e11f6daaccc57769946e111114b8a9fcb6020c6184e24d3"
+      }
+    ],
+    "source_v2_1_batch_id": "728_verbs_conjugations_repair_005",
+    "validation_errors": []
+  },
+  {
+    "entity_key": "conclure",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "conclus",
+          "tu": "conclus",
+          "il_elle_on": "conclut",
+          "nous": "concluons",
+          "vous": "concluez",
+          "ils_elles": "concluent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      }
+    ],
+    "related_context": {
+      "infinitive": "conclure",
+      "english": [
+        "to conclude",
+        "to reach an agreement"
+      ],
+      "verb_group": null,
+      "auxiliary": null,
+      "regularity": null,
+      "transitivity": [],
+      "past_participle": "conclus",
+      "present_participle": null,
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:f26f02d6a683fa58e3aa26b8e11ef7f3fda9b9bd3d76a7946181ed420a1767cb"
+      }
+    ],
+    "source_v2_1_batch_id": "728_verbs_conjugations_repair_005",
+    "validation_errors": []
+  },
+  {
+    "entity_key": "conduire",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "passé simple",
+        "mood": "indicative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": "conduisit",
+          "nous": null,
+          "vous": null,
+          "ils_elles": "conduisirent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Only third-person forms provided."
+        ]
+      },
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "conduis",
+          "tu": "conduis",
+          "il_elle_on": "conduit",
+          "nous": "conduisons",
+          "vous": "conduisez",
+          "ils_elles": "conduisent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      }
+    ],
+    "related_context": {
+      "infinitive": "conduire",
+      "english": [
+        "drive",
+        "to drive",
+        "to lead"
+      ],
+      "verb_group": "3rd_group",
+      "auxiliary": "avoir",
+      "regularity": "irregular",
+      "transitivity": [
+        "transitive",
+        "unknown"
+      ],
+      "past_participle": "conduit",
+      "present_participle": "conduisant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "passé simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:59e3fed212ae3b1a0e4a4f5edfabf12e2531a15d256a66f2188dac637a637fba"
+      },
+      {
+        "record_index": 1,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:4c5bf8b52aee820f6ffc8a761bfe0903373651816c084f51661ad4d4c8bc9941"
+      }
+    ],
+    "source_v2_1_batch_id": "728_verbs_conjugations_repair_005",
+    "validation_errors": [
+      "Target 'conduire': record #0 has unknown canonical mood/tense ('indicative', 'passé simple')"
+    ]
+  }
+]
+================================================================================

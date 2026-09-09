@@ -872,6 +872,22 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `build_queue(baseline_path=None)`: Writes the full batch set and its version/checksum manifest; refuses malformed or unsupported existing conjugation data.
   - `main()`: CLI entry point.
 
+#### `enrichment/high-risk/scripts/make_correction_queue_v2_2.py`
+- **Purpose**: Generates the isolated `corrections-v2.2` draft queue from the frozen v2.1 manifest, its aggregate validation summary, and raw responses. It groups only failed partial-conjugation repairs and strict-gate `NO_PROPOSAL` targets into compact, field-specific prompts without modifying frozen v2.1 files. Repair prompts preserve a hash-bound digest of baseline source evidence and explicitly remain staged until a reviewed v2.2 repair policy, validator, and applicator exist.
+- **Functions**:
+  - `chunks(items, size)`: Creates deterministic manually transferable prompt groups.
+  - `key_token(value)`: Serializes scalar or composite natural keys for safe comparison.
+  - `find_entity(data, collection, entity_key)`: Resolves correction targets against the immutable normal-enriched baseline.
+  - `correction_context(collection, field, entity)`: Produces compact, field-specific context; conjugation context omits immutable source payloads and includes their SHA-256 digests instead.
+  - `repair_instructions(contract)`: Formats draft canonical conjugation repair requirements and the required mood/tense/person contract.
+  - `fill_instructions()`: Formats no-gap retry requirements for former `NO_PROPOSAL` targets.
+  - `prompt(...)`: Creates a self-contained correction prompt with response envelope, schema, traceability, and exact response destination.
+  - `load_failure_targets(summary, manifest, data)`: Collects failed v2.1 repair targets plus their precise validator errors.
+  - `load_no_proposal_targets(summary, manifest, data)`: Collects former `NO_PROPOSAL` targets from their raw v2.1 response files.
+  - `write_handoff(output_dir, manifest)`: Writes the manual/coordinator-agent handoff guide.
+  - `build_correction_queue(output_dir, baseline_path=None, replace_generated=False)`: Safely writes the separate correction prompt set and local traceability manifest; replacement is limited to a verified prior generated queue.
+  - `main()`: CLI entry point.
+
 #### `enrichment/high-risk/scripts/validate_full_high_risk_response.py`
 - **Purpose**: Validates v2.1 full-queue responses against their frozen manifest, baseline, target ownership, exact resolved field schema, fill/partial-completion preconditions, existing-conjugation preservation, canonical conjugation completeness, placeholder rules, and a full-dataset schema dry run. PASS artifacts remain review candidates rather than merge authorization.
 - **Functions**:
@@ -937,19 +953,27 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `main()`: CLI entry point for one approval or a folder, including explicit `--rebuild` support.
 
 #### `enrichment/high-risk/tests/test_high_risk_pipeline.py`
-- **Purpose**: Automated suite verifying configuration boundaries, contract rules, isolated preflight classification, both legacy and v2.1 fail-closed validation paths, field-schema rejection, preservation-only conjugation completion, generic approval/application, bulk response reporting, idempotence, output safety guards, and source immutability.
+- **Purpose**: Automated suite verifying configuration boundaries, contract rules, isolated preflight classification, both legacy and v2.1 fail-closed validation paths, field-schema rejection, preservation-only conjugation completion, the isolated v2.2 correction queue, generic approval/application, bulk response reporting, idempotence, output safety guards, and source immutability.
 - **Functions**:
   - `TestHighRiskConfiguration`: Tests configuration boundaries, versions, contracts, and allowlists.
   - `TestInventoryAndClassification`: Tests morphological classification plus legacy conjugation and full all-field inventory totals.
-  - `TestBatchGeneratorAndManifest`: Tests complete-queue manifest presence, checksum locking, and baseline metadata.
+  - `TestBatchGeneratorAndManifest`: Tests complete-queue manifest presence, checksum locking, baseline metadata, and isolated v2.2 correction-queue traceability.
   - `TestValidationGatesFailClosed`: Tests legacy fail-closed rejection across response, metadata, precondition, evidence, and placeholder gates without mutating the production manifest.
   - `TestFullQueueValidation`: Tests v2.1 no-proposal accounting, schema-valid candidate acceptance, schema rejection, and partial-conjugation preservation.
   - `TestApprovalAndSafeApplication`: Tests legacy protections plus v2.1 validation-to-approval-to-generic-application, idempotence, bulk missing-response reporting, and rejection of incomplete bulk approvals.
 
 #### `tests/run-all.test.ts`
-- **Purpose**: Single project test entry point; verifies master-data and selector invariants, then launches the normal and high-risk Python pipeline suites with accurate result summaries.
+- **Purpose**: Single project test entry point; verifies master-data and selector invariants, then launches the normal and high-risk Python pipeline suites with accurate result summaries, including the current 23-test high-risk suite and its isolated v2.2 correction-queue coverage.
 - **Functions**: N/A (top-level test orchestration).
 
 #### Directory Inventory: `batches/`, `responses/`, `validated/`, `approved/`, `rejected/`, `reports/`, `audits/`, `backups/`
 - **Purpose**: Isolated lifecycle directories housing prompt `.txt` files, worker responses, validated payloads, approved batches with decision metadata, rejection reports, verification/preview/applied text reports, immutable audit logs (`*_AUDIT.json`), and atomic timestamped dataset backups.
 - **Functions**: N/A (high-risk pipeline lifecycle directories).
+
+#### `enrichment/high-risk/batches/corrections-v2.2/`
+- **Purpose**: A separate v2.2 draft remediation workspace containing 25 compact prompts (`C22_001` through `C22_025`), `CORRECTION_MANIFEST.json`, and `HANDOFF.md`. It covers the 30 failed v2.1 conjugation-repair batches (147 targets) and 254 prior `NO_PROPOSAL` targets, but is not an approved or applicable dataset queue.
+- **Functions**: N/A (generated correction prompts and traceability artifacts).
+
+#### `enrichment/high-risk/{responses,validated,approved,reports,audits}/corrections-v2.2/`
+- **Purpose**: Isolated lifecycle destinations for future v2.2 staged responses and the reports, validated candidates, approvals, and audits that may be created only after a reviewed v2.2 repair-policy implementation.
+- **Functions**: N/A (empty/staged lifecycle directories).

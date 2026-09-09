@@ -1,0 +1,838 @@
+================================================================================
+L'ÉTUDE — HIGH-RISK CORRECTION QUEUE 2.2.0-draft: C22_022_expressions_pattern_slots_retry_009
+================================================================================
+Collection: expressions
+Field: pattern_slots
+Remediation type: FILL_RETRY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Source v2.1 batches: 423_expressions_pattern_slots_fill_025, 424_expressions_pattern_slots_fill_026, 425_expressions_pattern_slots_fill_027, 426_expressions_pattern_slots_fill_028
+
+YOU MAY DO
+Return exactly one JSON response for this prompt. Propose values only for the
+listed natural keys and the single named field. Preserve French spelling,
+diacritics, grammatical gender, agreement, and source objects. This is a
+candidate for later independent linguistic and provenance review.
+
+YOU MAY NOT DO
+Do not alter source or baseline datasets, existing frozen v2.1 batches, the
+v2.1 manifest, natural keys, non-target fields, or any entity outside TARGETS.
+Do not browse, claim unverified external sources, invent citations, include
+Markdown, or create files other than the response JSON.
+
+RETRY-SPECIFIC REQUIREMENTS
+Every target previously returned `NO_PROPOSAL` with `INSUFFICIENT_EVIDENCE`.
+Return a non-empty, schema-valid proposal for EVERY target in this batch.
+Do not emit `NO_PROPOSAL`: it will leave the strict queue incomplete. Use only
+the listed field and preserve all non-target context exactly. If genuine
+ambiguity remains, describe the constrained choice and uncertainty in
+`evidence.notes` for human linguistic review rather than omitting the target.
+
+
+RESPONSE DESTINATION
+Save exactly one file named `C22_022_expressions_pattern_slots_retry_009_RESPONSE.json` to:
+`enrichment/high-risk/responses/corrections-v2.2/C22_022_expressions_pattern_slots_retry_009_RESPONSE.json`
+Never overwrite a file in `enrichment/high-risk/responses/` directly. The
+response remains staged until a dedicated v2.2 validator is reviewed.
+
+RESPONSE JSON ENVELOPE (no extra top-level keys)
+{
+  "batch_id": "C22_022_expressions_pattern_slots_retry_009",
+  "correction_queue_version": "2.2.0-draft",
+  "collection": "expressions",
+  "field": "pattern_slots",
+  "remediation_type": "FILL_RETRY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "source_v2_1_batch_ids": [
+    "423_expressions_pattern_slots_fill_025",
+    "424_expressions_pattern_slots_fill_026",
+    "425_expressions_pattern_slots_fill_027",
+    "426_expressions_pattern_slots_fill_028"
+  ],
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {
+      "entity_key": "<exact key from TARGETS>",
+      "value": "<schema-valid value>",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Brief rationale, retained evidence, and uncertainty."
+      }
+    }
+  ],
+  "no_proposals": []
+}
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "name",
+      "display",
+      "slot_type",
+      "required"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "minLength": 1
+      },
+      "display": {
+        "type": "string",
+        "minLength": 1
+      },
+      "slot_type": {
+        "type": "string",
+        "enum": [
+          "person",
+          "thing",
+          "noun",
+          "verb_infinitive",
+          "clause",
+          "adjective",
+          "adverb",
+          "preposition",
+          "other"
+        ]
+      },
+      "required": {
+        "type": "boolean"
+      }
+    }
+  }
+}
+
+TARGETS
+[
+  {
+    "entity_key": "se voir",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se voir",
+      "english": [
+        "to see each other"
+      ],
+      "pattern": "se + voir",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "Reciprocal plural"
+      ],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "423_expressions_pattern_slots_fill_025",
+    "previous_no_proposal": {
+      "entity_key": "se voir",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "signer son nom",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "signer son nom",
+      "english": [
+        "to sign one's name"
+      ],
+      "pattern": "signer son nom",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "423_expressions_pattern_slots_fill_025",
+    "previous_no_proposal": {
+      "entity_key": "signer son nom",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "signer un contrat",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "signer un contrat",
+      "english": [
+        "to sign a contract"
+      ],
+      "pattern": "signer un contrat",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "423_expressions_pattern_slots_fill_025",
+    "previous_no_proposal": {
+      "entity_key": "signer un contrat",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "signer un document",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "signer un document",
+      "english": [
+        "to sign a document"
+      ],
+      "pattern": "signer un document",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "423_expressions_pattern_slots_fill_025",
+    "previous_no_proposal": {
+      "entity_key": "signer un document",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "souvent",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "souvent",
+      "english": [
+        "often"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "424_expressions_pattern_slots_fill_026",
+    "previous_no_proposal": {
+      "entity_key": "souvent",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "suivre un cours",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "suivre un cours",
+      "english": [
+        "to take a class"
+      ],
+      "pattern": "suivre + un cours",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "424_expressions_pattern_slots_fill_026",
+    "previous_no_proposal": {
+      "entity_key": "suivre un cours",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "surfer sur Internet",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "surfer sur Internet",
+      "english": [
+        "to surf the Net"
+      ],
+      "pattern": "surfer sur Internet",
+      "prepositions": [
+        "sur"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "sur",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "424_expressions_pattern_slots_fill_026",
+    "previous_no_proposal": {
+      "entity_key": "surfer sur Internet",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "tard",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "tard",
+      "english": [
+        "late"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "time_expression"
+    },
+    "source_v2_1_batch_id": "424_expressions_pattern_slots_fill_026",
+    "previous_no_proposal": {
+      "entity_key": "tard",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "tenir le rythme",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "tenir le rythme",
+      "english": [
+        "to keep up the pace"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "424_expressions_pattern_slots_fill_026",
+    "previous_no_proposal": {
+      "entity_key": "tenir le rythme",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "tenir ses promesses",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "tenir ses promesses",
+      "english": [
+        "to keep one's promises"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "424_expressions_pattern_slots_fill_026",
+    "previous_no_proposal": {
+      "entity_key": "tenir ses promesses",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "tenir un restaurant",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "tenir un restaurant",
+      "english": [
+        "to run a restaurant"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "424_expressions_pattern_slots_fill_026",
+    "previous_no_proposal": {
+      "entity_key": "tenir un restaurant",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "tenir éveillé(e)",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "tenir éveillé(e)",
+      "english": [
+        "to keep awake"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "adjective"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "425_expressions_pattern_slots_fill_027",
+    "previous_no_proposal": {
+      "entity_key": "tenir éveillé(e)",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "tomber en panne",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "tomber en panne",
+      "english": [
+        "to break down"
+      ],
+      "pattern": null,
+      "prepositions": [
+        "en"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "en",
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "Typically used with vehicles/machines"
+      ],
+      "transformations": [],
+      "expression_type": "fixed_expression"
+    },
+    "source_v2_1_batch_id": "425_expressions_pattern_slots_fill_027",
+    "previous_no_proposal": {
+      "entity_key": "tomber en panne",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "toujours",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "toujours",
+      "english": [
+        "always",
+        "still"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "425_expressions_pattern_slots_fill_027",
+    "previous_no_proposal": {
+      "entity_key": "toujours",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "tous les jours",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "tous les jours",
+      "english": [
+        "every day"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "425_expressions_pattern_slots_fill_027",
+    "previous_no_proposal": {
+      "entity_key": "tous les jours",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "tôt",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "tôt",
+      "english": [
+        "early"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "time_expression"
+    },
+    "source_v2_1_batch_id": "425_expressions_pattern_slots_fill_027",
+    "previous_no_proposal": {
+      "entity_key": "tôt",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "venir manger à la maison",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "venir manger à la maison",
+      "english": [
+        "to come eat at home"
+      ],
+      "pattern": null,
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "à",
+        "followed_by": "infinitive"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "fixed_expression"
+    },
+    "source_v2_1_batch_id": "425_expressions_pattern_slots_fill_027",
+    "previous_no_proposal": {
+      "entity_key": "venir manger à la maison",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "y mettre du sien",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "y mettre du sien",
+      "english": [
+        "to make an effort"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "idiom"
+    },
+    "source_v2_1_batch_id": "425_expressions_pattern_slots_fill_027",
+    "previous_no_proposal": {
+      "entity_key": "y mettre du sien",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "y mettre du tien",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "y mettre du tien",
+      "english": [
+        "to make an effort"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "informal"
+      ],
+      "transformations": [],
+      "expression_type": "idiom",
+      "register": "informal"
+    },
+    "source_v2_1_batch_id": "425_expressions_pattern_slots_fill_027",
+    "previous_no_proposal": {
+      "entity_key": "y mettre du tien",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "À la tienne !",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "À la tienne !",
+      "english": [
+        "Cheers! (informal singular)"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "informal, singular"
+      ],
+      "transformations": [],
+      "expression_type": "idiom",
+      "register": "informal"
+    },
+    "source_v2_1_batch_id": "425_expressions_pattern_slots_fill_027",
+    "previous_no_proposal": {
+      "entity_key": "À la tienne !",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "À la vôtre !",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "À la vôtre !",
+      "english": [
+        "Cheers! (formal or plural)"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "formal or plural"
+      ],
+      "transformations": [],
+      "expression_type": "idiom"
+    },
+    "source_v2_1_batch_id": "426_expressions_pattern_slots_fill_028",
+    "previous_no_proposal": {
+      "entity_key": "À la vôtre !",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "Ça m'est égal",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "Ça m'est égal",
+      "english": [
+        "I don't mind",
+        "it makes no difference to me",
+        "I do not care"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "fixed_expression"
+    },
+    "source_v2_1_batch_id": "426_expressions_pattern_slots_fill_028",
+    "previous_no_proposal": {
+      "entity_key": "Ça m'est égal",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "Ça ne fait rien",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "Ça ne fait rien",
+      "english": [
+        "It does not matter",
+        "never mind",
+        "that is all right"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "fixed_expression"
+    },
+    "source_v2_1_batch_id": "426_expressions_pattern_slots_fill_028",
+    "previous_no_proposal": {
+      "entity_key": "Ça ne fait rien",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "Ça va?",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "Ça va?",
+      "english": [
+        "How are you?",
+        "How are things going?"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "conversation_phrase",
+      "register": "informal"
+    },
+    "source_v2_1_batch_id": "426_expressions_pattern_slots_fill_028",
+    "previous_no_proposal": {
+      "entity_key": "Ça va?",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à carreaux",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à carreaux",
+      "english": [
+        "checked",
+        "plaid",
+        "checkered"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "426_expressions_pattern_slots_fill_028",
+    "previous_no_proposal": {
+      "entity_key": "à carreaux",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  }
+]
+================================================================================

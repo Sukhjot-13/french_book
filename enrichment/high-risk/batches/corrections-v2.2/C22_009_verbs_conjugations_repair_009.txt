@@ -1,0 +1,1573 @@
+================================================================================
+L'ÉTUDE — HIGH-RISK CORRECTION QUEUE 2.2.0-draft: C22_009_verbs_conjugations_repair_009
+================================================================================
+Collection: verbs
+Field: conjugations
+Remediation type: CANONICAL_REPAIR_DRAFT
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Source v2.1 batches: 743_verbs_conjugations_repair_020, 744_verbs_conjugations_repair_021, 745_verbs_conjugations_repair_022
+
+YOU MAY DO
+Return exactly one JSON response for this prompt. Propose values only for the
+listed natural keys and the single named field. Preserve French spelling,
+diacritics, grammatical gender, agreement, and source objects. This is a
+candidate for later independent linguistic and provenance review.
+
+YOU MAY NOT DO
+Do not alter source or baseline datasets, existing frozen v2.1 batches, the
+v2.1 manifest, natural keys, non-target fields, or any entity outside TARGETS.
+Do not browse, claim unverified external sources, invent citations, include
+Markdown, or create files other than the response JSON.
+
+REPAIR-SPECIFIC REQUIREMENTS
+This is a v2.2 DRAFT correction proposal. It is NOT compatible with the current
+v2.1 validator or applicator and cannot be merged until a separately reviewed
+repair policy is implemented. Do not place this response in the ordinary
+`enrichment/high-risk/responses/` directory.
+
+The failure in every target is caused by partial or noncanonical existing
+conjugation records. Produce one complete canonical replacement list:
+- use exactly the canonical mood/tense pairs below;
+- provide every required non-null person form unless the verb is genuinely
+  impersonal or defective under the existing contract;
+- do not retain duplicate or noncanonical records merely to preserve their
+  spelling;
+- do not repeat, invent, or modify source-evidence objects. Every existing
+  record's evidence is represented by an immutable SHA-256 digest in TARGETS;
+  a future reviewed v2.2 repair script must rebind the exact baseline source
+  objects to the appropriate canonical records;
+- set each output record's `sources` array to `[]`; it is schema-valid staging
+  data, not a replacement for the baseline's immutable source evidence;
+- state any normalization or ambiguity in `evidence.notes`.
+
+CANONICAL MOOD/TENSE/FORM REQUIREMENTS
+[
+  {
+    "mood": "indicative",
+    "tense": "présent",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "indicative",
+    "tense": "imparfait",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "indicative",
+    "tense": "futur_simple",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "indicative",
+    "tense": "passé_simple",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "conditional",
+    "tense": "conditionnel_présent",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "subjunctive",
+    "tense": "subjonctif_présent",
+    "required_forms": [
+      "je",
+      "tu",
+      "il_elle_on",
+      "nous",
+      "vous",
+      "ils_elles"
+    ]
+  },
+  {
+    "mood": "imperative",
+    "tense": "impératif",
+    "required_forms": [
+      "imperative_tu",
+      "imperative_nous",
+      "imperative_vous"
+    ]
+  }
+]
+
+
+RESPONSE DESTINATION
+Save exactly one file named `C22_009_verbs_conjugations_repair_009_RESPONSE.json` to:
+`enrichment/high-risk/responses/corrections-v2.2/C22_009_verbs_conjugations_repair_009_RESPONSE.json`
+Never overwrite a file in `enrichment/high-risk/responses/` directly. The
+response remains staged until a dedicated v2.2 validator is reviewed.
+
+RESPONSE JSON ENVELOPE (no extra top-level keys)
+{
+  "batch_id": "C22_009_verbs_conjugations_repair_009",
+  "correction_queue_version": "2.2.0-draft",
+  "collection": "verbs",
+  "field": "conjugations",
+  "remediation_type": "CANONICAL_REPAIR_DRAFT",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "source_v2_1_batch_ids": [
+    "743_verbs_conjugations_repair_020",
+    "744_verbs_conjugations_repair_021",
+    "745_verbs_conjugations_repair_022"
+  ],
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {
+      "entity_key": "<exact key from TARGETS>",
+      "value": "<schema-valid value>",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Brief rationale, retained evidence, and uncertainty."
+      }
+    }
+  ],
+  "no_proposals": []
+}
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "tense",
+      "mood",
+      "forms",
+      "stems",
+      "endings",
+      "formation_note",
+      "irregularities",
+      "notes",
+      "sources"
+    ],
+    "properties": {
+      "tense": {
+        "type": "string",
+        "minLength": 1
+      },
+      "mood": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "forms": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "je",
+          "tu",
+          "il_elle_on",
+          "nous",
+          "vous",
+          "ils_elles",
+          "imperative_tu",
+          "imperative_nous",
+          "imperative_vous",
+          "impersonal_form"
+        ],
+        "properties": {
+          "je": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tu": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "il_elle_on": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "vous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ils_elles": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_tu": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_nous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_vous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "impersonal_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "stems": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "tense",
+            "persons",
+            "stem",
+            "note"
+          ],
+          "properties": {
+            "tense": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "persons": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "je",
+                  "tu",
+                  "il_elle_on",
+                  "nous",
+                  "vous",
+                  "ils_elles",
+                  "all",
+                  "other"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "stem": {
+              "type": "string",
+              "minLength": 1
+            },
+            "note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      },
+      "endings": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "formation_note": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "irregularities": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "notes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_type",
+            "source_name",
+            "chapter_number",
+            "section_title",
+            "page_printed",
+            "page_pdf",
+            "context_type",
+            "exercise_code",
+            "question_number",
+            "table_title",
+            "table_type",
+            "row_label",
+            "column",
+            "direction",
+            "source_headword",
+            "source_target",
+            "source_text",
+            "created_by",
+            "notes",
+            "derived_from",
+            "source_classifications"
+          ],
+          "properties": {
+            "source_type": {
+              "type": "string",
+              "enum": [
+                "chapter",
+                "book",
+                "glossary",
+                "verb_table",
+                "answer_key",
+                "ai_enrichment",
+                "user_added",
+                "derived",
+                "other"
+              ]
+            },
+            "source_name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "chapter_number": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1,
+              "maximum": 999
+            },
+            "section_title": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "page_printed": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "page_pdf": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "context_type": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "explanation",
+                "example",
+                "exercise",
+                "answer_key",
+                "vocabulary",
+                "table",
+                "note",
+                "dialogue",
+                "caption",
+                "warning",
+                "contrast",
+                "glossary",
+                "other",
+                null
+              ]
+            },
+            "exercise_code": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "question_number": {
+              "type": [
+                "integer",
+                "string",
+                "null"
+              ]
+            },
+            "table_title": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "table_type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "row_label": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "column": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "left",
+                "right",
+                "single",
+                "unknown",
+                null
+              ]
+            },
+            "direction": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "fr_en",
+                "en_fr",
+                null
+              ]
+            },
+            "source_headword": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_target": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_text": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "created_by": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "independent_extraction",
+                "rule_expansion",
+                "mapping_script",
+                "ai_enrichment",
+                "manual",
+                "other",
+                null
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "derived_from": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true,
+              "description": "Natural source entity names from which this information was derived."
+            },
+            "source_classifications": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true,
+              "description": "Source-specific classifications worth preserving during migration."
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+TARGETS
+[
+  {
+    "entity_key": "remplacer",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "passé simple",
+        "mood": "indicative",
+        "forms": {
+          "je": "remplaçai",
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "passé simple",
+            "persons": [
+              "all"
+            ],
+            "stem": "remplaç-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-ai"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Cedilla due to -cer verb."
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "remplacer",
+      "english": [
+        "replace",
+        "to replace"
+      ],
+      "verb_group": "1st_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "transitive"
+      ],
+      "past_participle": "remplacé",
+      "present_participle": "remplaçant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "passé simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:5655f00c7ccd0355dc97515f617195e454ccf6e73ff126de839e2bec6c85a19b"
+      }
+    ],
+    "source_v2_1_batch_id": "743_verbs_conjugations_repair_020",
+    "validation_errors": [
+      "Target 'remplacer': record #0 has unknown canonical mood/tense ('indicative', 'passé simple')"
+    ]
+  },
+  {
+    "entity_key": "remplir",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": "remplissons",
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [
+          "-issons"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Partial: nous form"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "remplir",
+      "english": [
+        "fill",
+        "to fill"
+      ],
+      "verb_group": "2nd_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "transitive"
+      ],
+      "past_participle": null,
+      "present_participle": null,
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:505dfb08868d4162463ed6e6ee16062ada69948daa2362b9fd6b12a0cf6265a2"
+      }
+    ],
+    "source_v2_1_batch_id": "743_verbs_conjugations_repair_020",
+    "validation_errors": [
+      "Target 'remplir': ('indicative', 'présent') requires a non-empty 'je' form",
+      "Target 'remplir': ('indicative', 'présent') requires a non-empty 'tu' form",
+      "Target 'remplir': ('indicative', 'présent') requires a non-empty 'il_elle_on' form",
+      "Target 'remplir': ('indicative', 'présent') requires a non-empty 'vous' form",
+      "Target 'remplir': ('indicative', 'présent') requires a non-empty 'ils_elles' form"
+    ]
+  },
+  {
+    "entity_key": "rendre",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "rends",
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Partial: je form"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "rendre",
+      "english": [
+        "to give back",
+        "to return",
+        "visit (someone)",
+        "to make"
+      ],
+      "verb_group": "3rd_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "transitive"
+      ],
+      "past_participle": null,
+      "present_participle": null,
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:8c251e717711251f50436f3a6b88808cc1ad59a7645880305e3abad3ccc21c7b"
+      }
+    ],
+    "source_v2_1_batch_id": "743_verbs_conjugations_repair_020",
+    "validation_errors": [
+      "Target 'rendre': ('indicative', 'présent') requires a non-empty 'tu' form",
+      "Target 'rendre': ('indicative', 'présent') requires a non-empty 'il_elle_on' form",
+      "Target 'rendre': ('indicative', 'présent') requires a non-empty 'nous' form",
+      "Target 'rendre': ('indicative', 'présent') requires a non-empty 'vous' form",
+      "Target 'rendre': ('indicative', 'présent') requires a non-empty 'ils_elles' form"
+    ]
+  },
+  {
+    "entity_key": "revenir",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "futur simple",
+        "mood": "indicative",
+        "forms": {
+          "je": "reviendrai",
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "futur simple",
+            "persons": [
+              "all"
+            ],
+            "stem": "reviendr-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-ai"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Irregular stem"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "revenir",
+      "english": [
+        "return",
+        "to come back",
+        "to return"
+      ],
+      "verb_group": "3rd_group",
+      "auxiliary": "etre",
+      "regularity": "irregular",
+      "transitivity": [
+        "intransitive"
+      ],
+      "past_participle": "revenu",
+      "present_participle": "revenant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "futur simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:da7e37ef3f40f66e9ef3e1e99b8be4e34063c90a85657888dc7ede356184619e"
+      }
+    ],
+    "source_v2_1_batch_id": "743_verbs_conjugations_repair_020",
+    "validation_errors": [
+      "Target 'revenir': record #0 has unknown canonical mood/tense ('indicative', 'futur simple')"
+    ]
+  },
+  {
+    "entity_key": "rire",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "passé simple",
+        "mood": "indicative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": "rit",
+          "nous": null,
+          "vous": null,
+          "ils_elles": "rirent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Only third-person forms provided."
+        ]
+      },
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "ris",
+          "tu": "ris",
+          "il_elle_on": "rit",
+          "nous": "rions",
+          "vous": "riez",
+          "ils_elles": "rient",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      }
+    ],
+    "related_context": {
+      "infinitive": "rire",
+      "english": [
+        "laugh",
+        "to laugh"
+      ],
+      "verb_group": "3rd_group",
+      "auxiliary": "avoir",
+      "regularity": "irregular",
+      "transitivity": [
+        "intransitive"
+      ],
+      "past_participle": "ri",
+      "present_participle": "riant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "passé simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:0b7fab1c1fe1c1d7aa679e94090f7c3adaceebb6f3da32e2b8ec37abb5e36f11"
+      },
+      {
+        "record_index": 1,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:2a55f0aa9fff6078360f8a90b1e248f8d0d10180f0405b3432b45a97dbdad7db"
+      }
+    ],
+    "source_v2_1_batch_id": "744_verbs_conjugations_repair_021",
+    "validation_errors": [
+      "Target 'rire': record #0 has unknown canonical mood/tense ('indicative', 'passé simple')"
+    ]
+  },
+  {
+    "entity_key": "rougir",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": "rougissons",
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [
+          "-issons"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Partial: nous form"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "rougir",
+      "english": [
+        "blush",
+        "to blush"
+      ],
+      "verb_group": "2nd_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "intransitive"
+      ],
+      "past_participle": null,
+      "present_participle": null,
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:60ce190e3649e7c87548f1ac434493cc41cfa5660e7d2d8499976b68e96754a4"
+      }
+    ],
+    "source_v2_1_batch_id": "744_verbs_conjugations_repair_021",
+    "validation_errors": [
+      "Target 'rougir': ('indicative', 'présent') requires a non-empty 'je' form",
+      "Target 'rougir': ('indicative', 'présent') requires a non-empty 'tu' form",
+      "Target 'rougir': ('indicative', 'présent') requires a non-empty 'il_elle_on' form",
+      "Target 'rougir': ('indicative', 'présent') requires a non-empty 'vous' form",
+      "Target 'rougir': ('indicative', 'présent') requires a non-empty 'ils_elles' form"
+    ]
+  },
+  {
+    "entity_key": "réfléchir",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": "réfléchissons",
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [
+          "-issons"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Partial: nous form"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "réfléchir",
+      "english": [
+        "reflect",
+        "to reflect",
+        "to think"
+      ],
+      "verb_group": "2nd_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "intransitive"
+      ],
+      "past_participle": null,
+      "present_participle": null,
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:b1f02fa3bbcfb13d80e4a695f9ff0c13237fccd40e6888014b0afeb3ba24f708"
+      }
+    ],
+    "source_v2_1_batch_id": "744_verbs_conjugations_repair_021",
+    "validation_errors": [
+      "Target 'réfléchir': ('indicative', 'présent') requires a non-empty 'je' form",
+      "Target 'réfléchir': ('indicative', 'présent') requires a non-empty 'tu' form",
+      "Target 'réfléchir': ('indicative', 'présent') requires a non-empty 'il_elle_on' form",
+      "Target 'réfléchir': ('indicative', 'présent') requires a non-empty 'vous' form",
+      "Target 'réfléchir': ('indicative', 'présent') requires a non-empty 'ils_elles' form"
+    ]
+  },
+  {
+    "entity_key": "répandre",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "répands",
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Partial: je form"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "répandre",
+      "english": [
+        "spread",
+        "to spill",
+        "to spread"
+      ],
+      "verb_group": "3rd_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "transitive"
+      ],
+      "past_participle": null,
+      "present_participle": null,
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:8fa3292a8bc063a2fcc1a7b9fc8fef549d0d473fa3b6543104438c195bc72998"
+      }
+    ],
+    "source_v2_1_batch_id": "744_verbs_conjugations_repair_021",
+    "validation_errors": [
+      "Target 'répandre': ('indicative', 'présent') requires a non-empty 'tu' form",
+      "Target 'répandre': ('indicative', 'présent') requires a non-empty 'il_elle_on' form",
+      "Target 'répandre': ('indicative', 'présent') requires a non-empty 'nous' form",
+      "Target 'répandre': ('indicative', 'présent') requires a non-empty 'vous' form",
+      "Target 'répandre': ('indicative', 'présent') requires a non-empty 'ils_elles' form"
+    ]
+  },
+  {
+    "entity_key": "répondre",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "participe présent",
+        "mood": "participle",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      },
+      {
+        "tense": "passé simple",
+        "mood": "indicative",
+        "forms": {
+          "je": "répondis",
+          "tu": "répondis",
+          "il_elle_on": "répondit",
+          "nous": "répondîmes",
+          "vous": "répondîtes",
+          "ils_elles": "répondirent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "passé simple",
+            "persons": [
+              "all"
+            ],
+            "stem": "répond-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-is",
+          "-it",
+          "-îmes",
+          "-îtes",
+          "-irent"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Regular -re verb pattern in passé simple."
+        ]
+      },
+      {
+        "tense": "impératif",
+        "mood": "imperative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": "Réponds",
+          "imperative_nous": "Répondons",
+          "imperative_vous": "Répondez",
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "impératif",
+            "persons": [
+              "all"
+            ],
+            "stem": "répond-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-s",
+          "-ons",
+          "-ez"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      },
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "réponds",
+          "tu": null,
+          "il_elle_on": null,
+          "nous": null,
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Partial: je form"
+        ]
+      },
+      {
+        "tense": "futur simple",
+        "mood": "indicative",
+        "forms": {
+          "je": "répondrai",
+          "tu": "répondras",
+          "il_elle_on": "répondra",
+          "nous": "répondrons",
+          "vous": "répondrez",
+          "ils_elles": "répondront",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "futur simple",
+            "persons": [
+              "all"
+            ],
+            "stem": "répondr-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-ai",
+          "-as",
+          "-a",
+          "-ons",
+          "-ez",
+          "-ont"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      }
+    ],
+    "related_context": {
+      "infinitive": "répondre",
+      "english": [
+        "answer",
+        "to answer"
+      ],
+      "verb_group": "3rd_group",
+      "auxiliary": "avoir",
+      "regularity": "irregular",
+      "transitivity": [
+        "intransitive",
+        "transitive",
+        "unknown"
+      ],
+      "past_participle": "répondu",
+      "present_participle": "répondant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "participle",
+        "tense": "participe présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:a2590b812dd120f1a93080787cc137c4484a678ff46fa024f597391082d7395b"
+      },
+      {
+        "record_index": 1,
+        "mood": "indicative",
+        "tense": "passé simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:0032fdcdf2701ce9336501bfb4b8b95ed4b10fb1a7c34506a8fcbe7534af910d"
+      },
+      {
+        "record_index": 2,
+        "mood": "imperative",
+        "tense": "impératif",
+        "source_count": 1,
+        "sources_sha256": "sha256:85a6d6c2f2646b88d950f3df43d6288792ed275850779990410c8134269a5cdc"
+      },
+      {
+        "record_index": 3,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:3300bb13685639165e109ace6cbbb30517a76336bf7d7b09cbb386cb3c40e088"
+      },
+      {
+        "record_index": 4,
+        "mood": "indicative",
+        "tense": "futur simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:8e59dadb0fe9041bda7e98c0020d96eb0b9e3eeb48bbee3711f1cd104d7dc922"
+      }
+    ],
+    "source_v2_1_batch_id": "744_verbs_conjugations_repair_021",
+    "validation_errors": [
+      "Target 'répondre': record #0 has unknown canonical mood/tense ('participle', 'participe présent')",
+      "Target 'répondre': record #1 has unknown canonical mood/tense ('indicative', 'passé simple')",
+      "Target 'répondre': ('indicative', 'présent') requires a non-empty 'tu' form",
+      "Target 'répondre': ('indicative', 'présent') requires a non-empty 'il_elle_on' form",
+      "Target 'répondre': ('indicative', 'présent') requires a non-empty 'nous' form",
+      "Target 'répondre': ('indicative', 'présent') requires a non-empty 'vous' form",
+      "Target 'répondre': ('indicative', 'présent') requires a non-empty 'ils_elles' form",
+      "Target 'répondre': record #4 has unknown canonical mood/tense ('indicative', 'futur simple')"
+    ]
+  },
+  {
+    "entity_key": "répéter",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "répète",
+          "tu": "répètes",
+          "il_elle_on": "répète",
+          "nous": "répétons",
+          "vous": "répétez",
+          "ils_elles": "répètent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "présent",
+            "persons": [
+              "all"
+            ],
+            "stem": "répét- / répèt-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-e (è)",
+          "-es (è)",
+          "-ons",
+          "-ez",
+          "-ent (è)"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "é + consonant + er: é changes to è except nous/vous"
+        ]
+      },
+      {
+        "tense": "passé simple",
+        "mood": "indicative",
+        "forms": {
+          "je": "répétai",
+          "tu": "répétas",
+          "il_elle_on": "répéta",
+          "nous": "répétâmes",
+          "vous": "répétâtes",
+          "ils_elles": "répétèrent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [
+          {
+            "tense": "passé simple",
+            "persons": [
+              "all"
+            ],
+            "stem": "répét-",
+            "note": null
+          }
+        ],
+        "endings": [
+          "-ai",
+          "-as",
+          "-a",
+          "-âmes",
+          "-âtes",
+          "-èrent"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Regular -er verb in passé simple."
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "répéter",
+      "english": [
+        "repeat",
+        "to repeat"
+      ],
+      "verb_group": "1st_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "transitive"
+      ],
+      "past_participle": "répété",
+      "present_participle": "répétant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:dec5ed1bff5ec6eb0f9221c1a8ca709cd471dcfe461336b2a07d8f878a8785ce"
+      },
+      {
+        "record_index": 1,
+        "mood": "indicative",
+        "tense": "passé simple",
+        "source_count": 1,
+        "sources_sha256": "sha256:d30c69e7b28da2c31d5f841e82bb51051d333cbd86990b1b0f589f22a9f34c26"
+      }
+    ],
+    "source_v2_1_batch_id": "745_verbs_conjugations_repair_022",
+    "validation_errors": [
+      "Target 'répéter': record #1 has unknown canonical mood/tense ('indicative', 'passé simple')"
+    ]
+  },
+  {
+    "entity_key": "résoudre",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": "résous",
+          "tu": "résous",
+          "il_elle_on": "résout",
+          "nous": "résolvons",
+          "vous": "résolvez",
+          "ils_elles": "résolvent",
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": []
+      }
+    ],
+    "related_context": {
+      "infinitive": "résoudre",
+      "english": [
+        "resolve",
+        "solve",
+        "to solve",
+        "to resolve"
+      ],
+      "verb_group": null,
+      "auxiliary": null,
+      "regularity": null,
+      "transitivity": [],
+      "past_participle": "résolu",
+      "present_participle": null,
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:e0c92c92e1ef38dded0a12a11d6d15d5d4daf1179d8ee7debef229f8909b17f7"
+      }
+    ],
+    "source_v2_1_batch_id": "745_verbs_conjugations_repair_022",
+    "validation_errors": []
+  },
+  {
+    "entity_key": "réussir",
+    "field": "conjugations",
+    "current_value": [
+      {
+        "tense": "présent",
+        "mood": "indicative",
+        "forms": {
+          "je": null,
+          "tu": null,
+          "il_elle_on": null,
+          "nous": "réussissons",
+          "vous": null,
+          "ils_elles": null,
+          "imperative_tu": null,
+          "imperative_nous": null,
+          "imperative_vous": null,
+          "impersonal_form": null
+        },
+        "stems": [],
+        "endings": [
+          "-issons"
+        ],
+        "formation_note": null,
+        "irregularities": [],
+        "notes": [
+          "Partial: nous form"
+        ]
+      }
+    ],
+    "related_context": {
+      "infinitive": "réussir",
+      "english": [
+        "pass an exam",
+        "succeed",
+        "to pass (an exam)",
+        "to succeed"
+      ],
+      "verb_group": "2nd_group",
+      "auxiliary": "avoir",
+      "regularity": "regular",
+      "transitivity": [
+        "intransitive",
+        "transitive"
+      ],
+      "past_participle": "réussi",
+      "present_participle": "réussissant",
+      "stems": []
+    },
+    "immutable_source_evidence_digest": [
+      {
+        "record_index": 0,
+        "mood": "indicative",
+        "tense": "présent",
+        "source_count": 1,
+        "sources_sha256": "sha256:b7249e41c40e5d13613b83e2495a2379f1a84d4cfd85be4d1aff36b1030c62fb"
+      }
+    ],
+    "source_v2_1_batch_id": "745_verbs_conjugations_repair_022",
+    "validation_errors": [
+      "Target 'réussir': ('indicative', 'présent') requires a non-empty 'je' form",
+      "Target 'réussir': ('indicative', 'présent') requires a non-empty 'tu' form",
+      "Target 'réussir': ('indicative', 'présent') requires a non-empty 'il_elle_on' form",
+      "Target 'réussir': ('indicative', 'présent') requires a non-empty 'vous' form",
+      "Target 'réussir': ('indicative', 'présent') requires a non-empty 'ils_elles' form"
+    ]
+  }
+]
+================================================================================

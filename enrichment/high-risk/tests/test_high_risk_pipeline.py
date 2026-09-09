@@ -64,6 +64,7 @@ from scripts.high_risk_helpers import (
 from scripts.inventory_high_risk import run_inventory
 from scripts.inventory_full_high_risk import inventory_full_high_risk
 from scripts.make_high_risk_batch import generate_batch
+from scripts.make_correction_queue_v2_2 import CORRECTION_QUEUE_VERSION, build_correction_queue
 from scripts.process_full_high_risk_responses import process_response_folder
 from scripts.validate_high_risk_response import validate_response
 from scripts.validate_full_high_risk_response import validate_full_queue_response
@@ -175,6 +176,25 @@ class TestBatchGeneratorAndManifest(unittest.TestCase):
         self.assertTrue(batch_file.exists())
         self.assertEqual(compute_content_sha256(batch_file.read_text(encoding="utf-8")), entry["batch_checksum"])
         self.assertTrue(entry["baseline_hash"].startswith("sha256:"))
+
+    def test_correction_queue_is_isolated_and_traceable(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            output_dir = Path(tmp_dir) / "corrections-v2.2"
+            correction_manifest = build_correction_queue(output_dir)
+            self.assertEqual(correction_manifest["version"], CORRECTION_QUEUE_VERSION)
+            self.assertEqual(len(correction_manifest["source_failed_batch_ids"]), 30)
+            self.assertEqual(correction_manifest["source_no_proposal_target_count"], 254)
+            self.assertEqual(len(correction_manifest["batches"]), 25)
+            self.assertTrue((output_dir / "CORRECTION_MANIFEST.json").is_file())
+            self.assertTrue((output_dir / "HANDOFF.md").is_file())
+            for batch_id, batch in correction_manifest["batches"].items():
+                prompt_path = output_dir / f"{batch_id}.txt"
+                self.assertTrue(prompt_path.is_file())
+                self.assertEqual(
+                    compute_content_sha256(prompt_path.read_text(encoding="utf-8")),
+                    batch["batch_sha256"],
+                )
+                self.assertIn("responses/corrections-v2.2", batch["response_destination"])
 
 
 class TestValidationGatesFailClosed(unittest.TestCase):

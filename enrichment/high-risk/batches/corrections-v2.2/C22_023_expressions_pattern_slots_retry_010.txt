@@ -1,0 +1,855 @@
+================================================================================
+L'ÉTUDE — HIGH-RISK CORRECTION QUEUE 2.2.0-draft: C22_023_expressions_pattern_slots_retry_010
+================================================================================
+Collection: expressions
+Field: pattern_slots
+Remediation type: FILL_RETRY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Source v2.1 batches: 426_expressions_pattern_slots_fill_028, 427_expressions_pattern_slots_fill_029, 428_expressions_pattern_slots_fill_030, 429_expressions_pattern_slots_fill_031
+
+YOU MAY DO
+Return exactly one JSON response for this prompt. Propose values only for the
+listed natural keys and the single named field. Preserve French spelling,
+diacritics, grammatical gender, agreement, and source objects. This is a
+candidate for later independent linguistic and provenance review.
+
+YOU MAY NOT DO
+Do not alter source or baseline datasets, existing frozen v2.1 batches, the
+v2.1 manifest, natural keys, non-target fields, or any entity outside TARGETS.
+Do not browse, claim unverified external sources, invent citations, include
+Markdown, or create files other than the response JSON.
+
+RETRY-SPECIFIC REQUIREMENTS
+Every target previously returned `NO_PROPOSAL` with `INSUFFICIENT_EVIDENCE`.
+Return a non-empty, schema-valid proposal for EVERY target in this batch.
+Do not emit `NO_PROPOSAL`: it will leave the strict queue incomplete. Use only
+the listed field and preserve all non-target context exactly. If genuine
+ambiguity remains, describe the constrained choice and uncertainty in
+`evidence.notes` for human linguistic review rather than omitting the target.
+
+
+RESPONSE DESTINATION
+Save exactly one file named `C22_023_expressions_pattern_slots_retry_010_RESPONSE.json` to:
+`enrichment/high-risk/responses/corrections-v2.2/C22_023_expressions_pattern_slots_retry_010_RESPONSE.json`
+Never overwrite a file in `enrichment/high-risk/responses/` directly. The
+response remains staged until a dedicated v2.2 validator is reviewed.
+
+RESPONSE JSON ENVELOPE (no extra top-level keys)
+{
+  "batch_id": "C22_023_expressions_pattern_slots_retry_010",
+  "correction_queue_version": "2.2.0-draft",
+  "collection": "expressions",
+  "field": "pattern_slots",
+  "remediation_type": "FILL_RETRY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "source_v2_1_batch_ids": [
+    "426_expressions_pattern_slots_fill_028",
+    "427_expressions_pattern_slots_fill_029",
+    "428_expressions_pattern_slots_fill_030",
+    "429_expressions_pattern_slots_fill_031"
+  ],
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {
+      "entity_key": "<exact key from TARGETS>",
+      "value": "<schema-valid value>",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Brief rationale, retained evidence, and uncertainty."
+      }
+    }
+  ],
+  "no_proposals": []
+}
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "name",
+      "display",
+      "slot_type",
+      "required"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "minLength": 1
+      },
+      "display": {
+        "type": "string",
+        "minLength": 1
+      },
+      "slot_type": {
+        "type": "string",
+        "enum": [
+          "person",
+          "thing",
+          "noun",
+          "verb_infinitive",
+          "clause",
+          "adjective",
+          "adverb",
+          "preposition",
+          "other"
+        ]
+      },
+      "required": {
+        "type": "boolean"
+      }
+    }
+  }
+}
+
+TARGETS
+[
+  {
+    "entity_key": "à cet endroit",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à cet endroit",
+      "english": [
+        "in this place",
+        "at this spot",
+        "there"
+      ],
+      "pattern": null,
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "à",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "426_expressions_pattern_slots_fill_028",
+    "previous_no_proposal": {
+      "entity_key": "à cet endroit",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à côté",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à côté",
+      "english": [
+        "next to",
+        "beside"
+      ],
+      "pattern": null,
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "à",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "426_expressions_pattern_slots_fill_028",
+    "previous_no_proposal": {
+      "entity_key": "à côté",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à fleurs",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à fleurs",
+      "english": [
+        "flowered",
+        "floral",
+        "flower-patterned"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "426_expressions_pattern_slots_fill_028",
+    "previous_no_proposal": {
+      "entity_key": "à fleurs",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à l'heure actuelle",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à l'heure actuelle",
+      "english": [
+        "at this very moment",
+        "at present",
+        "currently"
+      ],
+      "pattern": null,
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "à",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "time_expression"
+    },
+    "source_v2_1_batch_id": "426_expressions_pattern_slots_fill_028",
+    "previous_no_proposal": {
+      "entity_key": "à l'heure actuelle",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à la campagne",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à la campagne",
+      "english": [
+        "in the country",
+        "in the countryside",
+        "to the countryside"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "426_expressions_pattern_slots_fill_028",
+    "previous_no_proposal": {
+      "entity_key": "à la campagne",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à la mer",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à la mer",
+      "english": [
+        "by the sea"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "427_expressions_pattern_slots_fill_029",
+    "previous_no_proposal": {
+      "entity_key": "à la mer",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à la montagne",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à la montagne",
+      "english": [
+        "in the mountains"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "427_expressions_pattern_slots_fill_029",
+    "previous_no_proposal": {
+      "entity_key": "à la montagne",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à la plage",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à la plage",
+      "english": [
+        "at the beach"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "427_expressions_pattern_slots_fill_029",
+    "previous_no_proposal": {
+      "entity_key": "à la plage",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à midi",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à midi",
+      "english": [
+        "at noon"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "427_expressions_pattern_slots_fill_029",
+    "previous_no_proposal": {
+      "entity_key": "à midi",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à minuit",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à minuit",
+      "english": [
+        "at midnight"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "427_expressions_pattern_slots_fill_029",
+    "previous_no_proposal": {
+      "entity_key": "à minuit",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à plis",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à plis",
+      "english": [
+        "pleated"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "427_expressions_pattern_slots_fill_029",
+    "previous_no_proposal": {
+      "entity_key": "à plis",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à pois",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à pois",
+      "english": [
+        "polka-dotted",
+        "with polka dots"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "427_expressions_pattern_slots_fill_029",
+    "previous_no_proposal": {
+      "entity_key": "à pois",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à rayures",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à rayures",
+      "english": [
+        "striped",
+        "with stripes"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "427_expressions_pattern_slots_fill_029",
+    "previous_no_proposal": {
+      "entity_key": "à rayures",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "à volants",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "à volants",
+      "english": [
+        "flounced"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "427_expressions_pattern_slots_fill_029",
+    "previous_no_proposal": {
+      "entity_key": "à volants",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "ça et là",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "ça et là",
+      "english": [
+        "here and there",
+        "in various places"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "other"
+    },
+    "source_v2_1_batch_id": "427_expressions_pattern_slots_fill_029",
+    "previous_no_proposal": {
+      "entity_key": "ça et là",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "ça se dit",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "ça se dit",
+      "english": [
+        "that is said",
+        "people say that",
+        "that expression is used"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [
+        "negative: ça ne se dit pas"
+      ],
+      "expression_type": "fixed_expression"
+    },
+    "source_v2_1_batch_id": "428_expressions_pattern_slots_fill_030",
+    "previous_no_proposal": {
+      "entity_key": "ça se dit",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "ça se voit",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "ça se voit",
+      "english": [
+        "it shows",
+        "you can tell",
+        "it is noticeable"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "fixed_expression"
+    },
+    "source_v2_1_batch_id": "428_expressions_pattern_slots_fill_030",
+    "previous_no_proposal": {
+      "entity_key": "ça se voit",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "échouer à un examen",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "échouer à un examen",
+      "english": [
+        "to fail an exam"
+      ],
+      "pattern": "échouer + à + un examen",
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "à",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "428_expressions_pattern_slots_fill_030",
+    "previous_no_proposal": {
+      "entity_key": "échouer à un examen",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "épeler son nom",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "épeler son nom",
+      "english": [
+        "to spell one's name"
+      ],
+      "pattern": "épeler son nom",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "428_expressions_pattern_slots_fill_030",
+    "previous_no_proposal": {
+      "entity_key": "épeler son nom",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "être de mauvaise humeur",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "être de mauvaise humeur",
+      "english": [
+        "to be in a bad mood",
+        "to be grumpy",
+        "to be in a bad temper"
+      ],
+      "pattern": null,
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "de",
+        "followed_by": "adjective"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "428_expressions_pattern_slots_fill_030",
+    "previous_no_proposal": {
+      "entity_key": "être de mauvaise humeur",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "être de nouveau parmi les siens",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "être de nouveau parmi les siens",
+      "english": [
+        "to be back with one's family",
+        "to be back among one's own people"
+      ],
+      "pattern": null,
+      "prepositions": [
+        "parmi"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "parmi",
+        "followed_by": "unknown"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "idiom"
+    },
+    "source_v2_1_batch_id": "428_expressions_pattern_slots_fill_030",
+    "previous_no_proposal": {
+      "entity_key": "être de nouveau parmi les siens",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "être en forme",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "être en forme",
+      "english": [
+        "to be in shape",
+        "to be fit",
+        "to feel well",
+        "to be in good form"
+      ],
+      "pattern": null,
+      "prepositions": [
+        "en"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "en",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "428_expressions_pattern_slots_fill_030",
+    "previous_no_proposal": {
+      "entity_key": "être en forme",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "être en panne",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "être en panne",
+      "english": [
+        "to be broken down",
+        "to be out of order",
+        "not to be working"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "en",
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "429_expressions_pattern_slots_fill_031",
+    "previous_no_proposal": {
+      "entity_key": "être en panne",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "être en vacances",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "être en vacances",
+      "english": [
+        "to be on vacation"
+      ],
+      "pattern": null,
+      "prepositions": [
+        "en"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "en",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "429_expressions_pattern_slots_fill_031",
+    "previous_no_proposal": {
+      "entity_key": "être en vacances",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "être rouillé(e)",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "être rouillé(e)",
+      "english": [
+        "to be rusty",
+        "to be out of practice"
+      ],
+      "pattern": "être + rouillé(e)",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "adjective"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation",
+      "register": "informal"
+    },
+    "source_v2_1_batch_id": "429_expressions_pattern_slots_fill_031",
+    "previous_no_proposal": {
+      "entity_key": "être rouillé(e)",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  }
+]
+================================================================================

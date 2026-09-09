@@ -1,0 +1,837 @@
+================================================================================
+L'ÉTUDE — HIGH-RISK CORRECTION QUEUE 2.2.0-draft: C22_021_expressions_pattern_slots_retry_008
+================================================================================
+Collection: expressions
+Field: pattern_slots
+Remediation type: FILL_RETRY
+Baseline SHA-256: sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892
+Source v2.1 batches: 420_expressions_pattern_slots_fill_022, 421_expressions_pattern_slots_fill_023, 422_expressions_pattern_slots_fill_024, 423_expressions_pattern_slots_fill_025
+
+YOU MAY DO
+Return exactly one JSON response for this prompt. Propose values only for the
+listed natural keys and the single named field. Preserve French spelling,
+diacritics, grammatical gender, agreement, and source objects. This is a
+candidate for later independent linguistic and provenance review.
+
+YOU MAY NOT DO
+Do not alter source or baseline datasets, existing frozen v2.1 batches, the
+v2.1 manifest, natural keys, non-target fields, or any entity outside TARGETS.
+Do not browse, claim unverified external sources, invent citations, include
+Markdown, or create files other than the response JSON.
+
+RETRY-SPECIFIC REQUIREMENTS
+Every target previously returned `NO_PROPOSAL` with `INSUFFICIENT_EVIDENCE`.
+Return a non-empty, schema-valid proposal for EVERY target in this batch.
+Do not emit `NO_PROPOSAL`: it will leave the strict queue incomplete. Use only
+the listed field and preserve all non-target context exactly. If genuine
+ambiguity remains, describe the constrained choice and uncertainty in
+`evidence.notes` for human linguistic review rather than omitting the target.
+
+
+RESPONSE DESTINATION
+Save exactly one file named `C22_021_expressions_pattern_slots_retry_008_RESPONSE.json` to:
+`enrichment/high-risk/responses/corrections-v2.2/C22_021_expressions_pattern_slots_retry_008_RESPONSE.json`
+Never overwrite a file in `enrichment/high-risk/responses/` directly. The
+response remains staged until a dedicated v2.2 validator is reviewed.
+
+RESPONSE JSON ENVELOPE (no extra top-level keys)
+{
+  "batch_id": "C22_021_expressions_pattern_slots_retry_008",
+  "correction_queue_version": "2.2.0-draft",
+  "collection": "expressions",
+  "field": "pattern_slots",
+  "remediation_type": "FILL_RETRY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "source_v2_1_batch_ids": [
+    "420_expressions_pattern_slots_fill_022",
+    "421_expressions_pattern_slots_fill_023",
+    "422_expressions_pattern_slots_fill_024",
+    "423_expressions_pattern_slots_fill_025"
+  ],
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {
+      "entity_key": "<exact key from TARGETS>",
+      "value": "<schema-valid value>",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Brief rationale, retained evidence, and uncertainty."
+      }
+    }
+  ],
+  "no_proposals": []
+}
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "name",
+      "display",
+      "slot_type",
+      "required"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "minLength": 1
+      },
+      "display": {
+        "type": "string",
+        "minLength": 1
+      },
+      "slot_type": {
+        "type": "string",
+        "enum": [
+          "person",
+          "thing",
+          "noun",
+          "verb_infinitive",
+          "clause",
+          "adjective",
+          "adverb",
+          "preposition",
+          "other"
+        ]
+      },
+      "required": {
+        "type": "boolean"
+      }
+    }
+  }
+}
+
+TARGETS
+[
+  {
+    "entity_key": "s'écrouler",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "s'écrouler",
+      "english": [
+        "to collapse"
+      ],
+      "pattern": "s' + écrouler",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "420_expressions_pattern_slots_fill_022",
+    "previous_no_proposal": {
+      "entity_key": "s'écrouler",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "s'évanouir",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "s'évanouir",
+      "english": [
+        "to faint"
+      ],
+      "pattern": "s' + évanouir",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "420_expressions_pattern_slots_fill_022",
+    "previous_no_proposal": {
+      "entity_key": "s'évanouir",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se balader",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se balader",
+      "english": [
+        "to stroll, to walk around"
+      ],
+      "pattern": "se + balader",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "421_expressions_pattern_slots_fill_023",
+    "previous_no_proposal": {
+      "entity_key": "se balader",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se coucher",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se coucher",
+      "english": [
+        "to go to bed"
+      ],
+      "pattern": "se + coucher",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "421_expressions_pattern_slots_fill_023",
+    "previous_no_proposal": {
+      "entity_key": "se coucher",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se disputer",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se disputer",
+      "english": [
+        "to argue (with each other)"
+      ],
+      "pattern": "se + disputer",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "Reciprocal plural"
+      ],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "421_expressions_pattern_slots_fill_023",
+    "previous_no_proposal": {
+      "entity_key": "se disputer",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se dépêcher",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se dépêcher",
+      "english": [
+        "to hurry"
+      ],
+      "pattern": "se + dépêcher",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "421_expressions_pattern_slots_fill_023",
+    "previous_no_proposal": {
+      "entity_key": "se dépêcher",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se détendre",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se détendre",
+      "english": [
+        "to relax"
+      ],
+      "pattern": "se + détendre",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "421_expressions_pattern_slots_fill_023",
+    "previous_no_proposal": {
+      "entity_key": "se détendre",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se détester",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se détester",
+      "english": [
+        "to hate each other"
+      ],
+      "pattern": "se + détester",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "Reciprocal plural"
+      ],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "421_expressions_pattern_slots_fill_023",
+    "previous_no_proposal": {
+      "entity_key": "se détester",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se fouler la cheville",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se fouler la cheville",
+      "english": [
+        "to sprain one's ankle"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "body part"
+      ],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "421_expressions_pattern_slots_fill_023",
+    "previous_no_proposal": {
+      "entity_key": "se fouler la cheville",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se laver",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se laver",
+      "english": [
+        "to wash (oneself)"
+      ],
+      "pattern": "se + laver",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "421_expressions_pattern_slots_fill_023",
+    "previous_no_proposal": {
+      "entity_key": "se laver",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se lever",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se lever",
+      "english": [
+        "to get up"
+      ],
+      "pattern": "se + lever",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "421_expressions_pattern_slots_fill_023",
+    "previous_no_proposal": {
+      "entity_key": "se lever",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se maquiller",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se maquiller",
+      "english": [
+        "to put on makeup"
+      ],
+      "pattern": "se + maquiller",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "422_expressions_pattern_slots_fill_024",
+    "previous_no_proposal": {
+      "entity_key": "se maquiller",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se marier",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se marier",
+      "english": [
+        "to get married"
+      ],
+      "pattern": "se + marier",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "Can be used reciprocally or individually."
+      ],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "422_expressions_pattern_slots_fill_024",
+    "previous_no_proposal": {
+      "entity_key": "se marier",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se mettre en colère",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se mettre en colère",
+      "english": [
+        "to get angry"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "422_expressions_pattern_slots_fill_024",
+    "previous_no_proposal": {
+      "entity_key": "se mettre en colère",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se passer",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se passer",
+      "english": [
+        "to happen",
+        "to take place",
+        "to go on"
+      ],
+      "pattern": "se + passer",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "Impersonal; only 3rd person singular"
+      ],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "422_expressions_pattern_slots_fill_024",
+    "previous_no_proposal": {
+      "entity_key": "se passer",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se peigner",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se peigner",
+      "english": [
+        "to comb one's hair"
+      ],
+      "pattern": "se + peigner",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "422_expressions_pattern_slots_fill_024",
+    "previous_no_proposal": {
+      "entity_key": "se peigner",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se promener",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se promener",
+      "english": [
+        "to take a walk",
+        "to walk"
+      ],
+      "pattern": "se + promener",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "422_expressions_pattern_slots_fill_024",
+    "previous_no_proposal": {
+      "entity_key": "se promener",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se quitter",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se quitter",
+      "english": [
+        "to leave each other"
+      ],
+      "pattern": "se + quitter",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "Reciprocal plural"
+      ],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "422_expressions_pattern_slots_fill_024",
+    "previous_no_proposal": {
+      "entity_key": "se quitter",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se raser",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se raser",
+      "english": [
+        "to shave (oneself)"
+      ],
+      "pattern": "se + raser",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "422_expressions_pattern_slots_fill_024",
+    "previous_no_proposal": {
+      "entity_key": "se raser",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se rencontrer",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se rencontrer",
+      "english": [
+        "to meet (each other)",
+        "to meet each other"
+      ],
+      "pattern": "se + rencontrer",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "Reciprocal plural"
+      ],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "422_expressions_pattern_slots_fill_024",
+    "previous_no_proposal": {
+      "entity_key": "se rencontrer",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se reposer",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se reposer",
+      "english": [
+        "to rest"
+      ],
+      "pattern": "se + reposer",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "423_expressions_pattern_slots_fill_025",
+    "previous_no_proposal": {
+      "entity_key": "se reposer",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se retrouver",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se retrouver",
+      "english": [
+        "to meet (each other)"
+      ],
+      "pattern": "se + retrouver",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "Reciprocal plural"
+      ],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "423_expressions_pattern_slots_fill_025",
+    "previous_no_proposal": {
+      "entity_key": "se retrouver",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se réveiller",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se réveiller",
+      "english": [
+        "to wake up"
+      ],
+      "pattern": "se + réveiller",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "423_expressions_pattern_slots_fill_025",
+    "previous_no_proposal": {
+      "entity_key": "se réveiller",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se tordre la cheville",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se tordre la cheville",
+      "english": [
+        "to twist one's ankle"
+      ],
+      "pattern": null,
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "body part"
+      ],
+      "transformations": [],
+      "expression_type": "collocation"
+    },
+    "source_v2_1_batch_id": "423_expressions_pattern_slots_fill_025",
+    "previous_no_proposal": {
+      "entity_key": "se tordre la cheville",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  },
+  {
+    "entity_key": "se téléphoner",
+    "field": "pattern_slots",
+    "current_value": [],
+    "related_context": {
+      "canonical_form": "se téléphoner",
+      "english": [
+        "to call each other",
+        "to telephone each other"
+      ],
+      "pattern": "se + téléphoner",
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "Reciprocal plural",
+        "indirect object; no past participle agreement"
+      ],
+      "transformations": [],
+      "expression_type": "verb_pattern"
+    },
+    "source_v2_1_batch_id": "423_expressions_pattern_slots_fill_025",
+    "previous_no_proposal": {
+      "entity_key": "se téléphoner",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  }
+]
+================================================================================
