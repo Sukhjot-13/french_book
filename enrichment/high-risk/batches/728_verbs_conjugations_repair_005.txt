@@ -36,13 +36,423 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
     {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
   ]
 }
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "tense",
+      "mood",
+      "forms",
+      "stems",
+      "endings",
+      "formation_note",
+      "irregularities",
+      "notes",
+      "sources"
+    ],
+    "properties": {
+      "tense": {
+        "type": "string",
+        "minLength": 1
+      },
+      "mood": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "forms": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "je",
+          "tu",
+          "il_elle_on",
+          "nous",
+          "vous",
+          "ils_elles",
+          "imperative_tu",
+          "imperative_nous",
+          "imperative_vous",
+          "impersonal_form"
+        ],
+        "properties": {
+          "je": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tu": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "il_elle_on": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "vous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ils_elles": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_tu": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_nous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_vous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "impersonal_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "stems": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "tense",
+            "persons",
+            "stem",
+            "note"
+          ],
+          "properties": {
+            "tense": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "persons": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "je",
+                  "tu",
+                  "il_elle_on",
+                  "nous",
+                  "vous",
+                  "ils_elles",
+                  "all",
+                  "other"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "stem": {
+              "type": "string",
+              "minLength": 1
+            },
+            "note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      },
+      "endings": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "formation_note": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "irregularities": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "notes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_type",
+            "source_name",
+            "chapter_number",
+            "section_title",
+            "page_printed",
+            "page_pdf",
+            "context_type",
+            "exercise_code",
+            "question_number",
+            "table_title",
+            "table_type",
+            "row_label",
+            "column",
+            "direction",
+            "source_headword",
+            "source_target",
+            "source_text",
+            "created_by",
+            "notes",
+            "derived_from",
+            "source_classifications"
+          ],
+          "properties": {
+            "source_type": {
+              "type": "string",
+              "enum": [
+                "chapter",
+                "book",
+                "glossary",
+                "verb_table",
+                "answer_key",
+                "ai_enrichment",
+                "user_added",
+                "derived",
+                "other"
+              ]
+            },
+            "source_name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "chapter_number": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1,
+              "maximum": 999
+            },
+            "section_title": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "page_printed": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "page_pdf": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "context_type": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "explanation",
+                "example",
+                "exercise",
+                "answer_key",
+                "vocabulary",
+                "table",
+                "note",
+                "dialogue",
+                "caption",
+                "warning",
+                "contrast",
+                "glossary",
+                "other",
+                null
+              ]
+            },
+            "exercise_code": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "question_number": {
+              "type": [
+                "integer",
+                "string",
+                "null"
+              ]
+            },
+            "table_title": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "table_type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "row_label": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "column": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "left",
+                "right",
+                "single",
+                "unknown",
+                null
+              ]
+            },
+            "direction": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "fr_en",
+                "en_fr",
+                null
+              ]
+            },
+            "source_headword": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_target": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_text": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "created_by": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "independent_extraction",
+                "rule_expansion",
+                "mapping_script",
+                "ai_enrichment",
+                "manual",
+                "other",
+                null
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "derived_from": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true,
+              "description": "Natural source entity names from which this information was derived."
+            },
+            "source_classifications": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true,
+              "description": "Source-specific classifications worth preserving during migration."
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -296,14 +706,268 @@ TARGETS
         ]
       }
     ],
-    "english": [
-      "begin",
-      "to begin",
-      "to start"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "commencer",
+      "display_form": "commencer",
+      "english": [
+        "begin",
+        "to begin",
+        "to start"
+      ],
+      "senses": [
+        {
+          "english": "to start",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to begin",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "intransitive",
+        "transitive",
+        "unknown"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "commencé",
+      "present_participle": "commençant",
+      "stems": [],
+      "related_expressions": [
+        "commencer par + nom/infinitif",
+        "commencer à + infinitif"
+      ],
+      "related_concepts": [
+        "Passé simple",
+        "Regular -er verbs",
+        "Verbs with changing prepositions",
+        "present participle",
+        "spelling changes in future"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "begin",
+        "commencer",
+        "start"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Common verb.",
+        "notes": null
+      },
+      "chapters": [
+        1,
+        8,
+        15,
+        16,
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "Verbs ending in -cer",
+          "page_printed": 5,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "nous commençons we start",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The present participle",
+          "page_printed": 126,
+          "page_pdf": 140,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "commencer to start",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "Spelling changes for -cer and -ger verbs",
+          "page_printed": 131,
+          "page_pdf": 145,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Verbs like commencer and manger have a spelling change.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Verbs that use different prepositions",
+          "page_printed": 245,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "commencer to begin, to start",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Formation of the imparfait",
+          "page_printed": 65,
+          "page_pdf": 79,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "such as manger and commencer",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "begin, to commencer",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "verb_table",
+          "source_name": "verb_table.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 238,
+          "page_pdf": 252,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": "verb_table_spelling_change_manger_commencer_present",
+          "table_type": null,
+          "row_label": "commencer",
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "commencer commence commences commence commençons commencez commencent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "verb_table",
+          "source_name": "verb_table.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 238,
+          "page_pdf": 252,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": "verb_table_spelling_change_manger_commencer_imperfect",
+          "table_type": null,
+          "row_label": "commencer",
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "commencer commençais commençais commençait commencions commenciez commençaient",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Commencer à + infinitif » means to begin doing something; « commencer par » identifies the first action or item in a sequence."
+      ]
+    }
   },
   {
     "entity_key": "comprendre",
@@ -381,14 +1045,182 @@ TARGETS
         ]
       }
     ],
-    "english": [
-      "to understand",
-      "understand",
-      "to include"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "avoir",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "comprendre",
+      "display_form": "comprendre",
+      "english": [
+        "to understand",
+        "understand",
+        "to include"
+      ],
+      "senses": [
+        {
+          "english": "to understand",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "compris",
+      "present_participle": "comprenant",
+      "stems": [],
+      "related_expressions": [],
+      "related_concepts": [
+        "-re verbs",
+        "Irregular conjugation",
+        "Irregular past participles"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "comprendre",
+        "compris"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Common.",
+        "notes": null
+      },
+      "chapters": [
+        2,
+        7,
+        10
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "10.json",
+          "chapter_number": 10,
+          "section_title": "Si seulement + plus-que-parfait",
+          "page_printed": 99,
+          "page_pdf": 99,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "(tu) (comprendre) les problèmes",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "Irregular -re verbs",
+          "page_printed": 31,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "comprendre to understand",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Irregular past participles",
+          "page_printed": 72,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "comprendre to understand compris understood",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 258,
+          "page_pdf": 272,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "understand, to comprendre",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "verb_table",
+          "source_name": "verb_table.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 239,
+          "page_pdf": 253,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": "verb_table_irregular_verbs",
+          "table_type": null,
+          "row_label": "comprendre",
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "comprendre compris comprends comprends comprend comprenons comprenez comprennent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Besides meaning to understand, « comprendre » can mean to include or comprise, as when stating what a price or set contains."
+      ]
+    }
   },
   {
     "entity_key": "conclure",
@@ -441,13 +1273,71 @@ TARGETS
         ]
       }
     ],
-    "english": [
-      "to conclude",
-      "to reach an agreement"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "conclure",
+      "display_form": "conclure",
+      "english": [
+        "to conclude",
+        "to reach an agreement"
+      ],
+      "senses": [],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": "conclus",
+      "present_participle": null,
+      "stems": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "conclude",
+        "conclusion"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "verb_table",
+          "source_name": "verb_table.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 239,
+          "page_pdf": 253,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": "verb_table_irregular_verbs",
+          "table_type": null,
+          "row_label": "conclure",
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "conclure conclus conclus conclus conclut concluons concluez concluent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Conclure » can mean to draw a conclusion or to finalize an agreement or contract."
+      ]
+    }
   },
   {
     "entity_key": "conduire",
@@ -548,14 +1438,209 @@ TARGETS
         ]
       }
     ],
-    "english": [
-      "drive",
-      "to drive",
-      "to lead"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "avoir",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "conduire",
+      "display_form": "conduire",
+      "english": [
+        "drive",
+        "to drive",
+        "to lead"
+      ],
+      "senses": [
+        {
+          "english": "to drive",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive",
+        "unknown"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "conduit",
+      "present_participle": "conduisant",
+      "stems": [],
+      "related_expressions": [],
+      "related_concepts": [
+        "Irregular past participles",
+        "Irregular verbs in passé simple",
+        "Passé simple"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "conduire",
+        "conduisant",
+        "conduit",
+        "drive"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": "Common verb.",
+        "notes": null
+      },
+      "chapters": [
+        5,
+        7,
+        15,
+        16
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The gerund",
+          "page_printed": 129,
+          "page_pdf": 143,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle écoute de la musique en conduisant.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "The passé simple of irregular verbs",
+          "page_printed": 132,
+          "page_pdf": 146,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "conduire (to drive)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "Vocabulaire",
+          "page_printed": 58,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "conduire to drive",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Irregular past participles",
+          "page_printed": 72,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "conduire to drive conduit driven",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 252,
+          "page_pdf": 266,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "drive, to conduire",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "verb_table",
+          "source_name": "verb_table.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 239,
+          "page_pdf": 253,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": "verb_table_irregular_verbs",
+          "table_type": null,
+          "row_label": "conduire",
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "conduire conduit conduis conduis conduit conduisons conduisez conduisent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Besides driving a vehicle, « conduire » can mean to lead or take someone somewhere; it normally takes a direct object."
+      ]
+    }
   },
   {
     "entity_key": "connaître",
@@ -702,17 +1787,229 @@ TARGETS
         ]
       }
     ],
-    "english": [
-      "know",
-      "to be acquainted with",
-      "to be familiar with",
-      "to enjoy",
-      "to experience",
-      "to know"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "avoir",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "connaître",
+      "display_form": "connaître",
+      "english": [
+        "know",
+        "to be acquainted with",
+        "to be familiar with",
+        "to enjoy",
+        "to experience",
+        "to know"
+      ],
+      "senses": [
+        {
+          "english": "to know (be familiar with)",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to know",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to know, be acquainted with",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "connu",
+      "present_participle": "connaissant",
+      "stems": [],
+      "related_expressions": [
+        "connaître + direct object"
+      ],
+      "related_concepts": [
+        "Irregular verbs in passé simple",
+        "Passé simple",
+        "Present tense",
+        "Savoir vs. connaître",
+        "depuis"
+      ],
+      "aliases": [
+        "connaitre"
+      ],
+      "search_terms": [
+        "connaitre",
+        "connaître",
+        "know",
+        "to be acquainted with",
+        "to know"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Very common verb.",
+        "notes": null
+      },
+      "chapters": [
+        1,
+        3,
+        16,
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "One more use of the present tense: depuis",
+          "page_printed": 11,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il y a quelques années que je connais M. Blier.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "The passé simple of irregular verbs",
+          "page_printed": 132,
+          "page_pdf": 146,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "connaître (to know)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Subjunctive after relative pronouns",
+          "page_printed": 210,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Connaîtriez-vous un antiquaire qui vende des pièces rares?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "Connaître",
+          "page_printed": 43,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Connaître means to know, to be acquainted with, to be familiar with. In a figurative way, it means to enjoy, to experience. je connais / I know ...",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "know, to connaître, savoir",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "verb_table",
+          "source_name": "verb_table.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 239,
+          "page_pdf": 253,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": "verb_table_irregular_verbs",
+          "table_type": null,
+          "row_label": "connaître",
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "connaître connu connais connais connaît connaissons connaissez connaissent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": "two verbs with different meanings"
+    }
   }
 ]
 ================================================================================

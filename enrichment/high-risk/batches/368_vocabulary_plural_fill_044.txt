@@ -36,13 +36,34 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
     {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
   ]
 }
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -53,11 +74,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "thirty-one"
-    ],
-    "part_of_speech": "number",
-    "canonical_form": "trente et un"
+    "related_context": {
+      "canonical_form": "trente et un",
+      "display_form": "trente et un",
+      "english": [
+        "thirty-one"
+      ],
+      "part_of_speech": "number",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "thirty-one",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "thirty-one",
+        "trente et un"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Numbers"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        26
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "26.json",
+          "chapter_number": 26,
+          "section_title": "The numbers 0 to 50",
+          "page_printed": 221,
+          "page_pdf": 235,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "trente et un thirty-one",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -66,11 +163,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "thirty-two"
-    ],
-    "part_of_speech": "number",
-    "canonical_form": "trente-deux"
+    "related_context": {
+      "canonical_form": "trente-deux",
+      "display_form": "trente-deux",
+      "english": [
+        "thirty-two"
+      ],
+      "part_of_speech": "number",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "thirty-two",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "thirty-two",
+        "trente-deux"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Numbers"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        26
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "26.json",
+          "chapter_number": 26,
+          "section_title": "The numbers 0 to 50",
+          "page_printed": 221,
+          "page_pdf": 235,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "trente-deux thirty-two",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -79,11 +252,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "thirty-three"
-    ],
-    "part_of_speech": "number",
-    "canonical_form": "trente-trois"
+    "related_context": {
+      "canonical_form": "trente-trois",
+      "display_form": "trente-trois",
+      "english": [
+        "thirty-three"
+      ],
+      "part_of_speech": "number",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "thirty-three",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "thirty-three",
+        "trente-trois"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Numbers"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        26
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "26.json",
+          "chapter_number": 26,
+          "section_title": "The numbers 0 to 50",
+          "page_printed": 221,
+          "page_pdf": 235,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "trente-trois thirty-three",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -92,11 +341,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "thirtieth"
-    ],
-    "part_of_speech": "adjective",
-    "canonical_form": "trentième"
+    "related_context": {
+      "canonical_form": "trentième",
+      "display_form": "trentième",
+      "english": [
+        "thirtieth"
+      ],
+      "part_of_speech": "adjective",
+      "gender": "variable",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "thirtieth",
+          "note": null,
+          "gender": "variable",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "thirtieth",
+        "trentième"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Ordinal numbers"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        26
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "26.json",
+          "chapter_number": 26,
+          "section_title": "Ordinal numbers",
+          "page_printed": 222,
+          "page_pdf": 236,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "trentième thirtieth",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -105,11 +430,80 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "sad"
-    ],
-    "part_of_speech": "adjective",
-    "canonical_form": "triste"
+    "related_context": {
+      "canonical_form": "triste",
+      "display_form": "triste",
+      "english": [
+        "sad"
+      ],
+      "part_of_speech": "adjective",
+      "gender": null,
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "sad",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 256,
+          "page_pdf": 270,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "sad triste",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -118,11 +512,80 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "sadness"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "tristesse"
+    "related_context": {
+      "canonical_form": "tristesse",
+      "display_form": "tristesse",
+      "english": [
+        "sadness"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "sadness",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 256,
+          "page_pdf": 270,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "sadness tristesse (f.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -131,11 +594,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "three"
-    ],
-    "part_of_speech": "number",
-    "canonical_form": "trois"
+    "related_context": {
+      "canonical_form": "trois",
+      "display_form": "trois",
+      "english": [
+        "three"
+      ],
+      "part_of_speech": "number",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "three",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "three",
+        "trois"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Numbers"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        26
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "26.json",
+          "chapter_number": 26,
+          "section_title": "The numbers 0 to 50",
+          "page_printed": 221,
+          "page_pdf": 235,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "trois three",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -144,11 +683,86 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "trombone"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "trombone"
+    "related_context": {
+      "canonical_form": "trombone",
+      "display_form": "le trombone",
+      "english": [
+        "trombone"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "trombone",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "trombone"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Music and instruments"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 1,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 1,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Vocabulaire",
+          "page_printed": 98,
+          "page_pdf": 112,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le trombone trombone",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -157,11 +771,89 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "trumpet"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "trompette"
+    "related_context": {
+      "canonical_form": "trompette",
+      "display_form": "la trompette",
+      "english": [
+        "trumpet"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": "la",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "trumpet",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": "la",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "trompette",
+        "trumpet"
+      ],
+      "word_family": [],
+      "related_expressions": [
+        "jouer de + instrument"
+      ],
+      "related_verbs": [],
+      "related_concepts": [
+        "Music and instruments"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Vocabulaire",
+          "page_printed": 98,
+          "page_pdf": 112,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "la trompette trumpet",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -170,11 +862,80 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "very"
-    ],
-    "part_of_speech": "adverb",
-    "canonical_form": "très"
+    "related_context": {
+      "canonical_form": "très",
+      "display_form": "très",
+      "english": [
+        "very"
+      ],
+      "part_of_speech": "adverb",
+      "gender": null,
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "very",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 258,
+          "page_pdf": 272,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "very très",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,69 +44,584 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "tense",
+      "persons",
+      "stem",
+      "note"
+    ],
+    "properties": {
+      "tense": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "persons": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "je",
+            "tu",
+            "il_elle_on",
+            "nous",
+            "vous",
+            "ils_elles",
+            "all",
+            "other"
+          ]
+        },
+        "uniqueItems": true
+      },
+      "stem": {
+        "type": "string",
+        "minLength": 1
+      },
+      "note": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    }
+  }
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "lacer",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "to lace up",
-      "to tie"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "lacer",
+      "display_form": "lacer",
+      "english": [
+        "to lace up",
+        "to tie"
+      ],
+      "senses": [
+        {
+          "english": "to lace up",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to tie",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "lacé",
+      "present_participle": "laçant",
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [
+        "Regular -er verbs",
+        "spelling changes in future"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "lacer"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "Verbs ending in -cer",
+          "page_printed": 5,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "nous laçons we lace up, we tie",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "laisser",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "let (allow)",
-      "to allow",
-      "to let",
-      "to leave"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "laisser",
+      "display_form": "laisser",
+      "english": [
+        "let (allow)",
+        "to allow",
+        "to let",
+        "to leave"
+      ],
+      "senses": [
+        {
+          "english": "to let",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to allow",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "laissé",
+      "present_participle": "laissant",
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "laisser"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Verbs not followed by a preposition",
+          "page_printed": 121,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "laisser to let, to allow",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "let, to (allow) laisser",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Laisser » can mean to leave something behind or to allow an action; « laisser + infinitif » means to let someone do something."
+      ]
+    }
   },
   {
     "entity_key": "lancer",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "throw",
-      "to throw"
-    ],
-    "verb_group": null,
-    "auxiliary": "avoir",
-    "regularity": null
+    "related_context": {
+      "infinitive": "lancer",
+      "display_form": "lancer",
+      "english": [
+        "throw",
+        "to throw"
+      ],
+      "senses": [
+        {
+          "english": "to throw",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [
+        "unknown"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "lancé",
+      "present_participle": "lançant",
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "lancer",
+        "lancé",
+        "lançant"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "Vocabulaire",
+          "page_printed": 127,
+          "page_pdf": 141,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "lancer to throw",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 258,
+          "page_pdf": 272,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "throw, to lancer, jeter",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": "two synonyms"
+    }
   },
   {
     "entity_key": "laver",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "to wash",
-      "wash"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "laver",
+      "display_form": "laver",
+      "english": [
+        "to wash",
+        "wash"
+      ],
+      "senses": [
+        {
+          "english": "to wash",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "lavé",
+      "present_participle": "lavant",
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [
+        "Regular -er verbs"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "laver"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "Common regular -er verbs",
+          "page_printed": 2,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "laver to wash",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 258,
+          "page_pdf": 272,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "wash, to laver",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "lever",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "raise",
-      "to raise"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "lever",
+      "display_form": "lever",
+      "english": [
+        "raise",
+        "to raise"
+      ],
+      "senses": [
+        {
+          "english": "to raise",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "levé",
+      "present_participle": "levant",
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [
+        "Regular -er verbs",
+        "spelling changes in future"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "lever"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "Verbs ending in -e + consonant + -er",
+          "page_printed": 6,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "lever je lève I raise",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 256,
+          "page_pdf": 270,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "raise, to lever",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Transitive « lever » means to raise something; pronominal « se lever » means to get up or stand up."
+      ]
+    }
   }
 ]
 ================================================================================

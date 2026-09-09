@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,64 +44,578 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "tense",
+      "persons",
+      "stem",
+      "note"
+    ],
+    "properties": {
+      "tense": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "persons": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "je",
+            "tu",
+            "il_elle_on",
+            "nous",
+            "vous",
+            "ils_elles",
+            "all",
+            "other"
+          ]
+        },
+        "uniqueItems": true
+      },
+      "stem": {
+        "type": "string",
+        "minLength": 1
+      },
+      "note": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    }
+  }
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "se maquiller",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "to put on makeup"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "etre",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "se maquiller",
+      "display_form": "se maquiller",
+      "english": [
+        "to put on makeup"
+      ],
+      "senses": [
+        {
+          "english": "to put on makeup",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": true,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "etre",
+      "past_participle": null,
+      "present_participle": null,
+      "conjugations": [],
+      "related_expressions": [
+        "se maquiller"
+      ],
+      "related_concepts": [
+        "Reflexive verbs"
+      ],
+      "aliases": [
+        "maquiller"
+      ],
+      "search_terms": [
+        "maquiller",
+        "se maquiller"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reflexive verbs",
+          "page_printed": 63,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Vous maquillez-vous pour monter sur scène?  Do you put on makeup to go on stage?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "se marier",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "to get married"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "etre",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "se marier",
+      "display_form": "se marier",
+      "english": [
+        "to get married"
+      ],
+      "senses": [
+        {
+          "english": "to get married",
+          "note": "pronominal",
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to get married",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": true,
+      "transitivity": [
+        "intransitive"
+      ],
+      "auxiliary": "etre",
+      "past_participle": "marié",
+      "present_participle": "mariant",
+      "conjugations": [],
+      "related_expressions": [
+        "se marier"
+      ],
+      "related_concepts": [
+        "Reciprocal verbs",
+        "pronominal agreement"
+      ],
+      "aliases": [
+        "marier",
+        "se marier"
+      ],
+      "search_terms": [
+        "get married",
+        "marier",
+        "se marier"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6,
+        10
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "10.json",
+          "chapter_number": 10,
+          "section_title": "Pronominal verbs in the plus-que-parfait",
+          "page_printed": 96,
+          "page_pdf": 96,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils (se marier) en septembre.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reciprocal verbs",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils (se marier) la semaine prochaine.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "se mettre en colère",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "to get angry"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "etre",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "se mettre en colère",
+      "display_form": "se mettre en colère",
+      "english": [
+        "to get angry"
+      ],
+      "senses": [
+        {
+          "english": "to get angry",
+          "note": "pronominal",
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": true,
+      "transitivity": [
+        "intransitive"
+      ],
+      "auxiliary": "etre",
+      "past_participle": "mis",
+      "present_participle": "mettant",
+      "conjugations": [],
+      "related_expressions": [
+        "se mettre en colère"
+      ],
+      "related_concepts": [],
+      "aliases": [
+        "se mettre"
+      ],
+      "search_terms": [
+        "se mettre en colère"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        11
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "The past conditional",
+          "page_printed": 93,
+          "page_pdf": 107,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils se seraient mis en colère.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "se moquer",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "to make fun",
-      "to make fun of",
-      "not to care about"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "etre",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "se moquer",
+      "display_form": "se moquer",
+      "english": [
+        "to make fun",
+        "to make fun of",
+        "not to care about"
+      ],
+      "senses": [
+        {
+          "english": "to make fun",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": true,
+      "transitivity": [
+        "intransitive"
+      ],
+      "auxiliary": "etre",
+      "past_participle": null,
+      "present_participle": null,
+      "conjugations": [
+        {
+          "tense": "présent",
+          "mood": "indicative",
+          "forms": {
+            "je": "me moque",
+            "tu": null,
+            "il_elle_on": null,
+            "nous": null,
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Only first-person singular form given in source."
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "6.json",
+              "chapter_number": 6,
+              "section_title": "Subjective pronominals",
+              "page_printed": 65,
+              "page_pdf": null,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "se moquer  to make fun  je me moque  I am making fun",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [
+        "se moquer de"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "aliases": [
+        "moquer"
+      ],
+      "search_terms": [
+        "moquer",
+        "se moquer"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "se moquer  to make fun  je me moque  I am making fun",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Se moquer de » can mean to make fun of someone or, depending on context, not to care about something."
+      ]
+    }
   },
   {
     "entity_key": "se passer",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "to happen"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "etre",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "se passer",
+      "display_form": "se passer",
+      "english": [
+        "to happen"
+      ],
+      "senses": [
+        {
+          "english": "to happen",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": true,
+      "transitivity": [
+        "intransitive"
+      ],
+      "auxiliary": "etre",
+      "past_participle": null,
+      "present_participle": null,
+      "conjugations": [],
+      "related_expressions": [
+        "se passer"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "aliases": [
+        "passer"
+      ],
+      "search_terms": [
+        "passer",
+        "se passer"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 66,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Qu'est-ce qui (se passer) ?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Impersonal « se passer » means to happen; « se passer de » means to do without something."
+      ]
+    }
   }
 ]
 ================================================================================

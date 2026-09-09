@@ -36,13 +36,34 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
     {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
   ]
 }
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -53,11 +74,80 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "watch (wristwatch)"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "montre"
+    "related_context": {
+      "canonical_form": "montre",
+      "display_form": "montre",
+      "english": [
+        "watch (wristwatch)"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "watch (wristwatch)",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 258,
+          "page_pdf": 272,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "watch (wristwatch) montre (f.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -66,13 +156,85 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "piece",
-      "piece of music",
-      "track"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "morceau"
+    "related_context": {
+      "canonical_form": "morceau",
+      "display_form": "morceau",
+      "english": [
+        "piece",
+        "piece of music",
+        "track"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "piece",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "piece morceau (m.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Morceau » often takes « de » before what the piece consists of, and can also denote a piece of music."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -81,11 +243,80 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "word"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "mot"
+    "related_context": {
+      "canonical_form": "mot",
+      "display_form": "mot",
+      "english": [
+        "word"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "word",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 259,
+          "page_pdf": 273,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "word mot (m.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -94,12 +325,123 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "a search engine",
-      "search engine"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "moteur de recherche"
+    "related_context": {
+      "canonical_form": "moteur de recherche",
+      "display_form": "moteur de recherche",
+      "english": [
+        "a search engine",
+        "search engine"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": null,
+        "indefinite": "un",
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "a search engine",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": "un",
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "search engine",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "moteur de recherche",
+        "search engine"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Internet vocabulary"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        26
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "26.json",
+          "chapter_number": 26,
+          "section_title": "VOCABULAIRE",
+          "page_printed": 223,
+          "page_pdf": 237,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "un moteur de recherche a search engine",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 256,
+          "page_pdf": 270,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "search engine moteur de recherche (m.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -108,11 +450,86 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "multiparty system"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "multipartisme"
+    "related_context": {
+      "canonical_form": "multipartisme",
+      "display_form": "le multipartisme",
+      "english": [
+        "multiparty system"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "multiparty system",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "multipartisme"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Political vocabulary"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        18
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "18.json",
+          "chapter_number": 18,
+          "section_title": "Vocabulaire: la politique",
+          "page_printed": 142,
+          "page_pdf": 156,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le multipartisme multiparty system",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -121,11 +538,80 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "wall"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "mur"
+    "related_context": {
+      "canonical_form": "mur",
+      "display_form": "mur",
+      "english": [
+        "wall"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "wall",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 258,
+          "page_pdf": 272,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "wall mur (m.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -134,11 +620,86 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "musician"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "musicien"
+    "related_context": {
+      "canonical_form": "musicien",
+      "display_form": "musicien",
+      "english": [
+        "musician"
+      ],
+      "part_of_speech": "noun",
+      "gender": "variable",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [
+        {
+          "form": "musicienne",
+          "variant_type": "feminine",
+          "note": "feminine form"
+        }
+      ],
+      "senses": [
+        {
+          "english": "musician",
+          "note": null,
+          "gender": "variable",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "musician musicien(ne) (m./f.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -147,12 +708,123 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "a museum",
-      "museum"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "musée"
+    "related_context": {
+      "canonical_form": "musée",
+      "display_form": "un musée",
+      "english": [
+        "a museum",
+        "museum"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": null,
+        "indefinite": "un",
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "museum",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": "un",
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "museum",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "musee",
+        "museum"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Art vocabulary"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Common.",
+        "notes": null
+      },
+      "chapters": [
+        16
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "Vocabulaire: art",
+          "page_printed": 132,
+          "page_pdf": 146,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "un musée a museum",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "museum musée (m.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -161,11 +833,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "medal"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "médaille"
+    "related_context": {
+      "canonical_form": "médaille",
+      "display_form": "médaille",
+      "english": [
+        "medal"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": null,
+        "indefinite": "une",
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "medal",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": null,
+            "indefinite": "une",
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "medal",
+        "médaille"
+      ],
+      "word_family": [],
+      "related_expressions": [
+        "remporter la médaille d'or"
+      ],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        26
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "26.json",
+          "chapter_number": 26,
+          "section_title": "The numbers 1,000 and greater",
+          "page_printed": 229,
+          "page_pdf": 243,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "la médaille d’or",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -174,11 +922,80 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "method"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "méthode"
+    "related_context": {
+      "canonical_form": "méthode",
+      "display_form": "méthode",
+      "english": [
+        "method"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "method",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "method méthode (f.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,109 +44,891 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Ce dont for verbs with de",
     "field": "word_order",
     "current_value": null,
-    "summary": "Ce dont is used when the verb or expression requires the preposition de, meaning what.",
-    "usage": [
-      "object of verb with de referring to idea"
-    ],
-    "rule_name": "Ce dont for verbs with de"
+    "related_context": {
+      "rule_name": "Ce dont for verbs with de",
+      "summary": "Ce dont is used when the verb or expression requires the preposition de, meaning what.",
+      "explanation": "Elle ne comprend pas ce dont il a peur. Fais-moi voir ce dont tu te sers. La police veut savoir ce dont elle se souvient. Je m’intéresse à ce dont vous avez parlé ce matin.",
+      "formation": "ce dont + subject + verb (verb with de)",
+      "usage": [
+        "object of verb with de referring to idea"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "verb requires de"
+      ],
+      "signal_words": [
+        "avoir peur de",
+        "se servir de",
+        "se souvenir de",
+        "parler de"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Prepositions",
+        "Relative pronouns"
+      ],
+      "related_expressions": [
+        "avoir peur de",
+        "ce dont",
+        "parler de",
+        "se servir de",
+        "se souvenir de"
+      ],
+      "related_verbs": [
+        "avoir peur de",
+        "parler",
+        "se servir",
+        "se souvenir"
+      ],
+      "tags": [
+        "relative pronouns",
+        "de complement",
+        "indefinite antecedent"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Ce que, ce qui, ce dont, ce à quoi",
+          "page_printed": 209,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle ne comprend pas ce dont il a peur.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Ce que as direct object of idea",
     "field": "word_order",
     "current_value": null,
-    "summary": "Ce que is used as the direct object of the dependent clause when referring to an idea.",
-    "usage": [
-      "direct object of dependent clause referring to idea"
-    ],
-    "rule_name": "Ce que as direct object of idea"
+    "related_context": {
+      "rule_name": "Ce que as direct object of idea",
+      "summary": "Ce que is used as the direct object of the dependent clause when referring to an idea.",
+      "explanation": "Savez-vous ce qu’il fait ces jours-ci? Tu comprends ce que ce journaliste écrit? Ils ont fait ce qu’il ne fallait pas faire. Elle écrit ce qu’elle vit.",
+      "formation": "ce que + subject + verb",
+      "usage": [
+        "direct object of dependent clause referring to idea"
+      ],
+      "restrictions": [
+        "no gender or number"
+      ],
+      "conditions": [
+        "no specific antecedent"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Relative pronouns"
+      ],
+      "related_expressions": [
+        "ce que"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Ce que, ce qui, ce dont, ce à quoi",
+          "page_printed": 209,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Savez-vous ce qu’il fait ces jours-ci?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Ce qui as subject of idea",
     "field": "word_order",
     "current_value": null,
-    "summary": "Ce qui is used as the subject of a dependent clause when referring to an idea, not a specific noun.",
-    "usage": [
-      "subject of dependent clause referring to idea"
-    ],
-    "rule_name": "Ce qui as subject of idea"
+    "related_context": {
+      "rule_name": "Ce qui as subject of idea",
+      "summary": "Ce qui is used as the subject of a dependent clause when referring to an idea, not a specific noun.",
+      "explanation": "J’aime ce qui est fabriqué dans cet atelier. Il ne sait pas ce qui a provoqué leur réaction. Qui sait ce qui est arrivé? J’aimerais savoir ce qui lui plairait.",
+      "formation": "ce qui + verb",
+      "usage": [
+        "subject of dependent clause referring to idea"
+      ],
+      "restrictions": [
+        "no gender or number"
+      ],
+      "conditions": [
+        "no specific antecedent"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Relative pronouns"
+      ],
+      "related_expressions": [
+        "ce qui"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Ce que, ce qui, ce dont, ce à quoi",
+          "page_printed": 209,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "J’aime ce qui est fabriqué dans cet atelier.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Ce à quoi for verbs with à",
     "field": "word_order",
     "current_value": null,
-    "summary": "Ce à quoi is used when the verb requires the preposition à, meaning what.",
-    "usage": [
-      "object of verb with à referring to idea"
-    ],
-    "rule_name": "Ce à quoi for verbs with à"
+    "related_context": {
+      "rule_name": "Ce à quoi for verbs with à",
+      "summary": "Ce à quoi is used when the verb requires the preposition à, meaning what.",
+      "explanation": "J’ignore ce à quoi il s’abonne. C’est exactement ce à quoi je m’attendais de sa part. Ils ne savent pas ce à quoi tu t’opposes. Je voudrais savoir ce à quoi elle aspire.",
+      "formation": "ce à quoi + subject + verb (verb with à)",
+      "usage": [
+        "object of verb with à referring to idea"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "verb requires à"
+      ],
+      "signal_words": [
+        "s’abonner à",
+        "s’attendre à",
+        "s’opposer à",
+        "aspirer à"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Prepositions",
+        "Relative pronouns"
+      ],
+      "related_expressions": [
+        "aspirer à",
+        "ce à quoi",
+        "s'abonner à",
+        "s'attendre à",
+        "s'opposer à"
+      ],
+      "related_verbs": [
+        "s'attendre",
+        "verb_aspirer",
+        "verb_s_abonner",
+        "verb_s_opposer"
+      ],
+      "tags": [
+        "relative pronouns",
+        "à complement",
+        "indefinite antecedent"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Ce que, ce qui, ce dont, ce à quoi",
+          "page_printed": 209,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "J’ignore ce à quoi il s’abonne.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Choice between futur simple and futur antérieur in dependent clauses",
     "field": "word_order",
     "current_value": null,
-    "summary": "When both clauses use futur simple, actions are simultaneous; use futur antérieur in dependent clause to mark anteriority.",
-    "usage": [
-      "to indicate simultaneity or anteriority in future temporal clauses"
-    ],
-    "rule_name": "Choice between futur simple and futur antérieur in dependent clauses"
+    "related_context": {
+      "rule_name": "Choice between futur simple and futur antérieur in dependent clauses",
+      "summary": "When both clauses use futur simple, actions are simultaneous; use futur antérieur in dependent clause to mark anteriority.",
+      "explanation": "Sometimes you have a choice between the futur simple and the futur antérieur. When both clauses use the futur simple, it is implied that both actions take place simultaneously. If you want to mark an anteriority, use the futur antérieur.",
+      "formation": "main clause futur simple + conjunction + (futur simple for simultaneous / futur antérieur for anterior)",
+      "usage": [
+        "to indicate simultaneity or anteriority in future temporal clauses"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "after conjunctions like quand, lorsque, dès que, aussitôt que, tant que"
+      ],
+      "signal_words": [
+        "dès que",
+        "quand",
+        "lorsque"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "using futur simple when anteriority is intended"
+      ],
+      "related_tenses": [
+        "futur antérieur",
+        "futur simple"
+      ],
+      "related_concepts": [
+        "anteriority",
+        "futur antérieur",
+        "futur simple"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "accepter",
+        "finir",
+        "téléphoner",
+        "verb_discuter"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur antérieur",
+          "page_printed": 77,
+          "page_pdf": 91,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Sometimes you have a choice between the futur simple and the futur antérieur. When both clauses use the futur simple, it is implied that both actions take place simultaneously. If you want to mark an anteriority, use the futur antérieur.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Conjugation of verbs ending in -eindre and -aindre",
     "field": "word_order",
     "current_value": null,
-    "summary": "Verbs ending in -eindre or -aindre follow a similar conjugation pattern in the present tense.",
-    "usage": [
-      "To conjugate peindre, craindre, and similar verbs"
-    ],
-    "rule_name": "Conjugation of verbs ending in -eindre and -aindre"
+    "related_context": {
+      "rule_name": "Conjugation of verbs ending in -eindre and -aindre",
+      "summary": "Verbs ending in -eindre or -aindre follow a similar conjugation pattern in the present tense.",
+      "explanation": "These -re verbs have a stem ending in -ein-/-ain- in the singular, and -eign-/-aign- in the plural forms.",
+      "formation": "Singular: stem + s, s, t; Plural: stem + ons, ez, ent (with -eign- or -aign-)",
+      "usage": [
+        "To conjugate peindre, craindre, and similar verbs"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Verbs ending in -eindre and -aindre"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "ceindre",
+        "craindre",
+        "feindre",
+        "peindre",
+        "plaindre",
+        "se plaindre",
+        "teindre"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "Verbs ending in -eindre and -aindre",
+          "page_printed": 60,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Among the -re verbs, some verbs ending in -eindre or -aindre can be grouped together. Verbs like peindre (to paint) include teindre (to dye), ceindre (to encircle), feindre (to feign), craindre (to fear), plaindre (to pity), and se plaindre (to complain).",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Conjunctions followed by indicative mood",
     "field": "word_order",
     "current_value": null,
-    "summary": "List of conjunctions that require indicative mood, including those seen with future and additional ones.",
-    "usage": [
-      "to introduce subordinate clauses with indicative"
-    ],
-    "rule_name": "Conjunctions followed by indicative mood"
+    "related_context": {
+      "rule_name": "Conjunctions followed by indicative mood",
+      "summary": "List of conjunctions that require indicative mood, including those seen with future and additional ones.",
+      "explanation": "Let's learn a few more conjunctions followed by the indicative mood. These include: alors que, après que, comme, étant donné que, maintenant que, parce que, pendant que, puisque, si, sous prétexte que, tandis que, vu que.",
+      "formation": null,
+      "usage": [
+        "to introduce subordinate clauses with indicative"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "alors que",
+        "après que",
+        "comme",
+        "étant donné que",
+        "maintenant que",
+        "parce que",
+        "pendant que",
+        "puisque",
+        "si",
+        "sous prétexte que",
+        "tandis que",
+        "vu que"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "using subjunctive after these conjunctions (subjunctive is used with other conjunctions in Chapter 13)"
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "conjunctions followed by indicative"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "Conjunctions used with the indicative mood",
+          "page_printed": 79,
+          "page_pdf": 93,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Let's learn a few more conjunctions followed by the indicative mood.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Conjunctions followed by the subjunctive",
     "field": "word_order",
     "current_value": null,
-    "summary": "A list of conjunctions that require the subjunctive in the following clause.",
-    "usage": [
-      "Expressing purpose, fear, time, concession, condition, etc."
-    ],
-    "rule_name": "Conjunctions followed by the subjunctive"
+    "related_context": {
+      "rule_name": "Conjunctions followed by the subjunctive",
+      "summary": "A list of conjunctions that require the subjunctive in the following clause.",
+      "explanation": "Conjunctions: afin que, pour que, de peur que, de crainte que, avant que, jusqu'à ce que, bien que, quoique, sans que, à moins que, pourvu que, à condition que, en attendant que.",
+      "formation": "Conjunction + subjunctive clause.",
+      "usage": [
+        "Expressing purpose, fear, time, concession, condition, etc."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "afin que",
+        "pour que",
+        "de peur que",
+        "de crainte que",
+        "avant que",
+        "jusqu'à ce que",
+        "bien que",
+        "quoique",
+        "sans que",
+        "à moins que",
+        "pourvu que",
+        "à condition que",
+        "en attendant que"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Confusing with conjunctions that take the indicative (see Chapter 9)."
+      ],
+      "related_tenses": [
+        "subjonctif présent"
+      ],
+      "related_concepts": [
+        "Conjunctions requiring subjunctive"
+      ],
+      "related_expressions": [
+        "afin que + subjonctif",
+        "avant que + subjonctif",
+        "bien que + subjonctif",
+        "de crainte que + subjonctif",
+        "de peur que + subjonctif",
+        "en attendant que + subjonctif",
+        "jusqu'à ce que + subjonctif",
+        "pour que + subjonctif",
+        "pourvu que + subjonctif",
+        "quoique + subjonctif",
+        "sans que + subjonctif",
+        "à condition que + subjonctif",
+        "à moins que + subjonctif"
+      ],
+      "related_verbs": [],
+      "tags": [
+        "subjunctive",
+        "conjunctions",
+        "dependent clauses"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Conjunctions followed by the subjunctive",
+          "page_printed": 108,
+          "page_pdf": 122,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When you use conjunctions, you will also have to decide whether to use the indicative or the subjunctive in the following clause. [List of conjunctions]",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Connaître + direct object",
     "field": "word_order",
     "current_value": null,
-    "summary": "Connaître is always followed by a direct object, never by a dependent clause.",
-    "usage": [
-      "To express familiarity with people, places, things",
-      "Figuratively: to enjoy or experience"
-    ],
-    "rule_name": "Connaître + direct object"
+    "related_context": {
+      "rule_name": "Connaître + direct object",
+      "summary": "Connaître is always followed by a direct object, never by a dependent clause.",
+      "explanation": "Connaître means to know, to be acquainted with, or to be familiar with. It cannot be followed by a clause; it requires a noun or pronoun as direct object.",
+      "formation": "connaître + noun/pronoun",
+      "usage": [
+        "To express familiarity with people, places, things",
+        "Figuratively: to enjoy or experience"
+      ],
+      "restrictions": [
+        "Never followed by a dependent clause"
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": "ne pas connaître + direct object",
+      "interrogative_form": "Est-ce que + connaître + direct object?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use connaître before an infinitive or clause; use savoir."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Savoir vs. connaître"
+      ],
+      "related_expressions": [
+        "connaître + direct object"
+      ],
+      "related_verbs": [
+        "connaître"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "Connaître",
+          "page_printed": 43,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "It is always followed by a direct object; it is never followed by a dependent clause.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Could for a unique past action",
     "field": "word_order",
     "current_value": null,
-    "summary": "Use passé composé of pouvoir to express a single, unique ability or success in the past.",
-    "usage": [
-      "To express a specific past ability that was realized",
-      "To translate 'managed to' or 'succeeded in'"
-    ],
-    "rule_name": "Could for a unique past action"
+    "related_context": {
+      "rule_name": "Could for a unique past action",
+      "summary": "Use passé composé of pouvoir to express a single, unique ability or success in the past.",
+      "explanation": "When 'could' refers to a single, unique action in the past (often implying success or achievement), French uses the passé composé of the verb pouvoir.",
+      "formation": "passé composé of pouvoir + infinitive",
+      "usage": [
+        "To express a specific past ability that was realized",
+        "To translate 'managed to' or 'succeeded in'"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "The action is unique and completed"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": "ne pas avoir pu + infinitive",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use imparfait for a single completed past action"
+      ],
+      "related_tenses": [
+        "passé composé"
+      ],
+      "related_concepts": [
+        "Past ability (could)"
+      ],
+      "related_expressions": [
+        "pouvoir + infinitive"
+      ],
+      "related_verbs": [
+        "pouvoir"
+      ],
+      "tags": [
+        "past ability",
+        "passé composé",
+        "pouvoir"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Could",
+          "page_printed": 97,
+          "page_pdf": 111,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When could refers to a single, unique action in the past, the passé composé of pouvoir is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,73 +44,711 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "tense",
+      "persons",
+      "stem",
+      "note"
+    ],
+    "properties": {
+      "tense": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "persons": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "je",
+            "tu",
+            "il_elle_on",
+            "nous",
+            "vous",
+            "ils_elles",
+            "all",
+            "other"
+          ]
+        },
+        "uniqueItems": true
+      },
+      "stem": {
+        "type": "string",
+        "minLength": 1
+      },
+      "note": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    }
+  }
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "échouer",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "fail an exam",
-      "to fail (an exam)",
-      "to fail",
-      "to run aground"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "échouer",
+      "display_form": "échouer",
+      "english": [
+        "fail an exam",
+        "to fail (an exam)",
+        "to fail",
+        "to run aground"
+      ],
+      "senses": [
+        {
+          "english": "to fail (an exam)",
+          "note": "in 'échouer à un examen'",
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "intransitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "échoué",
+      "present_participle": "échouant",
+      "conjugations": [],
+      "related_expressions": [
+        "échouer à un examen"
+      ],
+      "related_concepts": [
+        "school and education vocabulary"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "echouer",
+        "échouer"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9,
+        10
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "10.json",
+          "chapter_number": 10,
+          "section_title": "Formation of the plus-que-parfait",
+          "page_printed": 95,
+          "page_pdf": 95,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il (échouer) à son examen.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "Vocabulaire",
+          "page_printed": 72,
+          "page_pdf": 86,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "échouer à un examen to fail an exam",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "fail an exam, to échouer à un examen",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Échouer à un examen » means to fail an exam; for a plan, « échouer » means to fail, and for a vessel it can mean to run aground."
+      ]
+    }
   },
   {
     "entity_key": "éclaircir",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "clear",
-      "lighten",
-      "to clear",
-      "to lighten"
-    ],
-    "verb_group": "2nd_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "éclaircir",
+      "display_form": "éclaircir",
+      "english": [
+        "clear",
+        "lighten",
+        "to clear",
+        "to lighten"
+      ],
+      "senses": [
+        {
+          "english": "to lighten",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to clear",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "2nd_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": null,
+      "present_participle": null,
+      "conjugations": [
+        {
+          "tense": "présent",
+          "mood": "indicative",
+          "forms": {
+            "je": null,
+            "tu": null,
+            "il_elle_on": null,
+            "nous": "éclaircissons",
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [
+            "-issons"
+          ],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Partial: nous form"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "2.json",
+              "chapter_number": 2,
+              "section_title": "Type 1 -ir verbs",
+              "page_printed": 27,
+              "page_pdf": null,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "nous éclaircissons",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [],
+      "related_concepts": [
+        "-ir verbs",
+        "Regular conjugation"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "éclaircir"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        2
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "Type 1 -ir verbs",
+          "page_printed": 27,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "éclaircir to lighten, to clear",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 251,
+          "page_pdf": 265,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "clear, to éclaircir",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "lighten, to éclaircir",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "écosser",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "shell (peas)",
-      "to shell"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "écosser",
+      "display_form": "écosser",
+      "english": [
+        "shell (peas)",
+        "to shell"
+      ],
+      "senses": [],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "present_participle": null,
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "shell peas",
+        "shell beans"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 257,
+          "page_pdf": 271,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "shell, to (peas) écosser",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Écosser » means to remove peas, beans, or similar seeds from their pods."
+      ]
+    }
   },
   {
     "entity_key": "écouter",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "listen",
-      "to listen",
-      "to listen to"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "écouter",
+      "display_form": "écouter",
+      "english": [
+        "listen",
+        "to listen",
+        "to listen to"
+      ],
+      "senses": [
+        {
+          "english": "to listen to",
+          "note": "no preposition in French",
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to listen",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive",
+        "unknown"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "écouté",
+      "present_participle": "écoutant",
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "ecouter",
+        "écoutant",
+        "écouter",
+        "écouté"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        14,
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Verbs not followed by a preposition",
+          "page_printed": 121,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Nous écoutons la conférence.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The gerund",
+          "page_printed": 129,
+          "page_pdf": 143,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle écoute de la musique en conduisant.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "listen, to écouter",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Unlike English “listen to,” « écouter » takes a direct object without a preposition: « écouter la radio »."
+      ]
+    }
   },
   {
     "entity_key": "écraser",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "squash",
-      "to crush",
-      "to squash"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "écraser",
+      "display_form": "écraser",
+      "english": [
+        "squash",
+        "to crush",
+        "to squash"
+      ],
+      "senses": [
+        {
+          "english": "to crush",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to squash",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "écrasé",
+      "present_participle": "écrasant",
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "ecraser"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "VOCABULAIRE",
+          "page_printed": 116,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "écraser to crush, to squash",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 257,
+          "page_pdf": 271,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "squash, to écraser",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,11 +44,27 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.prepositions
-- `value` must be an array of strings listing the lexical prepositions governed by the expression or its reusable pattern, in their order of appearance.
-- Normalize contractions to their lexical preposition: record `"à"` for `au`/`aux` and `"de"` for `du`/`des`; do not record a standalone article as a preposition.
-- Include prepositions that are literal and required by the construction, including before a variable complement.
-- Use `[]` when the expression governs no preposition. Do not add prepositions merely because they are common in a translation or possible contextual expansion.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -56,95 +72,853 @@ TARGETS
     "entity_key": "près",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "near",
-      "close"
-    ],
-    "canonical_form": "près"
+    "related_context": {
+      "canonical_form": "près",
+      "display_form": "près",
+      "english": [
+        "near",
+        "close"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Location"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "close",
+        "near"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "location_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of location",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "près\tnear, close",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "As a preposition before a noun, près normally requires de: près de la gare."
+      ]
+    }
   },
   {
     "entity_key": "prévenir la police",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to call the police",
-      "to notify the police",
-      "to alert the police"
-    ],
-    "canonical_form": "prévenir la police"
+    "related_context": {
+      "canonical_form": "prévenir la police",
+      "display_form": "prévenir la police",
+      "english": [
+        "to call the police",
+        "to notify the police",
+        "to alert the police"
+      ],
+      "expression_type": "collocation",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [
+        "prévenir"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "police",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "prévenir la police"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Vocabulaire",
+          "page_printed": 137,
+          "page_pdf": 151,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "prévenir la police",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "prévenir que + proposition",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to warn that ..."
-    ],
-    "canonical_form": "prévenir que + proposition"
+    "related_context": {
+      "canonical_form": "prévenir que + proposition",
+      "display_form": "prévenir que + proposition",
+      "english": [
+        "to warn that ..."
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "prévenir que + clause",
+      "pattern_slots": [
+        {
+          "name": "clause",
+          "display": "clause",
+          "slot_type": "clause",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "prévenir que",
+        "warn that"
+      ],
+      "collocation_strength": "possible",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Would",
+          "page_printed": 103,
+          "page_pdf": 117,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tu aurais dû me prévenir que tes parents venaient aussi.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Prévenir que introduces the information communicated; when naming the person warned, use prévenir quelqu’un que or prévenir quelqu’un de quelque chose."
+      ]
+    }
   },
   {
     "entity_key": "quand",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "when"
-    ],
-    "canonical_form": "quand"
+    "related_context": {
+      "canonical_form": "quand",
+      "display_form": "quand",
+      "english": [
+        "when"
+      ],
+      "expression_type": "question_construction",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Interrogative words"
+      ],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "when"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Interrogative forms; question words",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "quand\twhen",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "que",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "what"
-    ],
-    "canonical_form": "que"
+    "related_context": {
+      "canonical_form": "que",
+      "display_form": "que",
+      "english": [
+        "what"
+      ],
+      "expression_type": "question_construction",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Interrogative words"
+      ],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "what"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Interrogative forms; question words",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "que\twhat",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "quel que + nom + être (subjonctif)",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "whatever (with noun)"
-    ],
-    "canonical_form": "quel que + nom + être (subjonctif)"
+    "related_context": {
+      "canonical_form": "quel que + nom + être (subjonctif)",
+      "display_form": "quel/quelle/quels/quelles que + noun + être (subjunctive)",
+      "english": [
+        "whatever (with noun)"
+      ],
+      "expression_type": "subjunctive_trigger",
+      "productive": true,
+      "pattern": "quel/quelle/quels/quelles que + SUJET + être (subjonctif) + NOM",
+      "pattern_slots": [
+        {
+          "name": "subject",
+          "display": "SUJET",
+          "slot_type": "person",
+          "required": true
+        },
+        {
+          "name": "noun",
+          "display": "NOM",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjunctive with indefinite expressions (whatever, whenever, wherever, whoever)"
+      ],
+      "related_concepts": [
+        "Subjunctive with indefinite expressions"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "quel agrees in gender and number with the noun that follows it"
+      ],
+      "transformations": [],
+      "aliases": [
+        "quel que",
+        "quelle que",
+        "quelles que",
+        "quels que"
+      ],
+      "search_terms": [
+        "quel que",
+        "whatever noun"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 4,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Whatever, whenever, wherever, whoever",
+          "page_printed": 247,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "use quel que (quelle que, quels que, quelles que) + the subjunctive of être + noun.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Quel agrees in gender and number with the noun it determines and remains separate from que: quelle que soit la raison, quels que soient les résultats."
+      ]
+    }
   },
   {
     "entity_key": "quelquefois",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "sometimes"
-    ],
-    "canonical_form": "quelquefois"
+    "related_context": {
+      "canonical_form": "quelquefois",
+      "display_form": "quelquefois",
+      "english": [
+        "sometimes"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Frequency"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [
+        "parfois"
+      ],
+      "search_terms": [
+        "sometimes"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "frequency_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "quelquefois\tsometimes",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "qui",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "who",
-      "whom"
-    ],
-    "canonical_form": "qui"
+    "related_context": {
+      "canonical_form": "qui",
+      "display_form": "qui",
+      "english": [
+        "who",
+        "whom"
+      ],
+      "expression_type": "question_construction",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Interrogative words"
+      ],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "who",
+        "whom"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Interrogative forms; question words",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "qui\twho, whom",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "qui que + subjonctif",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "whoever"
-    ],
-    "canonical_form": "qui que + subjonctif"
+    "related_context": {
+      "canonical_form": "qui que + subjonctif",
+      "display_form": "qui que + subjunctive",
+      "english": [
+        "whoever"
+      ],
+      "expression_type": "subjunctive_trigger",
+      "productive": true,
+      "pattern": "qui que + SUJET + VERBE (subjonctif)",
+      "pattern_slots": [
+        {
+          "name": "subject",
+          "display": "SUJET",
+          "slot_type": "person",
+          "required": true
+        },
+        {
+          "name": "verb",
+          "display": "VERBE",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjunctive with indefinite expressions (whatever, whenever, wherever, whoever)"
+      ],
+      "related_concepts": [
+        "Subjunctive with indefinite expressions"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "Followed by subjunctive"
+      ],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "qui que",
+        "whoever"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Whatever, whenever, wherever, whoever",
+          "page_printed": 247,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The subjunctive is also used following the expression of whoever (qui que).",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "quoi que + subjonctif",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "whatever (with verb)"
-    ],
-    "canonical_form": "quoi que + subjonctif"
+    "related_context": {
+      "canonical_form": "quoi que + subjonctif",
+      "display_form": "quoi que + subjunctive",
+      "english": [
+        "whatever (with verb)"
+      ],
+      "expression_type": "subjunctive_trigger",
+      "productive": true,
+      "pattern": "quoi que + SUJET + VERBE (subjonctif)",
+      "pattern_slots": [
+        {
+          "name": "subject",
+          "display": "SUJET",
+          "slot_type": "person",
+          "required": true
+        },
+        {
+          "name": "verb",
+          "display": "VERBE",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjunctive with indefinite expressions (whatever, whenever, wherever, whoever)"
+      ],
+      "related_concepts": [
+        "Subjunctive with indefinite expressions"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "Followed by subjunctive"
+      ],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "quoi que",
+        "whatever"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Whatever, whenever, wherever, whoever",
+          "page_printed": 247,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When the English whatever is followed by subject + verb, use the neuter quoi que + present subjunctive.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Written as two words when it means whatever; it introduces a subjunctive clause and must not be confused with quoique meaning although."
+      ]
+    }
   }
 ]
 ================================================================================

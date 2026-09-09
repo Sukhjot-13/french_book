@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,11 +44,27 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.prepositions
-- `value` must be an array of strings listing the lexical prepositions governed by the expression or its reusable pattern, in their order of appearance.
-- Normalize contractions to their lexical preposition: record `"à"` for `au`/`aux` and `"de"` for `du`/`des`; do not record a standalone article as a preposition.
-- Include prepositions that are literal and required by the construction, including before a variable complement.
-- Use `[]` when the expression governs no preposition. Do not add prepositions merely because they are common in a translation or possible contextual expansion.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -56,94 +72,871 @@ TARGETS
     "entity_key": "de crainte que + subjonctif",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "for fear that"
-    ],
-    "canonical_form": "de crainte que + subjonctif"
+    "related_context": {
+      "canonical_form": "de crainte que + subjonctif",
+      "display_form": "de crainte que",
+      "english": [
+        "for fear that"
+      ],
+      "expression_type": "connector",
+      "productive": true,
+      "pattern": "de crainte que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Conjunctions followed by the subjunctive"
+      ],
+      "related_concepts": [
+        "Conjunctions requiring subjunctive"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "de crainte que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "conjunction"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Conjunctions followed by the subjunctive",
+          "page_printed": 108,
+          "page_pdf": 122,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "de crainte que for fear that",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Introduit une conséquence redoutée et exige le subjonctif; un ne explétif est fréquent dans un registre soutenu."
+      ],
+      "register": "formal"
+    }
   },
   {
     "entity_key": "de peur que + subjonctif",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "for fear that"
-    ],
-    "canonical_form": "de peur que + subjonctif"
+    "related_context": {
+      "canonical_form": "de peur que + subjonctif",
+      "display_form": "de peur que",
+      "english": [
+        "for fear that"
+      ],
+      "expression_type": "connector",
+      "productive": true,
+      "pattern": "de peur que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Conjunctions followed by the subjunctive"
+      ],
+      "related_concepts": [
+        "Conjunctions requiring subjunctive"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "de peur que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "conjunction"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Conjunctions followed by the subjunctive",
+          "page_printed": 108,
+          "page_pdf": 122,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "de peur que for fear that",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Introduit une conséquence redoutée et exige le subjonctif; le ne explétif peut apparaître sans valeur négative."
+      ]
+    }
   },
   {
     "entity_key": "dedans",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "inside"
-    ],
-    "canonical_form": "dedans"
+    "related_context": {
+      "canonical_form": "dedans",
+      "display_form": "dedans",
+      "english": [
+        "inside"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Location"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "inside"
+      ],
+      "collocation_strength": null,
+      "source_classifications": [
+        "location_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of location",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "dedans\tinside",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "dehors",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "outside"
-    ],
-    "canonical_form": "dehors"
+    "related_context": {
+      "canonical_form": "dehors",
+      "display_form": "dehors",
+      "english": [
+        "outside"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Location"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "outside"
+      ],
+      "collocation_strength": null,
+      "source_classifications": [
+        "location_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of location",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "dehors\toutside",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "demain",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "tomorrow"
-    ],
-    "canonical_form": "demain"
+    "related_context": {
+      "canonical_form": "demain",
+      "display_form": "demain",
+      "english": [
+        "tomorrow"
+      ],
+      "expression_type": "time_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Direct vs indirect speech time expressions"
+      ],
+      "related_concepts": [
+        "Time"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "tomorrow"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "High frequency",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 212,
+          "page_pdf": 226,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "demain\ttomorrow",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "demander que + subjonctif",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to ask that"
-    ],
-    "canonical_form": "demander que + subjonctif"
+    "related_context": {
+      "canonical_form": "demander que + subjonctif",
+      "display_form": "demander que",
+      "english": [
+        "to ask that"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "demander que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "subject",
+          "display": "subject",
+          "slot_type": "person",
+          "required": true
+        },
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "demander"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Use of subjunctive after verbs of wish and desire"
+      ],
+      "related_concepts": [
+        "Wish and desire"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "demander que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Subjunctive after verbs of wish and desire",
+          "page_printed": 106,
+          "page_pdf": 120,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il demande que nous soyons plus efficaces.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "depuis",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "for",
-      "since"
-    ],
-    "canonical_form": "depuis"
+    "related_context": {
+      "canonical_form": "depuis",
+      "display_form": "depuis",
+      "english": [
+        "for",
+        "since"
+      ],
+      "expression_type": "time_expression",
+      "productive": true,
+      "pattern": "depuis + time expression",
+      "pattern_slots": [
+        {
+          "name": "time",
+          "display": "time expression",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Depuis with present vs imparfait",
+        "Duration with depuis, il y a... que, cela/ça fait... que",
+        "Negative duration: passé composé instead of present"
+      ],
+      "related_concepts": [
+        "Duration",
+        "depuis duration"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "unknown"
+      },
+      "restrictions": [
+        "Used with present tense for ongoing actions; passé composé in negative sentences"
+      ],
+      "transformations": [
+        "can be replaced by il y a... que or cela/ça fait... que"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "depuis",
+        "for",
+        "since"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "followed_by:other"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Very common",
+        "notes": null
+      },
+      "chapters": [
+        10,
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "10.json",
+          "chapter_number": 10,
+          "section_title": "Depuis with present and imparfait",
+          "page_printed": 98,
+          "page_pdf": 98,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils dînent dans ce restaurant thaïlandais depuis des années.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Expressing duration",
+          "page_printed": 215,
+          "page_pdf": 229,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "depuis, il y a... que, or cela (ça) fait... que",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Depuis introduit un point de départ ou une durée qui se prolonge jusqu’au repère présent; le verbe est généralement au présent si la situation continue."
+      ]
+    }
   },
   {
     "entity_key": "depuis + time expression",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "for",
-      "since"
-    ],
-    "canonical_form": "depuis + time expression"
+    "related_context": {
+      "canonical_form": "depuis + time expression",
+      "display_form": "depuis + time expression",
+      "english": [
+        "for",
+        "since"
+      ],
+      "expression_type": "time_expression",
+      "productive": true,
+      "pattern": "depuis + duration/point in time",
+      "pattern_slots": [
+        {
+          "name": "time",
+          "display": "time expression",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Depuis + present tense for duration"
+      ],
+      "related_concepts": [
+        "Duration",
+        "depuis"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "Used with present tense for ongoing action"
+      ],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "depuis"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Very common.",
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "One more use of the present tense: depuis",
+          "page_printed": 10,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "use depuis",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "depuis combien de temps",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "how long"
-    ],
-    "canonical_form": "depuis combien de temps"
+    "related_context": {
+      "canonical_form": "depuis combien de temps",
+      "display_form": "depuis combien de temps",
+      "english": [
+        "how long"
+      ],
+      "expression_type": "question_construction",
+      "productive": true,
+      "pattern": "depuis combien de temps + inverted question",
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Depuis + present tense for duration"
+      ],
+      "related_concepts": [
+        "Duration",
+        "depuis"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "depuis combien de temps"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "One more use of the present tense: depuis",
+          "page_printed": 10,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "depuis combien de temps (how long)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "depuis quand",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "since when",
-      "how long"
-    ],
-    "canonical_form": "depuis quand"
+    "related_context": {
+      "canonical_form": "depuis quand",
+      "display_form": "depuis quand",
+      "english": [
+        "since when",
+        "how long"
+      ],
+      "expression_type": "question_construction",
+      "productive": true,
+      "pattern": "depuis quand + inverted question",
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Depuis + present tense for duration"
+      ],
+      "related_concepts": [
+        "Duration",
+        "depuis"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "depuis quand"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "One more use of the present tense: depuis",
+          "page_printed": 10,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "depuis quand (since when)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

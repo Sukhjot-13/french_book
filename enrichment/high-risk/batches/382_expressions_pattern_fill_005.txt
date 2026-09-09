@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,12 +44,26 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.pattern
-- `value` must be a string (never an object or array).
-- Return a reusable French construction pattern. For a completely fixed expression, use its exact `canonical_form` as the pattern.
-- When the canonical form explicitly contains a variable, represent that variable once with a bracketed descriptive placeholder, such as `[noun]`, `[person]`, `[verb infinitive]`, `[clause]`, `[adjective]`, or `[adverb]`.
-- Do not invent variables that are not expressed by the canonical form or target metadata. Preserve literal French words, required articles, and governed prepositions.
-- The proposed pattern and any proposed `pattern_slots` must describe the same variable positions.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -57,98 +71,789 @@ TARGETS
     "entity_key": "chaque semaine",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "every week"
-    ],
-    "canonical_form": "chaque semaine"
+    "related_context": {
+      "canonical_form": "chaque semaine",
+      "display_form": "chaque semaine",
+      "english": [
+        "every week"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "weekly"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "every week chaque semaine",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "circuler en vélo",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "to ride a bike"
-    ],
-    "canonical_form": "circuler en vélo"
+    "related_context": {
+      "canonical_form": "circuler en vélo",
+      "display_form": "circuler en vélo",
+      "english": [
+        "to ride a bike"
+      ],
+      "expression_type": "collocation",
+      "productive": true,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [
+        {
+          "canonical_form": "vélo",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [
+        "en"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "en",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [
+        "faire du vélo"
+      ],
+      "search_terms": [
+        "circuler en vélo",
+        "ride a bike"
+      ],
+      "collocation_strength": "possible",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Would",
+          "page_printed": 103,
+          "page_pdf": 117,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Quand elle habitait à la campagne, elle circulait en vélo.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "combien",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "how much",
-      "how many"
-    ],
-    "canonical_form": "combien"
+    "related_context": {
+      "canonical_form": "combien",
+      "display_form": "combien",
+      "english": [
+        "how much",
+        "how many"
+      ],
+      "expression_type": "question_construction",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Interrogative words"
+      ],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "how many",
+        "how much"
+      ],
+      "collocation_strength": null,
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Interrogative forms; question words",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "combien\thow much",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "comme d'habitude",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "as usual"
-    ],
-    "canonical_form": "comme d'habitude"
+    "related_context": {
+      "canonical_form": "comme d'habitude",
+      "display_form": "comme d'habitude",
+      "english": [
+        "as usual"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "as always",
+        "usual"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "as usual comme d’habitude",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "comment",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "how"
-    ],
-    "canonical_form": "comment"
+    "related_context": {
+      "canonical_form": "comment",
+      "display_form": "comment",
+      "english": [
+        "how"
+      ],
+      "expression_type": "question_construction",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Interrogative words"
+      ],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "how"
+      ],
+      "collocation_strength": null,
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Interrogative forms; question words",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "comment\thow",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "comment ça se traduit",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "how is it translated?"
-    ],
-    "canonical_form": "comment ça se traduit"
+    "related_context": {
+      "canonical_form": "comment ça se traduit",
+      "display_form": "comment ça se traduit ?",
+      "english": [
+        "how is it translated?"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [
+        "traduire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Passive pronominal construction"
+      ],
+      "related_concepts": [
+        "reflexive passive"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [
+        "comment ça se traduit"
+      ],
+      "search_terms": [
+        "comment ça se traduit"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Comment ça se traduit?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "d'accord",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "all right",
-      "okay",
-      "agreed"
-    ],
-    "canonical_form": "d'accord"
+    "related_context": {
+      "canonical_form": "d'accord",
+      "display_form": "d'accord",
+      "english": [
+        "all right",
+        "okay",
+        "agreed"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "all right d’accord",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "S’emploie seul pour accepter une proposition, ou dans être d’accord avec quelqu’un / sur quelque chose."
+      ]
+    }
   },
   {
     "entity_key": "d'habitude",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "usually",
-      "normally",
-      "as a rule"
-    ],
-    "canonical_form": "d'habitude"
+    "related_context": {
+      "canonical_form": "d'habitude",
+      "display_form": "d'habitude",
+      "english": [
+        "usually",
+        "normally",
+        "as a rule"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Frequency"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "de",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "usually"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "frequency_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "d'habitude\tusually",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "d'ordinaire",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "ordinarily",
-      "usually",
-      "normally"
-    ],
-    "canonical_form": "d'ordinaire"
+    "related_context": {
+      "canonical_form": "d'ordinaire",
+      "display_form": "d'ordinaire",
+      "english": [
+        "ordinarily",
+        "usually",
+        "normally"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Frequency"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "de",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "ordinarily"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "frequency_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "d'ordinaire\tordinarily",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "register": "formal"
+    }
   },
   {
     "entity_key": "dans quelle mesure",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "to what extent"
-    ],
-    "canonical_form": "dans quelle mesure"
+    "related_context": {
+      "canonical_form": "dans quelle mesure",
+      "display_form": "dans quelle mesure",
+      "english": [
+        "to what extent"
+      ],
+      "expression_type": "question_construction",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Interrogative words"
+      ],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "prepositions": [
+        "dans"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "dans",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "to what extent"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Interrogative forms; question words",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "dans quelle mesure\tto what extent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Sert à demander le degré ou la portée d’un fait, souvent dans une question analytique ou formelle."
+      ]
+    }
   }
 ]
 ================================================================================

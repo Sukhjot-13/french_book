@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,69 +44,470 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ],
+  "enum": [
+    "avoir",
+    "etre",
+    "both",
+    "none",
+    "unknown",
+    null
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "s’accroupir",
     "field": "auxiliary",
     "current_value": null,
-    "english": [
-      "crouch",
-      "squat",
-      "to crouch",
-      "to squat"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "s’accroupir",
+      "display_form": "s’accroupir",
+      "english": [
+        "crouch",
+        "squat",
+        "to crouch",
+        "to squat"
+      ],
+      "senses": [],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": true,
+      "transitivity": [],
+      "past_participle": null,
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 252,
+          "page_pdf": 266,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "crouch, to s’accroupir",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 257,
+          "page_pdf": 271,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "squat, to s’accroupir",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "accroupir (s’) to squat, to crouch",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": "pronominal verb"
+    }
   },
   {
     "entity_key": "s'entendre dire",
     "field": "auxiliary",
     "current_value": null,
-    "english": [
-      "to hear oneself told"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "s'entendre dire",
+      "display_form": "s'entendre dire",
+      "english": [
+        "to hear oneself told"
+      ],
+      "senses": [
+        {
+          "english": "to hear oneself told",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": true,
+      "transitivity": [],
+      "past_participle": "entendu",
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [
+        "s'entendre dire"
+      ],
+      "search_terms": [
+        "hear oneself told",
+        "s'entendre dire"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "s'entendre dire",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "In « s’entendre dire quelque chose », the subject hears another person say something about or to them."
+      ]
+    }
   },
   {
     "entity_key": "se faire",
     "field": "auxiliary",
     "current_value": null,
-    "english": [
-      "to make oneself",
-      "to have something done"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "se faire",
+      "display_form": "se faire",
+      "english": [
+        "to make oneself",
+        "to have something done"
+      ],
+      "senses": [
+        {
+          "english": "to make oneself",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to have something done",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": true,
+      "transitivity": [],
+      "past_participle": "fait",
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "se faire faire quelque chose"
+      ],
+      "related_concepts": [],
+      "aliases": [
+        "se faire"
+      ],
+      "search_terms": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "se faire",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "In « se faire + infinitif », the subject arranges for something to be done or undergoes the action, as in « se faire couper les cheveux »."
+      ]
+    }
   },
   {
     "entity_key": "se laisser",
     "field": "auxiliary",
     "current_value": null,
-    "english": [
-      "to let oneself"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "se laisser",
+      "display_form": "se laisser",
+      "english": [
+        "to let oneself"
+      ],
+      "senses": [
+        {
+          "english": "to let oneself",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": true,
+      "transitivity": [],
+      "past_participle": "laissé",
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "se laisser influencer"
+      ],
+      "related_concepts": [],
+      "aliases": [
+        "se laisser"
+      ],
+      "search_terms": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "se laisser",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Se laisser + infinitif » means to let or allow oneself to undergo an action, as in « se laisser convaincre »."
+      ]
+    }
   },
   {
     "entity_key": "séduire",
     "field": "auxiliary",
     "current_value": null,
-    "english": [
-      "seduce",
-      "to seduce",
-      "to charm",
-      "to appeal to"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "séduire",
+      "display_form": "séduire",
+      "english": [
+        "seduce",
+        "to seduce",
+        "to charm",
+        "to appeal to"
+      ],
+      "senses": [],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "past_participle": null,
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "appeal to",
+        "charm",
+        "seduce"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 256,
+          "page_pdf": 270,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "seduce, to séduire",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Séduire » can mean to seduce a person or more broadly to charm or appeal to someone."
+      ]
+    }
   }
 ]
 ================================================================================

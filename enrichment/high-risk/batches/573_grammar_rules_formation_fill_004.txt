@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,89 +44,695 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Reciprocal pronominal verbs",
     "field": "formation",
     "current_value": null,
-    "summary": "Action between two or more people; used in plural only.",
-    "usage": [
-      "Plural subjects only"
-    ],
-    "rule_name": "Reciprocal pronominal verbs"
+    "related_context": {
+      "rule_name": "Reciprocal pronominal verbs",
+      "summary": "Action between two or more people; used in plural only.",
+      "explanation": "Reciprocal verbs describe an action two or more people perform with or for each other. Since two or more people are involved, reciprocal verbs can only be used in the plural (with se, nous, vous).",
+      "usage": [
+        "Plural subjects only"
+      ],
+      "restrictions": [
+        "Cannot be used in singular."
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [
+        "Pronoun agrees with plural subject."
+      ],
+      "word_order": null,
+      "negative_form": "ne + pronoun + verb + pas",
+      "interrogative_form": "Same as reflexive patterns.",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use singular forms for reciprocal meaning."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Reciprocal verbs"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reciprocal verbs",
+          "page_printed": 64,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The second type of pronominal verb is called reciprocal. It describes an action two or more people perform with or for each other. Since two or more people are involved, reciprocal verbs can only be used in the plural (with se, nous, vous).",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Reciprocal verbs agreement",
     "field": "formation",
     "current_value": null,
-    "summary": "Agreement with subject if direct object; no agreement if indirect object.",
-    "usage": [
-      "reciprocal actions"
-    ],
-    "rule_name": "Reciprocal verbs agreement"
+    "related_context": {
+      "rule_name": "Reciprocal verbs agreement",
+      "summary": "Agreement with subject if direct object; no agreement if indirect object.",
+      "explanation": "For reciprocal pronominal verbs, agreement depends on whether the reciprocal pronoun is direct or indirect object.",
+      "usage": [
+        "reciprocal actions"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [
+        "agrees with subject if direct object; no agreement if indirect object"
+      ],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": "Ils se sont rencontrés à Venise.",
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Misidentifying direct vs indirect object"
+      ],
+      "related_tenses": [
+        "passé composé"
+      ],
+      "related_concepts": [
+        "Agreement of past participle",
+        "Reciprocal verbs"
+      ],
+      "related_expressions": [
+        "s'embrasser",
+        "s'écrire",
+        "se marier",
+        "se parler",
+        "se rencontrer",
+        "se téléphoner"
+      ],
+      "related_verbs": [
+        "s'embrasser",
+        "s'écrire",
+        "se marier",
+        "se rencontrer",
+        "se téléphoner",
+        "verb_se_parler"
+      ],
+      "tags": [
+        "reciprocal verbs",
+        "past participle agreement",
+        "object function"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 5,
+        "frequency_note": "Advanced agreement rule",
+        "notes": null
+      },
+      "chapters": [
+        7
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Pronominal verbs in the passé composé",
+          "page_printed": 77,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When reciprocal verbs take a direct object, the past participle agrees with the subject. When reciprocal verbs take an indirect object in French, the past participle does not agree.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Some irregular passé simple stems based on past participle",
     "field": "formation",
     "current_value": null,
-    "summary": "For some verbs, the passé simple stem is based on the past participle, but this is not a fixed rule.",
-    "usage": [
-      "Learn third-person singular and plural forms for reading newspapers and novels."
-    ],
-    "rule_name": "Some irregular passé simple stems based on past participle"
+    "related_context": {
+      "rule_name": "Some irregular passé simple stems based on past participle",
+      "summary": "For some verbs, the passé simple stem is based on the past participle, but this is not a fixed rule.",
+      "explanation": "Irregular verbs have unpredictable passé simple forms; sometimes the stem resembles the past participle.",
+      "usage": [
+        "Learn third-person singular and plural forms for reading newspapers and novels."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [
+        "Not a fixed rule; many irregular stems must be memorized."
+      ],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Assuming regularity based on past participle."
+      ],
+      "related_tenses": [
+        "passé simple"
+      ],
+      "related_concepts": [
+        "Irregular verbs in passé simple",
+        "Passé simple"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 5,
+        "frequency_note": "Essential for reading French literature.",
+        "notes": null
+      },
+      "chapters": [
+        16
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "The passé simple of irregular verbs",
+          "page_printed": 132,
+          "page_pdf": 146,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "For some verbs the stem of the passé simple is based on the past participle, but this is not a fixed rule.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Subjective pronominal verbs",
     "field": "formation",
     "current_value": null,
-    "summary": "Idiomatic pronominal verbs; learn with se; not reflexive or reciprocal.",
-    "usage": [
-      "Common subjective verbs list"
-    ],
-    "rule_name": "Subjective pronominal verbs"
+    "related_context": {
+      "rule_name": "Subjective pronominal verbs",
+      "summary": "Idiomatic pronominal verbs; learn with se; not reflexive or reciprocal.",
+      "explanation": "These verbs are neither reflexive nor reciprocal. For idiomatic or historical reasons, they just happen to use the pronominal forms. Learn their infinitives with the pronoun se.",
+      "usage": [
+        "Common subjective verbs list"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [
+        "Pronoun agrees with subject."
+      ],
+      "word_order": null,
+      "negative_form": "ne + pronoun + verb + pas",
+      "interrogative_form": "Standard pronominal interrogative forms.",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not interpret as reflexive."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "s'apercevoir",
+        "s'emparer",
+        "s'en aller",
+        "s'enfuir",
+        "s'envoler",
+        "s'écrouler",
+        "s'évanouir",
+        "se moquer",
+        "se souvenir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The last type of pronominal verb is called subjective. These verbs are neither reflexive nor reciprocal. For idiomatic or historical reasons, they just happen to use the pronominal forms. Try to learn their infinitives with the pronoun se.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Tu vs vous",
     "field": "formation",
     "current_value": null,
-    "summary": "Use tu with friends, family, children, animals; use vous with strangers or to maintain distance/respect. Contemporary trend is toward familiarity among peers.",
-    "usage": [
-      "Addressing friends, family, children, animals with tu.",
-      "Addressing strangers or showing respect with vous."
-    ],
-    "rule_name": "Tu vs vous"
+    "related_context": {
+      "rule_name": "Tu vs vous",
+      "summary": "Use tu with friends, family, children, animals; use vous with strangers or to maintain distance/respect. Contemporary trend is toward familiarity among peers.",
+      "explanation": "Tu is informal; vous is formal or plural.",
+      "usage": [
+        "Addressing friends, family, children, animals with tu.",
+        "Addressing strangers or showing respect with vous."
+      ],
+      "restrictions": [
+        "Let the native speaker initiate first exchange with tu."
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using tu when vous is appropriate can be perceived as rude."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Subject pronoun"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "forms of address",
+        "register",
+        "sociolinguistics"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Very common",
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "Subject pronouns",
+          "page_printed": 180,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Use tu and its verb forms to talk to friends, family members, children, and animals. Use vous when you are addressing a stranger or someone you don’t know well, or to maintain a certain degree of distance or respect.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Use of futur antérieur for completed future action",
     "field": "formation",
     "current_value": null,
-    "summary": "Futur antérieur expresses an action that will be completed before another future action.",
-    "usage": [
-      "to express completion before a future point"
-    ],
-    "rule_name": "Use of futur antérieur for completed future action"
+    "related_context": {
+      "rule_name": "Use of futur antérieur for completed future action",
+      "summary": "Futur antérieur expresses an action that will be completed before another future action.",
+      "explanation": "The futur antérieur describes an action that will take place and be completed before another future action.",
+      "usage": [
+        "to express completion before a future point"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "d'ici",
+        "avant",
+        "quand",
+        "dès que"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "using futur simple when anteriority is intended"
+      ],
+      "related_tenses": [
+        "futur antérieur"
+      ],
+      "related_concepts": [
+        "anteriority",
+        "futur antérieur"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "enseigner",
+        "verb_resoudre"
+      ],
+      "tags": [
+        "futur antérieur",
+        "future anteriority",
+        "completed action"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur antérieur",
+          "page_printed": 77,
+          "page_pdf": 91,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The futur antérieur describes an action that will take place and be completed before another future action.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Use of futur simple for future events",
     "field": "formation",
     "current_value": null,
-    "summary": "The futur simple describes future events, as in English.",
-    "usage": [
-      "to describe future actions or states"
-    ],
-    "rule_name": "Use of futur simple for future events"
+    "related_context": {
+      "rule_name": "Use of futur simple for future events",
+      "summary": "The futur simple describes future events, as in English.",
+      "explanation": "As in English, the French future tense is used to describe future events.",
+      "usage": [
+        "to describe future actions or states"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "demain",
+        "plus tard",
+        "quand",
+        "dès que",
+        "lorsque"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": "ne ... pas",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "futur simple"
+      ],
+      "related_concepts": [
+        "futur simple"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "passer",
+        "verb_recommencer"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur simple",
+          "page_printed": 74,
+          "page_pdf": 88,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "As in English, the French future tense is used to describe future events.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Use of plus-que-parfait for anteriority",
     "field": "formation",
     "current_value": null,
-    "summary": "Indicates a past action that happened before another past action, often with dependent clause.",
-    "usage": [
-      "To express an action completed before another past action",
-      "Often used with dependent clauses introduced by quand, lorsque, parce que, car, etc."
-    ],
-    "rule_name": "Use of plus-que-parfait for anteriority"
+    "related_context": {
+      "rule_name": "Use of plus-que-parfait for anteriority",
+      "summary": "Indicates a past action that happened before another past action, often with dependent clause.",
+      "explanation": "The plus-que-parfait expresses anteriority in the past. This anteriority can be implied or stated, and the tense is often combined with a dependent clause that clarifies the sequence.",
+      "usage": [
+        "To express an action completed before another past action",
+        "Often used with dependent clauses introduced by quand, lorsque, parce que, car, etc."
+      ],
+      "restrictions": [],
+      "conditions": [
+        "Anteriority between two past actions"
+      ],
+      "signal_words": [
+        "quand",
+        "lorsque",
+        "parce que",
+        "car",
+        "avant",
+        "déjà"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using passé composé instead of plus-que-parfait for anterior action"
+      ],
+      "related_tenses": [
+        "imparfait"
+      ],
+      "related_concepts": [
+        "past anteriority"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "plus-que-parfait",
+        "past anteriority",
+        "sequence of events"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Essential for narrative past",
+        "notes": null
+      },
+      "chapters": [
+        10
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "10.json",
+          "chapter_number": 10,
+          "section_title": "Use of the plus-que-parfait",
+          "page_printed": 97,
+          "page_pdf": 97,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "the plus-que-parfait indicates a past action that happened before another past action started. This anteriority can be implied or stated.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

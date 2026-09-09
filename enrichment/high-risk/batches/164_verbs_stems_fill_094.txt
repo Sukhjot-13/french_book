@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,68 +44,1213 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "tense",
+      "persons",
+      "stem",
+      "note"
+    ],
+    "properties": {
+      "tense": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "persons": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "je",
+            "tu",
+            "il_elle_on",
+            "nous",
+            "vous",
+            "ils_elles",
+            "all",
+            "other"
+          ]
+        },
+        "uniqueItems": true
+      },
+      "stem": {
+        "type": "string",
+        "minLength": 1
+      },
+      "note": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    }
+  }
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "vieillir",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "grow old",
-      "to grow old"
-    ],
-    "verb_group": "2nd_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "vieillir",
+      "display_form": "vieillir",
+      "english": [
+        "grow old",
+        "to grow old"
+      ],
+      "senses": [
+        {
+          "english": "to grow old",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "2nd_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "intransitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": null,
+      "present_participle": null,
+      "conjugations": [
+        {
+          "tense": "présent",
+          "mood": "indicative",
+          "forms": {
+            "je": null,
+            "tu": null,
+            "il_elle_on": null,
+            "nous": "vieillissons",
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [
+            "-issons"
+          ],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Partial: nous form"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "2.json",
+              "chapter_number": 2,
+              "section_title": "Type 1 -ir verbs",
+              "page_printed": 27,
+              "page_pdf": null,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "nous vieillissons",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [],
+      "related_concepts": [
+        "-ir verbs",
+        "Regular conjugation"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "vieillir"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        2
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "Type 1 -ir verbs",
+          "page_printed": 27,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "vieillir to grow old",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "old, to grow vieillir",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "viser",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "aim at",
-      "to aim at",
-      "to target"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "viser",
+      "display_form": "viser",
+      "english": [
+        "aim at",
+        "to aim at",
+        "to target"
+      ],
+      "senses": [],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "present_participle": null,
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "aim",
+        "target"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "aim at, to viser",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Viser » can take a direct object for targeting something, and « viser à + infinitif » means to aim to achieve an objective."
+      ]
+    }
   },
   {
     "entity_key": "visiter",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "to visit",
-      "to visit (a place)",
-      "visit (place)"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "visiter",
+      "display_form": "visiter",
+      "english": [
+        "to visit",
+        "to visit (a place)",
+        "visit (place)"
+      ],
+      "senses": [
+        {
+          "english": "to visit (a place)",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to visit",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive",
+        "unknown"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "visité",
+      "present_participle": "visitant",
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [
+        "Regular -er verbs"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "visitant",
+        "visiter",
+        "visité"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1,
+        8,
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "Common regular -er verbs",
+          "page_printed": 3,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "visiter to visit (a place)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The gerund",
+          "page_printed": 129,
+          "page_pdf": 143,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "en (visiter) la Normandie",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Vocabulary: vacations and travel",
+          "page_printed": 66,
+          "page_pdf": 80,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "visiter to visit (a place)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 258,
+          "page_pdf": 272,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "visit, to (place) visiter",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Use « visiter » primarily for a place or site; for visiting a person, standard French usually uses « rendre visite à »."
+      ]
+    }
   },
   {
     "entity_key": "vivre",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "to live"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "avoir",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "vivre",
+      "display_form": "vivre",
+      "english": [
+        "to live"
+      ],
+      "senses": [
+        {
+          "english": "to live",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": false,
+      "transitivity": [
+        "intransitive",
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "vécu",
+      "present_participle": null,
+      "conjugations": [
+        {
+          "tense": "passé simple",
+          "mood": "indicative",
+          "forms": {
+            "je": null,
+            "tu": null,
+            "il_elle_on": "vécut",
+            "nous": null,
+            "vous": null,
+            "ils_elles": "vécurent",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Only third-person forms provided."
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "16.json",
+              "chapter_number": 16,
+              "section_title": "The passé simple of irregular verbs",
+              "page_printed": 133,
+              "page_pdf": 147,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "vivre: il/elle vécut, ils/elles vécurent",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "présent",
+          "mood": "indicative",
+          "forms": {
+            "je": "vis",
+            "tu": "vis",
+            "il_elle_on": "vit",
+            "nous": "vivons",
+            "vous": "vivez",
+            "ils_elles": "vivent",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [],
+          "sources": [
+            {
+              "source_type": "verb_table",
+              "source_name": "verb_table.json",
+              "chapter_number": null,
+              "section_title": null,
+              "page_printed": 239,
+              "page_pdf": 253,
+              "context_type": null,
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": "verb_table_irregular_verbs",
+              "table_type": null,
+              "row_label": "vivre",
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "vivre vécu vis vis vit vivons vivez vivent",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [],
+      "related_concepts": [
+        "Irregular past participles",
+        "Irregular verbs in passé simple",
+        "Passé simple"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "live",
+        "vivre",
+        "vécu"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Very common.",
+        "notes": null
+      },
+      "chapters": [
+        7,
+        16
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "The passé simple of irregular verbs",
+          "page_printed": 133,
+          "page_pdf": 147,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "vivre (to live)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Irregular past participles",
+          "page_printed": 72,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "vivre to live vécu lived",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "verb_table",
+          "source_name": "verb_table.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 239,
+          "page_pdf": 253,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": "verb_table_irregular_verbs",
+          "table_type": null,
+          "row_label": "vivre",
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "vivre vécu vis vis vit vivons vivez vivent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "voir",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "see",
-      "to see"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "avoir",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "voir",
+      "display_form": "voir",
+      "english": [
+        "see",
+        "to see"
+      ],
+      "senses": [
+        {
+          "english": "to see",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive",
+        "unknown"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "vu",
+      "present_participle": "voyant",
+      "conjugations": [
+        {
+          "tense": "participe présent",
+          "mood": "participle",
+          "forms": {
+            "je": null,
+            "tu": null,
+            "il_elle_on": null,
+            "nous": null,
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "15.json",
+              "chapter_number": 15,
+              "section_title": "The present participle",
+              "page_printed": 126,
+              "page_pdf": 140,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "nous voyons we see voyant seeing",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "présent",
+          "mood": "Indicatif",
+          "forms": {
+            "je": "vois",
+            "tu": null,
+            "il_elle_on": null,
+            "nous": "voyons",
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Only first-person singular and plural shown."
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "3.json",
+              "chapter_number": 3,
+              "section_title": "Other -oir verbs",
+              "page_printed": 45,
+              "page_pdf": null,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "voir to see / je vois / I see / nous voyons / we see",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "futur simple",
+          "mood": "indicative",
+          "forms": {
+            "je": "verrai",
+            "tu": null,
+            "il_elle_on": null,
+            "nous": null,
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [
+            {
+              "tense": "futur simple",
+              "persons": [
+                "all"
+              ],
+              "stem": "verr-",
+              "note": null
+            }
+          ],
+          "endings": [
+            "-ai"
+          ],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Irregular stem"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "9.json",
+              "chapter_number": 9,
+              "section_title": "The futur simple",
+              "page_printed": 73,
+              "page_pdf": 87,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "voir je verrai",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "présent",
+          "mood": "indicative",
+          "forms": {
+            "je": "vois",
+            "tu": "vois",
+            "il_elle_on": "voit",
+            "nous": "voyons",
+            "vous": "voyez",
+            "ils_elles": "voient",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [],
+          "sources": [
+            {
+              "source_type": "verb_table",
+              "source_name": "verb_table.json",
+              "chapter_number": null,
+              "section_title": null,
+              "page_printed": 239,
+              "page_pdf": 253,
+              "context_type": null,
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": "verb_table_irregular_verbs",
+              "table_type": null,
+              "row_label": "voir",
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "voir vu vois vois voit voyons voyez voient",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [
+        "ça se voit"
+      ],
+      "related_concepts": [
+        "Irregular past participles",
+        "Irregular verbs",
+        "irregular future stems",
+        "perfect participle",
+        "present participle"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "to see",
+        "voir",
+        "vu"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3,
+        7,
+        8,
+        9,
+        14,
+        15,
+        17,
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Infinitive after verbs of perception",
+          "page_printed": 117,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "J’ai vu les moutons traverser la route.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The present participle",
+          "page_printed": 126,
+          "page_pdf": 140,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "voir to see",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The present participle",
+          "page_printed": 128,
+          "page_pdf": 142,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "ayant vu having seen",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ça se voit.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Demonstrative adjectives",
+          "page_printed": 192,
+          "page_pdf": 206,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tu vas voir ton cousin ce soir.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "Other -oir verbs",
+          "page_printed": 45,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "voir to see / je vois / I see / nous voyons / we see",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Irregular past participles",
+          "page_printed": 72,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "voir to see vu seen",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Uses of the imparfait: habitual and repetitive action",
+          "page_printed": 68,
+          "page_pdf": 82,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Dans le passé, vous (se voir) plus souvent.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur simple",
+          "page_printed": 73,
+          "page_pdf": 87,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "voir to see je verrai I'll see",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 256,
+          "page_pdf": 270,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "see, to voir, apercevoir",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "verb_table",
+          "source_name": "verb_table.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 239,
+          "page_pdf": 253,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": "verb_table_irregular_verbs",
+          "table_type": null,
+          "row_label": "voir",
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "voir vu vois vois voit voyons voyez voient",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": "two verbs"
+    }
   }
 ]
 ================================================================================

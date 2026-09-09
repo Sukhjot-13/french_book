@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,72 +44,617 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "estimer",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "to respect",
-      "to esteem",
-      "to estimate",
-      "to consider"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "estimer",
+      "display_form": "estimer",
+      "english": [
+        "to respect",
+        "to esteem",
+        "to estimate",
+        "to consider"
+      ],
+      "senses": [
+        {
+          "english": "to respect",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to esteem",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": null,
+      "past_participle": "estimé",
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "The agent with par and with de in the passive voice",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ce gérant est estimé de ses employés.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Estimer » can mean to esteem someone, to estimate a quantity, or to consider that something is the case."
+      ]
+    }
   },
   {
     "entity_key": "explorer",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "explore",
-      "to explore"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "explorer",
+      "display_form": "explorer",
+      "english": [
+        "explore",
+        "to explore"
+      ],
+      "senses": [
+        {
+          "english": "to explore",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [
+        "Passé simple"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "explore",
+        "explorer"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 1,
+        "frequency_note": "Used in exercise.",
+        "notes": null
+      },
+      "chapters": [
+        8,
+        16
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "Exercice 16·2",
+          "page_printed": 134,
+          "page_pdf": 148,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Jacques Cartier (explorer) la région de Montréal en 1535.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Vocabulary: vacations and travel",
+          "page_printed": 66,
+          "page_pdf": 80,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "explorer to explore",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "explore, to explorer",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "feindre",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "feign",
-      "pretend",
-      "to feign",
-      "to pretend"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "unknown",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "feindre",
+      "display_form": "feindre",
+      "english": [
+        "feign",
+        "pretend",
+        "to feign",
+        "to pretend"
+      ],
+      "senses": [
+        {
+          "english": "to feign",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "unknown",
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [
+        "Verbs ending in -eindre and -aindre"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "feindre"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "Verbs ending in -eindre and -aindre",
+          "page_printed": 60,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Verbs like peindre (to paint) include ... feindre (to feign)...",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "feign, to feindre",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 256,
+          "page_pdf": 270,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "pretend, to feindre",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "register": "formal",
+      "usage_notes": [
+        "« Feindre de + infinitif » means to pretend to do something and is more formal or literary than « faire semblant de »."
+      ]
+    }
   },
   {
     "entity_key": "fermer",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "close",
-      "to close",
-      "to shut"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "fermer",
+      "display_form": "fermer",
+      "english": [
+        "close",
+        "to close",
+        "to shut"
+      ],
+      "senses": [],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "close",
+        "shut"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 251,
+          "page_pdf": 265,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "close, to fermer",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Transitive « fermer » means to close something; pronominal « se fermer » or intransitive use describes something closing."
+      ]
+    }
   },
   {
     "entity_key": "frapper",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "hit",
-      "to knock"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "frapper",
+      "display_form": "frapper",
+      "english": [
+        "hit",
+        "to knock"
+      ],
+      "senses": [
+        {
+          "english": "to knock",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "intransitive",
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [
+        {
+          "tense": "passé simple",
+          "mood": "indicative",
+          "forms": {
+            "je": null,
+            "tu": null,
+            "il_elle_on": "frappa",
+            "nous": null,
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [
+            {
+              "tense": "passé simple",
+              "persons": [
+                "all"
+              ],
+              "stem": "frapp-",
+              "note": null
+            }
+          ],
+          "endings": [
+            "-a"
+          ],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Example sentence."
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "16.json",
+              "chapter_number": 16,
+              "section_title": "The passé simple of irregular verbs",
+              "page_printed": 132,
+              "page_pdf": 146,
+              "context_type": "example",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "On frappa à la porte et il se leva.",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [
+        "frapper à la porte"
+      ],
+      "related_concepts": [
+        "Passé simple"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "frapper",
+        "knock"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": "Used in example.",
+        "notes": null
+      },
+      "chapters": [
+        16
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "The passé simple of irregular verbs",
+          "page_printed": 132,
+          "page_pdf": 146,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "On frappa à la porte et il se leva.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "hit, to frapper",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Use « frapper à la porte » for knocking on a door, but direct-object « frapper quelqu’un ou quelque chose » for hitting someone or something."
+      ]
+    }
   }
 ]
 ================================================================================

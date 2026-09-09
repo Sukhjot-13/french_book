@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,95 +44,480 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "imparfait passif",
     "field": "agreement_rules",
     "current_value": [],
-    "usage": [
-      "Describes an ongoing, habitual, or backgrounded past action from the recipient's perspective.",
-      "Used when the past agent is unknown, secondary, or introduced with par or de."
-    ],
-    "mood": "indicative",
-    "name": "imparfait passif"
+    "related_context": {
+      "name": "imparfait passif",
+      "english_name": "Imparfait passif",
+      "mood": "indicative",
+      "formation": null,
+      "usage": [
+        "Describes an ongoing, habitual, or backgrounded past action from the recipient's perspective.",
+        "Used when the past agent is unknown, secondary, or introduced with par or de."
+      ],
+      "signal_words": [
+        "souvent",
+        "toujours",
+        "à l'époque",
+        "pendant que",
+        "par"
+      ],
+      "regular_patterns": [],
+      "irregular_stems": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "indicative",
+        "past",
+        "passive-voice",
+        "background-description",
+        "habitual-action"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "imperative mood",
     "field": "agreement_rules",
     "current_value": [],
-    "usage": [
-      "Expresses commands, instructions, advice, invitations, and prohibitions addressed directly to one or more people.",
-      "Typically omits the subject pronoun and uses only the tu, nous, and vous persons."
-    ],
-    "mood": "imperative",
-    "name": "imperative mood"
+    "related_context": {
+      "name": "imperative mood",
+      "english_name": "Imperative mood",
+      "mood": "imperative",
+      "formation": null,
+      "usage": [
+        "Expresses commands, instructions, advice, invitations, and prohibitions addressed directly to one or more people.",
+        "Typically omits the subject pronoun and uses only the tu, nous, and vous persons."
+      ],
+      "signal_words": [
+        "s'il te plaît",
+        "s'il vous plaît",
+        "allons",
+        "veuillez",
+        "ne... pas"
+      ],
+      "regular_patterns": [],
+      "irregular_stems": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "imperative",
+        "command",
+        "instruction",
+        "advice",
+        "prohibition"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "impératif",
     "field": "agreement_rules",
     "current_value": [],
-    "usage": [
-      "Gives a direct command, instruction, recommendation, or invitation.",
-      "Forms negative commands by placing ne and the negative word around the verb and attached pronouns."
-    ],
-    "mood": "imperative",
-    "name": "impératif"
+    "related_context": {
+      "name": "impératif",
+      "english_name": "Impératif",
+      "mood": "imperative",
+      "formation": null,
+      "usage": [
+        "Gives a direct command, instruction, recommendation, or invitation.",
+        "Forms negative commands by placing ne and the negative word around the verb and attached pronouns."
+      ],
+      "signal_words": [
+        "s'il te plaît",
+        "s'il vous plaît",
+        "allons",
+        "veuillez",
+        "ne... jamais"
+      ],
+      "regular_patterns": [],
+      "irregular_stems": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "imperative",
+        "command",
+        "direct-address",
+        "pronoun-order",
+        "negative-command"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "participe présent",
     "field": "agreement_rules",
     "current_value": [],
-    "usage": [
-      "Expresses an action occurring at the same time as the main verb, often in concise written language.",
-      "Can replace a relative clause when both actions share a logical subject; unlike the verbal adjective, it is invariable."
-    ],
-    "mood": "participle",
-    "name": "participe présent"
+    "related_context": {
+      "name": "participe présent",
+      "english_name": "Participe présent",
+      "mood": "participle",
+      "formation": null,
+      "usage": [
+        "Expresses an action occurring at the same time as the main verb, often in concise written language.",
+        "Can replace a relative clause when both actions share a logical subject; unlike the verbal adjective, it is invariable."
+      ],
+      "signal_words": [
+        "en",
+        "tout en",
+        "ayant",
+        "étant"
+      ],
+      "regular_patterns": [],
+      "irregular_stems": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "participle",
+        "non-finite",
+        "simultaneity",
+        "written-register",
+        "invariable"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "passé antérieur",
     "field": "agreement_rules",
     "current_value": [],
-    "usage": [
-      "Marks an action completed immediately before another action in the passé simple.",
-      "Occurs mainly in formal literary narration, especially in subordinate time clauses."
-    ],
-    "mood": "indicative",
-    "name": "passé antérieur"
+    "related_context": {
+      "name": "passé antérieur",
+      "english_name": "Passé antérieur",
+      "mood": "indicative",
+      "formation": null,
+      "usage": [
+        "Marks an action completed immediately before another action in the passé simple.",
+        "Occurs mainly in formal literary narration, especially in subordinate time clauses."
+      ],
+      "signal_words": [
+        "quand",
+        "lorsque",
+        "dès que",
+        "aussitôt que",
+        "après que"
+      ],
+      "regular_patterns": [],
+      "irregular_stems": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "indicative",
+        "compound-tense",
+        "literary",
+        "anteriority",
+        "formal-register"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "passé composé",
     "field": "agreement_rules",
     "current_value": [],
-    "usage": [
-      "Expresses completed past events and actions viewed as bounded or foregrounded.",
-      "Commonly advances the sequence of events in spoken and contemporary written narration."
-    ],
-    "mood": "indicatif",
-    "name": "passé composé"
+    "related_context": {
+      "name": "passé composé",
+      "english_name": "Passé composé",
+      "mood": "indicatif",
+      "formation": null,
+      "usage": [
+        "Expresses completed past events and actions viewed as bounded or foregrounded.",
+        "Commonly advances the sequence of events in spoken and contemporary written narration."
+      ],
+      "signal_words": [
+        "hier",
+        "soudain",
+        "tout à coup",
+        "une fois",
+        "déjà",
+        "ce matin"
+      ],
+      "regular_patterns": [],
+      "irregular_stems": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "indicative",
+        "compound-tense",
+        "completed-action",
+        "spoken-french",
+        "narration"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "passé composé passif",
     "field": "agreement_rules",
     "current_value": [],
-    "usage": [
-      "Presents a completed past event from the perspective of its recipient.",
-      "Used when the agent is unknown, omitted, or less important than the result of the action."
-    ],
-    "mood": "indicative",
-    "name": "passé composé passif"
+    "related_context": {
+      "name": "passé composé passif",
+      "english_name": "Passé composé passif",
+      "mood": "indicative",
+      "formation": null,
+      "usage": [
+        "Presents a completed past event from the perspective of its recipient.",
+        "Used when the agent is unknown, omitted, or less important than the result of the action."
+      ],
+      "signal_words": [
+        "hier",
+        "déjà",
+        "ce matin",
+        "par",
+        "au cours de"
+      ],
+      "regular_patterns": [],
+      "irregular_stems": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "indicative",
+        "compound-tense",
+        "passive-voice",
+        "completed-action"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "passé simple",
     "field": "agreement_rules",
     "current_value": [],
-    "usage": [
-      "Expresses completed, successive past events in formal literary narration.",
-      "Functions as the principal foreground narrative tense in many novels, histories, and traditional tales."
-    ],
-    "mood": "indicative",
-    "name": "passé simple"
+    "related_context": {
+      "name": "passé simple",
+      "english_name": "Passé simple",
+      "mood": "indicative",
+      "formation": null,
+      "usage": [
+        "Expresses completed, successive past events in formal literary narration.",
+        "Functions as the principal foreground narrative tense in many novels, histories, and traditional tales."
+      ],
+      "signal_words": [
+        "soudain",
+        "tout à coup",
+        "puis",
+        "alors",
+        "un jour"
+      ],
+      "regular_patterns": [],
+      "irregular_stems": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "indicative",
+        "simple-past",
+        "literary",
+        "narration",
+        "formal-register"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        16
+      ],
+      "sources": [],
+      "notes": null
+    }
   }
 ]
 ================================================================================

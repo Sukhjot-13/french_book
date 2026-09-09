@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,66 +44,429 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ],
+  "enum": [
+    "1st_group",
+    "2nd_group",
+    "3rd_group",
+    "defective",
+    "impersonal",
+    "unknown",
+    null
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "excuser",
     "field": "verb_group",
     "current_value": null,
-    "english": [
-      "to excuse",
-      "to apologize"
-    ],
-    "verb_group": null,
-    "auxiliary": "etre",
-    "regularity": null
+    "related_context": {
+      "infinitive": "excuser",
+      "display_form": "excuser",
+      "english": [
+        "to excuse",
+        "to apologize"
+      ],
+      "senses": [
+        {
+          "english": "to excuse",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to apologize",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "regularity": null,
+      "pronominal": true,
+      "transitivity": [
+        "unknown"
+      ],
+      "auxiliary": "etre",
+      "past_participle": "excusé",
+      "present_participle": "excusant",
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "excuser",
+        "s'excuser"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The present participle",
+          "page_printed": 128,
+          "page_pdf": 142,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ne sachant pas comment nous excuser, nous lui avons offert des fleurs.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Transitive « excuser quelqu’un » means to excuse someone; « s’excuser auprès de quelqu’un » means to apologize to someone."
+      ]
+    }
   },
   {
     "entity_key": "faire semblant",
     "field": "verb_group",
     "current_value": null,
-    "english": [
-      "to pretend"
-    ],
-    "verb_group": null,
-    "auxiliary": "avoir",
-    "regularity": null
+    "related_context": {
+      "infinitive": "faire semblant",
+      "display_form": "faire semblant",
+      "english": [
+        "to pretend"
+      ],
+      "senses": [
+        {
+          "english": "to pretend",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [
+        "unknown"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "fait semblant",
+      "present_participle": "faisant semblant",
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "faire semblant de + infinitif"
+      ],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "faire semblant"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The gerund",
+          "page_printed": 129,
+          "page_pdf": 143,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tout en faisant semblant d'écouter le professeur, il jouait avec son iPod.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "fermer",
     "field": "verb_group",
     "current_value": null,
-    "english": [
-      "close",
-      "to close",
-      "to shut"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "fermer",
+      "display_form": "fermer",
+      "english": [
+        "close",
+        "to close",
+        "to shut"
+      ],
+      "senses": [],
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "close",
+        "shut"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 251,
+          "page_pdf": 265,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "close, to fermer",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Transitive « fermer » means to close something; pronominal « se fermer » or intransitive use describes something closing."
+      ]
+    }
   },
   {
     "entity_key": "fouler",
     "field": "verb_group",
     "current_value": null,
-    "english": [
-      "to sprain"
-    ],
-    "verb_group": null,
-    "auxiliary": "etre",
-    "regularity": null
+    "related_context": {
+      "infinitive": "fouler",
+      "display_form": "fouler",
+      "english": [
+        "to sprain"
+      ],
+      "senses": [
+        {
+          "english": "to sprain",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "regularity": null,
+      "pronominal": true,
+      "transitivity": [
+        "unknown"
+      ],
+      "auxiliary": "etre",
+      "past_participle": "foulé",
+      "present_participle": "foulant",
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "se fouler la cheville"
+      ],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "fouler",
+        "se fouler"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The gerund",
+          "page_printed": 129,
+          "page_pdf": 143,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il s'est foulé la cheville en jouant au foot.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "The injury sense is most often pronominal: « se fouler la cheville » means to sprain one’s ankle."
+      ]
+    }
   },
   {
     "entity_key": "fredonner",
     "field": "verb_group",
     "current_value": null,
-    "english": [
-      "hum",
-      "to hum"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "fredonner",
+      "display_form": "fredonner",
+      "english": [
+        "hum",
+        "to hum"
+      ],
+      "senses": [],
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "hum",
+        "humming"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "hum, to fredonner",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Fredonner » means to sing a tune quietly with the mouth partly closed, often without words."
+      ]
+    }
   }
 ]
 ================================================================================

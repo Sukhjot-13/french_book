@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,69 +44,431 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ],
+  "enum": [
+    "1st_group",
+    "2nd_group",
+    "3rd_group",
+    "defective",
+    "impersonal",
+    "unknown",
+    null
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "se fouler",
     "field": "verb_group",
     "current_value": null,
-    "english": [
-      "to sprain"
-    ],
-    "verb_group": null,
-    "auxiliary": "etre",
-    "regularity": null
+    "related_context": {
+      "infinitive": "se fouler",
+      "display_form": "se fouler",
+      "english": [
+        "to sprain"
+      ],
+      "senses": [
+        {
+          "english": "to sprain",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "regularity": null,
+      "pronominal": true,
+      "transitivity": [
+        "unknown"
+      ],
+      "auxiliary": "etre",
+      "past_participle": "foulé",
+      "present_participle": "foulant",
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "se fouler la cheville"
+      ],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "fouler",
+        "se fouler"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The gerund",
+          "page_printed": 129,
+          "page_pdf": 143,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il s'est foulé la cheville en jouant au foot.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "se laisser",
     "field": "verb_group",
     "current_value": null,
-    "english": [
-      "to let oneself"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "se laisser",
+      "display_form": "se laisser",
+      "english": [
+        "to let oneself"
+      ],
+      "senses": [
+        {
+          "english": "to let oneself",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "regularity": null,
+      "pronominal": true,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": "laissé",
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "se laisser influencer"
+      ],
+      "related_concepts": [],
+      "aliases": [
+        "se laisser"
+      ],
+      "search_terms": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "se laisser",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Se laisser + infinitif » means to let or allow oneself to undergo an action, as in « se laisser convaincre »."
+      ]
+    }
   },
   {
     "entity_key": "se tordre",
     "field": "verb_group",
     "current_value": null,
-    "english": [
-      "to twist",
-      "to sprain"
-    ],
-    "verb_group": null,
-    "auxiliary": "etre",
-    "regularity": null
+    "related_context": {
+      "infinitive": "se tordre",
+      "display_form": "se tordre",
+      "english": [
+        "to twist",
+        "to sprain"
+      ],
+      "senses": [
+        {
+          "english": "to twist",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to sprain",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "regularity": null,
+      "pronominal": true,
+      "transitivity": [
+        "unknown"
+      ],
+      "auxiliary": "etre",
+      "past_participle": "tordu",
+      "present_participle": "tordant",
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "se tordre la cheville"
+      ],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "se tordre",
+        "tordre"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The gerund",
+          "page_printed": 129,
+          "page_pdf": 143,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il s'est tordu la cheville en (jouer) au volley.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "séduire",
     "field": "verb_group",
     "current_value": null,
-    "english": [
-      "seduce",
-      "to seduce",
-      "to charm",
-      "to appeal to"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "séduire",
+      "display_form": "séduire",
+      "english": [
+        "seduce",
+        "to seduce",
+        "to charm",
+        "to appeal to"
+      ],
+      "senses": [],
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "appeal to",
+        "charm",
+        "seduce"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 256,
+          "page_pdf": 270,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "seduce, to séduire",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Séduire » can mean to seduce a person or more broadly to charm or appeal to someone."
+      ]
+    }
   },
   {
     "entity_key": "tourner",
     "field": "verb_group",
     "current_value": null,
-    "english": [
-      "shoot a film",
-      "to turn",
-      "to film",
-      "to shoot"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "tourner",
+      "display_form": "tourner un film",
+      "english": [
+        "shoot a film",
+        "to turn",
+        "to film",
+        "to shoot"
+      ],
+      "senses": [],
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "film",
+        "shoot",
+        "turn"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 257,
+          "page_pdf": 271,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "shoot a film, to tourner un fi lm",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Tourner » commonly means to turn; in cinema it means to shoot or film a scene or production."
+      ]
+    }
   }
 ]
 ================================================================================

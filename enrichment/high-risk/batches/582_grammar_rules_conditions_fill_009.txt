@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,110 +44,856 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Infinitive after expressions of spending time",
     "field": "conditions",
     "current_value": [],
-    "summary": "After expressions like passer son temps à, gaspiller sa vie à, the infinitive is used with preposition à.",
-    "usage": [
-      "To describe how time is spent."
-    ],
-    "rule_name": "Infinitive after expressions of spending time"
+    "related_context": {
+      "rule_name": "Infinitive after expressions of spending time",
+      "summary": "After expressions like passer son temps à, gaspiller sa vie à, the infinitive is used with preposition à.",
+      "explanation": "The preposition à links the time expression to the infinitive.",
+      "formation": "expression + à + infinitive",
+      "usage": [
+        "To describe how time is spent."
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "passer son temps",
+        "passer ses vacances",
+        "gaspiller sa vie",
+        "perdre son temps"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "expression + à + infinitive",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not omit the preposition à."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "expressions of spending time",
+        "infinitive mood"
+      ],
+      "related_expressions": [
+        "gaspiller sa vie à + infinitif",
+        "passer son temps à + infinitif"
+      ],
+      "related_verbs": [
+        "passer"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "High",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Infinitive after expressions of spending time",
+          "page_printed": 117,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The infinitive is used after expressions of spending time.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Infinitive after verbs of perception",
     "field": "conditions",
     "current_value": [],
-    "summary": "Use infinitive after verbs of perception instead of English present participle.",
-    "usage": [
-      "To express an action perceived by the subject."
-    ],
-    "rule_name": "Infinitive after verbs of perception"
+    "related_context": {
+      "rule_name": "Infinitive after verbs of perception",
+      "summary": "Use infinitive after verbs of perception instead of English present participle.",
+      "explanation": "Verbs like voir, entendre, etc. are followed directly by infinitive.",
+      "formation": "verb of perception + infinitive",
+      "usage": [
+        "To express an action perceived by the subject."
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "voir",
+        "entendre",
+        "regarder",
+        "écouter",
+        "sentir"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "perception verb + infinitive",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "English present participle after perception -> French infinitive"
+      ],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use the present participle in French."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "infinitive mood",
+        "verbs of perception"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "entendre",
+        "voir"
+      ],
+      "tags": [
+        "infinitive",
+        "perception verbs",
+        "verb complements"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Common",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Infinitive after verbs of perception",
+          "page_printed": 117,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The infinitive is used after verbs of perception (where the present participle is used in English).",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Infinitive as subject",
     "field": "conditions",
     "current_value": [],
-    "summary": "The infinitif présent can be used as the subject of a verb, corresponding to English gerund or present participle.",
-    "usage": [
-      "To express an action as the subject of a sentence."
-    ],
-    "rule_name": "Infinitive as subject"
+    "related_context": {
+      "rule_name": "Infinitive as subject",
+      "summary": "The infinitif présent can be used as the subject of a verb, corresponding to English gerund or present participle.",
+      "explanation": "In French, the infinitive is often used where English uses -ing form as subject.",
+      "formation": "infinitive + rest of sentence",
+      "usage": [
+        "To express an action as the subject of a sentence."
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "Infinitive at beginning of sentence as subject.",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "English gerund subject -> French infinitive subject"
+      ],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use present participle in French for subject; use infinitive."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "infinitive mood",
+        "present infinitive"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Very common",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "The infinitif présent",
+          "page_printed": 115,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The infinitif can be used as the subject of a verb. (Note that the present participle is used in English instead.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Infinitive for instructions and notices",
     "field": "conditions",
     "current_value": [],
-    "summary": "The infinitive is used for general instructions, prescriptions, public notices, and proverbs.",
-    "usage": [
-      "Public notices",
-      "Recipes in professional cookbooks",
-      "Prescriptions",
-      "Proverbs"
-    ],
-    "rule_name": "Infinitive for instructions and notices"
+    "related_context": {
+      "rule_name": "Infinitive for instructions and notices",
+      "summary": "The infinitive is used for general instructions, prescriptions, public notices, and proverbs.",
+      "explanation": "In French, the infinitive often replaces the imperative in formal or impersonal instructions.",
+      "formation": "infinitive + (optional object)",
+      "usage": [
+        "Public notices",
+        "Recipes in professional cookbooks",
+        "Prescriptions",
+        "Proverbs"
+      ],
+      "restrictions": [
+        "Modern household magazines tend to use imperative, but infinitive is used in professional contexts."
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "Infinitive alone or with object.",
+      "negative_form": "ne pas + infinitive + object",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "English imperative -> French infinitive"
+      ],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not conjugate the infinitive; keep it invariant."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "infinitive mood",
+        "instructions and notices",
+        "present infinitive"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "infinitive",
+        "instructions",
+        "public notices"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "Common in written instructions",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Infinitive for instructions and notices",
+          "page_printed": 116,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The infinitif is also used for general instructions, prescriptions, public notices, and proverbs",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Interrogative by intonation",
     "field": "conditions",
     "current_value": [],
-    "summary": "Keep subject + verb order and raise intonation.",
-    "usage": [
-      "Very colloquial questions"
-    ],
-    "rule_name": "Interrogative by intonation"
+    "related_context": {
+      "rule_name": "Interrogative by intonation",
+      "summary": "Keep subject + verb order and raise intonation.",
+      "explanation": "Form a question by keeping the affirmative word order (subject + verb) and using an upward intonation at the end of the sentence. Example: Tu finis à cinq heures?",
+      "formation": "subject + verb + ? (rising intonation)",
+      "usage": [
+        "Very colloquial questions"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "subject + verb",
+      "negative_form": "subject + ne + verb + pas?",
+      "interrogative_form": "This is the interrogative form",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Intonation is essential; otherwise it's a statement."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "finir",
+        "investir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": "Common in informal speech.",
+        "notes": null
+      },
+      "chapters": [
+        2
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "The interrogative form",
+          "page_printed": 33,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "A third way of asking a question, colloquially, is keeping the order subject + verb and speaking with an upward intonation.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Interrogative forms of reflexive verbs",
     "field": "conditions",
     "current_value": [],
-    "summary": "Three ways: rising intonation, est-ce que, inversion; pronoun remains before verb.",
-    "usage": [
-      "All questions"
-    ],
-    "rule_name": "Interrogative forms of reflexive verbs"
+    "related_context": {
+      "rule_name": "Interrogative forms of reflexive verbs",
+      "summary": "Three ways: rising intonation, est-ce que, inversion; pronoun remains before verb.",
+      "explanation": "In the interrogative form, there are three ways of asking questions. Rising intonation (Tu te couches déjà?). With inversion, the reflexive pronoun remains in front of the verb. Also est-ce que.",
+      "formation": "Rising intonation: Tu te couches? ; Inversion: Te couches-tu? ; Est-ce que: Est-ce que tu te couches?",
+      "usage": [
+        "All questions"
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "est-ce que",
+        "inversion"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "In inversion: pronoun + verb + subject",
+      "negative_form": null,
+      "interrogative_form": "Three possible forms.",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "In inversion, keep pronoun before verb."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Reflexive verbs"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reflexive verbs",
+          "page_printed": 63,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "In the interrogative form, there are three ways of asking questions. You can always make a question with rising intonation (Tu te couches déjà?). When inversion is used, the reflexive pronoun remains in front of the verb.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Interrogative infinitive",
     "field": "conditions",
     "current_value": [],
-    "summary": "Use question word + infinitive to form an interrogative infinitive.",
-    "usage": [
-      "To ask a question in a concise way."
-    ],
-    "rule_name": "Interrogative infinitive"
+    "related_context": {
+      "rule_name": "Interrogative infinitive",
+      "summary": "Use question word + infinitive to form an interrogative infinitive.",
+      "explanation": "Interrogative words like que, comment, pourquoi, quoi are followed by infinitive.",
+      "formation": "question word + infinitive",
+      "usage": [
+        "To ask a question in a concise way."
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "que",
+        "comment",
+        "pourquoi",
+        "quoi"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "question word + infinitive",
+      "negative_form": null,
+      "interrogative_form": "question word + infinitive",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "Interrogation",
+        "infinitive mood"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "Useful in conversation",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Interrogative infinitive",
+          "page_printed": 117,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The infinitive is used in the interrogative infinitive.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Interrogative with est-ce que",
     "field": "conditions",
     "current_value": [],
-    "summary": "Use est-ce que before subject + verb.",
-    "usage": [
-      "Colloquial or neutral questions"
-    ],
-    "rule_name": "Interrogative with est-ce que"
+    "related_context": {
+      "rule_name": "Interrogative with est-ce que",
+      "summary": "Use est-ce que before subject + verb.",
+      "explanation": "Place est-ce que before the subject and verb to form a question. Est-ce que becomes est-ce qu' before a vowel. Example: Est-ce que vous habitez à New York? Est-ce qu'ils vendent des timbres?",
+      "formation": "est-ce que + subject + verb",
+      "usage": [
+        "Colloquial or neutral questions"
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "est-ce que"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "est-ce que + subject + verb",
+      "negative_form": "est-ce que + subject + ne + verb + pas",
+      "interrogative_form": "This is the interrogative form",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not forget the hyphen in est-ce que; use est-ce qu' before vowel."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "courir",
+        "habiter",
+        "sortir",
+        "vendre"
+      ],
+      "tags": [
+        "questions",
+        "est-ce que",
+        "sentence structure"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "Common in everyday speech.",
+        "notes": null
+      },
+      "chapters": [
+        2
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "The interrogative form",
+          "page_printed": 33,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "A more colloquial way of asking a question is to use the est-ce que form in front of the subject + verb.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Interrogative words",
     "field": "conditions",
     "current_value": [],
-    "summary": "Question words in French: pourquoi, où, quand, comment, combien, que, qui, dans quelle mesure.",
-    "usage": [
-      "To ask about reason (pourquoi), place (où), time (quand), manner (comment), quantity (combien), object (que), person (qui), extent (dans quelle mesure)"
-    ],
-    "rule_name": "Interrogative words"
+    "related_context": {
+      "rule_name": "Interrogative words",
+      "summary": "Question words in French: pourquoi, où, quand, comment, combien, que, qui, dans quelle mesure.",
+      "explanation": "These interrogative words are used to form questions.",
+      "formation": null,
+      "usage": [
+        "To ask about reason (pourquoi), place (où), time (quand), manner (comment), quantity (combien), object (que), person (qui), extent (dans quelle mesure)"
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "pourquoi",
+        "où",
+        "quand",
+        "comment",
+        "combien",
+        "que",
+        "qui",
+        "dans quelle mesure"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "Question word + verb + subject (in inversion) or est-ce que",
+      "negative_form": null,
+      "interrogative_form": "Pourquoi étudiez-vous le français?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Distinguish between que (what) and qui (who)"
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "related_expressions": [
+        "combien",
+        "comment",
+        "dans quelle mesure",
+        "où",
+        "pourquoi",
+        "quand",
+        "que",
+        "qui"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Interrogative forms; question words",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "pourquoi, où, quand, comment, combien, que, qui, dans quelle mesure",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Irregular -oir verbs (first-person singular and plural)",
     "field": "conditions",
     "current_value": [],
-    "summary": "List of -oir verbs with their first-person singular and plural present forms.",
-    "usage": [
-      "To learn irregular -oir verb forms"
-    ],
-    "rule_name": "Irregular -oir verbs (first-person singular and plural)"
+    "related_context": {
+      "rule_name": "Irregular -oir verbs (first-person singular and plural)",
+      "summary": "List of -oir verbs with their first-person singular and plural present forms.",
+      "explanation": "Many -oir verbs are irregular; here are examples of their first-person singular and plural forms.",
+      "formation": "apercevoir: j'aperçois/nous apercevons; décevoir: je déçois/nous décevons; devoir: je dois/nous devons; émouvoir: j'émeus/nous émouvons; prévoir: je prévois/nous prévoyons; promouvoir: je promeus/nous promouvons; recevoir: je reçois/nous recevons; valoir: cela vaut/nous valons; voir: je vois/nous voyons",
+      "usage": [
+        "To learn irregular -oir verb forms"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Irregular verbs",
+        "Present tense"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "apercevoir",
+        "devoir",
+        "décevoir",
+        "promouvoir",
+        "prévoir",
+        "recevoir",
+        "valoir",
+        "voir",
+        "émouvoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "Other -oir verbs",
+          "page_printed": 45,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "A number of other verbs ending in -oir are irregular. Let’s look at a few examples in their first-person singular and plural forms: apercevoir to see, to perceive / j’aperçois / I see, I perceive / nous apercevons / we see, we perceive / décevoir to disappoint / je déçois / I disappoint / nous décevons / we disappoint / devoir must, to have to / je dois / I must, I have to / nous devons / we must, we have to / émouvoir to move, to stir / j’émeus / I move, I stir / nous émouvons / we move, we stir / prévoir to foresee, to predict / je prévois / I foresee / nous prévoyons / we foresee / promouvoir to promote / je promeus / I promote / nous promouvons / we promote / recevoir to receive / je reçois / I receive / nous recevons / we receive / valoir to be worth / cela vaut / it is worth / nous valons / we are worth / voir to see / je vois / I see / nous voyons / we see",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,11 +44,27 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.restrictions
-- `value` must be an array of concise factual strings describing only real usage, register, complement, polarity, agreement, or syntactic restrictions of the expression.
-- Use `[]` when no restriction is clearly supported by the canonical form or target metadata; an empty array is a valid proposal for an unrestricted expression.
-- Do not use generic filler, translations, unverifiable claims, or advice that merely restates the expression.
-- If a restriction is genuinely uncertain or contested, return the required `NO_PROPOSAL` entry rather than guessing.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -56,93 +72,849 @@ TARGETS
     "entity_key": "à la mer",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "by the sea"
-    ],
-    "canonical_form": "à la mer"
+    "related_context": {
+      "canonical_form": "à la mer",
+      "display_form": "à la mer",
+      "english": [
+        "by the sea"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": null,
+      "source_classifications": [
+        "multiword_expression",
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 251,
+          "page_pdf": 265,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "by the sea à la mer",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à la mer by the sea",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à la montagne",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "in the mountains"
-    ],
-    "canonical_form": "à la montagne"
+    "related_context": {
+      "canonical_form": "à la montagne",
+      "display_form": "à la montagne",
+      "english": [
+        "in the mountains"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": null,
+      "source_classifications": [
+        "multiword_expression",
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "in the mountains à la montagne",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à la montagne in the mountains",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à la plage",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "at the beach"
-    ],
-    "canonical_form": "à la plage"
+    "related_context": {
+      "canonical_form": "à la plage",
+      "display_form": "à la plage",
+      "english": [
+        "at the beach"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": null,
+      "source_classifications": [
+        "multiword_expression",
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "at the beach à la plage",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à la plage at the beach",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à midi",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "at noon"
-    ],
-    "canonical_form": "à midi"
+    "related_context": {
+      "canonical_form": "à midi",
+      "display_form": "à midi",
+      "english": [
+        "at noon"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": null,
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "at noon à midi",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à midi at noon",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à minuit",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "at midnight"
-    ],
-    "canonical_form": "à minuit"
+    "related_context": {
+      "canonical_form": "à minuit",
+      "display_form": "à minuit",
+      "english": [
+        "at midnight"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": null,
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "at midnight à minuit",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à minuit at midnight",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à moins que + subjonctif",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "unless"
-    ],
-    "canonical_form": "à moins que + subjonctif"
+    "related_context": {
+      "canonical_form": "à moins que + subjonctif",
+      "display_form": "à moins que",
+      "english": [
+        "unless"
+      ],
+      "expression_type": "connector",
+      "productive": true,
+      "pattern": "à moins que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Conjunctions followed by the subjunctive"
+      ],
+      "related_concepts": [
+        "Conjunctions requiring subjunctive"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "à moins que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "conjunction"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Conjunctions followed by the subjunctive",
+          "page_printed": 108,
+          "page_pdf": 122,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à moins que unless",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Introduces an exception to the main statement and requires the subjunctive; a ne explétif may appear without negative meaning."
+      ]
+    }
   },
   {
     "entity_key": "à plis",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "pleated"
-    ],
-    "canonical_form": "à plis"
+    "related_context": {
+      "canonical_form": "à plis",
+      "display_form": "à plis",
+      "english": [
+        "pleated"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": null,
+      "source_classifications": [
+        "multiword_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à plis pleated",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à pois",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "polka-dotted",
-      "with polka dots"
-    ],
-    "canonical_form": "à pois"
+    "related_context": {
+      "canonical_form": "à pois",
+      "display_form": "à pois",
+      "english": [
+        "polka-dotted",
+        "with polka dots"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "multiword_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à pois polka-dotted",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à rayures",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "striped",
-      "with stripes"
-    ],
-    "canonical_form": "à rayures"
+    "related_context": {
+      "canonical_form": "à rayures",
+      "display_form": "à rayures",
+      "english": [
+        "striped",
+        "with stripes"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "multiword_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à rayures striped",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à volants",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "flounced"
-    ],
-    "canonical_form": "à volants"
+    "related_context": {
+      "canonical_form": "à volants",
+      "display_form": "à volants",
+      "english": [
+        "flounced"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": null,
+      "source_classifications": [
+        "multiword_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à volants flounced",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

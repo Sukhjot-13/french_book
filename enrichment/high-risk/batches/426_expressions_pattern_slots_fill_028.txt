@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,13 +44,60 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.pattern_slots
-- `value` must be an array. Each item must be exactly:
-  `{"name": "<snake_case_identifier>", "display": "<human-readable label>", "slot_type": "person|thing|noun|verb_infinitive|clause|adjective|adverb|preposition|other", "required": true|false}`.
-- Include one slot only for each semantic variable explicitly represented by a bracketed placeholder, ellipsis, or other variable position in the reusable pattern/canonical form.
-- Use `[]` for a wholly fixed expression with no variable position; this is a valid, useful proposal, not a no-proposal result.
-- `name` must be lowercase snake_case and unique within the array. `display` must be concise and human-readable. Do not add extra keys.
-- Choose `required: true` unless the canonical pattern clearly marks that component as optional.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "name",
+      "display",
+      "slot_type",
+      "required"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "minLength": 1
+      },
+      "display": {
+        "type": "string",
+        "minLength": 1
+      },
+      "slot_type": {
+        "type": "string",
+        "enum": [
+          "person",
+          "thing",
+          "noun",
+          "verb_infinitive",
+          "clause",
+          "adjective",
+          "adverb",
+          "preposition",
+          "other"
+        ]
+      },
+      "required": {
+        "type": "boolean"
+      }
+    }
+  }
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -58,107 +105,820 @@ TARGETS
     "entity_key": "À la vôtre !",
     "field": "pattern_slots",
     "current_value": [],
-    "english": [
-      "Cheers! (formal or plural)"
-    ],
-    "canonical_form": "À la vôtre !"
+    "related_context": {
+      "canonical_form": "À la vôtre !",
+      "display_form": "À la vôtre !",
+      "english": [
+        "Cheers! (formal or plural)"
+      ],
+      "expression_type": "idiom",
+      "productive": false,
+      "pattern": null,
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Possessive pronouns"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "formal or plural"
+      ],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "à la vôtre"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Possessive pronouns",
+          "page_printed": 196,
+          "page_pdf": 210,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "À la vôtre! Cheers! (formal or plural)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Toast addressed either formally to one person or to several people."
+      ]
+    }
   },
   {
     "entity_key": "Ça m'est égal",
     "field": "pattern_slots",
     "current_value": [],
-    "english": [
-      "I don't mind",
-      "it makes no difference to me",
-      "I do not care"
-    ],
-    "canonical_form": "Ça m'est égal"
+    "related_context": {
+      "canonical_form": "Ça m'est égal",
+      "display_form": "Ça m'est égal",
+      "english": [
+        "I don't mind",
+        "it makes no difference to me",
+        "I do not care"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern": null,
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Indefinite demonstrative pronouns ceci, cela, ça"
+      ],
+      "related_concepts": [
+        "Indefinite demonstrative pronouns ceci, cela, ça"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "ça m'est égal"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Ceci, cela, and ça",
+          "page_printed": 199,
+          "page_pdf": 213,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ça m'est égal. I don't mind.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Tone determines whether the phrase sounds neutral, indifferent, or dismissive."
+      ]
+    }
   },
   {
     "entity_key": "Ça ne fait rien",
     "field": "pattern_slots",
     "current_value": [],
-    "english": [
-      "It does not matter",
-      "never mind",
-      "that is all right"
-    ],
-    "canonical_form": "Ça ne fait rien"
+    "related_context": {
+      "canonical_form": "Ça ne fait rien",
+      "display_form": "Ça ne fait rien",
+      "english": [
+        "It does not matter",
+        "never mind",
+        "that is all right"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern": null,
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Indefinite demonstrative pronouns ceci, cela, ça"
+      ],
+      "related_concepts": [
+        "Indefinite demonstrative pronouns ceci, cela, ça"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "ça ne fait rien"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Ceci, cela, and ça",
+          "page_printed": 199,
+          "page_pdf": 213,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ça ne fait rien. It does not matter.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Often used to reassure someone after a minor mistake or apology, not only to state that something is unimportant."
+      ]
+    }
   },
   {
     "entity_key": "Ça va?",
     "field": "pattern_slots",
     "current_value": [],
-    "english": [
-      "How are you?",
-      "How are things going?"
-    ],
-    "canonical_form": "Ça va?"
+    "related_context": {
+      "canonical_form": "Ça va?",
+      "display_form": "Ça va?",
+      "english": [
+        "How are you?",
+        "How are things going?"
+      ],
+      "expression_type": "conversation_phrase",
+      "productive": false,
+      "pattern": null,
+      "related_verbs": [
+        "aller"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Aller in idiomatic expressions"
+      ],
+      "related_concepts": [
+        "Irregular verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [
+        "comment ça va"
+      ],
+      "search_terms": [
+        "how are you",
+        "ça va"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb aller (to go)",
+          "page_printed": 48,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ça va? How are you? How are things going?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Common informal greeting; ça va can also serve as a neutral or positive reply meaning things are going fine."
+      ],
+      "register": "informal"
+    }
   },
   {
     "entity_key": "à carreaux",
     "field": "pattern_slots",
     "current_value": [],
-    "english": [
-      "checked",
-      "plaid",
-      "checkered"
-    ],
-    "canonical_form": "à carreaux"
+    "related_context": {
+      "canonical_form": "à carreaux",
+      "display_form": "à carreaux",
+      "english": [
+        "checked",
+        "plaid",
+        "checkered"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "multiword_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à carreaux checked",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à cet endroit",
     "field": "pattern_slots",
     "current_value": [],
-    "english": [
-      "in this place",
-      "at this spot",
-      "there"
-    ],
-    "canonical_form": "à cet endroit"
+    "related_context": {
+      "canonical_form": "à cet endroit",
+      "display_form": "à cet endroit",
+      "english": [
+        "in this place",
+        "at this spot",
+        "there"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Location"
+      ],
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "à",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "in this place"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "location_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of location",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à cet endroit\tin this place",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à côté",
     "field": "pattern_slots",
     "current_value": [],
-    "english": [
-      "next to",
-      "beside"
-    ],
-    "canonical_form": "à côté"
+    "related_context": {
+      "canonical_form": "à côté",
+      "display_form": "à côté",
+      "english": [
+        "next to",
+        "beside"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Location"
+      ],
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "à",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "beside",
+        "next to"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "location_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of location",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à côté\tnext to, beside",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Used alone, à côté means nearby or next door; before a noun, it requires de: à côté de la gare."
+      ]
+    }
   },
   {
     "entity_key": "à fleurs",
     "field": "pattern_slots",
     "current_value": [],
-    "english": [
-      "flowered",
-      "floral",
-      "flower-patterned"
-    ],
-    "canonical_form": "à fleurs"
+    "related_context": {
+      "canonical_form": "à fleurs",
+      "display_form": "à fleurs",
+      "english": [
+        "flowered",
+        "floral",
+        "flower-patterned"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "multiword_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à fleurs flowered",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à l'heure actuelle",
     "field": "pattern_slots",
     "current_value": [],
-    "english": [
-      "at this very moment",
-      "at present",
-      "currently"
-    ],
-    "canonical_form": "à l'heure actuelle"
+    "related_context": {
+      "canonical_form": "à l'heure actuelle",
+      "display_form": "à l'heure actuelle",
+      "english": [
+        "at this very moment",
+        "at present",
+        "currently"
+      ],
+      "expression_type": "time_expression",
+      "productive": false,
+      "pattern": null,
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Time"
+      ],
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "à",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "at this very moment",
+        "right now"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à l'heure actuelle\tat this very moment",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "à la campagne",
     "field": "pattern_slots",
     "current_value": [],
-    "english": [
-      "in the country",
-      "in the countryside",
-      "to the countryside"
-    ],
-    "canonical_form": "à la campagne"
+    "related_context": {
+      "canonical_form": "à la campagne",
+      "display_form": "à la campagne",
+      "english": [
+        "in the country",
+        "in the countryside",
+        "to the countryside"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "multiword_expression",
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "in the country à la campagne",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "à la campagne in the country",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

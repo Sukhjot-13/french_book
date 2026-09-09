@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,11 +44,27 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.prepositions
-- `value` must be an array of strings listing the lexical prepositions governed by the expression or its reusable pattern, in their order of appearance.
-- Normalize contractions to their lexical preposition: record `"à"` for `au`/`aux` and `"de"` for `du`/`des`; do not record a standalone article as a preposition.
-- Include prepositions that are literal and required by the construction, including before a variable complement.
-- Use `[]` when the expression governs no preposition. Do not add prepositions merely because they are common in a translation or possible contextual expansion.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -56,92 +72,847 @@ TARGETS
     "entity_key": "toujours",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "always",
-      "still"
-    ],
-    "canonical_form": "toujours"
+    "related_context": {
+      "canonical_form": "toujours",
+      "display_form": "toujours",
+      "english": [
+        "always",
+        "still"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Frequency"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "always",
+        "still"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "frequency_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "toujours\talways, still",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Depending on context, toujours means always or still; it can also reinforce a suggestion, as in tu peux toujours essayer."
+      ]
+    }
   },
   {
     "entity_key": "tourner un film",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to shoot a movie"
-    ],
-    "canonical_form": "tourner un film"
+    "related_context": {
+      "canonical_form": "tourner un film",
+      "display_form": "tourner un film",
+      "english": [
+        "to shoot a movie"
+      ],
+      "expression_type": "collocation",
+      "productive": true,
+      "pattern": "tourner + [article] + film",
+      "pattern_slots": [],
+      "related_verbs": [
+        "verb_tourner"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "film",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "shoot a movie",
+        "tourner un film"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        7
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Vocabulary: cinema and theater",
+          "page_printed": 70,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "tourner un film to shoot a movie",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "tous les jours",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "every day"
-    ],
-    "canonical_form": "tous les jours"
+    "related_context": {
+      "canonical_form": "tous les jours",
+      "display_form": "tous les jours",
+      "english": [
+        "every day"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Frequency"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [
+        "chaque jour"
+      ],
+      "search_terms": [
+        "every day",
+        "daily"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "frequency_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Common",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "tous les jours\tevery day",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "tôt",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "early"
-    ],
-    "canonical_form": "tôt"
+    "related_context": {
+      "canonical_form": "tôt",
+      "display_form": "tôt",
+      "english": [
+        "early"
+      ],
+      "expression_type": "time_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Time"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "early"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "tôt\tearly",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "veuillez + infinitif",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "please + infinitive (polite imperative)"
-    ],
-    "canonical_form": "veuillez + infinitif"
+    "related_context": {
+      "canonical_form": "veuillez + infinitif",
+      "display_form": "veuillez + infinitif",
+      "english": [
+        "please + infinitive (polite imperative)"
+      ],
+      "expression_type": "formulaic_phrase",
+      "productive": true,
+      "pattern": "Veuillez + infinitif",
+      "pattern_slots": [
+        {
+          "name": "infinitive",
+          "display": "infinitif",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "vouloir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Imperative of vouloir (veuillez)"
+      ],
+      "related_concepts": [
+        "irregular imperative forms"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [
+        "Only vous form of vouloir"
+      ],
+      "transformations": [],
+      "aliases": [
+        "Veuillez"
+      ],
+      "search_terms": [
+        "please",
+        "veuillez"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "Irregular imperative forms",
+          "page_printed": 149,
+          "page_pdf": 163,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Veuillez accepter mes excuses!",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Formal polite imperative frequent in notices, instructions, and business correspondence; it is followed directly by an infinitive."
+      ],
+      "register": "formal"
+    }
   },
   {
     "entity_key": "vouloir + infinitif",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to want to do something"
-    ],
-    "canonical_form": "vouloir + infinitif"
+    "related_context": {
+      "canonical_form": "vouloir + infinitif",
+      "display_form": "vouloir + infinitif",
+      "english": [
+        "to want to do something"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "vouloir + infinitif",
+      "pattern_slots": [
+        {
+          "name": "infinitif",
+          "display": "infinitif",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "vouloir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Would for polite requests",
+        "Would for specific past refusal"
+      ],
+      "related_concepts": [
+        "Modal verbs",
+        "Past refusal (would not)",
+        "Polite requests"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "vouloir",
+        "want"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Would",
+          "page_printed": 100,
+          "page_pdf": 114,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When would refers to a specific action in the past, the passé composé of vouloir is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "vouloir + infinitive",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to want to do something"
-    ],
-    "canonical_form": "vouloir + infinitive"
+    "related_context": {
+      "canonical_form": "vouloir + infinitive",
+      "display_form": "vouloir faire quelque chose",
+      "english": [
+        "to want to do something"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "vouloir + infinitive",
+      "pattern_slots": [
+        {
+          "name": "action",
+          "display": "partir",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "vouloir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Present tense of vouloir"
+      ],
+      "related_concepts": [
+        "Modal verbs"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "vouloir infinitive",
+        "want to"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "The verbs pouvoir and vouloir",
+          "page_printed": 44,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle veut une augmentation. Nous voulons une table près de la cheminée. Je voudrais vous parler.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "vouloir que + subjonctif",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to want (someone) to"
-    ],
-    "canonical_form": "vouloir que + subjonctif"
+    "related_context": {
+      "canonical_form": "vouloir que + subjonctif",
+      "display_form": "vouloir que",
+      "english": [
+        "to want (someone) to"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "vouloir que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "subject",
+          "display": "subject",
+          "slot_type": "person",
+          "required": true
+        },
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "vouloir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Use of subjunctive after verbs of wish and desire"
+      ],
+      "related_concepts": [
+        "Wish and desire"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "Requires different subjects in main and dependent clauses."
+      ],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "vouloir que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Subjunctive after verbs of wish and desire",
+          "page_printed": 106,
+          "page_pdf": 120,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Je veux que tu achètes cet ordinateur.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "When the desired action has a different explicit subject, vouloir que requires the subjunctive; with the same subject, use vouloir + infinitive."
+      ]
+    }
   },
   {
     "entity_key": "y mettre du sien",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to make an effort"
-    ],
-    "canonical_form": "y mettre du sien"
+    "related_context": {
+      "canonical_form": "y mettre du sien",
+      "display_form": "y mettre du sien",
+      "english": [
+        "to make an effort"
+      ],
+      "expression_type": "idiom",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Possessive pronouns"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "mettre du sien"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Possessive pronouns",
+          "page_printed": 196,
+          "page_pdf": 210,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Si elle n'y met pas du sien, elle ne réussira jamais.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "The possessive form changes with the person whose effort is requested: du mien, du tien, du sien, du nôtre, du vôtre, or du leur."
+      ]
+    }
   },
   {
     "entity_key": "y mettre du tien",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to make an effort"
-    ],
-    "canonical_form": "y mettre du tien"
+    "related_context": {
+      "canonical_form": "y mettre du tien",
+      "display_form": "y mettre du tien",
+      "english": [
+        "to make an effort"
+      ],
+      "expression_type": "idiom",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Possessive pronouns"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "informal"
+      ],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "mettre du tien"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Possessive pronouns",
+          "page_printed": 196,
+          "page_pdf": 210,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il faut y mettre du tien!",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Informal second-person singular form urging someone to contribute effort or goodwill."
+      ],
+      "register": "informal"
+    }
   }
 ]
 ================================================================================

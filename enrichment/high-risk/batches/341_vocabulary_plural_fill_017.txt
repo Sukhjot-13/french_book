@@ -36,13 +36,34 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
     {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
   ]
 }
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -53,11 +74,86 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "last month"
-    ],
-    "part_of_speech": "adverb",
-    "canonical_form": "le mois dernier"
+    "related_context": {
+      "canonical_form": "le mois dernier",
+      "display_form": "le mois dernier",
+      "english": [
+        "last month"
+      ],
+      "part_of_speech": "adverb",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "last month",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "le mois dernier"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "VOCABULAIRE (time expressions)",
+          "page_printed": 18,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le mois dernier last month",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -66,11 +162,86 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "next month"
-    ],
-    "part_of_speech": "adverb",
-    "canonical_form": "le mois prochain"
+    "related_context": {
+      "canonical_form": "le mois prochain",
+      "display_form": "le mois prochain",
+      "english": [
+        "next month"
+      ],
+      "part_of_speech": "adverb",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "next month",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "le mois prochain"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "VOCABULAIRE (time expressions)",
+          "page_printed": 18,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le mois prochain next month",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -79,11 +250,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "north"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "le nord"
+    "related_context": {
+      "canonical_form": "le nord",
+      "display_form": "le nord",
+      "english": [
+        "north"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "north",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "nord",
+        "north"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "vocabulary"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "Vocabulaire",
+          "page_printed": 153,
+          "page_pdf": 167,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le nord north",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -92,11 +339,89 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "spring"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "le printemps"
+    "related_context": {
+      "canonical_form": "le printemps",
+      "display_form": "le printemps",
+      "english": [
+        "spring"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "spring",
+          "note": "Season",
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [
+        "printemps"
+      ],
+      "search_terms": [
+        "printemps",
+        "spring"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Days, months, seasons"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "Vocabulaire",
+          "page_printed": 48,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le printemps spring",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -105,12 +430,91 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "on Saturdays",
-      "on Sundays"
-    ],
-    "part_of_speech": "adverb",
-    "canonical_form": "le samedi, le dimanche"
+    "related_context": {
+      "canonical_form": "le samedi, le dimanche",
+      "display_form": "le samedi, le dimanche",
+      "english": [
+        "on Saturdays",
+        "on Sundays"
+      ],
+      "part_of_speech": "adverb",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "on Saturdays, on Sundays",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [
+        "le dimanche",
+        "le samedi"
+      ],
+      "search_terms": [
+        "le dimanche",
+        "le samedi"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "VOCABULAIRE (time expressions)",
+          "page_printed": 18,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le samedi, le dimanche on Saturdays, on Sundays",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -119,11 +523,86 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "in the evening"
-    ],
-    "part_of_speech": "adverb",
-    "canonical_form": "le soir"
+    "related_context": {
+      "canonical_form": "le soir",
+      "display_form": "le soir",
+      "english": [
+        "in the evening"
+      ],
+      "part_of_speech": "adverb",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "in the evening",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "le soir"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "VOCABULAIRE (time expressions)",
+          "page_printed": 18,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le soir in the evening",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -132,11 +611,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "south"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "le sud"
+    "related_context": {
+      "canonical_form": "le sud",
+      "display_form": "le sud",
+      "english": [
+        "south"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "south",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "south",
+        "sud"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "vocabulary"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "Vocabulaire",
+          "page_printed": 153,
+          "page_pdf": 167,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le sud south",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -145,11 +700,84 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "on Fridays"
-    ],
-    "part_of_speech": "other",
-    "canonical_form": "le vendredi"
+    "related_context": {
+      "canonical_form": "le vendredi",
+      "display_form": "le vendredi",
+      "english": [
+        "on Fridays"
+      ],
+      "part_of_speech": "other",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "on Fridays",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Uses of the imparfait: habitual and repetitive action",
+          "page_printed": 68,
+          "page_pdf": 82,
+          "context_type": "note",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le vendredi on Fridays",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -158,11 +786,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "a letter"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "lettre"
+    "related_context": {
+      "canonical_form": "lettre",
+      "display_form": "une lettre",
+      "english": [
+        "a letter"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": null,
+        "indefinite": "une",
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "letter",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": null,
+            "indefinite": "une",
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "letter",
+        "lettre"
+      ],
+      "word_family": [],
+      "related_expressions": [
+        "répondre à"
+      ],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Very common.",
+        "notes": null
+      },
+      "chapters": [
+        16
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "The passé simple of irregular verbs",
+          "page_printed": 132,
+          "page_pdf": 146,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils répondirent immédiatement à notre lettre.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -171,12 +875,125 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "a bookseller",
-      "bookseller"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "libraire"
+    "related_context": {
+      "canonical_form": "libraire",
+      "display_form": "un(e) libraire",
+      "english": [
+        "a bookseller",
+        "bookseller"
+      ],
+      "part_of_speech": "noun",
+      "gender": "common",
+      "articles": {
+        "definite": null,
+        "indefinite": "un(e)",
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "a bookseller",
+          "note": null,
+          "gender": "common",
+          "articles": {
+            "definite": null,
+            "indefinite": "un(e)",
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "bookseller",
+          "note": null,
+          "gender": "common",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "bookseller"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Commerce and professions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Vocabulaire : commerces et professions",
+          "page_printed": 214,
+          "page_pdf": 228,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "un(e) libraire\ta bookseller",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 251,
+          "page_pdf": 265,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "bookseller libraire (m./f.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Libraire » refers to a bookseller, whereas « librairie » is the bookshop itself."
+      ]
+    }
   }
 ]
 ================================================================================

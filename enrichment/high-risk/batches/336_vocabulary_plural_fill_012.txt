@@ -36,13 +36,34 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
     {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
   ]
 }
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -53,11 +74,119 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "hip"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "hanche"
+    "related_context": {
+      "canonical_form": "hanche",
+      "display_form": "la hanche",
+      "english": [
+        "hip"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": "la",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "hip",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": "la",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "hip",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "hanche"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "VOCABULAIRE",
+          "page_printed": 64,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "la hanche  hip",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "hip hanche (f.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -66,11 +195,119 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "harassment"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "harcèlement"
+    "related_context": {
+      "canonical_form": "harcèlement",
+      "display_form": "le harcèlement",
+      "english": [
+        "harassment"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "harassment",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "harassment",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "harcèlement"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Vocabulaire",
+          "page_printed": 137,
+          "page_pdf": 151,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le harcèlement",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "harassment harcèlement (m.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -79,11 +316,83 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "bean"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "haricot"
+    "related_context": {
+      "canonical_form": "haricot",
+      "display_form": "haricot",
+      "english": [
+        "bean"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "bean",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "bean haricot (m.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "The initial h is aspirated: use « le haricot » and « les haricots » without elision or liaison."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -92,11 +401,86 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "harmonica"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "harmonica"
+    "related_context": {
+      "canonical_form": "harmonica",
+      "display_form": "l'harmonica",
+      "english": [
+        "harmonica"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "l'",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "harmonica",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "l'",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "harmonica"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Music and instruments"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 1,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 1,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Vocabulaire",
+          "page_printed": 98,
+          "page_pdf": 112,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "l’harmonica (m.) harmonica",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -105,11 +489,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "harp"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "harpe"
+    "related_context": {
+      "canonical_form": "harpe",
+      "display_form": "la harpe",
+      "english": [
+        "harp"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": "la",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "harp",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": "la",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "harp",
+        "harpe"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Music and instruments"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 1,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 1,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Vocabulaire",
+          "page_printed": 98,
+          "page_pdf": 112,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "la harpe harp",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -118,11 +578,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "oboe"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "hautbois"
+    "related_context": {
+      "canonical_form": "hautbois",
+      "display_form": "le hautbois",
+      "english": [
+        "oboe"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "oboe",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "hautbois",
+        "oboe"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Music and instruments"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 1,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 1,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Vocabulaire",
+          "page_printed": 98,
+          "page_pdf": 112,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le hautbois oboe",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -131,13 +667,194 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "content",
-      "glad",
-      "happy"
-    ],
-    "part_of_speech": "adjective",
-    "canonical_form": "heureux"
+    "related_context": {
+      "canonical_form": "heureux",
+      "display_form": "heureux, heureuse",
+      "english": [
+        "content",
+        "glad",
+        "happy"
+      ],
+      "part_of_speech": "adjective",
+      "gender": "variable",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [
+        {
+          "form": "heureuse",
+          "variant_type": "other",
+          "note": null
+        },
+        {
+          "form": "heureuse",
+          "variant_type": "feminine",
+          "note": "feminine form"
+        }
+      ],
+      "senses": [
+        {
+          "english": "happy",
+          "note": null,
+          "gender": "variable",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "content",
+          "note": null,
+          "gender": "variable",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "glad",
+          "note": null,
+          "gender": "variable",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "content",
+        "glad",
+        "happy",
+        "heureuse",
+        "heureux"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "The verb être (to be)",
+          "page_printed": 38,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "heureux, heureuse / happy, content, glad",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 251,
+          "page_pdf": 265,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "content heureux, heureuse",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "glad heureux, heureuse",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "happy heureux, heureuse",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -146,11 +863,86 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "yesterday"
-    ],
-    "part_of_speech": "adverb",
-    "canonical_form": "hier"
+    "related_context": {
+      "canonical_form": "hier",
+      "display_form": "hier",
+      "english": [
+        "yesterday"
+      ],
+      "part_of_speech": "adverb",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "yesterday",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "hier"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "VOCABULAIRE (time expressions)",
+          "page_printed": 18,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "hier yesterday",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -159,11 +951,122 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "Hindi"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "hindi"
+    "related_context": {
+      "canonical_form": "hindi",
+      "display_form": "l'hindi",
+      "english": [
+        "Hindi"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "l'",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "Hindi (language)",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "l'",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "Hindi",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "hindi",
+        "l'hindi"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Languages"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        2
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "VOCABULAIRE - Quelle langue parlez-vous?",
+          "page_printed": 30,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "l’hindi (m.) Hindi",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Hindi hindi (m.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -172,12 +1075,84 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "story",
-      "history"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "histoire"
+    "related_context": {
+      "canonical_form": "histoire",
+      "display_form": "histoire",
+      "english": [
+        "story",
+        "history"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "story",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 257,
+          "page_pdf": 271,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "story histoire (f.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Histoire » can mean either a story or history; context determines the intended sense."
+      ]
+    }
   }
 ]
 ================================================================================

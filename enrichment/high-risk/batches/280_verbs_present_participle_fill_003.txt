@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,73 +44,630 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "améliorer",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "to improve",
-      "improve"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "améliorer",
+      "display_form": "améliorer",
+      "english": [
+        "to improve",
+        "improve"
+      ],
+      "senses": [],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "améliorer",
+        "improve"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "améliorer to improve",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Transitive « améliorer » means to improve something; pronominal « s'améliorer » means to improve or get better."
+      ]
+    }
   },
   {
     "entity_key": "applaudir",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "applaud",
-      "to applaud"
-    ],
-    "verb_group": "2nd_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "applaudir",
+      "display_form": "applaudir",
+      "english": [
+        "applaud",
+        "to applaud"
+      ],
+      "senses": [
+        {
+          "english": "to applaud",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "2nd_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [
+        {
+          "tense": "présent",
+          "mood": "indicative",
+          "forms": {
+            "je": null,
+            "tu": null,
+            "il_elle_on": null,
+            "nous": "applaudissons",
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [
+            "-issons"
+          ],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Partial: nous form"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "2.json",
+              "chapter_number": 2,
+              "section_title": "Type 1 -ir verbs",
+              "page_printed": 27,
+              "page_pdf": null,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "nous applaudissons",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [],
+      "related_concepts": [
+        "-ir verbs",
+        "Regular conjugation"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "applaudir"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        2
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "Type 1 -ir verbs",
+          "page_printed": 27,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "applaudir to applaud",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "applaud, to applaudir",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "applaudir to applaud",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "apprécier",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "to appreciate",
-      "to value",
-      "value",
-      "to enjoy",
-      "to like"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "apprécier",
+      "display_form": "apprécier",
+      "english": [
+        "to appreciate",
+        "to value",
+        "value",
+        "to enjoy",
+        "to like"
+      ],
+      "senses": [
+        {
+          "english": "to appreciate",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": null,
+      "past_participle": "apprécié",
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "appreciate",
+        "enjoy",
+        "like"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "The agent with par and with de in the passive voice",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ce professeur est apprécié de ses étudiants.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 258,
+          "page_pdf": 272,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "value, to apprécier",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "apprécier to value",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "In everyday French, « apprécier » often means to like or enjoy something, as well as to value or appreciate it."
+      ]
+    }
   },
   {
     "entity_key": "arracher",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "pull out",
-      "to pull out",
-      "to tear off",
-      "to tear out"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "arracher",
+      "display_form": "arracher",
+      "english": [
+        "pull out",
+        "to pull out",
+        "to tear off",
+        "to tear out"
+      ],
+      "senses": [],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "pull out",
+        "tear off",
+        "tear out"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 256,
+          "page_pdf": 270,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "pull out, to arracher",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "arracher to pull out",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "arrêter",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "arrest",
-      "to arrest",
-      "to stop"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "arrêter",
+      "display_form": "arrêter",
+      "english": [
+        "arrest",
+        "to arrest",
+        "to stop"
+      ],
+      "senses": [
+        {
+          "english": "to arrest",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": null,
+      "past_participle": "arrêté",
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "arrest",
+        "stop"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Vocabulaire",
+          "page_printed": 136,
+          "page_pdf": 150,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "arrêter",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "arrest, to arrêter",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "arrêter to arrest",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Transitive « arrêter » means to stop something or arrest someone; pronominal « s'arrêter » means to stop oneself or come to a stop."
+      ]
+    }
   }
 ]
 ================================================================================

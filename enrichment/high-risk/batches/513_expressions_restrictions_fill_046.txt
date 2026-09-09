@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,11 +44,27 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.restrictions
-- `value` must be an array of concise factual strings describing only real usage, register, complement, polarity, agreement, or syntactic restrictions of the expression.
-- Use `[]` when no restriction is clearly supported by the canonical form or target metadata; an empty array is a valid proposal for an unrestricted expression.
-- Do not use generic filler, translations, unverifiable claims, or advice that merely restates the expression.
-- If a restriction is genuinely uncertain or contested, return the required `NO_PROPOSAL` entry rather than guessing.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -56,103 +72,888 @@ TARGETS
     "entity_key": "être de mauvaise humeur",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to be in a bad mood",
-      "to be grumpy",
-      "to be in a bad temper"
-    ],
-    "canonical_form": "être de mauvaise humeur"
+    "related_context": {
+      "canonical_form": "être de mauvaise humeur",
+      "display_form": "être de mauvaise humeur",
+      "english": [
+        "to be in a bad mood",
+        "to be grumpy",
+        "to be in a bad temper"
+      ],
+      "expression_type": "collocation",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "humeur",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "de",
+        "followed_by": "adjective"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "bad mood",
+        "être de mauvaise humeur"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The present participle",
+          "page_printed": 128,
+          "page_pdf": 142,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "N'ayant pas dormi de la nuit, il était de mauvaise humeur.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "être de nouveau parmi les siens",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to be back with one's family",
-      "to be back among one's own people"
-    ],
-    "canonical_form": "être de nouveau parmi les siens"
+    "related_context": {
+      "canonical_form": "être de nouveau parmi les siens",
+      "display_form": "être de nouveau parmi les siens",
+      "english": [
+        "to be back with one's family",
+        "to be back among one's own people"
+      ],
+      "expression_type": "idiom",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Possessive pronouns"
+      ],
+      "prepositions": [
+        "parmi"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "parmi",
+        "followed_by": "unknown"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "parmi les siens"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "followed_by:pronoun"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Possessive pronouns",
+          "page_printed": 196,
+          "page_pdf": 210,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Après des mois de cauchemar, elle est de nouveau parmi les siens.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Les siens is a possessive pronoun referring collectively to one’s family, close circle, or people."
+      ]
+    }
   },
   {
     "entity_key": "être debout à + infinitif",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to be standing doing something"
-    ],
-    "canonical_form": "être debout à + infinitif"
+    "related_context": {
+      "canonical_form": "être debout à + infinitif",
+      "display_form": "être debout à éplucher des carottes",
+      "english": [
+        "to be standing doing something"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "être debout + à + infinitif",
+      "pattern_slots": [
+        {
+          "name": "infinitive",
+          "display": "infinitif",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Infinitive after expressions of position"
+      ],
+      "related_concepts": [
+        "expressions of position"
+      ],
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "à",
+        "followed_by": "infinitive"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "être debout à"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Infinitive after expressions of position",
+          "page_printed": 117,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il est debout à éplucher des carottes.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Describes an activity performed while standing; debout is invariable."
+      ]
+    }
   },
   {
     "entity_key": "être en forme",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to be in shape",
-      "to be fit",
-      "to feel well",
-      "to be in good form"
-    ],
-    "canonical_form": "être en forme"
+    "related_context": {
+      "canonical_form": "être en forme",
+      "display_form": "être en forme",
+      "english": [
+        "to be in shape",
+        "to be fit",
+        "to feel well",
+        "to be in good form"
+      ],
+      "expression_type": "collocation",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "forme",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [
+        "en"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "en",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "in shape",
+        "être en forme"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The gerund",
+          "page_printed": 129,
+          "page_pdf": 143,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "C'est en (faire) de l'exercice que vous serez en forme.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Can refer to physical fitness, good health, energy, or readiness, depending on context."
+      ]
+    }
   },
   {
     "entity_key": "être en panne",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to be broken down",
-      "to be out of order",
-      "not to be working"
-    ],
-    "canonical_form": "être en panne"
+    "related_context": {
+      "canonical_form": "être en panne",
+      "display_form": "être en panne",
+      "english": [
+        "to be broken down",
+        "to be out of order",
+        "not to be working"
+      ],
+      "expression_type": "collocation",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "panne",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "en",
+        "followed_by": "none"
+      },
+      "transformations": [],
+      "aliases": [
+        "tomber en panne"
+      ],
+      "search_terms": [
+        "breakdown",
+        "panne"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        11
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "Uses of the past conditional",
+          "page_printed": 94,
+          "page_pdf": 108,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Vous (arriver) à temps si votre voiture (ne pas tomber) en panne.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Describes the state of a machine or vehicle that is not functioning; tomber en panne describes the moment it breaks down."
+      ]
+    }
   },
   {
     "entity_key": "être en train de + infinitif",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to be in the process of",
-      "to be doing"
-    ],
-    "canonical_form": "être en train de + infinitif"
+    "related_context": {
+      "canonical_form": "être en train de + infinitif",
+      "display_form": "être en train de + infinitif",
+      "english": [
+        "to be in the process of",
+        "to be doing"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "être (conjugated) + en train de + infinitive",
+      "pattern_slots": [
+        {
+          "name": "subject",
+          "display": "subject pronoun",
+          "slot_type": "person",
+          "required": true
+        },
+        {
+          "name": "verb",
+          "display": "infinitive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Être en train de + infinitive"
+      ],
+      "related_concepts": [
+        "Present tense",
+        "Usage"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "de",
+        "followed_by": "infinitive"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "en train de",
+        "être en train de"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [
+        "progressive aspect",
+        "ongoing action"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "Common for progressive actions.",
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "When is the present tense used in French?",
+          "page_printed": 9,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "être en train de + the infinitive form of the verb is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Emphasizes that an action is in progress at the reference moment; French often uses the simple present when this emphasis is unnecessary."
+      ]
+    }
   },
   {
     "entity_key": "être en vacances",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to be on vacation"
-    ],
-    "canonical_form": "être en vacances"
+    "related_context": {
+      "canonical_form": "être en vacances",
+      "display_form": "être en vacances",
+      "english": [
+        "to be on vacation"
+      ],
+      "expression_type": "collocation",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [
+        {
+          "canonical_form": "vacances",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Commerce and professions"
+      ],
+      "prepositions": [
+        "en"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "en",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "on vacation"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Expressing duration",
+          "page_printed": 216,
+          "page_pdf": 230,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Depuis combien de temps est-il en vacances?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "être rouillé(e)",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to be rusty",
-      "to be out of practice"
-    ],
-    "canonical_form": "être rouillé(e)"
+    "related_context": {
+      "canonical_form": "être rouillé(e)",
+      "display_form": "être rouillé(e)",
+      "english": [
+        "to be rusty",
+        "to be out of practice"
+      ],
+      "expression_type": "collocation",
+      "productive": false,
+      "pattern": "être + rouillé(e)",
+      "pattern_slots": [],
+      "related_verbs": [
+        "être rouillé(e)"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "school and education vocabulary"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "adjective"
+      },
+      "transformations": [],
+      "aliases": [
+        "être rouillé"
+      ],
+      "search_terms": [
+        "be rusty",
+        "etre rouille"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "Vocabulaire",
+          "page_printed": 72,
+          "page_pdf": 86,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "être rouillé(e) to be rusty",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Figuratively describes a skill weakened through lack of practice; rouillé agrees with the person described."
+      ],
+      "register": "informal"
+    }
   },
   {
     "entity_key": "être sage",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to be good",
-      "to be well-behaved",
-      "to be sensible"
-    ],
-    "canonical_form": "être sage"
+    "related_context": {
+      "canonical_form": "être sage",
+      "display_form": "être sage",
+      "english": [
+        "to be good",
+        "to be well-behaved",
+        "to be sensible"
+      ],
+      "expression_type": "collocation",
+      "productive": false,
+      "pattern": "être sage",
+      "pattern_slots": [],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "irregular imperative forms"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "adjective"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "be good",
+        "être sage"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "Irregular imperative forms",
+          "page_printed": 149,
+          "page_pdf": 163,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Sois sage!",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Applied to children, sage usually means well-behaved rather than morally good."
+      ]
+    }
   },
   {
     "entity_key": "être à + disjunctive pronoun",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to belong to"
-    ],
-    "canonical_form": "être à + disjunctive pronoun"
+    "related_context": {
+      "canonical_form": "être à + disjunctive pronoun",
+      "display_form": "être à + pronom disjoint",
+      "english": [
+        "to belong to"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "être à [disjunctive pronoun]",
+      "pattern_slots": [
+        {
+          "name": "pronoun",
+          "display": "pronom disjoint",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Expressing possession with être à + disjunctive pronoun/noun"
+      ],
+      "related_concepts": [
+        "Expressing possession with être à"
+      ],
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "à",
+        "followed_by": "unknown"
+      },
+      "transformations": [],
+      "aliases": [
+        "être à + nom"
+      ],
+      "search_terms": [
+        "c'est à moi",
+        "être à moi"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "followed_by:pronoun"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Expressing possession with être à",
+          "page_printed": 196,
+          "page_pdf": 210,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Another way of expressing possession is to use être à + a noun or a disjunctive pronoun.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Ownership is expressed with à followed by a stressed pronoun: c’est à moi, à toi, à lui, à elle, à nous, à vous, or à eux."
+      ]
+    }
   }
 ]
 ================================================================================

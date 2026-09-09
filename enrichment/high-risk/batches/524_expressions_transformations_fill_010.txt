@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,101 +44,899 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "ce n'est pas du fromage",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "it's not cheese"
-    ],
-    "canonical_form": "ce n'est pas du fromage"
+    "related_context": {
+      "canonical_form": "ce n'est pas du fromage",
+      "display_form": "ce n’est pas du fromage",
+      "english": [
+        "it's not cheese"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": true,
+      "pattern": "ce n'est pas du/de la/de l'/des + noun",
+      "pattern_slots": [
+        {
+          "name": "noun",
+          "display": "noun",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "fromage",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [
+        "Partitive article in negative sentences"
+      ],
+      "related_concepts": [
+        "Negation",
+        "partitive article"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "negative form with être retains partitive"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "ce n'est pas du fromage",
+        "it's not cheese"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "The partitive article",
+          "page_printed": 154,
+          "page_pdf": 168,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ce n’est pas du fromage de chèvre.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "ce que",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "what",
-      "that which"
-    ],
-    "canonical_form": "ce que"
+    "related_context": {
+      "canonical_form": "ce que",
+      "display_form": "ce que",
+      "english": [
+        "what",
+        "that which"
+      ],
+      "expression_type": "functional_phrase",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Ce + relative at beginning for emphasis",
+        "Ce que as direct object of idea"
+      ],
+      "related_concepts": [
+        "Relative pronouns"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "no gender or number",
+        "refers to ideas, not persons"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "ce que",
+        "what"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Ce que, ce qui, ce dont, ce à quoi",
+          "page_printed": 209,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ce que is used as the direct object of the dependent clause.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Ce que introduit une relative sans antécédent lorsque le pronom est complément direct du verbe suivant."
+      ]
+    }
   },
   {
     "entity_key": "ce qui",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "what",
-      "that which"
-    ],
-    "canonical_form": "ce qui"
+    "related_context": {
+      "canonical_form": "ce qui",
+      "display_form": "ce qui",
+      "english": [
+        "what",
+        "that which"
+      ],
+      "expression_type": "functional_phrase",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Ce + relative at beginning for emphasis",
+        "Ce qui as subject of idea"
+      ],
+      "related_concepts": [
+        "Relative pronouns"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "no gender or number",
+        "refers to ideas, not persons"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "ce qui",
+        "what"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Ce que, ce qui, ce dont, ce à quoi",
+          "page_printed": 209,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ce qui is used as the subject of the dependent clause.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Ce qui introduit une relative sans antécédent lorsque le pronom est sujet du verbe suivant."
+      ]
+    }
   },
   {
     "entity_key": "ce à quoi",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "what",
-      "that to which"
-    ],
-    "canonical_form": "ce à quoi"
+    "related_context": {
+      "canonical_form": "ce à quoi",
+      "display_form": "ce à quoi",
+      "english": [
+        "what",
+        "that to which"
+      ],
+      "expression_type": "functional_phrase",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Ce + relative at beginning for emphasis",
+        "Ce à quoi for verbs with à"
+      ],
+      "related_concepts": [
+        "Prepositions",
+        "Relative pronouns"
+      ],
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "à",
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "used with verbs requiring à"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "ce a quoi",
+        "ce à quoi",
+        "what"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Ce que, ce qui, ce dont, ce à quoi",
+          "page_printed": 209,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ce à quoi is used with verbs that take the preposition à.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Ce à quoi remplace ce + complément introduit par à: c’est ce à quoi je pense."
+      ]
+    }
   },
   {
     "entity_key": "cela fait... que",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "for (duration)"
-    ],
-    "canonical_form": "cela fait... que"
+    "related_context": {
+      "canonical_form": "cela fait... que",
+      "display_form": "cela fait [duration] que",
+      "english": [
+        "for (duration)"
+      ],
+      "expression_type": "time_expression",
+      "productive": true,
+      "pattern": "cela/ça fait + [duration] + que + [clause]",
+      "pattern_slots": [
+        {
+          "name": "duration",
+          "display": "duration",
+          "slot_type": "noun",
+          "required": true
+        },
+        {
+          "name": "clause",
+          "display": "clause",
+          "slot_type": "clause",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Duration with depuis, il y a... que, cela/ça fait... que"
+      ],
+      "related_concepts": [
+        "Duration"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "Used with present tense"
+      ],
+      "aliases": [
+        "ça fait... que"
+      ],
+      "search_terms": [
+        "cela fait que",
+        "for ... now",
+        "ça fait que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 4,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Expressing duration",
+          "page_printed": 215,
+          "page_pdf": 229,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "cela (ça) fait... que",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Avec un verbe au présent, cela fait… que indique une action commencée dans le passé et toujours en cours; ça fait… que est la variante courante à l’oral."
+      ]
+    }
   },
   {
     "entity_key": "cela ne vaut pas la peine que + subjonctif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "it is not worth it that",
-      "it is not worth someone doing"
-    ],
-    "canonical_form": "cela ne vaut pas la peine que + subjonctif"
+    "related_context": {
+      "canonical_form": "cela ne vaut pas la peine que + subjonctif",
+      "display_form": "cela ne vaut pas la peine que",
+      "english": [
+        "it is not worth it that",
+        "it is not worth someone doing"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": "cela ne vaut pas la peine que + subjonctif",
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Impersonal expressions followed by the subjunctive"
+      ],
+      "related_concepts": [
+        "Impersonal expressions"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "cela ne vaut pas la peine que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "impersonal_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Impersonal expressions and the subjunctive",
+          "page_printed": 107,
+          "page_pdf": 121,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "cela ne vaut pas la peine",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "La proposition introduite par que se met au subjonctif; avec le même sujet, ne pas valoir la peine de + infinitif est généralement plus naturel."
+      ]
+    }
   },
   {
     "entity_key": "changer de coiffure",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to change haircut"
-    ],
-    "canonical_form": "changer de coiffure"
+    "related_context": {
+      "canonical_form": "changer de coiffure",
+      "display_form": "changer de coiffure",
+      "english": [
+        "to change haircut"
+      ],
+      "expression_type": "collocation",
+      "productive": true,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [
+        {
+          "canonical_form": "coiffure",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "de",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "change haircut",
+        "changer de coiffure"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Would",
+          "page_printed": 102,
+          "page_pdf": 116,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Don’t you think you should change your haircut?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "chaque année",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "every year"
-    ],
-    "canonical_form": "chaque année"
+    "related_context": {
+      "canonical_form": "chaque année",
+      "display_form": "chaque année",
+      "english": [
+        "every year"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "yearly",
+        "annually"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "every year chaque année",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "chaque jour",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "every day"
-    ],
-    "canonical_form": "chaque jour"
+    "related_context": {
+      "canonical_form": "chaque jour",
+      "display_form": "chaque jour",
+      "english": [
+        "every day"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Frequency"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "aliases": [
+        "tous les jours"
+      ],
+      "search_terms": [
+        "every day",
+        "daily"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "frequency_expression",
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Common",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "chaque jour\tevery day",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "every day chaque jour, tous les jours",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "chaque mois",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "every month"
-    ],
-    "canonical_form": "chaque mois"
+    "related_context": {
+      "canonical_form": "chaque mois",
+      "display_form": "chaque mois",
+      "english": [
+        "every month"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "monthly"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "every month chaque mois",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

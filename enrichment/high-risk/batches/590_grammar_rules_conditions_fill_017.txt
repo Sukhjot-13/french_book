@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,113 +44,841 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Tenir de + person",
     "field": "conditions",
     "current_value": [],
-    "summary": "tenir de means to take after someone.",
-    "usage": [
-      "To express resemblance to a family member."
-    ],
-    "rule_name": "Tenir de + person"
+    "related_context": {
+      "rule_name": "Tenir de + person",
+      "summary": "tenir de means to take after someone.",
+      "explanation": "tenir de + person means to resemble or take after that person.",
+      "formation": "tenir (conjugated) + de + person",
+      "usage": [
+        "To express resemblance to a family member."
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "tenir de"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "Subject + tenir conjugated + de + person",
+      "negative_form": "ne + tenir conjugated + pas + de + person",
+      "interrogative_form": "Est-ce que + subject + tenir conjugated + de + person?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using à instead of de."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Preposition de"
+      ],
+      "related_expressions": [
+        "tenir de [quelqu'un]"
+      ],
+      "related_verbs": [
+        "tenir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "Tenir",
+          "page_printed": 53,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "De qui tient-elle? Whom does she take after? Elle tient de sa mère. She takes after her mother.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Tenir à + noun/verb",
     "field": "conditions",
     "current_value": [],
-    "summary": "tenir à means to be attached to something or to insist on doing something.",
-    "usage": [
-      "To express attachment.",
-      "To express insistence."
-    ],
-    "rule_name": "Tenir à + noun/verb"
+    "related_context": {
+      "rule_name": "Tenir à + noun/verb",
+      "summary": "tenir à means to be attached to something or to insist on doing something.",
+      "explanation": "When used with the preposition à, tenir means to be attached to (someone or something) or to insist on (doing something).",
+      "formation": "tenir (conjugated) + à + noun/infinitive",
+      "usage": [
+        "To express attachment.",
+        "To express insistence."
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "tenir à"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "Subject + tenir conjugated + à + object/infinitive",
+      "negative_form": "ne + tenir conjugated + pas + à + object/infinitive",
+      "interrogative_form": "Est-ce que + subject + tenir conjugated + à + object/infinitive?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Confusing à with de."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Preposition à"
+      ],
+      "related_expressions": [
+        "tenir à [quelque chose/quelqu'un/infinitive]"
+      ],
+      "related_verbs": [
+        "tenir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "Tenir",
+          "page_printed": 53,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When used with the preposition à or de, tenir takes on another meaning. Elle tient à ses bijoux. She is attached to her jewels. Ils tiennent à leurs habitudes. They are attached to their habits. Marc tient à vous voir. Marc insists on seeing you.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Tout + gerund expresses contradiction",
     "field": "conditions",
     "current_value": [],
-    "summary": "When tout precedes the gerund, it underscores a tension or contradiction between two actions.",
-    "usage": [
-      "to express tension/contradiction"
-    ],
-    "rule_name": "Tout + gerund expresses contradiction"
+    "related_context": {
+      "rule_name": "Tout + gerund expresses contradiction",
+      "summary": "When tout precedes the gerund, it underscores a tension or contradiction between two actions.",
+      "explanation": "Examples: Tout en étant un bon joueur, il ne marquait jamais de but. Tout en faisant semblant d'écouter le professeur, il jouait avec son iPod. Tout en pleurant, il riait. Tout en prétendant le contraire, elle voulait être élue.",
+      "formation": "tout + en + present participle",
+      "usage": [
+        "to express tension/contradiction"
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "tout en"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "tout en + present participle",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "do not interpret as simple simultaneity"
+      ],
+      "related_tenses": [
+        "participe présent"
+      ],
+      "related_concepts": [
+        "gerund"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "tout en",
+        "gerund",
+        "concession"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The gerund",
+          "page_printed": 129,
+          "page_pdf": 143,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When tout precedes the gerund, it underscores a tension, a contradiction between two actions.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Tu vs vous",
     "field": "conditions",
     "current_value": [],
-    "summary": "Use tu with friends, family, children, animals; use vous with strangers or to maintain distance/respect. Contemporary trend is toward familiarity among peers.",
-    "usage": [
-      "Addressing friends, family, children, animals with tu.",
-      "Addressing strangers or showing respect with vous."
-    ],
-    "rule_name": "Tu vs vous"
+    "related_context": {
+      "rule_name": "Tu vs vous",
+      "summary": "Use tu with friends, family, children, animals; use vous with strangers or to maintain distance/respect. Contemporary trend is toward familiarity among peers.",
+      "explanation": "Tu is informal; vous is formal or plural.",
+      "formation": null,
+      "usage": [
+        "Addressing friends, family, children, animals with tu.",
+        "Addressing strangers or showing respect with vous."
+      ],
+      "restrictions": [
+        "Let the native speaker initiate first exchange with tu."
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using tu when vous is appropriate can be perceived as rude."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Subject pronoun"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "forms of address",
+        "register",
+        "sociolinguistics"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Very common",
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "Subject pronouns",
+          "page_printed": 180,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Use tu and its verb forms to talk to friends, family members, children, and animals. Use vous when you are addressing a stranger or someone you don’t know well, or to maintain a certain degree of distance or respect.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Use of futur antérieur for completed future action",
     "field": "conditions",
     "current_value": [],
-    "summary": "Futur antérieur expresses an action that will be completed before another future action.",
-    "usage": [
-      "to express completion before a future point"
-    ],
-    "rule_name": "Use of futur antérieur for completed future action"
+    "related_context": {
+      "rule_name": "Use of futur antérieur for completed future action",
+      "summary": "Futur antérieur expresses an action that will be completed before another future action.",
+      "explanation": "The futur antérieur describes an action that will take place and be completed before another future action.",
+      "formation": null,
+      "usage": [
+        "to express completion before a future point"
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "d'ici",
+        "avant",
+        "quand",
+        "dès que"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "using futur simple when anteriority is intended"
+      ],
+      "related_tenses": [
+        "futur antérieur"
+      ],
+      "related_concepts": [
+        "anteriority",
+        "futur antérieur"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "enseigner",
+        "verb_resoudre"
+      ],
+      "tags": [
+        "futur antérieur",
+        "future anteriority",
+        "completed action"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur antérieur",
+          "page_printed": 77,
+          "page_pdf": 91,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The futur antérieur describes an action that will take place and be completed before another future action.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Use of futur simple for future events",
     "field": "conditions",
     "current_value": [],
-    "summary": "The futur simple describes future events, as in English.",
-    "usage": [
-      "to describe future actions or states"
-    ],
-    "rule_name": "Use of futur simple for future events"
+    "related_context": {
+      "rule_name": "Use of futur simple for future events",
+      "summary": "The futur simple describes future events, as in English.",
+      "explanation": "As in English, the French future tense is used to describe future events.",
+      "formation": null,
+      "usage": [
+        "to describe future actions or states"
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "demain",
+        "plus tard",
+        "quand",
+        "dès que",
+        "lorsque"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": "ne ... pas",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "futur simple"
+      ],
+      "related_concepts": [
+        "futur simple"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "passer",
+        "verb_recommencer"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur simple",
+          "page_printed": 74,
+          "page_pdf": 88,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "As in English, the French future tense is used to describe future events.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Use of subjunctive after expressions of doubt",
     "field": "conditions",
     "current_value": [],
-    "summary": "The subjunctive is used after expressions of doubt.",
-    "usage": [
-      "Expressing uncertainty or denial."
-    ],
-    "rule_name": "Use of subjunctive after expressions of doubt"
+    "related_context": {
+      "rule_name": "Use of subjunctive after expressions of doubt",
+      "summary": "The subjunctive is used after expressions of doubt.",
+      "explanation": "Verbs like douter, ne pas croire, ne pas penser, etc. are followed by the subjunctive.",
+      "formation": "Expression of doubt + que + subjunctive.",
+      "usage": [
+        "Expressing uncertainty or denial."
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "douter que",
+        "ne pas croire que",
+        "ne pas penser que",
+        "ne pas être convaincu que"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "subjonctif présent"
+      ],
+      "related_concepts": [
+        "Doubt"
+      ],
+      "related_expressions": [
+        "douter que + subjonctif",
+        "ne pas croire que + subjonctif",
+        "ne pas penser que + subjonctif"
+      ],
+      "related_verbs": [
+        "croire",
+        "douter",
+        "penser"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Subjunctive after expressions of doubt",
+          "page_printed": 107,
+          "page_pdf": 121,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The subjunctive is also used after expressions of doubt.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Use of subjunctive after expressions of emotion",
     "field": "conditions",
     "current_value": [],
-    "summary": "The subjunctive is used after expressions of emotion.",
-    "usage": [
-      "Expressing emotions about events."
-    ],
-    "rule_name": "Use of subjunctive after expressions of emotion"
+    "related_context": {
+      "rule_name": "Use of subjunctive after expressions of emotion",
+      "summary": "The subjunctive is used after expressions of emotion.",
+      "explanation": "Expressions of emotion such as regretter, être ravi, être déçu, être content, etc. are followed by que + subjunctive.",
+      "formation": "Expression of emotion + que + subjunctive.",
+      "usage": [
+        "Expressing emotions about events."
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "regretter que",
+        "être ravi que",
+        "être déçu que",
+        "être content que",
+        "avoir peur que"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "subjonctif présent"
+      ],
+      "related_concepts": [
+        "Emotion"
+      ],
+      "related_expressions": [
+        "regretter que + subjonctif",
+        "être content(e)(s) que + subjonctif",
+        "être déçu(e)(s) que + subjonctif",
+        "être ravi(e)(s) que + subjonctif"
+      ],
+      "related_verbs": [
+        "regretter",
+        "être"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Subjunctive after expressions of emotion",
+          "page_printed": 106,
+          "page_pdf": 120,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The subjunctive is used after expressions of emotion.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Uses of on",
     "field": "conditions",
     "current_value": [],
-    "summary": "On can mean one, we, they, or people in general; it can also replace a passive voice.",
-    "usage": [
-      "Indefinite person: On voudrait tout réussir.",
-      "People in general: En France, on boit du vin.",
-      "Informal nous: On va au cinéma cet après-midi?",
-      "Informal tu: Alors, on se promène au lieu de faire ses devoirs!",
-      "Passive: Ici, on parle anglais."
-    ],
-    "rule_name": "Uses of on"
+    "related_context": {
+      "rule_name": "Uses of on",
+      "summary": "On can mean one, we, they, or people in general; it can also replace a passive voice.",
+      "explanation": "On has multiple meanings depending on context: indefinite person, general people, informal nous, informal tu, and passive equivalent.",
+      "formation": "on + verb",
+      "usage": [
+        "Indefinite person: On voudrait tout réussir.",
+        "People in general: En France, on boit du vin.",
+        "Informal nous: On va au cinéma cet après-midi?",
+        "Informal tu: Alors, on se promène au lieu de faire ses devoirs!",
+        "Passive: Ici, on parle anglais."
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": "on ne ... pas",
+      "interrogative_form": "on + inversion? Not shown.",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Distinguish between the different meanings of on based on context."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Subject pronoun"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Very common",
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "Subject pronouns",
+          "page_printed": 180,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The pronoun on has several meanings.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Using on instead of passive",
     "field": "conditions",
     "current_value": [],
-    "summary": "French often uses the pronoun on (third-person singular) to avoid the passive voice.",
-    "usage": [
-      "To avoid the passive voice."
-    ],
-    "rule_name": "Using on instead of passive"
+    "related_context": {
+      "rule_name": "Using on instead of passive",
+      "summary": "French often uses the pronoun on (third-person singular) to avoid the passive voice.",
+      "explanation": "The impersonal on construction is preferred in many cases where English would use the passive.",
+      "formation": "on + verb (third-person singular)",
+      "usage": [
+        "To avoid the passive voice."
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "on as passive alternative"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "demander",
+        "parler"
+      ],
+      "tags": [
+        "on",
+        "passive alternative",
+        "active construction"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 140,
+          "page_pdf": 154,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "French often prefers to use the third-person singular form on rather than the passive voice construction.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

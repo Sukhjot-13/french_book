@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,67 +44,1043 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "tense",
+      "persons",
+      "stem",
+      "note"
+    ],
+    "properties": {
+      "tense": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "persons": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "je",
+            "tu",
+            "il_elle_on",
+            "nous",
+            "vous",
+            "ils_elles",
+            "all",
+            "other"
+          ]
+        },
+        "uniqueItems": true
+      },
+      "stem": {
+        "type": "string",
+        "minLength": 1
+      },
+      "note": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    }
+  }
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "mordre",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "bite",
-      "to bite"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "mordre",
+      "display_form": "mordre",
+      "english": [
+        "bite",
+        "to bite"
+      ],
+      "senses": [
+        {
+          "english": "to bite",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "mordu",
+      "present_participle": null,
+      "conjugations": [
+        {
+          "tense": "présent",
+          "mood": "indicative",
+          "forms": {
+            "je": "mords",
+            "tu": null,
+            "il_elle_on": null,
+            "nous": null,
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Partial: je form"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "2.json",
+              "chapter_number": 2,
+              "section_title": "-re verbs in the present",
+              "page_printed": 30,
+              "page_pdf": null,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "je mords",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [],
+      "related_concepts": [
+        "-re verbs",
+        "Regular conjugation"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "mordre"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        2,
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Exercice 17·1",
+          "page_printed": 137,
+          "page_pdf": 151,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Le chien a mordu l'homme au chapeau gris.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "-re verbs in the present",
+          "page_printed": 30,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "mordre to bite",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "bite, to mordre",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "mourir",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "die",
-      "to die"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "etre",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "mourir",
+      "display_form": "mourir",
+      "english": [
+        "die",
+        "to die"
+      ],
+      "senses": [
+        {
+          "english": "to die",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": false,
+      "transitivity": [
+        "intransitive"
+      ],
+      "auxiliary": "etre",
+      "past_participle": "mort",
+      "present_participle": "mourant",
+      "conjugations": [
+        {
+          "tense": "passé simple",
+          "mood": "indicative",
+          "forms": {
+            "je": null,
+            "tu": null,
+            "il_elle_on": "mourut",
+            "nous": null,
+            "vous": null,
+            "ils_elles": "moururent",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Only third-person forms provided."
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "16.json",
+              "chapter_number": 16,
+              "section_title": "The passé simple of irregular verbs",
+              "page_printed": 133,
+              "page_pdf": 147,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "mourir: il/elle mourut, ils/elles moururent",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "présent",
+          "mood": "indicative",
+          "forms": {
+            "je": "meurs",
+            "tu": "meurs",
+            "il_elle_on": "meurt",
+            "nous": "mourons",
+            "vous": "mourez",
+            "ils_elles": "meurent",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Partial: je and nous forms"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "2.json",
+              "chapter_number": 2,
+              "section_title": "Type 2 -ir verbs",
+              "page_printed": 28,
+              "page_pdf": null,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "je meurs ... nous mourons",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            },
+            {
+              "source_type": "verb_table",
+              "source_name": "verb_table.json",
+              "chapter_number": null,
+              "section_title": null,
+              "page_printed": 239,
+              "page_pdf": 253,
+              "context_type": null,
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": "verb_table_irregular_verbs",
+              "table_type": null,
+              "row_label": "mourir",
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "mourir mort meurs meurs meurt mourons mourez meurent",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "futur simple",
+          "mood": "indicative",
+          "forms": {
+            "je": "mourrai",
+            "tu": null,
+            "il_elle_on": null,
+            "nous": null,
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [
+            {
+              "tense": "futur simple",
+              "persons": [
+                "all"
+              ],
+              "stem": "mourr-",
+              "note": null
+            }
+          ],
+          "endings": [
+            "-ai"
+          ],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Irregular stem"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "9.json",
+              "chapter_number": 9,
+              "section_title": "The futur simple",
+              "page_printed": 73,
+              "page_pdf": 87,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "mourir je mourrai",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [],
+      "related_concepts": [
+        "-ir verbs",
+        "Irregular conjugation",
+        "Irregular verbs in passé simple",
+        "Movement verbs with être",
+        "Passé simple",
+        "irregular future stems"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "die",
+        "mort",
+        "mourir"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Common verb.",
+        "notes": null
+      },
+      "chapters": [
+        2,
+        7,
+        9,
+        16
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "The passé simple of irregular verbs",
+          "page_printed": 133,
+          "page_pdf": 147,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "mourir (to die)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "Type 2 -ir verbs",
+          "page_printed": 28,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "mourir to die",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "The passé composé with être",
+          "page_printed": 74,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "mourir to die",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur simple",
+          "page_printed": 73,
+          "page_pdf": 87,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "mourir to die je mourrai I'll die",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 252,
+          "page_pdf": 266,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "die, to mourir",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "verb_table",
+          "source_name": "verb_table.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 239,
+          "page_pdf": 253,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": "verb_table_irregular_verbs",
+          "table_type": null,
+          "row_label": "mourir",
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "mourir mort meurs meurs meurt mourons mourez meurent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "mélanger",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "mix",
-      "to mix"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "mélanger",
+      "display_form": "mélanger",
+      "english": [
+        "mix",
+        "to mix"
+      ],
+      "senses": [
+        {
+          "english": "to mix",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "mélangé",
+      "present_participle": "mélangeant",
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [
+        "Regular -er verbs",
+        "spelling changes in future"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "melanger",
+        "mélanger"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "Verbs ending in -ger",
+          "page_printed": 6,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "nous mélangeons we mix",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "mix, to mélanger",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "mériter",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "deserve",
-      "to deserve"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "mériter",
+      "display_form": "mériter",
+      "english": [
+        "deserve",
+        "to deserve"
+      ],
+      "senses": [
+        {
+          "english": "to deserve",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "mérité",
+      "present_participle": "mérant",
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [
+        "Regular -er verbs"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "meriter",
+        "mériter"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "Common regular -er verbs",
+          "page_printed": 2,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "mériter to deserve",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 252,
+          "page_pdf": 266,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "deserve, to mériter",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "nager",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "swim",
-      "to swim"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "nager",
+      "display_form": "nager",
+      "english": [
+        "swim",
+        "to swim"
+      ],
+      "senses": [
+        {
+          "english": "to swim",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "intransitive",
+        "unknown"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "nagé",
+      "present_participle": "nageant",
+      "conjugations": [
+        {
+          "tense": "participe présent",
+          "mood": "participle",
+          "forms": {
+            "je": null,
+            "tu": null,
+            "il_elle_on": null,
+            "nous": null,
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "spelling change: g -> ge"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "15.json",
+              "chapter_number": 15,
+              "section_title": "The present participle",
+              "page_printed": 126,
+              "page_pdf": 140,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "nous nageons we swim nageant swimming",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [],
+      "related_concepts": [
+        "Regular -er verbs",
+        "present participle",
+        "spelling changes in future"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "nager"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1,
+        8,
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "Verbs ending in -ger",
+          "page_printed": 6,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "nous nageons we swim",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The present participle",
+          "page_printed": 126,
+          "page_pdf": 140,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "nager to swim",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Formation of the imparfait",
+          "page_printed": 65,
+          "page_pdf": 79,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "nous nagions we swam",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 257,
+          "page_pdf": 271,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "swim, to nager",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

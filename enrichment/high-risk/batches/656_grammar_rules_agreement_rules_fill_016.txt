@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,109 +44,830 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Present conditional for wish or suggestion",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The present conditional expresses a wish or a suggestion.",
-    "usage": [
-      "wish",
-      "suggestion"
-    ],
-    "rule_name": "Present conditional for wish or suggestion"
+    "related_context": {
+      "rule_name": "Present conditional for wish or suggestion",
+      "summary": "The present conditional expresses a wish or a suggestion.",
+      "explanation": "Used to soften requests or express desires.",
+      "formation": "conditional form of verb",
+      "usage": [
+        "wish",
+        "suggestion"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "conditionnel présent"
+      ],
+      "related_concepts": [
+        "Present conditional"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "aimer",
+        "parier",
+        "vouloir",
+        "être"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        11
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "Uses of the present conditional",
+          "page_printed": 88,
+          "page_pdf": 102,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The présent du conditionnel is used to express a wish or a suggestion.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Present conditional with si clause in imparfait",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "When the main clause is in the present conditional, the si clause is in the imparfait.",
-    "usage": [
-      "hypothetical condition"
-    ],
-    "rule_name": "Present conditional with si clause in imparfait"
+    "related_context": {
+      "rule_name": "Present conditional with si clause in imparfait",
+      "summary": "When the main clause is in the present conditional, the si clause is in the imparfait.",
+      "explanation": "Expresses hypothetical situations in the present or future.",
+      "formation": "si + imparfait, main clause in present conditional",
+      "usage": [
+        "hypothetical condition"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "si clause must be in imparfait"
+      ],
+      "signal_words": [
+        "si"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use present conditional in the si clause."
+      ],
+      "related_tenses": [
+        "conditionnel présent",
+        "imparfait"
+      ],
+      "related_concepts": [
+        "Hypothetical si clauses"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "si clauses",
+        "hypothesis",
+        "present conditional"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "very common",
+        "notes": null
+      },
+      "chapters": [
+        11
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "Uses of the present conditional",
+          "page_printed": 89,
+          "page_pdf": 103,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The présent du conditionnel is used when a condition is implied. When the main clause is in the présent du conditionnel, the si clause is in the imparfait.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Present participle of pronominal verbs",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Pronominal verbs follow the same pattern, but include the reflexive pronoun corresponding to the subject.",
-    "usage": [
-      "for pronominal verbs"
-    ],
-    "rule_name": "Present participle of pronominal verbs"
+    "related_context": {
+      "rule_name": "Present participle of pronominal verbs",
+      "summary": "Pronominal verbs follow the same pattern, but include the reflexive pronoun corresponding to the subject.",
+      "explanation": "Example with se promener: me promenant, te promenant, se promenant, nous promenant, vous promenant, se promenant.",
+      "formation": "pronoun + present participle (stem + -ant)",
+      "usage": [
+        "for pronominal verbs"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": "pronoun before participle",
+      "negative_form": "ne + pronoun + participle + pas",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "don't forget the pronoun"
+      ],
+      "related_tenses": [
+        "participe présent"
+      ],
+      "related_concepts": [
+        "pronominal present participle"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "se promener"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The present participle",
+          "page_printed": 127,
+          "page_pdf": 141,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Pronominal verbs follow the same pattern. Do not forget the pronoun corresponding to the subject. Let's look at the present participle of se promener.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Present tense for close future",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The present tense can be used to express a near future event.",
-    "usage": [
-      "Close future"
-    ],
-    "rule_name": "Present tense for close future"
+    "related_context": {
+      "rule_name": "Present tense for close future",
+      "summary": "The present tense can be used to express a near future event.",
+      "explanation": "Often used with time expressions indicating future, like demain soir.",
+      "formation": "Present tense verb + future time expression",
+      "usage": [
+        "Close future"
+      ],
+      "restrictions": [
+        "Usually with explicit future time reference"
+      ],
+      "conditions": [
+        "Event is imminent or planned"
+      ],
+      "signal_words": [
+        "demain",
+        "en fin de semaine"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using future tense unnecessarily"
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Present tense",
+        "Usage"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "parler",
+        "partir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "Common in spoken French.",
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "When is the present tense used in French?",
+          "page_printed": 9,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "To express a close future",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Present tense for dramatic narration",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The present tense can describe past events dramatically.",
-    "usage": [
-      "Dramatic narrative"
-    ],
-    "rule_name": "Present tense for dramatic narration"
+    "related_context": {
+      "rule_name": "Present tense for dramatic narration",
+      "summary": "The present tense can describe past events dramatically.",
+      "explanation": "Used to make narrative more vivid.",
+      "formation": "Present tense",
+      "usage": [
+        "Dramatic narrative"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Present tense",
+        "Usage"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "avancer",
+        "entrer"
+      ],
+      "tags": [
+        "historical present",
+        "narration",
+        "stylistic effect"
+      ],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 2,
+        "frequency_note": "Narrative style.",
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "When is the present tense used in French?",
+          "page_printed": 9,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "To describe past events more dramatically",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Present tense for general statements and ongoing actions",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The present indicative can express general truths and actions happening now, translatable as simple present, present progressive, or emphatic present.",
-    "usage": [
-      "General statements",
-      "Ongoing actions"
-    ],
-    "rule_name": "Present tense for general statements and ongoing actions"
+    "related_context": {
+      "rule_name": "Present tense for general statements and ongoing actions",
+      "summary": "The present indicative can express general truths and actions happening now, translatable as simple present, present progressive, or emphatic present.",
+      "explanation": "The same French present tense corresponds to three English forms: simple present, present progressive, and emphatic present.",
+      "formation": "Conjugated verb in present tense",
+      "usage": [
+        "General statements",
+        "Ongoing actions"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "Can be translated as 'is doing', 'does', or 'does do'"
+      ],
+      "contrast_with": [],
+      "common_traps": [
+        "Using only one English translation"
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Present tense",
+        "Usage"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "parler",
+        "regarder"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Core use.",
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "When is the present tense used in French?",
+          "page_printed": 9,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "To make a general statement and to describe ongoing actions in the present. It can be translated in three different ways.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Present tense for habitual actions",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The present tense expresses habitual or repeated actions.",
-    "usage": [
-      "Habitual actions"
-    ],
-    "rule_name": "Present tense for habitual actions"
+    "related_context": {
+      "rule_name": "Present tense for habitual actions",
+      "summary": "The present tense expresses habitual or repeated actions.",
+      "explanation": "Often accompanied by adverbs of frequency or time expressions like tous les jours, d'habitude.",
+      "formation": "Present tense + habitual time expression",
+      "usage": [
+        "Habitual actions"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "tous les jours",
+        "d'habitude",
+        "souvent"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Present tense",
+        "Usage"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "acheter",
+        "se lever"
+      ],
+      "tags": [
+        "present tense",
+        "habitual action",
+        "frequency"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": "Common use.",
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "When is the present tense used in French?",
+          "page_printed": 9,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "To express a habitual action",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Present tense for historical facts",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The present tense can narrate historical events for immediacy.",
-    "usage": [
-      "Historical narrative"
-    ],
-    "rule_name": "Present tense for historical facts"
+    "related_context": {
+      "rule_name": "Present tense for historical facts",
+      "summary": "The present tense can narrate historical events for immediacy.",
+      "explanation": "Common in journalistic or literary style.",
+      "formation": "Present tense",
+      "usage": [
+        "Historical narrative"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Present tense",
+        "Usage"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "arriver",
+        "publier"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 2,
+        "frequency_note": "Literary.",
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "When is the present tense used in French?",
+          "page_printed": 9,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "To express a historical fact",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Present tense for past action connected to present",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The present tense can describe a past action that has immediate relevance or consequence in the present.",
-    "usage": [
-      "Past action with present result"
-    ],
-    "rule_name": "Present tense for past action connected to present"
+    "related_context": {
+      "rule_name": "Present tense for past action connected to present",
+      "summary": "The present tense can describe a past action that has immediate relevance or consequence in the present.",
+      "explanation": "Often used with verbs like revenir, rentrer, and expressions like à peine.",
+      "formation": "Present tense verb",
+      "usage": [
+        "Past action with present result"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "Action just completed or still relevant"
+      ],
+      "signal_words": [
+        "à peine",
+        "déjà"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using past tense instead"
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Present tense",
+        "Usage"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "commencer",
+        "revenir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 3,
+        "frequency_note": "Less common but useful.",
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "When is the present tense used in French?",
+          "page_printed": 9,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "To describe a past action closely connected to the present",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Present tense in main clause: no tense change",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "If the main clause verb is in the present tense, the dependent clause verb remains in the same tense as in direct speech.",
-    "usage": [
-      "When reporting speech with present tense main clause"
-    ],
-    "rule_name": "Present tense in main clause: no tense change"
+    "related_context": {
+      "rule_name": "Present tense in main clause: no tense change",
+      "summary": "If the main clause verb is in the present tense, the dependent clause verb remains in the same tense as in direct speech.",
+      "explanation": "No change of tense occurs.",
+      "formation": "Main clause present + dependent clause same tense",
+      "usage": [
+        "When reporting speech with present tense main clause"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "Main clause verb is in present tense"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "No transformation"
+      ],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Indirect speech",
+        "Tense concordance"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        18
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "18.json",
+          "chapter_number": 18,
+          "section_title": "Balancing tenses: la concordance des temps",
+          "page_printed": 142,
+          "page_pdf": 156,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "If the verb in the main clause is in the present tense, the verb in the dependent clause remains in the same tense as it is in the direct speech.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

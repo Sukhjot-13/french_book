@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,11 +44,27 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.prepositions
-- `value` must be an array of strings listing the lexical prepositions governed by the expression or its reusable pattern, in their order of appearance.
-- Normalize contractions to their lexical preposition: record `"à"` for `au`/`aux` and `"de"` for `du`/`des`; do not record a standalone article as a preposition.
-- Include prepositions that are literal and required by the construction, including before a variable complement.
-- Use `[]` when the expression governs no preposition. Do not add prepositions merely because they are common in a translation or possible contextual expansion.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -56,94 +72,852 @@ TARGETS
     "entity_key": "il vaut mieux que + subjonctif",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "it is better that"
-    ],
-    "canonical_form": "il vaut mieux que + subjonctif"
+    "related_context": {
+      "canonical_form": "il vaut mieux que + subjonctif",
+      "display_form": "il vaut mieux que",
+      "english": [
+        "it is better that"
+      ],
+      "expression_type": "other",
+      "productive": true,
+      "pattern": "il vaut mieux que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Impersonal expressions followed by the subjunctive"
+      ],
+      "related_concepts": [
+        "Impersonal expressions"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "il vaut mieux que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "impersonal_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Impersonal expressions and the subjunctive",
+          "page_printed": 107,
+          "page_pdf": 121,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "il vaut mieux",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Expresses advice or preference and requires the subjunctive when followed by an explicit subject and que."
+      ]
+    }
   },
   {
     "entity_key": "il y a",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "there is",
-      "there are"
-    ],
-    "canonical_form": "il y a"
+    "related_context": {
+      "canonical_form": "il y a",
+      "display_form": "il y a",
+      "english": [
+        "there is",
+        "there are"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Il y a expression"
+      ],
+      "related_concepts": [
+        "Il y a"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "il y a"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "Il y a (there is, there are)",
+          "page_printed": 60,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il y a un chat sur le canapé.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "il y a ... que",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "it has been ... since",
-      "for"
-    ],
-    "canonical_form": "il y a ... que"
+    "related_context": {
+      "canonical_form": "il y a ... que",
+      "display_form": "il y a [duration] que",
+      "english": [
+        "it has been ... since",
+        "for"
+      ],
+      "expression_type": "time_expression",
+      "productive": true,
+      "pattern": "il y a + duration + que + clause",
+      "pattern_slots": [
+        {
+          "name": "duration",
+          "display": "duration",
+          "slot_type": "noun",
+          "required": true
+        },
+        {
+          "name": "clause",
+          "display": "clause",
+          "slot_type": "clause",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Depuis + present tense for duration"
+      ],
+      "related_concepts": [
+        "Duration",
+        "depuis"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "Used with present tense in main clause"
+      ],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "il y a",
+        "il y a que"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "One more use of the present tense: depuis",
+          "page_printed": 10,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "il y a... que",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "With a present-tense clause, this duration construction indicates a situation begun in the past and still continuing."
+      ]
+    }
   },
   {
     "entity_key": "il y a combien de temps que",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "how long"
-    ],
-    "canonical_form": "il y a combien de temps que"
+    "related_context": {
+      "canonical_form": "il y a combien de temps que",
+      "display_form": "il y a combien de temps que",
+      "english": [
+        "how long"
+      ],
+      "expression_type": "question_construction",
+      "productive": true,
+      "pattern": "il y a combien de temps que + clause",
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Depuis + present tense for duration"
+      ],
+      "related_concepts": [
+        "Duration",
+        "depuis"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "il y a combien de temps que"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "One more use of the present tense: depuis",
+          "page_printed": 11,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il y a combien de temps que vous connaissez M. Blier?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "il y a... que",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "for (duration)"
-    ],
-    "canonical_form": "il y a... que"
+    "related_context": {
+      "canonical_form": "il y a... que",
+      "display_form": "il y a [duration] que",
+      "english": [
+        "for (duration)"
+      ],
+      "expression_type": "time_expression",
+      "productive": true,
+      "pattern": "il y a + [duration] + que + [clause]",
+      "pattern_slots": [
+        {
+          "name": "duration",
+          "display": "duration",
+          "slot_type": "noun",
+          "required": true
+        },
+        {
+          "name": "clause",
+          "display": "clause",
+          "slot_type": "clause",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Duration with depuis, il y a... que, cela/ça fait... que"
+      ],
+      "related_concepts": [
+        "Duration"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "Used with present tense"
+      ],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "for ... now",
+        "il y a que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 4,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Expressing duration",
+          "page_printed": 215,
+          "page_pdf": 229,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "il y a... que",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "il y avait une fois",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "once upon a time"
-    ],
-    "canonical_form": "il y avait une fois"
+    "related_context": {
+      "canonical_form": "il y avait une fois",
+      "display_form": "il y avait une fois",
+      "english": [
+        "once upon a time"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Il y a expression"
+      ],
+      "related_concepts": [
+        "Il y a"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "il y avait une fois"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "Il y a (there is, there are)",
+          "page_printed": 60,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il y avait une fois...",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "il y en a qui",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "some people"
-    ],
-    "canonical_form": "il y en a qui"
+    "related_context": {
+      "canonical_form": "il y en a qui",
+      "display_form": "il y en a qui",
+      "english": [
+        "some people"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Il y a expression"
+      ],
+      "related_concepts": [
+        "Il y a"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "il y en a qui"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "Il y a (there is, there are)",
+          "page_printed": 60,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il y en a qui feraient mieux de se taire.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "je ne saurais",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "I would not know how to",
-      "I cannot"
-    ],
-    "canonical_form": "je ne saurais"
+    "related_context": {
+      "canonical_form": "je ne saurais",
+      "display_form": "je ne saurais",
+      "english": [
+        "I would not know how to",
+        "I cannot"
+      ],
+      "expression_type": "formulaic_phrase",
+      "productive": false,
+      "pattern": "je ne saurais + infinitive",
+      "pattern_slots": [
+        {
+          "name": "INF",
+          "display": "infinitive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "savoir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Savoir in present conditional equivalent to pouvoir"
+      ],
+      "related_concepts": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [
+        "formal register"
+      ],
+      "transformations": [],
+      "aliases": [
+        "je ne saurais pas"
+      ],
+      "search_terms": [
+        "saurais",
+        "savoir"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 3,
+        "frequency_note": "formal",
+        "notes": null
+      },
+      "chapters": [
+        11
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "Uses of the present conditional",
+          "page_printed": 90,
+          "page_pdf": 104,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Je ne saurais vous dire combien j'apprécie votre geste.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "jouer un rôle",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to play a role"
-    ],
-    "canonical_form": "jouer un rôle"
+    "related_context": {
+      "canonical_form": "jouer un rôle",
+      "display_form": "jouer un rôle",
+      "english": [
+        "to play a role"
+      ],
+      "expression_type": "collocation",
+      "productive": true,
+      "pattern": "jouer + [article] + rôle",
+      "pattern_slots": [],
+      "related_verbs": [
+        "jouer"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "rôle",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "jouer un rôle",
+        "play a role"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        7
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Vocabulary: cinema and theater",
+          "page_printed": 70,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "un rôle a part, a role",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "jusqu'à ce que + subjonctif",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "until"
-    ],
-    "canonical_form": "jusqu'à ce que + subjonctif"
+    "related_context": {
+      "canonical_form": "jusqu'à ce que + subjonctif",
+      "display_form": "jusqu'à ce que",
+      "english": [
+        "until"
+      ],
+      "expression_type": "connector",
+      "productive": true,
+      "pattern": "jusqu'à ce que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Conjunctions followed by the subjunctive"
+      ],
+      "related_concepts": [
+        "Conjunctions requiring subjunctive"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "jusqu'à ce que",
+        "jusqua ce que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "conjunction"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Conjunctions followed by the subjunctive",
+          "page_printed": 108,
+          "page_pdf": 122,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "jusqu'à ce que until",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Introduces the endpoint of an action and requires the subjunctive because the endpoint is viewed as pending from the main-clause perspective."
+      ]
+    }
   }
 ]
 ================================================================================

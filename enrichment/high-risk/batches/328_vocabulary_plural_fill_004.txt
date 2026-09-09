@@ -36,13 +36,34 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
     {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
   ]
 }
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -53,11 +74,101 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "basketball"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "basket-ball"
+    "related_context": {
+      "canonical_form": "basket-ball",
+      "display_form": "le basket-ball",
+      "english": [
+        "basketball"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [
+        {
+          "form": "basketball",
+          "variant_type": "alternate_spelling",
+          "note": "alternate spelling"
+        }
+      ],
+      "senses": [
+        {
+          "english": "basketball",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [
+        "basket"
+      ],
+      "search_terms": [
+        "basket-ball",
+        "basketball",
+        "basket"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "Vocabulaire",
+          "page_printed": 127,
+          "page_pdf": 141,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le basket-ball basketball",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "synonyms": [
+        "basket"
+      ],
+      "register": "neutral",
+      "usage_notes": [
+        "Basket is a very common informal shortening of basket-ball in French."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -66,11 +177,126 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "money laundering"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "blanchiment d'argent"
+    "related_context": {
+      "canonical_form": "blanchiment d'argent",
+      "display_form": "le blanchiment d'argent",
+      "english": [
+        "money laundering"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "money laundering",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "money laundering",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "blanchiment d'argent",
+        "money laundering",
+        "blanchiment de capitaux"
+      ],
+      "word_family": [
+        "blanchir"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Vocabulaire",
+          "page_printed": 137,
+          "page_pdf": 151,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le blanchiment d'argent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "money laundering blanchiment d’argent (m.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "synonyms": [
+        "blanchiment de capitaux"
+      ]
+    }
   },
   {
     "entity_key": {
@@ -79,11 +305,91 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "boxing"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "boxe"
+    "related_context": {
+      "canonical_form": "boxe",
+      "display_form": "la boxe",
+      "english": [
+        "boxing"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": "la",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "boxing",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": "la",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "boxe",
+        "boxing"
+      ],
+      "word_family": [
+        "boxeur",
+        "boxeuse"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "Vocabulaire",
+          "page_printed": 127,
+          "page_pdf": 141,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "la boxe boxing",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Faire de la boxe is the usual expression for 'to box' or 'to practise boxing'."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -92,11 +398,91 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "this week"
-    ],
-    "part_of_speech": "adverb",
-    "canonical_form": "cette semaine"
+    "related_context": {
+      "canonical_form": "cette semaine",
+      "display_form": "cette semaine",
+      "english": [
+        "this week"
+      ],
+      "part_of_speech": "adverb",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "this week",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "cette semaine",
+        "this week",
+        "semaine"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "VOCABULAIRE (time expressions)",
+          "page_printed": 18,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "cette semaine this week",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "A time expression referring to the current week."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -105,11 +491,91 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "every year"
-    ],
-    "part_of_speech": "other",
-    "canonical_form": "chaque année"
+    "related_context": {
+      "canonical_form": "chaque année",
+      "display_form": "chaque année",
+      "english": [
+        "every year"
+      ],
+      "part_of_speech": "other",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "every year",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "chaque année",
+        "every year",
+        "annually"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Uses of the imparfait: habitual and repetitive action",
+          "page_printed": 68,
+          "page_pdf": 82,
+          "context_type": "note",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "chaque année every year",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "synonyms": [
+        "tous les ans"
+      ]
+    }
   },
   {
     "entity_key": {
@@ -118,11 +584,91 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "every day"
-    ],
-    "part_of_speech": "other",
-    "canonical_form": "chaque jour"
+    "related_context": {
+      "canonical_form": "chaque jour",
+      "display_form": "chaque jour",
+      "english": [
+        "every day"
+      ],
+      "part_of_speech": "other",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "every day",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "chaque jour",
+        "every day",
+        "daily"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Uses of the imparfait: habitual and repetitive action",
+          "page_printed": 68,
+          "page_pdf": 82,
+          "context_type": "note",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "chaque jour every day",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "synonyms": [
+        "tous les jours"
+      ]
+    }
   },
   {
     "entity_key": {
@@ -131,11 +677,91 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "every month"
-    ],
-    "part_of_speech": "other",
-    "canonical_form": "chaque mois"
+    "related_context": {
+      "canonical_form": "chaque mois",
+      "display_form": "chaque mois",
+      "english": [
+        "every month"
+      ],
+      "part_of_speech": "other",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "every month",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "chaque mois",
+        "every month",
+        "monthly"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Uses of the imparfait: habitual and repetitive action",
+          "page_printed": 68,
+          "page_pdf": 82,
+          "context_type": "note",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "chaque mois every month",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "synonyms": [
+        "tous les mois"
+      ]
+    }
   },
   {
     "entity_key": {
@@ -144,11 +770,91 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "every week"
-    ],
-    "part_of_speech": "other",
-    "canonical_form": "chaque semaine"
+    "related_context": {
+      "canonical_form": "chaque semaine",
+      "display_form": "chaque semaine",
+      "english": [
+        "every week"
+      ],
+      "part_of_speech": "other",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "every week",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "chaque semaine",
+        "every week",
+        "weekly"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Uses of the imparfait: habitual and repetitive action",
+          "page_printed": 68,
+          "page_pdf": 82,
+          "context_type": "note",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "chaque semaine every week",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "synonyms": [
+        "toutes les semaines"
+      ]
+    }
   },
   {
     "entity_key": {
@@ -157,12 +863,93 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "Chinese",
-      "Chinese language"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "chinois"
+    "related_context": {
+      "canonical_form": "chinois",
+      "display_form": "le chinois",
+      "english": [
+        "Chinese",
+        "Chinese language"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "Chinese (language)",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "chinois",
+        "le chinois",
+        "Chinese language",
+        "language"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Languages"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        2
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "VOCABULAIRE - Quelle langue parlez-vous?",
+          "page_printed": 30,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le chinois Chinese",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Le chinois refers to the Chinese language. A nationality noun for a person is capitalized in French: un Chinois, une Chinoise."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -171,11 +958,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "five"
-    ],
-    "part_of_speech": "number",
-    "canonical_form": "cinq"
+    "related_context": {
+      "canonical_form": "cinq",
+      "display_form": "cinq",
+      "english": [
+        "five"
+      ],
+      "part_of_speech": "number",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "five",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "cinq",
+        "five"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Numbers"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        26
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "26.json",
+          "chapter_number": 26,
+          "section_title": "The numbers 0 to 50",
+          "page_printed": 221,
+          "page_pdf": 235,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "cinq five",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

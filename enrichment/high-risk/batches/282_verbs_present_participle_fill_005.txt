@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,67 +44,445 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "avoir envie de",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "to feel like",
-      "to want"
-    ],
-    "verb_group": null,
-    "auxiliary": "avoir",
-    "regularity": null
+    "related_context": {
+      "infinitive": "avoir envie de",
+      "display_form": "avoir envie de",
+      "english": [
+        "to feel like",
+        "to want"
+      ],
+      "senses": [
+        {
+          "english": "to feel like, to want",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "avoir envie de"
+      ],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "avoir envie de",
+        "feel like"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Ce que, ce qui, ce dont, ce à quoi",
+          "page_printed": 209,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ce dont il a envie, c’est de cet automate.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Avoir envie de » is followed by a noun or infinitive and expresses a desire or inclination, often rendered as “feel like.”"
+      ]
+    }
   },
   {
     "entity_key": "avoir peur",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "to be afraid",
-      "to be scared"
-    ],
-    "verb_group": null,
-    "auxiliary": "avoir",
-    "regularity": null
+    "related_context": {
+      "infinitive": "avoir peur",
+      "display_form": "avoir peur",
+      "english": [
+        "to be afraid",
+        "to be scared"
+      ],
+      "senses": [],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [
+        "intransitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "avoir peur de"
+      ],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "avoir peur",
+        "be afraid",
+        "be scared"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "The pronoun en",
+          "page_printed": 188,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Avez-vous peur de sa réaction?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Use « avoir peur de » before the thing feared or before an infinitive."
+      ]
+    }
   },
   {
     "entity_key": "avoir peur de",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "to be afraid of"
-    ],
-    "verb_group": null,
-    "auxiliary": "avoir",
-    "regularity": null
+    "related_context": {
+      "infinitive": "avoir peur de",
+      "display_form": "avoir peur de",
+      "english": [
+        "to be afraid of"
+      ],
+      "senses": [
+        {
+          "english": "to be afraid of",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "avoir peur de"
+      ],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "avoir peur de",
+        "be afraid of"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Ce que, ce qui, ce dont, ce à quoi",
+          "page_printed": 209,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle ne comprend pas ce dont il a peur.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Before a noun with an article, « de » follows the usual contractions, as in « avoir peur du noir »; before an infinitive, use « avoir peur de tomber »."
+      ]
+    }
   },
   {
     "entity_key": "baisser",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "lower",
-      "lower the price",
-      "to go down",
-      "to lower"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "baisser",
+      "display_form": "baisser",
+      "english": [
+        "lower",
+        "lower the price",
+        "to go down",
+        "to lower"
+      ],
+      "senses": [],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [
+        "baisser",
+        "go down",
+        "lower"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "lower, to baisser",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "lower the price, to baisser le prix",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Baisser » can be transitive (“to lower something”) or intransitive (“to go down”); « se baisser » means to bend or crouch down."
+      ]
+    }
   },
   {
     "entity_key": "boycotter",
     "field": "present_participle",
     "current_value": null,
-    "english": [
-      "to boycott"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "boycotter",
+      "display_form": "boycotter",
+      "english": [
+        "to boycott"
+      ],
+      "senses": [
+        {
+          "english": "to boycott",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [
+        "Political vocabulary"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "boycotter"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        18
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "18.json",
+          "chapter_number": 18,
+          "section_title": "Vocabulaire: la politique",
+          "page_printed": 142,
+          "page_pdf": 156,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "boycotter to boycott",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

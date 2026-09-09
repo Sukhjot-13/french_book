@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,71 +44,1791 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "tense",
+      "persons",
+      "stem",
+      "note"
+    ],
+    "properties": {
+      "tense": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "persons": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "je",
+            "tu",
+            "il_elle_on",
+            "nous",
+            "vous",
+            "ils_elles",
+            "all",
+            "other"
+          ]
+        },
+        "uniqueItems": true
+      },
+      "stem": {
+        "type": "string",
+        "minLength": 1
+      },
+      "note": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    }
+  }
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "devenir",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "become",
-      "to become"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "etre",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "devenir",
+      "display_form": "devenir",
+      "english": [
+        "become",
+        "to become"
+      ],
+      "senses": [
+        {
+          "english": "to become",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to become",
+          "note": "Derivative of venir",
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": false,
+      "transitivity": [
+        "copular",
+        "intransitive"
+      ],
+      "auxiliary": "etre",
+      "past_participle": "devenu",
+      "present_participle": "devenant",
+      "conjugations": [
+        {
+          "tense": "futur simple",
+          "mood": "indicative",
+          "forms": {
+            "je": "deviendrai",
+            "tu": null,
+            "il_elle_on": null,
+            "nous": null,
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [
+            {
+              "tense": "futur simple",
+              "persons": [
+                "all"
+              ],
+              "stem": "deviendr-",
+              "note": null
+            }
+          ],
+          "endings": [
+            "-ai"
+          ],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Irregular stem"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "9.json",
+              "chapter_number": 9,
+              "section_title": "The futur simple",
+              "page_printed": 73,
+              "page_pdf": 87,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "devenir je deviendrai",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "futur antérieur",
+          "mood": "indicative",
+          "forms": {
+            "je": "serai devenu(e)",
+            "tu": "seras devenu(e)",
+            "il_elle_on": "sera devenu(e)",
+            "nous": "serons devenu(e)s",
+            "vous": "serez devenu(e)(s)",
+            "ils_elles": "seront devenu(e)s",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Uses auxiliary être, agreement with subject"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "9.json",
+              "chapter_number": 9,
+              "section_title": "The futur antérieur",
+              "page_printed": 77,
+              "page_pdf": 91,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "je serai devenu(e), tu seras devenu(e), il/elle sera devenu(e), nous serons devenu(e)s, vous serez devenu(e)(s), ils/elles seront devenu(e)s",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [],
+      "related_concepts": [
+        "Derivative verbs of venir",
+        "Movement verbs with être",
+        "Passé simple",
+        "irregular future stems"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "become",
+        "devenir",
+        "devenu"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Common verb; used in exercise.",
+        "notes": null
+      },
+      "chapters": [
+        4,
+        7,
+        9,
+        16
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "Exercice 16·2",
+          "page_printed": 134,
+          "page_pdf": 148,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "La Côte-d’Ivoire (devenir) indépendante en 1960.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb venir (to come)",
+          "page_printed": 50,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "devenir (to become)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "The passé composé with être",
+          "page_printed": 74,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "devenir to become",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur simple",
+          "page_printed": 73,
+          "page_pdf": 87,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "devenir to become je deviendrai I'll become",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "become, to devenir",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "devoir",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "have to",
-      "must",
-      "should",
-      "to have to",
-      "to owe"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "avoir",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "devoir",
+      "display_form": "devoir",
+      "english": [
+        "have to",
+        "must",
+        "should",
+        "to have to",
+        "to owe"
+      ],
+      "senses": [
+        {
+          "english": "to have to",
+          "note": "from example translation",
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to have to",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "must",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to owe",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "must, to have to",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "should (in conditionnel)",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to have to, must",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to owe",
+          "note": "debt meaning",
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "must, to have to",
+          "note": "obligation",
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to be supposed to",
+          "note": "probability",
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "should",
+          "note": "conditional/warning",
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": false,
+      "transitivity": [
+        "intransitive",
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "dû",
+      "present_participle": "devant",
+      "conjugations": [
+        {
+          "tense": "conditionnel présent",
+          "mood": "conditionnel",
+          "forms": {
+            "je": "devrais",
+            "tu": "devrais",
+            "il_elle_on": "devrait",
+            "nous": "devrions",
+            "vous": "devriez",
+            "ils_elles": "devraient",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [
+            {
+              "tense": "conditionnel présent",
+              "persons": [
+                "all"
+              ],
+              "stem": "devr-",
+              "note": null
+            }
+          ],
+          "endings": [
+            "-ais",
+            "-ait",
+            "-ions",
+            "-iez",
+            "-aient"
+          ],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "12.json",
+              "chapter_number": 12,
+              "section_title": "Should",
+              "page_printed": 99,
+              "page_pdf": 113,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "je devrais I should tu devrais you should il/elle devrait he/she should nous devrions we should vous devriez you should ils/elles devraient they should",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "conditionnel passé",
+          "mood": "conditionnel",
+          "forms": {
+            "je": "aurais dû",
+            "tu": "aurais dû",
+            "il_elle_on": "aurait dû",
+            "nous": "aurions dû",
+            "vous": "auriez dû",
+            "ils_elles": "auraient dû",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Formed with conditionnel of avoir + past participle dû"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "12.json",
+              "chapter_number": 12,
+              "section_title": "Should",
+              "page_printed": 99,
+              "page_pdf": 113,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "j’aurais dû I should have tu aurais dû you should have il/elle aurait dû he/she should have nous aurions dû we should have vous auriez dû you should have ils/elles auraient dû they should have",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "passé simple",
+          "mood": "indicative",
+          "forms": {
+            "je": null,
+            "tu": null,
+            "il_elle_on": "dut",
+            "nous": null,
+            "vous": null,
+            "ils_elles": "durent",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Only third-person forms provided."
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "16.json",
+              "chapter_number": 16,
+              "section_title": "The passé simple of irregular verbs",
+              "page_printed": 133,
+              "page_pdf": 147,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "devoir: il/elle dut, ils/elles durent",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "présent",
+          "mood": "Indicatif",
+          "forms": {
+            "je": "dois",
+            "tu": null,
+            "il_elle_on": null,
+            "nous": "devons",
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Only first-person singular and plural shown."
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "3.json",
+              "chapter_number": 3,
+              "section_title": "Other -oir verbs",
+              "page_printed": 45,
+              "page_pdf": null,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "devoir must, to have to / je dois / I must, I have to / nous devons / we must, we have to",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "présent",
+          "mood": "indicative",
+          "forms": {
+            "je": "dois",
+            "tu": "dois",
+            "il_elle_on": "doit",
+            "nous": "devons",
+            "vous": "devez",
+            "ils_elles": "doivent",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "5.json",
+              "chapter_number": 5,
+              "section_title": "The verb devoir (to have to, must)",
+              "page_printed": 57,
+              "page_pdf": null,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "je dois I must nous devons we must ...",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            },
+            {
+              "source_type": "verb_table",
+              "source_name": "verb_table.json",
+              "chapter_number": null,
+              "section_title": null,
+              "page_printed": 239,
+              "page_pdf": 253,
+              "context_type": null,
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": "verb_table_irregular_verbs",
+              "table_type": null,
+              "row_label": "devoir",
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "devoir dû dois dois doit devons devez doivent",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "futur simple",
+          "mood": "indicative",
+          "forms": {
+            "je": "devrai",
+            "tu": null,
+            "il_elle_on": null,
+            "nous": null,
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [
+            {
+              "tense": "futur simple",
+              "persons": [
+                "all"
+              ],
+              "stem": "devr-",
+              "note": null
+            }
+          ],
+          "endings": [
+            "-ai"
+          ],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Irregular stem"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "9.json",
+              "chapter_number": 9,
+              "section_title": "The futur simple",
+              "page_printed": 73,
+              "page_pdf": 87,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "devoir je devrai",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [
+        "aurais dû + infinitive",
+        "devoir + infinitif",
+        "devoir quelque chose à quelqu'un"
+      ],
+      "related_concepts": [
+        "Devoir and its meanings",
+        "Irregular past participles",
+        "Irregular verbs",
+        "Irregular verbs in passé simple",
+        "Modal verbs",
+        "Obligation and advice (should)",
+        "Passé simple",
+        "irregular future stems"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "devoir",
+        "dû",
+        "have to",
+        "must",
+        "should",
+        "to have to"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        3,
+        5,
+        7,
+        9,
+        10,
+        11,
+        12,
+        14,
+        16,
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "10.json",
+          "chapter_number": 10,
+          "section_title": "Beware of the English language",
+          "page_printed": 98,
+          "page_pdf": 98,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Léa a dû prendre le médicament que le médecin lui avait prescrit.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "Uses of the past conditional",
+          "page_printed": 93,
+          "page_pdf": 107,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tu aurais dû arriver plus tôt.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Should",
+          "page_printed": 99,
+          "page_pdf": 113,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "je devrais I should j’aurais dû I should have tu devrais you should tu aurais dû you should have il/elle devrait he/she should il/elle aurait dû he/she should have nous devrions we should nous aurions dû we should have vous devriez you should vous auriez dû you should have ils/elles devraient they should ils/elles auraient dû they should have",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Verbs not followed by a preposition",
+          "page_printed": 121,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "devoir must, to have to",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "The passé simple of irregular verbs",
+          "page_printed": 133,
+          "page_pdf": 147,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "devoir (to have to)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Qui",
+          "page_printed": 203,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "C’est vous qui (devoir) nous aider à choisir.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "Other -oir verbs",
+          "page_printed": 45,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "devoir must, to have to / je dois / I must, I have to / nous devons / we must, we have to",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "The verb devoir (to have to, must)",
+          "page_printed": 57,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "je dois I must ...",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Irregular past participles",
+          "page_printed": 72,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "devoir must, to have to dû had to",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur simple",
+          "page_printed": 73,
+          "page_pdf": 87,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "devoir must, to have to je devrai I'll have to",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "have to, to devoir",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "verb_table",
+          "source_name": "verb_table.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 239,
+          "page_pdf": 253,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": "verb_table_irregular_verbs",
+          "table_type": null,
+          "row_label": "devoir",
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "devoir dû dois dois doit devons devez doivent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": "modal verb",
+      "usage_notes": [
+        "« Devoir + infinitif » expresses obligation or probability; as a transitive verb, « devoir quelque chose à quelqu’un » means to owe something to someone."
+      ]
+    }
   },
   {
     "entity_key": "dire",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "say",
-      "to say"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "avoir",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "dire",
+      "display_form": "dire",
+      "english": [
+        "say",
+        "to say"
+      ],
+      "senses": [
+        {
+          "english": "to say",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": false,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "dit",
+      "present_participle": "disant",
+      "conjugations": [
+        {
+          "tense": "subjonctif présent",
+          "mood": "subjunctive",
+          "forms": {
+            "je": "dise",
+            "tu": "dises",
+            "il_elle_on": "dise",
+            "nous": "disions",
+            "vous": "disiez",
+            "ils_elles": "disent",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [
+            {
+              "tense": "subjonctif présent",
+              "persons": [
+                "all"
+              ],
+              "stem": "dis-",
+              "note": null
+            }
+          ],
+          "endings": [
+            "-e",
+            "-es",
+            "-ions",
+            "-iez",
+            "-ent"
+          ],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "13.json",
+              "chapter_number": 13,
+              "section_title": "Formation of the present subjunctive",
+              "page_printed": 104,
+              "page_pdf": 118,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "je dise, tu dises, il/elle dise, nous disions, vous disiez, ils/elles disent",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        },
+        {
+          "tense": "présent",
+          "mood": "indicative",
+          "forms": {
+            "je": "dis",
+            "tu": "dis",
+            "il_elle_on": "dit",
+            "nous": "disons",
+            "vous": "dites",
+            "ils_elles": "disent",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [],
+          "sources": [
+            {
+              "source_type": "verb_table",
+              "source_name": "verb_table.json",
+              "chapter_number": null,
+              "section_title": null,
+              "page_printed": 239,
+              "page_pdf": 253,
+              "context_type": null,
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": "verb_table_irregular_verbs",
+              "table_type": null,
+              "row_label": "dire",
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "dire dit dis dis dit disons dites disent",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [
+        "J'ai entendu dire que",
+        "On m'a dit que",
+        "ça se dit"
+      ],
+      "related_concepts": [
+        "Irregular past participles",
+        "Present subjunctive",
+        "Reporting verbs"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "dire",
+        "dit"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        7,
+        13,
+        17,
+        18
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Formation of the present subjunctive",
+          "page_printed": 104,
+          "page_pdf": 118,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Let's conjugate the verb dire (to say) in the present subjunctive: ...",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ça ne se dit pas.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "18.json",
+          "chapter_number": 18,
+          "section_title": "Main clause verbs in indirect speech",
+          "page_printed": 141,
+          "page_pdf": 155,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "dire to say",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Irregular past participles",
+          "page_printed": 72,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "dire to say dit said",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 256,
+          "page_pdf": 270,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "say, to dire, affirmer",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "verb_table",
+          "source_name": "verb_table.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 239,
+          "page_pdf": 253,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": "verb_table_irregular_verbs",
+          "table_type": null,
+          "row_label": "dire",
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "dire dit dis dis dit disons dites disent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": "two synonyms"
+    }
   },
   {
     "entity_key": "discuter",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "discuss",
-      "to discuss",
-      "to talk"
-    ],
-    "verb_group": null,
-    "auxiliary": null,
-    "regularity": null
+    "related_context": {
+      "infinitive": "discuter",
+      "display_form": "discuter",
+      "english": [
+        "discuss",
+        "to discuss",
+        "to talk"
+      ],
+      "senses": [],
+      "verb_group": null,
+      "regularity": null,
+      "pronominal": false,
+      "transitivity": [],
+      "auxiliary": null,
+      "past_participle": null,
+      "present_participle": null,
+      "conjugations": [],
+      "related_expressions": [],
+      "related_concepts": [],
+      "aliases": [],
+      "search_terms": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 252,
+          "page_pdf": 266,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "discuss, to discuter",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« Discuter de quelque chose » means to discuss a topic; in standard usage, the topic is commonly introduced by « de »."
+      ]
+    }
   },
   {
     "entity_key": "donner",
     "field": "stems",
     "current_value": [],
-    "english": [
-      "give",
-      "to give"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "avoir",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "donner",
+      "display_form": "donner",
+      "english": [
+        "give",
+        "to give"
+      ],
+      "senses": [
+        {
+          "english": "to give",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        },
+        {
+          "english": "to face (of a building)",
+          "note": "donner sur",
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": false,
+      "transitivity": [
+        "ditransitive",
+        "transitive",
+        "unknown"
+      ],
+      "auxiliary": "avoir",
+      "past_participle": "donné",
+      "present_participle": "donnant",
+      "conjugations": [
+        {
+          "tense": "conditionnel passé",
+          "mood": "conditional",
+          "forms": {
+            "je": "aurais donné",
+            "tu": "aurais donné",
+            "il_elle_on": "aurait donné",
+            "nous": "aurions donné",
+            "vous": "auriez donné",
+            "ils_elles": "auraient donné",
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [
+            {
+              "tense": "conditionnel passé",
+              "persons": [
+                "all"
+              ],
+              "stem": "donn-",
+              "note": null
+            }
+          ],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "auxiliary avoir in conditional + past participle"
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "11.json",
+              "chapter_number": 11,
+              "section_title": "The past conditional",
+              "page_printed": 93,
+              "page_pdf": 107,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "donner to give - j'aurais donné, tu aurais donné, il/elle aurait donné, nous aurions donné, vous auriez donné, ils/elles auraient donné",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [
+        "donner sur + nom",
+        "donner un coup de main",
+        "donner votre avis"
+      ],
+      "related_concepts": [
+        "Regular -er verbs",
+        "Verbs with changing prepositions"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "donnant",
+        "donner",
+        "donné",
+        "face",
+        "give"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "very common",
+        "notes": null
+      },
+      "chapters": [
+        1,
+        11,
+        15,
+        21,
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "Common regular -er verbs",
+          "page_printed": 2,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "donner to give",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "The past conditional",
+          "page_printed": 92,
+          "page_pdf": 106,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "donner to give",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The present participle",
+          "page_printed": 128,
+          "page_pdf": 142,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "donner",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "The order of object pronouns",
+          "page_printed": 190,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle te donne le rôle.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Verbs that use different prepositions",
+          "page_printed": 245,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "donner to give",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "give, to donner",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

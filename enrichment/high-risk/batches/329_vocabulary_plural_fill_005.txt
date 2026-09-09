@@ -36,13 +36,34 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
     {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
   ]
 }
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -53,11 +74,87 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "fifty"
-    ],
-    "part_of_speech": "number",
-    "canonical_form": "cinquante"
+    "related_context": {
+      "canonical_form": "cinquante",
+      "display_form": "cinquante",
+      "english": [
+        "fifty"
+      ],
+      "part_of_speech": "number",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "fifty",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "cinquante",
+        "fifty"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Numbers"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        26
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "26.json",
+          "chapter_number": 26,
+          "section_title": "The numbers 0 to 50",
+          "page_printed": 221,
+          "page_pdf": 235,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "cinquante fifty",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -66,13 +163,131 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "traffic",
-      "circulation",
-      "flow"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "circulation"
+    "related_context": {
+      "canonical_form": "circulation",
+      "display_form": "la circulation",
+      "english": [
+        "traffic",
+        "circulation",
+        "flow"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": "la",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "traffic",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": "la",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "traffic",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "circulation",
+        "traffic",
+        "flow"
+      ],
+      "word_family": [
+        "circuler"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [
+        "transport",
+        "traffic"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "Vocabulaire",
+          "page_printed": 58,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "la circulation traffic",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 258,
+          "page_pdf": 272,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "traffic circulation (f.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "In everyday travel contexts, la circulation usually means road traffic; more generally it can mean circulation or flow."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -81,11 +296,94 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "anger"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "colère"
+    "related_context": {
+      "canonical_form": "colère",
+      "display_form": "colère",
+      "english": [
+        "anger"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": "la",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "anger",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": "la",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "anger",
+        "colère",
+        "angry",
+        "en colère"
+      ],
+      "word_family": [],
+      "related_expressions": [
+        "se mettre en colère"
+      ],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [
+        "emotions"
+      ],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        11
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "The past conditional",
+          "page_printed": 93,
+          "page_pdf": 107,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils se seraient mis en colère.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Être en colère means ‘to be angry’; se mettre en colère means ‘to get angry’."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -94,12 +392,93 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "how much",
-      "how many"
-    ],
-    "part_of_speech": "adverb",
-    "canonical_form": "combien"
+    "related_context": {
+      "canonical_form": "combien",
+      "display_form": "combien",
+      "english": [
+        "how much",
+        "how many"
+      ],
+      "part_of_speech": "adverb",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "how much",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "combien",
+        "how much",
+        "how many",
+        "quantity"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [
+        "questions",
+        "quantity",
+        "interrogatives"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "how much combien",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Use combien de before a noun: combien de livres ? (‘how many books?’). Combien is also used to ask about price or amount."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -108,13 +487,94 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "as",
-      "like",
-      "since"
-    ],
-    "part_of_speech": "conjunction",
-    "canonical_form": "comme"
+    "related_context": {
+      "canonical_form": "comme",
+      "display_form": "comme",
+      "english": [
+        "as",
+        "like",
+        "since"
+      ],
+      "part_of_speech": "conjunction",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "as",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "comme",
+        "as",
+        "like",
+        "since"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [
+        "connectors",
+        "comparison",
+        "cause"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "as comme",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Comme commonly introduces a comparison (‘as/like’); at the start of a clause it can also introduce a reason, meaning ‘since/as’."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -123,11 +583,98 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "as usual"
-    ],
-    "part_of_speech": "other",
-    "canonical_form": "comme à l'accoutumée"
+    "related_context": {
+      "canonical_form": "comme à l'accoutumée",
+      "display_form": "comme à l’accoutumée",
+      "english": [
+        "as usual"
+      ],
+      "part_of_speech": "other",
+      "gender": "none",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "as usual",
+          "note": null,
+          "gender": "none",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "comme à l’accoutumée",
+        "comme d'habitude",
+        "as usual"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "time expressions"
+      ],
+      "source_classifications": [],
+      "tags": [
+        "expressions",
+        "frequency"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Uses of the imparfait: habitual and repetitive action",
+          "page_printed": 68,
+          "page_pdf": 82,
+          "context_type": "note",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "comme à l’accoutumée as usual",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "register": "formal",
+      "synonyms": [
+        "comme d'habitude"
+      ],
+      "usage_notes": [
+        "A somewhat elevated or formal way to say ‘as usual’; comme d’habitude is more common in everyday conversation."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -136,12 +683,112 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "confidence",
-      "trust"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "confiance"
+    "related_context": {
+      "canonical_form": "confiance",
+      "display_form": "confiance",
+      "english": [
+        "confidence",
+        "trust"
+      ],
+      "part_of_speech": "noun",
+      "gender": "feminine",
+      "articles": {
+        "definite": "la",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "confidence",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": "la",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "trust",
+          "note": null,
+          "gender": "feminine",
+          "articles": {
+            "definite": "la",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "confiance",
+        "trust",
+        "confidence",
+        "avoir confiance",
+        "faire confiance"
+      ],
+      "word_family": [
+        "confiant"
+      ],
+      "related_expressions": [
+        "avoir confiance en"
+      ],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [
+        "feelings",
+        "relationships",
+        "abstract nouns"
+      ],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        11
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "Uses of the present conditional",
+          "page_printed": 91,
+          "page_pdf": 105,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tu lui (offrir) ce poste si tu (avoir) confiance en lui.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Avoir confiance en quelqu’un/quelque chose means ‘to have confidence in’; faire confiance à quelqu’un means ‘to trust someone’."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -150,12 +797,95 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "Creole",
-      "Creole language"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "créole"
+    "related_context": {
+      "canonical_form": "créole",
+      "display_form": "le créole",
+      "english": [
+        "Creole",
+        "Creole language"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "Creole (language)",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "créole",
+        "le créole",
+        "Creole language"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "Languages"
+      ],
+      "source_classifications": [],
+      "tags": [
+        "language"
+      ],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        2
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "VOCABULAIRE - Quelle langue parlez-vous?",
+          "page_printed": 30,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le créole Creole",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "register": "neutral",
+      "usage_notes": [
+        "As a language name, « le créole » can refer to a Creole language or variety; the specific language depends on context."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -164,11 +894,89 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "leather"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "cuir"
+    "related_context": {
+      "canonical_form": "cuir",
+      "display_form": "cuir",
+      "english": [
+        "leather"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "leather",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "cuir",
+        "leather"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [
+        "materials"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 255,
+          "page_pdf": 269,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "leather cuir (m.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "register": "neutral",
+      "usage_notes": [
+        "Usually denotes leather as a material."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -177,12 +985,108 @@ TARGETS
     },
     "field": "plural",
     "current_value": null,
-    "english": [
-      "biking",
-      "cycling"
-    ],
-    "part_of_speech": "noun",
-    "canonical_form": "cyclisme"
+    "related_context": {
+      "canonical_form": "cyclisme",
+      "display_form": "le cyclisme",
+      "english": [
+        "biking",
+        "cycling"
+      ],
+      "part_of_speech": "noun",
+      "gender": "masculine",
+      "articles": {
+        "definite": "le",
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "variants": [],
+      "senses": [
+        {
+          "english": "biking",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "cycling",
+          "note": null,
+          "gender": "masculine",
+          "articles": {
+            "definite": "le",
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "biking",
+        "cycling",
+        "cyclisme"
+      ],
+      "word_family": [
+        {
+          "canonical_form": "cycliste",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [
+        "sports",
+        "cycling"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "Vocabulaire",
+          "page_printed": 127,
+          "page_pdf": 141,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "le cyclisme biking, cycling",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "register": "neutral"
+    }
   }
 ]
 ================================================================================

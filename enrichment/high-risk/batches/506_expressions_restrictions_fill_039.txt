@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,11 +44,27 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.restrictions
-- `value` must be an array of concise factual strings describing only real usage, register, complement, polarity, agreement, or syntactic restrictions of the expression.
-- Use `[]` when no restriction is clearly supported by the canonical form or target metadata; an empty array is a valid proposal for an unrestricted expression.
-- Do not use generic filler, translations, unverifiable claims, or advice that merely restates the expression.
-- If a restriction is genuinely uncertain or contested, return the required `NO_PROPOSAL` entry rather than guessing.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -56,93 +72,883 @@ TARGETS
     "entity_key": "se servir de quelque chose",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to use something"
-    ],
-    "canonical_form": "se servir de quelque chose"
+    "related_context": {
+      "canonical_form": "se servir de quelque chose",
+      "display_form": "se servir de [thing]",
+      "english": [
+        "to use something"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se servir de [thing]",
+      "pattern_slots": [
+        {
+          "name": "thing",
+          "display": "thing",
+          "slot_type": "thing",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "se servir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Pronoun en"
+      ],
+      "related_concepts": [
+        "Pronoun en"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "de",
+        "followed_by": "unknown"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "followed_by:thing"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "The pronoun en",
+          "page_printed": 189,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tu te sers de ce dictionnaire?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "se souvenir de quelque chose",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to remember something"
-    ],
-    "canonical_form": "se souvenir de quelque chose"
+    "related_context": {
+      "canonical_form": "se souvenir de quelque chose",
+      "display_form": "se souvenir de [thing]",
+      "english": [
+        "to remember something"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se souvenir de [thing]",
+      "pattern_slots": [
+        {
+          "name": "thing",
+          "display": "thing",
+          "slot_type": "thing",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "se souvenir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Pronoun en"
+      ],
+      "related_concepts": [
+        "Pronoun en"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "de",
+        "followed_by": "unknown"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "followed_by:thing"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "The pronoun en",
+          "page_printed": 188,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle ne se souvient pas de cette histoire.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "se tromper de",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to be mistaken about",
-      "to choose the wrong",
-      "to get the wrong"
-    ],
-    "canonical_form": "se tromper de"
+    "related_context": {
+      "canonical_form": "se tromper de",
+      "display_form": "se tromper de",
+      "english": [
+        "to be mistaken about",
+        "to choose the wrong",
+        "to get the wrong"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se + tromper + de",
+      "pattern_slots": [
+        {
+          "name": "thing",
+          "display": "quelque chose",
+          "slot_type": "thing",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "se tromper"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjective pronominal verbs"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "de",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [
+        "se tromper"
+      ],
+      "search_terms": [
+        "se tromper de"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 66,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tu (se tromper) de chemin.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Se tromper de identifies the category in which the wrong choice was made: se tromper de numéro, de route, or de personne."
+      ]
+    }
   },
   {
     "entity_key": "se voir contraint de + infinitive",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to find oneself forced to"
-    ],
-    "canonical_form": "se voir contraint de + infinitive"
+    "related_context": {
+      "canonical_form": "se voir contraint de + infinitive",
+      "display_form": "se voir contraint de + infinitif",
+      "english": [
+        "to find oneself forced to"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": false,
+      "pattern": "se voir contraint de + [infinitive]",
+      "pattern_slots": [
+        {
+          "name": "action",
+          "display": "infinitive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "se voir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Avoiding passive with reflexive verbs"
+      ],
+      "related_concepts": [
+        "reflexive passive"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "de",
+        "followed_by": "infinitive"
+      },
+      "transformations": [],
+      "aliases": [
+        "se voir contraint de"
+      ],
+      "search_terms": [
+        "se voir contraint de"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il s’est vu contraint d’accepter.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Formal construction meaning that circumstances force the subject to act; contraint agrees with the subject."
+      ],
+      "register": "formal"
+    }
   },
   {
     "entity_key": "signer son nom",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to sign one's name"
-    ],
-    "canonical_form": "signer son nom"
+    "related_context": {
+      "canonical_form": "signer son nom",
+      "display_form": "signer son nom",
+      "english": [
+        "to sign one's name"
+      ],
+      "expression_type": "collocation",
+      "productive": false,
+      "pattern": "signer son nom",
+      "pattern_slots": [],
+      "related_verbs": [
+        "signer"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "nom",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "imperative mood"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "sign one's name",
+        "signer son nom"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "Formation of the imperative",
+          "page_printed": 147,
+          "page_pdf": 161,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Signez votre nom ici!",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "signer un contrat",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to sign a contract"
-    ],
-    "canonical_form": "signer un contrat"
+    "related_context": {
+      "canonical_form": "signer un contrat",
+      "display_form": "signer un contrat",
+      "english": [
+        "to sign a contract"
+      ],
+      "expression_type": "collocation",
+      "productive": false,
+      "pattern": "signer un contrat",
+      "pattern_slots": [],
+      "related_verbs": [
+        "signer"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "irregular imperative forms"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "sign a contract",
+        "signer un contrat"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "Irregular imperative forms",
+          "page_printed": 149,
+          "page_pdf": 163,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Veuillez signer le contrat.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "signer un document",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to sign a document"
-    ],
-    "canonical_form": "signer un document"
+    "related_context": {
+      "canonical_form": "signer un document",
+      "display_form": "signer un document",
+      "english": [
+        "to sign a document"
+      ],
+      "expression_type": "collocation",
+      "productive": false,
+      "pattern": "signer un document",
+      "pattern_slots": [],
+      "related_verbs": [
+        "signer"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "negative imperative"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "sign a document",
+        "signer un document"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "Formation of the imperative",
+          "page_printed": 148,
+          "page_pdf": 162,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ne signez pas ce document avant de l’avoir lu.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "sortir avec des amis",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to go out with friends"
-    ],
-    "canonical_form": "sortir avec des amis"
+    "related_context": {
+      "canonical_form": "sortir avec des amis",
+      "display_form": "sortir avec des amis",
+      "english": [
+        "to go out with friends"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "sortir avec + [person]",
+      "pattern_slots": [
+        {
+          "name": "person",
+          "display": "des amis",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "sortir"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "amis",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Verbs with avoir and être (six verbs)"
+      ],
+      "prepositions": [
+        "avec"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "avec",
+        "followed_by": "person"
+      },
+      "transformations": [],
+      "aliases": [
+        "sortir avec quelqu'un"
+      ],
+      "search_terms": [
+        "go out with",
+        "sortir avec"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        7
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Verbs conjugated with avoir or être",
+          "page_printed": 77,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle est sortie avec des amis.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "sortir la voiture du garage",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to take the car out of the garage"
-    ],
-    "canonical_form": "sortir la voiture du garage"
+    "related_context": {
+      "canonical_form": "sortir la voiture du garage",
+      "display_form": "sortir la voiture du garage",
+      "english": [
+        "to take the car out of the garage"
+      ],
+      "expression_type": "collocation",
+      "productive": true,
+      "pattern": "sortir + [object] + de + [place]",
+      "pattern_slots": [],
+      "related_verbs": [
+        "sortir"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "voiture",
+          "part_of_speech": "noun"
+        },
+        {
+          "canonical_form": "garage",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Verbs with avoir and être (six verbs)"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": "de",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "sortir la voiture",
+        "take out car"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        7
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Verbs conjugated with avoir or être",
+          "page_printed": 77,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle a sorti la voiture du garage.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "souhaiter que + subjonctif",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to wish (that)"
-    ],
-    "canonical_form": "souhaiter que + subjonctif"
+    "related_context": {
+      "canonical_form": "souhaiter que + subjonctif",
+      "display_form": "souhaiter que",
+      "english": [
+        "to wish (that)"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "souhaiter que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "subject",
+          "display": "subject",
+          "slot_type": "person",
+          "required": true
+        },
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "souhaiter"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Use of subjunctive after verbs of wish and desire"
+      ],
+      "related_concepts": [
+        "Wish and desire"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "souhaiter que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Subjunctive after verbs of wish and desire",
+          "page_printed": 106,
+          "page_pdf": 120,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle souhaite que tu ailles en France.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "When the wished-for action has an explicit subject introduced by que, the dependent verb is in the subjunctive."
+      ]
+    }
   }
 ]
 ================================================================================

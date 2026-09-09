@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,113 +44,842 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Could for future, hypothesis, suggestion, or request",
     "field": "word_order",
     "current_value": null,
-    "summary": "Use conditionnel présent of pouvoir to express could for future possibility, hypothesis, suggestion, or polite request.",
-    "usage": [
-      "Polite requests",
-      "Suggestions",
-      "Hypothetical ability",
-      "Future possibility"
-    ],
-    "rule_name": "Could for future, hypothesis, suggestion, or request"
+    "related_context": {
+      "rule_name": "Could for future, hypothesis, suggestion, or request",
+      "summary": "Use conditionnel présent of pouvoir to express could for future possibility, hypothesis, suggestion, or polite request.",
+      "explanation": "When 'could' implies a future possibility, a hypothetical scenario, a suggestion, or a polite request, French uses the conditionnel présent of pouvoir.",
+      "formation": "conditionnel présent of pouvoir + infinitive",
+      "usage": [
+        "Polite requests",
+        "Suggestions",
+        "Hypothetical ability",
+        "Future possibility"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "pourrais-tu",
+        "pourriez-vous",
+        "peut-être"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": "Pourrais-tu + infinitive ?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use passé composé or imparfait for polite requests"
+      ],
+      "related_tenses": [
+        "conditionnel présent"
+      ],
+      "related_concepts": [
+        "Hypothetical situations",
+        "Polite requests"
+      ],
+      "related_expressions": [
+        "Pourrais-tu / Pourriez-vous + infinitif ?",
+        "pouvoir + infinitive"
+      ],
+      "related_verbs": [
+        "pouvoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Could",
+          "page_printed": 98,
+          "page_pdf": 112,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When could refers to an idea of the future, a hypothesis, a suggestion, or a request, the présent du conditionnel of pouvoir is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Could for habitual past or description",
     "field": "word_order",
     "current_value": null,
-    "summary": "Use imparfait of pouvoir to express general ability, habitual action, or state in the past.",
-    "usage": [
-      "To translate 'could' when referring to a general capacity in the past",
-      "To describe what was possible or permitted in a past era"
-    ],
-    "rule_name": "Could for habitual past or description"
+    "related_context": {
+      "rule_name": "Could for habitual past or description",
+      "summary": "Use imparfait of pouvoir to express general ability, habitual action, or state in the past.",
+      "explanation": "When 'could' describes a general ability, a habitual action, or a state of affairs in the past (without focusing on a single occurrence), French uses the imparfait of pouvoir.",
+      "formation": "imparfait of pouvoir + infinitive",
+      "usage": [
+        "To translate 'could' when referring to a general capacity in the past",
+        "To describe what was possible or permitted in a past era"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "The action is habitual, descriptive, or general"
+      ],
+      "signal_words": [
+        "en ce temps-là",
+        "à cette époque",
+        "quand",
+        "souvent",
+        "tous les jours"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": "ne pas pouvoir (imparfait)",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use passé composé for habitual or descriptive past"
+      ],
+      "related_tenses": [
+        "imparfait"
+      ],
+      "related_concepts": [
+        "Past ability (could)"
+      ],
+      "related_expressions": [
+        "pouvoir + infinitive"
+      ],
+      "related_verbs": [
+        "pouvoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Could",
+          "page_printed": 97,
+          "page_pdf": 111,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When could refers to a description or a habitual action, the imparfait of pouvoir is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Depuis with present vs imparfait",
     "field": "word_order",
     "current_value": null,
-    "summary": "Depuis + present = have been doing; depuis + imparfait = had been doing.",
-    "usage": [
-      "Express duration from past to present (present)",
-      "Express duration from earlier past to later past (imparfait)"
-    ],
-    "rule_name": "Depuis with present vs imparfait"
+    "related_context": {
+      "rule_name": "Depuis with present vs imparfait",
+      "summary": "Depuis + present = have been doing; depuis + imparfait = had been doing.",
+      "explanation": "Depuis with the present tense indicates an action that began in the past and continues to the present (English present perfect progressive). Depuis with the imparfait indicates an action that had been ongoing up to a past point (English past perfect progressive).",
+      "formation": "present/imparfait + depuis + duration",
+      "usage": [
+        "Express duration from past to present (present)",
+        "Express duration from earlier past to later past (imparfait)"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "depuis"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using passé composé with depuis instead of present/imparfait"
+      ],
+      "related_tenses": [
+        "imparfait",
+        "présent"
+      ],
+      "related_concepts": [
+        "depuis duration"
+      ],
+      "related_expressions": [
+        "depuis"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": "Common",
+        "notes": null
+      },
+      "chapters": [
+        10
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "10.json",
+          "chapter_number": 10,
+          "section_title": "Depuis with present and imparfait",
+          "page_printed": 98,
+          "page_pdf": 98,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils dînent dans ce restaurant thaïlandais depuis des années. / Ils dînaient dans ce restaurant thaïlandais depuis des années quand ils ont décidé d'essayer le restaurant d'en face.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Devoir as a debt",
     "field": "word_order",
     "current_value": null,
-    "summary": "The verb devoir can express a debt, both literal and figurative.",
-    "usage": [
-      "To express owing money or something owed"
-    ],
-    "rule_name": "Devoir as a debt"
+    "related_context": {
+      "rule_name": "Devoir as a debt",
+      "summary": "The verb devoir can express a debt, both literal and figurative.",
+      "explanation": "Devoir is used to indicate owing something to someone, such as money or a life.",
+      "formation": "devoir + noun (direct object)",
+      "usage": [
+        "To express owing money or something owed"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": "Combien est-ce qu'on vous doit?",
+      "affirmative_form": "Elle me doit mille euros.",
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Devoir and its meanings"
+      ],
+      "related_expressions": [
+        "devoir quelque chose à quelqu'un"
+      ],
+      "related_verbs": [
+        "devoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "The verb devoir (to have to, must)",
+          "page_printed": 57,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Devoir as a debt",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Devoir as a probability",
     "field": "word_order",
     "current_value": null,
-    "summary": "Devoir can express probability or supposition.",
-    "usage": [
-      "To express probability or supposition"
-    ],
-    "rule_name": "Devoir as a probability"
+    "related_context": {
+      "rule_name": "Devoir as a probability",
+      "summary": "Devoir can express probability or supposition.",
+      "explanation": "Devoir is used to indicate that something is supposed to happen or is likely.",
+      "formation": "devoir + infinitive",
+      "usage": [
+        "To express probability or supposition"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": "L'avion doit atterrir à dix heures.",
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Intonation distinguishes obligation from probability."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Devoir and its meanings"
+      ],
+      "related_expressions": [
+        "devoir + infinitif"
+      ],
+      "related_verbs": [
+        "devoir"
+      ],
+      "tags": [
+        "devoir",
+        "probability",
+        "modality"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "The verb devoir (to have to, must)",
+          "page_printed": 57,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Devoir as a probability",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Devoir as an obligation",
     "field": "word_order",
     "current_value": null,
-    "summary": "Devoir expresses obligation or necessity.",
-    "usage": [
-      "To express obligation"
-    ],
-    "rule_name": "Devoir as an obligation"
+    "related_context": {
+      "rule_name": "Devoir as an obligation",
+      "summary": "Devoir expresses obligation or necessity.",
+      "explanation": "Devoir is used to say that someone must do something.",
+      "formation": "devoir + infinitive",
+      "usage": [
+        "To express obligation"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": "Vous ne devez pas y aller.",
+      "interrogative_form": null,
+      "affirmative_form": "Vous devez assister à la réunion demain matin.",
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Devoir and its meanings"
+      ],
+      "related_expressions": [
+        "devoir + infinitif"
+      ],
+      "related_verbs": [
+        "devoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "The verb devoir (to have to, must)",
+          "page_printed": 57,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Devoir as an obligation",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Devoir as warning and suggestion (conditional)",
     "field": "word_order",
     "current_value": null,
-    "summary": "In the conditional or past conditional, devoir means should or should have.",
-    "usage": [
-      "To give advice, warning, or suggestion"
-    ],
-    "rule_name": "Devoir as warning and suggestion (conditional)"
+    "related_context": {
+      "rule_name": "Devoir as warning and suggestion (conditional)",
+      "summary": "In the conditional or past conditional, devoir means should or should have.",
+      "explanation": "When used in the conditional, devoir takes on the meaning of should; in the past conditional, should have.",
+      "formation": "devoir in conditional + infinitive",
+      "usage": [
+        "To give advice, warning, or suggestion"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "Used in conditional or past conditional"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": "Tu ne devrais pas lui prêter d'argent.",
+      "interrogative_form": null,
+      "affirmative_form": "Elles devraient apprendre une langue étrangère.",
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "conditionnel présent"
+      ],
+      "related_concepts": [
+        "Devoir and its meanings"
+      ],
+      "related_expressions": [
+        "devoir + infinitif"
+      ],
+      "related_verbs": [
+        "devoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "The verb devoir (to have to, must)",
+          "page_printed": 57,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Devoir as a warning and suggestion. When used in the conditional or the past conditional, devoir takes on the meaning of should or should have.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Direct vs indirect speech time expressions",
     "field": "word_order",
     "current_value": null,
-    "summary": "Use direct speech time expressions when speaking directly; use indirect speech expressions when narrating or reporting past/future events.",
-    "usage": [
-      "In direct speech: aujourd'hui, demain, hier, après-demain, avant-hier, la semaine prochaine, la semaine dernière",
-      "In indirect speech: la veille, le jour même, le lendemain, l'avant-veille, le surlendemain, la semaine suivante, la dernière semaine"
-    ],
-    "rule_name": "Direct vs indirect speech time expressions"
+    "related_context": {
+      "rule_name": "Direct vs indirect speech time expressions",
+      "summary": "Use direct speech time expressions when speaking directly; use indirect speech expressions when narrating or reporting past/future events.",
+      "explanation": "Adverbs like aujourd'hui, demain, hier are used in direct speech. In indirect speech (discours indirect), use la veille, le lendemain, l'avant-veille, le surlendemain, etc.",
+      "formation": null,
+      "usage": [
+        "In direct speech: aujourd'hui, demain, hier, après-demain, avant-hier, la semaine prochaine, la semaine dernière",
+        "In indirect speech: la veille, le jour même, le lendemain, l'avant-veille, le surlendemain, la semaine suivante, la dernière semaine"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "Used when distinguishing between direct and indirect speech contexts"
+      ],
+      "signal_words": [
+        "discours indirect",
+        "direct speech"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use direct time expressions (aujourd'hui, demain) in indirect speech"
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Direct and indirect speech",
+        "Time"
+      ],
+      "related_expressions": [
+        "aujourd'hui",
+        "demain",
+        "hier",
+        "la veille",
+        "le lendemain"
+      ],
+      "related_verbs": [],
+      "tags": [
+        "reported speech",
+        "time expressions",
+        "tense concordance"
+      ],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 212,
+          "page_pdf": 226,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The adverbs listed above are ordinarily used when you are speaking directly to people... If you are discussing past and future events, or telling a story, you are more likely to use an indirect style, the discours indirect.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Disjunctive pronouns forms",
     "field": "word_order",
     "current_value": null,
-    "summary": "Disjunctive pronouns: moi, toi, lui, elle, nous, vous, eux, elles.",
-    "usage": [
-      "Emphasis, after prepositions, comparisons, isolation, etc."
-    ],
-    "rule_name": "Disjunctive pronouns forms"
+    "related_context": {
+      "rule_name": "Disjunctive pronouns forms",
+      "summary": "Disjunctive pronouns: moi, toi, lui, elle, nous, vous, eux, elles.",
+      "explanation": "Stressed/tonic pronouns used in various contexts.",
+      "formation": "moi, toi, lui, elle, nous, vous, eux, elles",
+      "usage": [
+        "Emphasis, after prepositions, comparisons, isolation, etc."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Disjunctive pronoun"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Common",
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "Disjunctive pronouns",
+          "page_printed": 192,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "moi me; toi you; lui him; elle her; nous us; vous you; eux them; elles them (feminine)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Dont replacing de + object",
     "field": "word_order",
     "current_value": null,
-    "summary": "Dont is used as object of verbs or verbal expressions that include the preposition de, referring to people or things.",
-    "usage": [
-      "object of verb with de"
-    ],
-    "rule_name": "Dont replacing de + object"
+    "related_context": {
+      "rule_name": "Dont replacing de + object",
+      "summary": "Dont is used as object of verbs or verbal expressions that include the preposition de, referring to people or things.",
+      "explanation": "Il a besoin de ces documents. Voici les documents dont il a besoin. Elle se sert d’un pinceau. Montrez-moi le pinceau dont elle se sert. Tu as parlé d’un souffleur de verre. Où habite le souffleur de verre dont tu nous as parlé? Elle est fière de son fils. Denis est le fils dont elle est fière.",
+      "formation": "antecedent + dont + subject + verb (verb requiring de)",
+      "usage": [
+        "object of verb with de"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "verb or expression uses preposition de"
+      ],
+      "signal_words": [
+        "avoir besoin de",
+        "se servir de",
+        "parler de",
+        "être fier de",
+        "se souvenir de"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "dont replaces duquel, de laquelle, desquels, desquelles in modern French"
+      ],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Prepositions",
+        "Relative pronouns"
+      ],
+      "related_expressions": [
+        "avoir besoin de",
+        "parler de",
+        "se servir de"
+      ],
+      "related_verbs": [
+        "avoir besoin de",
+        "parler",
+        "se servir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Dont",
+          "page_printed": 207,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Voici les documents dont il a besoin.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

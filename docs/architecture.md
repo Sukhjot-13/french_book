@@ -856,8 +856,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `is_empty(value)`: Identifies fields eligible for fill-only batching.
   - `entity_key(collection, entity)`: Extracts configured scalar or composite natural keys.
   - `chunks(items, size)`: Creates deterministic fixed-size prompt groups.
-  - `context(collection, field, entity)`: Produces compact target context for a proposal batch.
-  - `prompt(batch_id, collection, field, mode, baseline_hash, targets)`: Formats a self-contained high-risk batch instruction file.
+  - `context(collection, field, entity)`: Produces target context with the complete existing non-target record for a proposal batch.
+  - `resolve_schema_references(schema, definitions, stack=())`: Inlines local JSON Schema definitions into AI-readable field contracts.
+  - `field_value_schema(master_schema, collection, field)`: Extracts one fully resolved target-field schema from the master schema.
+  - `prompt(batch_id, collection, field, mode, baseline_hash, targets, value_schema)`: Formats a self-contained high-risk batch instruction file with an authoritative field-value schema and complete non-target context.
   - `build_queue(baseline_path=None)`: Writes the full batch set and its checksum manifest.
   - `main()`: CLI entry point.
 

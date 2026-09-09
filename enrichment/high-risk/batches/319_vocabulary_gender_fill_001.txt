@@ -36,13 +36,43 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
     {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
   ]
 }
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ],
+  "enum": [
+    "masculine",
+    "feminine",
+    "common",
+    "variable",
+    "none",
+    "unknown",
+    null
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -53,13 +83,115 @@ TARGETS
     },
     "field": "gender",
     "current_value": null,
-    "english": [
-      "present",
-      "present day",
-      "current"
-    ],
-    "part_of_speech": "adjective",
-    "canonical_form": "actuel(le)"
+    "related_context": {
+      "canonical_form": "actuel(le)",
+      "display_form": "actuel(le)",
+      "english": [
+        "present",
+        "present day",
+        "current"
+      ],
+      "part_of_speech": "adjective",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "plural": null,
+      "variants": [
+        {
+          "form": "actuel",
+          "variant_type": "masculine",
+          "note": null
+        },
+        {
+          "form": "actuelle",
+          "variant_type": "feminine",
+          "note": null
+        }
+      ],
+      "senses": [
+        {
+          "english": "present",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "present day",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "current",
+        "actuel",
+        "actuelle",
+        "actual"
+      ],
+      "word_family": [
+        "actuellement"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "actuel(le) present, present day",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "False friend: actuel / actuelle means 'current' or 'present', not English 'actual' (= réel / réelle, véritable)."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -68,13 +200,92 @@ TARGETS
     },
     "field": "gender",
     "current_value": null,
-    "english": [
-      "currently",
-      "at present",
-      "at the moment"
-    ],
-    "part_of_speech": "adverb",
-    "canonical_form": "actuellement"
+    "related_context": {
+      "canonical_form": "actuellement",
+      "display_form": "actuellement",
+      "english": [
+        "currently",
+        "at present",
+        "at the moment"
+      ],
+      "part_of_speech": "adverb",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "plural": null,
+      "variants": [],
+      "senses": [
+        {
+          "english": "currently",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "at present",
+        "at the moment",
+        "actually"
+      ],
+      "word_family": [
+        "actuel",
+        "actuelle"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "actuellement currently",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "False friend: actuellement means 'currently', not English 'actually' (= en fait)."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -83,12 +294,123 @@ TARGETS
     },
     "field": "gender",
     "current_value": null,
-    "english": [
-      "pleasant",
-      "enjoyable"
-    ],
-    "part_of_speech": "adjective",
-    "canonical_form": "agréable"
+    "related_context": {
+      "canonical_form": "agréable",
+      "display_form": "agréable",
+      "english": [
+        "pleasant",
+        "enjoyable"
+      ],
+      "part_of_speech": "adjective",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "plural": "agréables",
+      "variants": [],
+      "senses": [
+        {
+          "english": "pleasant",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "agreable",
+        "pleasant",
+        "enjoyable",
+        "désagréable",
+        "plaisant"
+      ],
+      "word_family": [
+        "agréablement"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "The verb être (to be)",
+          "page_printed": 38,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "agréable / pleasant",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "agréable pleasant",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "synonyms": [
+        "plaisant"
+      ],
+      "antonyms": [
+        "désagréable"
+      ],
+      "usage_notes": [
+        "Agréable has the same form in the masculine and feminine singular: un endroit agréable, une soirée agréable."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -97,14 +419,116 @@ TARGETS
     },
     "field": "gender",
     "current_value": null,
-    "english": [
-      "thus",
-      "in this way",
-      "therefore",
-      "so"
-    ],
-    "part_of_speech": "adverb",
-    "canonical_form": "ainsi"
+    "related_context": {
+      "canonical_form": "ainsi",
+      "display_form": "ainsi",
+      "english": [
+        "thus",
+        "in this way",
+        "therefore",
+        "so"
+      ],
+      "part_of_speech": "adverb",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "plural": null,
+      "variants": [],
+      "senses": [
+        {
+          "english": "thus",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "therefore",
+        "in this way",
+        "ainsi que"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 258,
+          "page_pdf": 272,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "thus ainsi",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "French-Englishglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 240,
+          "page_pdf": 254,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": "single",
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "ainsi thus",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "synonyms": [
+        "de cette manière"
+      ],
+      "usage_notes": [
+        "Ainsi can mean 'in this way' or 'therefore/thus'. The expression ainsi que means 'as well as' or 'just as'."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -113,11 +537,115 @@ TARGETS
     },
     "field": "gender",
     "current_value": null,
-    "english": [
-      "sky blue"
-    ],
-    "part_of_speech": "adjective",
-    "canonical_form": "bleu ciel"
+    "related_context": {
+      "canonical_form": "bleu ciel",
+      "display_form": "bleu ciel",
+      "english": [
+        "sky blue"
+      ],
+      "part_of_speech": "adjective",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "plural": "bleu ciel",
+      "variants": [],
+      "senses": [
+        {
+          "english": "sky blue",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "bleu ciel",
+        "sky blue"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "colors"
+      ],
+      "source_classifications": [
+        "gender:invariable"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        22
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "22.json",
+          "chapter_number": 22,
+          "section_title": "Vocabulaire: couleurs et motifs",
+          "page_printed": 184,
+          "page_pdf": 198,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "bleu ciel",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 251,
+          "page_pdf": 265,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "blue, sky bleu ciel",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Comme adjectif de couleur composé désignant une seule nuance, bleu ciel est généralement invariable : des yeux bleu ciel."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -126,11 +654,115 @@ TARGETS
     },
     "field": "gender",
     "current_value": null,
-    "english": [
-      "light blue"
-    ],
-    "part_of_speech": "adjective",
-    "canonical_form": "bleu clair"
+    "related_context": {
+      "canonical_form": "bleu clair",
+      "display_form": "bleu clair",
+      "english": [
+        "light blue"
+      ],
+      "part_of_speech": "adjective",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "plural": "bleu clair",
+      "variants": [],
+      "senses": [
+        {
+          "english": "light blue",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "bleu clair",
+        "light blue"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "colors"
+      ],
+      "source_classifications": [
+        "gender:invariable"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        22
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "22.json",
+          "chapter_number": 22,
+          "section_title": "Vocabulaire: couleurs et motifs",
+          "page_printed": 184,
+          "page_pdf": 198,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "bleu clair",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 251,
+          "page_pdf": 265,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "blue, light bleu clair",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Comme adjectif de couleur composé désignant une seule nuance, bleu clair est généralement invariable : des chemises bleu clair."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -139,11 +771,115 @@ TARGETS
     },
     "field": "gender",
     "current_value": null,
-    "english": [
-      "dark blue"
-    ],
-    "part_of_speech": "adjective",
-    "canonical_form": "bleu foncé"
+    "related_context": {
+      "canonical_form": "bleu foncé",
+      "display_form": "bleu foncé",
+      "english": [
+        "dark blue"
+      ],
+      "part_of_speech": "adjective",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "plural": "bleu foncé",
+      "variants": [],
+      "senses": [
+        {
+          "english": "dark blue",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "bleu foncé",
+        "dark blue"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "colors"
+      ],
+      "source_classifications": [
+        "gender:invariable"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        22
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "22.json",
+          "chapter_number": 22,
+          "section_title": "Vocabulaire: couleurs et motifs",
+          "page_printed": 184,
+          "page_pdf": 198,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "bleu foncé",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 251,
+          "page_pdf": 265,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "blue, dark bleu foncé",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Comme adjectif de couleur composé désignant une seule nuance, bleu foncé est généralement invariable : des pantalons bleu foncé."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -152,11 +888,115 @@ TARGETS
     },
     "field": "gender",
     "current_value": null,
-    "english": [
-      "navy blue"
-    ],
-    "part_of_speech": "adjective",
-    "canonical_form": "bleu marine"
+    "related_context": {
+      "canonical_form": "bleu marine",
+      "display_form": "bleu marine",
+      "english": [
+        "navy blue"
+      ],
+      "part_of_speech": "adjective",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "plural": "bleu marine",
+      "variants": [],
+      "senses": [
+        {
+          "english": "navy blue",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "bleu marine",
+        "navy blue"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "colors"
+      ],
+      "source_classifications": [
+        "gender:invariable"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        22
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "22.json",
+          "chapter_number": 22,
+          "section_title": "Vocabulaire: couleurs et motifs",
+          "page_printed": 184,
+          "page_pdf": 198,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "bleu marine",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 251,
+          "page_pdf": 265,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "blue, navy bleu marine",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Comme adjectif de couleur composé, bleu marine est généralement invariable : des vestes bleu marine."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -165,12 +1005,130 @@ TARGETS
     },
     "field": "gender",
     "current_value": null,
-    "english": [
-      "cheap",
-      "inexpensive"
-    ],
-    "part_of_speech": "adjective",
-    "canonical_form": "bon marché"
+    "related_context": {
+      "canonical_form": "bon marché",
+      "display_form": "bon marché",
+      "english": [
+        "cheap",
+        "inexpensive"
+      ],
+      "part_of_speech": "adjective",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "plural": "bon marché",
+      "variants": [],
+      "senses": [
+        {
+          "english": "cheap, inexpensive",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        },
+        {
+          "english": "cheap",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "bon marche",
+        "cheap",
+        "inexpensive"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [],
+      "source_classifications": [
+        "gender:invariable"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Vocabulary: Antiques and furniture",
+          "page_printed": 202,
+          "page_pdf": null,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "bon marché: cheap, inexpensive",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 251,
+          "page_pdf": 265,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "cheap bon marché",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "antonyms": [
+        "cher"
+      ],
+      "usage_notes": [
+        "Bon marché is an invariable adjectival expression: un produit bon marché, des produits bon marché."
+      ]
+    }
   },
   {
     "entity_key": {
@@ -179,11 +1137,92 @@ TARGETS
     },
     "field": "gender",
     "current_value": null,
-    "english": [
-      "burgundy"
-    ],
-    "part_of_speech": "adjective",
-    "canonical_form": "bordeaux"
+    "related_context": {
+      "canonical_form": "bordeaux",
+      "display_form": "bordeaux",
+      "english": [
+        "burgundy"
+      ],
+      "part_of_speech": "adjective",
+      "articles": {
+        "definite": null,
+        "indefinite": null,
+        "partitive": null,
+        "other": []
+      },
+      "plural": "bordeaux",
+      "variants": [],
+      "senses": [
+        {
+          "english": "burgundy",
+          "note": null,
+          "gender": null,
+          "articles": {
+            "definite": null,
+            "indefinite": null,
+            "partitive": null,
+            "other": []
+          },
+          "plural": null
+        }
+      ],
+      "aliases": [],
+      "search_terms": [
+        "bordeaux",
+        "burgundy"
+      ],
+      "word_family": [],
+      "related_expressions": [],
+      "related_verbs": [],
+      "related_concepts": [
+        "colors"
+      ],
+      "source_classifications": [
+        "gender:invariable"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        22
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "22.json",
+          "chapter_number": 22,
+          "section_title": "Vocabulaire: couleurs et motifs",
+          "page_printed": 184,
+          "page_pdf": 198,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "bordeaux",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "As a colour adjective, bordeaux is invariable: une robe bordeaux, des chaussures bordeaux."
+      ]
+    }
   }
 ]
 ================================================================================

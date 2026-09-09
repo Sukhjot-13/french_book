@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,11 +44,27 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.prepositions
-- `value` must be an array of strings listing the lexical prepositions governed by the expression or its reusable pattern, in their order of appearance.
-- Normalize contractions to their lexical preposition: record `"à"` for `au`/`aux` and `"de"` for `du`/`des`; do not record a standalone article as a preposition.
-- Include prepositions that are literal and required by the construction, including before a variable complement.
-- Use `[]` when the expression governs no preposition. Do not add prepositions merely because they are common in a translation or possible contextual expansion.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -56,96 +72,818 @@ TARGETS
     "entity_key": "chaque jour",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "every day"
-    ],
-    "canonical_form": "chaque jour"
+    "related_context": {
+      "canonical_form": "chaque jour",
+      "display_form": "chaque jour",
+      "english": [
+        "every day"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Frequency"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [
+        "tous les jours"
+      ],
+      "search_terms": [
+        "every day",
+        "daily"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "frequency_expression",
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Common",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "chaque jour\tevery day",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "every day chaque jour, tous les jours",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "chaque mois",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "every month"
-    ],
-    "canonical_form": "chaque mois"
+    "related_context": {
+      "canonical_form": "chaque mois",
+      "display_form": "chaque mois",
+      "english": [
+        "every month"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "monthly"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "every month chaque mois",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "chaque semaine",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "every week"
-    ],
-    "canonical_form": "chaque semaine"
+    "related_context": {
+      "canonical_form": "chaque semaine",
+      "display_form": "chaque semaine",
+      "english": [
+        "every week"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "weekly"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 253,
+          "page_pdf": 267,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "every week chaque semaine",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "combien",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "how much",
-      "how many"
-    ],
-    "canonical_form": "combien"
+    "related_context": {
+      "canonical_form": "combien",
+      "display_form": "combien",
+      "english": [
+        "how much",
+        "how many"
+      ],
+      "expression_type": "question_construction",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Interrogative words"
+      ],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "how many",
+        "how much"
+      ],
+      "collocation_strength": null,
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Interrogative forms; question words",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "combien\thow much",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "comme d'habitude",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "as usual"
-    ],
-    "canonical_form": "comme d'habitude"
+    "related_context": {
+      "canonical_form": "comme d'habitude",
+      "display_form": "comme d'habitude",
+      "english": [
+        "as usual"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "as always",
+        "usual"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "as usual comme d’habitude",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "comment",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "how"
-    ],
-    "canonical_form": "comment"
+    "related_context": {
+      "canonical_form": "comment",
+      "display_form": "comment",
+      "english": [
+        "how"
+      ],
+      "expression_type": "question_construction",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Interrogative words"
+      ],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "how"
+      ],
+      "collocation_strength": null,
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Interrogative forms; question words",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "comment\thow",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "comment ça se traduit",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "how is it translated?"
-    ],
-    "canonical_form": "comment ça se traduit"
+    "related_context": {
+      "canonical_form": "comment ça se traduit",
+      "display_form": "comment ça se traduit ?",
+      "english": [
+        "how is it translated?"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [
+        "traduire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Passive pronominal construction"
+      ],
+      "related_concepts": [
+        "reflexive passive"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [
+        "comment ça se traduit"
+      ],
+      "search_terms": [
+        "comment ça se traduit"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Comment ça se traduit?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "connaître + direct object",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to know (someone/something)",
-      "to be acquainted with"
-    ],
-    "canonical_form": "connaître + direct object"
+    "related_context": {
+      "canonical_form": "connaître + direct object",
+      "display_form": "connaître quelqu'un/quelque chose",
+      "english": [
+        "to know (someone/something)",
+        "to be acquainted with"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "connaître + noun/pronoun",
+      "pattern_slots": [
+        {
+          "name": "object",
+          "display": "Paris",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "connaître"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Connaître + direct object"
+      ],
+      "related_concepts": [
+        "Savoir vs. connaître"
+      ],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "Never followed by a dependent clause"
+      ],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "be acquainted with",
+        "connaitre",
+        "to know"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "Connaître",
+          "page_printed": 43,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "It is always followed by a direct object; it is never followed by a dependent clause. Elle connaît bien Paris.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Connaître prend directement une personne, un lieu ou un sujet d’expérience; pour un fait ou une information, on emploie normalement savoir."
+      ]
+    }
   },
   {
     "entity_key": "croire + infinitif",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "to think (that) one can do something",
-      "to believe (that) one does something"
-    ],
-    "canonical_form": "croire + infinitif"
+    "related_context": {
+      "canonical_form": "croire + infinitif",
+      "display_form": "croire + infinitive",
+      "english": [
+        "to think (that) one can do something",
+        "to believe (that) one does something"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "croire + INF",
+      "pattern_slots": [
+        {
+          "name": "infinitive",
+          "display": "INF",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "croire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Verbs with changing prepositions"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "croire + infinitive",
+        "think can"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Verbs that use different prepositions",
+          "page_printed": 246,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Je crois pouvoir vous dire ce qui s’est réellement passé. Il croit avoir garé sa voiture dans cette rue.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "d'accord",
     "field": "prepositions",
     "current_value": [],
-    "english": [
-      "all right",
-      "okay",
-      "agreed"
-    ],
-    "canonical_form": "d'accord"
+    "related_context": {
+      "canonical_form": "d'accord",
+      "display_form": "d'accord",
+      "english": [
+        "all right",
+        "okay",
+        "agreed"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "all right d’accord",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "S’emploie seul pour accepter une proposition, ou dans être d’accord avec quelqu’un / sur quelque chose."
+      ]
+    }
   }
 ]
 ================================================================================

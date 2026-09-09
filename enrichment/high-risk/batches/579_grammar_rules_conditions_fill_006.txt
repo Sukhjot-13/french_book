@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,111 +44,854 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Formation of the present conditional",
     "field": "conditions",
     "current_value": [],
-    "summary": "The present conditional is formed by adding the endings of the imperfect to the future stem of the verb.",
-    "usage": [
-      "to express hypothetical actions",
-      "to express polite requests",
-      "to express unconfirmed information"
-    ],
-    "rule_name": "Formation of the present conditional"
+    "related_context": {
+      "rule_name": "Formation of the present conditional",
+      "summary": "The present conditional is formed by adding the endings of the imperfect to the future stem of the verb.",
+      "explanation": "For -er and -ir verbs, the future stem is the entire infinitive. For -re verbs, drop the final -e before adding the conditional endings. Irregular future stems are used as well.",
+      "formation": "future stem + imperfect endings (-ais, -ais, -ait, -ions, -iez, -aient)",
+      "usage": [
+        "to express hypothetical actions",
+        "to express polite requests",
+        "to express unconfirmed information"
+      ],
+      "restrictions": [
+        "not used for factual statements in the present"
+      ],
+      "signal_words": [
+        "si (with imparfait)",
+        "au cas où"
+      ],
+      "exceptions": [
+        "irregular future stems (e.g., être -> ser-, avoir -> aur-, faire -> fer-, aller -> ir-, etc.)"
+      ],
+      "agreement_rules": [],
+      "word_order": "standard",
+      "negative_form": "ne + verb + pas",
+      "interrogative_form": "inversion or est-ce que",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not confuse with future tense; conditional endings are not future endings."
+      ],
+      "related_tenses": [
+        "conditionnel présent"
+      ],
+      "related_concepts": [
+        "Present conditional"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "faire",
+        "mettre"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "very common",
+        "notes": null
+      },
+      "chapters": [
+        11
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "The present conditional",
+          "page_printed": 87,
+          "page_pdf": 101,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "It is formed by adding the endings of the imperfect to the future stem of the verb. For -er and -ir verbs, the future stem is the entire infinitive form. For -re verbs, drop the final -e from the infinitive before adding the conditional endings.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Formation of the present participle",
     "field": "conditions",
     "current_value": [],
-    "summary": "The present participle is formed by dropping the -ons ending from the present tense nous form and adding -ant.",
-    "usage": [
-      "form the present participle"
-    ],
-    "rule_name": "Formation of the present participle"
+    "related_context": {
+      "rule_name": "Formation of the present participle",
+      "summary": "The present participle is formed by dropping the -ons ending from the present tense nous form and adding -ant.",
+      "explanation": "For example: nous chantons -> chantant, nous partons -> partant, nous choisissons -> choisissant, nous buvons -> buvant, nous voyons -> voyant, nous répondons -> répondant.",
+      "formation": "nous form minus -ons + -ant",
+      "usage": [
+        "form the present participle"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [
+        "spelling changes for -cer and -ger verbs",
+        "irregular present participles: être, avoir, savoir"
+      ],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "do not forget spelling changes for -cer/-ger"
+      ],
+      "related_tenses": [
+        "participe présent"
+      ],
+      "related_concepts": [
+        "present participle"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "boire",
+        "chanter",
+        "choisir",
+        "partir",
+        "répondre",
+        "voir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The present participle",
+          "page_printed": 126,
+          "page_pdf": 140,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "It is formed by dropping the -ons ending from the present tense nous form and adding -ant.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Formation of the present subjunctive for regular verbs",
     "field": "conditions",
     "current_value": [],
-    "summary": "Add subjunctive endings (-e, -es, -e, -ions, -iez, -ent) to the stem from the 3rd person plural of the present indicative for je/tu/il/ils, and to the stem from the 1st person plural for nous/vous.",
-    "usage": [
-      "Used to express subjective actions, wishes, emotions, doubt, etc."
-    ],
-    "rule_name": "Formation of the present subjunctive for regular verbs"
+    "related_context": {
+      "rule_name": "Formation of the present subjunctive for regular verbs",
+      "summary": "Add subjunctive endings (-e, -es, -e, -ions, -iez, -ent) to the stem from the 3rd person plural of the present indicative for je/tu/il/ils, and to the stem from the 1st person plural for nous/vous.",
+      "explanation": "The stem for je, tu, il/elle, ils/elles is found by dropping the -ent ending from the third-person plural present indicative form. The stem for nous and vous is found by dropping the -ons from the first-person plural of the present indicative. The present subjunctive for nous and vous is identical to the imparfait forms.",
+      "formation": "je/tu/il/ils: stem from ils/elles present indicative (drop -ent) + -e, -es, -e, -ent; nous/vous: stem from nous present indicative (drop -ons) + -ions, -iez",
+      "usage": [
+        "Used to express subjective actions, wishes, emotions, doubt, etc."
+      ],
+      "restrictions": [
+        "Applies to most regular verbs."
+      ],
+      "signal_words": [],
+      "exceptions": [
+        "Irregular verbs have different stems or endings (see related rules)."
+      ],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "The nous/vous forms of present subjunctive are identical to the imparfait."
+      ],
+      "related_tenses": [
+        "subjonctif présent"
+      ],
+      "related_concepts": [
+        "Present subjunctive",
+        "Subjunctive mood"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "dire",
+        "mettre",
+        "penser"
+      ],
+      "tags": [
+        "present subjunctive",
+        "regular verbs",
+        "formation"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Formation of the present subjunctive",
+          "page_printed": 104,
+          "page_pdf": 118,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "For most verbs, the present of the subjunctive is formed by adding the subjunctive endings (-e, -es, -e, -ions, -iez, -ent) to the stem. The stem for je, tu, il/elle, ils/elles is found by dropping the -ent ending from the third-person plural present indicative form. ... The stem for the nous and vous subjunctive forms is found by dropping the -ons from the first-person plural of the present indicative.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Formation of the regular imperative",
     "field": "conditions",
     "current_value": [],
-    "summary": "Take the tu, nous, and vous forms of the present tense; for -er verbs, drop the -s of the present tense tu form.",
-    "usage": [
-      "Give orders",
-      "Make suggestions",
-      "Give advice"
-    ],
-    "rule_name": "Formation of the regular imperative"
+    "related_context": {
+      "rule_name": "Formation of the regular imperative",
+      "summary": "Take the tu, nous, and vous forms of the present tense; for -er verbs, drop the -s of the present tense tu form.",
+      "explanation": "The imperative mood is formed by using the present tense tu, nous, and vous forms. For -er verbs, the final -s of the tu form is dropped.",
+      "formation": "tu form (without -s for -er verbs), nous form, vous form of present indicative.",
+      "usage": [
+        "Give orders",
+        "Make suggestions",
+        "Give advice"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Forget to drop the -s for -er verbs in tu form."
+      ],
+      "related_tenses": [
+        "impératif"
+      ],
+      "related_concepts": [
+        "imperative mood"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "boire",
+        "choisir",
+        "parler",
+        "répondre"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "Formation of the imperative",
+          "page_printed": 147,
+          "page_pdf": 161,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "To make the three forms of the imperative, take the tu, nous, and vous forms of the present tense. For the -er verbs, drop the -s of the present tense tu form.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "French verbs without preposition where English requires one",
     "field": "conditions",
     "current_value": [],
-    "summary": "Some French verbs do not need a preposition even if their English equivalent does.",
-    "usage": [
-      "With certain verbs."
-    ],
-    "rule_name": "French verbs without preposition where English requires one"
+    "related_context": {
+      "rule_name": "French verbs without preposition where English requires one",
+      "summary": "Some French verbs do not need a preposition even if their English equivalent does.",
+      "explanation": "Examples: attendre (wait for), abandonner (give up), écouter (listen to), entrer (walk in).",
+      "formation": "verb + object directly",
+      "usage": [
+        "With certain verbs."
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "verb + object",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not translate English preposition into French."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "verbs with prepositions"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "abandonner",
+        "attendre",
+        "entrer",
+        "écouter"
+      ],
+      "tags": [
+        "verb complements",
+        "translation contrast",
+        "prepositions"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Verbs not followed by a preposition",
+          "page_printed": 121,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "In some cases, a French verb does not need a preposition even though its English equivalent requires one.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Futur antérieur after 'si' meaning 'whether'",
     "field": "conditions",
     "current_value": [],
-    "summary": "Futur antérieur is used after 'si' when it means 'whether', implying a completed action.",
-    "usage": [
-      "to express uncertainty about a completed future action"
-    ],
-    "rule_name": "Futur antérieur after 'si' meaning 'whether'"
+    "related_context": {
+      "rule_name": "Futur antérieur after 'si' meaning 'whether'",
+      "summary": "Futur antérieur is used after 'si' when it means 'whether', implying a completed action.",
+      "explanation": "The futur antérieur is also used after si, implying a completed action. Si means whether in this case.",
+      "formation": "si + futur antérieur",
+      "usage": [
+        "to express uncertainty about a completed future action"
+      ],
+      "restrictions": [
+        "only when 'si' means 'whether', not 'if' for condition"
+      ],
+      "signal_words": [
+        "si (= whether)"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "using futur simple or present after 'si' when 'si' means 'whether'"
+      ],
+      "related_tenses": [
+        "futur antérieur"
+      ],
+      "related_concepts": [
+        "futur antérieur"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "signer",
+        "verb_regler",
+        "verb_terminer"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur antérieur",
+          "page_printed": 78,
+          "page_pdf": 92,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The futur antérieur is also used after si, implying a completed action. Si means whether in this case.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Futur antérieur for probability of past action",
     "field": "conditions",
     "current_value": [],
-    "summary": "Futur antérieur can express probability of a past action, analogous to futur simple for present probability.",
-    "usage": [
-      "to express supposition about a past event"
-    ],
-    "rule_name": "Futur antérieur for probability of past action"
+    "related_context": {
+      "rule_name": "Futur antérieur for probability of past action",
+      "summary": "Futur antérieur can express probability of a past action, analogous to futur simple for present probability.",
+      "explanation": "The futur antérieur can also express the probability of a past action, in the same way that the futur simple can be used to express probability in the present.",
+      "formation": null,
+      "usage": [
+        "to express supposition about a past event"
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "encore"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "futur antérieur"
+      ],
+      "related_concepts": [
+        "futur antérieur",
+        "probability with future"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "faire",
+        "manquer",
+        "verb_bruler",
+        "échouer"
+      ],
+      "tags": [
+        "futur antérieur",
+        "probability",
+        "past inference"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur antérieur",
+          "page_printed": 78,
+          "page_pdf": 92,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The futur antérieur can also express the probability of a past action, in the same way that the futur simple can be used to express probability in the present.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Futur simple as polite imperative",
     "field": "conditions",
     "current_value": [],
-    "summary": "Futur simple can replace imperative for a less peremptory tone.",
-    "usage": [
-      "to make polite requests or soften commands"
-    ],
-    "rule_name": "Futur simple as polite imperative"
+    "related_context": {
+      "rule_name": "Futur simple as polite imperative",
+      "summary": "Futur simple can replace imperative for a less peremptory tone.",
+      "explanation": "The futur simple can be used instead of an imperative (command form) to achieve a less peremptory tone.",
+      "formation": null,
+      "usage": [
+        "to make polite requests or soften commands"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "using imperative when a softer tone is intended"
+      ],
+      "related_tenses": [
+        "futur simple"
+      ],
+      "related_concepts": [
+        "futur simple",
+        "polite imperative with future"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "demander",
+        "excuser",
+        "vouloir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur simple",
+          "page_printed": 75,
+          "page_pdf": 89,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The futur simple can be used instead of an imperative (command form) to achieve a less peremptory tone.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Futur simple for probability in present",
     "field": "conditions",
     "current_value": [],
-    "summary": "The futur simple of être and avoir can express probability or likelihood in the present.",
-    "usage": [
-      "to express probability or supposition about present"
-    ],
-    "rule_name": "Futur simple for probability in present"
+    "related_context": {
+      "rule_name": "Futur simple for probability in present",
+      "summary": "The futur simple of être and avoir can express probability or likelihood in the present.",
+      "explanation": "The future tense of être and avoir is sometimes used to express probability in the present, to indicate something that is likely or allegedly true.",
+      "formation": null,
+      "usage": [
+        "to express probability or supposition about present"
+      ],
+      "restrictions": [
+        "mainly with être and avoir"
+      ],
+      "signal_words": [
+        "probablement",
+        "sans doute"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "not using future of être/avoir when expressing probability about present"
+      ],
+      "related_tenses": [
+        "futur simple"
+      ],
+      "related_concepts": [
+        "futur simple",
+        "probability with future"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "avoir",
+        "être"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur simple",
+          "page_printed": 74,
+          "page_pdf": 88,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The future tense of être and avoir is sometimes used to express probability in the present.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Futur simple in narration (future from past standpoint)",
     "field": "conditions",
     "current_value": [],
-    "summary": "In narration, futur simple can express a future idea from the standpoint of the past; English uses 'would'.",
-    "usage": [
-      "in historical or literary narration to express future relative to past"
-    ],
-    "rule_name": "Futur simple in narration (future from past standpoint)"
+    "related_context": {
+      "rule_name": "Futur simple in narration (future from past standpoint)",
+      "summary": "In narration, futur simple can express a future idea from the standpoint of the past; English uses 'would'.",
+      "explanation": "In a narration, the futur simple can be used to express a future idea from the standpoint of the past. Note that English uses a conditional form, would, in this case.",
+      "formation": null,
+      "usage": [
+        "in historical or literary narration to express future relative to past"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "using conditional in French instead of futur simple in this context"
+      ],
+      "related_tenses": [
+        "futur simple"
+      ],
+      "related_concepts": [
+        "futur simple",
+        "future in narration"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "mourir",
+        "verb_reconnaitre"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur simple",
+          "page_printed": 75,
+          "page_pdf": 89,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "In a narration, the futur simple can be used to express a future idea from the standpoint of the past.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

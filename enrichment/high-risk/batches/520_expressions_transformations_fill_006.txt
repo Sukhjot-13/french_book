@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,101 +44,999 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "aussitôt que",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "as soon as"
-    ],
-    "canonical_form": "aussitôt que"
+    "related_context": {
+      "canonical_form": "aussitôt que",
+      "display_form": "aussitôt que",
+      "english": [
+        "as soon as"
+      ],
+      "expression_type": "connector",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "immediately after",
+        "the moment that"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "conjunction"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "as soon as aussitôt que, dès que",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": "two alternatives"
+    }
   },
   {
     "entity_key": "autrefois",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "formerly",
-      "in times past",
-      "in the past",
-      "once"
-    ],
-    "canonical_form": "autrefois"
+    "related_context": {
+      "canonical_form": "autrefois",
+      "display_form": "autrefois",
+      "english": [
+        "formerly",
+        "in times past",
+        "in the past",
+        "once"
+      ],
+      "expression_type": "time_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Time"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "formerly"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "adverb"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "autrefois\tformerly",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 254,
+          "page_pdf": 268,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "in times past autrefois",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "aux + plural country",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "in/to the United States"
-    ],
-    "canonical_form": "aux + plural country"
+    "related_context": {
+      "canonical_form": "aux + plural country",
+      "display_form": "aux États-Unis",
+      "english": [
+        "in/to the United States"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "aux + plural country",
+      "pattern_slots": [
+        {
+          "name": "country",
+          "display": "pays",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [
+        {
+          "canonical_form": "États-Unis",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [
+        "Preposition with countries: en, au, aux"
+      ],
+      "related_concepts": [
+        "geographical names"
+      ],
+      "prepositions": [
+        "aux"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "aux",
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "plural country"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "aux États-Unis",
+        "in the United States"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "very common",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "Geographical names with prepositions",
+          "page_printed": 162,
+          "page_pdf": 176,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il investira aux États-Unis.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "aux + plural island group",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "in/to the Maldives"
-    ],
-    "canonical_form": "aux + plural island group"
+    "related_context": {
+      "canonical_form": "aux + plural island group",
+      "display_form": "aux Maldives",
+      "english": [
+        "in/to the Maldives"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "aux + plural island group",
+      "pattern_slots": [
+        {
+          "name": "island_group",
+          "display": "îles",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Preposition with islands: à, aux, en"
+      ],
+      "related_concepts": [
+        "geographical names"
+      ],
+      "prepositions": [
+        "aux"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "aux",
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "plural island group"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "aux Maldives",
+        "in the Maldives"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 1,
+        "frequency_note": "travel",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "Geographical names with prepositions",
+          "page_printed": 162,
+          "page_pdf": 176,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "aux Maldives",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "avant de + infinitif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "before doing something"
-    ],
-    "canonical_form": "avant de + infinitif"
+    "related_context": {
+      "canonical_form": "avant de + infinitif",
+      "display_form": "avant de faire quelque chose",
+      "english": [
+        "before doing something"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "avant de + infinitif",
+      "pattern_slots": [
+        {
+          "name": "infinitive",
+          "display": "infinitif",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "avant de + present infinitive"
+      ],
+      "related_concepts": [
+        "avant de + present infinitive"
+      ],
+      "prepositions": [
+        "avant de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "avant de",
+        "followed_by": "infinitive"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "avant de"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Very common",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "après + past infinitive / avant de + present infinitive",
+          "page_printed": 119,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "the infinitif présent follows avant de",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "avant que + subjonctif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "before"
-    ],
-    "canonical_form": "avant que + subjonctif"
+    "related_context": {
+      "canonical_form": "avant que + subjonctif",
+      "display_form": "avant que",
+      "english": [
+        "before"
+      ],
+      "expression_type": "connector",
+      "productive": true,
+      "pattern": "avant que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Conjunctions followed by the subjunctive"
+      ],
+      "related_concepts": [
+        "Conjunctions requiring subjunctive"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "avant que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "conjunction"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Conjunctions followed by the subjunctive",
+          "page_printed": 108,
+          "page_pdf": 122,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "avant que before",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Avant que exige le subjonctif et peut être accompagné d’un ne explétif dans un registre soutenu; ce ne n’exprime pas la négation."
+      ]
+    }
   },
   {
     "entity_key": "avant-hier",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "the day before yesterday"
-    ],
-    "canonical_form": "avant-hier"
+    "related_context": {
+      "canonical_form": "avant-hier",
+      "display_form": "avant-hier",
+      "english": [
+        "the day before yesterday"
+      ],
+      "expression_type": "time_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Direct vs indirect speech time expressions"
+      ],
+      "related_concepts": [
+        "Time"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "day before yesterday",
+        "two days ago"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 212,
+          "page_pdf": 226,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "avant-hier\tthe day before yesterday",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "avoir ... ans",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to be ... years old"
-    ],
-    "canonical_form": "avoir ... ans"
+    "related_context": {
+      "canonical_form": "avoir ... ans",
+      "display_form": "j'ai trente-cinq ans",
+      "english": [
+        "to be ... years old"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "avoir + number + ans",
+      "pattern_slots": [
+        {
+          "name": "age",
+          "display": "trente-cinq",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "avoir"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "an",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Idiomatic expressions with avoir"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "age",
+        "avoir ans"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Common expression for age",
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "The verb avoir (to have)",
+          "page_printed": 40,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "j’ai (trente-cinq) ans / I am (thirty-five) years old",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "avoir beau + infinitif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "although (subject) does/is",
-      "however much (subject) does/is"
-    ],
-    "canonical_form": "avoir beau + infinitif"
+    "related_context": {
+      "canonical_form": "avoir beau + infinitif",
+      "display_form": "avoir beau + infinitive",
+      "english": [
+        "although (subject) does/is",
+        "however much (subject) does/is"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": true,
+      "pattern": "avoir (conjugué) + beau + INF",
+      "pattern_slots": [
+        {
+          "name": "infinitive",
+          "display": "INF",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "avoir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Avoir beau + infinitive"
+      ],
+      "related_concepts": [
+        "Concessive expressions (avoir beau, quitte à)"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "although",
+        "avoir beau",
+        "however"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Avoir beau and quitte à",
+          "page_printed": 248,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The expression avoir beau + infinitive can usually be translated by although or however.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "La structure avoir beau + infinitif exprime une concession: malgré l’effort ou le fait exprimé, le résultat attendu ne se produit pas."
+      ]
+    }
   },
   {
     "entity_key": "avoir besoin de",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to need"
-    ],
-    "canonical_form": "avoir besoin de"
+    "related_context": {
+      "canonical_form": "avoir besoin de",
+      "display_form": "avoir besoin de [infinitive/noun]",
+      "english": [
+        "to need"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "avoir besoin de [infinitive/noun]",
+      "pattern_slots": [
+        {
+          "name": "complement",
+          "display": "infinitive/noun",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "avoir",
+        "avoir besoin",
+        "avoir besoin de"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "besoin",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [
+        "Dont replacing de + object",
+        "Pronoun en"
+      ],
+      "related_concepts": [
+        "Idiomatic expressions with avoir",
+        "Prepositions",
+        "Pronoun en"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "de",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "avoir besoin de",
+        "besoin de",
+        "need"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Common idiomatic expression",
+        "notes": null
+      },
+      "chapters": [
+        3,
+        21,
+        23,
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "The pronoun en",
+          "page_printed": 189,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Nous avons besoin d’un logiciel plus performant.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Expressing possession with être à",
+          "page_printed": 196,
+          "page_pdf": 210,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle a besoin de mon aide et tu as besoin de la sienne.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Dont",
+          "page_printed": 207,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il a besoin de ces documents.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "The verb avoir (to have)",
+          "page_printed": 40,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "j’ai besoin de… / I need . . .",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Besoin se construit avec de devant un nom ou un infinitif; l’article disparaît souvent devant le nom: avoir besoin d’aide."
+      ]
+    }
   }
 ]
 ================================================================================

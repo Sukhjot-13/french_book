@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,106 +44,838 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Spelling change: -é + consonant + -er verbs",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Verbs like répéter change é to è in all forms except nous and vous.",
-    "usage": [
-      "Present tense, all persons except first and second plural"
-    ],
-    "rule_name": "Spelling change: -é + consonant + -er verbs"
+    "related_context": {
+      "rule_name": "Spelling change: -é + consonant + -er verbs",
+      "summary": "Verbs like répéter change é to è in all forms except nous and vous.",
+      "explanation": "The acute accent (é) becomes grave accent (è) in the stem for je, tu, il/elle/on, ils/elles.",
+      "formation": "je répète, tu répètes, il/elle répète, ils/elles répètent; nous répétons, vous répétez",
+      "usage": [
+        "Present tense, all persons except first and second plural"
+      ],
+      "restrictions": [
+        "Not in nous or vous"
+      ],
+      "conditions": [
+        "Verb pattern: é + consonant + er"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Confusing é and è"
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "spelling changes in future"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "répéter"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": "Common group.",
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "Verbs ending in -é + consonant + -er",
+          "page_printed": 7,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The é aigu changes to an è grave in all but the first- and second-person plural.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Spelling changes for -cer and -ger verbs in passé simple",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Use cedilla (ç) for -cer verbs and add extra -e- for -ger verbs when ending starts with -a.",
-    "usage": [
-      "Applies to all forms with endings beginning with -a: -a, -âmes, -âtes, -èrent."
-    ],
-    "rule_name": "Spelling changes for -cer and -ger verbs in passé simple"
+    "related_context": {
+      "rule_name": "Spelling changes for -cer and -ger verbs in passé simple",
+      "summary": "Use cedilla (ç) for -cer verbs and add extra -e- for -ger verbs when ending starts with -a.",
+      "explanation": "When the passé simple ending starts with -a, verbs ending in -cer use a cedilla and verbs ending in -ger add an extra -e- before the ending.",
+      "formation": "-cer: ç + -a... ; -ger: -ge- + -a...",
+      "usage": [
+        "Applies to all forms with endings beginning with -a: -a, -âmes, -âtes, -èrent."
+      ],
+      "restrictions": [
+        "Only for -cer and -ger verbs."
+      ],
+      "conditions": [
+        "Ending begins with -a."
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Forgetting the cedilla or the extra -e-."
+      ],
+      "related_tenses": [
+        "passé simple"
+      ],
+      "related_concepts": [
+        "Passé simple"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "commencer",
+        "manger"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": "Orthographic rule.",
+        "notes": null
+      },
+      "chapters": [
+        16
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "16.json",
+          "chapter_number": 16,
+          "section_title": "Spelling changes for -cer and -ger verbs",
+          "page_printed": 131,
+          "page_pdf": 145,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Verbs like commencer and manger have a spelling change. When the passé simple ending starts with -a, use the cedilla (ç) for verbs ending in -cer and add an extra -e- for verbs ending in -ger.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Spelling changes in futur simple",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Some verbs have slight spelling modifications in the future stem (e.g., acheter -> j'achèterai, appeler -> j'appellerai, employer -> j'emploierai).",
-    "usage": [],
-    "rule_name": "Spelling changes in futur simple"
+    "related_context": {
+      "rule_name": "Spelling changes in futur simple",
+      "summary": "Some verbs have slight spelling modifications in the future stem (e.g., acheter -> j'achèterai, appeler -> j'appellerai, employer -> j'emploierai).",
+      "explanation": "Some slight spelling modifications occur with some verbs. These are seen throughout all persons of the future conjugation.",
+      "formation": "modified stem + regular endings",
+      "usage": [],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "forgetting accent changes (e.g., acheter -> achèterai)",
+        "doubling consonants (appeler -> appellerai)",
+        "changing y to i (employer -> emploierai)"
+      ],
+      "related_tenses": [
+        "futur simple"
+      ],
+      "related_concepts": [
+        "futur simple",
+        "spelling changes in future"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "acheter",
+        "appeler",
+        "employer",
+        "essuyer",
+        "jeter",
+        "nettoyer",
+        "préférer"
+      ],
+      "tags": [
+        "futur simple",
+        "stem changes",
+        "orthography"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur simple",
+          "page_printed": 73,
+          "page_pdf": 87,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Some slight spelling modifications occur with some verbs.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Spelling changes with -cer and -ger verbs",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Some -cer and -ger verbs change spelling in the present participle: -cer becomes -çant, -ger becomes -geant.",
-    "usage": [
-      "to form present participle correctly"
-    ],
-    "rule_name": "Spelling changes with -cer and -ger verbs"
+    "related_context": {
+      "rule_name": "Spelling changes with -cer and -ger verbs",
+      "summary": "Some -cer and -ger verbs change spelling in the present participle: -cer becomes -çant, -ger becomes -geant.",
+      "explanation": "Examples: commencer -> commençant, influencer -> influençant, manger -> mangeant, nager -> nageant.",
+      "formation": "For -cer: replace c with ç before -ant; for -ger: insert e before -ant",
+      "usage": [
+        "to form present participle correctly"
+      ],
+      "restrictions": [
+        "only some -cer and -ger verbs"
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "forgetting to change c to ç or g to ge"
+      ],
+      "related_tenses": [
+        "participe présent"
+      ],
+      "related_concepts": [
+        "spelling changes in future"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "commencer",
+        "influencer",
+        "manger",
+        "nager"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        15
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "15.json",
+          "chapter_number": 15,
+          "section_title": "The present participle",
+          "page_printed": 126,
+          "page_pdf": 140,
+          "context_type": "note",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Some spelling changes occur with some -cer and -ger verbs: commencer -> commençant, influencer -> influençant, manger -> mangeant, nager -> nageant.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Subject pronouns list",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The subject pronouns in French are je, tu, il, elle, on, nous, vous, ils, elles.",
-    "usage": [
-      "Used as the subject of a verb."
-    ],
-    "rule_name": "Subject pronouns list"
+    "related_context": {
+      "rule_name": "Subject pronouns list",
+      "summary": "The subject pronouns in French are je, tu, il, elle, on, nous, vous, ils, elles.",
+      "explanation": "Subject pronouns replace subject nouns. The third-person pronouns apply to people, animals, or things.",
+      "formation": "je, tu, il, elle, on, nous, vous, ils, elles",
+      "usage": [
+        "Used as the subject of a verb."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Subject pronoun"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "Subject pronouns",
+          "page_printed": 180,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "je I; tu you (singular familiar); il he, it (masculine); elle she, it (feminine); on one, we, they, people; nous we; vous you (singular formal and all plurals); ils they (masculine, or mixed masculine and feminine); elles they (feminine)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Subjunctive after relative pronoun with doubt",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "After qui or que, subjunctive may be used if there is doubt about existence or realization.",
-    "usage": [
-      "doubt",
-      "uncertainty"
-    ],
-    "rule_name": "Subjunctive after relative pronoun with doubt"
+    "related_context": {
+      "rule_name": "Subjunctive after relative pronoun with doubt",
+      "summary": "After qui or que, subjunctive may be used if there is doubt about existence or realization.",
+      "explanation": "Il cherche un artisan qui puisse restaurer ce fauteuil Louis XV. Connaîtriez-vous un antiquaire qui vende des pièces rares?",
+      "formation": "antecedent + qui/que + subjunctive verb",
+      "usage": [
+        "doubt",
+        "uncertainty"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "doubt about existence or possible realization"
+      ],
+      "signal_words": [
+        "chercher",
+        "connaître",
+        "trouver"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "subjonctif présent"
+      ],
+      "related_concepts": [
+        "Relative pronouns",
+        "Subjunctive"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "restaurer",
+        "vendre"
+      ],
+      "tags": [
+        "subjunctive",
+        "relative clauses",
+        "doubt"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Subjunctive after relative pronouns",
+          "page_printed": 210,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il cherche un artisan qui puisse restaurer ce fauteuil Louis XV.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Subjunctive after relative with superlative antecedent",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "When antecedent of qui or que is a superlative (le plus, le moins, le seul, l’unique, le premier, le dernier), subjunctive may be used.",
-    "usage": [
-      "after superlative"
-    ],
-    "rule_name": "Subjunctive after relative with superlative antecedent"
+    "related_context": {
+      "rule_name": "Subjunctive after relative with superlative antecedent",
+      "summary": "When antecedent of qui or que is a superlative (le plus, le moins, le seul, l’unique, le premier, le dernier), subjunctive may be used.",
+      "explanation": "Paolo est le meilleur artisan qui vende des objets à Burano. C’est le seul marché aux puces que je connaisse dans cette ville.",
+      "formation": "superlative antecedent + qui/que + subjunctive verb",
+      "usage": [
+        "after superlative"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "antecedent is superlative or exclusive"
+      ],
+      "signal_words": [
+        "le plus",
+        "le moins",
+        "le seul",
+        "l’unique",
+        "le premier",
+        "le dernier",
+        "le meilleur"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "subjonctif présent"
+      ],
+      "related_concepts": [
+        "Relative pronouns",
+        "Subjunctive"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "vendre",
+        "verb_connaître"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Subjunctive after relative pronouns",
+          "page_printed": 210,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Paolo est le meilleur artisan qui vende des objets à Burano.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Subjunctive after superlatives",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The subjunctive is used after a superlative or an adjective conveying a superlative idea.",
-    "usage": [
-      "Expressing a subjective evaluation or uniqueness."
-    ],
-    "rule_name": "Subjunctive after superlatives"
+    "related_context": {
+      "rule_name": "Subjunctive after superlatives",
+      "summary": "The subjunctive is used after a superlative or an adjective conveying a superlative idea.",
+      "explanation": "Adjectives like premier, dernier, seul, unique, etc. trigger the subjunctive in the relative clause.",
+      "formation": "Superlative/adjective + relative pronoun + subjunctive.",
+      "usage": [
+        "Expressing a subjective evaluation or uniqueness."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "le meilleur",
+        "le seul",
+        "la pire",
+        "le plus",
+        "premier",
+        "dernier",
+        "unique"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "subjonctif présent"
+      ],
+      "related_concepts": [
+        "superlative"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Subjunctive after superlatives and in relative clauses",
+          "page_printed": 110,
+          "page_pdf": 124,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The subjunctive is also used after a superlative or an adjective conveying a superlative idea, such as: premier (first), dernier (last), seul (only), unique (unique), etc.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Subjunctive in relative clauses with doubt",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The subjunctive may be used after relative pronouns when there is doubt about the existence or realization of the antecedent.",
-    "usage": [
-      "Expressing uncertainty about existence."
-    ],
-    "rule_name": "Subjunctive in relative clauses with doubt"
+    "related_context": {
+      "rule_name": "Subjunctive in relative clauses with doubt",
+      "summary": "The subjunctive may be used after relative pronouns when there is doubt about the existence or realization of the antecedent.",
+      "explanation": "If the existence of the person/thing is uncertain, use the subjunctive.",
+      "formation": "Relative pronoun + subjunctive.",
+      "usage": [
+        "Expressing uncertainty about existence."
+      ],
+      "restrictions": [],
+      "conditions": [
+        "Doubt about existence or realization."
+      ],
+      "signal_words": [
+        "quelqu'un qui",
+        "quelque chose qui"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "subjonctif présent"
+      ],
+      "related_concepts": [
+        "Relative clauses"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 4,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Subjunctive after superlatives and in relative clauses",
+          "page_printed": 110,
+          "page_pdf": 124,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The relative pronouns qui and que can sometimes be followed by the subjunctive. If there is some doubt about the existence of someone or the possible realization of something, the subjunctive may be used after the relative pronoun.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Tenir de + person",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "tenir de means to take after someone.",
-    "usage": [
-      "To express resemblance to a family member."
-    ],
-    "rule_name": "Tenir de + person"
+    "related_context": {
+      "rule_name": "Tenir de + person",
+      "summary": "tenir de means to take after someone.",
+      "explanation": "tenir de + person means to resemble or take after that person.",
+      "formation": "tenir (conjugated) + de + person",
+      "usage": [
+        "To express resemblance to a family member."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "tenir de"
+      ],
+      "exceptions": [],
+      "word_order": "Subject + tenir conjugated + de + person",
+      "negative_form": "ne + tenir conjugated + pas + de + person",
+      "interrogative_form": "Est-ce que + subject + tenir conjugated + de + person?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using à instead of de."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Preposition de"
+      ],
+      "related_expressions": [
+        "tenir de [quelqu'un]"
+      ],
+      "related_verbs": [
+        "tenir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "Tenir",
+          "page_printed": 53,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "De qui tient-elle? Whom does she take after? Elle tient de sa mère. She takes after her mother.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

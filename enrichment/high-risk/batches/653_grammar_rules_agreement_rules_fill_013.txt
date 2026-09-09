@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,108 +44,838 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Negative imperative of pronominal verbs",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "ne + pronoun + verb + pas",
-    "usage": [
-      "Negative commands"
-    ],
-    "rule_name": "Negative imperative of pronominal verbs"
+    "related_context": {
+      "rule_name": "Negative imperative of pronominal verbs",
+      "summary": "ne + pronoun + verb + pas",
+      "explanation": "For the negative imperative, use ne in front of the pronoun and pas after the verb. The reflexive pronoun precedes the verb, as in a normal sentence.",
+      "formation": "ne + pronoun + verb + pas",
+      "usage": [
+        "Negative commands"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "ne ... pas"
+      ],
+      "exceptions": [],
+      "word_order": "ne + pronoun + verb + pas",
+      "negative_form": "ne + pronoun + verb + pas",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not place pronoun after verb in negative imperative."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Imperative with pronominal verbs"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "negative imperative",
+        "pronominal verbs",
+        "pronoun placement"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Pronominals in the imperative and the infinitive",
+          "page_printed": 66,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "For the negative imperative of pronominal verbs, use ne in front of the pronoun and pas after the verb. Note that in the negative the reflexive pronoun precedes the verb, as it would in a normal sentence.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Negative imperative with object pronouns",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "In the negative imperative, ne...pas surrounds the verb and object pronouns precede the verb (after ne/n’).",
-    "usage": [
-      "Express prohibition",
-      "Give negative commands"
-    ],
-    "rule_name": "Negative imperative with object pronouns"
+    "related_context": {
+      "rule_name": "Negative imperative with object pronouns",
+      "summary": "In the negative imperative, ne...pas surrounds the verb and object pronouns precede the verb (after ne/n’).",
+      "explanation": "In the negative form, the negation is placed around the verb; object pronouns immediately precede the verb following ne (n’).",
+      "formation": "ne + object pronoun + verb + pas",
+      "usage": [
+        "Express prohibition",
+        "Give negative commands"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "Only in negative imperative"
+      ],
+      "signal_words": [
+        "ne...pas",
+        "ne...jamais",
+        "ne...plus"
+      ],
+      "exceptions": [],
+      "word_order": "ne + pronoun + verb + pas",
+      "negative_form": "ne + pronoun + verb + pas",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Incorrect pronoun placement after the verb in negative imperative."
+      ],
+      "related_tenses": [
+        "impératif"
+      ],
+      "related_concepts": [
+        "imperative mood",
+        "negative imperative"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "aller",
+        "appeler",
+        "oublier",
+        "parler",
+        "prendre",
+        "signer"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "Formation of the imperative",
+          "page_printed": 147,
+          "page_pdf": 161,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "In the negative form, the negation is placed around the verb. Note that object pronouns immediately precede the verb (following ne [n’]) in the negative imperative.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "No futur simple after 'si' in future condition",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "In French, futur simple is never used after 'si' implying a future condition; present tense is used instead.",
-    "usage": [
-      "to express a condition for a future action"
-    ],
-    "rule_name": "No futur simple after 'si' in future condition"
+    "related_context": {
+      "rule_name": "No futur simple after 'si' in future condition",
+      "summary": "In French, futur simple is never used after 'si' implying a future condition; present tense is used instead.",
+      "explanation": "In French, the futur antérieur is never used after si implying a future condition. Use the present instead. (Note: this also applies to futur simple.)",
+      "formation": "si + present tense, main clause futur simple/imperative",
+      "usage": [
+        "to express a condition for a future action"
+      ],
+      "restrictions": [
+        "only when 'si' means 'if' introducing a condition"
+      ],
+      "conditions": [],
+      "signal_words": [
+        "si (condition)"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "using future tense after 'si' in conditional sentences"
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "futur simple"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "avoir",
+        "pouvoir"
+      ],
+      "tags": [
+        "si clauses",
+        "future condition",
+        "present tense"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        9
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "9.json",
+          "chapter_number": 9,
+          "section_title": "The futur antérieur",
+          "page_printed": 78,
+          "page_pdf": 92,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "In French, the futur antérieur is never used after si implying a future condition. Use the present instead.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Other negations (personne, jamais, plus, rien, guère)",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Use ne...personne, ne...jamais, ne...plus, ne...rien, ne...guère.",
-    "usage": [
-      "Specific negations"
-    ],
-    "rule_name": "Other negations (personne, jamais, plus, rien, guère)"
+    "related_context": {
+      "rule_name": "Other negations (personne, jamais, plus, rien, guère)",
+      "summary": "Use ne...personne, ne...jamais, ne...plus, ne...rien, ne...guère.",
+      "explanation": "In addition to ne...pas, other negative particles can be used in the same construction: ne...personne (nobody), ne...jamais (never), ne...plus (no longer), ne...rien (nothing), ne...guère (hardly). Examples: Il n'attend personne. Tu ne voyages jamais en hiver. Il n'a plus de patience. Elle ne répond rien. Ce n'est guère raisonnable.",
+      "formation": "ne + verb + negative particle",
+      "usage": [
+        "Specific negations"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "personne",
+        "jamais",
+        "plus",
+        "rien",
+        "guère"
+      ],
+      "exceptions": [],
+      "word_order": "ne + verb + particle",
+      "negative_form": "This is the negative form",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not confuse plus (no longer) with plus (more); note guère is formal."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Negation"
+      ],
+      "related_expressions": [
+        "ne... jamais",
+        "ne...guère",
+        "ne...personne",
+        "ne...plus",
+        "ne...rien"
+      ],
+      "related_verbs": [
+        "attendre",
+        "avoir",
+        "répondre",
+        "verb_être",
+        "voyager"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Common negative expressions.",
+        "notes": null
+      },
+      "chapters": [
+        2
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "The negative form",
+          "page_printed": 35,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Aside from ne... pas, there are other negations, constructed in the same way.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Où for place",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Où replaces dans lequel, sur lequel, par lequel, etc., when referring to a place.",
-    "usage": [
-      "place relative"
-    ],
-    "rule_name": "Où for place"
+    "related_context": {
+      "rule_name": "Où for place",
+      "summary": "Où replaces dans lequel, sur lequel, par lequel, etc., when referring to a place.",
+      "explanation": "C’est le magasin dans lequel je fais mes courses. C’est le magasin où je fais mes courses. La région dans laquelle ils habitent est très calme. La région où ils habitent est très calme.",
+      "formation": "antecedent + où + clause",
+      "usage": [
+        "place relative"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "antecedent expresses a place"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "où = dans lequel, sur lequel, par lequel, etc."
+      ],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Prepositions",
+        "Relative pronouns"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Où",
+          "page_printed": 206,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "C’est le magasin où je fais mes courses.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Où for time",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Où is also used when the antecedent expresses time, meaning when.",
-    "usage": [
-      "time relative"
-    ],
-    "rule_name": "Où for time"
+    "related_context": {
+      "rule_name": "Où for time",
+      "summary": "Où is also used when the antecedent expresses time, meaning when.",
+      "explanation": "Tu te souviens de l’année où il est arrivé dans la région? Le jour où il a été élu, tout le monde était content. L’instant où nous sommes partis, il a commencé à pleuvoir. Le dix-neuvième siècle fut un siècle où il y eut de nombreuses inventions.",
+      "formation": "time antecedent + où + clause",
+      "usage": [
+        "time relative"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "antecedent expresses time"
+      ],
+      "signal_words": [
+        "année",
+        "jour",
+        "instant",
+        "siècle"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Relative pronouns"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Où",
+          "page_printed": 206,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tu te souviens de l’année où il est arrivé dans la région?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Partitive article in negative sentences",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "In negative, du/de la/de l'/des become de (or d').",
-    "usage": [
-      "to express negation of existence of mass/plural items"
-    ],
-    "rule_name": "Partitive article in negative sentences"
+    "related_context": {
+      "rule_name": "Partitive article in negative sentences",
+      "summary": "In negative, du/de la/de l'/des become de (or d').",
+      "explanation": "Because quantity doesn't exist, partitive article is replaced by de.",
+      "formation": "du/de la/de l'/des → de (or d' before vowel/mute h)",
+      "usage": [
+        "to express negation of existence of mass/plural items"
+      ],
+      "restrictions": [
+        "Exception: after être, partitive remains"
+      ],
+      "conditions": [
+        "after ne...pas"
+      ],
+      "signal_words": [
+        "ne...pas"
+      ],
+      "exceptions": [
+        "C'est du fromage → Ce n'est pas du fromage (être retains partitive)"
+      ],
+      "word_order": "de + noun",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "du pain → pas de pain",
+        "des amis → pas d'amis"
+      ],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use de after être in negative."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Negation",
+        "partitive article"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "avoir",
+        "prêter",
+        "être"
+      ],
+      "tags": [
+        "partitive article",
+        "negation",
+        "de after negation"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "The partitive article",
+          "page_printed": 154,
+          "page_pdf": 168,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When used in the negative, the du, de la, and des all become de, since the quantity of the item doesn’t exist any longer.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Passive pronominal",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "A pronominal verb construction can express passive meaning.",
-    "usage": [
-      "To express passive meaning in a more natural French way."
-    ],
-    "rule_name": "Passive pronominal"
+    "related_context": {
+      "rule_name": "Passive pronominal",
+      "summary": "A pronominal verb construction can express passive meaning.",
+      "explanation": "Pronominal verbs (like se dire, se traduire, se voir, se boire) can have passive meaning.",
+      "formation": "se + verb (conjugated)",
+      "usage": [
+        "To express passive meaning in a more natural French way."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "reflexive passive"
+      ],
+      "related_expressions": [
+        "comment ça se traduit",
+        "ça se dit",
+        "ça se voit"
+      ],
+      "related_verbs": [
+        "boire",
+        "dire",
+        "traduire",
+        "voir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "In Chapter 6, you studied one type of pronominal verb called the passive pronominal. This construction is another example of the voix passive.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Passive pronominal construction",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Subject not person/animal; verb in 3rd person singular with se; expresses passive meaning.",
-    "usage": [
-      "Impersonal or passive meaning"
-    ],
-    "rule_name": "Passive pronominal construction"
+    "related_context": {
+      "rule_name": "Passive pronominal construction",
+      "summary": "Subject not person/animal; verb in 3rd person singular with se; expresses passive meaning.",
+      "explanation": "With passive pronominal verbs, the subject does not perform the action but is subjected to it. It is in the third-person singular, with se.",
+      "formation": "se + verb (3rd person singular)",
+      "usage": [
+        "Impersonal or passive meaning"
+      ],
+      "restrictions": [
+        "Subject is not a person or animal."
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": "se + verb",
+      "negative_form": "ne + se + verb + pas",
+      "interrogative_form": "se + verb + ?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Passive pronominal"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Passive pronominals",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "With the passive pronominal verbs, the subject is not a person or an animal. The subject does not perform the action of the verb but rather is subjected to it. It is in the third-person singular, with se.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Passive used to avoid specifying agent",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The passive voice is used to avoid mentioning who performed the action.",
-    "usage": [
-      "To avoid specifying the agent."
-    ],
-    "rule_name": "Passive used to avoid specifying agent"
+    "related_context": {
+      "rule_name": "Passive used to avoid specifying agent",
+      "summary": "The passive voice is used to avoid mentioning who performed the action.",
+      "explanation": "When the agent is unknown, unimportant, or deliberately omitted, the passive voice is used.",
+      "formation": null,
+      "usage": [
+        "To avoid specifying the agent."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "passive voice"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Uses of the passive voice",
+          "page_printed": 139,
+          "page_pdf": 153,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The voix passive is also used to avoid specifying the agent of the action.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

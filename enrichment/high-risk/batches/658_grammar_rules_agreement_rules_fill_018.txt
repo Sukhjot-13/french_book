@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,110 +44,826 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Qui as object of verb with intervening subject",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Qui can be the object of the verb in the dependent clause; a subject noun or pronoun comes between qui and the verb.",
-    "usage": [
-      "object of verb"
-    ],
-    "rule_name": "Qui as object of verb with intervening subject"
+    "related_context": {
+      "rule_name": "Qui as object of verb with intervening subject",
+      "summary": "Qui can be the object of the verb in the dependent clause; a subject noun or pronoun comes between qui and the verb.",
+      "explanation": "Je ne sais pas qui il est. Le président n’a pas dit qui il nommerait à ce poste. Nous ignorons qui elle renverra. Le policier a révélé qui il avait attrapé.",
+      "formation": "verb + qui + subject + verb",
+      "usage": [
+        "object of verb"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "subject pronoun/noun between qui and verb"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": "qui + subject + verb",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Relative pronouns"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Que",
+          "page_printed": 204,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Je ne sais pas qui il est.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Quitte à + infinitive",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The expression quitte à + infinitive is translated as 'even if it means'.",
-    "usage": [
-      "To express 'even if it means (doing something)'"
-    ],
-    "rule_name": "Quitte à + infinitive"
+    "related_context": {
+      "rule_name": "Quitte à + infinitive",
+      "summary": "The expression quitte à + infinitive is translated as 'even if it means'.",
+      "explanation": "It expresses acceptance of a possible negative consequence in order to achieve something else.",
+      "formation": "quitte à + infinitive",
+      "usage": [
+        "To express 'even if it means (doing something)'"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "quitte à"
+      ],
+      "exceptions": [],
+      "word_order": "Main clause + quitte à + infinitive (often at end of sentence).",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not confuse 'quitte à' with 'quitter' (to leave)."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Concessive expressions (avoir beau, quitte à)"
+      ],
+      "related_expressions": [
+        "quitte à + infinitif"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Avoir beau and quitte à",
+          "page_printed": 248,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The expression quitte à + infinitive can usually be translated by even if it means.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Quoi after prepositions for indefinite things",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Quoi is used after a preposition to refer to an indefinite thing or object.",
-    "usage": [
-      "object of preposition referring to indefinite things"
-    ],
-    "rule_name": "Quoi after prepositions for indefinite things"
+    "related_context": {
+      "rule_name": "Quoi after prepositions for indefinite things",
+      "summary": "Quoi is used after a preposition to refer to an indefinite thing or object.",
+      "explanation": "Tu sais à quoi il pense?",
+      "formation": "preposition + quoi",
+      "usage": [
+        "object of preposition referring to indefinite things"
+      ],
+      "restrictions": [
+        "indefinite things only"
+      ],
+      "conditions": [
+        "preposition precedes quoi"
+      ],
+      "signal_words": [
+        "à",
+        "de"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Prepositions",
+        "Relative pronouns"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Lequel",
+          "page_printed": 205,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tu sais à quoi il pense?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Regular -re verbs present tense",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Drop -re, add endings -s, -s, - (nothing), -ons, -ez, -ent.",
-    "usage": [
-      "Present tense conjugation of regular -re verbs"
-    ],
-    "rule_name": "Regular -re verbs present tense"
+    "related_context": {
+      "rule_name": "Regular -re verbs present tense",
+      "summary": "Drop -re, add endings -s, -s, - (nothing), -ons, -ez, -ent.",
+      "explanation": "For regular -re verbs, remove the -re ending and add: je -s, tu -s, il/elle - (no ending), nous -ons, vous -ez, ils/elles -ent. Example: vendre -> je vends, tu vends, il vend, nous vendons, vous vendez, ils vendent.",
+      "formation": "stem + -s / -s / - / -ons / -ez / -ent",
+      "usage": [
+        "Present tense conjugation of regular -re verbs"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "Verbs ending in -re that follow this pattern"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": "ne + conjugated verb + pas",
+      "interrogative_form": "inversion or est-ce que",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "The third person singular (il/elle) has no ending."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "-re verbs",
+        "Present tense",
+        "Regular conjugation"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "attendre",
+        "descendre",
+        "défendre",
+        "détendre",
+        "entendre",
+        "mordre",
+        "perdre",
+        "prétendre",
+        "rendre",
+        "répandre",
+        "répondre",
+        "tendre",
+        "tordre",
+        "vendre",
+        "étendre"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Regular pattern.",
+        "notes": null
+      },
+      "chapters": [
+        2
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "2.json",
+          "chapter_number": 2,
+          "section_title": "-re verbs in the present",
+          "page_printed": 30,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "For regular -re verbs, remove the -re ending and follow the pattern below.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Regular past participle endings",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Past participle endings for regular verbs: -er → -é, -ir → -i, -re → -u.",
-    "usage": [],
-    "rule_name": "Regular past participle endings"
+    "related_context": {
+      "rule_name": "Regular past participle endings",
+      "summary": "Past participle endings for regular verbs: -er → -é, -ir → -i, -re → -u.",
+      "explanation": "Form past participle by adding ending to verb stem after dropping infinitive ending.",
+      "formation": "-er → -é, -ir → -i, -re → -u",
+      "usage": [],
+      "restrictions": [],
+      "conditions": [
+        "regular verbs"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Regular past participle formation"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "choisir",
+        "entendre",
+        "parler"
+      ],
+      "tags": [
+        "past participle",
+        "regular verbs",
+        "morphology"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "Basic formation rule",
+        "notes": null
+      },
+      "chapters": [
+        7
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Introduction to the passé composé",
+          "page_printed": 69,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Regular past participles take the following endings: -er verbs take -é, -ir verbs take -i, -re verbs take -u.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Relative clause insertion",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The relative clause is often inserted into the main clause.",
-    "usage": [
-      "sentence structure"
-    ],
-    "rule_name": "Relative clause insertion"
+    "related_context": {
+      "rule_name": "Relative clause insertion",
+      "summary": "The relative clause is often inserted into the main clause.",
+      "explanation": "La commode qui est dans la vitrine, a appartenu à Talleyrand. L’homme que vous voyez au fond de l’atelier est un des meilleurs artisans du pays.",
+      "formation": "main clause + relative clause + rest of main clause",
+      "usage": [
+        "sentence structure"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Relative pronouns"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Que",
+          "page_printed": 205,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "La commode qui est dans la vitrine, a appartenu à Talleyrand.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Savoir + infinitive / clause",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Savoir is used before an infinitive or dependent clause to express knowing how to or knowing a fact.",
-    "usage": [
-      "To express knowledge of facts",
-      "To express ability to do something"
-    ],
-    "rule_name": "Savoir + infinitive / clause"
+    "related_context": {
+      "rule_name": "Savoir + infinitive / clause",
+      "summary": "Savoir is used before an infinitive or dependent clause to express knowing how to or knowing a fact.",
+      "explanation": "Savoir can be translated as 'can' when followed by an infinitive. It is the only verb that can be used before a dependent clause or an infinitive to mean 'know'.",
+      "formation": "savoir + infinitive; savoir + que/quand/où etc.",
+      "usage": [
+        "To express knowledge of facts",
+        "To express ability to do something"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": "ne pas savoir + infinitive/clause",
+      "interrogative_form": "Est-ce que + savoir + infinitive?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Savoir is sometimes translated by can."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Modal verbs",
+        "Savoir vs. connaître"
+      ],
+      "related_expressions": [
+        "savoir + infinitive",
+        "savoir que + clause"
+      ],
+      "related_verbs": [
+        "savoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "Savoir",
+          "page_printed": 42,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Note that savoir is sometimes translated by can. Before a dependent clause or before an infinitive, only savoir can be used. Je ne sais pas où il est. Il sait qu’elle est occupée.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Savoir in present conditional equivalent to pouvoir",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "In formal French, savoir in the present conditional is the equivalent of pouvoir (can, to be able to) in the present or simple future.",
-    "usage": [
-      "formal expression of inability",
-      "polite refusal"
-    ],
-    "rule_name": "Savoir in present conditional equivalent to pouvoir"
+    "related_context": {
+      "rule_name": "Savoir in present conditional equivalent to pouvoir",
+      "summary": "In formal French, savoir in the present conditional is the equivalent of pouvoir (can, to be able to) in the present or simple future.",
+      "explanation": "Used to express inability or polite refusal.",
+      "formation": "savoir in conditional",
+      "usage": [
+        "formal expression of inability",
+        "polite refusal"
+      ],
+      "restrictions": [
+        "formal register"
+      ],
+      "conditions": [],
+      "signal_words": [
+        "je ne saurais"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not translate literally as 'would know'."
+      ],
+      "related_tenses": [
+        "conditionnel présent"
+      ],
+      "related_concepts": [
+        "Present conditional"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "savoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 3,
+        "frequency_note": "formal",
+        "notes": null
+      },
+      "chapters": [
+        11
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "Uses of the present conditional",
+          "page_printed": 90,
+          "page_pdf": 104,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "In formal French, savoir in the présent du conditionnel is the equivalent of pouvoir (can, to be able to) in the present or the simple future.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Should (ought to)",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Use conditionnel présent of devoir for present advice; use conditionnel passé of devoir for past advice or regret.",
-    "usage": [
-      "Giving advice",
-      "Expressing obligation",
-      "Expressing regret about past actions"
-    ],
-    "rule_name": "Should (ought to)"
+    "related_context": {
+      "rule_name": "Should (ought to)",
+      "summary": "Use conditionnel présent of devoir for present advice; use conditionnel passé of devoir for past advice or regret.",
+      "explanation": "When 'should' means 'ought to', French uses the conditionnel présent of devoir for present/future advice, and the conditionnel passé of devoir for advice about the past (should have).",
+      "formation": "conditionnel présent of devoir + infinitive (present advice); conditionnel passé of devoir + infinitive (past advice)",
+      "usage": [
+        "Giving advice",
+        "Expressing obligation",
+        "Expressing regret about past actions"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "devrais",
+        "devriez",
+        "aurais dû",
+        "auriez dû"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": "ne pas devoir (conditionnel)",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use présent of devoir for 'should'"
+      ],
+      "related_tenses": [
+        "conditionnel passé",
+        "conditionnel présent"
+      ],
+      "related_concepts": [
+        "Obligation and advice (should)"
+      ],
+      "related_expressions": [
+        "devoir + infinitif"
+      ],
+      "related_verbs": [
+        "devoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Should",
+          "page_printed": 99,
+          "page_pdf": 113,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When should means ought to, the conditionnel (présent or passé) is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Si seulement + imparfait for wish/regret",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Use 'si seulement' + imparfait to express a wish or regret.",
-    "usage": [
-      "Express a wish",
-      "Express regret"
-    ],
-    "rule_name": "Si seulement + imparfait for wish/regret"
+    "related_context": {
+      "rule_name": "Si seulement + imparfait for wish/regret",
+      "summary": "Use 'si seulement' + imparfait to express a wish or regret.",
+      "explanation": "You will encounter the imparfait in other idiomatic constructions, for instance, preceded by si seulement, to express a wish or a regret.",
+      "formation": "si seulement + imparfait",
+      "usage": [
+        "Express a wish",
+        "Express regret"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "si seulement"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "imparfait"
+      ],
+      "related_concepts": [
+        "imparfait",
+        "wish or regret"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "habiter",
+        "pouvoir",
+        "savoir",
+        "être"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Special construction: si seulement + imparfait (wish/regret)",
+          "page_printed": 71,
+          "page_pdf": 85,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "You will encounter the imparfait in other idiomatic constructions, for instance, preceded by si seulement, to express a wish or a regret.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

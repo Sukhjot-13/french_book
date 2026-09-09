@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,112 +44,914 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Imparfait spelling changes",
     "field": "transformations",
     "current_value": [],
-    "summary": "Verbs with spelling changes in the present nous form (e.g., manger, commencer) retain the extra e or ç only for je, tu, il, elle, ils, elles; not for nous, vous.",
-    "usage": [],
-    "rule_name": "Imparfait spelling changes"
+    "related_context": {
+      "rule_name": "Imparfait spelling changes",
+      "summary": "Verbs with spelling changes in the present nous form (e.g., manger, commencer) retain the extra e or ç only for je, tu, il, elle, ils, elles; not for nous, vous.",
+      "explanation": "Verbs with spelling changes in the present tense nous form, such as manger and commencer, retain the spelling change only for the je, tu, il, elle, ils, and elles subject pronouns. The extra e or the ç are not needed in the nous and vous forms of the imparfait.",
+      "formation": null,
+      "usage": [],
+      "restrictions": [],
+      "conditions": [
+        "Applies to verbs like manger, commencer and similar spelling-change verbs"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "contrast_with": [],
+      "common_traps": [
+        "Do not add extra e or ç in nous/vous forms."
+      ],
+      "related_tenses": [
+        "imparfait"
+      ],
+      "related_concepts": [
+        "imparfait",
+        "spelling changes in future"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "annoncer",
+        "avancer",
+        "commencer",
+        "effacer",
+        "encourager",
+        "exiger",
+        "manger",
+        "nager",
+        "partager",
+        "protéger",
+        "remplacer"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Formation of the imparfait",
+          "page_printed": 65,
+          "page_pdf": 79,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Verbs with spelling changes in the present tense nous form, such as manger and commencer, retain the spelling change only for the je, tu, il, elle, ils, and elles subject pronouns. The extra e or the ç are not needed in the nous and vous forms of the imparfait.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Imparfait vs passé composé with state verbs",
     "field": "transformations",
     "current_value": [],
-    "summary": "Certain verbs expressing mental or physical states tend to be used in the imparfait; in the passé composé, they may take on a different meaning.",
-    "usage": [
-      "Use imparfait for states",
-      "Use passé composé for changes or specific realizations"
-    ],
-    "rule_name": "Imparfait vs passé composé with state verbs"
+    "related_context": {
+      "rule_name": "Imparfait vs passé composé with state verbs",
+      "summary": "Certain verbs expressing mental or physical states tend to be used in the imparfait; in the passé composé, they may take on a different meaning.",
+      "explanation": "As they express a mental or physical state of being, some verbs tend to be used more often in the imparfait than in the passé composé. Among these verbs are: être, avoir, penser, croire, savoir, espérer, sembler, paraître. However, when these verbs are used in the passé composé, they may take on a different meaning.",
+      "formation": null,
+      "usage": [
+        "Use imparfait for states",
+        "Use passé composé for changes or specific realizations"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "contrast_with": [],
+      "common_traps": [
+        "Do not assume same meaning for state verbs in passé composé; may indicate change or specific event."
+      ],
+      "related_tenses": [
+        "imparfait",
+        "passé composé"
+      ],
+      "related_concepts": [
+        "contrast",
+        "imparfait",
+        "passé composé"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "avoir",
+        "croire",
+        "espérer",
+        "paraître",
+        "penser",
+        "savoir",
+        "sembler",
+        "être"
+      ],
+      "tags": [
+        "tense contrast",
+        "state verbs",
+        "past narration"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "The imparfait versus the passé composé",
+          "page_printed": 67,
+          "page_pdf": 81,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "As they express a mental or physical state of being, some verbs tend to be used more often in the imparfait than in the passé composé. Among these verbs are: être, avoir, penser, croire, savoir, espérer, sembler, paraître. However, when these verbs are used in the passé composé, they may take on a different meaning.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Imperative of vouloir (veuillez)",
     "field": "transformations",
     "current_value": [],
-    "summary": "The irregular verb vouloir is used only in the vous imperative form: veuillez.",
-    "usage": [
-      "Polite requests",
-      "Formal commands"
-    ],
-    "rule_name": "Imperative of vouloir (veuillez)"
+    "related_context": {
+      "rule_name": "Imperative of vouloir (veuillez)",
+      "summary": "The irregular verb vouloir is used only in the vous imperative form: veuillez.",
+      "explanation": "Vouloir has only the vous imperative form, veuillez, used as a polite command.",
+      "formation": "veuillez + infinitive",
+      "usage": [
+        "Polite requests",
+        "Formal commands"
+      ],
+      "restrictions": [
+        "Only vous form"
+      ],
+      "conditions": [],
+      "signal_words": [
+        "veuillez"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "contrast_with": [],
+      "common_traps": [
+        "Trying to use tu or nous forms of vouloir in imperative."
+      ],
+      "related_tenses": [
+        "impératif"
+      ],
+      "related_concepts": [
+        "imperative mood",
+        "irregular imperative forms"
+      ],
+      "related_expressions": [
+        "veuillez + infinitif"
+      ],
+      "related_verbs": [
+        "vouloir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "Irregular imperative forms",
+          "page_printed": 149,
+          "page_pdf": 163,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The irregular verb vouloir (to want) is used only in the vous imperative form.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Impersonal expressions followed by the indicative",
     "field": "transformations",
     "current_value": [],
-    "summary": "Certain impersonal expressions are followed by the indicative mood.",
-    "usage": [
-      "Expressing certainty or probability."
-    ],
-    "rule_name": "Impersonal expressions followed by the indicative"
+    "related_context": {
+      "rule_name": "Impersonal expressions followed by the indicative",
+      "summary": "Certain impersonal expressions are followed by the indicative mood.",
+      "explanation": "Expressions expressing certainty, probability, or evidence: il est certain, il est sûr, il est évident, il est vrai, il est probable, il me semble.",
+      "formation": "Impersonal expression + que + indicative.",
+      "usage": [
+        "Expressing certainty or probability."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "il est certain",
+        "il est sûr",
+        "il est évident",
+        "il est vrai",
+        "il est probable",
+        "il me semble"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "contrast_with": [],
+      "common_traps": [
+        "Confusing with subjunctive-triggering impersonal expressions."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Impersonal expressions"
+      ],
+      "related_expressions": [
+        "il est certain que + indicatif",
+        "il est probable que + indicatif",
+        "il est sûr que + indicatif",
+        "il est vrai que + indicatif",
+        "il est évident que + indicatif",
+        "il me semble que + indicatif"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Impersonal expressions and the subjunctive",
+          "page_printed": 107,
+          "page_pdf": 121,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Here are some impersonal expressions that are followed by the indicative: il est certain, il est sûr, il est évident, il est vrai, il est probable, il me semble.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Impersonal expressions followed by the subjunctive",
     "field": "transformations",
     "current_value": [],
-    "summary": "Certain impersonal expressions are followed by the subjunctive mood.",
-    "usage": [
-      "Expressing necessity, possibility, emotion, etc."
-    ],
-    "rule_name": "Impersonal expressions followed by the subjunctive"
+    "related_context": {
+      "rule_name": "Impersonal expressions followed by the subjunctive",
+      "summary": "Certain impersonal expressions are followed by the subjunctive mood.",
+      "explanation": "Expressions expressing will, obligation, necessity, emotion, doubt: il faut, il est possible, il est essentiel, il est indispensable, il est juste, il se peut, il est important, il vaut mieux, il est préférable, il est souhaitable, il est naturel, il est normal, il est rare, il est utile, il est étrange, il est bizarre, il est étonnant, il est surprenant, il est triste, il est dommage, il est regrettable, cela ne vaut pas la peine.",
+      "formation": "Impersonal expression + que + subjunctive.",
+      "usage": [
+        "Expressing necessity, possibility, emotion, etc."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "il faut que",
+        "il est possible que",
+        "il est essentiel que",
+        "il est important que",
+        "il vaut mieux que",
+        "il est préférable que",
+        "il est souhaitable que",
+        "il est naturel que",
+        "il est normal que",
+        "il est rare que",
+        "il est utile que",
+        "il est étrange que",
+        "il est bizarre que",
+        "il est étonnant que",
+        "il est surprenant que",
+        "il est triste que",
+        "il est dommage que",
+        "il est regrettable que",
+        "cela ne vaut pas la peine que",
+        "il se peut que"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "contrast_with": [],
+      "common_traps": [
+        "Forgetting to use subjunctive after these expressions."
+      ],
+      "related_tenses": [
+        "subjonctif présent"
+      ],
+      "related_concepts": [
+        "Impersonal expressions"
+      ],
+      "related_expressions": [
+        "cela ne vaut pas la peine que + subjonctif",
+        "il est bizarre que + subjonctif",
+        "il est dommage que + subjonctif",
+        "il est essentiel que + subjonctif",
+        "il est important que + subjonctif",
+        "il est indispensable que + subjonctif",
+        "il est juste que + subjonctif",
+        "il est naturel que + subjonctif",
+        "il est normal que + subjonctif",
+        "il est possible que + subjonctif",
+        "il est préférable que + subjonctif",
+        "il est rare que + subjonctif",
+        "il est regrettable que + subjonctif",
+        "il est souhaitable que + subjonctif",
+        "il est surprenant que + subjonctif",
+        "il est triste que + subjonctif",
+        "il est utile que + subjonctif",
+        "il est étonnant que + subjonctif",
+        "il est étrange que + subjonctif",
+        "il faut que + subjonctif",
+        "il se peut que + subjonctif",
+        "il vaut mieux que + subjonctif"
+      ],
+      "related_verbs": [],
+      "tags": [
+        "impersonal expressions",
+        "subjunctive",
+        "dependent clauses"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Impersonal expressions and the subjunctive",
+          "page_printed": 107,
+          "page_pdf": 121,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Here are some impersonal expressions that are followed by the subjunctive: il faut, il est possible, il est essentiel, il est indispensable, il est juste, il se peut, il est important, il vaut mieux, il est préférable, il est souhaitable, il est naturel, il est normal, il est rare, il est utile, il est étrange, il est bizarre, il est étonnant, il est surprenant, il est triste, il est dommage, il est regrettable, cela ne vaut pas la peine.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Impersonal verbs falloir and pleuvoir",
     "field": "transformations",
     "current_value": [],
-    "summary": "Falloir and pleuvoir are only used in the third-person singular.",
-    "usage": [
-      "To express necessity",
-      "To describe weather"
-    ],
-    "rule_name": "Impersonal verbs falloir and pleuvoir"
+    "related_context": {
+      "rule_name": "Impersonal verbs falloir and pleuvoir",
+      "summary": "Falloir and pleuvoir are only used in the third-person singular.",
+      "explanation": "Falloir means 'to be necessary' and pleuvoir means 'to rain'; they are impersonal verbs.",
+      "formation": "il faut / il pleut",
+      "usage": [
+        "To express necessity",
+        "To describe weather"
+      ],
+      "restrictions": [
+        "Only third-person singular"
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Impersonal verbs",
+        "Present tense"
+      ],
+      "related_expressions": [
+        "il faut",
+        "il pleut"
+      ],
+      "related_verbs": [
+        "falloir",
+        "pleuvoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "Falloir and pleuvoir",
+          "page_printed": 46,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Falloir and pleuvoir are used only in the third-person singular. falloir / to be necessary / il faut / it is necessary / pleuvoir / to rain / il pleut / it is raining",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Impersonal weather verbs",
     "field": "transformations",
     "current_value": [],
-    "summary": "Some weather conditions use specific impersonal verbs: pleuvoir, neiger, grêler, bruiner.",
-    "usage": [
-      "To express specific weather conditions."
-    ],
-    "rule_name": "Impersonal weather verbs"
+    "related_context": {
+      "rule_name": "Impersonal weather verbs",
+      "summary": "Some weather conditions use specific impersonal verbs: pleuvoir, neiger, grêler, bruiner.",
+      "explanation": "A few verbs relating to the weather are used in the impersonal il form, without faire: il pleut, il neige, il grêle, il bruine.",
+      "formation": "il + verb (3rd singular)",
+      "usage": [
+        "To express specific weather conditions."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "il pleut",
+        "il neige",
+        "il grêle",
+        "il bruine"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "il + verb",
+      "negative_form": "il ne pleut pas",
+      "interrogative_form": "Est-ce qu'il pleut?",
+      "affirmative_form": null,
+      "contrast_with": [],
+      "common_traps": [
+        "Using faire with these verbs."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Impersonal weather expressions"
+      ],
+      "related_expressions": [
+        "il bruine",
+        "il grêle",
+        "il neige",
+        "il pleut"
+      ],
+      "related_verbs": [
+        "bruiner",
+        "grêler",
+        "neiger",
+        "pleuvoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb faire (to do, to make)",
+          "page_printed": 54,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "A few verbs relating to the weather are used in the impersonal il form, without faire. Il pleut. It is raining. Il neige. It is snowing. Il grêle. It is hailing. Il bruine. It is drizzling.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Indefinite article: un, une, des",
     "field": "transformations",
     "current_value": [],
-    "summary": "Use un for masculine singular, une for feminine singular, des for plural.",
-    "usage": [
-      "to refer to non-specific nouns",
-      "to indicate one item or some items"
-    ],
-    "rule_name": "Indefinite article: un, une, des"
+    "related_context": {
+      "rule_name": "Indefinite article: un, une, des",
+      "summary": "Use un for masculine singular, une for feminine singular, des for plural.",
+      "explanation": "Indefinite article indicates an unspecified item or some items.",
+      "formation": "un + masculine singular; une + feminine singular; des + plural",
+      "usage": [
+        "to refer to non-specific nouns",
+        "to indicate one item or some items"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [
+        "agrees with noun gender and number"
+      ],
+      "word_order": "article before noun",
+      "negative_form": "In negative, un/une/des often become de (except with être).",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "contrast_with": [],
+      "common_traps": [
+        "Do not confuse with partitive."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "gender of nouns",
+        "indefinite article"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "very common",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "The indefinite and partitive articles with nouns",
+          "page_printed": 153,
+          "page_pdf": 167,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The indefinite articles are un (masculine singular) (a), une (feminine singular) (a), and des (both masculine and feminine plural) (some).",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Indefinite demonstrative pronouns ceci, cela, ça",
     "field": "transformations",
     "current_value": [],
-    "summary": "Ceci, cela, and ça refer to indefinite things or ideas; ceci announces, cela reflects, ça is familiar.",
-    "usage": [
-      "Referring to indefinite things or ideas",
-      "Ceci: to announce a following sentence",
-      "Cela: to refer back to something already mentioned",
-      "Ça: familiar substitute"
-    ],
-    "rule_name": "Indefinite demonstrative pronouns ceci, cela, ça"
+    "related_context": {
+      "rule_name": "Indefinite demonstrative pronouns ceci, cela, ça",
+      "summary": "Ceci, cela, and ça refer to indefinite things or ideas; ceci announces, cela reflects, ça is familiar.",
+      "explanation": "Ceci (this) initiates a statement; cela (that) reflects on something already mentioned; ça is familiar and replaces both.",
+      "formation": "ceci / cela / ça",
+      "usage": [
+        "Referring to indefinite things or ideas",
+        "Ceci: to announce a following sentence",
+        "Cela: to refer back to something already mentioned",
+        "Ça: familiar substitute"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "Can be subject or object.",
+      "negative_form": "Ça ne fait rien.",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "contrast_with": [],
+      "common_traps": [
+        "Using ceci when referring back to something already mentioned (should use cela/ça)."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Indefinite demonstrative pronouns ceci, cela, ça"
+      ],
+      "related_expressions": [
+        "Ça m'est égal",
+        "Ça ne fait rien"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Ceci, cela, and ça",
+          "page_printed": 199,
+          "page_pdf": 213,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The indefinite demonstrative pronouns ceci (this), cela (that), and ça (this/that, familiar) refer to indefinite things or ideas. Ceci may initiate a statement and also announce a following sentence. Cela may reflect on something already mentioned.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Infinitive after expressions of position",
     "field": "transformations",
     "current_value": [],
-    "summary": "After expressions like être debout, être assis, the infinitive is preceded by à.",
-    "usage": [
-      "To describe an action done while in a certain position."
-    ],
-    "rule_name": "Infinitive after expressions of position"
+    "related_context": {
+      "rule_name": "Infinitive after expressions of position",
+      "summary": "After expressions like être debout, être assis, the infinitive is preceded by à.",
+      "explanation": "The preposition à links the position expression to the infinitive.",
+      "formation": "être + position + à + infinitive",
+      "usage": [
+        "To describe an action done while in a certain position."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "debout",
+        "assis",
+        "accroupi",
+        "à genoux",
+        "accoudé"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "position expression + à + infinitive",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "contrast_with": [],
+      "common_traps": [
+        "Do not omit à."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "expressions of position",
+        "infinitive mood"
+      ],
+      "related_expressions": [
+        "être accroupi à + infinitif",
+        "être assis à + infinitif",
+        "être debout à + infinitif",
+        "être à genoux à + infinitif"
+      ],
+      "related_verbs": [
+        "être"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "Common",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Infinitive after expressions of position",
+          "page_printed": 117,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The infinitive is used after expressions of position. The preposition à precedes the infinitive.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

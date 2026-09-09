@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,62 +44,509 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "s'attendre",
     "field": "past_participle",
     "current_value": null,
-    "english": [
-      "to expect"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "etre",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "s'attendre",
+      "display_form": "s'attendre",
+      "english": [
+        "to expect"
+      ],
+      "senses": [
+        {
+          "english": "to expect",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "regular",
+      "pronominal": true,
+      "transitivity": [
+        "intransitive"
+      ],
+      "auxiliary": "etre",
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "s'attendre à"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "aliases": [
+        "attendre"
+      ],
+      "search_terms": [
+        "attendre",
+        "s'attendre"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 66,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tu (s'attendre) à sa visite.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« S’attendre » requires « à » before a noun or infinitive: « s’attendre à une réponse »."
+      ]
+    }
   },
   {
     "entity_key": "s'embrasser",
     "field": "past_participle",
     "current_value": null,
-    "english": [
-      "to kiss each other"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "etre",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "s'embrasser",
+      "display_form": "s'embrasser",
+      "english": [
+        "to kiss each other"
+      ],
+      "senses": [
+        {
+          "english": "to kiss each other",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": true,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "etre",
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "s'embrasser"
+      ],
+      "related_concepts": [
+        "Reciprocal verbs"
+      ],
+      "aliases": [
+        "embrasser"
+      ],
+      "search_terms": [
+        "embrasser",
+        "s'embrasser"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reciprocal verbs",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Vous (s'embrasser) sur le balcon.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "s'emparer",
     "field": "past_participle",
     "current_value": null,
-    "english": [
-      "to seize"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "etre",
-    "regularity": "regular"
+    "related_context": {
+      "infinitive": "s'emparer",
+      "display_form": "s'emparer",
+      "english": [
+        "to seize"
+      ],
+      "senses": [
+        {
+          "english": "to seize",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "regular",
+      "pronominal": true,
+      "transitivity": [
+        "transitive"
+      ],
+      "auxiliary": "etre",
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [
+        {
+          "tense": "présent",
+          "mood": "indicative",
+          "forms": {
+            "je": "m'empare",
+            "tu": null,
+            "il_elle_on": null,
+            "nous": null,
+            "vous": null,
+            "ils_elles": null,
+            "imperative_tu": null,
+            "imperative_nous": null,
+            "imperative_vous": null,
+            "impersonal_form": null
+          },
+          "stems": [],
+          "endings": [],
+          "formation_note": null,
+          "irregularities": [],
+          "notes": [
+            "Only first-person singular form given in source."
+          ],
+          "sources": [
+            {
+              "source_type": "chapter",
+              "source_name": "6.json",
+              "chapter_number": 6,
+              "section_title": "Subjective pronominals",
+              "page_printed": 65,
+              "page_pdf": null,
+              "context_type": "table",
+              "exercise_code": null,
+              "question_number": null,
+              "table_title": null,
+              "table_type": null,
+              "row_label": null,
+              "column": null,
+              "direction": null,
+              "source_headword": null,
+              "source_target": null,
+              "source_text": "s'emparer  to seize  je m'empare  I am seizing",
+              "created_by": null,
+              "notes": null,
+              "derived_from": [],
+              "source_classifications": []
+            }
+          ]
+        }
+      ],
+      "related_expressions": [
+        "s'emparer de"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "aliases": [
+        "emparer"
+      ],
+      "search_terms": [
+        "emparer",
+        "s'emparer"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "s'emparer  to seize  je m'empare  I am seizing",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« S’emparer » requires « de » before the person, place, or thing seized."
+      ]
+    }
   },
   {
     "entity_key": "s'en aller",
     "field": "past_participle",
     "current_value": null,
-    "english": [
-      "to leave, to go away"
-    ],
-    "verb_group": "1st_group",
-    "auxiliary": "etre",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "s'en aller",
+      "display_form": "s'en aller",
+      "english": [
+        "to leave, to go away"
+      ],
+      "senses": [
+        {
+          "english": "to leave, to go away",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "1st_group",
+      "regularity": "irregular",
+      "pronominal": true,
+      "transitivity": [
+        "intransitive"
+      ],
+      "auxiliary": "etre",
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "s'en aller"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "aliases": [
+        "en aller"
+      ],
+      "search_terms": [
+        "en aller",
+        "s'en aller"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle s'en va. (s'en aller)  She is leaving.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« S’en aller » is conjugated with both reflexive pronouns and « en », as in « je m’en vais »; it uses « être » in compound tenses."
+      ]
+    }
   },
   {
     "entity_key": "s'entendre",
     "field": "past_participle",
     "current_value": null,
-    "english": [
-      "to get along"
-    ],
-    "verb_group": "3rd_group",
-    "auxiliary": "etre",
-    "regularity": "irregular"
+    "related_context": {
+      "infinitive": "s'entendre",
+      "display_form": "s'entendre",
+      "english": [
+        "to get along"
+      ],
+      "senses": [
+        {
+          "english": "to get along",
+          "note": null,
+          "gender": null,
+          "articles": null,
+          "plural": null
+        }
+      ],
+      "verb_group": "3rd_group",
+      "regularity": "irregular",
+      "pronominal": true,
+      "transitivity": [
+        "intransitive"
+      ],
+      "auxiliary": "etre",
+      "present_participle": null,
+      "stems": [],
+      "conjugations": [],
+      "related_expressions": [
+        "s'entendre avec"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "aliases": [
+        "entendre"
+      ],
+      "search_terms": [
+        "entendre",
+        "s'entendre"
+      ],
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils s'entendent très bien. (s'entendre [avec])  They get along very well.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "« S’entendre avec quelqu’un » means to get along with someone; reciprocal « s’entendre » can also mean to understand one another."
+      ]
+    }
   }
 ]
 ================================================================================

@@ -36,13 +36,34 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
     {"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}
   ]
 }
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -53,9 +74,60 @@ TARGETS
     },
     "field": "incorrect_form",
     "current_value": null,
-    "description": "Use tu for friends, family, children, animals. Use vous for strangers, people you don't know well, or to maintain distance/respect.",
-    "category": "usage",
-    "title": "Tu vs vous"
+    "related_context": {
+      "title": "Tu vs vous",
+      "category": "usage",
+      "description": "Use tu for friends, family, children, animals. Use vous for strangers, people you don't know well, or to maintain distance/respect.",
+      "correct_form": null,
+      "related_grammar_rules": [],
+      "related_verbs": [],
+      "related_expressions": [],
+      "related_examples": [],
+      "tags": [
+        "tu",
+        "vous",
+        "register",
+        "social-context"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "Subject pronouns",
+          "page_printed": 2,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Use tu to talk to friends, family members, children, and animals. Use vous when you are addressing a stranger, someone you don't know well, or to maintain a certain degree of distance or respect.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -64,9 +136,62 @@ TARGETS
     },
     "field": "incorrect_form",
     "current_value": null,
-    "description": "In English, past tense or present perfect is often used, but French uses present tense with depuis.",
-    "category": "usage",
-    "title": "Using present tense with depuis vs English"
+    "related_context": {
+      "title": "Using present tense with depuis vs English",
+      "category": "usage",
+      "description": "In English, past tense or present perfect is often used, but French uses present tense with depuis.",
+      "correct_form": null,
+      "related_grammar_rules": [
+        "Depuis + present tense for duration"
+      ],
+      "related_verbs": [],
+      "related_expressions": [],
+      "related_examples": [],
+      "tags": [
+        "depuis",
+        "present-tense",
+        "duration",
+        "translation"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "One more use of the present tense: depuis",
+          "page_printed": 10,
+          "page_pdf": null,
+          "context_type": "warning",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Note that in English, the past tense is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -75,9 +200,68 @@ TARGETS
     },
     "field": "incorrect_form",
     "current_value": null,
-    "description": "The verb vouloir is used only in the vous imperative form: veuillez.",
-    "category": "restriction",
-    "title": "Vouloir only in vous imperative"
+    "related_context": {
+      "title": "Vouloir only in vous imperative",
+      "category": "restriction",
+      "description": "The verb vouloir is used only in the vous imperative form: veuillez.",
+      "correct_form": "Veuillez",
+      "related_grammar_rules": [
+        "Imperative of vouloir (veuillez)"
+      ],
+      "related_verbs": [
+        "vouloir"
+      ],
+      "related_expressions": [
+        "veuillez + infinitif"
+      ],
+      "related_examples": [
+        "Veuillez signer le contrat."
+      ],
+      "tags": [
+        "vouloir",
+        "imperative",
+        "veuillez",
+        "formal-request"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "Irregular imperative forms",
+          "page_printed": 149,
+          "page_pdf": 163,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The irregular verb vouloir (to want) is used only in the vous imperative form.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -86,9 +270,65 @@ TARGETS
     },
     "field": "incorrect_form",
     "current_value": null,
-    "description": "'Finir de' means to complete an action; 'finir par' means to eventually do something after a delay or hesitation.",
-    "category": "contrast",
-    "title": "finir de (finish doing) vs finir par (end up doing)"
+    "related_context": {
+      "title": "finir de (finish doing) vs finir par (end up doing)",
+      "category": "contrast",
+      "description": "'Finir de' means to complete an action; 'finir par' means to eventually do something after a delay or hesitation.",
+      "correct_form": "finir de + infinitive; finir par + infinitive",
+      "related_grammar_rules": [],
+      "related_verbs": [
+        "finir"
+      ],
+      "related_expressions": [
+        "finir de + infinitif",
+        "finir par + infinitif"
+      ],
+      "related_examples": [],
+      "tags": [
+        "finir-de",
+        "finir-par",
+        "prepositions",
+        "verb-construction"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Verbs that use different prepositions",
+          "page_printed": 244,
+          "page_pdf": null,
+          "context_type": "contrast",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "J’ai fini de manger. Il a fini par lui dire la vérité.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -97,9 +337,64 @@ TARGETS
     },
     "field": "incorrect_form",
     "current_value": null,
-    "description": "Without preposition, 'manquer' means to miss (an event). With 'de', it means to lack something.",
-    "category": "contrast",
-    "title": "manquer (miss) vs manquer de (lack)"
+    "related_context": {
+      "title": "manquer (miss) vs manquer de (lack)",
+      "category": "contrast",
+      "description": "Without preposition, 'manquer' means to miss (an event). With 'de', it means to lack something.",
+      "correct_form": "manquer + noun (miss); manquer de + noun (lack)",
+      "related_grammar_rules": [],
+      "related_verbs": [
+        "manquer"
+      ],
+      "related_expressions": [
+        "manquer de + nom"
+      ],
+      "related_examples": [],
+      "tags": [
+        "manquer",
+        "manquer-de",
+        "prepositions",
+        "meaning-change"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "The verb manquer",
+          "page_printed": 246,
+          "page_pdf": null,
+          "context_type": "contrast",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "J’ai manqué le cours. Cette pièce manque d’air.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": {
@@ -108,9 +403,67 @@ TARGETS
     },
     "field": "incorrect_form",
     "current_value": null,
-    "description": "The most common way of expressing possession is être à + disjunctive pronoun. Possessive pronouns are used to stress ownership or identify different items of similar nature.",
-    "category": "contrast",
-    "title": "être à vs possessive pronoun for possession"
+    "related_context": {
+      "title": "être à vs possessive pronoun for possession",
+      "category": "contrast",
+      "description": "The most common way of expressing possession is être à + disjunctive pronoun. Possessive pronouns are used to stress ownership or identify different items of similar nature.",
+      "correct_form": "Cette valise est à moi. (common) / C'est le mien. (stress)",
+      "related_grammar_rules": [
+        "Expressing possession with être à + disjunctive pronoun/noun",
+        "Possessive pronouns replace noun + possessive adjective"
+      ],
+      "related_verbs": [
+        "être"
+      ],
+      "related_expressions": [
+        "être à + disjunctive pronoun"
+      ],
+      "related_examples": [],
+      "tags": [
+        "être-à",
+        "possessive-pronouns",
+        "possession",
+        "emphasis"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Expressing possession with être à",
+          "page_printed": 196,
+          "page_pdf": 210,
+          "context_type": "contrast",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Remember that the most common way of expressing possession is by using être à + the disjunctive pronoun. When one wants to stress the ownership or identify different items of a similar nature, the possessive pronoun is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

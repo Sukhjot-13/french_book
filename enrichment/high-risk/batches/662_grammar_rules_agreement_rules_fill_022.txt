@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,112 +44,936 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Use of subjunctive after verbs of wish and desire",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "The subjunctive is used after verbs expressing wish/desire when the subject of the main clause differs from that of the dependent clause.",
-    "usage": [
-      "Expressing wish, desire, demand, etc. with different subjects."
-    ],
-    "rule_name": "Use of subjunctive after verbs of wish and desire"
+    "related_context": {
+      "rule_name": "Use of subjunctive after verbs of wish and desire",
+      "summary": "The subjunctive is used after verbs expressing wish/desire when the subject of the main clause differs from that of the dependent clause.",
+      "explanation": "If the subject is the same, an infinitive is used instead. Examples: Je veux acheter... (same subject) vs Je veux que tu achètes... (different subject).",
+      "formation": "Main clause verb of wish + que + subjunctive clause (different subjects).",
+      "usage": [
+        "Expressing wish, desire, demand, etc. with different subjects."
+      ],
+      "restrictions": [
+        "Only when subjects are different; otherwise use infinitive."
+      ],
+      "conditions": [
+        "Main clause subject ≠ dependent clause subject."
+      ],
+      "signal_words": [
+        "vouloir que",
+        "désirer que",
+        "souhaiter que",
+        "exiger que",
+        "demander que"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Forgetting to use subjunctive when subjects differ."
+      ],
+      "related_tenses": [
+        "subjonctif présent"
+      ],
+      "related_concepts": [
+        "Wish and desire"
+      ],
+      "related_expressions": [
+        "demander que + subjonctif",
+        "désirer que + subjonctif",
+        "exiger que + subjonctif",
+        "souhaiter que + subjonctif",
+        "vouloir que + subjonctif"
+      ],
+      "related_verbs": [
+        "demander",
+        "désirer",
+        "exiger",
+        "souhaiter",
+        "vouloir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Subjunctive after verbs of wish and desire",
+          "page_printed": 106,
+          "page_pdf": 120,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The subjunctive is used after verbs expressing the notion of wish and desire. It is used when the subject of the main clause is different from the subject of the dependent clause. Compare: Je veux acheter cet ordinateur. / Je veux que tu achètes cet ordinateur.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Uses of on",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "On can mean one, we, they, or people in general; it can also replace a passive voice.",
-    "usage": [
-      "Indefinite person: On voudrait tout réussir.",
-      "People in general: En France, on boit du vin.",
-      "Informal nous: On va au cinéma cet après-midi?",
-      "Informal tu: Alors, on se promène au lieu de faire ses devoirs!",
-      "Passive: Ici, on parle anglais."
-    ],
-    "rule_name": "Uses of on"
+    "related_context": {
+      "rule_name": "Uses of on",
+      "summary": "On can mean one, we, they, or people in general; it can also replace a passive voice.",
+      "explanation": "On has multiple meanings depending on context: indefinite person, general people, informal nous, informal tu, and passive equivalent.",
+      "formation": "on + verb",
+      "usage": [
+        "Indefinite person: On voudrait tout réussir.",
+        "People in general: En France, on boit du vin.",
+        "Informal nous: On va au cinéma cet après-midi?",
+        "Informal tu: Alors, on se promène au lieu de faire ses devoirs!",
+        "Passive: Ici, on parle anglais."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": "on ne ... pas",
+      "interrogative_form": "on + inversion? Not shown.",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Distinguish between the different meanings of on based on context."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Subject pronoun"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Very common",
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "Subject pronouns",
+          "page_printed": 180,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The pronoun on has several meanings.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Using -ci and -là to distinguish between two elements",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "To distinguish between two elements, add -ci (this/these) or -là (that/those) to the noun after the demonstrative adjective.",
-    "usage": [
-      "Making a distinction between two elements"
-    ],
-    "rule_name": "Using -ci and -là to distinguish between two elements"
+    "related_context": {
+      "rule_name": "Using -ci and -là to distinguish between two elements",
+      "summary": "To distinguish between two elements, add -ci (this/these) or -là (that/those) to the noun after the demonstrative adjective.",
+      "explanation": "The particles -ci and -là are added to the noun following the demonstrative adjective to indicate proximity (ci) or distance (là).",
+      "formation": "demonstrative adjective + noun + -ci / -là",
+      "usage": [
+        "Making a distinction between two elements"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "Typically used when comparing two items or indicating a choice."
+      ],
+      "signal_words": [
+        "ou"
+      ],
+      "exceptions": [],
+      "word_order": "Demonstrative adjective + noun + particle.",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Misplacing the particle: it is attached to the noun, not the adjective."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Demonstrative adjectives"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Demonstrative adjectives",
+          "page_printed": 191,
+          "page_pdf": 205,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "To make a distinction between two elements, -ci and -là are added to the noun following the demonstrative adjective.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Using on instead of passive",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "French often uses the pronoun on (third-person singular) to avoid the passive voice.",
-    "usage": [
-      "To avoid the passive voice."
-    ],
-    "rule_name": "Using on instead of passive"
+    "related_context": {
+      "rule_name": "Using on instead of passive",
+      "summary": "French often uses the pronoun on (third-person singular) to avoid the passive voice.",
+      "explanation": "The impersonal on construction is preferred in many cases where English would use the passive.",
+      "formation": "on + verb (third-person singular)",
+      "usage": [
+        "To avoid the passive voice."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "on as passive alternative"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "demander",
+        "parler"
+      ],
+      "tags": [
+        "on",
+        "passive alternative",
+        "active construction"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "17.json",
+          "chapter_number": 17,
+          "section_title": "Avoiding the passive voice in French",
+          "page_printed": 140,
+          "page_pdf": 154,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "French often prefers to use the third-person singular form on rather than the passive voice construction.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Venir and its derivatives",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "devenir, prévenir, survenir, revenir are conjugated like venir.",
-    "usage": [
-      "To express becoming, warning, occurring, returning."
-    ],
-    "rule_name": "Venir and its derivatives"
+    "related_context": {
+      "rule_name": "Venir and its derivatives",
+      "summary": "devenir, prévenir, survenir, revenir are conjugated like venir.",
+      "explanation": "The derivatives of venir follow the same conjugation pattern as venir.",
+      "formation": "Same as venir conjugation",
+      "usage": [
+        "To express becoming, warning, occurring, returning."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "devenir",
+        "prévenir",
+        "survenir",
+        "revenir"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Derivative verbs of venir"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "devenir",
+        "prévenir",
+        "revenir",
+        "survenir",
+        "venir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb venir (to come)",
+          "page_printed": 50,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The verb venir (to come) and its derivatives, devenir (to become), prévenir (to warn, to inform), survenir (to occur), are all commonly used verbs.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Verbs followed by preposition de before infinitive",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "List of verbs requiring de before a following infinitive.",
-    "usage": [
-      "After the listed verbs."
-    ],
-    "rule_name": "Verbs followed by preposition de before infinitive"
+    "related_context": {
+      "rule_name": "Verbs followed by preposition de before infinitive",
+      "summary": "List of verbs requiring de before a following infinitive.",
+      "explanation": "These verbs are followed by de + infinitive; must be memorized.",
+      "formation": "verb + de + infinitive",
+      "usage": [
+        "After the listed verbs."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": "verb + de + infinitive",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not confuse with à verbs."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "infinitive mood",
+        "verbs with prepositions"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "accepter",
+        "arrêter",
+        "avoir besoin",
+        "avoir peur",
+        "choisir",
+        "conseiller",
+        "convaincre",
+        "craindre",
+        "demander",
+        "excuser",
+        "faire semblant",
+        "feindre",
+        "finir",
+        "menacer",
+        "mériter",
+        "offrir",
+        "oublier",
+        "plaindre",
+        "promettre",
+        "refuser",
+        "regretter",
+        "verb_accuser",
+        "verb_avoir_envie",
+        "verb_avoir_intention",
+        "verb_cesser",
+        "verb_contenter",
+        "verb_defendre",
+        "verb_depecher",
+        "verb_efforcer",
+        "verb_empecher",
+        "verb_empecher_s",
+        "verb_envisager",
+        "verb_essayer",
+        "verb_eviter",
+        "verb_interdire",
+        "verb_permettre",
+        "verb_persuader",
+        "verb_projeter",
+        "verb_remercier",
+        "verb_reprocher",
+        "verb_soupconner",
+        "verb_souvenir",
+        "verb_tacher"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 4,
+        "frequency_note": "Must memorize",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Verbs followed by the preposition de",
+          "page_printed": 123,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Verbs followed by the preposition de",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Verbs followed by preposition à before infinitive",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "List of verbs requiring à before a following infinitive.",
-    "usage": [
-      "After the listed verbs."
-    ],
-    "rule_name": "Verbs followed by preposition à before infinitive"
+    "related_context": {
+      "rule_name": "Verbs followed by preposition à before infinitive",
+      "summary": "List of verbs requiring à before a following infinitive.",
+      "explanation": "These verbs are followed by à + infinitive; must be memorized.",
+      "formation": "verb + à + infinitive",
+      "usage": [
+        "After the listed verbs."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": "verb + à + infinitive",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not confuse with de verbs."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "infinitive mood",
+        "verbs with prepositions"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "apprendre",
+        "arriver",
+        "attendre",
+        "chercher",
+        "commencer",
+        "décider",
+        "encourager",
+        "inviter",
+        "mettre",
+        "renoncer",
+        "réussir",
+        "tenir",
+        "verb_accoutumer",
+        "verb_aider",
+        "verb_amuser",
+        "verb_aspirer",
+        "verb_autoriser",
+        "verb_consentir",
+        "verb_continuer",
+        "verb_faire_attention",
+        "verb_habituer",
+        "verb_hesiter",
+        "verb_inciter",
+        "verb_interesser",
+        "verb_parvenir",
+        "verb_preparer",
+        "verb_resigner",
+        "verb_songer",
+        "verb_viser"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 4,
+        "frequency_note": "Must memorize",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Verbs followed by the preposition à",
+          "page_printed": 122,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Verbs followed by the preposition à",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Verbs followed directly by infinitive",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "List of verbs not followed by a preposition before an infinitive.",
-    "usage": [
-      "After the listed verbs when the same subject performs both actions."
-    ],
-    "rule_name": "Verbs followed directly by infinitive"
+    "related_context": {
+      "rule_name": "Verbs followed directly by infinitive",
+      "summary": "List of verbs not followed by a preposition before an infinitive.",
+      "explanation": "Certain French verbs are followed directly by an infinitive without any preposition. When the subjects of the two verbs differ, a que clause is used instead.",
+      "formation": "verb + infinitive",
+      "usage": [
+        "After the listed verbs when the same subject performs both actions."
+      ],
+      "restrictions": [
+        "Subject of first verb must be same as subject of infinitive; otherwise use que clause."
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "word_order": "verb + infinitive",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not insert à or de after these verbs."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "infinitive mood",
+        "subject difference",
+        "verbs with prepositions"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "aimer",
+        "aller",
+        "avouer",
+        "compter",
+        "devoir",
+        "désirer",
+        "détester",
+        "espérer",
+        "faire",
+        "falloir",
+        "laisser",
+        "oser",
+        "paraître",
+        "penser",
+        "pouvoir",
+        "préférer",
+        "prétendre",
+        "savoir",
+        "sembler",
+        "sentir",
+        "souhaiter",
+        "venir",
+        "voir",
+        "vouloir",
+        "écouter"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Verbs not followed by a preposition",
+          "page_printed": 120,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Verbs not followed by a preposition",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Weather expressions with faire",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Use impersonal il + faire + adjective to describe weather.",
-    "usage": [
-      "To describe weather conditions."
-    ],
-    "rule_name": "Weather expressions with faire"
+    "related_context": {
+      "rule_name": "Weather expressions with faire",
+      "summary": "Use impersonal il + faire + adjective to describe weather.",
+      "explanation": "Faire is used with the impersonal third-person singular il in most expressions relating to the weather, e.g., il fait beau, il fait froid.",
+      "formation": "il fait + adjective",
+      "usage": [
+        "To describe weather conditions."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "il fait"
+      ],
+      "exceptions": [
+        "Some weather conditions use other verbs: il pleut, il neige, il grêle, il bruine."
+      ],
+      "word_order": "il fait + adjective",
+      "negative_form": null,
+      "interrogative_form": "Quel temps fait-il?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using faire for verbs like pleuvoir."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Impersonal weather expressions"
+      ],
+      "related_expressions": [
+        "il fait beau",
+        "il fait chaud",
+        "il fait doux",
+        "il fait frais",
+        "il fait froid"
+      ],
+      "related_verbs": [
+        "faire"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb faire (to do, to make)",
+          "page_printed": 54,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Faire is used, with the impersonal third-person singular il, in most expressions relating to the weather.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Would for polite requests",
     "field": "agreement_rules",
     "current_value": [],
-    "summary": "Use conditionnel présent of vouloir (or pouvoir) for polite requests.",
-    "usage": [
-      "Polite requests",
-      "Asking for favors"
-    ],
-    "rule_name": "Would for polite requests"
+    "related_context": {
+      "rule_name": "Would for polite requests",
+      "summary": "Use conditionnel présent of vouloir (or pouvoir) for polite requests.",
+      "explanation": "When 'would' is used in polite requests, French uses the conditionnel présent of vouloir (or sometimes pouvoir), often with 'bien' to soften the request.",
+      "formation": "conditionnel présent of vouloir (+ bien) + infinitive",
+      "usage": [
+        "Polite requests",
+        "Asking for favors"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "voudrais-tu",
+        "voudriez-vous",
+        "est-ce que tu voudrais bien"
+      ],
+      "exceptions": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": "Voudrais-tu + infinitive ? / Voudriez-vous + infinitive ?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use imparfait for polite requests"
+      ],
+      "related_tenses": [
+        "conditionnel présent"
+      ],
+      "related_concepts": [
+        "Polite requests"
+      ],
+      "related_expressions": [
+        "Est-ce que tu voudrais bien + infinitif ?",
+        "Voudrais-tu / Voudriez-vous + infinitif ?",
+        "vouloir + infinitive"
+      ],
+      "related_verbs": [
+        "vouloir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Would",
+          "page_printed": 100,
+          "page_pdf": 114,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When would refers to a polite request, the présent du conditionnel is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

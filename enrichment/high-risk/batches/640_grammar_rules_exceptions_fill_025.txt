@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,80 +44,598 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Would for polite requests",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Use conditionnel présent of vouloir (or pouvoir) for polite requests.",
-    "usage": [
-      "Polite requests",
-      "Asking for favors"
-    ],
-    "rule_name": "Would for polite requests"
+    "related_context": {
+      "rule_name": "Would for polite requests",
+      "summary": "Use conditionnel présent of vouloir (or pouvoir) for polite requests.",
+      "explanation": "When 'would' is used in polite requests, French uses the conditionnel présent of vouloir (or sometimes pouvoir), often with 'bien' to soften the request.",
+      "formation": "conditionnel présent of vouloir (+ bien) + infinitive",
+      "usage": [
+        "Polite requests",
+        "Asking for favors"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "voudrais-tu",
+        "voudriez-vous",
+        "est-ce que tu voudrais bien"
+      ],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": "Voudrais-tu + infinitive ? / Voudriez-vous + infinitive ?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use imparfait for polite requests"
+      ],
+      "related_tenses": [
+        "conditionnel présent"
+      ],
+      "related_concepts": [
+        "Polite requests"
+      ],
+      "related_expressions": [
+        "Est-ce que tu voudrais bien + infinitif ?",
+        "Voudrais-tu / Voudriez-vous + infinitif ?",
+        "vouloir + infinitive"
+      ],
+      "related_verbs": [
+        "vouloir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Would",
+          "page_printed": 100,
+          "page_pdf": 114,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When would refers to a polite request, the présent du conditionnel is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Would for repeated past actions",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Use imparfait of the main verb to express habitual or repeated actions in the past (English 'would').",
-    "usage": [
-      "To describe past habits",
-      "To translate 'used to' or 'would' for repeated past actions"
-    ],
-    "rule_name": "Would for repeated past actions"
+    "related_context": {
+      "rule_name": "Would for repeated past actions",
+      "summary": "Use imparfait of the main verb to express habitual or repeated actions in the past (English 'would').",
+      "explanation": "When 'would' refers to a repeated or habitual action in the past (not a specific one-time event), French uses the imparfait of the main verb.",
+      "formation": "imparfait of main verb",
+      "usage": [
+        "To describe past habits",
+        "To translate 'used to' or 'would' for repeated past actions"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "The action is repeated or habitual"
+      ],
+      "signal_words": [
+        "quand",
+        "tous les jours",
+        "le jeudi"
+      ],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use conditionnel for habitual past"
+      ],
+      "related_tenses": [
+        "imparfait"
+      ],
+      "related_concepts": [
+        "Habitual past actions"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "habitual past",
+        "imparfait",
+        "translation contrast"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Would",
+          "page_printed": 100,
+          "page_pdf": 114,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When would refers to a repeated action in the past, the imparfait is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Would for specific past refusal",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Use passé composé of vouloir (often in negative) to express a specific refusal in the past (English 'would not').",
-    "usage": [
-      "To express a past refusal",
-      "To translate 'would not' when meaning 'refused to'"
-    ],
-    "rule_name": "Would for specific past refusal"
+    "related_context": {
+      "rule_name": "Would for specific past refusal",
+      "summary": "Use passé composé of vouloir (often in negative) to express a specific refusal in the past (English 'would not').",
+      "explanation": "When 'would' refers to a specific action in the past where someone refused to do something, French uses the passé composé of vouloir, typically in the negative.",
+      "formation": "passé composé of vouloir (usually negative) + infinitive",
+      "usage": [
+        "To express a past refusal",
+        "To translate 'would not' when meaning 'refused to'"
+      ],
+      "restrictions": [],
+      "conditions": [
+        "The action is specific and the refusal is emphasized"
+      ],
+      "signal_words": [
+        "n'a pas voulu",
+        "n'ont pas voulu"
+      ],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": "ne pas avoir voulu + infinitive",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use imparfait for a specific past refusal"
+      ],
+      "related_tenses": [
+        "passé composé"
+      ],
+      "related_concepts": [
+        "Past refusal (would not)"
+      ],
+      "related_expressions": [
+        "vouloir + infinitive"
+      ],
+      "related_verbs": [
+        "vouloir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Would",
+          "page_printed": 100,
+          "page_pdf": 114,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When would refers to a specific action in the past, the passé composé of vouloir is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Writing years",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Years can be written as 'mille neuf cent soixante-dix-huit' or 'dix-neuf cent soixante-dix-huit'.",
-    "usage": [
-      "Writing years in words."
-    ],
-    "rule_name": "Writing years"
+    "related_context": {
+      "rule_name": "Writing years",
+      "summary": "Years can be written as 'mille neuf cent soixante-dix-huit' or 'dix-neuf cent soixante-dix-huit'.",
+      "explanation": "Years are written out as follows: 1978 = mille neuf cent soixante-dix-huit or dix-neuf cent soixante-dix-huit; 2008 = deux mille huit.",
+      "formation": "Either use 'mille' + hundreds + tens + units, or use the two-digit century + 'cent' + tens + units.",
+      "usage": [
+        "Writing years in words."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use 'mille' for years after 2000 in the same way; 2008 = deux mille huit."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Numbers"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "Dates",
+        "notes": null
+      },
+      "chapters": [
+        26
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "26.json",
+          "chapter_number": 26,
+          "section_title": "The numbers 1,000 and greater",
+          "page_printed": 228,
+          "page_pdf": 242,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Years are written out as follows in French: 1978 mille neuf cent soixante-dix-huit or dix-neuf cent soixante-dix-huit; 2008 deux mille huit.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "après + past infinitive",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Use après + infinitif passé to express an action completed before another.",
-    "usage": [
-      "To indicate anteriority after another action."
-    ],
-    "rule_name": "après + past infinitive"
+    "related_context": {
+      "rule_name": "après + past infinitive",
+      "summary": "Use après + infinitif passé to express an action completed before another.",
+      "explanation": "Après is followed by past infinitive, whereas avant de is followed by present infinitive.",
+      "formation": "après + avoir/être + past participle",
+      "usage": [
+        "To indicate anteriority after another action."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "après"
+      ],
+      "agreement_rules": [],
+      "word_order": "après + past infinitive",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use present infinitive after après."
+      ],
+      "related_tenses": [
+        "infinitif passé"
+      ],
+      "related_concepts": [
+        "après + past infinitive",
+        "past infinitive"
+      ],
+      "related_expressions": [
+        "après + infinitif passé"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Common",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "après + past infinitive / avant de + present infinitive",
+          "page_printed": 119,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "One common occurrence of the infinitif passé is after the preposition après",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "avant de + present infinitive",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Use avant de + infinitif présent to express an action occurring before another.",
-    "usage": [
-      "To indicate an action that happens before another."
-    ],
-    "rule_name": "avant de + present infinitive"
+    "related_context": {
+      "rule_name": "avant de + present infinitive",
+      "summary": "Use avant de + infinitif présent to express an action occurring before another.",
+      "explanation": "Avant de is always followed by the present infinitive, not past.",
+      "formation": "avant de + infinitive",
+      "usage": [
+        "To indicate an action that happens before another."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "avant de"
+      ],
+      "agreement_rules": [],
+      "word_order": "avant de + infinitive",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use past infinitive after avant de."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "avant de + present infinitive",
+        "present infinitive"
+      ],
+      "related_expressions": [
+        "avant de + infinitif"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Very common",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "après + past infinitive / avant de + present infinitive",
+          "page_printed": 119,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "the infinitif présent follows avant de",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Être en train de + infinitive",
     "field": "exceptions",
     "current_value": [],
-    "summary": "To express an action in progress, use être en train de + infinitive.",
-    "usage": [
-      "Action in progress"
-    ],
-    "rule_name": "Être en train de + infinitive"
+    "related_context": {
+      "rule_name": "Être en train de + infinitive",
+      "summary": "To express an action in progress, use être en train de + infinitive.",
+      "explanation": "This construction emphasizes the ongoing nature of the action.",
+      "formation": "conjugated être + en train de + infinitive",
+      "usage": [
+        "Action in progress"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "agreement_rules": [
+        "être agrees with subject"
+      ],
+      "word_order": "subject + être + en train de + infinitive",
+      "negative_form": "ne ... pas around être",
+      "interrogative_form": "inversion or est-ce que",
+      "affirmative_form": "je suis en train de parler",
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Forgetting de before infinitive"
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Present tense",
+        "Usage"
+      ],
+      "related_expressions": [
+        "être en train de + infinitif"
+      ],
+      "related_verbs": [
+        "être"
+      ],
+      "tags": [
+        "progressive aspect",
+        "être en train de",
+        "infinitive"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "Common for progressive.",
+        "notes": null
+      },
+      "chapters": [
+        1
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "1.json",
+          "chapter_number": 1,
+          "section_title": "When is the present tense used in French?",
+          "page_printed": 9,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "To express an action in the process, être en train de + the infinitive form of the verb is used.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

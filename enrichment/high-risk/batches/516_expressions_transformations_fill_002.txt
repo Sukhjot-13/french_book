@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,99 +44,921 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Il veut savoir si",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "He wants to know if"
-    ],
-    "canonical_form": "Il veut savoir si"
+    "related_context": {
+      "canonical_form": "Il veut savoir si",
+      "display_form": "Il veut savoir si",
+      "english": [
+        "He wants to know if"
+      ],
+      "expression_type": "sentence_starter",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [
+        "savoir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "General rule for indirect speech"
+      ],
+      "related_concepts": [
+        "Indirect speech"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "il veut savoir si"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        18
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "18.json",
+          "chapter_number": 18,
+          "section_title": "Exercice 18.1",
+          "page_printed": 142,
+          "page_pdf": 156,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il veut savoir si",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Introduit une interrogation indirecte totale; on n’emploie pas de point d’interrogation dans la proposition en si."
+      ]
+    }
   },
   {
     "entity_key": "J'ai entendu dire que",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "I heard that"
-    ],
-    "canonical_form": "J'ai entendu dire que"
+    "related_context": {
+      "canonical_form": "J'ai entendu dire que",
+      "display_form": "J'ai entendu dire que",
+      "english": [
+        "I heard that"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [
+        "dire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Past main clause: future → conditionnel",
+        "Past main clause: present → imparfait"
+      ],
+      "related_concepts": [
+        "Indirect speech"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "aliases": [
+        "j'ai entendu dire que"
+      ],
+      "search_terms": [
+        "entendu dire"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        18
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "18.json",
+          "chapter_number": 18,
+          "section_title": "Present recounted in the imparfait",
+          "page_printed": 142,
+          "page_pdf": 156,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "J'ai entendu dire qu'elle était en Inde.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Je m'appelle…",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "My name is ..."
-    ],
-    "canonical_form": "Je m'appelle…"
+    "related_context": {
+      "canonical_form": "Je m'appelle…",
+      "display_form": "Je m’appelle…",
+      "english": [
+        "My name is ..."
+      ],
+      "expression_type": "conversation_phrase",
+      "productive": true,
+      "pattern": "Je m’appelle + nom",
+      "pattern_slots": [
+        {
+          "name": "name",
+          "display": "nom",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "s'appeler"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "civil status vocabulary"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "je m'appelle",
+        "my name is",
+        "introduce yourself",
+        "name introduction"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "VOCABULAIRE",
+          "page_printed": 148,
+          "page_pdf": 162,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Je m’appelle… My name is . . .",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Je suis né(e) à...",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "I was born in ..."
-    ],
-    "canonical_form": "Je suis né(e) à..."
+    "related_context": {
+      "canonical_form": "Je suis né(e) à...",
+      "display_form": "Je suis né(e) à...",
+      "english": [
+        "I was born in ..."
+      ],
+      "expression_type": "conversation_phrase",
+      "productive": true,
+      "pattern": "Je suis né(e) à + lieu",
+      "pattern_slots": [
+        {
+          "name": "place",
+          "display": "lieu",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "civil status vocabulary"
+      ],
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "à",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "aliases": [
+        "Je suis né à"
+      ],
+      "search_terms": [
+        "i was born",
+        "je suis né"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "VOCABULAIRE",
+          "page_printed": 149,
+          "page_pdf": 163,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Je suis né(e) à... I was born in . . .",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Le participe passé né s’accorde avec la personne qui parle; à s’emploie normalement devant une ville."
+      ]
+    }
   },
   {
     "entity_key": "Je voudrais + infinitive",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "I would like to ..."
-    ],
-    "canonical_form": "Je voudrais + infinitive"
+    "related_context": {
+      "canonical_form": "Je voudrais + infinitive",
+      "display_form": "Je voudrais vous parler.",
+      "english": [
+        "I would like to ..."
+      ],
+      "expression_type": "formulaic_phrase",
+      "productive": true,
+      "pattern": "Je voudrais + infinitive",
+      "pattern_slots": [
+        {
+          "name": "action",
+          "display": "vous parler",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "vouloir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Present tense of vouloir"
+      ],
+      "related_concepts": [
+        "Modal verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [
+        "Polite expression"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "I would like",
+        "je voudrais"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "The verbs pouvoir and vouloir",
+          "page_printed": 44,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Je voudrais vous parler. / I would like to speak with you.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "On m'a dit que",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "I was told that",
-      "I heard that"
-    ],
-    "canonical_form": "On m'a dit que"
+    "related_context": {
+      "canonical_form": "On m'a dit que",
+      "display_form": "On m'a dit que",
+      "english": [
+        "I was told that",
+        "I heard that"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [
+        "dire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Past main clause: passé composé → plus-que-parfait"
+      ],
+      "related_concepts": [
+        "Indirect speech"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "aliases": [
+        "on m'a dit que"
+      ],
+      "search_terms": [
+        "on m'a dit"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        18
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "18.json",
+          "chapter_number": 18,
+          "section_title": "Passé composé recounted in the plus-que-parfait",
+          "page_printed": 143,
+          "page_pdf": 157,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "On m'a dit qu'ils avaient élu le candidat de gauche.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Où êtes-vous né(e) ?",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "Where were you born?"
-    ],
-    "canonical_form": "Où êtes-vous né(e) ?"
+    "related_context": {
+      "canonical_form": "Où êtes-vous né(e) ?",
+      "display_form": "Où êtes-vous né(e) ?",
+      "english": [
+        "Where were you born?"
+      ],
+      "expression_type": "question_construction",
+      "productive": false,
+      "pattern": "Où êtes-vous né(e) ?",
+      "pattern_slots": [],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "civil status vocabulary"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "où êtes-vous né",
+        "where were you born"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        19
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "19.json",
+          "chapter_number": 19,
+          "section_title": "VOCABULAIRE",
+          "page_printed": 149,
+          "page_pdf": 163,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Où êtes-vous né(e)? Where were you born?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "register": "formal"
+    }
   },
   {
     "entity_key": "Pourrais-tu / Pourriez-vous + infinitif ?",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "Could you ...?"
-    ],
-    "canonical_form": "Pourrais-tu / Pourriez-vous + infinitif ?"
+    "related_context": {
+      "canonical_form": "Pourrais-tu / Pourriez-vous + infinitif ?",
+      "display_form": "Pourrais-tu / Pourriez-vous + infinitif ?",
+      "english": [
+        "Could you ...?"
+      ],
+      "expression_type": "question_construction",
+      "productive": true,
+      "pattern": "Pourrais-tu/Pourriez-vous + infinitif ?",
+      "pattern_slots": [
+        {
+          "name": "infinitif",
+          "display": "infinitif",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "pouvoir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Could for future, hypothesis, suggestion, or request"
+      ],
+      "related_concepts": [
+        "Polite requests"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [],
+      "aliases": [
+        "Pourrais-tu...?",
+        "Pourriez-vous...?"
+      ],
+      "search_terms": [
+        "could you",
+        "polite request",
+        "pouvoir conditionnel"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Could",
+          "page_printed": 98,
+          "page_pdf": 112,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Pourrais-tu me prêter le livre dont tu m’as parlé? Could you lend me the book you told me about?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Pourriez-vous + infinitive",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "Could you ...",
-      "Could you ...?"
-    ],
-    "canonical_form": "Pourriez-vous + infinitive"
+    "related_context": {
+      "canonical_form": "Pourriez-vous + infinitive",
+      "display_form": "Pourriez-vous + [infinitive]",
+      "english": [
+        "Could you ...",
+        "Could you ...?"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "Pourriez-vous + INF",
+      "pattern_slots": [
+        {
+          "name": "INF",
+          "display": "infinitive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "pouvoir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Present conditional for polite requests",
+        "Present tense of pouvoir"
+      ],
+      "related_concepts": [
+        "Modal verbs",
+        "Polite requests"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [
+        "Conditional form, formal polite request",
+        "formal polite request"
+      ],
+      "aliases": [
+        "pourriez-vous"
+      ],
+      "search_terms": [
+        "could you",
+        "pourriez-vous"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "very common",
+        "notes": null
+      },
+      "chapters": [
+        3,
+        11
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "11.json",
+          "chapter_number": 11,
+          "section_title": "Uses of the present conditional",
+          "page_printed": 89,
+          "page_pdf": 103,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Pourriez-vous nous donner votre avis?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "The verbs pouvoir and vouloir",
+          "page_printed": 44,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Another formal way of asking questions is to use the conditional form of pouvoir. Pourriez-vous résoudre ce problème? Pourriez-vous annuler notre vol?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Puis-je + infinitive",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "May I ...?"
-    ],
-    "canonical_form": "Puis-je + infinitive"
+    "related_context": {
+      "canonical_form": "Puis-je + infinitive",
+      "display_form": "Puis-je vous aider?",
+      "english": [
+        "May I ...?"
+      ],
+      "expression_type": "question_construction",
+      "productive": true,
+      "pattern": "Puis-je + infinitive",
+      "pattern_slots": [
+        {
+          "name": "action",
+          "display": "vous aider",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "pouvoir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Present tense of pouvoir"
+      ],
+      "related_concepts": [
+        "Modal verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [
+        "Formal style"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "may I",
+        "puis-je"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "The verbs pouvoir and vouloir",
+          "page_printed": 44,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "When asking permission with inversion in formal style, the first-person singular of pouvoir takes a different form. Puis-je vous aider? Puis-je vous donner un conseil?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

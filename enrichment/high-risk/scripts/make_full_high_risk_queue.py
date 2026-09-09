@@ -21,6 +21,7 @@ from config.high_risk_config import BATCHES_DIR, HIGH_RISK_FIELDS, NATURAL_KEYS
 from scripts.high_risk_helpers import compute_content_sha256, load_baseline_dataset
 
 MANIFEST_PATH = BATCHES_DIR / "BATCH_MANIFEST.json"
+MASTER_SCHEMA_PATH = REPO_ROOT / "data" / "MASTER_SCHEMA.json"
 BATCH_SIZES = {"verbs": 5, "vocabulary": 10, "expressions": 10, "grammar_rules": 10,
                "tenses": 8, "exceptions_and_traps": 10}
 CONTEXT_FIELDS = ("english", "definition", "description", "summary", "usage", "mood",
@@ -46,17 +47,49 @@ def chunks(items: List[Dict[str, Any]], size: int) -> Iterable[List[Dict[str, An
 
 
 def context(collection: str, field: str, entity: Dict[str, Any]) -> Dict[str, Any]:
-    """Builds compact, non-authoritative context for one proposed target."""
+    """Builds target context including every existing non-target field."""
     result = {"entity_key": entity_key(collection, entity), "field": field,
               "current_value": entity.get(field)}
-    for name in CONTEXT_FIELDS:
-        if name in entity and name not in result:
-            result[name] = entity[name]
+    result["related_context"] = {
+        name: value for name, value in entity.items()
+        if name != field
+    }
     return result
 
 
+def resolve_schema_references(schema: Any, definitions: Dict[str, Any], stack: tuple[str, ...] = ()) -> Any:
+    """Inlines local ``#/$defs`` references for an AI-readable field contract."""
+    if isinstance(schema, list):
+        return [resolve_schema_references(item, definitions, stack) for item in schema]
+    if not isinstance(schema, dict):
+        return schema
+
+    reference = schema.get("$ref")
+    if isinstance(reference, str) and reference.startswith("#/$defs/"):
+        name = reference.removeprefix("#/$defs/")
+        if name in definitions and name not in stack:
+            resolved = resolve_schema_references(definitions[name], definitions, (*stack, name))
+            siblings = {key: value for key, value in schema.items() if key != "$ref"}
+            return {**resolved, **resolve_schema_references(siblings, definitions, stack)}
+
+    return {
+        key: resolve_schema_references(value, definitions, stack)
+        for key, value in schema.items()
+    }
+
+
+def field_value_schema(master_schema: Dict[str, Any], collection: str, field: str) -> Dict[str, Any]:
+    """Returns the fully resolved JSON Schema fragment for one target field."""
+    definitions = master_schema.get("$defs", {})
+    collection_schema = resolve_schema_references(
+        master_schema["properties"][collection]["items"], definitions
+    )
+    field_schema = collection_schema["properties"][field]
+    return resolve_schema_references(field_schema, definitions)
+
+
 def prompt(batch_id: str, collection: str, field: str, mode: str, baseline_hash: str,
-           targets: List[Dict[str, Any]]) -> str:
+           targets: List[Dict[str, Any]], value_schema: Dict[str, Any]) -> str:
     """Formats one self-contained high-risk proposal batch instruction file."""
     return f"""================================================================================
 L'ÉTUDE — COMPLETE HIGH-RISK ENRICHMENT BATCH: {batch_id}
@@ -96,13 +129,29 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "{baseline_hash}",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {{"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {{"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {{"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}}}
   ],
   "no_proposals": [
     {{"entity_key": "<exact natural key from target>", "reason": "SOURCE_NOT_FOUND|CONFLICTING_SOURCES|INSUFFICIENT_EVIDENCE|PARTIAL_EXISTING_DATA", "details": ""}}
   ]
 }}
+
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{json.dumps(value_schema, ensure_ascii=False, indent=2)}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 {json.dumps(targets, ensure_ascii=False, indent=2)}
@@ -113,6 +162,7 @@ TARGETS
 def build_queue(baseline_path: Optional[Path] = None) -> Dict[str, Any]:
     """Creates fresh batches for every missing high-risk field and review gap."""
     data, baseline_hash = load_baseline_dataset(baseline_path)
+    master_schema = json.loads(MASTER_SCHEMA_PATH.read_text(encoding="utf-8"))
     BATCHES_DIR.mkdir(parents=True, exist_ok=True)
     manifest: Dict[str, Any] = {"version": "2.0.0", "baseline_hash": baseline_hash,
                                 "created_at": datetime.now(timezone.utc).isoformat(), "batches": {}}
@@ -121,10 +171,11 @@ def build_queue(baseline_path: Optional[Path] = None) -> Dict[str, Any]:
     for collection, fields in HIGH_RISK_FIELDS.items():
         entities = data.get(collection, [])
         for field in fields:
+            value_schema = field_value_schema(master_schema, collection, field)
             targets = [context(collection, field, entity) for entity in entities if is_empty(entity.get(field))]
             for local_number, group in enumerate(chunks(targets, BATCH_SIZES.get(collection, 10)), start=1):
                 batch_id = f"{sequence:03d}_{collection}_{field}_fill_{local_number:03d}"
-                content = prompt(batch_id, collection, field, "FILL_ONLY", baseline_hash, group)
+                content = prompt(batch_id, collection, field, "FILL_ONLY", baseline_hash, group, value_schema)
                 (BATCHES_DIR / f"{batch_id}.txt").write_text(content, encoding="utf-8")
                 manifest["batches"][batch_id] = {"batch_id": batch_id, "collection": collection,
                     "field": field, "mode": "FILL_ONLY", "baseline_hash": baseline_hash,
@@ -136,9 +187,13 @@ def build_queue(baseline_path: Optional[Path] = None) -> Dict[str, Any]:
     # visible in the complete queue so it cannot be mistaken for completion.
     partials = [context("verbs", "conjugations", entity) for entity in data.get("verbs", [])
                 if isinstance(entity.get("conjugations"), list) and entity.get("conjugations")]
+    conjugation_schema = field_value_schema(master_schema, "verbs", "conjugations")
     for local_number, group in enumerate(chunks(partials, BATCH_SIZES["verbs"]), start=1):
         batch_id = f"{sequence:03d}_verbs_conjugations_repair_{local_number:03d}"
-        content = prompt(batch_id, "verbs", "conjugations", "REPAIR_REVIEW_ONLY", baseline_hash, group)
+        content = prompt(
+            batch_id, "verbs", "conjugations", "REPAIR_REVIEW_ONLY", baseline_hash,
+            group, conjugation_schema
+        )
         (BATCHES_DIR / f"{batch_id}.txt").write_text(content, encoding="utf-8")
         manifest["batches"][batch_id] = {"batch_id": batch_id, "collection": "verbs",
             "field": "conjugations", "mode": "REPAIR_REVIEW_ONLY", "baseline_hash": baseline_hash,

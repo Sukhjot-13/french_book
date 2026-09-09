@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,110 +44,846 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Impersonal verbs falloir and pleuvoir",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Falloir and pleuvoir are only used in the third-person singular.",
-    "usage": [
-      "To express necessity",
-      "To describe weather"
-    ],
-    "rule_name": "Impersonal verbs falloir and pleuvoir"
+    "related_context": {
+      "rule_name": "Impersonal verbs falloir and pleuvoir",
+      "summary": "Falloir and pleuvoir are only used in the third-person singular.",
+      "explanation": "Falloir means 'to be necessary' and pleuvoir means 'to rain'; they are impersonal verbs.",
+      "formation": "il faut / il pleut",
+      "usage": [
+        "To express necessity",
+        "To describe weather"
+      ],
+      "restrictions": [
+        "Only third-person singular"
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Impersonal verbs",
+        "Present tense"
+      ],
+      "related_expressions": [
+        "il faut",
+        "il pleut"
+      ],
+      "related_verbs": [
+        "falloir",
+        "pleuvoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "Falloir and pleuvoir",
+          "page_printed": 46,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Falloir and pleuvoir are used only in the third-person singular. falloir / to be necessary / il faut / it is necessary / pleuvoir / to rain / il pleut / it is raining",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Impersonal weather verbs",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Some weather conditions use specific impersonal verbs: pleuvoir, neiger, grêler, bruiner.",
-    "usage": [
-      "To express specific weather conditions."
-    ],
-    "rule_name": "Impersonal weather verbs"
+    "related_context": {
+      "rule_name": "Impersonal weather verbs",
+      "summary": "Some weather conditions use specific impersonal verbs: pleuvoir, neiger, grêler, bruiner.",
+      "explanation": "A few verbs relating to the weather are used in the impersonal il form, without faire: il pleut, il neige, il grêle, il bruine.",
+      "formation": "il + verb (3rd singular)",
+      "usage": [
+        "To express specific weather conditions."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "il pleut",
+        "il neige",
+        "il grêle",
+        "il bruine"
+      ],
+      "agreement_rules": [],
+      "word_order": "il + verb",
+      "negative_form": "il ne pleut pas",
+      "interrogative_form": "Est-ce qu'il pleut?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using faire with these verbs."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Impersonal weather expressions"
+      ],
+      "related_expressions": [
+        "il bruine",
+        "il grêle",
+        "il neige",
+        "il pleut"
+      ],
+      "related_verbs": [
+        "bruiner",
+        "grêler",
+        "neiger",
+        "pleuvoir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb faire (to do, to make)",
+          "page_printed": 54,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "A few verbs relating to the weather are used in the impersonal il form, without faire. Il pleut. It is raining. Il neige. It is snowing. Il grêle. It is hailing. Il bruine. It is drizzling.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Indefinite article: un, une, des",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Use un for masculine singular, une for feminine singular, des for plural.",
-    "usage": [
-      "to refer to non-specific nouns",
-      "to indicate one item or some items"
-    ],
-    "rule_name": "Indefinite article: un, une, des"
+    "related_context": {
+      "rule_name": "Indefinite article: un, une, des",
+      "summary": "Use un for masculine singular, une for feminine singular, des for plural.",
+      "explanation": "Indefinite article indicates an unspecified item or some items.",
+      "formation": "un + masculine singular; une + feminine singular; des + plural",
+      "usage": [
+        "to refer to non-specific nouns",
+        "to indicate one item or some items"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "agreement_rules": [
+        "agrees with noun gender and number"
+      ],
+      "word_order": "article before noun",
+      "negative_form": "In negative, un/une/des often become de (except with être).",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not confuse with partitive."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "gender of nouns",
+        "indefinite article"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "very common",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "The indefinite and partitive articles with nouns",
+          "page_printed": 153,
+          "page_pdf": 167,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The indefinite articles are un (masculine singular) (a), une (feminine singular) (a), and des (both masculine and feminine plural) (some).",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Indefinite demonstrative pronouns ceci, cela, ça",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Ceci, cela, and ça refer to indefinite things or ideas; ceci announces, cela reflects, ça is familiar.",
-    "usage": [
-      "Referring to indefinite things or ideas",
-      "Ceci: to announce a following sentence",
-      "Cela: to refer back to something already mentioned",
-      "Ça: familiar substitute"
-    ],
-    "rule_name": "Indefinite demonstrative pronouns ceci, cela, ça"
+    "related_context": {
+      "rule_name": "Indefinite demonstrative pronouns ceci, cela, ça",
+      "summary": "Ceci, cela, and ça refer to indefinite things or ideas; ceci announces, cela reflects, ça is familiar.",
+      "explanation": "Ceci (this) initiates a statement; cela (that) reflects on something already mentioned; ça is familiar and replaces both.",
+      "formation": "ceci / cela / ça",
+      "usage": [
+        "Referring to indefinite things or ideas",
+        "Ceci: to announce a following sentence",
+        "Cela: to refer back to something already mentioned",
+        "Ça: familiar substitute"
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "agreement_rules": [],
+      "word_order": "Can be subject or object.",
+      "negative_form": "Ça ne fait rien.",
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using ceci when referring back to something already mentioned (should use cela/ça)."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Indefinite demonstrative pronouns ceci, cela, ça"
+      ],
+      "related_expressions": [
+        "Ça m'est égal",
+        "Ça ne fait rien"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Ceci, cela, and ça",
+          "page_printed": 199,
+          "page_pdf": 213,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The indefinite demonstrative pronouns ceci (this), cela (that), and ça (this/that, familiar) refer to indefinite things or ideas. Ceci may initiate a statement and also announce a following sentence. Cela may reflect on something already mentioned.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Indirect object pronouns forms and placement",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Indirect object pronouns: me, te, lui, nous, vous, leur. They precede the conjugated verb; no past participle agreement.",
-    "usage": [
-      "Replace indirect object nouns (animate)."
-    ],
-    "rule_name": "Indirect object pronouns forms and placement"
+    "related_context": {
+      "rule_name": "Indirect object pronouns forms and placement",
+      "summary": "Indirect object pronouns: me, te, lui, nous, vous, leur. They precede the conjugated verb; no past participle agreement.",
+      "explanation": "Replace animate indirect objects (people/animals). The object is indirect when controlled by a preposition (parler à, répondre à, écrire à).",
+      "formation": "me, te, lui, nous, vous, leur (elision before vowels/mute h)",
+      "usage": [
+        "Replace indirect object nouns (animate)."
+      ],
+      "restrictions": [
+        "Only for animate objects; inanimate objects use y or en."
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "agreement_rules": [
+        "Past participle never agrees with an indirect object pronoun."
+      ],
+      "word_order": "pronoun + verb",
+      "negative_form": "ne + pronoun + verb + pas",
+      "interrogative_form": "pronoun + verb + subject",
+      "affirmative_form": null,
+      "transformations": [
+        "me -> moi, te -> toi in affirmative imperative."
+      ],
+      "contrast_with": [],
+      "common_traps": [
+        "Distinguish leur (pronoun) from leur(s) (possessive adjective)."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Indirect object pronoun"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": "Essential",
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "Indirect object pronouns",
+          "page_printed": 183,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "SINGULAR PLURAL; me (m’) me; te (t’) you (familiar); lui him, her; nous us; vous you (formal or plural); leur them (masc. and fem.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Indirect object pronouns in imperative",
     "field": "exceptions",
     "current_value": [],
-    "summary": "In affirmative imperative, pronoun follows verb with hyphen; me/te become moi/toi. In negative imperative, pronoun precedes verb.",
-    "usage": [],
-    "rule_name": "Indirect object pronouns in imperative"
+    "related_context": {
+      "rule_name": "Indirect object pronouns in imperative",
+      "summary": "In affirmative imperative, pronoun follows verb with hyphen; me/te become moi/toi. In negative imperative, pronoun precedes verb.",
+      "explanation": "Similar to direct object pronouns.",
+      "formation": "Affirmative: verb + pronoun (moi/toi). Negative: ne + pronoun + verb + pas.",
+      "usage": [],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "agreement_rules": [],
+      "word_order": "Affirmative: verb-pronoun; negative: pronoun-verb",
+      "negative_form": "ne + pronoun + verb + pas",
+      "interrogative_form": null,
+      "affirmative_form": "verb + pronoun",
+      "transformations": [
+        "me -> moi, te -> toi"
+      ],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Indirect object pronoun"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "indirect object pronouns",
+        "imperative",
+        "pronoun placement"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "Indirect object pronouns",
+          "page_printed": 186,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "In the affirmative imperative, the indirect object pronoun follows the verb. Me (m’) and te (t’) become moi and toi. Remember to link the verb to the following pronoun with a hyphen. In the negative imperative, the indirect object pronoun remains before the verb.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Infinitive after expressions of position",
     "field": "exceptions",
     "current_value": [],
-    "summary": "After expressions like être debout, être assis, the infinitive is preceded by à.",
-    "usage": [
-      "To describe an action done while in a certain position."
-    ],
-    "rule_name": "Infinitive after expressions of position"
+    "related_context": {
+      "rule_name": "Infinitive after expressions of position",
+      "summary": "After expressions like être debout, être assis, the infinitive is preceded by à.",
+      "explanation": "The preposition à links the position expression to the infinitive.",
+      "formation": "être + position + à + infinitive",
+      "usage": [
+        "To describe an action done while in a certain position."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "debout",
+        "assis",
+        "accroupi",
+        "à genoux",
+        "accoudé"
+      ],
+      "agreement_rules": [],
+      "word_order": "position expression + à + infinitive",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not omit à."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "expressions of position",
+        "infinitive mood"
+      ],
+      "related_expressions": [
+        "être accroupi à + infinitif",
+        "être assis à + infinitif",
+        "être debout à + infinitif",
+        "être à genoux à + infinitif"
+      ],
+      "related_verbs": [
+        "être"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "Common",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Infinitive after expressions of position",
+          "page_printed": 117,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The infinitive is used after expressions of position. The preposition à precedes the infinitive.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Infinitive after expressions of spending time",
     "field": "exceptions",
     "current_value": [],
-    "summary": "After expressions like passer son temps à, gaspiller sa vie à, the infinitive is used with preposition à.",
-    "usage": [
-      "To describe how time is spent."
-    ],
-    "rule_name": "Infinitive after expressions of spending time"
+    "related_context": {
+      "rule_name": "Infinitive after expressions of spending time",
+      "summary": "After expressions like passer son temps à, gaspiller sa vie à, the infinitive is used with preposition à.",
+      "explanation": "The preposition à links the time expression to the infinitive.",
+      "formation": "expression + à + infinitive",
+      "usage": [
+        "To describe how time is spent."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "passer son temps",
+        "passer ses vacances",
+        "gaspiller sa vie",
+        "perdre son temps"
+      ],
+      "agreement_rules": [],
+      "word_order": "expression + à + infinitive",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not omit the preposition à."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "expressions of spending time",
+        "infinitive mood"
+      ],
+      "related_expressions": [
+        "gaspiller sa vie à + infinitif",
+        "passer son temps à + infinitif"
+      ],
+      "related_verbs": [
+        "passer"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "High",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Infinitive after expressions of spending time",
+          "page_printed": 117,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The infinitive is used after expressions of spending time.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Infinitive after verbs of perception",
     "field": "exceptions",
     "current_value": [],
-    "summary": "Use infinitive after verbs of perception instead of English present participle.",
-    "usage": [
-      "To express an action perceived by the subject."
-    ],
-    "rule_name": "Infinitive after verbs of perception"
+    "related_context": {
+      "rule_name": "Infinitive after verbs of perception",
+      "summary": "Use infinitive after verbs of perception instead of English present participle.",
+      "explanation": "Verbs like voir, entendre, etc. are followed directly by infinitive.",
+      "formation": "verb of perception + infinitive",
+      "usage": [
+        "To express an action perceived by the subject."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [
+        "voir",
+        "entendre",
+        "regarder",
+        "écouter",
+        "sentir"
+      ],
+      "agreement_rules": [],
+      "word_order": "perception verb + infinitive",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "English present participle after perception -> French infinitive"
+      ],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use the present participle in French."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "infinitive mood",
+        "verbs of perception"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "entendre",
+        "voir"
+      ],
+      "tags": [
+        "infinitive",
+        "perception verbs",
+        "verb complements"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Common",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "Infinitive after verbs of perception",
+          "page_printed": 117,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The infinitive is used after verbs of perception (where the present participle is used in English).",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Infinitive as subject",
     "field": "exceptions",
     "current_value": [],
-    "summary": "The infinitif présent can be used as the subject of a verb, corresponding to English gerund or present participle.",
-    "usage": [
-      "To express an action as the subject of a sentence."
-    ],
-    "rule_name": "Infinitive as subject"
+    "related_context": {
+      "rule_name": "Infinitive as subject",
+      "summary": "The infinitif présent can be used as the subject of a verb, corresponding to English gerund or present participle.",
+      "explanation": "In French, the infinitive is often used where English uses -ing form as subject.",
+      "formation": "infinitive + rest of sentence",
+      "usage": [
+        "To express an action as the subject of a sentence."
+      ],
+      "restrictions": [],
+      "conditions": [],
+      "signal_words": [],
+      "agreement_rules": [],
+      "word_order": "Infinitive at beginning of sentence as subject.",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "English gerund subject -> French infinitive subject"
+      ],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use present participle in French for subject; use infinitive."
+      ],
+      "related_tenses": [
+        "infinitif"
+      ],
+      "related_concepts": [
+        "infinitive mood",
+        "present infinitive"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": "Very common",
+        "notes": null
+      },
+      "chapters": [
+        14
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "14.json",
+          "chapter_number": 14,
+          "section_title": "The infinitif présent",
+          "page_printed": 115,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The infinitif can be used as the subject of a verb. (Note that the present participle is used in English instead.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

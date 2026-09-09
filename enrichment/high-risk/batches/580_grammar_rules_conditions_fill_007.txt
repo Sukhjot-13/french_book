@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,112 +44,895 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Identifying pronominal verbs",
     "field": "conditions",
     "current_value": [],
-    "summary": "Pronominal verbs are preceded by me, te, se, nous, vous, se in infinitive and conjugated forms.",
-    "usage": [],
-    "rule_name": "Identifying pronominal verbs"
+    "related_context": {
+      "rule_name": "Identifying pronominal verbs",
+      "summary": "Pronominal verbs are preceded by me, te, se, nous, vous, se in infinitive and conjugated forms.",
+      "explanation": "Pronominal verbs are verbs that are preceded in the infinitive and in conjugated forms by the pronouns me, te, se, nous, vous, se.",
+      "formation": null,
+      "usage": [],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [
+        "Reflexive pronoun agrees with subject in person and number."
+      ],
+      "word_order": "Pronoun before verb in normal sentences.",
+      "negative_form": "ne + pronoun + verb + pas",
+      "interrogative_form": "Rising intonation, est-ce que, or inversion; pronoun remains before verb in inversion.",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not drop the reflexive pronoun."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Pronominal verbs"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reflexive verbs",
+          "page_printed": 63,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Pronominal verbs are verbs that are preceded in the infinitive and in conjugated forms by the pronouns me, te, se, nous, vous, se.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Il s'agit de expression",
     "field": "conditions",
     "current_value": [],
-    "summary": "Il s'agit de is a fixed expression introducing the subject of a work or situation.",
-    "usage": [
-      "To introduce a subject",
-      "To express necessity (il s'agit de faire vite)"
-    ],
-    "rule_name": "Il s'agit de expression"
+    "related_context": {
+      "rule_name": "Il s'agit de expression",
+      "summary": "Il s'agit de is a fixed expression introducing the subject of a work or situation.",
+      "explanation": "Il s'agit de is used to state what something is about or what is at stake.",
+      "formation": "il s'agit de + noun / il s'agit de + infinitive / il ne s'agit pas de + noun/infinitive",
+      "usage": [
+        "To introduce a subject",
+        "To express necessity (il s'agit de faire vite)"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": "Il ne s'agit pas de plaisanter.",
+      "interrogative_form": "De quoi s'agit-il?",
+      "affirmative_form": "Dans ce film, il s'agit d'un crime.",
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Il s'agit de"
+      ],
+      "related_expressions": [
+        "il ne s'agit pas de + nom/infinitif",
+        "il s'agit de + infinitif",
+        "il s'agit de + nom"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "Il s'agit de (it is a matter of, it's about)",
+          "page_printed": 60,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il s'agit de (it is a matter of, it's about) is a fixed expression that introduces the subject of a work (book, film, etc.) or of a situation.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Il y a expression",
     "field": "conditions",
     "current_value": [],
-    "summary": "Il y a is an impersonal expression meaning there is/there are, and is used in fixed expressions.",
-    "usage": [
-      "To express existence",
-      "In fixed idiomatic expressions"
-    ],
-    "rule_name": "Il y a expression"
+    "related_context": {
+      "rule_name": "Il y a expression",
+      "summary": "Il y a is an impersonal expression meaning there is/there are, and is used in fixed expressions.",
+      "explanation": "Il y a introduces existence and is also part of idiomatic expressions.",
+      "formation": "il y a + noun / il n'y a plus + noun / il n'y a qu'à + infinitive / il y avait une fois",
+      "usage": [
+        "To express existence",
+        "In fixed idiomatic expressions"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": "Il n'y a plus rien dans le frigo.",
+      "interrogative_form": "Qu'est-ce qu'il y a?",
+      "affirmative_form": "Il y a un chat sur le canapé.",
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "imparfait",
+        "présent"
+      ],
+      "related_concepts": [
+        "Il y a"
+      ],
+      "related_expressions": [
+        "il n'y a qu'à + infinitif",
+        "il y a",
+        "il y avait une fois",
+        "il y en a qui"
+      ],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "Il y a (there is, there are)",
+          "page_printed": 60,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il y a is an impersonal expression that means both there is and there are.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Immediate future (aller + infinitive)",
     "field": "conditions",
     "current_value": [],
-    "summary": "Formed with present tense of aller + infinitive; expresses near future; can replace present or future in colloquial speech.",
-    "usage": [
-      "To express near future actions.",
-      "To replace present or future in colloquial speech."
-    ],
-    "rule_name": "Immediate future (aller + infinitive)"
+    "related_context": {
+      "rule_name": "Immediate future (aller + infinitive)",
+      "summary": "Formed with present tense of aller + infinitive; expresses near future; can replace present or future in colloquial speech.",
+      "explanation": "To talk about what you are going to do, use aller in the present indicative followed immediately by a verb in the infinitive. This construction can replace the present in colloquial speech and is often used as a substitute for the future tense in everyday conversation.",
+      "formation": "aller (conjugated) + infinitive",
+      "usage": [
+        "To express near future actions.",
+        "To replace present or future in colloquial speech."
+      ],
+      "restrictions": [
+        "Only used with present indicative of aller."
+      ],
+      "signal_words": [
+        "aller + infinitive",
+        "vas",
+        "allons",
+        "vont"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "Subject + aller conjugated + infinitive",
+      "negative_form": "ne + aller conjugated + pas + infinitive",
+      "interrogative_form": "Est-ce que + subject + aller conjugated + infinitive? or inversion",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using present instead of infinitive after aller."
+      ],
+      "related_tenses": [
+        "futur simple",
+        "présent"
+      ],
+      "related_concepts": [
+        "Colloquial substitution with immediate future",
+        "Immediate future"
+      ],
+      "related_expressions": [
+        "aller + [infinitive]"
+      ],
+      "related_verbs": [
+        "aller"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The immediate future tense",
+          "page_printed": 49,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Aller is also used to form the immediate future. So, to talk about what you are going to do, use aller in the present indicative followed immediately by a verb in the infinitive.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The immediate future tense",
+          "page_printed": 49,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "This construction can replace the present in colloquial speech.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Immediate past (venir de + infinitive)",
     "field": "conditions",
     "current_value": [],
-    "summary": "venir (present) + de + infinitive expresses an action that has just taken place.",
-    "usage": [
-      "To express an action that just occurred."
-    ],
-    "rule_name": "Immediate past (venir de + infinitive)"
+    "related_context": {
+      "rule_name": "Immediate past (venir de + infinitive)",
+      "summary": "venir (present) + de + infinitive expresses an action that has just taken place.",
+      "explanation": "Although the construction venir de is in the present tense in French, it conveys an idea in the past in English (just did something).",
+      "formation": "venir (conjugated) + de + infinitive",
+      "usage": [
+        "To express an action that just occurred."
+      ],
+      "restrictions": [
+        "Only with present tense of venir."
+      ],
+      "signal_words": [
+        "venir de",
+        "vient de",
+        "venons de",
+        "viennent de"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "Subject + venir conjugated + de + infinitive",
+      "negative_form": "ne + venir conjugated + pas + de + infinitive",
+      "interrogative_form": "Est-ce que + subject + venir conjugated + de + infinitive? or inversion",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Forgetting de.",
+        "Using infinitive without de."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Preposition de",
+        "immediate past"
+      ],
+      "related_expressions": [
+        "venir de + [infinitive]"
+      ],
+      "related_verbs": [
+        "venir"
+      ],
+      "tags": [
+        "passé récent",
+        "venir de",
+        "periphrastic tense"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The immediate past",
+          "page_printed": 51,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The verb venir (to come) in the present tense + de, combined with a verb in the infinitive, expresses an action that has just taken place.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Immediate past in imparfait (venir de + infinitive)",
     "field": "conditions",
     "current_value": [],
-    "summary": "Use venir de + infinitive in the imparfait to express an action that had just happened.",
-    "usage": [
-      "Express an action that had just occurred before another past event"
-    ],
-    "rule_name": "Immediate past in imparfait (venir de + infinitive)"
+    "related_context": {
+      "rule_name": "Immediate past in imparfait (venir de + infinitive)",
+      "summary": "Use venir de + infinitive in the imparfait to express an action that had just happened.",
+      "explanation": "The immediate past can also be used in the imparfait to describe an action that had just happened.",
+      "formation": "imparfait of venir + de + infinitive",
+      "usage": [
+        "Express an action that had just occurred before another past event"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [
+        "imparfait",
+        "infinitif"
+      ],
+      "related_concepts": [
+        "immediate past",
+        "imparfait"
+      ],
+      "related_expressions": [
+        "venir de + infinitif"
+      ],
+      "related_verbs": [
+        "accepter",
+        "entrer",
+        "proposer",
+        "téléphoner",
+        "venir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Immediate past in the imparfait (venir de + infinitive)",
+          "page_printed": 71,
+          "page_pdf": 85,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The immediate past can also be used in the imparfait to describe an action that had just happened.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Imparfait for background and description",
     "field": "conditions",
     "current_value": [],
-    "summary": "Use the imparfait to describe past situations, states of mind, and background circumstances.",
-    "usage": [
-      "Describe past states",
-      "Set the scene",
-      "Express mental or physical states"
-    ],
-    "rule_name": "Imparfait for background and description"
+    "related_context": {
+      "rule_name": "Imparfait for background and description",
+      "summary": "Use the imparfait to describe past situations, states of mind, and background circumstances.",
+      "explanation": "The imparfait is used for background and description. It describes a situation that existed in the past, a state of mind or being.",
+      "formation": null,
+      "usage": [
+        "Describe past states",
+        "Set the scene",
+        "Express mental or physical states"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use passé composé for simple background description unless it indicates a specific event or change."
+      ],
+      "related_tenses": [
+        "imparfait"
+      ],
+      "related_concepts": [
+        "description and background",
+        "imparfait"
+      ],
+      "related_expressions": [
+        "avoir faim"
+      ],
+      "related_verbs": [
+        "avoir",
+        "faire",
+        "savoir",
+        "être"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Uses of the imparfait: background and description",
+          "page_printed": 66,
+          "page_pdf": 80,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Let’s look at the different uses of the imparfait. It is used for background and description. It describes a situation that existed in the past, a state of mind or being.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Imparfait for habitual/repetitive action",
     "field": "conditions",
     "current_value": [],
-    "summary": "Use the imparfait to express past actions that were habitual or repeated.",
-    "usage": [
-      "Express habitual actions in the past",
-      "Translate 'used to' and 'would' (habitual)"
-    ],
-    "rule_name": "Imparfait for habitual/repetitive action"
+    "related_context": {
+      "rule_name": "Imparfait for habitual/repetitive action",
+      "summary": "Use the imparfait to express past actions that were habitual or repeated.",
+      "explanation": "Another use of the imparfait is to express habitual, repetitive action. It describes past events that were repeated. Used to and would (meaning habitually) are translated into French by the imparfait.",
+      "formation": null,
+      "usage": [
+        "Express habitual actions in the past",
+        "Translate 'used to' and 'would' (habitual)"
+      ],
+      "restrictions": [],
+      "signal_words": [
+        "souvent",
+        "fréquemment",
+        "toujours",
+        "le mardi",
+        "le vendredi",
+        "chaque jour",
+        "tous les jours",
+        "chaque semaine",
+        "chaque mois",
+        "chaque année",
+        "d’ordinaire",
+        "d’habitude",
+        "habituellement",
+        "régulièrement",
+        "comme à l’accoutumée",
+        "autrefois",
+        "jadis"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use passé composé for habitual actions; use imparfait."
+      ],
+      "related_tenses": [
+        "imparfait"
+      ],
+      "related_concepts": [
+        "habitual action",
+        "imparfait",
+        "time expressions"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "aller",
+        "faire",
+        "jouer"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Uses of the imparfait: habitual and repetitive action",
+          "page_printed": 67,
+          "page_pdf": 81,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Another use of the imparfait is to express habitual, repetitive action. It describes past events that were repeated. Used to and would (meaning habitually) are translated into French by the imparfait.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Imparfait formation",
     "field": "conditions",
     "current_value": [],
-    "summary": "Form the imparfait by taking the nous form of the present tense, removing -ons, and adding the endings -ais, -ais, -ait, -ions, -iez, -aient.",
-    "usage": [
-      "Describe states, habitual actions, continuous actions in the past"
-    ],
-    "rule_name": "Imparfait formation"
+    "related_context": {
+      "rule_name": "Imparfait formation",
+      "summary": "Form the imparfait by taking the nous form of the present tense, removing -ons, and adding the endings -ais, -ais, -ait, -ions, -iez, -aient.",
+      "explanation": "To form the imperfect, take the nous form of the present tense and remove the -ons ending, which gives you the stem. Then add the imparfait endings (-ais, -ais, -ait, -ions, -iez, -aient) to this stem.",
+      "formation": "nous present - ons + imparfait endings",
+      "usage": [
+        "Describe states, habitual actions, continuous actions in the past"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [
+        "être has irregular stem ét-"
+      ],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use the passé composé for habitual actions; use imparfait."
+      ],
+      "related_tenses": [
+        "imparfait"
+      ],
+      "related_concepts": [
+        "imparfait",
+        "verb conjugation"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "parler",
+        "être"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "Formation of the imparfait",
+          "page_printed": 65,
+          "page_pdf": 79,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "To form the imperfect, take the nous form of the present tense and remove the -ons ending, which gives you the stem. Then add the imparfait endings (-ais, -ais, -ait, -ions, -iez, -aient) to this stem.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Imparfait vs passé composé with state verbs",
     "field": "conditions",
     "current_value": [],
-    "summary": "Certain verbs expressing mental or physical states tend to be used in the imparfait; in the passé composé, they may take on a different meaning.",
-    "usage": [
-      "Use imparfait for states",
-      "Use passé composé for changes or specific realizations"
-    ],
-    "rule_name": "Imparfait vs passé composé with state verbs"
+    "related_context": {
+      "rule_name": "Imparfait vs passé composé with state verbs",
+      "summary": "Certain verbs expressing mental or physical states tend to be used in the imparfait; in the passé composé, they may take on a different meaning.",
+      "explanation": "As they express a mental or physical state of being, some verbs tend to be used more often in the imparfait than in the passé composé. Among these verbs are: être, avoir, penser, croire, savoir, espérer, sembler, paraître. However, when these verbs are used in the passé composé, they may take on a different meaning.",
+      "formation": null,
+      "usage": [
+        "Use imparfait for states",
+        "Use passé composé for changes or specific realizations"
+      ],
+      "restrictions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not assume same meaning for state verbs in passé composé; may indicate change or specific event."
+      ],
+      "related_tenses": [
+        "imparfait",
+        "passé composé"
+      ],
+      "related_concepts": [
+        "contrast",
+        "imparfait",
+        "passé composé"
+      ],
+      "related_expressions": [],
+      "related_verbs": [
+        "avoir",
+        "croire",
+        "espérer",
+        "paraître",
+        "penser",
+        "savoir",
+        "sembler",
+        "être"
+      ],
+      "tags": [
+        "tense contrast",
+        "state verbs",
+        "past narration"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        8
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "8.json",
+          "chapter_number": 8,
+          "section_title": "The imparfait versus the passé composé",
+          "page_printed": 67,
+          "page_pdf": 81,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "As they express a mental or physical state of being, some verbs tend to be used more often in the imparfait than in the passé composé. Among these verbs are: être, avoir, penser, croire, savoir, espérer, sembler, paraître. However, when these verbs are used in the passé composé, they may take on a different meaning.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

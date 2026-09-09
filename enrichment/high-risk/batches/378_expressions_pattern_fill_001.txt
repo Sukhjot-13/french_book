@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,12 +44,26 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.pattern
-- `value` must be a string (never an object or array).
-- Return a reusable French construction pattern. For a completely fixed expression, use its exact `canonical_form` as the pattern.
-- When the canonical form explicitly contains a variable, represent that variable once with a bracketed descriptive placeholder, such as `[noun]`, `[person]`, `[verb infinitive]`, `[clause]`, `[adjective]`, or `[adverb]`.
-- Do not invent variables that are not expressed by the canonical form or target metadata. Preserve literal French words, required articles, and governed prepositions.
-- The proposed pattern and any proposed `pattern_slots` must describe the same variable positions.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": [
+    "string",
+    "null"
+  ]
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -57,97 +71,811 @@ TARGETS
     "entity_key": "C'est à qui?",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "Whose is it?"
-    ],
-    "canonical_form": "C'est à qui?"
+    "related_context": {
+      "canonical_form": "C'est à qui?",
+      "display_form": "C'est à qui?",
+      "english": [
+        "Whose is it?"
+      ],
+      "expression_type": "question_construction",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [
+        "être"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Expressing possession with être à + disjunctive pronoun/noun"
+      ],
+      "related_concepts": [
+        "Expressing possession with être à"
+      ],
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "à",
+        "followed_by": "unknown"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "c'est à qui"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "followed_by:pronoun"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        23
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "23.json",
+          "chapter_number": 23,
+          "section_title": "Expressing possession with être à",
+          "page_printed": 196,
+          "page_pdf": 210,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "C'est à qui? Whose is it?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Comment allez-vous?",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "How are you?"
-    ],
-    "canonical_form": "Comment allez-vous?"
+    "related_context": {
+      "canonical_form": "Comment allez-vous?",
+      "display_form": "Comment allez-vous?",
+      "english": [
+        "How are you?"
+      ],
+      "expression_type": "conversation_phrase",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [
+        "aller"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Aller in idiomatic expressions"
+      ],
+      "related_concepts": [
+        "Irregular verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "comment allez-vous",
+        "how are you"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb aller (to go)",
+          "page_printed": 48,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Comment allez-vous? How are you?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Comment va la famille?",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "How is the family?"
-    ],
-    "canonical_form": "Comment va la famille?"
+    "related_context": {
+      "canonical_form": "Comment va la famille?",
+      "display_form": "Comment va la famille?",
+      "english": [
+        "How is the family?"
+      ],
+      "expression_type": "conversation_phrase",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [
+        "aller"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Aller in idiomatic expressions"
+      ],
+      "related_concepts": [
+        "Irregular verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "comment va la famille",
+        "how is the family"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb aller (to go)",
+          "page_printed": 48,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Comment va la famille? How is the family?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Il veut savoir si",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "He wants to know if"
-    ],
-    "canonical_form": "Il veut savoir si"
+    "related_context": {
+      "canonical_form": "Il veut savoir si",
+      "display_form": "Il veut savoir si",
+      "english": [
+        "He wants to know if"
+      ],
+      "expression_type": "sentence_starter",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [
+        "savoir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "General rule for indirect speech"
+      ],
+      "related_concepts": [
+        "Indirect speech"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "il veut savoir si"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        18
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "18.json",
+          "chapter_number": 18,
+          "section_title": "Exercice 18.1",
+          "page_printed": 142,
+          "page_pdf": 156,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il veut savoir si",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Introduit une interrogation indirecte totale; on n’emploie pas de point d’interrogation dans la proposition en si."
+      ]
+    }
   },
   {
     "entity_key": "J'ai entendu dire que",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "I heard that"
-    ],
-    "canonical_form": "J'ai entendu dire que"
+    "related_context": {
+      "canonical_form": "J'ai entendu dire que",
+      "display_form": "J'ai entendu dire que",
+      "english": [
+        "I heard that"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [
+        "dire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Past main clause: future → conditionnel",
+        "Past main clause: present → imparfait"
+      ],
+      "related_concepts": [
+        "Indirect speech"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [
+        "j'ai entendu dire que"
+      ],
+      "search_terms": [
+        "entendu dire"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        18
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "18.json",
+          "chapter_number": 18,
+          "section_title": "Present recounted in the imparfait",
+          "page_printed": 142,
+          "page_pdf": 156,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "J'ai entendu dire qu'elle était en Inde.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "On m'a dit que",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "I was told that",
-      "I heard that"
-    ],
-    "canonical_form": "On m'a dit que"
+    "related_context": {
+      "canonical_form": "On m'a dit que",
+      "display_form": "On m'a dit que",
+      "english": [
+        "I was told that",
+        "I heard that"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [
+        "dire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Past main clause: passé composé → plus-que-parfait"
+      ],
+      "related_concepts": [
+        "Indirect speech"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [
+        "on m'a dit que"
+      ],
+      "search_terms": [
+        "on m'a dit"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        18
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "18.json",
+          "chapter_number": 18,
+          "section_title": "Passé composé recounted in the plus-que-parfait",
+          "page_printed": 143,
+          "page_pdf": 157,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "On m'a dit qu'ils avaient élu le candidat de gauche.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Tiens, tiens",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "Well, well",
-      "Here (take this)"
-    ],
-    "canonical_form": "Tiens, tiens"
+    "related_context": {
+      "canonical_form": "Tiens, tiens",
+      "display_form": "Tiens, tiens",
+      "english": [
+        "Well, well",
+        "Here (take this)"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [
+        "tenir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [
+        "Used as interjection or to hand something over."
+      ],
+      "transformations": [],
+      "aliases": [
+        "tiens"
+      ],
+      "search_terms": [
+        "tiens",
+        "well well"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "Tenir",
+          "page_printed": 53,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tiens, tiens, c’est étrange... Well, well, this is strange . . . Tiens, prends ces trois livres. Here, take these three books.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "La répétition tiens, tiens marque souvent la surprise, la curiosité ou une légère suspicion; tiens seul peut accompagner le geste de donner quelque chose."
+      ],
+      "register": "informal"
+    }
   },
   {
     "entity_key": "accès haut-débit",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "access, high-speed",
-      "high-speed internet access",
-      "broadband access"
-    ],
-    "canonical_form": "accès haut-débit"
+    "related_context": {
+      "canonical_form": "accès haut-débit",
+      "display_form": "accès haut-débit",
+      "english": [
+        "access, high-speed",
+        "high-speed internet access",
+        "broadband access"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "broadband",
+        "high-speed internet"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "multiword_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "access, high-speed accès haut-débit (m.)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "acheter des billets",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "to buy tickets"
-    ],
-    "canonical_form": "acheter des billets"
+    "related_context": {
+      "canonical_form": "acheter des billets",
+      "display_form": "acheter des billets",
+      "english": [
+        "to buy tickets"
+      ],
+      "expression_type": "collocation",
+      "productive": true,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [
+        {
+          "canonical_form": "billet",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "acheter des billets",
+        "buy tickets"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        12
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "12.json",
+          "chapter_number": 12,
+          "section_title": "Should",
+          "page_printed": 99,
+          "page_pdf": 113,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "We should buy tickets for the concert.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "actuellement",
     "field": "pattern",
     "current_value": null,
-    "english": [
-      "presently",
-      "currently",
-      "at present"
-    ],
-    "canonical_form": "actuellement"
+    "related_context": {
+      "canonical_form": "actuellement",
+      "display_form": "actuellement",
+      "english": [
+        "presently",
+        "currently",
+        "at present"
+      ],
+      "expression_type": "time_expression",
+      "productive": false,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Time"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "currently",
+        "presently"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "actuellement\tpresently",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Actuellement signifie « en ce moment » et non « actually », qui se traduit plutôt par en fait."
+      ]
+    }
   }
 ]
 ================================================================================

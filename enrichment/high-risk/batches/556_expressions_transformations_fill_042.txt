@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,100 +44,904 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "se coucher",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to go to bed"
-    ],
-    "canonical_form": "se coucher"
+    "related_context": {
+      "canonical_form": "se coucher",
+      "display_form": "se coucher",
+      "english": [
+        "to go to bed"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se + coucher",
+      "pattern_slots": [],
+      "related_verbs": [
+        "se coucher"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Identifying pronominal verbs"
+      ],
+      "related_concepts": [
+        "Reflexive verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "aliases": [
+        "coucher"
+      ],
+      "search_terms": [
+        "se coucher"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reflexive verbs",
+          "page_printed": 63,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Je me couche à onze heures.  I go to bed at eleven.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "se couper les ongles",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to trim one's nails"
-    ],
-    "canonical_form": "se couper les ongles"
+    "related_context": {
+      "canonical_form": "se couper les ongles",
+      "display_form": "se couper les ongles",
+      "english": [
+        "to trim one's nails"
+      ],
+      "expression_type": "collocation",
+      "productive": true,
+      "pattern": "se couper + [body part]",
+      "pattern_slots": [
+        {
+          "name": "body part",
+          "display": "les ongles",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "verb_se_couper"
+      ],
+      "related_vocabulary": [
+        {
+          "canonical_form": "ongles",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Pronominal verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "aliases": [
+        "se couper les cheveux",
+        "se couper les ongles"
+      ],
+      "search_terms": [
+        "se couper les ongles",
+        "trim nails"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        7
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Pronominal verbs in the passé composé",
+          "page_printed": 76,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle s’est coupé les ongles.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "French normally uses the definite article with a body part when the reflexive pronoun already identifies the possessor."
+      ]
+    }
   },
   {
     "entity_key": "se demander",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to wonder"
-    ],
-    "canonical_form": "se demander"
+    "related_context": {
+      "canonical_form": "se demander",
+      "display_form": "se demander",
+      "english": [
+        "to wonder"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se + demander",
+      "pattern_slots": [],
+      "related_verbs": [
+        "se demander"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjective pronominal verbs"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "aliases": [
+        "demander"
+      ],
+      "search_terms": [
+        "se demander"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 66,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tu (se demander) ce qui va se passer.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Usually introduces an indirect question with si, pourquoi, comment, or another interrogative word: je me demande s’il viendra."
+      ]
+    }
   },
   {
     "entity_key": "se disputer",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to argue (with each other)"
-    ],
-    "canonical_form": "se disputer"
+    "related_context": {
+      "canonical_form": "se disputer",
+      "display_form": "se disputer",
+      "english": [
+        "to argue (with each other)"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se + disputer",
+      "pattern_slots": [],
+      "related_verbs": [
+        "se disputer"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Reciprocal pronominal verbs"
+      ],
+      "related_concepts": [
+        "Reciprocal verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "Reciprocal plural"
+      ],
+      "aliases": [
+        "disputer"
+      ],
+      "search_terms": [
+        "se disputer"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reciprocal verbs",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Nous (se disputer) assez souvent.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "With a plural subject it can be reciprocal; the other participant may be introduced by avec."
+      ]
+    }
   },
   {
     "entity_key": "se douter de",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to suspect",
-      "to have an inkling of",
-      "to expect"
-    ],
-    "canonical_form": "se douter de"
+    "related_context": {
+      "canonical_form": "se douter de",
+      "display_form": "se douter de",
+      "english": [
+        "to suspect",
+        "to have an inkling of",
+        "to expect"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se + douter + de",
+      "pattern_slots": [
+        {
+          "name": "thing",
+          "display": "quelque chose",
+          "slot_type": "thing",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "se douter"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjective pronominal verbs"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "de",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "aliases": [
+        "se douter"
+      ],
+      "search_terms": [
+        "se douter de"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il se doute de quelque chose. (se douter de)  He suspects something.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Unlike douter de, se douter de means to suspect or anticipate that something is true rather than to doubt it."
+      ]
+    }
   },
   {
     "entity_key": "se débarrasser de quelque chose",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to get rid of something"
-    ],
-    "canonical_form": "se débarrasser de quelque chose"
+    "related_context": {
+      "canonical_form": "se débarrasser de quelque chose",
+      "display_form": "se débarrasser de [thing]",
+      "english": [
+        "to get rid of something"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se débarrasser de [thing]",
+      "pattern_slots": [
+        {
+          "name": "thing",
+          "display": "thing",
+          "slot_type": "thing",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "se débarrasser"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Pronoun en"
+      ],
+      "related_concepts": [
+        "Pronoun en"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "de",
+        "followed_by": "unknown"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "dispose of",
+        "rid oneself of"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "followed_by:thing"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        21
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "21.json",
+          "chapter_number": 21,
+          "section_title": "The pronoun en",
+          "page_printed": 188,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Tu t’es débarrassé de toutes ces choses inutiles.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Requires de before the person or thing removed, discarded, or escaped from."
+      ]
+    }
   },
   {
     "entity_key": "se décider à + infinitif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to make up one's mind to do something",
-      "to finally decide to do something"
-    ],
-    "canonical_form": "se décider à + infinitif"
+    "related_context": {
+      "canonical_form": "se décider à + infinitif",
+      "display_form": "se décider à + infinitive",
+      "english": [
+        "to make up one's mind to do something",
+        "to finally decide to do something"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se décider à + INF",
+      "pattern_slots": [
+        {
+          "name": "infinitive",
+          "display": "INF",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "décider"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Verbs with changing prepositions"
+      ],
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "à",
+        "followed_by": "infinitive"
+      },
+      "restrictions": [],
+      "aliases": [
+        "se décider à"
+      ],
+      "search_terms": [
+        "finally decide",
+        "make up mind",
+        "se décider à"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Verbs that use different prepositions",
+          "page_printed": 245,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils se sont enfin décidés à se marier.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Highlights overcoming hesitation and finally committing oneself to the action expressed by the infinitive."
+      ]
+    }
   },
   {
     "entity_key": "se dépêcher",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to hurry"
-    ],
-    "canonical_form": "se dépêcher"
+    "related_context": {
+      "canonical_form": "se dépêcher",
+      "display_form": "se dépêcher",
+      "english": [
+        "to hurry"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se + dépêcher",
+      "pattern_slots": [],
+      "related_verbs": [
+        "se dépêcher"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjective pronominal verbs"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "aliases": [
+        "dépêcher"
+      ],
+      "search_terms": [
+        "se dépêcher"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 66,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils (se dépêcher) pour arriver à l'heure.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "se détendre",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to relax"
-    ],
-    "canonical_form": "se détendre"
+    "related_context": {
+      "canonical_form": "se détendre",
+      "display_form": "se détendre",
+      "english": [
+        "to relax"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se + détendre",
+      "pattern_slots": [],
+      "related_verbs": [
+        "se détendre"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Identifying pronominal verbs"
+      ],
+      "related_concepts": [
+        "Reflexive verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [],
+      "aliases": [
+        "détendre"
+      ],
+      "search_terms": [
+        "se détendre"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reflexive verbs",
+          "page_printed": 64,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle (se détendre) les jambes sur le canapé.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "se détester",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to hate each other"
-    ],
-    "canonical_form": "se détester"
+    "related_context": {
+      "canonical_form": "se détester",
+      "display_form": "se détester",
+      "english": [
+        "to hate each other"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "se + détester",
+      "pattern_slots": [],
+      "related_verbs": [
+        "se détester"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Reciprocal pronominal verbs"
+      ],
+      "related_concepts": [
+        "Reciprocal verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "restrictions": [
+        "Reciprocal plural"
+      ],
+      "aliases": [
+        "détester"
+      ],
+      "search_terms": [
+        "se détester"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reciprocal verbs",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils (se détester) depuis toujours.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

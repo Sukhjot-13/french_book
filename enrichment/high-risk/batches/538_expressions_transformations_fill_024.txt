@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,102 +44,902 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "il fait chaud",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "it is hot"
-    ],
-    "canonical_form": "il fait chaud"
+    "related_context": {
+      "canonical_form": "il fait chaud",
+      "display_form": "il fait chaud",
+      "english": [
+        "it is hot"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": true,
+      "pattern": "il fait [weather adjective]",
+      "pattern_slots": [
+        {
+          "name": "adjective",
+          "display": "weather adjective",
+          "slot_type": "adjective",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "faire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Weather expressions with faire"
+      ],
+      "related_concepts": [
+        "Impersonal weather expressions"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "adjective"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "hot",
+        "il fait chaud"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb faire (to do, to make)",
+          "page_printed": 54,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il fait chaud. It is hot.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "il fait doux",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "it is mild"
-    ],
-    "canonical_form": "il fait doux"
+    "related_context": {
+      "canonical_form": "il fait doux",
+      "display_form": "il fait doux",
+      "english": [
+        "it is mild"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": true,
+      "pattern": "il fait [weather adjective]",
+      "pattern_slots": [
+        {
+          "name": "adjective",
+          "display": "weather adjective",
+          "slot_type": "adjective",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "faire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Weather expressions with faire"
+      ],
+      "related_concepts": [
+        "Impersonal weather expressions"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "adjective"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "il fait doux",
+        "mild"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb faire (to do, to make)",
+          "page_printed": 54,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il fait doux. It is mild.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "il fait frais",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "it is cool"
-    ],
-    "canonical_form": "il fait frais"
+    "related_context": {
+      "canonical_form": "il fait frais",
+      "display_form": "il fait frais",
+      "english": [
+        "it is cool"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": true,
+      "pattern": "il fait [weather adjective]",
+      "pattern_slots": [
+        {
+          "name": "adjective",
+          "display": "weather adjective",
+          "slot_type": "adjective",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "faire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Weather expressions with faire"
+      ],
+      "related_concepts": [
+        "Impersonal weather expressions"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "adjective"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "cool",
+        "il fait frais"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb faire (to do, to make)",
+          "page_printed": 54,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il fait frais. It is cool.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "il fait froid",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "it is cold"
-    ],
-    "canonical_form": "il fait froid"
+    "related_context": {
+      "canonical_form": "il fait froid",
+      "display_form": "il fait froid",
+      "english": [
+        "it is cold"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": true,
+      "pattern": "il fait [weather adjective]",
+      "pattern_slots": [
+        {
+          "name": "adjective",
+          "display": "weather adjective",
+          "slot_type": "adjective",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "faire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Weather expressions with faire"
+      ],
+      "related_concepts": [
+        "Impersonal weather expressions"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "adjective"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "cold",
+        "il fait froid"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb faire (to do, to make)",
+          "page_printed": 54,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il fait froid. It is cold.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "il faut",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "it is necessary",
-      "one must",
-      "you have to"
-    ],
-    "canonical_form": "il faut"
+    "related_context": {
+      "canonical_form": "il faut",
+      "display_form": "Il faut",
+      "english": [
+        "it is necessary",
+        "one must",
+        "you have to"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern": "il faut + infinitive",
+      "pattern_slots": [
+        {
+          "name": "action",
+          "display": "apprendre",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "falloir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Impersonal verbs falloir and pleuvoir"
+      ],
+      "related_concepts": [
+        "Impersonal verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "il faut",
+        "it is necessary"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        3
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "3.json",
+          "chapter_number": 3,
+          "section_title": "Falloir and pleuvoir",
+          "page_printed": 46,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "falloir / to be necessary / il faut / it is necessary",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Il faut + infinitif expresses a general or impersonal necessity; the person concerned is supplied by context."
+      ]
+    }
   },
   {
     "entity_key": "il faut que + subjonctif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "it is necessary that"
-    ],
-    "canonical_form": "il faut que + subjonctif"
+    "related_context": {
+      "canonical_form": "il faut que + subjonctif",
+      "display_form": "il faut que",
+      "english": [
+        "it is necessary that"
+      ],
+      "expression_type": "other",
+      "productive": true,
+      "pattern": "il faut que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Impersonal expressions followed by the subjunctive"
+      ],
+      "related_concepts": [
+        "Impersonal expressions"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "il faut que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "impersonal_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Impersonal expressions and the subjunctive",
+          "page_printed": 107,
+          "page_pdf": 121,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "il faut",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Il faut que introduces an explicitly stated subject and requires the subjunctive in the dependent clause."
+      ]
+    }
   },
   {
     "entity_key": "il grêle",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "it is hailing"
-    ],
-    "canonical_form": "il grêle"
+    "related_context": {
+      "canonical_form": "il grêle",
+      "display_form": "il grêle",
+      "english": [
+        "it is hailing"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [
+        "grêler"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Impersonal weather verbs"
+      ],
+      "related_concepts": [
+        "Impersonal weather expressions"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "none"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "hail",
+        "il grêle"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb faire (to do, to make)",
+          "page_printed": 54,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il grêle. It is hailing.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "il me semble que + indicatif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "it seems to me that"
-    ],
-    "canonical_form": "il me semble que + indicatif"
+    "related_context": {
+      "canonical_form": "il me semble que + indicatif",
+      "display_form": "il me semble que",
+      "english": [
+        "it seems to me that"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": "il me semble que + indicatif",
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Impersonal expressions followed by the indicative"
+      ],
+      "related_concepts": [
+        "Impersonal expressions"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "Followed by indicative."
+      ],
+      "aliases": [],
+      "search_terms": [
+        "il me semble que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "impersonal_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Impersonal expressions and the subjunctive",
+          "page_printed": 107,
+          "page_pdf": 121,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "il me semble",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "In the affirmative, il me semble que normally takes the indicative; negation or inversion can favor the subjunctive when doubt is emphasized."
+      ]
+    }
   },
   {
     "entity_key": "il n'y a qu'à + infinitif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "just (do something)",
-      "all one has to do is"
-    ],
-    "canonical_form": "il n'y a qu'à + infinitif"
+    "related_context": {
+      "canonical_form": "il n'y a qu'à + infinitif",
+      "display_form": "il n'y a qu'à + infinitif",
+      "english": [
+        "just (do something)",
+        "all one has to do is"
+      ],
+      "expression_type": "fixed_expression",
+      "productive": false,
+      "pattern": "il n'y a qu'à [infinitif]",
+      "pattern_slots": [
+        {
+          "name": "verb",
+          "display": "infinitif",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Il y a expression"
+      ],
+      "related_concepts": [
+        "Il y a"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "infinitive"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "il n'y a qu'à"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "Il y a (there is, there are)",
+          "page_printed": 60,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il n'y a qu'à leur dire.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Common spoken formula presenting an action as the simple or obvious solution; it can sound dismissive depending on tone."
+      ],
+      "register": "informal"
+    }
   },
   {
     "entity_key": "il ne s'agit pas de + nom/infinitif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "it is not a question of",
-      "it is not about",
-      "the point is not to"
-    ],
-    "canonical_form": "il ne s'agit pas de + nom/infinitif"
+    "related_context": {
+      "canonical_form": "il ne s'agit pas de + nom/infinitif",
+      "display_form": "il ne s'agit pas de + nom/infinitif",
+      "english": [
+        "it is not a question of",
+        "it is not about",
+        "the point is not to"
+      ],
+      "expression_type": "negative_construction",
+      "productive": true,
+      "pattern": "il ne s'agit pas de [nom/infinitif]",
+      "pattern_slots": [
+        {
+          "name": "item",
+          "display": "nom/infinitif",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Il s'agit de expression"
+      ],
+      "related_concepts": [
+        "Il s'agit de"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "de",
+        "followed_by": "mixed"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "il ne s'agit pas de"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        5
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "5.json",
+          "chapter_number": 5,
+          "section_title": "Il s'agit de (it is a matter of, it's about)",
+          "page_printed": 60,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il ne s'agit pas de plaisanter.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "The impersonal pronoun il does not refer to a person; the phrase rejects the interpretation or objective that follows de."
+      ]
+    }
   }
 ]
 ================================================================================

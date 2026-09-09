@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,11 +44,27 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.restrictions
-- `value` must be an array of concise factual strings describing only real usage, register, complement, polarity, agreement, or syntactic restrictions of the expression.
-- Use `[]` when no restriction is clearly supported by the canonical form or target metadata; an empty array is a valid proposal for an unrestricted expression.
-- Do not use generic filler, translations, unverifiable claims, or advice that merely restates the expression.
-- If a restriction is genuinely uncertain or contested, return the required `NO_PROPOSAL` entry rather than guessing.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -56,98 +72,845 @@ TARGETS
     "entity_key": "croire en + personne/Dieu",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to believe in (a person or God)",
-      "to have faith in"
-    ],
-    "canonical_form": "croire en + personne/Dieu"
+    "related_context": {
+      "canonical_form": "croire en + personne/Dieu",
+      "display_form": "croire en + person/God",
+      "english": [
+        "to believe in (a person or God)",
+        "to have faith in"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "croire en + PERSONNE/DIEU",
+      "pattern_slots": [
+        {
+          "name": "person_or_god",
+          "display": "PERSONNE/DIEU",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "croire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Verbs with changing prepositions"
+      ],
+      "prepositions": [
+        "en"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "en",
+        "followed_by": "person"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "believe in",
+        "croire en",
+        "faith"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Verbs that use different prepositions",
+          "page_printed": 245,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Crois-tu en Dieu? Je crois en toi, mon fils. Je crois en l’humanité.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Croire en exprime la confiance ou la foi placée dans une personne, une valeur ou Dieu."
+      ]
+    }
   },
   {
     "entity_key": "croire à + quelque chose",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to believe in something (abstract)"
-    ],
-    "canonical_form": "croire à + quelque chose"
+    "related_context": {
+      "canonical_form": "croire à + quelque chose",
+      "display_form": "croire à + something",
+      "english": [
+        "to believe in something (abstract)"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "croire à + NOM",
+      "pattern_slots": [
+        {
+          "name": "thing",
+          "display": "NOM",
+          "slot_type": "thing",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "croire"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Verbs with changing prepositions"
+      ],
+      "prepositions": [
+        "à"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "à",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "believe in",
+        "croire à"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Verbs that use different prepositions",
+          "page_printed": 245,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il ne croit pas à la magie. Je crois au progrès.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Croire à signifie tenir pour réelle ou possible une chose, une idée ou un phénomène: croire aux fantômes."
+      ]
+    }
   },
   {
     "entity_key": "croiser quelqu'un dans la rue",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to run into someone in the street"
-    ],
-    "canonical_form": "croiser quelqu'un dans la rue"
+    "related_context": {
+      "canonical_form": "croiser quelqu'un dans la rue",
+      "display_form": "croiser quelqu'un dans la rue",
+      "english": [
+        "to run into someone in the street"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "croiser [person] dans la rue",
+      "pattern_slots": [
+        {
+          "name": "person",
+          "display": "person",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [
+        {
+          "canonical_form": "rue",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [
+        "dans"
+      ],
+      "complement_structure": {
+        "direct_object": true,
+        "indirect_object": false,
+        "preposition": "dans",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "croiser dans la rue"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        26
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "26.json",
+          "chapter_number": 26,
+          "section_title": "Ordinal numbers",
+          "page_printed": 223,
+          "page_pdf": 237,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "C’est la quatrième fois que nous nous croisons dans la rue.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "d'accord",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "all right",
-      "okay",
-      "agreed"
-    ],
-    "canonical_form": "d'accord"
+    "related_context": {
+      "canonical_form": "d'accord",
+      "display_form": "d'accord",
+      "english": [
+        "all right",
+        "okay",
+        "agreed"
+      ],
+      "expression_type": "other",
+      "productive": null,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "phrase"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [
+        {
+          "source_type": "glossary",
+          "source_name": "English-Frenchglossary.json",
+          "chapter_number": null,
+          "section_title": null,
+          "page_printed": 250,
+          "page_pdf": 264,
+          "context_type": null,
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "all right d’accord",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "S’emploie seul pour accepter une proposition, ou dans être d’accord avec quelqu’un / sur quelque chose."
+      ]
+    }
   },
   {
     "entity_key": "d'habitude",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "usually",
-      "normally",
-      "as a rule"
-    ],
-    "canonical_form": "d'habitude"
+    "related_context": {
+      "canonical_form": "d'habitude",
+      "display_form": "d'habitude",
+      "english": [
+        "usually",
+        "normally",
+        "as a rule"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Frequency"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "de",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "usually"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "frequency_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "d'habitude\tusually",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "d'ordinaire",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "ordinarily",
-      "usually",
-      "normally"
-    ],
-    "canonical_form": "d'ordinaire"
+    "related_context": {
+      "canonical_form": "d'ordinaire",
+      "display_form": "d'ordinaire",
+      "english": [
+        "ordinarily",
+        "usually",
+        "normally"
+      ],
+      "expression_type": "other",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Frequency"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "de",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "ordinarily"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [
+        "frequency_expression"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "d'ordinaire\tordinarily",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "register": "formal"
+    }
   },
   {
     "entity_key": "dans quelle mesure",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to what extent"
-    ],
-    "canonical_form": "dans quelle mesure"
+    "related_context": {
+      "canonical_form": "dans quelle mesure",
+      "display_form": "dans quelle mesure",
+      "english": [
+        "to what extent"
+      ],
+      "expression_type": "question_construction",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Interrogative words"
+      ],
+      "related_concepts": [
+        "Interrogation"
+      ],
+      "prepositions": [
+        "dans"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "dans",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "to what extent"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Interrogative forms; question words",
+          "page_printed": 219,
+          "page_pdf": 233,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "dans quelle mesure\tto what extent",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Sert à demander le degré ou la portée d’un fait, souvent dans une question analytique ou formelle."
+      ]
+    }
   },
   {
     "entity_key": "dans trois jours",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "in three days (from today)"
-    ],
-    "canonical_form": "dans trois jours"
+    "related_context": {
+      "canonical_form": "dans trois jours",
+      "display_form": "dans trois jours",
+      "english": [
+        "in three days (from today)"
+      ],
+      "expression_type": "time_expression",
+      "productive": true,
+      "pattern": "dans + [number] + jours",
+      "pattern_slots": [
+        {
+          "name": "number",
+          "display": "number",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Time"
+      ],
+      "prepositions": [
+        "dans"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "dans",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "in three days"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 212,
+          "page_pdf": 226,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "dans trois jours\tin three days (from today)",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Avec une durée, dans situe l’événement à venir après l’intervalle indiqué."
+      ]
+    }
   },
   {
     "entity_key": "dans un an",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "in a year"
-    ],
-    "canonical_form": "dans un an"
+    "related_context": {
+      "canonical_form": "dans un an",
+      "display_form": "dans un an",
+      "english": [
+        "in a year"
+      ],
+      "expression_type": "time_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Time"
+      ],
+      "prepositions": [
+        "dans"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "dans",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "in a year"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 212,
+          "page_pdf": 226,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "dans un an\tin a year",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "dans un mois",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "in a month"
-    ],
-    "canonical_form": "dans un mois"
+    "related_context": {
+      "canonical_form": "dans un mois",
+      "display_form": "dans un mois",
+      "english": [
+        "in a month"
+      ],
+      "expression_type": "time_expression",
+      "productive": true,
+      "pattern": "dans + [article] + [time unit]",
+      "pattern_slots": [
+        {
+          "name": "article",
+          "display": "un/une",
+          "slot_type": "other",
+          "required": true
+        },
+        {
+          "name": "time_unit",
+          "display": "mois/an/semaine",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Time"
+      ],
+      "prepositions": [
+        "dans"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "dans",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "in a month"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 212,
+          "page_pdf": 226,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "dans un mois\tin a month",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

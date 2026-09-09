@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,99 +44,938 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "douter que + subjonctif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to doubt that"
-    ],
-    "canonical_form": "douter que + subjonctif"
+    "related_context": {
+      "canonical_form": "douter que + subjonctif",
+      "display_form": "douter que",
+      "english": [
+        "to doubt that"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "douter que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "subject",
+          "display": "subject",
+          "slot_type": "person",
+          "required": true
+        },
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "douter"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Use of subjunctive after expressions of doubt"
+      ],
+      "related_concepts": [
+        "Doubt"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "douter que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Subjunctive after expressions of doubt",
+          "page_printed": 107,
+          "page_pdf": 121,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Je doute qu'il comprenne vos questions.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "À la forme affirmative, douter que appelle normalement le subjonctif; à la forme négative, l’indicatif est possible lorsque la certitude domine."
+      ]
+    }
   },
   {
     "entity_key": "du + masculine country",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "from Brazil"
-    ],
-    "canonical_form": "du + masculine country"
+    "related_context": {
+      "canonical_form": "du + masculine country",
+      "display_form": "du Brésil",
+      "english": [
+        "from Brazil"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "du + masculine singular country",
+      "pattern_slots": [
+        {
+          "name": "country",
+          "display": "pays",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [
+        {
+          "canonical_form": "Brésil",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [
+        "Expressing from with geographical names"
+      ],
+      "related_concepts": [
+        "geographical names"
+      ],
+      "prepositions": [
+        "du"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "du",
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "masculine singular country"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "du Brésil",
+        "from Brazil"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "How to say from",
+          "page_printed": 164,
+          "page_pdf": 178,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle est originaire du Brésil.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "décider de + infinitif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to decide to do something"
-    ],
-    "canonical_form": "décider de + infinitif"
+    "related_context": {
+      "canonical_form": "décider de + infinitif",
+      "display_form": "décider de + infinitive",
+      "english": [
+        "to decide to do something"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "décider de + INF",
+      "pattern_slots": [
+        {
+          "name": "infinitive",
+          "display": "INF",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "décider"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Verbs with changing prepositions"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "de",
+        "followed_by": "infinitive"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "decide to",
+        "décider de"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        27
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "27.json",
+          "chapter_number": 27,
+          "section_title": "Verbs that use different prepositions",
+          "page_printed": 245,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "J’ai décidé d’aller au cinéma. Nous avons décidé d’aller au Japon.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "désirer que + subjonctif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to desire (someone) to"
-    ],
-    "canonical_form": "désirer que + subjonctif"
+    "related_context": {
+      "canonical_form": "désirer que + subjonctif",
+      "display_form": "désirer que",
+      "english": [
+        "to desire (someone) to"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "désirer que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "subject",
+          "display": "subject",
+          "slot_type": "person",
+          "required": true
+        },
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "désirer"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Use of subjunctive after verbs of wish and desire"
+      ],
+      "related_concepts": [
+        "Wish and desire"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [
+        "Requires different subjects."
+      ],
+      "aliases": [],
+      "search_terms": [
+        "désirer que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Subjunctive after verbs of wish and desire",
+          "page_printed": 106,
+          "page_pdf": 120,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Vous désirez que nous suivions un cours d'informatique.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "en + feminine country",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "in/to France"
-    ],
-    "canonical_form": "en + feminine country"
+    "related_context": {
+      "canonical_form": "en + feminine country",
+      "display_form": "en France",
+      "english": [
+        "in/to France"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "en + feminine country or region",
+      "pattern_slots": [
+        {
+          "name": "country",
+          "display": "pays",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [
+        {
+          "canonical_form": "France",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [
+        "Preposition with countries: en, au, aux"
+      ],
+      "related_concepts": [
+        "geographical names"
+      ],
+      "prepositions": [
+        "en"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "en",
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "feminine country or region",
+        "masculine country starting with vowel"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "en France",
+        "in France"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 1,
+        "frequency_note": "very common",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "Geographical names with prepositions",
+          "page_printed": 162,
+          "page_pdf": 176,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils ont acheté une maison en Sicile.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "en + feminine state",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "in Pennsylvania"
-    ],
-    "canonical_form": "en + feminine state"
+    "related_context": {
+      "canonical_form": "en + feminine state",
+      "display_form": "en Pennsylvanie",
+      "english": [
+        "in Pennsylvania"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "en + feminine state/province",
+      "pattern_slots": [
+        {
+          "name": "state",
+          "display": "état",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [
+        {
+          "canonical_form": "Pennsylvanie",
+          "part_of_speech": "noun"
+        }
+      ],
+      "related_grammar_rules": [
+        "Preposition with states/provinces: en, au, dans le"
+      ],
+      "related_concepts": [
+        "geographical names"
+      ],
+      "prepositions": [
+        "en"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "en",
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "feminine state or vowel-starting masculine"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "en Pennsylvanie",
+        "in Pennsylvania"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": "regional",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "Geographical names with prepositions",
+          "page_printed": 162,
+          "page_pdf": 176,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "la Pennsylvanie en Pennsylvanie",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "en + island (exception)",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "in/to Haiti"
-    ],
-    "canonical_form": "en + island (exception)"
+    "related_context": {
+      "canonical_form": "en + island (exception)",
+      "display_form": "en Haïti",
+      "english": [
+        "in/to Haiti"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": false,
+      "pattern": "en + specific island",
+      "pattern_slots": [
+        {
+          "name": "island",
+          "display": "île",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Preposition with islands: à, aux, en"
+      ],
+      "related_concepts": [
+        "geographical names"
+      ],
+      "prepositions": [
+        "en"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "en",
+        "followed_by": "noun"
+      },
+      "restrictions": [
+        "exceptions: Haïti, Martinique, Guadeloupe"
+      ],
+      "aliases": [],
+      "search_terms": [
+        "en Haïti",
+        "in Haiti"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 2,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 2,
+        "difficulty": 2,
+        "frequency_note": "specific",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "Geographical names with prepositions",
+          "page_printed": 162,
+          "page_pdf": 176,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "en Haïti",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "en attendant que + subjonctif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "waiting for"
-    ],
-    "canonical_form": "en attendant que + subjonctif"
+    "related_context": {
+      "canonical_form": "en attendant que + subjonctif",
+      "display_form": "en attendant que",
+      "english": [
+        "waiting for"
+      ],
+      "expression_type": "connector",
+      "productive": true,
+      "pattern": "en attendant que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Conjunctions followed by the subjunctive"
+      ],
+      "related_concepts": [
+        "Conjunctions requiring subjunctive"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "en attendant que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [
+        "conjunction"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Conjunctions followed by the subjunctive",
+          "page_printed": 108,
+          "page_pdf": 122,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "en attendant que waiting for",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "Introduit l’événement attendu et exige le subjonctif; avec le même sujet, on emploie en attendant de + infinitif."
+      ]
+    }
   },
   {
     "entity_key": "en ce moment",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "at this present time",
-      "at the moment",
-      "right now"
-    ],
-    "canonical_form": "en ce moment"
+    "related_context": {
+      "canonical_form": "en ce moment",
+      "display_form": "en ce moment",
+      "english": [
+        "at this present time",
+        "at the moment",
+        "right now"
+      ],
+      "expression_type": "time_expression",
+      "productive": false,
+      "pattern": null,
+      "pattern_slots": [],
+      "related_verbs": [],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Time"
+      ],
+      "prepositions": [
+        "en"
+      ],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": "en",
+        "followed_by": "noun"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "at this present time",
+        "currently"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Adverbs and expressions of time",
+          "page_printed": 213,
+          "page_pdf": 227,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "en ce moment\tat this present time",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "exiger que + subjonctif",
     "field": "transformations",
     "current_value": [],
-    "english": [
-      "to demand that"
-    ],
-    "canonical_form": "exiger que + subjonctif"
+    "related_context": {
+      "canonical_form": "exiger que + subjonctif",
+      "display_form": "exiger que",
+      "english": [
+        "to demand that"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "exiger que + subjonctif",
+      "pattern_slots": [
+        {
+          "name": "subject",
+          "display": "subject",
+          "slot_type": "person",
+          "required": true
+        },
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "exiger"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Use of subjunctive after verbs of wish and desire"
+      ],
+      "related_concepts": [
+        "Wish and desire"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "restrictions": [],
+      "aliases": [],
+      "search_terms": [
+        "exiger que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "13.json",
+          "chapter_number": 13,
+          "section_title": "Subjunctive after verbs of wish and desire",
+          "page_printed": 106,
+          "page_pdf": 120,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "J'exige que vous arriviez à l'heure.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

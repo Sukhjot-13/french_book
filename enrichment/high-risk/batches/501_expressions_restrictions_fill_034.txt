@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,11 +44,27 @@ RESPONSE JSON CONTRACT
   ]
 }
 
-FIELD-SPECIFIC VALUE CONTRACT — expressions.restrictions
-- `value` must be an array of concise factual strings describing only real usage, register, complement, polarity, agreement, or syntactic restrictions of the expression.
-- Use `[]` when no restriction is clearly supported by the canonical form or target metadata; an empty array is a valid proposal for an unrestricted expression.
-- Do not use generic filler, translations, unverifiable claims, or advice that merely restates the expression.
-- If a restriction is genuinely uncertain or contested, return the required `NO_PROPOSAL` entry rather than guessing.
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
 
 TARGETS
 [
@@ -56,96 +72,887 @@ TARGETS
     "entity_key": "s'amuser",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to have fun"
-    ],
-    "canonical_form": "s'amuser"
+    "related_context": {
+      "canonical_form": "s'amuser",
+      "display_form": "s'amuser",
+      "english": [
+        "to have fun"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "s' + amuser",
+      "pattern_slots": [],
+      "related_verbs": [
+        "s'amuser"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Identifying pronominal verbs"
+      ],
+      "related_concepts": [
+        "Reflexive verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [
+        "amuser"
+      ],
+      "search_terms": [
+        "s'amuser"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reflexive verbs",
+          "page_printed": 64,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Nous (s'amuser) à la fête.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "s'amuser à la fête",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to have fun at the party"
-    ],
-    "canonical_form": "s'amuser à la fête"
+    "related_context": {
+      "canonical_form": "s'amuser à la fête",
+      "display_form": "s'amuser à la fête",
+      "english": [
+        "to have fun at the party"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "s'amuser + [location/activity]",
+      "pattern_slots": [],
+      "related_verbs": [
+        "s'amuser"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Pronominal verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": "à",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [
+        "s'amuser"
+      ],
+      "search_terms": [
+        "have fun",
+        "s'amuser"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        7
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Pronominal verbs in the passé composé",
+          "page_printed": 76,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Vous êtes-vous bien amusés à la fête?",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "s'apercevoir de",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to realize",
-      "to notice",
-      "to become aware of"
-    ],
-    "canonical_form": "s'apercevoir de"
+    "related_context": {
+      "canonical_form": "s'apercevoir de",
+      "display_form": "s'apercevoir de",
+      "english": [
+        "to realize",
+        "to notice",
+        "to become aware of"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "s' + apercevoir + de",
+      "pattern_slots": [
+        {
+          "name": "thing",
+          "display": "quelque chose",
+          "slot_type": "thing",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "s'apercevoir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjective pronominal verbs"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "de",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [
+        "s'apercevoir"
+      ],
+      "search_terms": [
+        "s'apercevoir de"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "s'apercevoir  to realize  je m'aperçois  I realize",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 66,
+          "page_pdf": null,
+          "context_type": "exercise",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle (s'apercevoir) de sa gaffe.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "S’apercevoir de takes a noun or pronoun and means to notice or become aware of something."
+      ]
+    }
   },
   {
     "entity_key": "s'apercevoir que",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to realize that"
-    ],
-    "canonical_form": "s'apercevoir que"
+    "related_context": {
+      "canonical_form": "s'apercevoir que",
+      "display_form": "s'apercevoir que",
+      "english": [
+        "to realize that"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "s'apercevoir que + clause",
+      "pattern_slots": [
+        {
+          "name": "clause",
+          "display": "clause",
+          "slot_type": "clause",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "s'apercevoir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Main clause verbs followed by que"
+      ],
+      "related_concepts": [
+        "Reporting verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": "clause"
+      },
+      "transformations": [],
+      "aliases": [
+        "s'apercevoir que"
+      ],
+      "search_terms": [
+        "apercevoir que"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        18
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "18.json",
+          "chapter_number": 18,
+          "section_title": "Main clause verbs in indirect speech",
+          "page_printed": 142,
+          "page_pdf": 156,
+          "context_type": "vocabulary",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "s'apercevoir to realize",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "S’apercevoir que introduces a complete clause stating what the subject realizes or notices."
+      ]
+    }
   },
   {
     "entity_key": "s'asseoir",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to sit down"
-    ],
-    "canonical_form": "s'asseoir"
+    "related_context": {
+      "canonical_form": "s'asseoir",
+      "display_form": "s'asseoir",
+      "english": [
+        "to sit down"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "s' + asseoir",
+      "pattern_slots": [],
+      "related_verbs": [
+        "s'asseoir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Identifying pronominal verbs"
+      ],
+      "related_concepts": [
+        "Reflexive verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [
+        "asseoir"
+      ],
+      "search_terms": [
+        "s'asseoir"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reflexive verbs",
+          "page_printed": 63,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Il s'assoit sur un banc.  He sits down on a bench.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "s'emparer de",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to seize",
-      "to take possession of",
-      "to take control of"
-    ],
-    "canonical_form": "s'emparer de"
+    "related_context": {
+      "canonical_form": "s'emparer de",
+      "display_form": "s'emparer de",
+      "english": [
+        "to seize",
+        "to take possession of",
+        "to take control of"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "s' + emparer + de",
+      "pattern_slots": [
+        {
+          "name": "thing",
+          "display": "quelque chose",
+          "slot_type": "thing",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "s'emparer"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjective pronominal verbs"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "prepositions": [
+        "de"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "de",
+        "followed_by": "noun"
+      },
+      "transformations": [],
+      "aliases": [
+        "s'emparer"
+      ],
+      "search_terms": [
+        "s'emparer de"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "s'emparer  to seize  je m'empare  I am seizing",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "The verb is used only pronominally in this sense and requires de before the thing seized."
+      ]
+    }
   },
   {
     "entity_key": "s'en aller",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to leave, to go away"
-    ],
-    "canonical_form": "s'en aller"
+    "related_context": {
+      "canonical_form": "s'en aller",
+      "display_form": "s'en aller",
+      "english": [
+        "to leave, to go away"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": false,
+      "pattern": "s' + en + aller",
+      "pattern_slots": [],
+      "related_verbs": [
+        "s'en aller"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjective pronominal verbs"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [
+        "en aller"
+      ],
+      "search_terms": [
+        "s'en aller"
+      ],
+      "collocation_strength": "strong",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Elle s'en va. (s'en aller)  She is leaving.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "The pronouns se and en are integral to the expression; in the imperative, use va-t’en and allez-vous-en."
+      ]
+    }
   },
   {
     "entity_key": "s'enfuir",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to run away"
-    ],
-    "canonical_form": "s'enfuir"
+    "related_context": {
+      "canonical_form": "s'enfuir",
+      "display_form": "s'enfuir",
+      "english": [
+        "to run away"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "s' + enfuir",
+      "pattern_slots": [],
+      "related_verbs": [
+        "s'enfuir"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjective pronominal verbs"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": null,
+        "indirect_object": null,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [
+        "enfuir"
+      ],
+      "search_terms": [
+        "s'enfuir"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 66,
+          "page_pdf": null,
+          "context_type": "table",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "s'enfuir  to run away  je m'enfuis  I am running away",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "s'ennuyer",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to get bored",
-      "to be bored"
-    ],
-    "canonical_form": "s'ennuyer"
+    "related_context": {
+      "canonical_form": "s'ennuyer",
+      "display_form": "s'ennuyer",
+      "english": [
+        "to get bored",
+        "to be bored"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "s'ennuyer + [location/activity]",
+      "pattern_slots": [],
+      "related_verbs": [
+        "verb_s_ennuyer"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [],
+      "related_concepts": [
+        "Pronominal verbs"
+      ],
+      "prepositions": [],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": false,
+        "preposition": null,
+        "followed_by": null
+      },
+      "transformations": [],
+      "aliases": [],
+      "search_terms": [
+        "bored",
+        "s'ennuyer"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 2,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        7
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "7.json",
+          "chapter_number": 7,
+          "section_title": "Pronominal verbs in the passé composé",
+          "page_printed": 76,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils se sont ennuyés à la réception.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "S’ennuyer means to be bored; s’ennuyer de quelqu’un or de quelque chose can mean to miss them, especially in Canadian French."
+      ]
+    }
   },
   {
     "entity_key": "s'entendre avec",
     "field": "restrictions",
     "current_value": [],
-    "english": [
-      "to get along with"
-    ],
-    "canonical_form": "s'entendre avec"
+    "related_context": {
+      "canonical_form": "s'entendre avec",
+      "display_form": "s'entendre avec",
+      "english": [
+        "to get along with"
+      ],
+      "expression_type": "verb_pattern",
+      "productive": true,
+      "pattern": "s' + entendre + avec",
+      "pattern_slots": [
+        {
+          "name": "person",
+          "display": "quelqu'un",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "related_verbs": [
+        "s'entendre"
+      ],
+      "related_vocabulary": [],
+      "related_grammar_rules": [
+        "Subjective pronominal verbs"
+      ],
+      "related_concepts": [
+        "Subjective pronominal"
+      ],
+      "prepositions": [
+        "avec"
+      ],
+      "complement_structure": {
+        "direct_object": false,
+        "indirect_object": true,
+        "preposition": "avec",
+        "followed_by": "person"
+      },
+      "transformations": [],
+      "aliases": [
+        "s'entendre"
+      ],
+      "search_terms": [
+        "s'entendre avec"
+      ],
+      "collocation_strength": "common",
+      "source_classifications": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Subjective pronominals",
+          "page_printed": 65,
+          "page_pdf": null,
+          "context_type": "example",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Ils s'entendent très bien. (s'entendre [avec])  They get along very well.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null,
+      "usage_notes": [
+        "S’entendre avec describes having a good or workable relationship with someone; bien or mal can specify the quality of the relationship."
+      ]
+    }
   }
 ]
 ================================================================================

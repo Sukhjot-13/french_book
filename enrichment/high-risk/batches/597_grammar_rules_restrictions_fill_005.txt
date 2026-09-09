@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,109 +44,884 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "uniqueItems": true
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "Dont for possession",
     "field": "restrictions",
     "current_value": [],
-    "summary": "Dont expresses possession, meaning whose, of whom, of which. Word order after this construction is subject + verb + object.",
-    "usage": [
-      "possession"
-    ],
-    "rule_name": "Dont for possession"
+    "related_context": {
+      "rule_name": "Dont for possession",
+      "summary": "Dont expresses possession, meaning whose, of whom, of which. Word order after this construction is subject + verb + object.",
+      "explanation": "Un artisan, dont j’ai aussi rencontré le père, m’a encouragé à devenir verrier. Ils ont des voisins dont les amis sont bergers.",
+      "formation": "antecedent + dont + subject + verb + object",
+      "usage": [
+        "possession"
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "subject + verb + object after dont",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Possession",
+        "Relative pronouns"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "relative pronoun",
+        "possession",
+        "dont"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Dont",
+          "page_printed": 207,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Un artisan, dont j’ai aussi rencontré le père, m’a encouragé à devenir verrier.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Dont replacing de + object",
     "field": "restrictions",
     "current_value": [],
-    "summary": "Dont is used as object of verbs or verbal expressions that include the preposition de, referring to people or things.",
-    "usage": [
-      "object of verb with de"
-    ],
-    "rule_name": "Dont replacing de + object"
+    "related_context": {
+      "rule_name": "Dont replacing de + object",
+      "summary": "Dont is used as object of verbs or verbal expressions that include the preposition de, referring to people or things.",
+      "explanation": "Il a besoin de ces documents. Voici les documents dont il a besoin. Elle se sert d’un pinceau. Montrez-moi le pinceau dont elle se sert. Tu as parlé d’un souffleur de verre. Où habite le souffleur de verre dont tu nous as parlé? Elle est fière de son fils. Denis est le fils dont elle est fière.",
+      "formation": "antecedent + dont + subject + verb (verb requiring de)",
+      "usage": [
+        "object of verb with de"
+      ],
+      "conditions": [
+        "verb or expression uses preposition de"
+      ],
+      "signal_words": [
+        "avoir besoin de",
+        "se servir de",
+        "parler de",
+        "être fier de",
+        "se souvenir de"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "dont replaces duquel, de laquelle, desquels, desquelles in modern French"
+      ],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Prepositions",
+        "Relative pronouns"
+      ],
+      "related_expressions": [
+        "avoir besoin de",
+        "parler de",
+        "se servir de"
+      ],
+      "related_verbs": [
+        "avoir besoin de",
+        "parler",
+        "se servir"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Dont",
+          "page_printed": 207,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Voici les documents dont il a besoin.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Duration with depuis, il y a... que, cela/ça fait... que",
     "field": "restrictions",
     "current_value": [],
-    "summary": "To express duration of an action that began in the past and continues in the present, use depuis, il y a... que, or cela (ça) fait... que with the present tense.",
-    "usage": [
-      "To ask about duration: Depuis quand? / Depuis combien de temps?",
-      "To state duration: depuis + point in time or duration; il y a... que; cela fait... que"
-    ],
-    "rule_name": "Duration with depuis, il y a... que, cela/ça fait... que"
+    "related_context": {
+      "rule_name": "Duration with depuis, il y a... que, cela/ça fait... que",
+      "summary": "To express duration of an action that began in the past and continues in the present, use depuis, il y a... que, or cela (ça) fait... que with the present tense.",
+      "explanation": "French uses the present tense (not the past) to express an action that started in the past and is still ongoing. Questions use Depuis quand? or Depuis combien de temps?",
+      "formation": "depuis + duration/point in time; il y a + duration + que + subject + verb; cela/ça fait + duration + que + subject + verb",
+      "usage": [
+        "To ask about duration: Depuis quand? / Depuis combien de temps?",
+        "To state duration: depuis + point in time or duration; il y a... que; cela fait... que"
+      ],
+      "conditions": [
+        "Action began in the past and continues in the present"
+      ],
+      "signal_words": [
+        "depuis",
+        "il y a... que",
+        "cela fait... que",
+        "ça fait... que"
+      ],
+      "exceptions": [
+        "In negative sentences, the passé composé is used instead of the present (see rule_duration_negative_exception)"
+      ],
+      "agreement_rules": [],
+      "word_order": "depuis + time expression; il y a + duration + que + clause; cela/ça fait + duration + que + clause",
+      "negative_form": null,
+      "interrogative_form": "Depuis quand? Depuis combien de temps?",
+      "affirmative_form": "Julie est pharmacienne depuis dix ans.",
+      "transformations": [
+        "depuis can be replaced by il y a... que or cela/ça fait... que"
+      ],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not use the past tense in French for ongoing actions; use present",
+        "In negative sentences, use passé composé instead of present"
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Duration",
+        "Time"
+      ],
+      "related_expressions": [
+        "cela fait... que",
+        "depuis",
+        "il y a... que"
+      ],
+      "related_verbs": [],
+      "tags": [
+        "duration",
+        "time expressions",
+        "present tense"
+      ],
+      "study": {
+        "learning_priority": 5,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 5,
+        "difficulty": 4,
+        "frequency_note": "High frequency in conversational French",
+        "notes": null
+      },
+      "chapters": [
+        25
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "25.json",
+          "chapter_number": 25,
+          "section_title": "Expressing duration",
+          "page_printed": 215,
+          "page_pdf": 229,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "If you are asking a question about the duration of an action that began in the past and still continues in the present, you have several options: depuis, il y a... que, or cela (ça) fait... que, used along with the duration. Note that French uses a present tense verb whereas English uses the past.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Elision of que before vowel",
     "field": "restrictions",
     "current_value": [],
-    "summary": "The -e of que is dropped before a vowel sound, becoming qu'.",
-    "usage": [
-      "elision"
-    ],
-    "rule_name": "Elision of que before vowel"
+    "related_context": {
+      "rule_name": "Elision of que before vowel",
+      "summary": "The -e of que is dropped before a vowel sound, becoming qu'.",
+      "explanation": "Les articles qu’il vend sont chers. Les statues qu’il a chez lui viennent d’Afrique. L’article qu’elle écrit sera publié en mai. Les objets qu’ils fabriquent sont de grande valeur.",
+      "formation": "qu' + vowel-initial word",
+      "usage": [
+        "elision"
+      ],
+      "conditions": [
+        "que before vowel sound"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Relative pronouns"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        24
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "24.json",
+          "chapter_number": 24,
+          "section_title": "Que",
+          "page_printed": 204,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Les articles qu’il vend sont chers.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Elision of reflexive pronouns",
     "field": "restrictions",
     "current_value": [],
-    "summary": "Me, te, se drop e before mute h or vowel.",
-    "usage": [
-      "Before vowel or mute h"
-    ],
-    "rule_name": "Elision of reflexive pronouns"
+    "related_context": {
+      "rule_name": "Elision of reflexive pronouns",
+      "summary": "Me, te, se drop e before mute h or vowel.",
+      "explanation": "The pronouns me, te, se drop the e before mute h or a vowel.",
+      "formation": "me → m', te → t', se → s'",
+      "usage": [
+        "Before vowel or mute h"
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "Reflexive verbs"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        6
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "6.json",
+          "chapter_number": 6,
+          "section_title": "Reflexive verbs",
+          "page_printed": 63,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The pronouns me, te, se drop the e before mute h or a vowel.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "English simple past vs French plus-que-parfait",
     "field": "restrictions",
     "current_value": [],
-    "summary": "English simple past may translate to French plus-que-parfait when anteriority is implied.",
-    "usage": [
-      "When English uses simple past but anteriority is clear"
-    ],
-    "rule_name": "English simple past vs French plus-que-parfait"
+    "related_context": {
+      "rule_name": "English simple past vs French plus-que-parfait",
+      "summary": "English simple past may translate to French plus-que-parfait when anteriority is implied.",
+      "explanation": "In English, the simple past can be used to describe an anterior action. In French, if anteriority is present, the plus-que-parfait must be used.",
+      "formation": null,
+      "usage": [
+        "When English uses simple past but anteriority is clear"
+      ],
+      "conditions": [],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using passé composé instead of plus-que-parfait when English uses simple past"
+      ],
+      "related_tenses": [
+        "imparfait"
+      ],
+      "related_concepts": [
+        "English contrast with plus-que-parfait"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "plus-que-parfait",
+        "translation contrast",
+        "past anteriority"
+      ],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 4,
+        "frequency_note": "Common translation error",
+        "notes": null
+      },
+      "chapters": [
+        10
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "10.json",
+          "chapter_number": 10,
+          "section_title": "Beware of the English language",
+          "page_printed": 98,
+          "page_pdf": 98,
+          "context_type": "warning",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Sometimes in English the French plus-que-parfait is translated as a simple tense. However, if there is any anteriority in a series of actions, the plus-que-parfait must be used in French.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Expressing from with geographical names",
     "field": "restrictions",
     "current_value": [],
-    "summary": "Use de/d' for continents, feminine countries, provinces, regions, states; du/des for masculine/plural.",
-    "usage": [
-      "to express origin or return from a place"
-    ],
-    "rule_name": "Expressing from with geographical names"
+    "related_context": {
+      "rule_name": "Expressing from with geographical names",
+      "summary": "Use de/d' for continents, feminine countries, provinces, regions, states; du/des for masculine/plural.",
+      "explanation": "From is de for feminine and vowel-starting, du/des for masculine/plural.",
+      "formation": "de (d') + feminine or vowel masculine; du + masculine singular; des + plural",
+      "usage": [
+        "to express origin or return from a place"
+      ],
+      "conditions": [
+        "gender and number of place"
+      ],
+      "signal_words": [
+        "venir de",
+        "revenir de",
+        "originaire de",
+        "en provenance de"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "preposition before place name",
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Use du/des for masculine/plural, not de."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Prepositions",
+        "geographical names"
+      ],
+      "related_expressions": [
+        "de + feminine country",
+        "des + plural country",
+        "du + masculine country"
+      ],
+      "related_verbs": [
+        "revenir",
+        "venir",
+        "verb_etre_originaire"
+      ],
+      "tags": [
+        "geographical names",
+        "prepositions",
+        "origin"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 3,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "How to say from",
+          "page_printed": 164,
+          "page_pdf": 178,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "From is expressed by de (d’) for continents, feminine countries, provinces, regions, and states. For masculine and plural entities, the definite article is retained (du, des).",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Faire for chores, activities, sports",
     "field": "restrictions",
     "current_value": [],
-    "summary": "The verb faire is used in many expressions related to household chores, activities, and sports.",
-    "usage": [
-      "To talk about chores, hobbies, sports."
-    ],
-    "rule_name": "Faire for chores, activities, sports"
+    "related_context": {
+      "rule_name": "Faire for chores, activities, sports",
+      "summary": "The verb faire is used in many expressions related to household chores, activities, and sports.",
+      "explanation": "Faire is commonly used with a definite article and a noun to express performing an activity (e.g., faire les courses, faire du vélo).",
+      "formation": "faire + (definite/partitive article) + noun",
+      "usage": [
+        "To talk about chores, hobbies, sports."
+      ],
+      "conditions": [],
+      "signal_words": [
+        "faire les courses",
+        "faire la cuisine",
+        "faire du vélo",
+        "faire du sport"
+      ],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": "Subject + faire conjugated + article + noun",
+      "negative_form": "ne + faire conjugated + pas + article + noun",
+      "interrogative_form": "Est-ce que + subject + faire conjugated + article + noun?",
+      "affirmative_form": null,
+      "transformations": [],
+      "contrast_with": [],
+      "common_traps": [
+        "Using jouer instead of faire for some activities."
+      ],
+      "related_tenses": [
+        "présent"
+      ],
+      "related_concepts": [
+        "Chores and activities with faire"
+      ],
+      "related_expressions": [
+        "faire du sport",
+        "faire du vélo",
+        "faire la cuisine",
+        "faire la queue",
+        "faire la vaisselle",
+        "faire le ménage",
+        "faire les courses",
+        "faire une promenade"
+      ],
+      "related_verbs": [
+        "faire"
+      ],
+      "tags": [],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        4
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "4.json",
+          "chapter_number": 4,
+          "section_title": "The verb faire (to do, to make)",
+          "page_printed": 54,
+          "page_pdf": null,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Faire is also used in expressions relating to chores, activities, sports, etc.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Feminine ending -esse",
     "field": "restrictions",
     "current_value": [],
-    "summary": "Some masculine nouns form feminine with -esse.",
-    "usage": [
-      "for prince, comte, duc, dieu, etc."
-    ],
-    "rule_name": "Feminine ending -esse"
+    "related_context": {
+      "rule_name": "Feminine ending -esse",
+      "summary": "Some masculine nouns form feminine with -esse.",
+      "explanation": "Special pattern for certain titles.",
+      "formation": "masculine + -esse = feminine",
+      "usage": [
+        "for prince, comte, duc, dieu, etc."
+      ],
+      "conditions": [
+        "specific nouns"
+      ],
+      "signal_words": [],
+      "exceptions": [],
+      "agreement_rules": [],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "prince → princesse",
+        "comte → comtesse",
+        "duc → duchesse",
+        "dieu → déesse"
+      ],
+      "contrast_with": [],
+      "common_traps": [],
+      "related_tenses": [],
+      "related_concepts": [
+        "gender of nouns"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [],
+      "study": {
+        "learning_priority": 3,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 3,
+        "difficulty": 2,
+        "frequency_note": "less common",
+        "notes": null
+      },
+      "chapters": [
+        20
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "The gender of nouns",
+          "page_printed": 157,
+          "page_pdf": 171,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The feminine of some nouns ends in -esse.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   },
   {
     "entity_key": "Feminine formation by adding -e",
     "field": "restrictions",
     "current_value": [],
-    "summary": "Many masculine nouns become feminine by adding -e.",
-    "usage": [
-      "To form feminine adjectives from masculine adjectives.",
-      "to form feminine of professions, nationalities, etc."
-    ],
-    "rule_name": "Feminine formation by adding -e"
+    "related_context": {
+      "rule_name": "Feminine formation by adding -e",
+      "summary": "Many masculine nouns become feminine by adding -e.",
+      "explanation": "Common pattern for animate nouns.",
+      "formation": "masculine + -e = feminine",
+      "usage": [
+        "To form feminine adjectives from masculine adjectives.",
+        "to form feminine of professions, nationalities, etc."
+      ],
+      "conditions": [
+        "Applies to many regular adjectives.",
+        "nouns ending in consonant often add -e"
+      ],
+      "signal_words": [],
+      "exceptions": [
+        "Adjectives ending in -e in masculine remain unchanged in feminine."
+      ],
+      "agreement_rules": [
+        "Feminine adjectives agree with feminine nouns."
+      ],
+      "word_order": null,
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "transformations": [
+        "Anglais → Anglaise",
+        "ami → amie",
+        "avocat → avocate",
+        "étudiant → étudiante"
+      ],
+      "contrast_with": [],
+      "common_traps": [
+        "Do not pronounce the final consonant of the masculine form, but do pronounce it in the feminine form.",
+        "Some nouns have irregular feminine forms."
+      ],
+      "related_tenses": [],
+      "related_concepts": [
+        "Agreement of past participle",
+        "adjectives",
+        "gender of nouns"
+      ],
+      "related_expressions": [],
+      "related_verbs": [],
+      "tags": [
+        "feminine formation",
+        "gender",
+        "morphology"
+      ],
+      "study": {
+        "learning_priority": 4,
+        "importance": null,
+        "frequency": null,
+        "usefulness": 4,
+        "difficulty": 1,
+        "frequency_note": "common",
+        "notes": null
+      },
+      "chapters": [
+        20,
+        22
+      ],
+      "sources": [
+        {
+          "source_type": "chapter",
+          "source_name": "20.json",
+          "chapter_number": 20,
+          "section_title": "The gender of nouns",
+          "page_printed": 157,
+          "page_pdf": 171,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "Many nouns can be changed from masculine to feminine by adding an -e to the masculine form.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        },
+        {
+          "source_type": "chapter",
+          "source_name": "22.json",
+          "chapter_number": 22,
+          "section_title": "Agreement of adjectives",
+          "page_printed": 183,
+          "page_pdf": 197,
+          "context_type": "explanation",
+          "exercise_code": null,
+          "question_number": null,
+          "table_title": null,
+          "table_type": null,
+          "row_label": null,
+          "column": null,
+          "direction": null,
+          "source_headword": null,
+          "source_target": null,
+          "source_text": "The feminine form of an adjective is very often created by adding an -e to the masculine form.",
+          "created_by": null,
+          "notes": null,
+          "derived_from": [],
+          "source_classifications": []
+        }
+      ],
+      "notes": null
+    }
   }
 ]
 ================================================================================

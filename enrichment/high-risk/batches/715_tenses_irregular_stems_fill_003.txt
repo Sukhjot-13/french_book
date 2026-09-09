@@ -36,7 +36,7 @@ RESPONSE JSON CONTRACT
   "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
   "candidate_provenance": "AI_GENERATED_UNVERIFIED",
   "proposals": [
-    {"entity_key": "<exact natural key from target>", "value": "<contract-valid value>",
+    {"entity_key": "<exact natural key from target>", "value": "<value conforming exactly to FIELD VALUE SCHEMA below>",
       "evidence": {"source_id": "AI_GENERATED_UNVERIFIED", "evidence_sha256": null, "notes": "Brief rationale and uncertainty, if any."}}
   ],
   "no_proposals": [
@@ -44,95 +44,509 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD VALUE SCHEMA (AUTHORITATIVE)
+The proposal `value` MUST conform exactly to this resolved JSON Schema. Honor
+every declared type, enum, required property, item shape, and nullability. Do
+not add properties not permitted by the schema. An empty array is a valid
+proposal only when it is meaningful for the field and target; it is not a
+substitute for uncertain content.
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "verb",
+      "stem",
+      "notes"
+    ],
+    "properties": {
+      "verb": {
+        "type": "string",
+        "minLength": 1
+      },
+      "stem": {
+        "type": "string",
+        "minLength": 1
+      },
+      "notes": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    }
+  }
+}
+
+TARGET CONTEXT RULES
+- Every target includes `related_context`, the complete existing record except
+  for the empty target field. Use it to preserve consistency with related
+  fields, but never alter, repeat, or overwrite it.
+- Propose only information supported by the target context or confident French
+  linguistic knowledge. If the schema-valid value is genuinely uncertain, use
+  the controlled `NO_PROPOSAL` entry instead of guessing.
+
 TARGETS
 [
   {
     "entity_key": "passé simple passif",
     "field": "irregular_stems",
     "current_value": [],
-    "usage": [
-      "Describes a completed event in literary narration while foregrounding the recipient of the action.",
-      "Used mainly in formal written accounts when the agent is omitted or expressed with par."
-    ],
-    "mood": "indicative",
-    "name": "passé simple passif"
+    "related_context": {
+      "name": "passé simple passif",
+      "english_name": "Passé simple passif",
+      "mood": "indicative",
+      "formation": null,
+      "usage": [
+        "Describes a completed event in literary narration while foregrounding the recipient of the action.",
+        "Used mainly in formal written accounts when the agent is omitted or expressed with par."
+      ],
+      "signal_words": [
+        "soudain",
+        "puis",
+        "alors",
+        "par",
+        "ce jour-là"
+      ],
+      "regular_patterns": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "indicative",
+        "simple-past",
+        "passive-voice",
+        "literary",
+        "narration"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "plus-que-parfait",
     "field": "irregular_stems",
     "current_value": [],
-    "usage": [
-      "Expresses an action completed before another past action or reference point.",
-      "Appears in past counterfactual si clauses and can supply explanatory background in narration."
-    ],
-    "mood": "indicative",
-    "name": "plus-que-parfait"
+    "related_context": {
+      "name": "plus-que-parfait",
+      "english_name": "Plus-que-parfait",
+      "mood": "indicative",
+      "formation": null,
+      "usage": [
+        "Expresses an action completed before another past action or reference point.",
+        "Appears in past counterfactual si clauses and can supply explanatory background in narration."
+      ],
+      "signal_words": [
+        "déjà",
+        "avant",
+        "après que",
+        "une fois que",
+        "si",
+        "jamais encore"
+      ],
+      "regular_patterns": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "indicative",
+        "compound-tense",
+        "past-perfect",
+        "anteriority",
+        "counterfactual"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "présent",
     "field": "irregular_stems",
     "current_value": [],
-    "usage": [
-      "Expresses actions and states occurring at the moment of speaking.",
-      "Also expresses habits, general truths, scheduled near-future events, and vivid historical narration."
-    ],
-    "mood": "indicative",
-    "name": "présent"
+    "related_context": {
+      "name": "présent",
+      "english_name": "Présent",
+      "mood": "indicative",
+      "formation": null,
+      "usage": [
+        "Expresses actions and states occurring at the moment of speaking.",
+        "Also expresses habits, general truths, scheduled near-future events, and vivid historical narration."
+      ],
+      "signal_words": [
+        "maintenant",
+        "en ce moment",
+        "aujourd'hui",
+        "d'habitude",
+        "toujours",
+        "chaque jour"
+      ],
+      "regular_patterns": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "indicative",
+        "present",
+        "habitual-action",
+        "general-truth",
+        "current-action"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "présent passif",
     "field": "irregular_stems",
     "current_value": [],
-    "usage": [
-      "Describes a current, habitual, or general action while emphasizing its recipient.",
-      "Common in definitions, procedures, and formal descriptions when the agent is unknown or secondary."
-    ],
-    "mood": "indicative",
-    "name": "présent passif"
+    "related_context": {
+      "name": "présent passif",
+      "english_name": "Présent passif",
+      "mood": "indicative",
+      "formation": null,
+      "usage": [
+        "Describes a current, habitual, or general action while emphasizing its recipient.",
+        "Common in definitions, procedures, and formal descriptions when the agent is unknown or secondary."
+      ],
+      "signal_words": [
+        "actuellement",
+        "en ce moment",
+        "chaque jour",
+        "par",
+        "généralement"
+      ],
+      "regular_patterns": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "indicative",
+        "present",
+        "passive-voice",
+        "formal-register"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        17
+      ],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "subjonctif imparfait",
     "field": "irregular_stems",
     "current_value": [],
-    "usage": [
-      "Expresses a subjective or dependent past action under literary sequence-of-tenses conventions.",
-      "Used mainly in formal literature after a main verb in a past tense where modern French generally uses the present subjunctive."
-    ],
-    "mood": "subjunctive",
-    "name": "subjonctif imparfait"
+    "related_context": {
+      "name": "subjonctif imparfait",
+      "english_name": "Subjonctif imparfait",
+      "mood": "subjunctive",
+      "formation": null,
+      "usage": [
+        "Expresses a subjective or dependent past action under literary sequence-of-tenses conventions.",
+        "Used mainly in formal literature after a main verb in a past tense where modern French generally uses the present subjunctive."
+      ],
+      "signal_words": [
+        "il fallait que",
+        "bien que",
+        "pour que",
+        "afin que",
+        "quoique"
+      ],
+      "regular_patterns": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "subjunctive",
+        "literary",
+        "simple-tense",
+        "sequence-of-tenses",
+        "formal-register"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "subjonctif passé",
     "field": "irregular_stems",
     "current_value": [],
-    "usage": [
-      "Expresses a completed action viewed through emotion, doubt, necessity, judgment, or another subjunctive trigger.",
-      "Marks anteriority relative to the verb or viewpoint in the main clause."
-    ],
-    "mood": "subjunctive",
-    "name": "subjonctif passé"
+    "related_context": {
+      "name": "subjonctif passé",
+      "english_name": "Subjonctif passé",
+      "mood": "subjunctive",
+      "formation": null,
+      "usage": [
+        "Expresses a completed action viewed through emotion, doubt, necessity, judgment, or another subjunctive trigger.",
+        "Marks anteriority relative to the verb or viewpoint in the main clause."
+      ],
+      "signal_words": [
+        "bien que",
+        "je doute que",
+        "je suis content que",
+        "il est possible que",
+        "avant que"
+      ],
+      "regular_patterns": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "subjunctive",
+        "compound-tense",
+        "anteriority",
+        "emotion",
+        "doubt"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "subjonctif plus-que-parfait",
     "field": "irregular_stems",
     "current_value": [],
-    "usage": [
-      "Marks an action completed before a past reference point within a literary subjunctive construction.",
-      "Occurs chiefly in formal literature under traditional sequence-of-tenses rules."
-    ],
-    "mood": "subjunctive",
-    "name": "subjonctif plus-que-parfait"
+    "related_context": {
+      "name": "subjonctif plus-que-parfait",
+      "english_name": "Subjonctif plus-que-parfait",
+      "mood": "subjunctive",
+      "formation": null,
+      "usage": [
+        "Marks an action completed before a past reference point within a literary subjunctive construction.",
+        "Occurs chiefly in formal literature under traditional sequence-of-tenses rules."
+      ],
+      "signal_words": [
+        "il aurait fallu que",
+        "bien que",
+        "pour que",
+        "avant que",
+        "quoique"
+      ],
+      "regular_patterns": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "subjunctive",
+        "compound-tense",
+        "literary",
+        "anteriority",
+        "sequence-of-tenses"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [],
+      "sources": [],
+      "notes": null
+    }
   },
   {
     "entity_key": "subjonctif présent",
     "field": "irregular_stems",
     "current_value": [],
-    "usage": [
-      "Expresses actions presented through will, emotion, necessity, doubt, possibility, or judgment rather than asserted as fact.",
-      "Used after many conjunctions and impersonal expressions that require the subjunctive."
-    ],
-    "mood": "subjunctive",
-    "name": "subjonctif présent"
+    "related_context": {
+      "name": "subjonctif présent",
+      "english_name": "Subjonctif présent",
+      "mood": "subjunctive",
+      "formation": null,
+      "usage": [
+        "Expresses actions presented through will, emotion, necessity, doubt, possibility, or judgment rather than asserted as fact.",
+        "Used after many conjunctions and impersonal expressions that require the subjunctive."
+      ],
+      "signal_words": [
+        "il faut que",
+        "bien que",
+        "pour que",
+        "avant que",
+        "je veux que",
+        "je doute que"
+      ],
+      "regular_patterns": [],
+      "compound_structure": {
+        "is_compound": false,
+        "auxiliary_tense": null,
+        "participle_rule": null,
+        "agreement_notes": []
+      },
+      "agreement_rules": [],
+      "negative_form": null,
+      "interrogative_form": null,
+      "affirmative_form": null,
+      "common_traps": [],
+      "related_tenses": [],
+      "related_grammar_rules": [],
+      "tags": [
+        "subjunctive",
+        "present",
+        "necessity",
+        "emotion",
+        "doubt",
+        "dependent-clause"
+      ],
+      "study": {
+        "learning_priority": null,
+        "importance": null,
+        "frequency": null,
+        "usefulness": null,
+        "difficulty": null,
+        "frequency_note": null,
+        "notes": null
+      },
+      "chapters": [
+        13
+      ],
+      "sources": [],
+      "notes": null
+    }
   }
 ]
 ================================================================================
