@@ -1,0 +1,106 @@
+{
+  "batch_id": "673_grammar_rules_word_order_fill_010",
+  "queue_version": "2.1.0",
+  "collection": "grammar_rules",
+  "field": "word_order",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:20:02.183991+00:00",
+  "raw_response_hash": "sha256:f1c5c89e4b9df9afd3ef6b5df118164bb5e501c6596a6fa1ed6c5b40e9fd3a20",
+  "validation_report_hash": "sha256:b3e88d6005b9e336621aee1543c83370922fd1099e89ef024358a58610d64b6b",
+  "patches": [
+    {
+      "entity_key": "Où for time",
+      "value": "time antecedent + où + clause",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation is explicit; où follows a time noun such as année, jour, instant, siècle and introduces the clause."
+      }
+    },
+    {
+      "entity_key": "Passive pronominal",
+      "value": "se + conjugated verb",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation 'se + verb (conjugated)'; the reflexive pronoun precedes the verb, e.g. ça se dit, ça se voit."
+      }
+    },
+    {
+      "entity_key": "Passive used to avoid specifying agent",
+      "value": "subject + être (conjugated) + past participle, with no par + agent phrase",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The passive is used when the agent is unknown, unimportant or deliberately omitted, so the agent slot after par is left empty."
+      }
+    },
+    {
+      "entity_key": "Passive used to emphasize subject",
+      "value": "receiver of the action as subject + être (conjugated) + past participle (+ par + agent)",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Fronting the receiver of the action into the subject slot is what creates the emphasis; the agent phrase remains optional."
+      }
+    },
+    {
+      "entity_key": "Passive voice formation",
+      "value": "subject + être (conjugated in the required tense) + past participle agreeing with the subject",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation is explicit; the past participle follows être and agrees with the subject in gender and number."
+      }
+    },
+    {
+      "entity_key": "Passé composé formation",
+      "value": "subject + auxiliary (avoir/être) + past participle",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation 'auxiliary (avoir/être) + past participle'; negation wraps the auxiliary as ne + auxiliary + pas + past participle."
+      }
+    },
+    {
+      "entity_key": "Past conditional for regret or reproach",
+      "value": "auxiliary (avoir/être) in conditionnel présent + past participle (+ infinitive after devoir/vouloir/aimer)",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The compound past conditional form carries regret or reproach; expressions such as aurais dû / aurait voulu place an infinitive after the participle."
+      }
+    },
+    {
+      "entity_key": "Past conditional for unconfirmed past information (journalistic)",
+      "value": "subject + auxiliary in conditionnel présent + past participle",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The conditionnel journalistique uses the same auxiliary + participle order as any past conditional to report allegedly true past events."
+      }
+    },
+    {
+      "entity_key": "Past conditional with si clause in plus-que-parfait",
+      "value": "si + plus-que-parfait clause, main clause in past conditional",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation is explicit; the past conditional stays in the main clause and never in the si clause."
+      }
+    },
+    {
+      "entity_key": "Past main clause: future → conditionnel",
+      "value": "main clause in passé composé + que + dependent verb in conditionnel",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation 'Main clause passé composé + dependent verb conditionnel'; a future in direct speech shifts to the conditionnel in the reported clause."
+      }
+    }
+  ],
+  "no_proposals": []
+}

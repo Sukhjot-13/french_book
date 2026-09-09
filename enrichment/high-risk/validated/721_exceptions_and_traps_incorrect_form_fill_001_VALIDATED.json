@@ -1,0 +1,136 @@
+{
+  "batch_id": "721_exceptions_and_traps_incorrect_form_fill_001",
+  "queue_version": "2.1.0",
+  "collection": "exceptions_and_traps",
+  "field": "incorrect_form",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:22:24.509507+00:00",
+  "raw_response_hash": "sha256:d4a3f4f8421aa76aefb678eb0570cb69ac6f395231a4c2f1a80543646d1aa4d2",
+  "validation_report_hash": "sha256:3a3adf93710727147ba581f3a0b650b671cd0c9e4d232b419509693a3a3cd511",
+  "patches": [
+    {
+      "entity_key": {
+        "title": "Active vs passive voice",
+        "category": "contrast"
+      },
+      "value": "Le pays est envahi par les croisés.",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Paired with the 719 correct form Les croisés envahissent le pays. (same meaning). Grammatically well formed, but it is the trap form: the passive is far more common in English than in French, which prefers the active voice. The error is stylistic overuse, not ungrammaticality. Uncertainty moderate."
+      }
+    },
+    {
+      "entity_key": {
+        "title": "Adjectives change meaning based on position",
+        "category": "contrast"
+      },
+      "value": "un homme grand (= un homme illustre)",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Paired with the 719 correct form un grand homme (= un homme illustre). Placing grand after the noun gives the physical meaning 'tall', so the postposed adjective cannot convey 'great/illustrious'. Confidence high."
+      }
+    },
+    {
+      "entity_key": {
+        "title": "Agent with par vs de",
+        "category": "contrast"
+      },
+      "value": "Ce professeur est apprécié par ses étudiants.",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Paired with the 719 correct form Ce professeur est apprécié de ses étudiants. With verbs of emotion or opinion the agent takes de; par is reserved for a genuinely active agent, so par is the learner's overgeneralisation here. Uncertainty moderate."
+      }
+    },
+    {
+      "entity_key": {
+        "title": "Ambiguity of son, sa, ses",
+        "category": "confusion"
+      },
+      "value": "sa roman (pour « son roman » quand le possesseur est une femme)",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Possessive adjectives agree with the noun they modify, not with the possessor, so roman (masculine) requires son even when the owner is female; sa roman is the classic learner error. Context gives the correct form son roman (his/her novel). Confidence high."
+      }
+    },
+    {
+      "entity_key": {
+        "title": "Color adjectives from nouns are invariable",
+        "category": "exception"
+      },
+      "value": "des chaussures marrons",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Paired with the 719 correct form des chaussures marron. Marron comes from the noun (the chestnut) and stays invariable in the masculine singular, so the plural -s is the learner error. Confidence high."
+      }
+    },
+    {
+      "entity_key": {
+        "title": "Compound color adjectives are invariable",
+        "category": "exception"
+      },
+      "value": "des yeux verts clairs",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Paired with the 719 correct form des yeux vert clair. Both elements of a compound colour adjective remain in the masculine singular, so agreeing either element is the learner error. Confidence high."
+      }
+    },
+    {
+      "entity_key": {
+        "title": "Compound demonstrative pronouns may be derogatory",
+        "category": "usage"
+      },
+      "value": "Celui-là, c'est un idiot.",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Paired with the 719 correct form Celui-ci est mon collègue. Grammatically well formed, but it is the trap form: celui-ci/celui-là carry a condescending or derogatory nuance when used about an absent person, which the source warns against. Pragmatic/register error rather than a grammatical one. Uncertainty moderate."
+      }
+    },
+    {
+      "entity_key": {
+        "title": "Devoir: obligation vs probability ambiguity",
+        "category": "contrast"
+      },
+      "value": "Il faut qu'il soit malade.",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Paired with the 719 correct form Il doit être malade. (probability). Falloir expresses obligation, not probability, so this is the learner's error when a probability is meant; the source states that devoir alone carries the obligation/probability ambiguity. Confidence moderate-high."
+      }
+    },
+    {
+      "entity_key": {
+        "title": "Distinguishing imparfait and passé composé usage",
+        "category": "usage"
+      },
+      "value": "Hier, je mangeais une pomme.",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Paired with the 719 correct form Hier, j'ai mangé une pomme. A bounded event on a specific occasion requires the passé composé; the imparfait is for description, habit, or an interrupted ongoing action, so its use here is the learner error. Confidence high."
+      }
+    },
+    {
+      "entity_key": {
+        "title": "Future tenses for probability",
+        "category": "contrast"
+      },
+      "value": "Il aura été distrait. (futur antérieur au lieu du futur simple pour une probabilité présente)",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The context gives Il sera distrait. (present probability) and Il aura encore brûlé le gigot. (past probability). The error is choosing the futur antérieur for a present-state probability, where the futur simple of être is required. Confidence moderate."
+      }
+    }
+  ],
+  "no_proposals": []
+}

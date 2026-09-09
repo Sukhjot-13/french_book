@@ -1,0 +1,253 @@
+{
+  "batch_id": "711_tenses_regular_patterns_fill_002",
+  "queue_version": "2.1.0",
+  "collection": "tenses",
+  "field": "regular_patterns",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:21:54.953108+00:00",
+  "raw_response_hash": "sha256:21f189f297f6bc1e791f3fed72f1f85a7226c352129c1b7e5b6ea15ede146d54",
+  "validation_report_hash": "sha256:3dd72de96bee6e63a5c38b17b62ced95b45e9a9103401b3a7d0bd328af09e774",
+  "patches": [
+    {
+      "entity_key": "imparfait passif",
+      "value": [
+        {
+          "verb_group": null,
+          "stem_rule": "être à l'imparfait + participe passé du verbe (accord avec le sujet)",
+          "endings": [],
+          "example_verb": "inviter",
+          "notes": "Voix passive : les terminaisons de l'imparfait portent sur l'auxiliaire être, le participe passé s'accorde en genre et en nombre avec le sujet, d'où l'absence de terminaison propre."
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Modèles réguliers de conjugaison générés à partir de la morphologie du français (radical + terminaisons). Chaque objet décrit un groupe verbal régulier ou une construction périphrastique (voix passive). FILL_ONLY : aucune valeur existante n'a été modifiée. Incertitude : les temps composés et le passif n'ont pas de terminaison propre, d'où une liste vide conforme au schéma ; les verbes du 3e groupe comportent de nombreuses irrégularités non couvertes ici."
+      }
+    },
+    {
+      "entity_key": "imperative mood",
+      "value": [
+        {
+          "verb_group": "1er groupe (-er)",
+          "stem_rule": "présent de l'indicatif sans le sujet ; le -s du tu disparaît",
+          "endings": [
+            "-e",
+            "-ons",
+            "-ez"
+          ],
+          "example_verb": "parler",
+          "notes": "parler -> parle, parlons, parlez. Mode impératif : seules les personnes tu, nous et vous existent ; le -s de tu revient devant en/y (parles-en)."
+        },
+        {
+          "verb_group": "2e groupe (-ir)",
+          "stem_rule": "présent de l'indicatif sans le sujet (pas d'élision du -s)",
+          "endings": [
+            "-is",
+            "-issons",
+            "-issez"
+          ],
+          "example_verb": "finir",
+          "notes": "finir -> finis, finissons, finissez."
+        },
+        {
+          "verb_group": "3e groupe (-re)",
+          "stem_rule": "présent de l'indicatif sans le sujet ; le -s du tu est conservé",
+          "endings": [
+            "-s",
+            "-ons",
+            "-ez"
+          ],
+          "example_verb": "vendre",
+          "notes": "vendre -> vends, vendons, vendez."
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Modèles réguliers de conjugaison générés à partir de la morphologie du français (radical + terminaisons). Chaque objet décrit un groupe verbal régulier ou une construction périphrastique (voix passive). FILL_ONLY : aucune valeur existante n'a été modifiée. Incertitude : les temps composés et le passif n'ont pas de terminaison propre, d'où une liste vide conforme au schéma ; les verbes du 3e groupe comportent de nombreuses irrégularités non couvertes ici."
+      }
+    },
+    {
+      "entity_key": "impératif",
+      "value": [
+        {
+          "verb_group": "1er groupe (-er)",
+          "stem_rule": "radical du présent sans pronom sujet ; suppression du -s à la 2e personne du singulier",
+          "endings": [
+            "-e",
+            "-ons",
+            "-ez"
+          ],
+          "example_verb": "parler",
+          "notes": "parler -> parle, parlons, parlez ; avec un pronom postposé, le -s revient : parles-en, vas-y."
+        },
+        {
+          "verb_group": "2e groupe (-ir)",
+          "stem_rule": "radical du présent sans pronom sujet",
+          "endings": [
+            "-is",
+            "-issons",
+            "-issez"
+          ],
+          "example_verb": "finir",
+          "notes": "finir -> finis, finissons, finissez."
+        },
+        {
+          "verb_group": "3e groupe (-re)",
+          "stem_rule": "radical du présent sans pronom sujet",
+          "endings": [
+            "-s",
+            "-ons",
+            "-ez"
+          ],
+          "example_verb": "vendre",
+          "notes": "vendre -> vends, vendons, vendez."
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Modèles réguliers de conjugaison générés à partir de la morphologie du français (radical + terminaisons). Chaque objet décrit un groupe verbal régulier ou une construction périphrastique (voix passive). FILL_ONLY : aucune valeur existante n'a été modifiée. Incertitude : les temps composés et le passif n'ont pas de terminaison propre, d'où une liste vide conforme au schéma ; les verbes du 3e groupe comportent de nombreuses irrégularités non couvertes ici."
+      }
+    },
+    {
+      "entity_key": "participe présent",
+      "value": [
+        {
+          "verb_group": "tous les groupes",
+          "stem_rule": "radical de la 1re personne du pluriel au présent + -ant (nous parlons -> parlant)",
+          "endings": [
+            "-ant"
+          ],
+          "example_verb": "parler",
+          "notes": "parler -> parlant, finir -> finissant, vendre -> vendant. Forme invariable ; exceptions : avoir -> ayant, être -> étant, savoir -> sachant."
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Modèles réguliers de conjugaison générés à partir de la morphologie du français (radical + terminaisons). Chaque objet décrit un groupe verbal régulier ou une construction périphrastique (voix passive). FILL_ONLY : aucune valeur existante n'a été modifiée. Incertitude : les temps composés et le passif n'ont pas de terminaison propre, d'où une liste vide conforme au schéma ; les verbes du 3e groupe comportent de nombreuses irrégularités non couvertes ici."
+      }
+    },
+    {
+      "entity_key": "passé antérieur",
+      "value": [
+        {
+          "verb_group": null,
+          "stem_rule": "avoir ou être au passé simple + participe passé du verbe",
+          "endings": [],
+          "example_verb": "parler",
+          "notes": "Temps composé : parler -> j'eus parlé ; les terminaisons du passé simple portent sur l'auxiliaire, d'où la liste vide."
+        },
+        {
+          "verb_group": "verbes pronominaux",
+          "stem_rule": "être au passé simple + participe passé (accord avec le sujet)",
+          "endings": [],
+          "example_verb": "se lever",
+          "notes": "se lever -> je me fus levé(e) ; emploi littéraire après quand, lorsque, dès que."
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Modèles réguliers de conjugaison générés à partir de la morphologie du français (radical + terminaisons). Chaque objet décrit un groupe verbal régulier ou une construction périphrastique (voix passive). FILL_ONLY : aucune valeur existante n'a été modifiée. Incertitude : les temps composés et le passif n'ont pas de terminaison propre, d'où une liste vide conforme au schéma ; les verbes du 3e groupe comportent de nombreuses irrégularités non couvertes ici."
+      }
+    },
+    {
+      "entity_key": "passé composé",
+      "value": [
+        {
+          "verb_group": null,
+          "stem_rule": "avoir ou être au présent + participe passé du verbe",
+          "endings": [],
+          "example_verb": "parler",
+          "notes": "Temps composé : parler -> j'ai parlé ; les terminaisons sont celles du présent de l'auxiliaire, d'où la liste vide. La plupart des verbes se conjuguent avec avoir."
+        },
+        {
+          "verb_group": "verbes pronominaux",
+          "stem_rule": "être au présent + participe passé (accord avec le sujet)",
+          "endings": [],
+          "example_verb": "se laver",
+          "notes": "se laver -> je me suis lavé(e) ; l'auxiliaire être entraîne l'accord du participe passé avec le sujet."
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Modèles réguliers de conjugaison générés à partir de la morphologie du français (radical + terminaisons). Chaque objet décrit un groupe verbal régulier ou une construction périphrastique (voix passive). FILL_ONLY : aucune valeur existante n'a été modifiée. Incertitude : les temps composés et le passif n'ont pas de terminaison propre, d'où une liste vide conforme au schéma ; les verbes du 3e groupe comportent de nombreuses irrégularités non couvertes ici."
+      }
+    },
+    {
+      "entity_key": "passé composé passif",
+      "value": [
+        {
+          "verb_group": null,
+          "stem_rule": "être au passé composé (a été) + participe passé du verbe (accord avec le sujet)",
+          "endings": [],
+          "example_verb": "inviter",
+          "notes": "Voix passive au passé composé : il a été invité. L'accord se fait avec le sujet ; l'agent éventuel est introduit par par ou de, d'où l'absence de terminaison propre."
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Modèles réguliers de conjugaison générés à partir de la morphologie du français (radical + terminaisons). Chaque objet décrit un groupe verbal régulier ou une construction périphrastique (voix passive). FILL_ONLY : aucune valeur existante n'a été modifiée. Incertitude : les temps composés et le passif n'ont pas de terminaison propre, d'où une liste vide conforme au schéma ; les verbes du 3e groupe comportent de nombreuses irrégularités non couvertes ici."
+      }
+    },
+    {
+      "entity_key": "passé simple",
+      "value": [
+        {
+          "verb_group": "1er groupe (-er)",
+          "stem_rule": "radical de l'infinitif : parler -> parl-",
+          "endings": [
+            "-ai",
+            "-as",
+            "-a",
+            "-âmes",
+            "-âtes",
+            "-èrent"
+          ],
+          "example_verb": "parler",
+          "notes": "Terminaisons en -a- caractéristiques du 1er groupe, avec accent circonflexe aux 1re et 2e personnes du pluriel."
+        },
+        {
+          "verb_group": "2e groupe (-ir)",
+          "stem_rule": "radical de l'infinitif : finir -> fin-",
+          "endings": [
+            "-is",
+            "-it",
+            "-îmes",
+            "-îtes",
+            "-irent"
+          ],
+          "example_verb": "finir",
+          "notes": "Terminaisons en -i- ; les 1re et 2e personnes du pluriel prennent l'accent circonflexe."
+        },
+        {
+          "verb_group": "3e groupe (-re)",
+          "stem_rule": "radical du verbe (souvent le participe passé sans sa finale) : vendre -> vend-",
+          "endings": [
+            "-is",
+            "-it",
+            "-îmes",
+            "-îtes",
+            "-irent"
+          ],
+          "example_verb": "vendre",
+          "notes": "La plupart des verbes en -re suivent le modèle de finir au passé simple : vendre -> je vendis."
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Modèles réguliers de conjugaison générés à partir de la morphologie du français (radical + terminaisons). Chaque objet décrit un groupe verbal régulier ou une construction périphrastique (voix passive). FILL_ONLY : aucune valeur existante n'a été modifiée. Incertitude : les temps composés et le passif n'ont pas de terminaison propre, d'où une liste vide conforme au schéma ; les verbes du 3e groupe comportent de nombreuses irrégularités non couvertes ici."
+      }
+    }
+  ],
+  "no_proposals": []
+}

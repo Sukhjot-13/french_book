@@ -1,0 +1,145 @@
+{
+  "batch_id": "686_grammar_rules_transformations_fill_005",
+  "queue_version": "2.1.0",
+  "collection": "grammar_rules",
+  "field": "transformations",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:20:40.814667+00:00",
+  "raw_response_hash": "sha256:c8e3e6c64ead2ec9fe43557f0b33fa986a46235a699d7c699cf738b15756068d",
+  "validation_report_hash": "sha256:34edfcc3129328c9480cbb9fa53a8854c4b308b2cfe6c1bb37300aa36d356aa4",
+  "patches": [
+    {
+      "entity_key": "Devoir as an obligation",
+      "value": [
+        "must + verb -> devoir + infinitive",
+        "Vous devez assister à la réunion demain matin.",
+        "Vous ne devez pas y aller."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Obligation or necessity is expressed by devoir plus infinitive, negated by ne pas around devoir."
+      }
+    },
+    {
+      "entity_key": "Devoir as warning and suggestion (conditional)",
+      "value": [
+        "should + verb -> devoir in conditionnel présent + infinitive",
+        "Elles devraient apprendre une langue étrangère.",
+        "Tu ne devrais pas lui prêter d'argent."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The conditional of devoir carries advice or warning (should); the past conditional carries should have."
+      }
+    },
+    {
+      "entity_key": "Different subjects require que clause",
+      "value": [
+        "same subject -> infinitive; different subjects -> que + subordinate clause",
+        "Je veux partir. -> Je veux que tu partes."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "When the two subjects differ the infinitive is impossible and a que clause is required; its mood depends on the main verb."
+      }
+    },
+    {
+      "entity_key": "Direct object pronouns in compound tenses",
+      "value": [
+        "J'ai vu les fleurs. -> Je les ai vues.",
+        "J'ai écrit la lettre. -> Je l'ai écrite.",
+        "J'ai vu Marie. -> Je l'ai vue."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The pronoun precedes the auxiliary and the past participle agrees in gender and number with that preceding direct object."
+      }
+    },
+    {
+      "entity_key": "Direct vs indirect speech time expressions",
+      "value": [
+        "aujourd'hui -> le jour même / ce jour-là",
+        "demain -> le lendemain",
+        "hier -> la veille"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Direct speech time adverbs shift to the corresponding indirect speech expressions when events are reported."
+      }
+    },
+    {
+      "entity_key": "Disjunctive pronouns forms",
+      "value": [
+        "je -> moi, tu -> toi",
+        "il -> lui, elle -> elle",
+        "ils -> eux, elles -> elles"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Stressed pronoun forms used for emphasis, after prepositions and in comparisons."
+      }
+    },
+    {
+      "entity_key": "Disjunctive pronouns with verbs taking à/de + person",
+      "value": [
+        "parler de ce film -> J'en parle.",
+        "parler de ce metteur en scène -> Je parle de lui.",
+        "penser à Marie -> Je pense à elle."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "y and en stand for things, but a person after à or de requires the disjunctive pronoun."
+      }
+    },
+    {
+      "entity_key": "Dont for possession",
+      "value": [
+        "Un artisan, dont j'ai aussi rencontré le père, m'a encouragé à devenir verrier.",
+        "des voisins dont les amis sont bergers",
+        "whose -> dont + subject + verb + object"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Dont replaces a possessive de phrase and the clause after it follows subject plus verb plus object order."
+      }
+    },
+    {
+      "entity_key": "Elision of que before vowel",
+      "value": [
+        "que il vend -> qu'il vend",
+        "que elle écrit -> qu'elle écrit",
+        "que + vowel sound -> qu'"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The -e of que drops before a word beginning with a vowel sound."
+      }
+    },
+    {
+      "entity_key": "Elision of reflexive pronouns",
+      "value": [
+        "me -> m' before vowel or mute h",
+        "te -> t' before vowel or mute h",
+        "se -> s' before vowel or mute h"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Reflexive pronouns drop the -e and take an apostrophe before a vowel or mute h."
+      }
+    }
+  ],
+  "no_proposals": []
+}

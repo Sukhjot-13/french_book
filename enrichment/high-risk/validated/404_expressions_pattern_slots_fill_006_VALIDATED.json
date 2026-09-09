@@ -1,0 +1,100 @@
+{
+  "batch_id": "404_expressions_pattern_slots_fill_006",
+  "queue_version": "2.1.0",
+  "collection": "expressions",
+  "field": "pattern_slots",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:06:07.620980+00:00",
+  "raw_response_hash": "sha256:61be3119e9ebdee449773c48730529e1393f7a917a2dc3726a2c63fe9a1a5c56",
+  "validation_report_hash": "sha256:85daa88acfd9082ca1cc9dec4c4dee9fc3e928f0047be396169662271a99a76e",
+  "patches": [
+    {
+      "entity_key": "ce qui",
+      "value": [
+        {
+          "name": "clause",
+          "display": "clause",
+          "slot_type": "clause",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Functional phrase followed by a clause (record states followed_by clause and that it is the subject of the following verb); the clause is the variable element."
+      }
+    },
+    {
+      "entity_key": "ce à quoi",
+      "value": [
+        {
+          "name": "clause",
+          "display": "clause",
+          "slot_type": "clause",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Functional phrase followed by a clause (record states followed_by clause and that it replaces an à-complement); the clause is the variable element."
+      }
+    },
+    {
+      "entity_key": "cela ne vaut pas la peine que + subjonctif",
+      "value": [
+        {
+          "name": "verb",
+          "display": "verb in subjunctive",
+          "slot_type": "verb_infinitive",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Pattern states + subjonctif; the subjunctive verb of the que-clause is the variable element, matching the dataset convention for subjunctive triggers."
+      }
+    }
+  ],
+  "no_proposals": [
+    {
+      "entity_key": "changer de coiffure",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    },
+    {
+      "entity_key": "chaque année",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    },
+    {
+      "entity_key": "chaque jour",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    },
+    {
+      "entity_key": "chaque mois",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    },
+    {
+      "entity_key": "chaque semaine",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    },
+    {
+      "entity_key": "circuler en vélo",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    },
+    {
+      "entity_key": "combien",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot."
+    }
+  ]
+}

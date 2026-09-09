@@ -1,0 +1,106 @@
+{
+  "batch_id": "670_grammar_rules_word_order_fill_007",
+  "queue_version": "2.1.0",
+  "collection": "grammar_rules",
+  "field": "word_order",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:19:53.363755+00:00",
+  "raw_response_hash": "sha256:c4072c86aa797efcbfbe7a1fdb9741032d0cc0f0b4fa737b82200902777d547e",
+  "validation_report_hash": "sha256:4f568a7a8d9e54ce94a893a6a5c99eaab8ef09d91c70f4237467da48561aa00b",
+  "patches": [
+    {
+      "entity_key": "Immediate past in imparfait (venir de + infinitive)",
+      "value": "venir (imparfait) + de + infinitive",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation is explicit; venir carries the imparfait marking and de links it to the infinitive."
+      }
+    },
+    {
+      "entity_key": "Imparfait for background and description",
+      "value": "subject + imparfait verb form (no auxiliary)",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The imparfait is a simple tense, so the verb slot is filled by one word with no auxiliary or participle; the rule gives no explicit formation string."
+      }
+    },
+    {
+      "entity_key": "Imparfait for habitual/repetitive action",
+      "value": "subject + imparfait + habitual time expression (souvent, tous les jours, le mardi)",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Habitual markers such as souvent, chaque jour, le vendredi accompany the imparfait; English used to / would map onto this pattern."
+      }
+    },
+    {
+      "entity_key": "Imparfait for interrupted continuous action",
+      "value": "imparfait clause + quand/soudain + passé composé clause",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation is explicit; the continuous background action stays in the imparfait and the interrupting event follows in the passé composé, optionally with depuis + duration."
+      }
+    },
+    {
+      "entity_key": "Imparfait formation",
+      "value": "nous present stem (drop -ons) + -ais, -ais, -ait, -ions, -iez, -aient",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation is stated verbatim; être is the exception with the stem ét-."
+      }
+    },
+    {
+      "entity_key": "Imparfait spelling changes",
+      "value": "spelling change (e or ç) kept before -ais, -ais, -ait, -aient but not before -ions, -iez",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The extra e of manger and ç of commencer appear only in the je/tu/il/ils persons; the nous and vous forms drop them."
+      }
+    },
+    {
+      "entity_key": "Imparfait vs passé composé with state verbs",
+      "value": "subject + imparfait for states; subject + auxiliary (avoir/être) + past participle for changes",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "State verbs (être, avoir, penser, croire, savoir, espérer, sembler, paraître) take the simple imparfait form for states but the compound auxiliary + participle form when a change or specific realization is meant."
+      }
+    },
+    {
+      "entity_key": "Imperative of vouloir (veuillez)",
+      "value": "veuillez + infinitive",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation is explicit and vouloir has only this vous imperative form; no tu or nous imperative exists."
+      }
+    },
+    {
+      "entity_key": "Impersonal expressions followed by the indicative",
+      "value": "impersonal expression + que + indicative clause",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation 'Impersonal expression + que + indicative'; the listed expressions (il est certain, il est sûr, il est évident, il est vrai, il est probable, il me semble) express certainty or probability."
+      }
+    },
+    {
+      "entity_key": "Impersonal expressions followed by the subjunctive",
+      "value": "impersonal expression + que + subjunctive clause",
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Formation 'Impersonal expression + que + subjunctive'; the que clause verb is subjunctive after expressions of necessity, possibility, emotion or doubt."
+      }
+    }
+  ],
+  "no_proposals": []
+}

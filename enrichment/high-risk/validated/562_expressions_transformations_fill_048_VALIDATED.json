@@ -1,0 +1,136 @@
+{
+  "batch_id": "562_expressions_transformations_fill_048",
+  "queue_version": "2.1.0",
+  "collection": "expressions",
+  "field": "transformations",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:14:22.701122+00:00",
+  "raw_response_hash": "sha256:b515a54e5be47d1322b8c24fdc12798f5c80cc8e5d76ee7370199fd1eaa314df",
+  "validation_report_hash": "sha256:4c1b152b3df37f3d013c380c762c8cd05e123b87a7b40404c72fac7509b782c6",
+  "patches": [
+    {
+      "entity_key": "tenir de + personne",
+      "value": [
+        "tenir de + person (Tu tiens de ton père.)",
+        "tenir de + person -> tenir de + disjunctive pronoun (Elle tient de sa mère. -> Elle tient d'elle.)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Resemblance sense with de plus a person; the person can be replaced by a disjunctive pronoun."
+      }
+    },
+    {
+      "entity_key": "tenir de [quelqu'un]",
+      "value": [
+        "question with inversion: De qui tient-elle?",
+        "tenir de + person -> tenir de + disjunctive pronoun (Elle tient de sa mère. -> Elle tient d'elle.)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source example attests the de qui inversion question and the de plus person complement."
+      }
+    },
+    {
+      "entity_key": "tenir le rythme",
+      "value": [
+        "tenir le rythme -> le tenir",
+        "negative: ne pas tenir le rythme"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Direct object replaced by le; negation wraps the verb plus object."
+      }
+    },
+    {
+      "entity_key": "tenir ses promesses",
+      "value": [
+        "tenir ses promesses -> les tenir",
+        "negative: le directeur ne tient jamais ses promesses"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Direct object replaced by les; source example attests the negative with jamais."
+      }
+    },
+    {
+      "entity_key": "tenir un restaurant",
+      "value": [
+        "tenir un restaurant -> en tenir un",
+        "Ils tiennent un restaurant à Nice."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Indefinite direct object with an article is replaced by en; source example attests the place complement."
+      }
+    },
+    {
+      "entity_key": "tenir à + quelque chose",
+      "value": [
+        "tenir à + noun -> y tenir",
+        "tenir à + infinitif (tenir à voir ce film)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "à complement replaced by y; source examples attest both the noun and infinitive complements."
+      }
+    },
+    {
+      "entity_key": "tenir à [quelque chose/quelqu'un/infinitive]",
+      "value": [
+        "tenir à + noun -> y tenir",
+        "tenir à + person -> tenir à + disjunctive pronoun (Elle tient à ses bijoux. -> Elle tient à eux.)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Things are replaced by y and persons by a disjunctive pronoun after à; source example attests the noun complement."
+      }
+    },
+    {
+      "entity_key": "tenir à quelque chose",
+      "value": [
+        "tenir à quelque chose -> y tenir",
+        "Elle tient à ses bijoux. -> Elle y tient."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Pronoun y replaces the à phrase, per the related rule and source exercise."
+      }
+    },
+    {
+      "entity_key": "tenir éveillé(e)",
+      "value": [
+        "tenir + direct object + adjective (La caféine la tient éveillée.)",
+        "direct object pronoun precedes the verb: la tient éveillée"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source example attests the object pronoun plus agreeing adjective construction."
+      }
+    },
+    {
+      "entity_key": "tomber en panne",
+      "value": [
+        "tomber en panne -> être en panne (resulting state)",
+        "passé composé with être: la voiture est tombée en panne"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The usage note contrasts the transition with the resulting state; tomber takes être in compound tenses."
+      }
+    }
+  ],
+  "no_proposals": []
+}

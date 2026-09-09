@@ -1,0 +1,136 @@
+{
+  "batch_id": "567_expressions_transformations_fill_053",
+  "queue_version": "2.1.0",
+  "collection": "expressions",
+  "field": "transformations",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:14:38.817506+00:00",
+  "raw_response_hash": "sha256:bd5e8b69d7053cf30d7dc338e4bb19a82af2c9af84858051b9ef6941f3b1c8a5",
+  "validation_report_hash": "sha256:a18e408a981ce531576cc9816d029bfcbefb5898b057c46c2b291da825e20f54",
+  "patches": [
+    {
+      "entity_key": "ça et là",
+      "value": [
+        "ça et là -> çà et là (accented standard spelling)",
+        "ça et là -> ici et là"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "çà et là with the accent grave is the standard written form; ici et là is the close equivalent."
+      }
+    },
+    {
+      "entity_key": "ça fait ... que",
+      "value": [
+        "ça fait + duration + que + clause -> cela fait + duration + que",
+        "ça fait + duration + que + présent -> depuis + duration"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "ça alternates with cela and the construction alternates with depuis plus duration, per the related rule."
+      }
+    },
+    {
+      "entity_key": "ça fait combien de temps que",
+      "value": [
+        "ça fait combien de temps que + clause -> depuis combien de temps + clause",
+        "Ça fait combien de temps que vous avez ce dictionnaire?"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The depuis question is the standard equivalent; source example attests the full question."
+      }
+    },
+    {
+      "entity_key": "ça se voit",
+      "value": [
+        "ça se voit -> cela se voit (full demonstrative)",
+        "ça se voit -> on peut le voir (active paraphrase)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "ça alternates with cela and the passive pronominal can be restated with on."
+      }
+    },
+    {
+      "entity_key": "échouer à un examen",
+      "value": [
+        "échouer à un examen -> être recalé à un examen",
+        "passer un examen (take) vs réussir à un examen (pass)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "être recalé is the common alternative for failing; the usage note contrasts passer and réussir."
+      }
+    },
+    {
+      "entity_key": "épeler son nom",
+      "value": [
+        "inversion: Comment épelez-vous votre nom?",
+        "épeler son nom -> l'épeler"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source example attests the inversion with possessive votre; the object can be replaced by le."
+      }
+    },
+    {
+      "entity_key": "étant donné que",
+      "value": [
+        "étant donné que + indicative",
+        "étant donné que -> vu que (alternative conjunction)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The usage note states the indicative follows; the source lists vu que as an alternative. Source entry lacked a section title."
+      }
+    },
+    {
+      "entity_key": "être accroupi à + infinitif",
+      "value": [
+        "être accroupi + (lieu) + à + infinitif (être accroupi dans le jardin à cueillir des fraises)",
+        "être accroupi -> s'accroupir (verb counterpart)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Position expression plus à plus infinitive, per the related rule; s'accroupir is the corresponding verb."
+      }
+    },
+    {
+      "entity_key": "être allergique",
+      "value": [
+        "être allergique à + noun (être allergique aux arachides)",
+        "à + les = aux: allergique à les arachides -> allergique aux arachides"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The usage note states the allergen is introduced by à; à plus les contracts to aux."
+      }
+    },
+    {
+      "entity_key": "être assis à + infinitif",
+      "value": [
+        "être assis(e) + à + infinitif (Elle est assise à écosser des petits pois.)",
+        "assis/assise agrees with the subject"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source example attests the construction and the feminine agreement noted in the usage note."
+      }
+    }
+  ],
+  "no_proposals": []
+}

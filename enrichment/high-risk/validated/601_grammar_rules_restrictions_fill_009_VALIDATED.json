@@ -1,0 +1,141 @@
+{
+  "batch_id": "601_grammar_rules_restrictions_fill_009",
+  "queue_version": "2.1.0",
+  "collection": "grammar_rules",
+  "field": "restrictions",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:16:25.235740+00:00",
+  "raw_response_hash": "sha256:d387ff2b4cb09701734e99df0af612a7e13b6da75236ac878cf69155247fd13b",
+  "validation_report_hash": "sha256:7b65b6ff82b72bf470d45cd134bca4ad20379b08937be79dd4bd519bcd68957c",
+  "patches": [
+    {
+      "entity_key": "Imparfait spelling changes",
+      "value": [
+        "Only applies to verbs with spelling changes in the present nous form (e.g. manger, commencer)",
+        "Not used in the nous and vous forms of the imparfait"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "From the stated condition and trap: the extra e or c-cedilla is kept for je, tu, il, elle, ils, elles but dropped in nous/vous; medium confidence on the exact set of verbs covered."
+      }
+    },
+    {
+      "entity_key": "Imparfait vs passé composé with state verbs",
+      "value": [
+        "Limited to state verbs such as être, avoir, penser, croire, savoir, espérer, sembler, paraître",
+        "Does not hold when the verb denotes a change of state or a single completed event"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Restriction on the tendency described in the rule; the verb list is taken verbatim from the source text."
+      }
+    },
+    {
+      "entity_key": "Impersonal expressions followed by the indicative",
+      "value": [
+        "Limited to impersonal expressions of certainty, probability, or evidence",
+        "Not used with expressions of will, necessity, emotion, or doubt, which take the subjunctive",
+        "In the negative or interrogative, these expressions may take the subjunctive instead"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "First two entries follow the source classification; the negative/interrogative shift is standard French usage and flagged as somewhat uncertain for this specific rule set."
+      }
+    },
+    {
+      "entity_key": "Impersonal expressions followed by the subjunctive",
+      "value": [
+        "Limited to impersonal expressions of will, obligation, necessity, emotion, doubt, or possibility",
+        "Not used with expressions of certainty or probability (il est certain, il est probable), which take the indicative",
+        "il faut takes the subjunctive only in the il faut que + clause construction, not with a following infinitive"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Derived from the rule's own expression list and the contrast with the indicative group; the infinitive restriction for il faut is standard usage."
+      }
+    },
+    {
+      "entity_key": "Impersonal weather verbs",
+      "value": [
+        "Used only in the third-person singular il form",
+        "Limited to specific weather verbs (pleuvoir, neiger, grêler, bruiner), not to weather expressed with faire"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Both entries follow directly from the formation 'il + verb (3rd singular)' and the trap about not using faire."
+      }
+    },
+    {
+      "entity_key": "Indefinite article: un, une, des",
+      "value": [
+        "Not used with non-countable nouns, which take the partitive (du, de la, de l')",
+        "Replaced by de in most negative constructions (except with être)",
+        "Not used before a noun already determined by another determiner"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Second entry restates the rule's negative_form; the partitive and determiner limits are standard French usage, with medium confidence."
+      }
+    },
+    {
+      "entity_key": "Indefinite demonstrative pronouns ceci, cela, ça",
+      "value": [
+        "Ceci is not used to refer back to something already mentioned",
+        "Ça is restricted to familiar or spoken French",
+        "These pronouns do not vary in gender or number"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "First entry comes from the stated trap; familiarity of ça and invariability are standard, though the register limit is descriptive rather than absolute."
+      }
+    },
+    {
+      "entity_key": "Indirect object pronouns in imperative",
+      "value": [
+        "Applies to pronoun-after-verb placement only in the affirmative imperative",
+        "In the negative imperative the pronoun precedes the verb",
+        "The moi/toi transformation occurs only in the affirmative imperative"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Directly from the rule's affirmative/negative placement and the me -> moi, te -> toi transformation."
+      }
+    },
+    {
+      "entity_key": "Infinitive after expressions of position",
+      "value": [
+        "Only with position expressions such as être debout, être assis, être accroupi, être à genoux",
+        "The preposition à is required; other prepositions cannot replace it"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Based on the listed signal words and the trap 'Do not omit à.'"
+      }
+    },
+    {
+      "entity_key": "Infinitive after expressions of spending time",
+      "value": [
+        "Only with expressions such as passer son temps, passer ses vacances, gaspiller sa vie, perdre son temps",
+        "The preposition à must precede the infinitive; de is not used"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Based on the listed signal words and the trap 'Do not omit the preposition à.'"
+      }
+    }
+  ],
+  "no_proposals": []
+}

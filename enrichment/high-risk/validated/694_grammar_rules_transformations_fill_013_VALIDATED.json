@@ -1,0 +1,139 @@
+{
+  "batch_id": "694_grammar_rules_transformations_fill_013",
+  "queue_version": "2.1.0",
+  "collection": "grammar_rules",
+  "field": "transformations",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:21:04.586233+00:00",
+  "raw_response_hash": "sha256:4fa4bc11e9c9b53c174b8a5c181e75c401a97e99bfe524e0cc4c9a34cf35463c",
+  "validation_report_hash": "sha256:b7adfce54e07f61ec7f7ba2af34f9cb4f35c679f55b1a9af6c039692e75094b6",
+  "patches": [
+    {
+      "entity_key": "Main clause verbs followed by que",
+      "value": [
+        "Il dit qu'il viendra.",
+        "Je ne sais pas si elle viendra.",
+        "Il m'a expliqué où il habitait."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source says main clause verbs of indirect speech (dire, savoir, expliquer) are followed by que/où/si with the dependent clause in the indicative; examples use three listed verbs and keep the indicative. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Masculine noun endings",
+      "value": [
+        "-age -> le fromage",
+        "-ment -> le mouvement",
+        "-eau -> le bureau"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source states nouns in -age, -eau, -ment tend to be masculine; examples illustrate the pattern. Pattern is a tendency with exceptions (la page, la plage, la nuit), as the source notes."
+      }
+    },
+    {
+      "entity_key": "Most adjectives follow the noun",
+      "value": [
+        "une voiture rouge",
+        "un livre intéressant",
+        "une femme intelligente"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source states the default position of qualificative adjectives is after the noun; examples instantiate noun + adjective with agreement. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Negation in passé composé",
+      "value": [
+        "Il a vendu sa voiture. -> Il n'a pas vendu sa voiture.",
+        "J'ai dîné. -> Je n'ai pas dîné."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source gives the affirmative/negative pair Il a vendu sa voiture / Il n'a pas vendu sa voiture and states ne goes before the auxiliary and pas after it; second pair shows the avoir auxiliary case. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Negation with infinitive",
+      "value": [
+        "dîner -> ne pas dîner",
+        "Il a décidé de ne pas partir."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source states ne...pas precedes the infinitive as an unseparated unit; the pair gives the bare infinitive and a sentence where the negated infinitive follows a preposition. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Negation with ni...ni...",
+      "value": [
+        "Il aime le café et le chocolat. -> Il n'aime ni le café ni le chocolat.",
+        "Elle commande de l'eau et du vin. -> Elle ne commande ni eau ni vin."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source gives both examples and states definite articles remain while indefinite/partitive articles disappear; the pairs show each case. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Negative duration: passé composé instead of present",
+      "value": [
+        "Il voit sa sœur depuis dix ans. -> Il n'a pas revu sa sœur depuis dix ans.",
+        "Elle apprend le russe depuis deux ans. -> Elle n'a pas appris le russe depuis deux ans."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source states that in negative sentences with depuis the passé composé replaces the present; the first pair is the source example, the second applies the same rule. Agreement of the past participle follows the usual rules."
+      }
+    },
+    {
+      "entity_key": "Negative form of reflexive verbs",
+      "value": [
+        "Tu te couches. -> Tu ne te couches pas.",
+        "Je me lave. -> Je ne me lave pas."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source states ne follows the subject pronoun and pas follows the conjugated verb, giving subject + ne + pronoun + verb + pas; pairs instantiate the pattern. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Negative imperative of pronominal verbs",
+      "value": [
+        "Couche-toi! -> Ne te couche pas!",
+        "Lève-toi! -> Ne te lève pas!"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source gives ne + pronoun + verb + pas and notes the reflexive pronoun precedes the verb in the negative; the pairs contrast affirmative and negative imperative. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Negative imperative with object pronouns",
+      "value": [
+        "Parle-lui! -> Ne lui parle pas!",
+        "Prends-le! -> Ne le prends pas!"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source states the negation surrounds the verb and object pronouns immediately precede it after ne in the negative imperative; the pairs show the pronoun moving before the verb. Low uncertainty."
+      }
+    }
+  ],
+  "no_proposals": []
+}

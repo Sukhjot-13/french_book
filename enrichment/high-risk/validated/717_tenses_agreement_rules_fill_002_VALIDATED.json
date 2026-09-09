@@ -1,0 +1,128 @@
+{
+  "batch_id": "717_tenses_agreement_rules_fill_002",
+  "queue_version": "2.1.0",
+  "collection": "tenses",
+  "field": "agreement_rules",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:22:12.624344+00:00",
+  "raw_response_hash": "sha256:73670b48bd7e65d43ddf227e5c2386a095c6872a2b685ad9b1d8612fe92d54c6",
+  "validation_report_hash": "sha256:f622d92fc2050a9abf6ccdb9d464eb11adc7a79cc9ef39e81c582dc40efe63d1",
+  "patches": [
+    {
+      "entity_key": "imparfait passif",
+      "value": [
+        "Le participe passé s'accorde en genre et en nombre avec le sujet du verbe passif : elle était invitée, ils étaient invités.",
+        "L'auxiliaire être est à l'imparfait (étais, étais, était, étions, étiez, étaient) et le participe passé s'accorde avec le sujet, jamais avec le complément d'agent introduit par par ou de.",
+        "Le participe passé garde son accord même lorsque le complément d'agent est omis : la porte était fermée à clé.",
+        "Quand le sujet réunit des genres différents, le participe passé se met au masculin pluriel : ils étaient avertis."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Passive imparfait is être in the imparfait plus a past participle that agrees with the subject; the par/de agent never triggers agreement. Context confirms passive-voice background description but gives no agreement notes, so rules are authored from standard grammar; uncertainty low."
+      }
+    },
+    {
+      "entity_key": "imperative mood",
+      "value": [
+        "L'impératif ne se conjugue qu'aux personnes tu, nous et vous : la forme verbale s'accorde avec la ou les personnes auxquelles l'ordre s'adresse.",
+        "Le pronom sujet n'est pas exprimé, mais l'accord reste celui de la personne visée : prends (tu), prenons (nous), prenez (vous).",
+        "Aux temps composés de l'impératif, le participe passé suit les règles ordinaires : avec être il s'accorde avec le sujet (sois parti, soyez partis), avec avoir il s'accorde avec le complément d'objet direct placé avant le verbe.",
+        "Avec les verbes pronominaux à l'impératif, l'accord suit la fonction du pronom réfléchi : le participe passé s'accorde avec le sujet si le pronom est complément d'objet direct (elle s'est lavée)."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The imperative has only tu/nous/vous, so agreement is with the addressee; compound and pronominal imperatives follow the standard participle rules. Context confirms direct address and commands but supplies no agreement notes; confidence moderate-high."
+      }
+    },
+    {
+      "entity_key": "impératif",
+      "value": [
+        "L'impératif s'emploie seulement avec tu, nous et vous ; la forme verbale s'accorde avec la personne à qui l'ordre s'adresse, sans pronom sujet exprimé.",
+        "Aux formes négatives, l'accord avec la personne visée reste inchangé : ne parle pas, ne parlons pas, ne parlez pas.",
+        "Aux temps composés de l'impératif, le participe passé s'accorde selon l'auxiliaire : avec être il s'accorde avec le sujet (soyez partis), avec avoir il s'accorde avec le complément d'objet direct antéposé (les lettres, ayez-les écrites).",
+        "Avec les verbes pronominaux à l'impératif affirmatif, le pronom réfléchi suit le verbe et le participe passé s'accorde avec le sujet quand ce pronom est complément d'objet direct : lève-toi, elle s'est levée."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Same imperative system as the mood target, focused on the French forms: three persons only, subject pronoun omitted, compound and pronominal forms keep ordinary participle agreement. Context confirms pronoun order and negative commands; no explicit agreement notes, uncertainty low."
+      }
+    },
+    {
+      "entity_key": "participe présent",
+      "value": [
+        "Le participe présent est invariable : il ne s'accorde jamais en genre ni en nombre (les enfants courant dans la rue).",
+        "Le participe présent s'oppose à l'adjectif verbal, qui s'accorde : une histoire amusante (adjectif verbal) mais une histoire amusant les enfants (participe présent).",
+        "Le gérondif (en + participe présent) est également invariable : elle est partie en courant, ils sont partis en courant.",
+        "Les formes composées du participe présent restent elles aussi invariables : ayant parlé, étant parti, s'étant levé."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The present participle is invariable, unlike the verbal adjective; the gérondif and compound forms are also invariable. Context explicitly states the invariable property, so confidence high."
+      }
+    },
+    {
+      "entity_key": "passé antérieur",
+      "value": [
+        "Avec l'auxiliaire être, le participe passé s'accorde en genre et en nombre avec le sujet : elle fut partie, ils furent partis.",
+        "Avec l'auxiliaire avoir, le participe passé s'accorde avec le complément d'objet direct placé avant le verbe : les lettres qu'il eut écrites.",
+        "Avec avoir, le participe passé reste invariable si le complément d'objet direct suit le verbe ou s'il n'y a pas de complément d'objet direct : elle eut écrit des lettres.",
+        "Avec les verbes pronominaux, le participe passé s'accorde avec le sujet quand le pronom réfléchi est complément d'objet direct : elle se fut lavée."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Compound literary tense (avoir/être in the passé simple plus past participle), so the standard auxiliary-driven agreement rules apply. Context confirms literary anteriority usage but gives no agreement notes; confidence high."
+      }
+    },
+    {
+      "entity_key": "passé composé",
+      "value": [
+        "Avec l'auxiliaire être et avec les verbes pronominaux, le participe passé s'accorde en genre et en nombre avec le sujet : elle est partie, ils sont partis, elle s'est lavée.",
+        "Avec l'auxiliaire avoir, le participe passé ne s'accorde pas avec le sujet ; il s'accorde avec le complément d'objet direct placé avant le verbe : les fleurs qu'elle a cueillies.",
+        "Avec avoir, le participe passé reste invariable quand le complément d'objet direct suit le verbe ou qu'il n'y a pas de complément d'objet direct : elle a cueilli des fleurs.",
+        "Avec les verbes pronominaux, le participe passé reste invariable quand le pronom réfléchi est complément d'objet indirect : elle s'est lavé les mains."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Canonical passé composé agreement rules: être with the subject, avoir with a preceding direct object, pronominal verbs according to the function of the reflexive pronoun. Context confirms compound completed-action usage; no explicit agreement notes supplied, confidence high."
+      }
+    },
+    {
+      "entity_key": "passé composé passif",
+      "value": [
+        "Le participe passé s'accorde en genre et en nombre avec le sujet du verbe passif : elle a été invitée, ils ont été invités.",
+        "L'auxiliaire être est lui-même au passé composé (a été, ont été) et le participe passé qui suit s'accorde avec le sujet, jamais avec le complément d'agent introduit par par.",
+        "Le participe passé été de l'auxiliaire être reste toujours invariable : elles ont été reçues, ils ont été avertis.",
+        "Quand le sujet réunit des genres différents, le participe passé se met au masculin pluriel : ils ont été informés."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Passive passé composé is être in the passé composé (a été) plus a past participle agreeing with the subject; été itself never varies. Context confirms passive completed-action usage; no explicit agreement notes, confidence high."
+      }
+    },
+    {
+      "entity_key": "passé simple",
+      "value": [
+        "Le passé simple est un temps simple : il n'a pas de participe passé et aucune règle d'accord de participe passé ne s'y applique.",
+        "Le verbe s'accorde avec le sujet en personne et en nombre : je parlai, nous parlâmes, ils parlèrent.",
+        "Les terminaisons varient selon la personne et le groupe du verbe (-ai, -as, -a, -âmes, -âtes, -èrent pour les verbes en -er ; -is, -is, -it, -îmes, -îtes, -irent pour beaucoup d'autres).",
+        "Aucun accord ne se fait avec le complément d'objet : seule la personne du sujet détermine la terminaison."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Simple literary past tense with no participle, so only subject-verb person and number agreement applies; endings depend on person and verb group. Context confirms literary narration usage; confidence high."
+      }
+    }
+  ],
+  "no_proposals": []
+}

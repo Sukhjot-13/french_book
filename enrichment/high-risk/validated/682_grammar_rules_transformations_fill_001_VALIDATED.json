@@ -1,0 +1,142 @@
+{
+  "batch_id": "682_grammar_rules_transformations_fill_001",
+  "queue_version": "2.1.0",
+  "collection": "grammar_rules",
+  "field": "transformations",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:20:28.872910+00:00",
+  "raw_response_hash": "sha256:55703d77b714e552dd1278c9132436ed55738a8d40b337e9ca34c973e1bf44d2",
+  "validation_report_hash": "sha256:01be5608f8556489f33b0b1757c171fd1cabb6d4aeb3dd98a8164b1370a0d811",
+  "patches": [
+    {
+      "entity_key": "Adjectives change meaning based on position",
+      "value": [
+        "un ancien professeur -> un professeur ancien",
+        "ma propre chambre -> une chambre propre",
+        "un grand homme -> un homme grand"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Placing the adjective before or after the noun changes its meaning; pairs taken from the listed adjectives (ancien, propre, grand)."
+      }
+    },
+    {
+      "entity_key": "Adjectives ending in -e in masculine",
+      "value": [
+        "un homme calme -> une femme calme",
+        "un voisin aimable -> une voisine aimable",
+        "un élève fidèle -> une élève fidèle"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Adjectives whose masculine form already ends in -e keep that form in the feminine; examples use frequent -e adjectives."
+      }
+    },
+    {
+      "entity_key": "Affirmative imperative of pronominal verbs",
+      "value": [
+        "tu te lèves -> lève-toi",
+        "nous nous levons -> levons-nous",
+        "vous vous levez -> levez-vous"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Affirmative imperative drops the subject and attaches the stressed pronoun with a hyphen; tu form uses toi."
+      }
+    },
+    {
+      "entity_key": "Agent introduced by de",
+      "value": [
+        "Il est aimé de tous.",
+        "par -> de after verbs of emotion or opinion"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "With verbs of emotion or opinion the agent is introduced by de instead of the default par."
+      }
+    },
+    {
+      "entity_key": "Agent introduced by par",
+      "value": [
+        "Il est respecté par ses collègues.",
+        "de -> par as the default agent preposition"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "par is the default preposition introducing the agent of a passive verb."
+      }
+    },
+    {
+      "entity_key": "Agreement of pronominal past participles",
+      "value": [
+        "Elle s'est lavée.",
+        "Elle s'est lavé les mains.",
+        "Ils se sont parlé."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Participle agrees with the subject unless a direct object or another verb follows; se laver les mains and se parler illustrate the exception."
+      }
+    },
+    {
+      "entity_key": "Agreement of pronominal verbs in plus-que-parfait",
+      "value": [
+        "Elle s'était levée tôt.",
+        "Ils s'étaient réveillés.",
+        "présent: elle s'est levée -> plus-que-parfait: elle s'était levée"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Pronominal plus-que-parfait uses the imparfait of s'être plus a past participle agreeing with the subject in gender and number."
+      }
+    },
+    {
+      "entity_key": "Aller in idiomatic expressions",
+      "value": [
+        "Comment allez-vous?",
+        "Ça va?",
+        "aller bien à quelqu'un -> Ce tailleur vous va bien."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Fixed idiomatic uses of aller for greetings, well-being and how something suits someone."
+      }
+    },
+    {
+      "entity_key": "Au cas où with conditional",
+      "value": [
+        "au cas où + subjonctif -> au cas où + conditionnel",
+        "Au cas où il pleuvrait, prends ton parapluie."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "au cas où takes the présent or passé du conditionnel, not the subjunctive."
+      }
+    },
+    {
+      "entity_key": "Avoiding passive with reflexive verbs",
+      "value": [
+        "Il a été renvoyé. -> Il s'est fait renvoyer.",
+        "passive -> se faire / se laisser / se voir + infinitive"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Reflexive substitutes se faire, se laisser, se voir and s'entendre dire replace the passive voice."
+      }
+    }
+  ],
+  "no_proposals": []
+}

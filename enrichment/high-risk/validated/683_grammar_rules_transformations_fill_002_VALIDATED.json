@@ -1,0 +1,143 @@
+{
+  "batch_id": "683_grammar_rules_transformations_fill_002",
+  "queue_version": "2.1.0",
+  "collection": "grammar_rules",
+  "field": "transformations",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:20:31.899496+00:00",
+  "raw_response_hash": "sha256:6dab0403454c172708e3423bea91809da3c9609505d6864ea035890c1700fac9",
+  "validation_report_hash": "sha256:ea29a7b86d039a28260db325c6a75a39de9aa5218e4524e772012efa0db6e9a7",
+  "patches": [
+    {
+      "entity_key": "Avoir and être are irregular in the passé simple",
+      "value": [
+        "avoir: j'eus, tu eus, il eut, nous eûmes, vous eûtes, ils eurent",
+        "être: je fus, tu fus, il fut, nous fûmes, vous fûtes, ils furent"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Irregular passé simple stems eu- for avoir and fu- for être with the endings -s, -s, -t, -^mes, -^tes, -rent."
+      }
+    },
+    {
+      "entity_key": "Avoir beau + infinitive",
+      "value": [
+        "avoir beau + infinitive -> although / however + verb",
+        "Il a beau pleuvoir -> Although it is raining."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Concessive idiom rendered by although or however in English, never literally."
+      }
+    },
+    {
+      "entity_key": "Avoir mal à",
+      "value": [
+        "avoir mal à + article + partie du corps -> J'ai mal à la tête.",
+        "avoir du mal à + infinitive -> Nous avons du mal à accepter sa décision.",
+        "à + le -> au, à + les -> aux"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Pain uses avoir mal à plus a body part with a contracted article; difficulty uses avoir du mal à plus infinitive."
+      }
+    },
+    {
+      "entity_key": "Basic negation with ne...pas",
+      "value": [
+        "Elle travaille le lundi. -> Elle ne travaille pas le lundi.",
+        "j'habite -> je n'habite pas",
+        "ne + vowel or mute h -> n'"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "ne precedes and pas follows the conjugated verb; ne elides to n' before a vowel or mute h."
+      }
+    },
+    {
+      "entity_key": "Ce dont for verbs with de",
+      "value": [
+        "parler de -> ce dont vous avez parlé",
+        "avoir peur de -> ce dont il a peur",
+        "se souvenir de -> ce dont elle se souvient"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Verbs constructed with de take ce dont as their object referring to an idea."
+      }
+    },
+    {
+      "entity_key": "Ce que as direct object of idea",
+      "value": [
+        "faire -> Savez-vous ce qu'il fait ces jours-ci?",
+        "écrire -> ce que ce journaliste écrit",
+        "ce que + vowel -> ce qu'"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "ce que is the direct object of the dependent clause; elides to ce qu' before a vowel."
+      }
+    },
+    {
+      "entity_key": "Ce qui as subject of idea",
+      "value": [
+        "être fabriqué -> ce qui est fabriqué dans cet atelier",
+        "arriver -> ce qui est arrivé",
+        "provoquer -> ce qui a provoqué leur réaction"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "ce qui is the subject of the dependent clause and has no specific antecedent."
+      }
+    },
+    {
+      "entity_key": "Ce à quoi for verbs with à",
+      "value": [
+        "s'abonner à -> ce à quoi il s'abonne",
+        "s'attendre à -> ce à quoi je m'attendais",
+        "s'opposer à -> ce à quoi tu t'opposes"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Verbs constructed with à take ce à quoi as their object referring to an idea."
+      }
+    },
+    {
+      "entity_key": "Choice between futur simple and futur antérieur in dependent clauses",
+      "value": [
+        "quand il acceptera -> quand il aura accepté (anteriority)",
+        "Quand il aura fini, il téléphonera."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "futur simple in both clauses signals simultaneity; futur antérieur in the dependent clause marks anteriority after quand, lorsque or dès que."
+      }
+    },
+    {
+      "entity_key": "Color adjectives agree in gender and number",
+      "value": [
+        "un livre vert -> une robe verte",
+        "un œil bleu -> des yeux bleus",
+        "des robes orange (invariable)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Simple color adjectives agree in gender and number; colors from nouns such as orange stay invariable."
+      }
+    }
+  ],
+  "no_proposals": []
+}

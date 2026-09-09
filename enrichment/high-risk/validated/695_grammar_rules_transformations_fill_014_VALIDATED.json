@@ -1,0 +1,141 @@
+{
+  "batch_id": "695_grammar_rules_transformations_fill_014",
+  "queue_version": "2.1.0",
+  "collection": "grammar_rules",
+  "field": "transformations",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:21:07.517240+00:00",
+  "raw_response_hash": "sha256:8f757a221ab57e01b1e6e5a4ee45bfbe7759753b93b60a3264317349cd4179fd",
+  "validation_report_hash": "sha256:c5056357970b68608958621bcb5946433a8959b5ba0ea130db170a5749aeb4c9",
+  "patches": [
+    {
+      "entity_key": "No futur simple after 'si' in future condition",
+      "value": [
+        "Si j'ai le temps, je viendrai.",
+        "Si tu peux, téléphone-moi."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source states no future (futur antérieur or futur simple) after si introducing a future condition, and gives the pattern si + present + futur simple/imperative; examples instantiate both the futur and imperative main clause. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Order of object pronouns",
+      "value": [
+        "Il me le donne.",
+        "Je le lui donne.",
+        "Il m'en donne."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source gives the order me/te/nous/vous before le/la/les, le/la/les before lui/leur, and en in second position; the examples instantiate each order. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Other negations (personne, jamais, plus, rien, guère)",
+      "value": [
+        "Il attend. -> Il n'attend personne.",
+        "Il voyage. -> Il ne voyage jamais.",
+        "Il a de la patience. -> Il n'a plus de patience."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source lists ne...personne, ne...jamais, ne...plus, ne...rien, ne...guère and gives these example sentences; the pairs show the affirmative to negative transformation, including the article change after plus. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Où for time",
+      "value": [
+        "l'année où il est arrivé",
+        "le jour où il a été élu",
+        "l'instant où nous sommes partis"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source gives exactly these time-antecedent relative clauses with où (année, jour, instant, siècle); three are reproduced to respect the 3-item limit. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Passive pronominal",
+      "value": [
+        "dire -> ça se dit",
+        "voir -> ça se voit",
+        "traduire -> comment ça se traduit"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source names se dire, se traduire, se voir, se boire as pronominal verbs with passive meaning and lists the expressions ça se dit, ça se voit, comment ça se traduit. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Passive pronominal construction",
+      "value": [
+        "ça se dit",
+        "ça ne se dit pas"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source states the subject is not a person or animal and the verb is third-person singular with se; the pair gives the affirmative and the ne + se + verb + pas negative form. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Passive used to avoid specifying agent",
+      "value": [
+        "On a construit la maison. -> La maison a été construite.",
+        "On a volé les tableaux. -> Les tableaux ont été volés."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source states the passive is used when the agent is unknown, unimportant, or omitted; the pairs drop the on-agent and show past participle agreement with the subject. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Passive used to emphasize subject",
+      "value": [
+        "Le président a signé la loi. -> La loi a été signée par le président.",
+        "Les élèves ont écrit la lettre. -> La lettre a été écrite par les élèves."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source states the passive emphasizes the subject (receiver of the action); the pairs move the receiver to subject position and retain the agent in a par-phrase, with participle agreement. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Passive voice formation",
+      "value": [
+        "La maison est construite.",
+        "La maison a été construite.",
+        "Les maisons sont construites."
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source gives être in the required tense + past participle of the main verb (construire is a listed verb), with the participle agreeing with the subject; the forms show présent, passé composé, and plural agreement. Low uncertainty."
+      }
+    },
+    {
+      "entity_key": "Passé composé formation",
+      "value": [
+        "avoir + participe passé: j'ai vendu",
+        "être + participe passé: je suis allé"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Source states the passé composé is built from the auxiliary avoir or être + a past participle; the pairs instantiate both auxiliaries. Low uncertainty."
+      }
+    }
+  ],
+  "no_proposals": []
+}

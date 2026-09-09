@@ -1,0 +1,136 @@
+{
+  "batch_id": "621_grammar_rules_exceptions_fill_006",
+  "queue_version": "2.1.0",
+  "collection": "grammar_rules",
+  "field": "exceptions",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:17:27.632871+00:00",
+  "raw_response_hash": "sha256:8e6ff71d3d8ca29914fa7bdcc58504f50d43d2af817702eacb37e8011e1f3533",
+  "validation_report_hash": "sha256:43b9a5af093ee067305f6418a601090a8cac4dbd452ffa9db44a48a1be62c93f",
+  "patches": [
+    {
+      "entity_key": "Dont replacing de + object",
+      "value": [
+        "dont is not used when the verb requires à; ce à quoi or the duquel series is used instead",
+        "dont also replaces de qui, duquel, de laquelle, desquels, and desquelles"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "First entry follows from the stated condition; the second comes from the rule's transformation note."
+      }
+    },
+    {
+      "entity_key": "Elision of que before vowel",
+      "value": [
+        "que is not elided before a consonant or an aspirated h",
+        "Only que is elided; the conjunction quand is never elided (quand il, not qu'il)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "First entry is the stated condition; the quand contrast is standard grammar with medium confidence."
+      }
+    },
+    {
+      "entity_key": "Elision of reflexive pronouns",
+      "value": [
+        "Elision occurs only before a vowel or mute h, not before an aspirated h",
+        "nous and vous are never elided"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "First entry restates the stated condition; the nous/vous limit is standard grammar."
+      }
+    },
+    {
+      "entity_key": "English simple past vs French plus-que-parfait",
+      "value": [
+        "If there is no anteriority, the passé composé or imparfait is used instead",
+        "Anteriority must be present; otherwise the plus-que-parfait is not required"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Derived from the rule's explanation and trap."
+      }
+    },
+    {
+      "entity_key": "Expressing from with geographical names",
+      "value": [
+        "Masculine and plural place names keep the article (du, des), unlike feminine names",
+        "Cities take de or à without an article (de Paris, à Paris)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "First entry is the stated contrast; the city pattern is standard usage."
+      }
+    },
+    {
+      "entity_key": "Expressing possession with être à + disjunctive pronoun/noun",
+      "value": [
+        "With a person's name, de + name is used instead (la voiture de Marie)",
+        "The construction is emphatic; possessive adjectives remain the default in ordinary noun phrases"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Both entries are standard usage; the emphatic status follows from the rule's usage note."
+      }
+    },
+    {
+      "entity_key": "Faire for chores, activities, sports",
+      "value": [
+        "Ball and team sports are usually expressed with jouer à (jouer au tennis), not faire",
+        "Some activities take the partitive article (faire du vélo) rather than the definite article (faire les courses)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "First entry follows from the stated trap; the article split comes from the listed expressions."
+      }
+    },
+    {
+      "entity_key": "Feminine ending -esse",
+      "value": [
+        "Only certain nouns follow this pattern (prince, comte, duc, dieu); most masculine nouns add -e",
+        "Some nouns have a wholly different feminine (roi, reine; empereur, impératrice)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "First entry follows from the stated condition and transformations; the second is standard grammar."
+      }
+    },
+    {
+      "entity_key": "Formation of compound numbers 0-50",
+      "value": [
+        "The et form is not hyphenated (vingt et un), unlike hyphenated compounds (vingt-deux)"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "This is the exception stated in the rule's trap."
+      }
+    },
+    {
+      "entity_key": "Formation of passé simple for regular -ir and -re verbs",
+      "value": [
+        "The third-person plural ends in -irent, not -èrent",
+        "The first- and second-person plural endings carry a circumflex (-îmes, -îtes)",
+        "Irregular -ir verbs such as venir and tenir use different stems"
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "First two entries come from the stated formation and trap; the third is standard grammar."
+      }
+    }
+  ],
+  "no_proposals": []
+}

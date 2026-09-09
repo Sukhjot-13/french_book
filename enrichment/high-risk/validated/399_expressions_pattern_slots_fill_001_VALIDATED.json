@@ -1,0 +1,122 @@
+{
+  "batch_id": "399_expressions_pattern_slots_fill_001",
+  "queue_version": "2.1.0",
+  "collection": "expressions",
+  "field": "pattern_slots",
+  "mode": "FILL_ONLY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "validator_version": "2.1.0",
+  "validated_at": "2026-09-09T21:05:51.356168+00:00",
+  "raw_response_hash": "sha256:3031e16ee18a7606361e4c155a2a68a398b905814438aaa183daccf2a16d70a2",
+  "validation_report_hash": "sha256:687c39624401d69b691a33c9593bf3f4fc0804ed3674611a164a0b9aa8700acc",
+  "patches": [
+    {
+      "entity_key": "C'est à qui?",
+      "value": [
+        {
+          "name": "personne",
+          "display": "quelqu'un",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Variable slot(s) required by the expression's syntactic pattern."
+      }
+    },
+    {
+      "entity_key": "Comment allez-vous?",
+      "value": [
+        {
+          "name": "personne",
+          "display": "quelqu'un",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Variable slot(s) required by the expression's syntactic pattern."
+      }
+    },
+    {
+      "entity_key": "Il veut savoir si",
+      "value": [
+        {
+          "name": "proposition",
+          "display": "proposition",
+          "slot_type": "clause",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Variable slot(s) required by the expression's syntactic pattern."
+      }
+    },
+    {
+      "entity_key": "J'ai entendu dire que",
+      "value": [
+        {
+          "name": "proposition",
+          "display": "proposition",
+          "slot_type": "clause",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Variable slot(s) required by the expression's syntactic pattern."
+      }
+    },
+    {
+      "entity_key": "On m'a dit que",
+      "value": [
+        {
+          "name": "proposition",
+          "display": "proposition",
+          "slot_type": "clause",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Variable slot(s) required by the expression's syntactic pattern."
+      }
+    }
+  ],
+  "no_proposals": [
+    {
+      "entity_key": "Comment va la famille?",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot; no non-empty pattern_slots candidate is meaningful."
+    },
+    {
+      "entity_key": "Comment vous appelez-vous ?",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot; no non-empty pattern_slots candidate is meaningful."
+    },
+    {
+      "entity_key": "Comment épelez-vous votre nom ?",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot; no non-empty pattern_slots candidate is meaningful."
+    },
+    {
+      "entity_key": "Où êtes-vous né(e) ?",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot; no non-empty pattern_slots candidate is meaningful."
+    },
+    {
+      "entity_key": "Tiens, tiens",
+      "reason": "INSUFFICIENT_EVIDENCE",
+      "details": "Fixed or formulaic expression with no variable syntactic slot; no non-empty pattern_slots candidate is meaningful."
+    }
+  ]
+}
