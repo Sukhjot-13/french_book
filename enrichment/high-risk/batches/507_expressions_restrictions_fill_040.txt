@@ -44,6 +44,12 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD-SPECIFIC VALUE CONTRACT — expressions.restrictions
+- `value` must be an array of concise factual strings describing only real usage, register, complement, polarity, agreement, or syntactic restrictions of the expression.
+- Use `[]` when no restriction is clearly supported by the canonical form or target metadata; an empty array is a valid proposal for an unrestricted expression.
+- Do not use generic filler, translations, unverifiable claims, or advice that merely restates the expression.
+- If a restriction is genuinely uncertain or contested, return the required `NO_PROPOSAL` entry rather than guessing.
+
 TARGETS
 [
   {

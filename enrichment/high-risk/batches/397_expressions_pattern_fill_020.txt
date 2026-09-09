@@ -44,6 +44,13 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD-SPECIFIC VALUE CONTRACT — expressions.pattern
+- `value` must be a string (never an object or array).
+- Return a reusable French construction pattern. For a completely fixed expression, use its exact `canonical_form` as the pattern.
+- When the canonical form explicitly contains a variable, represent that variable once with a bracketed descriptive placeholder, such as `[noun]`, `[person]`, `[verb infinitive]`, `[clause]`, `[adjective]`, or `[adverb]`.
+- Do not invent variables that are not expressed by the canonical form or target metadata. Preserve literal French words, required articles, and governed prepositions.
+- The proposed pattern and any proposed `pattern_slots` must describe the same variable positions.
+
 TARGETS
 [
   {

@@ -44,6 +44,14 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD-SPECIFIC VALUE CONTRACT — expressions.pattern_slots
+- `value` must be an array. Each item must be exactly:
+  `{"name": "<snake_case_identifier>", "display": "<human-readable label>", "slot_type": "person|thing|noun|verb_infinitive|clause|adjective|adverb|preposition|other", "required": true|false}`.
+- Include one slot only for each semantic variable explicitly represented by a bracketed placeholder, ellipsis, or other variable position in the reusable pattern/canonical form.
+- Use `[]` for a wholly fixed expression with no variable position; this is a valid, useful proposal, not a no-proposal result.
+- `name` must be lowercase snake_case and unique within the array. `display` must be concise and human-readable. Do not add extra keys.
+- Choose `required: true` unless the canonical pattern clearly marks that component as optional.
+
 TARGETS
 [
   {

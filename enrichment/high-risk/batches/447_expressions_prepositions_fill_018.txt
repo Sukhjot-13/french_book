@@ -44,6 +44,12 @@ RESPONSE JSON CONTRACT
   ]
 }
 
+FIELD-SPECIFIC VALUE CONTRACT — expressions.prepositions
+- `value` must be an array of strings listing the lexical prepositions governed by the expression or its reusable pattern, in their order of appearance.
+- Normalize contractions to their lexical preposition: record `"à"` for `au`/`aux` and `"de"` for `du`/`des`; do not record a standalone article as a preposition.
+- Include prepositions that are literal and required by the construction, including before a variable complement.
+- Use `[]` when the expression governs no preposition. Do not add prepositions merely because they are common in a translation or possible contextual expansion.
+
 TARGETS
 [
   {
