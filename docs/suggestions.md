@@ -4,7 +4,7 @@
 
 - **2026-09-10**: Replace the learner-facing navigation copy “Search repository” (desktop prompt, mobile accessible label, and mobile tooltip) with “Search library” or “Search French revision.” The current wording is a developer term and clashes with the product’s French-learning context.
 
-- **2026-09-10**: Add a “My Review” destination for items saved through the existing row-action menu. Saved/reviewed state is already persisted in LocalStorage for verbs and vocabulary, but there is no page or navigation entry where learners can return to those items; this makes “Save for review” a dead-end action.
+- **2026-09-10**: Keep the product a stateless revision library. Do not add personal notes, saved-item collections, review history, accounts, or other learner-specific state; the existing local save/review controls should be removed in a future scope-alignment cleanup.
 
 - **2026-09-10**: Make the command palette and Peek drawer accessible modal interfaces: add semantic dialog markup, trap focus while open, restore focus to the trigger on close, and prevent background controls from receiving keyboard focus. Both overlays currently close with Escape/backdrop clicks but do not provide the full keyboard/screen-reader modal behavior.
 
@@ -22,7 +22,6 @@
 - **2026-09-03**: Enhanced desktop table scanning across Verbs (`VerbLibraryTable`) and Vocabulary (`VocabDictionaryTable`) with sticky column headers, subtle zebra striping, selected-row indicator (`data-selected`), visually dominant French terms, and right-aligned metadata/action badges.
 - **2026-09-03**: Implemented purpose-built mobile two-line list layouts (`<768px`) for Verbs and Vocabulary (Line 1: French term · English gloss; Line 2: classification/aux/participle with tap-to-peek chevron).
 - **2026-09-03**: Converted `PeekDrawer` into a mobile bottom sheet (`<768px`) with top grab indicator bar, rounded top corners, backdrop blur, and bottom slide-in animation.
-- **2026-09-03**: Added client-side revision store (`reviewStore.ts`) and row action menu (`RowActionMenu`) enabling saving items for review and marking entries reviewed with local persistence and reactive status updates.
 - **2026-09-03**: Fixed navbar search and mobile hamburger menu in `AppShell`: added explicit button types, route-change auto-closing, backdrop click-to-close, and visible close button (`✕`) in `CommandPalette` for phones without Escape keys.
 - **2026-09-02**: Modernized data layer to consume `data/MASTER_DATA.json` (the 10-collection master dataset) directly with in-memory caching and strict TypeScript interfaces matching `MASTER_SCHEMA.json`.
 - **2026-09-02**: Added resilient dual matching by canonical string/infinitive and slugs across all selectors.
@@ -48,7 +47,6 @@
 - **2026-09-02**: (Implemented) **Homepage Direct Action Jump Targets** for Irregular Verbs, Subjunctive, Priority 1 Rules, B1 Intermediate, Preposition Phrases, and Traps.
 - **2026-09-02**: (Implemented) **Integrated Drill & Practice Hooks** bridging detail views directly into targeted chapter/search exercise quizzes.
 - **2026-09-02**: (Implemented) **Cross-collection Example Explorer Filtering** linking verbs, tenses, grammar rules, and expressions to contextual sentence instances.
-- **2026-09-02**: (Idea) Add a Spaced Repetition System (SRS) flashcard review mode for vocabulary and irregular verbs stored in browser LocalStorage.
 
 ## 🔴 Vulnerabilities
 - **2026-09-08**: The full high-risk queue has no VERIFIED local evidence snapshots. It now permits explicitly marked `AI_GENERATED_UNVERIFIED` candidates for later review, but no candidate may be promoted to learner-facing data without field-specific validation and approval.
