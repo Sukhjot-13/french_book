@@ -2,6 +2,7 @@ import assert from "assert";
 import {
   addWorkflowFields,
   buildBatchPlan,
+  collectEmptyFields,
   findFirstAvailableEntity,
   markPlanTaken,
 } from "../enrichment/create-deep-enrichment-batches";
@@ -75,4 +76,11 @@ assert.strictEqual(
   "The source fixture must stay unchanged when creating a working copy."
 );
 
-console.log("✅ Deep-enrichment working-copy flags and recursive connected batch planning verified.");
+const emptyFields = collectEmptyFields({ populated: "French", nullable: null, list: [], nested: { blank: "" } });
+assert.deepStrictEqual(emptyFields, [
+  { path: "$.nullable", current_value: null },
+  { path: "$.list", current_value: [] },
+  { path: "$.nested.blank", current_value: "" },
+]);
+
+console.log("✅ Deep-enrichment working-copy flags, recursive planning, and empty-field targeting verified.");

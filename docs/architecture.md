@@ -1029,7 +1029,7 @@ the current instructions if a new queue is needed.
 - **Functions**: N/A (Markdown operating instructions).
 
 #### `enrichment/create-deep-enrichment-batches.ts`
-- **Purpose**: Deep-enrichment batch generator. It creates or reuses a separately stored working copy, adds workflow-only `enriched` and `taken_for_enrichment` flags to every top-level dataset record, selects anchors in dataset order, recursively gathers typed forward relationships, freezes full-schema AI batch manifests, and marks each target record taken. `MAX_BATCHES` is `null` for the current full run; set it to a number such as `5` for a limited test.
+- **Purpose**: Deep-enrichment text-prompt generator. It creates or reuses a separately stored working copy, adds workflow-only `enriched` and `taken_for_enrichment` flags to every top-level dataset record, selects anchors in dataset order, recursively gathers typed forward relationships, and writes full-schema `.txt` prompts that expose only empty target-field paths to AI. `MAX_BATCHES` is `null` for the current full run; set it to a number such as `5` for a limited test.
 - **Functions**:
   - `normalizeKey(value)`: Normalizes natural keys for accent-insensitive deterministic matching.
   - `addWorkflowFields(masterDataset)`: Clones a dataset and initializes both workflow flags on every top-level entity record.
@@ -1037,13 +1037,14 @@ the current instructions if a new queue is needed.
   - `findFirstAvailableEntity(dataset)`: Selects the first non-taken entity by top-level collection and record order.
   - `buildBatchPlan(dataset, anchor)`: Recursively plans a connected batch from typed relationship fields, separating fresh targets, already-taken context, and unresolved references.
   - `markPlanTaken(dataset, plan)`: Marks all planned target records as claimed while preserving their `enriched` state.
-  - `generateDeepEnrichmentBatches()`: Creates up to `MAX_BATCHES` frozen manifests and persists working-copy claim state.
-  - `isObject(value)`, `clone(value)`, `sha256(value)`, `writeJsonAtomically(filePath, value)`, `getRecordKey(collection, record)`, `getRecords(dataset, collection)`, `listCollections(dataset)`, `removeWorkflowFields(dataset)`, `ensureWorkingCopy(masterDataset, masterHash)`, `buildIdentityIndex(dataset)`, `referenceValues(value, collection)`, `extractRelations(record, owningCollection)`, `getRecord(dataset, reference)`, `entityId(reference)`, `findInboundReferences(dataset, target, index)`, `recordsByCollection(dataset, references)`, `getNextBatchNumber()`, and `buildBatchDocument(dataset, schema, masterHash, schemaHash, batchNumber, plan)`: Internal cloning, persistence, integrity, reference-resolution, graph-traversal, grouping, numbering, and manifest-construction helpers.
+  - `collectEmptyFields(value, pathPrefix)`: Recursively returns only null, blank-string, empty-array, and empty-object paths while excluding workflow flags.
+  - `generateDeepEnrichmentBatches()`: Creates up to `MAX_BATCHES` frozen text prompts and persists working-copy claim state.
+  - `isObject(value)`, `clone(value)`, `sha256(value)`, `writeJsonAtomically(filePath, value)`, `writeTextAtomically(filePath, value)`, `getRecordKey(collection, record)`, `getRecords(dataset, collection)`, `listCollections(dataset)`, `removeWorkflowFields(dataset)`, `ensureWorkingCopy(masterDataset, masterHash)`, `buildIdentityIndex(dataset)`, `referenceValues(value, collection)`, `extractRelations(record, owningCollection)`, `getRecord(dataset, reference)`, `entityId(reference)`, `findInboundReferences(dataset, target, index)`, `emptyFieldTargets(dataset, references)`, `contextIdentities(references)`, `getNextBatchNumber()`, and `buildBatchText(dataset, schema, masterHash, schemaHash, batchNumber, plan)`: Internal cloning, persistence, integrity, reference-resolution, graph-traversal, empty-field extraction, numbering, and prompt-construction helpers.
 
 #### `enrichment/DEEP_ENRICHMENT_WORKING_DATA.json`
 - **Purpose**: Generated working copy of `data/MASTER_DATA.json` for deep enrichment. It preserves all source content while adding the workflow-only `enriched` and `taken_for_enrichment` booleans to each top-level record; it is intentionally not valid against the immutable master schema until those fields are removed by a future approved applicator.
 - **Functions**: N/A (generated JSON working dataset).
 
-#### `enrichment/deep-batches/DEEP_BATCH_001.json` through `enrichment/deep-batches/DEEP_BATCH_1650.json`
-- **Purpose**: Generated frozen full-run deep-enrichment manifests. Each contains the full master schema, source hashes, an automatically selected anchor, complete target/context record snapshots, unresolved source references, and the structured `MERGE_EXISTING`, `INSERT_NEW`, and `NO_PROPOSAL` AI response contract. Batch 001 is the 2,300-record Chapter 1 connected unit; the remaining batches cover all unclaimed records.
-- **Functions**: N/A (generated JSON batch manifests).
+#### `enrichment/deep-batches/DEEP_EMPTY_BATCH_001.txt` through `enrichment/deep-batches/DEEP_EMPTY_BATCH_1650.txt`
+- **Purpose**: Generated frozen full-run deep-enrichment text prompts. Each embeds the full master schema, source hashes, mandatory empty-field-only instructions, a structured AI response contract, target identities with only their empty field paths, context identities, and unresolved references. Batch 001 is the 2,300-record Chapter 1 connected unit; the remaining batches cover all unclaimed records.
+- **Functions**: N/A (generated text prompts).
