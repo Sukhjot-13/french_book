@@ -4,8 +4,6 @@
 
 - **2026-09-10**: Replace the learner-facing navigation copy “Search repository” (desktop prompt, mobile accessible label, and mobile tooltip) with “Search library” or “Search French revision.” The current wording is a developer term and clashes with the product’s French-learning context.
 
-- **2026-09-10**: Keep the product a stateless revision library. Do not add personal notes, saved-item collections, review history, accounts, or other learner-specific state; the existing local save/review controls should be removed in a future scope-alignment cleanup.
-
 - **2026-09-10**: Make the command palette and Peek drawer accessible modal interfaces: add semantic dialog markup, trap focus while open, restore focus to the trigger on close, and prevent background controls from receiving keyboard focus. Both overlays currently close with Escape/backdrop clicks but do not provide the full keyboard/screen-reader modal behavior.
 
 - **2026-09-10**: Restore a clean ESLint baseline before enforcing lint in CI. `npm run lint` currently reports 17 errors and 20 warnings, including unescaped learner-facing copy, synchronous state updates in effects, explicit `any` types, and mutable values that should be `const`; this prevents lint from acting as a reliable regression check.
