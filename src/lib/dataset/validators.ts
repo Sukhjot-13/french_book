@@ -49,7 +49,11 @@ export function validateDataset(dataset: unknown): ValidationReport {
     }
   }
 
-  const typedData: SuperDatasetRoot = parseResult.success ? parseResult.data : dataset;
+  const typedData: Partial<SuperDatasetRoot> = parseResult.success
+    ? parseResult.data
+    : (typeof dataset === "object" && dataset !== null
+        ? (dataset as Partial<SuperDatasetRoot>)
+        : {});
 
   // 2. ID set & uniqueness checks
   const allIds = new Set<string>();
