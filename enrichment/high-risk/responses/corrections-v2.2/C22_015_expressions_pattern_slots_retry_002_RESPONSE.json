@@ -1,0 +1,418 @@
+{
+  "batch_id": "C22_015_expressions_pattern_slots_retry_002",
+  "correction_queue_version": "2.2.0-draft",
+  "collection": "expressions",
+  "field": "pattern_slots",
+  "remediation_type": "FILL_RETRY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "source_v2_1_batch_ids": [
+    "402_expressions_pattern_slots_fill_004",
+    "403_expressions_pattern_slots_fill_005",
+    "404_expressions_pattern_slots_fill_006",
+    "405_expressions_pattern_slots_fill_007"
+  ],
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {
+      "entity_key": "avoir honte",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "avoir honte",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Aucun complément variable n'est attesté dans le contexte fourni (followed_by=none). Pour satisfaire le retry non vide sans inventer une valence, la locution entière est représentée comme un slot lexicalisé obligatoire de type « other »; cela n'implique aucune substitution libre."
+      }
+    },
+    {
+      "entity_key": "avoir la grippe",
+      "value": [
+        {
+          "name": "direct_object",
+          "display": "la grippe",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni indique direct_object=true et followed_by=noun. Le groupe nominal lexicalisé « la grippe » est donc représenté comme slot nominal obligatoire; aucune généralisation à d'autres maladies n'est affirmée."
+      }
+    },
+    {
+      "entity_key": "avoir lieu",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "avoir lieu",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni indique followed_by=none et décrit une expression fixe. La forme entière est donc encodée comme slot lexicalisé obligatoire de type « other », sans supposer de complément variable."
+      }
+    },
+    {
+      "entity_key": "avoir mal au dos",
+      "value": [
+        {
+          "name": "body_part",
+          "display": "dos",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni indique un complément introduit par « à » et followed_by=noun. Le nom lexicalisé « dos » est retenu comme slot nominal obligatoire; le choix reste restreint à cette expression et n'affirme pas que le slot est librement substituable."
+      }
+    },
+    {
+      "entity_key": "avoir mal au ventre",
+      "value": [
+        {
+          "name": "body_part",
+          "display": "ventre",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni indique un complément introduit par « à » et followed_by=noun. Le nom lexicalisé « ventre » est retenu comme slot nominal obligatoire; le choix reste restreint à cette expression et n'affirme pas que le slot est librement substituable."
+      }
+    },
+    {
+      "entity_key": "avoir mal à la tête",
+      "value": [
+        {
+          "name": "body_part",
+          "display": "tête",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni indique un complément introduit par « à » et followed_by=noun. Le nom lexicalisé « tête » est retenu comme slot nominal obligatoire; le choix reste restreint à cette expression et n'affirme pas que le slot est librement substituable."
+      }
+    },
+    {
+      "entity_key": "avoir peur",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "avoir peur",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Aucun complément variable n'est attesté dans le contexte fourni (followed_by=none). La collocation entière est représentée comme slot lexicalisé obligatoire de type « other » afin de satisfaire le retry sans inventer une valence."
+      }
+    },
+    {
+      "entity_key": "avoir raison",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "avoir raison",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Aucun complément variable n'est attesté dans le contexte fourni (followed_by=none). La collocation entière est représentée comme slot lexicalisé obligatoire de type « other » afin de satisfaire le retry sans inventer une valence."
+      }
+    },
+    {
+      "entity_key": "avoir soif",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "avoir soif",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Aucun complément variable n'est attesté dans le contexte fourni (followed_by=none). La collocation entière est représentée comme slot lexicalisé obligatoire de type « other » afin de satisfaire le retry sans inventer une valence."
+      }
+    },
+    {
+      "entity_key": "avoir tort",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "avoir tort",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Aucun complément variable n'est attesté dans le contexte fourni (followed_by=none). La collocation entière est représentée comme slot lexicalisé obligatoire de type « other » afin de satisfaire le retry sans inventer une valence."
+      }
+    },
+    {
+      "entity_key": "avoir un rhume",
+      "value": [
+        {
+          "name": "direct_object",
+          "display": "un rhume",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni indique direct_object=true et followed_by=noun. Le groupe nominal lexicalisé « un rhume » est représenté comme slot nominal obligatoire; aucune généralisation à d'autres maladies n'est affirmée."
+      }
+    },
+    {
+      "entity_key": "baisser le prix",
+      "value": [
+        {
+          "name": "direct_object",
+          "display": "le prix",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni indique direct_object=true. Le groupe nominal lexicalisé « le prix » est représenté comme slot nominal obligatoire; cette proposition n'affirme pas que tout objet direct est interchangeable dans cette entrée."
+      }
+    },
+    {
+      "entity_key": "changer de coiffure",
+      "value": [
+        {
+          "name": "prepositional_noun",
+          "display": "coiffure",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni indique la préposition « de » suivie d'un nom. Le nom lexicalisé « coiffure » est représenté comme slot nominal obligatoire; le choix est conservateur et n'affirme pas une substitution libre."
+      }
+    },
+    {
+      "entity_key": "chaque année",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "chaque année",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte ne décrit aucune structure de complément. Pour satisfaire le retry non vide sans inventer de variabilité, l'expression temporelle entière est encodée comme slot lexicalisé obligatoire de type « other »."
+      }
+    },
+    {
+      "entity_key": "chaque jour",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "chaque jour",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte ne décrit aucune structure de complément. Pour satisfaire le retry non vide sans inventer de variabilité, l'expression temporelle entière est encodée comme slot lexicalisé obligatoire de type « other »."
+      }
+    },
+    {
+      "entity_key": "chaque mois",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "chaque mois",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte ne décrit aucune structure de complément. Pour satisfaire le retry non vide sans inventer de variabilité, l'expression temporelle entière est encodée comme slot lexicalisé obligatoire de type « other »."
+      }
+    },
+    {
+      "entity_key": "chaque semaine",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "chaque semaine",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte ne décrit aucune structure de complément. Pour satisfaire le retry non vide sans inventer de variabilité, l'expression temporelle entière est encodée comme slot lexicalisé obligatoire de type « other »."
+      }
+    },
+    {
+      "entity_key": "circuler en vélo",
+      "value": [
+        {
+          "name": "prepositional_noun",
+          "display": "vélo",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni indique la préposition « en » suivie d'un nom. Le nom lexicalisé « vélo » est représenté comme slot nominal obligatoire; aucune généralisation à d'autres moyens de transport n'est affirmée."
+      }
+    },
+    {
+      "entity_key": "combien",
+      "value": [
+        {
+          "name": "question_word",
+          "display": "combien",
+          "slot_type": "adverb",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "L'entrée est classée comme question_construction et ne fournit aucun complément. Le mot interrogatif lui-même est donc représenté comme slot adverbial obligatoire; aucune structure nominale supplémentaire n'est inventée."
+      }
+    },
+    {
+      "entity_key": "comme d'habitude",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "comme d'habitude",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni ne décrit aucun complément. L'expression adverbiale entière est représentée comme slot lexicalisé obligatoire de type « other » afin de satisfaire le retry sans supposer de variabilité interne."
+      }
+    },
+    {
+      "entity_key": "comment",
+      "value": [
+        {
+          "name": "question_word",
+          "display": "comment",
+          "slot_type": "adverb",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "L'entrée est classée comme question_construction et ne fournit aucun complément. Le mot interrogatif lui-même est représenté comme slot adverbial obligatoire."
+      }
+    },
+    {
+      "entity_key": "comment ça se traduit",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "comment ça se traduit",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni décrit une expression fixe avec followed_by=none. La formule entière est représentée comme slot lexicalisé obligatoire de type « other »; aucun argument variable pour « ça » n'est déduit au-delà des données fournies."
+      }
+    },
+    {
+      "entity_key": "d'accord",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "d'accord",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni ne décrit aucun complément ni aucune transformation. La locution entière est représentée comme slot lexicalisé obligatoire de type « other » afin de satisfaire le retry sans inventer une structure variable."
+      }
+    },
+    {
+      "entity_key": "d'habitude",
+      "value": [
+        {
+          "name": "prepositional_noun",
+          "display": "habitude",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni indique la préposition « de » suivie d'un nom. Le nom lexicalisé « habitude » est représenté comme slot nominal obligatoire; aucune substituabilité productive n'est affirmée."
+      }
+    },
+    {
+      "entity_key": "d'ordinaire",
+      "value": [
+        {
+          "name": "prepositional_noun",
+          "display": "ordinaire",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Le contexte fourni indique la préposition « de » suivie d'un nom et un registre formel. Le nom lexicalisé « ordinaire » est représenté comme slot nominal obligatoire; aucune substituabilité productive n'est affirmée."
+      }
+    }
+  ],
+  "no_proposals": []
+}

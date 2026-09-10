@@ -1,0 +1,418 @@
+{
+  "batch_id": "C22_018_expressions_pattern_slots_retry_005",
+  "correction_queue_version": "2.2.0-draft",
+  "collection": "expressions",
+  "field": "pattern_slots",
+  "remediation_type": "FILL_RETRY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "source_v2_1_batch_ids": [
+    "411_expressions_pattern_slots_fill_013",
+    "412_expressions_pattern_slots_fill_014",
+    "413_expressions_pattern_slots_fill_015",
+    "414_expressions_pattern_slots_fill_016"
+  ],
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {
+      "entity_key": "il bruine",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "il bruine",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'il bruine' does not support a variable syntactic complement (expression_type='fixed_expression', followed_by='none'). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "il grêle",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "il grêle",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'il grêle' does not support a variable syntactic complement (expression_type='fixed_expression', followed_by='none'). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "il neige",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "il neige",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'il neige' does not support a variable syntactic complement (expression_type='fixed_expression', followed_by='none'). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "il pleut",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "il pleut",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'il pleut' does not support a variable syntactic complement (expression_type='fixed_expression', followed_by='none'). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "il y a",
+      "value": [
+        {
+          "name": "noun_complement",
+          "display": "nom",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal. The supplied context for 'il y a' explicitly marks followed_by='noun'; this proposal therefore models one required noun complement. The source still classifies the canonical form as fixed_expression, so the slot interpretation remains constrained and should receive human linguistic review."
+      }
+    },
+    {
+      "entity_key": "il y avait une fois",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "il y avait une fois",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'il y avait une fois' does not support a variable syntactic complement (expression_type='fixed_expression', followed_by='none'). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "l'avant-veille",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "l'avant-veille",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'l'avant-veille' does not support a variable syntactic complement (expression_type='time_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "la dernière semaine",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "la dernière semaine",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'la dernière semaine' does not support a variable syntactic complement (expression_type='time_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "la semaine dernière",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "la semaine dernière",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'la semaine dernière' does not support a variable syntactic complement (expression_type='time_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "la semaine prochaine",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "la semaine prochaine",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'la semaine prochaine' does not support a variable syntactic complement (expression_type='time_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "la semaine suivante",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "la semaine suivante",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'la semaine suivante' does not support a variable syntactic complement (expression_type='time_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "la veille",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "la veille",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'la veille' does not support a variable syntactic complement (expression_type='time_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "le bulletin de vote",
+      "value": [
+        {
+          "name": "noun_complement",
+          "display": "nom",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal. The supplied context for 'le bulletin de vote' explicitly marks preposition 'de' and followed_by='noun'; this proposal therefore models one required noun complement. The source still classifies the canonical form as fixed_expression, so the slot interpretation remains constrained and should receive human linguistic review."
+      }
+    },
+    {
+      "entity_key": "le deuxième tour",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "le deuxième tour",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'le deuxième tour' does not support a variable syntactic complement (expression_type='fixed_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "le droit de vote",
+      "value": [
+        {
+          "name": "noun_complement",
+          "display": "nom",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal. The supplied context for 'le droit de vote' explicitly marks preposition 'de' and followed_by='noun'; this proposal therefore models one required noun complement. The source still classifies the canonical form as fixed_expression, so the slot interpretation remains constrained and should receive human linguistic review."
+      }
+    },
+    {
+      "entity_key": "le jour même",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "le jour même",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'le jour même' does not support a variable syntactic complement (expression_type='time_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "le lendemain",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "le lendemain",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'le lendemain' does not support a variable syntactic complement (expression_type='time_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "le mardi",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "le mardi",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'le mardi' does not support a variable syntactic complement (expression_type='other', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "le premier tour",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "le premier tour",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'le premier tour' does not support a variable syntactic complement (expression_type='fixed_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "le suffrage universel",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "le suffrage universel",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'le suffrage universel' does not support a variable syntactic complement (expression_type='fixed_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "le surlendemain",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "le surlendemain",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'le surlendemain' does not support a variable syntactic complement (expression_type='time_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "le vendredi",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "le vendredi",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'le vendredi' does not support a variable syntactic complement (expression_type='other', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "loin",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "loin",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'loin' does not support a variable syntactic complement (expression_type='other', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "longtemps",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "longtemps",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'longtemps' does not support a variable syntactic complement (expression_type='time_expression', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    },
+    {
+      "entity_key": "là",
+      "value": [
+        {
+          "name": "fixed_form",
+          "display": "là",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Retry requires a non-empty proposal, but the supplied context for 'là' does not support a variable syntactic complement (expression_type='other', followed_by=None). This proposal therefore uses one required lexicalized 'other' slot containing the exact canonical form as a conservative staging placeholder; human linguistic review should confirm whether fixed expressions should instead use a dedicated no-variable-slot representation."
+      }
+    }
+  ],
+  "no_proposals": []
+}

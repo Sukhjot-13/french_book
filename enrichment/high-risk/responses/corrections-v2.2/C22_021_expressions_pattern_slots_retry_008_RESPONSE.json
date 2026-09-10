@@ -1,0 +1,418 @@
+{
+  "batch_id": "C22_021_expressions_pattern_slots_retry_008",
+  "correction_queue_version": "2.2.0-draft",
+  "collection": "expressions",
+  "field": "pattern_slots",
+  "remediation_type": "FILL_RETRY",
+  "baseline_hash": "sha256:1d33ba23575eed2dedd763309c05536bae54c647c0b0cb9ad6a536bfb19f8892",
+  "source_v2_1_batch_ids": [
+    "420_expressions_pattern_slots_fill_022",
+    "421_expressions_pattern_slots_fill_023",
+    "422_expressions_pattern_slots_fill_024",
+    "423_expressions_pattern_slots_fill_025"
+  ],
+  "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+  "proposals": [
+    {
+      "entity_key": "s'écrouler",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"s' + écrouler\" but no complement slot. A required person slot is used to represent the variable reflexive subject/person; no additional complement is asserted."
+      }
+    },
+    {
+      "entity_key": "s'évanouir",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"s' + évanouir\" but no complement slot. A required person slot is used to represent the variable reflexive subject/person; no additional complement is asserted."
+      }
+    },
+    {
+      "entity_key": "se balader",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + balader\" but no complement slot. A required person slot represents the variable reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se coucher",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + coucher\" but no complement slot. A required person slot represents the variable reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se disputer",
+      "value": [
+        {
+          "name": "participants",
+          "display": "personnes (pluriel)",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The source explicitly restricts this pattern to reciprocal plural use. A required plural-person participant slot captures that constrained variability; no complement slot is added."
+      }
+    },
+    {
+      "entity_key": "se dépêcher",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + dépêcher\" but no complement slot. A required person slot represents the variable reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se détendre",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + détendre\" but no complement slot. A required person slot represents the variable reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se détester",
+      "value": [
+        {
+          "name": "participants",
+          "display": "personnes (pluriel)",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The source explicitly restricts this pattern to reciprocal plural use. A required plural-person participant slot captures that constrained variability."
+      }
+    },
+    {
+      "entity_key": "se fouler la cheville",
+      "value": [
+        {
+          "name": "body_part",
+          "display": "la cheville",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source marks a direct-object noun and a body-part restriction. The fixed source form names \"la cheville\"; a required noun slot is staged for the body-part position without generalizing beyond the supplied example."
+      }
+    },
+    {
+      "entity_key": "se laver",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + laver\" and the gloss 'to wash (oneself)' but no complement slot. A required person slot represents the reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se lever",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + lever\" but no complement slot. A required person slot represents the variable reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se maquiller",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + maquiller\" but no complement slot. A required person slot represents the variable reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se marier",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The source states that the expression can be used reciprocally or individually. A required person slot represents the participant/subject while avoiding an unsupported mandatory second participant."
+      }
+    },
+    {
+      "entity_key": "se mettre en colère",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the expression is a fixed collocation with no complement according to the source. A required person slot represents the variable reflexive subject/person; the lexical sequence remains fixed."
+      }
+    },
+    {
+      "entity_key": "se passer",
+      "value": [
+        {
+          "name": "impersonal_subject",
+          "display": "il",
+          "slot_type": "other",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The source explicitly restricts this expression to impersonal third-person singular use. Because the retry requires a non-empty proposal, a required fixed impersonal-subject slot ('il') is staged; no variable person or complement is inferred."
+      }
+    },
+    {
+      "entity_key": "se peigner",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + peigner\" and a reflexive gloss but no complement slot. A required person slot represents the reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se promener",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + promener\" but no complement slot. A required person slot represents the variable reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se quitter",
+      "value": [
+        {
+          "name": "participants",
+          "display": "personnes (pluriel)",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The source explicitly restricts this pattern to reciprocal plural use. A required plural-person participant slot captures that constrained variability."
+      }
+    },
+    {
+      "entity_key": "se raser",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + raser\" and the gloss 'to shave (oneself)' but no complement slot. A required person slot represents the reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se rencontrer",
+      "value": [
+        {
+          "name": "participants",
+          "display": "personnes (pluriel)",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The source explicitly restricts this pattern to reciprocal plural use. A required plural-person participant slot captures that constrained variability."
+      }
+    },
+    {
+      "entity_key": "se reposer",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + reposer\" but no complement slot. A required person slot represents the variable reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se retrouver",
+      "value": [
+        {
+          "name": "participants",
+          "display": "personnes (pluriel)",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The source explicitly restricts this pattern to reciprocal plural use. A required plural-person participant slot captures that constrained variability."
+      }
+    },
+    {
+      "entity_key": "se réveiller",
+      "value": [
+        {
+          "name": "subject",
+          "display": "personne",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source gives the verb pattern \"se + réveiller\" but no complement slot. A required person slot represents the variable reflexive subject/person."
+      }
+    },
+    {
+      "entity_key": "se tordre la cheville",
+      "value": [
+        {
+          "name": "body_part",
+          "display": "la cheville",
+          "slot_type": "noun",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "Constrained retry choice: the source marks a direct-object noun and a body-part restriction. The fixed source form names \"la cheville\"; a required noun slot is staged for the body-part position without generalizing beyond the supplied example."
+      }
+    },
+    {
+      "entity_key": "se téléphoner",
+      "value": [
+        {
+          "name": "participants",
+          "display": "personnes (pluriel)",
+          "slot_type": "person",
+          "required": true
+        }
+      ],
+      "evidence": {
+        "source_id": "AI_GENERATED_UNVERIFIED",
+        "evidence_sha256": null,
+        "notes": "The source explicitly restricts this pattern to reciprocal plural use and notes an indirect-object relation with no past-participle agreement. A required plural-person participant slot captures that constrained variability without adding unsupported syntax."
+      }
+    }
+  ],
+  "no_proposals": []
+}
