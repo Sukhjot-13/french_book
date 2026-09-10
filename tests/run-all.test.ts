@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import assert from "assert";
 import { isItemSaved, toggleItemSaved, isItemReviewed, toggleItemReviewed } from "../src/lib/data/reviewStore";
+import "./deep-enrichment-batches.test";
 
 console.log("🚀 Running complete test suite for French Revision Platform...\n");
 

@@ -552,7 +552,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ### 8. Testing Suite (`tests/`)
 
 #### `tests/run-all.test.ts`
-- **Purpose**: Unified single entry-point test runner validating master data schema compliance, 10 collection counts, data loader integrity, view model selectors, alphabetical dictionary filtering, expression pattern filtering, and search functionality.
+- **Purpose**: Unified single entry-point test runner validating master data schema compliance, 10 collection counts, data loader integrity, view model selectors, alphabetical dictionary filtering, expression pattern filtering, search functionality, deep-enrichment batch planning, learner-oriented navigation copy, and accessible modal contracts.
 - **Functions**:
   - Validates `data/MASTER_DATA.json` integrity and 10 entity count invariants.
   - Validates `getMasterDataset()` loader caching.
@@ -565,7 +565,15 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - Validates vocabulary article sanitization (string or null).
   - Validates enhanced example filters (`verb`, `tense`, `hasTranslation`).
   - Validates `reviewStore` functions (`isItemSaved`, `toggleItemSaved`, `isItemReviewed`, `toggleItemReviewed`) and SSR environment safety.
+  - Imports and runs `deep-enrichment-batches.test.ts` as the deep-enrichment generator regression test.
   - Validates learner-oriented navigation copy ("Search library...") and accessible modal dialog contracts (`role="dialog"`, `aria-modal="true"`, focus trap, focus restoration).
+
+#### `tests/deep-enrichment-batches.test.ts`
+- **Purpose**: Focused regression test for the deep-enrichment working-copy workflow and recursive relationship traversal.
+- **Functions**: N/A (top-level assertions).
+  - Verifies workflow flags are added only to the copied dataset.
+  - Verifies the first available record is selected by source collection order.
+  - Verifies a connected chapter, verb, expression, and vocabulary unit is planned together and marked taken without being marked enriched.
 
 ---
 
@@ -1019,3 +1027,27 @@ the current instructions if a new queue is needed.
 #### `enrichment/ENRICHMENT_INSTRUCTIONS.md`
 - **Purpose**: The authoritative restart procedure for a future safe enrichment run. It defines immutable input protection, batch/manifest content, response destinations, fail-closed validation, lifecycle/audit folders, extra linguistic-risk review controls, derived-output-only application, and final verification.
 - **Functions**: N/A (Markdown operating instructions).
+
+#### `enrichment/create-deep-enrichment-batches.ts`
+- **Purpose**: Deep-enrichment batch generator. It creates or reuses a separately stored working copy, adds workflow-only `enriched` and `taken_for_enrichment` flags to every top-level dataset record, selects anchors in dataset order, recursively gathers typed forward relationships, freezes full-schema AI batch manifests, and marks each target record taken. `MAX_BATCHES` is set to `5` for the current test and must be changed to `null` for a full run.
+- **Functions**:
+  - `normalizeKey(value)`: Normalizes natural keys for accent-insensitive deterministic matching.
+  - `addWorkflowFields(masterDataset)`: Clones a dataset and initializes both workflow flags on every top-level entity record.
+  - `hashDatasetWithoutWorkflowFields(dataset)`: Produces a canonical baseline hash after removing workflow-only flags.
+  - `findFirstAvailableEntity(dataset)`: Selects the first non-taken entity by top-level collection and record order.
+  - `buildBatchPlan(dataset, anchor)`: Recursively plans a connected batch from typed relationship fields, separating fresh targets, already-taken context, and unresolved references.
+  - `markPlanTaken(dataset, plan)`: Marks all planned target records as claimed while preserving their `enriched` state.
+  - `generateDeepEnrichmentBatches()`: Creates up to `MAX_BATCHES` frozen manifests and persists working-copy claim state.
+  - `isObject(value)`, `clone(value)`, `sha256(value)`, `writeJsonAtomically(filePath, value)`, `getRecordKey(collection, record)`, `getRecords(dataset, collection)`, `listCollections(dataset)`, `removeWorkflowFields(dataset)`, `ensureWorkingCopy(masterDataset, masterHash)`, `buildIdentityIndex(dataset)`, `referenceValues(value, collection)`, `extractRelations(record, owningCollection)`, `getRecord(dataset, reference)`, `entityId(reference)`, `findInboundReferences(dataset, target, index)`, `recordsByCollection(dataset, references)`, `getNextBatchNumber()`, and `buildBatchDocument(dataset, schema, masterHash, schemaHash, batchNumber, plan)`: Internal cloning, persistence, integrity, reference-resolution, graph-traversal, grouping, numbering, and manifest-construction helpers.
+
+#### `enrichment/DEEP_ENRICHMENT_WORKING_DATA.json`
+- **Purpose**: Generated working copy of `data/MASTER_DATA.json` for deep enrichment. It preserves all source content while adding the workflow-only `enriched` and `taken_for_enrichment` booleans to each top-level record; it is intentionally not valid against the immutable master schema until those fields are removed by a future approved applicator.
+- **Functions**: N/A (generated JSON working dataset).
+
+#### `enrichment/deep-batches/DEEP_BATCH_001.json`
+#### `enrichment/deep-batches/DEEP_BATCH_002.json`
+#### `enrichment/deep-batches/DEEP_BATCH_003.json`
+#### `enrichment/deep-batches/DEEP_BATCH_004.json`
+#### `enrichment/deep-batches/DEEP_BATCH_005.json`
+- **Purpose**: Generated frozen deep-enrichment test manifests. Each contains the full master schema, source hashes, an automatically selected anchor, complete target/context record snapshots, unresolved source references, and the structured `MERGE_EXISTING`, `INSERT_NEW`, and `NO_PROPOSAL` AI response contract.
+- **Functions**: N/A (generated JSON batch manifests).
