@@ -24,10 +24,11 @@ export function AppShell({ children }: AppShellProps) {
     return () => window.removeEventListener("open-command-palette", handleOpenPalette);
   }, []);
 
-  // Close mobile drawer upon navigating
-  React.useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setIsMobileMenuOpen(false);
-  }, [pathname]);
+  }
 
   // Lock body scroll when mobile menu is open
   React.useEffect(() => {
@@ -64,11 +65,11 @@ export function AppShell({ children }: AppShellProps) {
             {/* Brand Header */}
             <Link href="/" className="flex items-center gap-3 px-2 group">
               <div className="w-10 h-10 rounded bg-[#002147] text-white flex items-center justify-center font-serif text-xl font-bold tracking-tighter shadow-sm group-hover:bg-primary transition-colors">
-                L'É
+                L&apos;É
               </div>
               <div>
                 <h1 className="font-sans text-base font-bold text-primary tracking-tight leading-none">
-                  L'Étude
+                  L&apos;Étude
                 </h1>
                 <p className="text-[11px] font-mono text-on-surface-variant uppercase tracking-wider mt-1">
                   French Master Revision
@@ -84,7 +85,7 @@ export function AppShell({ children }: AppShellProps) {
             >
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[18px]">search</span>
-                <span>Search repository...</span>
+                <span>Search library...</span>
               </div>
               <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-surface rounded border border-outline-variant/60">
                 ⌘K
@@ -157,9 +158,9 @@ export function AppShell({ children }: AppShellProps) {
         <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-surface-container-low border-b border-outline-variant/60 flex items-center justify-between px-4 z-40">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded bg-primary text-white flex items-center justify-center font-serif font-bold text-sm">
-              L'É
+              L&apos;É
             </div>
-            <span className="font-bold text-sm text-primary">L'Étude</span>
+            <span className="font-bold text-sm text-primary">L&apos;Étude</span>
           </Link>
 
           <div className="flex items-center gap-1.5">
@@ -167,8 +168,8 @@ export function AppShell({ children }: AppShellProps) {
               type="button"
               onClick={() => setIsCommandPaletteOpen(true)}
               className="p-2 rounded-lg hover:bg-surface-container-high active:bg-surface-container-highest text-on-surface-variant hover:text-primary transition-colors cursor-pointer flex items-center justify-center"
-              aria-label="Search repository"
-              title="Search repository (⌘K)"
+              aria-label="Search library"
+              title="Search library (⌘K)"
             >
               <span className="material-symbols-outlined text-[22px]">search</span>
             </button>
@@ -247,7 +248,7 @@ export function AppShell({ children }: AppShellProps) {
           <header className="hidden lg:flex items-center justify-between h-14 px-8 border-b border-outline-variant/40 bg-surface/80 backdrop-blur-sm sticky top-0 z-20">
             <div className="flex items-center gap-2 text-xs font-mono text-on-surface-variant">
               <Link href="/" className="hover:text-primary transition-colors">
-                L'Étude
+                L&apos;Étude
               </Link>
               <span>/</span>
               <span className="text-primary font-semibold capitalize">

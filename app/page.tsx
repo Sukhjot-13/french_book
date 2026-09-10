@@ -1,14 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { getHomeStats, getVerbs, getGrammarRules, getExceptionsAndTraps, getExercises } from "@/src/lib/data/selectors";
+import { getHomeStats, getVerbs, getExceptionsAndTraps } from "@/src/lib/data/selectors";
 import { PriorityBadge, GroupBadge, AuxiliaryBadge, RegularityBadge } from "@/src/components/ui/Badges";
 
 export default async function HomePage() {
   const stats = getHomeStats();
   const topVerbs = getVerbs({ limit: 6 }).verbs;
-  const topRules = getGrammarRules({ limit: 4 }).rules;
   const topTraps = getExceptionsAndTraps({ limit: 4 }).traps;
-  const topExercises = getExercises({ limit: 4 }).exercises;
 
   return (
     <div className="space-y-8 pb-12">
@@ -20,7 +18,7 @@ export default async function HomePage() {
             <span>{stats.bookTitle} — {stats.author}</span>
           </div>
           <h1 className="text-2xl md:text-4xl font-bold tracking-tight font-sans text-white">
-            L'Atlas & Portail de Révision
+            L&apos;Atlas & Portail de Révision
           </h1>
           <p className="text-blue-200 text-sm md:text-base leading-relaxed">
             The complete master pedagogical French revision system with bidirectional cross-linking across

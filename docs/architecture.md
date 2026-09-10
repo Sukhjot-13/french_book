@@ -88,7 +88,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**: N/A (Markdown documentation).
 
 #### `docs/suggestions.md`
-- **Purpose**: Living roadmap tracking feature suggestions, architectural improvements, vulnerability audits, and unimplemented UI/code-quality recommendations including learner-oriented search copy, accessible modal interactions, and a clean lint baseline. Also records the planned copy-only new-data intake workflow for proposing missing entities without exposing the full master dataset.
+- **Purpose**: Living roadmap tracking feature suggestions, architectural improvements, and vulnerability audits; maintained with completed items purged per repository guidelines. Currently tracks Web Speech API pronunciation playback, the copy-only new-data intake pipeline, and high-risk evidence verification audits.
 - **Functions**: N/A (Markdown documentation).
 
 #### `docs/to-do.md`
@@ -226,7 +226,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ### 3. UI Components (`src/components/`)
 
 #### `src/components/layout/AppShell.tsx`
-- **Purpose**: Responsive layout shell providing desktop sidebar navigation (with live counts for all 10 entity collections), mobile header with search and hamburger menu triggers, mobile drawer with auto-close on navigation and body scroll lock, breadcrumbs, command palette integration, PeekDrawer mount, and global keyboard shortcuts.
+- **Purpose**: Responsive layout shell providing desktop sidebar navigation with learner-oriented copy ("Search library..."), mobile header with search and hamburger menu triggers, mobile drawer with auto-close on navigation and body scroll lock, breadcrumbs, command palette integration, PeekDrawer mount, and global keyboard shortcuts.
 - **Functions**:
   - `AppShell({ children })`: Client component wrapping pages with consistent application chrome and listening for global `"open-command-palette"` events.
 
@@ -248,10 +248,12 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `usePeek()`: Hook returning peek state (`activePeek`, `peekData`, `loading`, `openPeek`, `closePeek`).
 
 #### `src/components/peek/PeekDrawer.tsx`
-- **Purpose**: Dual-mode preview component acting as a right-side slide-over drawer on desktop (`>=768px`) and a tactile bottom sheet on mobile screens (`<768px`) with top drag/grab indicator bar, rounded top corners, max-height 85vh, and bottom slide-in animation.
+- **Purpose**: Fully accessible dual-mode modal preview dialog acting as a right-side slide-over drawer on desktop (`>=768px`) and a tactile bottom sheet on mobile screens (`<768px`) with `role="dialog"`, `aria-modal="true"`, `aria-labelledby`, Tab/Shift+Tab focus trapping, trigger focus restoration on close, body scroll lock, top drag indicator bar, rounded top corners, max-height 85vh, and slide-in animations.
 - **Functions**:
-  - `PeekDrawer()`: Slide-over and bottom-sheet UI component mounted globally in AppShell.
+  - `PeekDrawer()`: Accessible modal preview component mounted globally in AppShell.
+  - `handleClose()`: Closes drawer and asynchronously restores focus to the trigger element.
   - `handleKeyDown(e)`: Internal key event listener closing drawer on Escape.
+  - `handleKeyDownTrap(e)`: Traps Tab/Shift+Tab focus cycling within the drawer panel while open.
 
 #### `src/components/peek/PeekTrigger.tsx`
 - **Purpose**: Reusable interactive trigger button/link that invokes `openPeek(type, id)` from anywhere in the application.
@@ -343,10 +345,12 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `ExampleExplorerList({ examples })`: Client list component with peek triggers.
 
 #### `src/components/search/CommandPalette.tsx`
-- **Purpose**: Modal command palette (`Cmd+K` / `Ctrl+K`) for keyboard-first navigation and instant search with backdrop click-to-close, explicit close button (`✕`) for mobile devices without Escape keys, and responsive padding.
+- **Purpose**: Fully accessible modal command palette dialog (`Cmd+K` / `Ctrl+K`) for keyboard-first navigation and instant search with `role="dialog"`, `aria-modal="true"`, `aria-label`, Tab/Shift+Tab focus trapping, trigger focus restoration on close, body scroll lock, backdrop click-to-close, explicit close button (`✕`) for mobile devices, and responsive padding.
 - **Functions**:
-  - `CommandPalette({ isOpen, onClose })`: Client component managing search dialog, keyboard shortcuts, live results, and listening for global `"open-command-palette"` custom events.
+  - `CommandPalette({ isOpen, onClose })`: Accessible modal client component managing search dialog, keyboard shortcuts, live debounced results, and listening for global `"open-command-palette"` custom events.
+  - `handleClose()`: Resets query state, invokes onClose, and restores focus to the invoking trigger element.
   - `handleKeyDown(e)`: Listens for palette keyboard triggers (`Cmd+K`, `Esc`).
+  - `handleKeyDownTrap(e)`: Traps keyboard focus within focusable dialog elements when Tab / Shift+Tab is pressed.
   - `handleKeyDownInInput(e)`: Handles arrow keys, Enter, and Tab inside palette input.
   - `handleSelect(type, id)`: Executes selection navigation or triggers Level 2 peek.
 
@@ -561,6 +565,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - Validates vocabulary article sanitization (string or null).
   - Validates enhanced example filters (`verb`, `tense`, `hasTranslation`).
   - Validates `reviewStore` functions (`isItemSaved`, `toggleItemSaved`, `isItemReviewed`, `toggleItemReviewed`) and SSR environment safety.
+  - Validates learner-oriented navigation copy ("Search library...") and accessible modal dialog contracts (`role="dialog"`, `aria-modal="true"`, focus trap, focus restoration).
 
 ---
 

@@ -67,7 +67,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             type="text"
             name="q"
             defaultValue={rawQuery}
-            placeholder="Search across entire repository..."
+            placeholder="Search across entire library..."
             className="w-full px-4 py-2.5 pl-10 rounded-lg bg-surface-container-lowest border border-outline-variant text-sm text-on-surface focus:outline-none focus:border-primary"
           />
           <span className="material-symbols-outlined absolute left-3 top-2.5 text-[20px] text-on-surface-variant">

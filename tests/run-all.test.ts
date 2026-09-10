@@ -254,6 +254,28 @@ assert.strictEqual(typeof toggleItemReviewed, "function", "toggleItemReviewed mu
 // Under SSR / Node test runner, safe defaults return false
 assert.strictEqual(isItemSaved("verb", "prendre"), false, "SSR isItemSaved must return false safely");
 assert.strictEqual(isItemReviewed("verb", "prendre"), false, "SSR isItemReviewed must return false safely");
-console.log("✅ Review store helper and SSR safety verified.");
+// 14. Validate Learner-Oriented Navigation Copy and Accessible Modal Markup
+const appShellContent = fs.readFileSync(path.join(__dirname, "../src/components/layout/AppShell.tsx"), "utf-8");
+assert(!appShellContent.includes("Search repository"), "AppShell must not contain 'Search repository' copy");
+assert(appShellContent.includes("Search library..."), "AppShell must contain 'Search library...' prompt");
+assert(appShellContent.includes('aria-label="Search library"'), "AppShell mobile button must use 'Search library' aria-label");
+
+const searchPageContent = fs.readFileSync(path.join(__dirname, "../app/search/page.tsx"), "utf-8");
+assert(!searchPageContent.includes("Search across entire repository..."), "Search page must not contain 'repository' copy");
+assert(searchPageContent.includes("Search across entire library..."), "Search page must contain 'Search across entire library...'");
+
+const commandPaletteContent = fs.readFileSync(path.join(__dirname, "../src/components/search/CommandPalette.tsx"), "utf-8");
+assert(commandPaletteContent.includes('role="dialog"'), "CommandPalette must have role='dialog'");
+assert(commandPaletteContent.includes('aria-modal="true"'), "CommandPalette must have aria-modal='true'");
+assert(commandPaletteContent.includes("handleKeyDownTrap"), "CommandPalette must implement focus trap");
+assert(commandPaletteContent.includes("previouslyFocusedElement"), "CommandPalette must track and restore trigger focus");
+
+const peekDrawerContent = fs.readFileSync(path.join(__dirname, "../src/components/peek/PeekDrawer.tsx"), "utf-8");
+assert(peekDrawerContent.includes('role="dialog"'), "PeekDrawer must have role='dialog'");
+assert(peekDrawerContent.includes('aria-modal="true"'), "PeekDrawer must have aria-modal='true'");
+assert(peekDrawerContent.includes('aria-labelledby="peek-drawer-title"'), "PeekDrawer must reference dialog title");
+assert(peekDrawerContent.includes("handleKeyDownTrap"), "PeekDrawer must implement focus trap");
+assert(peekDrawerContent.includes("previouslyFocusedElement"), "PeekDrawer must track and restore trigger focus");
+console.log("✅ Learner-oriented navigation copy and accessible modal dialog markup verified.");
 
 console.log("\n🎉 All tests passed successfully!");

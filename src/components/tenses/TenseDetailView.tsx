@@ -144,7 +144,11 @@ export function TenseDetailView({
             <span className="text-[10px] font-mono uppercase text-on-surface-variant block font-bold">
               4. Agreement Rule & Pitfall:
             </span>
-            {tense.agreement_rules && tense.agreement_rules.length > 0 ? (
+            {traps && traps.length > 0 ? (
+              <p className="text-xs text-amber-900 leading-relaxed">
+                ⚠️ {traps[0].title}
+              </p>
+            ) : tense.agreement_rules && tense.agreement_rules.length > 0 ? (
               <p className="text-xs text-on-surface leading-relaxed">
                 {tense.agreement_rules[0]}
               </p>

@@ -12,7 +12,6 @@ interface GrammarLibraryTableProps {
   currentPage: number;
   pageSize: number;
   initialQuery?: string;
-  initialCategory?: string;
 }
 
 export function GrammarLibraryTable({
@@ -21,7 +20,6 @@ export function GrammarLibraryTable({
   currentPage,
   pageSize,
   initialQuery,
-  initialCategory,
 }: GrammarLibraryTableProps) {
   const router = useRouter();
   const searchParams = useSearchParams();

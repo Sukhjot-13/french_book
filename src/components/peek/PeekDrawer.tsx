@@ -17,16 +17,76 @@ export function PeekDrawer() {
     goForward,
   } = usePeek();
 
+  const asideRef = React.useRef<HTMLElement>(null);
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+  const previouslyFocusedElement = React.useRef<HTMLElement | null>(null);
+
+  const handleClose = React.useCallback(() => {
+    closePeek();
+    setTimeout(() => {
+      if (previouslyFocusedElement.current && typeof previouslyFocusedElement.current.focus === "function") {
+        previouslyFocusedElement.current.focus();
+      }
+    }, 0);
+  }, [closePeek]);
+
+  // Capture trigger focus on open, auto-focus close button, and lock body scroll
+  useEffect(() => {
+    if (isOpen) {
+      previouslyFocusedElement.current = document.activeElement as HTMLElement | null;
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      const timer = setTimeout(() => {
+        closeButtonRef.current?.focus();
+      }, 50);
+      return () => {
+        document.body.style.overflow = prevOverflow;
+        clearTimeout(timer);
+      };
+    }
+  }, [isOpen]);
+
   // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
-        closePeek();
+        e.preventDefault();
+        handleClose();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, closePeek]);
+  }, [isOpen, handleClose]);
+
+  // Focus trap inside drawer dialog
+  const handleKeyDownTrap = (e: React.KeyboardEvent) => {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      handleClose();
+      return;
+    }
+    if (e.key !== "Tab" || !asideRef.current) return;
+
+    const focusableEls = asideRef.current.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusableEls.length) return;
+
+    const firstEl = focusableEls[0];
+    const lastEl = focusableEls[focusableEls.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstEl) {
+        e.preventDefault();
+        lastEl.focus();
+      }
+    } else {
+      if (document.activeElement === lastEl) {
+        e.preventDefault();
+        firstEl.focus();
+      }
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -47,12 +107,17 @@ export function PeekDrawer() {
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity animate-in fade-in duration-150"
-        onClick={closePeek}
+        onClick={handleClose}
         aria-label="Close preview"
       />
 
       {/* Slide-over panel (Desktop: right drawer / Mobile: bottom sheet) */}
       <aside
+        ref={asideRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="peek-drawer-title"
+        onKeyDown={handleKeyDownTrap}
         className="relative z-10 w-full md:max-w-md bg-surface-container-lowest border-t md:border-t-0 md:border-l border-outline-variant shadow-2xl flex flex-col max-h-[85vh] md:max-h-none md:h-full rounded-t-2xl md:rounded-none animate-in slide-in-from-bottom md:slide-in-from-right duration-200"
         onClick={(e) => e.stopPropagation()}
       >
@@ -93,7 +158,8 @@ export function PeekDrawer() {
           </div>
 
           <button
-            onClick={closePeek}
+            ref={closeButtonRef}
+            onClick={handleClose}
             className="p-1 rounded-md text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors"
             aria-label="Close"
           >
@@ -117,7 +183,7 @@ export function PeekDrawer() {
             <>
               {/* Title and Subtitle */}
               <div className="space-y-1">
-                <h2 className="text-2xl font-bold font-sans text-primary tracking-tight">
+                <h2 id="peek-drawer-title" className="text-2xl font-bold font-sans text-primary tracking-tight">
                   {peekData.title}
                 </h2>
                 {peekData.subtitle && (
@@ -221,7 +287,7 @@ export function PeekDrawer() {
                           ) : c.url ? (
                             <Link
                               href={c.url}
-                              onClick={closePeek}
+                              onClick={handleClose}
                               className="text-[11px] font-mono text-primary group-hover:underline flex items-center gap-0.5"
                             >
                               <span>View</span>
@@ -286,14 +352,14 @@ export function PeekDrawer() {
         {peekData && (
           <div className="p-4 border-t border-outline-variant/60 bg-surface-container-low flex items-center justify-between">
             <button
-              onClick={closePeek}
+              onClick={handleClose}
               className="px-3 py-1.5 rounded text-xs font-medium text-on-surface-variant hover:text-on-surface transition-colors"
             >
               Close
             </button>
             <Link
               href={peekData.url}
-              onClick={closePeek}
+              onClick={handleClose}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded bg-[#002147] hover:bg-primary text-white text-xs font-semibold shadow-xs transition-colors"
             >
               <span>Open Full {peekData.type.charAt(0).toUpperCase() + peekData.type.slice(1)}</span>

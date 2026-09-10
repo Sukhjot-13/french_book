@@ -27,17 +27,6 @@ export default async function TrapsPage({ searchParams }: TrapsPageProps) {
 
   const totalPages = Math.ceil(total / pageSize);
 
-  const categories = [
-    "All Categories",
-    "Verbs & Conjugation",
-    "Spelling & Orthography",
-    "Prepositions",
-    "Articles & Nouns",
-    "Adjectives & Agreement",
-    "Pronouns",
-    "Negation",
-  ];
-
   return (
     <div className="space-y-6 pb-12">
       {/* HEADER */}

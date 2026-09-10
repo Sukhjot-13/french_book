@@ -16,47 +16,61 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedElement = useRef<HTMLElement | null>(null);
 
+  const handleClose = React.useCallback(() => {
+    setQuery("");
+    setResults([]);
+    setSelectedIndex(0);
+    setIsLoading(false);
+    onClose();
+    // Restore focus to the trigger that opened the command palette
+    setTimeout(() => {
+      if (previouslyFocusedElement.current && typeof previouslyFocusedElement.current.focus === "function") {
+        previouslyFocusedElement.current.focus();
+      }
+    }, 0);
+  }, [onClose]);
+
+  // Track trigger focus on open, auto-focus search input, and lock body scroll
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
-    } else {
-      setQuery("");
-      setResults([]);
-      setSelectedIndex(0);
+      previouslyFocusedElement.current = document.activeElement as HTMLElement | null;
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      const timer = setTimeout(() => inputRef.current?.focus(), 50);
+      return () => {
+        document.body.style.overflow = prevOverflow;
+        clearTimeout(timer);
+      };
     }
   }, [isOpen]);
 
-  // Keyboard shortcut listener (Cmd+K / Ctrl+K)
+  // Keyboard shortcut listener (Cmd+K / Ctrl+K) and Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
-        if (isOpen) onClose();
-        else {
-          // Trigger open via document event or props
-        }
+        if (isOpen) handleClose();
       }
       if (e.key === "Escape" && isOpen) {
-        onClose();
+        e.preventDefault();
+        handleClose();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen, handleClose]);
 
   // Search API fetch on query change
   useEffect(() => {
-    if (!query.trim()) {
-      setResults([]);
-      setIsLoading(false);
-      return;
-    }
+    const trimmed = query.trim();
+    if (!trimmed) return;
 
-    setIsLoading(true);
     const debounceTimer = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&limit=15`);
+        const res = await fetch(`/api/search?q=${encodeURIComponent(trimmed)}&limit=15`);
         if (res.ok) {
           const data = await res.json();
           setResults(data.results || []);
@@ -72,6 +86,30 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
     return () => clearTimeout(debounceTimer);
   }, [query]);
 
+  // Focus trap for Tab / Shift+Tab inside modal dialog
+  const handleKeyDownTrap = (e: React.KeyboardEvent) => {
+    if (e.key !== "Tab" || !dialogRef.current) return;
+    const focusableEls = dialogRef.current.querySelectorAll<HTMLElement>(
+      'input, button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusableEls.length) return;
+
+    const firstEl = focusableEls[0];
+    const lastEl = focusableEls[focusableEls.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstEl) {
+        e.preventDefault();
+        lastEl.focus();
+      }
+    } else {
+      if (document.activeElement === lastEl) {
+        e.preventDefault();
+        firstEl.focus();
+      }
+    }
+  };
+
   // Navigation within modal via arrows and enter
   const handleKeyDownInInput = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
@@ -86,14 +124,14 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
         handleSelect(results[selectedIndex]);
       } else if (query.trim()) {
         router.push(`/search?q=${encodeURIComponent(query)}`);
-        onClose();
+        handleClose();
       }
     }
   };
 
   const handleSelect = (item: SearchResultItem) => {
     router.push(item.url);
-    onClose();
+    handleClose();
   };
 
   if (!isOpen) return null;
@@ -127,9 +165,14 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-start justify-center pt-4 sm:pt-16 bg-black/60 backdrop-blur-sm p-2 sm:p-4 animate-in fade-in duration-150"
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search French revision library"
+        onKeyDown={handleKeyDownTrap}
         className="w-full max-w-2xl bg-surface-container-lowest border border-outline-variant shadow-2xl rounded-xl overflow-hidden flex flex-col max-h-[88vh] sm:max-h-[80vh]"
         onClick={(e) => e.stopPropagation()}
       >
@@ -142,7 +185,16 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              const val = e.target.value;
+              setQuery(val);
+              if (!val.trim()) {
+                setResults([]);
+                setIsLoading(false);
+              } else {
+                setIsLoading(true);
+              }
+            }}
             onKeyDown={handleKeyDownInInput}
             placeholder="Search verbs, grammar rules, expressions, vocabulary, tenses..."
             className="flex-1 min-w-0 bg-transparent border-none outline-none text-sm sm:text-base text-on-surface placeholder:text-on-surface-variant font-sans"
@@ -153,7 +205,11 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
           {query && (
             <button
               type="button"
-              onClick={() => setQuery("")}
+              onClick={() => {
+                setQuery("");
+                setResults([]);
+                setIsLoading(false);
+              }}
               className="p-1 text-on-surface-variant hover:text-primary rounded cursor-pointer"
               title="Clear search"
               aria-label="Clear search"
@@ -167,7 +223,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
           {/* Explicit close button for phone & all screen sizes */}
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="p-1.5 rounded-md hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors shrink-0 cursor-pointer flex items-center justify-center"
             title="Close search"
             aria-label="Close search"
@@ -264,7 +320,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                 <button
                   onClick={() => {
                     router.push("/verbs");
-                    onClose();
+                    handleClose();
                   }}
                   className="flex items-center gap-2 p-2 rounded hover:bg-surface-container text-left"
                 >
@@ -274,7 +330,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                 <button
                   onClick={() => {
                     router.push("/grammar");
-                    onClose();
+                    handleClose();
                   }}
                   className="flex items-center gap-2 p-2 rounded hover:bg-surface-container text-left"
                 >
@@ -284,7 +340,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                 <button
                   onClick={() => {
                     router.push("/expressions");
-                    onClose();
+                    handleClose();
                   }}
                   className="flex items-center gap-2 p-2 rounded hover:bg-surface-container text-left"
                 >
@@ -294,7 +350,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                 <button
                   onClick={() => {
                     router.push("/tenses");
-                    onClose();
+                    handleClose();
                   }}
                   className="flex items-center gap-2 p-2 rounded hover:bg-surface-container text-left"
                 >

@@ -1,6 +1,5 @@
 import { SuperDatasetRoot, SuperDatasetRootSchema } from "./schemas";
 import { isValidId } from "./ids";
-import { buildReverseIndexes } from "./relations";
 
 function normalizedIdentity(value: string): string {
   return value
@@ -28,7 +27,7 @@ export interface ValidationReport {
   semantic_garbage: Array<{ id: string; type: string; value: string; reason: string }>;
 }
 
-export function validateDataset(dataset: any): ValidationReport {
+export function validateDataset(dataset: unknown): ValidationReport {
   const schemaErrors: Array<{ path: string; message: string }> = [];
   const idErrors: Array<{ id: string; error: string }> = [];
   const unresolvedRelations: Array<{ from_id: string; from_type: string; target_id: string; relation_type: string }> = [];
