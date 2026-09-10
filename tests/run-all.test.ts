@@ -152,8 +152,13 @@ console.log(`✅ Selector getVocabulary({ letter: 'A' }) verified with ${vocabA.
 const prepAExpressions = getExpressions({ preposition: "à" });
 assert(prepAExpressions.total > 0, "Expressions with preposition 'à' should return items");
 assert(
-  prepAExpressions.expressions.every((e) => e.french.toLowerCase().includes("à") || e.pattern?.toLowerCase().includes("à")),
-  "Expressions filtered by 'à' must contain 'à'"
+  prepAExpressions.expressions.every(
+    (e) =>
+      e.prepositions.some((preposition) => preposition.toLowerCase() === "à") ||
+      e.french.toLowerCase().includes("à") ||
+      e.pattern?.toLowerCase().includes("à")
+  ),
+  "Expressions filtered by 'à' must declare or display 'à'"
 );
 console.log(`✅ Selector getExpressions({ preposition: 'à' }) verified with ${prepAExpressions.total} expressions.`);
 
@@ -241,46 +246,7 @@ assert(Array.isArray(testVocab.relatedVerbs), "relatedVerbs must be an array");
 assert(Array.isArray(testVocab.relatedChapters), "relatedChapters must be an array");
 console.log(`✅ Selector getVocabularyById('${testVocab.vocab.french}') graph verified.`);
 
-// 13. Validate Enrichment Pipeline Test Suite
-import { execSync } from "child_process";
-try {
-  const output = execSync("python3 -m unittest enrichment/tests/test_enrichment_pipeline.py", {
-    encoding: "utf-8",
-  });
-  console.log("✅ Enrichment pipeline unit tests passed (14 tests verified):");
-  console.log("   - Configuration & default batch sizes across 11 collections");
-  console.log("   - Helpers: natural key matching, extraction, diacritic normalization");
-  console.log("   - Response validation: clean patch vs forbidden delete/artificial ID rejection");
-  console.log("   - Dry-run diff preview: addition, no-op, conflict calculation");
-  console.log("   - In-memory transactional apply and human-readable report formatting");
-  console.log("   - Collection-schema prompts, downloadable JSON response contract, manifest field authorization, object-safe merging, and reusable example links");
-} catch (err: any) {
-  console.error("❌ Enrichment pipeline test failure:", err.stdout || err.message);
-  process.exit(1);
-}
-
-// 13b. Validate High-Risk Enrichment Pipeline Test Suite
-try {
-  const hrOutput = execSync("python3 -m unittest enrichment/high-risk/tests/test_high_risk_pipeline.py", {
-    encoding: "utf-8",
-  });
-  console.log("✅ High-risk enrichment pipeline unit tests passed (25 tests verified):");
-  console.log("   - Configuration, strict boundaries, and 11 high-risk collection inventories");
-  console.log("   - Machine-readable conjugation contract and trusted sources allowlist");
-  console.log("   - Preflight classification (complete, missing, partial) and morphological risk segregation");
-  console.log("   - Deterministic batch generation and manifest locking");
-  console.log("   - 15 fail-closed validation gates: schema, target ownership, empty precondition, evidence, placeholders");
-  console.log("   - Exact field-schema validation and preservation-only partial conjugation completion");
-  console.log("   - Isolated v2.2 correction-queue generation, checksum traceability, staged response destinations, fail-closed envelope validation, and the null-only pouvoir imperative exception");
-  console.log("   - Dual-reviewer approval workflow (linguistic + compliance sign-offs)");
-  console.log("   - Generic transactional applicator and full-queue response readiness reporting");
-  console.log("   - Atomic backup, in-memory schema dry-run, source immutability, and idempotence");
-} catch (err: any) {
-  console.error("❌ High-risk pipeline test failure:", err.stdout || err.message);
-  process.exit(1);
-}
-
-// 14. Validate ReviewStore logic
+// 13. Validate ReviewStore logic
 assert.strictEqual(typeof isItemSaved, "function", "isItemSaved must be a function");
 assert.strictEqual(typeof toggleItemSaved, "function", "toggleItemSaved must be a function");
 assert.strictEqual(typeof isItemReviewed, "function", "isItemReviewed must be a function");

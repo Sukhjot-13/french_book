@@ -1,1 +1,0 @@
-"""Enrichment scripts package."""

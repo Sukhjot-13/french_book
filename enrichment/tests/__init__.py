@@ -1,1 +1,0 @@
-"""Enrichment tests package."""

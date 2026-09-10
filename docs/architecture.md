@@ -29,7 +29,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Pipeline**: Selectors in [`selectors.ts`](file:///Users/sukhjot/codes/book/src/lib/data/selectors.ts) utilize `safeDecode()` to resolve both raw and decoded strings against primary keys, canonical forms, display forms, and normalized slugs.
 
 ### 4. Server-Side Master Data Pipeline
-- **Storage**: Immutable source master JSON database stored in [`data/MASTER_DATA.json`](file:///Users/sukhjot/codes/book/data/MASTER_DATA.json), validated against [`data/MASTER_SCHEMA.json`](file:///Users/sukhjot/codes/book/data/MASTER_SCHEMA.json). Enrichment output is written separately to `enrichment/MASTER_DATA_ENRICHED.json` and never replaces the source dataset.
+- **Storage**: Immutable source master JSON database stored in [`data/MASTER_DATA.json`](file:///Users/sukhjot/codes/book/data/MASTER_DATA.json), validated against [`data/MASTER_SCHEMA.json`](file:///Users/sukhjot/codes/book/data/MASTER_SCHEMA.json). There is no active derived dataset after the 2026-09-10 enrichment reset; any future enrichment output must be separately named under `enrichment/` and never replace the source dataset.
 - **Loader**: [`getMasterDataset()`](file:///Users/sukhjot/codes/book/src/lib/data/loader.ts) loads the JSON once from disk and caches the parsed in-memory representation in process memory, delivering zero-latency server-side rendering.
 - **View-Model Mapping**: Specialized selector functions in [`selectors.ts`](file:///Users/sukhjot/codes/book/src/lib/data/selectors.ts) sanitize and transform raw JSON into UI-safe contracts (e.g. flattening nested article objects, cross-linking related verbs, building reverse index lookups).
 
@@ -92,7 +92,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**: N/A (Markdown documentation).
 
 #### `docs/to-do.md`
-- **Purpose**: Current high-risk enrichment handoff and safety checklist. It records the immutable dataset boundary, frozen v2.1 and staged v2.2 validation state, the `pouvoir` imperative-contract blocker, protected baseline hash, and the policy, review, approval, application, and verification steps still required before a derived dataset may be produced.
+- **Purpose**: Current enrichment restart handoff pointing to the gap report and operating instructions, and recording that no prior queue, response, validation, approval, or derived dataset remains active.
 - **Functions**: N/A (Markdown task handoff).
 
 #### `gptsugg.txt`
@@ -560,7 +560,6 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - Validates URL-encoded identifier lookups.
   - Validates vocabulary article sanitization (string or null).
   - Validates enhanced example filters (`verb`, `tense`, `hasTranslation`).
-  - Executes Python unit test suite `enrichment/tests/test_enrichment_pipeline.py` covering all enrichment pipeline components.
   - Validates `reviewStore` functions (`isItemSaved`, `toggleItemSaved`, `isItemReviewed`, `toggleItemReviewed`) and SSR environment safety.
 
 ---
@@ -641,7 +640,12 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ---
 
-### 10. Manual AI Enrichment Pipeline (`enrichment/`)
+### 10. Retired Enrichment Pipeline Inventory (removed 2026-09-10)
+
+The entries in this historical section document files deliberately removed during
+the enrichment reset. They are not present in the repository, must not be run,
+and have no active data or approval status. The current two-file enrichment
+workspace is documented after this historical record.
 
 #### `enrichment/__init__.py`
 - **Purpose**: Root package initialization file marking the enrichment directory as a Python package.
@@ -789,7 +793,11 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ---
 
-### 11. High-Risk Enrichment Pipeline (`enrichment/high-risk/`)
+### 11. Retired High-Risk Enrichment Pipeline Inventory (removed 2026-09-10)
+
+This is a retained historical record only. All files and lifecycle directories
+named in this section were removed during the reset and must be recreated from
+the current instructions if a new queue is needed.
 
 #### `enrichment/HIGH_RISK_DATA_ENRICHED.json`
 - **Purpose**: High-risk derived dataset containing completed verb conjugation paradigms and structural enrichments. Derived from `MASTER_DATA_ENRICHED.json` (or `data/MASTER_DATA.json`) without mutating either baseline; validated against `data/MASTER_SCHEMA.json`.
@@ -994,3 +1002,15 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 #### `enrichment/high-risk/{responses,validated,approved,reports,audits}/corrections-v2.2/`
 - **Purpose**: Isolated lifecycle destinations for future v2.2 staged responses and the reports, validated candidates, approvals, and audits that may be created only after a reviewed v2.2 repair-policy implementation.
 - **Functions**: N/A (empty/staged lifecycle directories).
+
+---
+
+### 12. Current Enrichment Reset (`enrichment/`)
+
+#### `enrichment/ENRICHMENT_GAP_REPORT.md`
+- **Purpose**: Read-only, 2026-09-10 inventory of content and provenance gaps in `MASTER_DATA.json`. It covers every collection, distinguishes intentional empty relationships from backlog candidates, identifies the 13 unresolved source items, and documents the present seven-paradigm verb coverage.
+- **Functions**: N/A (Markdown report).
+
+#### `enrichment/ENRICHMENT_INSTRUCTIONS.md`
+- **Purpose**: The authoritative restart procedure for a future safe enrichment run. It defines immutable input protection, batch/manifest content, response destinations, fail-closed validation, lifecycle/audit folders, extra linguistic-risk review controls, derived-output-only application, and final verification.
+- **Functions**: N/A (Markdown operating instructions).

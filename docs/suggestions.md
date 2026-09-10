@@ -2,6 +2,8 @@
 
 ## 🟢 Improvements
 
+- **2026-09-10**: Add a small, read-only report generator when enrichment restarts so the field-completeness inventory can be regenerated from `MASTER_DATA.json` and `MASTER_SCHEMA.json` instead of maintained manually.
+
 - **2026-09-09**: The frozen v2.1 partial-conjugation repair policy is internally incompatible for malformed source records: it requires those records to remain unchanged while also requiring the proposed list to be entirely canonical and complete. Before promoting staged `corrections-v2.2` responses, implement and independently review a v2.2 repair policy that canonically replaces records while preserving every original source-evidence object through a deterministic, hash-bound audit mapping.
 
 - **2026-09-09**: (Implemented for staging) Added a narrow v2.2 null-imperative policy exception for `pouvoir`, documented with a Larousse reference. It remains subject to independent linguistic and compliance review before any approval or application.
