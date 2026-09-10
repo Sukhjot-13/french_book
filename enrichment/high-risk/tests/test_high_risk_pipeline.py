@@ -66,6 +66,10 @@ from scripts.inventory_full_high_risk import inventory_full_high_risk
 from scripts.make_high_risk_batch import generate_batch
 from scripts.make_correction_queue_v2_2 import CORRECTION_QUEUE_VERSION, build_correction_queue
 from scripts.process_full_high_risk_responses import process_response_folder
+from scripts.validate_correction_queue_v2_2 import (
+    DEFAULT_OUTPUT_DIR as CORRECTION_OUTPUT_DIR,
+    validate_correction_response,
+)
 from scripts.validate_high_risk_response import validate_response
 from scripts.validate_full_high_risk_response import validate_full_queue_response
 
@@ -195,6 +199,36 @@ class TestBatchGeneratorAndManifest(unittest.TestCase):
                     batch["batch_sha256"],
                 )
                 self.assertIn("responses/corrections-v2.2", batch["response_destination"])
+
+    def test_correction_validator_rejects_metadata_mismatch(self):
+        correction_manifest = json.loads(
+            (CORRECTION_OUTPUT_DIR / "CORRECTION_MANIFEST.json").read_text(encoding="utf-8")
+        )
+        batch_id = "C22_025_expressions_prepositions_retry_001"
+        entry = correction_manifest["batches"][batch_id]
+        data, baseline_hash = load_baseline_dataset()
+        master_schema = json.loads((REPO_ROOT / "data" / "MASTER_SCHEMA.json").read_text(encoding="utf-8"))
+        bad_response = {
+            "batch_id": batch_id,
+            "correction_queue_version": CORRECTION_QUEUE_VERSION,
+            "collection": entry["collection"],
+            "field": entry["field"],
+            "remediation_type": entry["remediation_type"],
+            "baseline_hash": "sha256:incorrect",
+            "source_v2_1_batch_ids": entry["source_v2_1_batch_ids"],
+            "candidate_provenance": "AI_GENERATED_UNVERIFIED",
+            "proposals": [],
+            "no_proposals": [],
+        }
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            response_path = Path(tmp_dir) / f"{batch_id}_RESPONSE.json"
+            response_path.write_text(json.dumps(bad_response), encoding="utf-8")
+            status, report = validate_correction_response(
+                response_path, data, baseline_hash, correction_manifest,
+                master_schema, load_conjugation_contract(),
+            )
+            self.assertEqual(status, "FAIL")
+            self.assertTrue(any("Metadata mismatch" in error for error in report["errors"]))
 
 
 class TestValidationGatesFailClosed(unittest.TestCase):

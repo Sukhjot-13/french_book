@@ -264,14 +264,14 @@ try {
   const hrOutput = execSync("python3 -m unittest enrichment/high-risk/tests/test_high_risk_pipeline.py", {
     encoding: "utf-8",
   });
-  console.log("✅ High-risk enrichment pipeline unit tests passed (23 tests verified):");
+  console.log("✅ High-risk enrichment pipeline unit tests passed (24 tests verified):");
   console.log("   - Configuration, strict boundaries, and 11 high-risk collection inventories");
   console.log("   - Machine-readable conjugation contract and trusted sources allowlist");
   console.log("   - Preflight classification (complete, missing, partial) and morphological risk segregation");
   console.log("   - Deterministic batch generation and manifest locking");
   console.log("   - 15 fail-closed validation gates: schema, target ownership, empty precondition, evidence, placeholders");
   console.log("   - Exact field-schema validation and preservation-only partial conjugation completion");
-  console.log("   - Isolated v2.2 correction-queue generation, checksum traceability, and staged response destinations");
+  console.log("   - Isolated v2.2 correction-queue generation, checksum traceability, staged response destinations, and fail-closed envelope validation");
   console.log("   - Dual-reviewer approval workflow (linguistic + compliance sign-offs)");
   console.log("   - Generic transactional applicator and full-queue response readiness reporting");
   console.log("   - Atomic backup, in-memory schema dry-run, source immutability, and idempotence");

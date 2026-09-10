@@ -4,6 +4,8 @@
 
 - **2026-09-09**: The frozen v2.1 partial-conjugation repair policy is internally incompatible for malformed source records: it requires those records to remain unchanged while also requiring the proposed list to be entirely canonical and complete. Before promoting staged `corrections-v2.2` responses, implement and independently review a v2.2 repair policy that canonically replaces records while preserving every original source-evidence object through a deterministic, hash-bound audit mapping.
 
+- **2026-09-09**: Extend the reviewed v2.2 conjugation policy with explicit imperative-defective exceptions. The staging response for `pouvoir` correctly records no imperative, but the generic contract currently demands all three imperative forms; authoritative dictionaries mark this imperative as inusité/nonexistent.
+
 - **2026-09-09**: (Implemented) Upgraded the complete high-risk queue to v2.1 so DeepSeek can propose schema-valid completions for both 5,523 empty high-risk fields and 147 partial verb conjugations. Added exact field-schema validation, preservation-only partial repair, aggregate response readiness reporting, generic dual-review approval compatibility, and transaction-safe all-field application with explicit first-run rebuild/provenance state.
 
 - **2026-09-03**: Cleaned up multi-meaning English translation presentation for verbs and vocabulary: added `formatEnglishList` and `formatMeaning` to join definitions with comma and space (`", "`) instead of concatenated text, with automatic deduplication of bare and to-infinitive pairs (e.g. `["accept", "to accept"]` -> `"to accept"`).
