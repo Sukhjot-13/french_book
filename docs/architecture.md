@@ -88,7 +88,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**: N/A (Markdown documentation).
 
 #### `docs/suggestions.md`
-- **Purpose**: Living roadmap tracking feature suggestions, architectural improvements, vulnerability audits, and the planned copy-only new-data intake workflow for proposing missing entities without exposing the full master dataset.
+- **Purpose**: Living roadmap tracking feature suggestions, architectural improvements, vulnerability audits, and unimplemented UI/code-quality recommendations including learner-oriented search copy, a destination for saved revision items, accessible modal interactions, and a clean lint baseline. Also records the planned copy-only new-data intake workflow for proposing missing entities without exposing the full master dataset.
 - **Functions**: N/A (Markdown documentation).
 
 #### `docs/to-do.md`
