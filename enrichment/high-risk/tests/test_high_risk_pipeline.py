@@ -68,6 +68,8 @@ from scripts.make_correction_queue_v2_2 import CORRECTION_QUEUE_VERSION, build_c
 from scripts.process_full_high_risk_responses import process_response_folder
 from scripts.validate_correction_queue_v2_2 import (
     DEFAULT_OUTPUT_DIR as CORRECTION_OUTPUT_DIR,
+    _validate_correction_conjugation_candidate,
+    load_correction_conjugation_policy,
     validate_correction_response,
 )
 from scripts.validate_high_risk_response import validate_response
@@ -229,6 +231,29 @@ class TestBatchGeneratorAndManifest(unittest.TestCase):
             )
             self.assertEqual(status, "FAIL")
             self.assertTrue(any("Metadata mismatch" in error for error in report["errors"]))
+
+    def test_pouvoir_imperative_exception_requires_null_forms(self):
+        sample_paradigms = json.loads(
+            (HIGH_RISK_DIR / "fixtures" / "sample_paradigms.json").read_text(encoding="utf-8")
+        )
+        candidate = copy.deepcopy(sample_paradigms["parler"])
+        imperative = next(
+            record for record in candidate
+            if record["mood"] == "imperative" and record["tense"] == "impératif"
+        )
+        for form in ("imperative_tu", "imperative_nous", "imperative_vous"):
+            imperative["forms"][form] = None
+        errors = _validate_correction_conjugation_candidate(
+            {"infinitive": "pouvoir"}, candidate, load_conjugation_contract(),
+            load_correction_conjugation_policy(),
+        )
+        self.assertEqual(errors, [])
+        imperative["forms"]["imperative_tu"] = "peux"
+        errors = _validate_correction_conjugation_candidate(
+            {"infinitive": "pouvoir"}, candidate, load_conjugation_contract(),
+            load_correction_conjugation_policy(),
+        )
+        self.assertTrue(any("requires 'imperative_tu' to be null" in error for error in errors))
 
 
 class TestValidationGatesFailClosed(unittest.TestCase):

@@ -91,6 +91,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Living roadmap tracking feature suggestions, architectural improvements, vulnerability audits, and the planned copy-only new-data intake workflow for proposing missing entities without exposing the full master dataset.
 - **Functions**: N/A (Markdown documentation).
 
+#### `docs/to-do.md`
+- **Purpose**: Current high-risk enrichment handoff and safety checklist. It records the immutable dataset boundary, frozen v2.1 and staged v2.2 validation state, the `pouvoir` imperative-contract blocker, protected baseline hash, and the policy, review, approval, application, and verification steps still required before a derived dataset may be produced.
+- **Functions**: N/A (Markdown task handoff).
+
 #### `gptsugg.txt`
 - **Purpose**: Tracks remaining optional UI refinements from the original 22-part "Scan → Peek → Deep Dive" design improvement plan.
 - **Functions**: N/A (Text specification).
@@ -809,6 +813,10 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Versioned machine-readable contract specifying canonical moods, mandatory tenses, person forms, display conventions, diacritics policy, and impersonal/defective verb exceptions.
 - **Functions**: N/A (JSON contract specification).
 
+#### `enrichment/high-risk/config/correction_conjugation_policy_v2_2.json`
+- **Purpose**: Narrow, staging-only v2.2 policy overlay documenting evidence-backed correction exceptions without changing the frozen v2.1 contract. It currently declares `pouvoir` as having a null-only imperative, citing Larousse's statement that the imperative is inusité.
+- **Functions**: N/A (JSON policy configuration).
+
 #### `enrichment/high-risk/config/trusted_sources.json`
 - **Purpose**: Versioned high-risk source registry. A reference remains unusable until it is marked `VERIFIED` and supplies a legal in-repository evidence snapshot plus its SHA-256; the initial entries are intentionally pending that evidence.
 - **Functions**: N/A (JSON configuration).
@@ -891,6 +899,8 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 #### `enrichment/high-risk/scripts/validate_correction_queue_v2_2.py`
 - **Purpose**: Provides a separate fail-closed staging validator for v2.2 correction responses. It validates the isolated correction-manifest envelope, target ownership, proposal completeness, no-placeholder and no-`NO_PROPOSAL` rules, exact field-schema conformance, canonical conjugation shape, staged-source rules, and a combined in-memory `MASTER_SCHEMA` dry run. A pass is only readiness for repair-policy review, never approval or application.
 - **Functions**:
+  - `load_correction_conjugation_policy(path=...)`: Loads and version-checks the narrow v2.2 exception policy.
+  - `_validate_correction_conjugation_candidate(entity, candidate, contract, policy)`: Applies canonical contract validation plus null-only imperative exceptions; it never permits a non-null exception form.
   - `validate_correction_response(response_path, data, baseline_hash, manifest, master_schema, contract)`: Validates one staged response and produces its machine-readable report payload.
   - `validate_correction_folder(response_dir, reports_dir, baseline_path=None)`: Validates the complete correction response set, writes per-batch and aggregate reports, and dry-runs all passing proposals into the baseline.
   - `main()`: CLI entry point with optional strict `--require-complete` enforcement for policy-review readiness.
@@ -964,13 +974,13 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `TestHighRiskConfiguration`: Tests configuration boundaries, versions, contracts, and allowlists.
   - `TestInventoryAndClassification`: Tests morphological classification plus legacy conjugation and full all-field inventory totals.
-  - `TestBatchGeneratorAndManifest`: Tests complete-queue manifest presence, checksum locking, baseline metadata, isolated v2.2 correction-queue traceability, and rejection of correction-response metadata mismatches.
+  - `TestBatchGeneratorAndManifest`: Tests complete-queue manifest presence, checksum locking, baseline metadata, isolated v2.2 correction-queue traceability, rejection of correction-response metadata mismatches, and the null-only `pouvoir` imperative exception.
   - `TestValidationGatesFailClosed`: Tests legacy fail-closed rejection across response, metadata, precondition, evidence, and placeholder gates without mutating the production manifest.
   - `TestFullQueueValidation`: Tests v2.1 no-proposal accounting, schema-valid candidate acceptance, schema rejection, and partial-conjugation preservation.
   - `TestApprovalAndSafeApplication`: Tests legacy protections plus v2.1 validation-to-approval-to-generic-application, idempotence, bulk missing-response reporting, and rejection of incomplete bulk approvals.
 
 #### `tests/run-all.test.ts`
-- **Purpose**: Single project test entry point; verifies master-data and selector invariants, then launches the normal and high-risk Python pipeline suites with accurate result summaries, including the current 24-test high-risk suite and its isolated v2.2 correction-queue coverage.
+- **Purpose**: Single project test entry point; verifies master-data and selector invariants, then launches the normal and high-risk Python pipeline suites with accurate result summaries, including the current 25-test high-risk suite and its isolated v2.2 correction-queue coverage.
 - **Functions**: N/A (top-level test orchestration).
 
 #### Directory Inventory: `batches/`, `responses/`, `validated/`, `approved/`, `rejected/`, `reports/`, `audits/`, `backups/`

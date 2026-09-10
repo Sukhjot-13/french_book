@@ -44,11 +44,53 @@ from scripts.validate_full_high_risk_response import (
 DEFAULT_RESPONSES_DIR = HIGH_RISK_DIR / "responses" / "corrections-v2.2"
 DEFAULT_REPORTS_DIR = HIGH_RISK_DIR / "reports" / "corrections-v2.2"
 CORRECTION_MANIFEST_PATH = DEFAULT_OUTPUT_DIR / "CORRECTION_MANIFEST.json"
+CORRECTION_POLICY_PATH = HIGH_RISK_DIR / "config" / "correction_conjugation_policy_v2_2.json"
 REQUIRED_TOP_LEVEL = {
     "batch_id", "correction_queue_version", "collection", "field",
     "remediation_type", "baseline_hash", "source_v2_1_batch_ids",
     "candidate_provenance", "proposals", "no_proposals",
 }
+
+
+def load_correction_conjugation_policy(path: Path = CORRECTION_POLICY_PATH) -> Dict[str, Any]:
+    """Loads the narrow, staged v2.2 conjugation-exception policy."""
+    policy = json.loads(path.read_text(encoding="utf-8"))
+    if policy.get("version") != CORRECTION_QUEUE_VERSION:
+        raise ValueError("Correction conjugation policy version does not match the correction queue")
+    if not isinstance(policy.get("imperative_exceptions"), list):
+        raise ValueError("Correction conjugation policy has no imperative_exceptions list")
+    return policy
+
+
+def _validate_correction_conjugation_candidate(
+    entity: Dict[str, Any], candidate: List[Dict[str, Any]], contract: Dict[str, Any], policy: Dict[str, Any]
+) -> List[str]:
+    """Applies canonical checks plus exact null-only imperative exceptions."""
+    infinitive = entity.get("infinitive")
+    exception = next(
+        (item for item in policy["imperative_exceptions"] if item.get("infinitive") == infinitive), None
+    )
+    errors = _validate_conjugation_candidate(entity, candidate, contract)
+    if exception is None:
+        return errors
+    required_null_forms = set(exception["required_null_forms"])
+    errors = [
+        error for error in errors
+        if not (
+            error.startswith("('imperative', 'impératif') requires a non-empty ")
+            and any(f"'{form}'" in error for form in required_null_forms)
+        )
+    ]
+    imperative_records = [
+        record for record in candidate
+        if isinstance(record, dict) and record.get("mood") == "imperative" and record.get("tense") == "impératif"
+    ]
+    if len(imperative_records) == 1:
+        forms = imperative_records[0].get("forms", {})
+        for form in required_null_forms:
+            if forms.get(form) is not None:
+                errors.append(f"('imperative', 'impératif') exception requires {form!r} to be null")
+    return errors
 
 
 def validate_correction_response(
@@ -58,9 +100,11 @@ def validate_correction_response(
     manifest: Dict[str, Any],
     master_schema: Dict[str, Any],
     contract: Dict[str, Any],
+    policy: Optional[Dict[str, Any]] = None,
 ) -> Tuple[str, Dict[str, Any]]:
     """Validates one v2.2 draft response against its correction-manifest entry."""
     errors: List[str] = []
+    policy = policy or load_correction_conjugation_policy()
     batch_id = response_path.name.removesuffix("_RESPONSE.json")
     report: Dict[str, Any] = {
         "status": "FAIL", "batch_id": batch_id,
@@ -149,7 +193,7 @@ def validate_correction_response(
             if not isinstance(value, list):
                 errors.append(f"Target {target_key!r}: conjugation repair value must be an array")
             else:
-                for message in _validate_conjugation_candidate(entity, value, contract):
+                for message in _validate_correction_conjugation_candidate(entity, value, contract, policy):
                     errors.append(f"Target {target_key!r}: {message}")
                 for record_index, record in enumerate(value):
                     if isinstance(record, dict) and record.get("sources") != []:
@@ -179,6 +223,7 @@ def validate_correction_folder(
         raise ValueError("Baseline hash differs from the correction manifest")
     master_schema = json.loads((REPO_ROOT / "data" / "MASTER_SCHEMA.json").read_text(encoding="utf-8"))
     contract = load_conjugation_contract()
+    policy = load_correction_conjugation_policy()
     expected_ids = set(manifest["batches"])
     response_paths = {path.name.removesuffix("_RESPONSE.json"): path for path in response_dir.glob("*_RESPONSE.json")}
     missing_ids = sorted(expected_ids - set(response_paths))
@@ -189,7 +234,7 @@ def validate_correction_folder(
     pass_count = 0
     for batch_id in sorted(expected_ids & set(response_paths)):
         status, report = validate_correction_response(
-            response_paths[batch_id], data, baseline_hash, manifest, master_schema, contract
+            response_paths[batch_id], data, baseline_hash, manifest, master_schema, contract, policy
         )
         results[batch_id] = {"status": status, "errors": report["errors"], "proposal_count": report.get("proposal_count", 0)}
         (reports_dir / f"{batch_id}_STAGED_VALIDATION_REPORT.json").write_text(

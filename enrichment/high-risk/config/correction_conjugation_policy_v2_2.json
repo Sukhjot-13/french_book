@@ -1,0 +1,23 @@
+{
+  "version": "2.2.0-draft",
+  "purpose": "Narrow staging-only exceptions for the v2.2 correction queue. This policy never authorizes application.",
+  "imperative_exceptions": [
+    {
+      "infinitive": "pouvoir",
+      "required_null_forms": [
+        "imperative_tu",
+        "imperative_nous",
+        "imperative_vous"
+      ],
+      "reason": "Standard modern French has no usable imperative for pouvoir; imperative forms are inusité.",
+      "references": [
+        {
+          "source_name": "Larousse — Conjugaison : pouvoir",
+          "url": "https://www.larousse.fr/fr/conjugaison/francais/pouvoir/6963",
+          "checked_at": "2026-09-09",
+          "assertion": "Pouvoir n'a pas d'impératif; the imperative present and past are marked inusité."
+        }
+      ]
+    }
+  ]
+}
