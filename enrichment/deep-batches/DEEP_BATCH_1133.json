@@ -1,0 +1,5470 @@
+{
+  "batch_id": "DEEP_BATCH_1133",
+  "workflow_format": "deep-enrichment-working-copy/v1",
+  "source": {
+    "master_data_sha256": "212afbf1a596134da123652739882fe8ec78725d24a2f6850e93cb098a9e5a8b",
+    "master_schema_sha256": "49c8bc06ecb230159c1d1b0a990359dae9a6a68196a624c832b400821c227f14",
+    "working_copy": "enrichment/DEEP_ENRICHMENT_WORKING_DATA.json"
+  },
+  "generation_config": {
+    "max_batches_this_run": null,
+    "follows_inbound_relationships": false,
+    "relationship_fields": [
+      "chapters",
+      "topics",
+      "concepts",
+      "grammar_rules",
+      "verbs",
+      "expressions",
+      "vocabulary",
+      "tenses",
+      "related_chapters",
+      "related_topics",
+      "related_concepts",
+      "related_grammar_rules",
+      "related_verbs",
+      "related_expressions",
+      "related_vocabulary",
+      "related_tenses",
+      "related_examples",
+      "verb",
+      "example_verb",
+      "base_verb",
+      "auxiliary_tense"
+    ]
+  },
+  "anchor": {
+    "collection": "examples",
+    "index": 835,
+    "naturalKey": "Quoiqu'il fasse froid, ils se promènent dans la forêt."
+  },
+  "target_entity_count": 1,
+  "context_entity_count": 6,
+  "target_entities": {
+    "examples": [
+      {
+        "french": "Quoiqu'il fasse froid, ils se promènent dans la forêt.",
+        "english": "Although it is cold, they take a walk in the forest.",
+        "related_verbs": [
+          "faire",
+          "verb_promener"
+        ],
+        "related_expressions": [
+          "quoique + subjonctif"
+        ],
+        "related_vocabulary": [],
+        "related_grammar_rules": [
+          "Conjunctions followed by the subjunctive"
+        ],
+        "related_tenses": [
+          "subjonctif présent"
+        ],
+        "related_concepts": [
+          "Conjunctions requiring subjunctive"
+        ],
+        "focus_spans": [],
+        "tags": [],
+        "chapters": [
+          13
+        ],
+        "notes": null,
+        "sources": [
+          {
+            "source_type": "chapter",
+            "source_name": "13.json",
+            "chapter_number": 13,
+            "section_title": "Conjunctions followed by the subjunctive",
+            "page_printed": 109,
+            "page_pdf": 123,
+            "context_type": "example",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "Quoiqu'il fasse froid, ils se promènent dans la forêt. Although it is cold, they take a walk in the forest.",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          }
+        ],
+        "enriched": false,
+        "taken_for_enrichment": true
+      }
+    ]
+  },
+  "already_enriched_context": {
+    "verbs": [
+      {
+        "infinitive": "faire",
+        "display_form": "faire",
+        "english": [
+          "bid",
+          "brown (cooking)",
+          "cook",
+          "do",
+          "do the housework",
+          "fill up",
+          "make",
+          "make faces",
+          "play hooky",
+          "sauté (cooking)",
+          "stand in line",
+          "take a nap",
+          "to do",
+          "to make"
+        ],
+        "senses": [
+          {
+            "english": "to do",
+            "note": null,
+            "gender": null,
+            "articles": null,
+            "plural": null
+          },
+          {
+            "english": "to make",
+            "note": null,
+            "gender": null,
+            "articles": null,
+            "plural": null
+          },
+          {
+            "english": "to do, make",
+            "note": null,
+            "gender": null,
+            "articles": null,
+            "plural": null
+          },
+          {
+            "english": "to do, to make",
+            "note": null,
+            "gender": null,
+            "articles": null,
+            "plural": null
+          },
+          {
+            "english": "to do",
+            "note": "General meaning",
+            "gender": null,
+            "articles": null,
+            "plural": null
+          },
+          {
+            "english": "to make",
+            "note": "General meaning",
+            "gender": null,
+            "articles": null,
+            "plural": null
+          }
+        ],
+        "verb_group": "3rd_group",
+        "regularity": "irregular",
+        "pronominal": false,
+        "transitivity": [
+          "transitive",
+          "unknown"
+        ],
+        "auxiliary": "avoir",
+        "past_participle": "fait",
+        "present_participle": "faisant",
+        "stems": [
+          {
+            "tense": "présent",
+            "persons": [
+              "je",
+              "tu",
+              "il_elle_on"
+            ],
+            "stem": "fai",
+            "note": "Irregular present: je fais, tu fais, il fait."
+          },
+          {
+            "tense": "présent",
+            "persons": [
+              "nous"
+            ],
+            "stem": "fais",
+            "note": "nous faisons; the same fais- stem serves the imparfait (je faisais, attested faisait)."
+          },
+          {
+            "tense": "présent",
+            "persons": [
+              "vous"
+            ],
+            "stem": "fait",
+            "note": "vous faites; identical stem to the past participle fait (attested)."
+          },
+          {
+            "tense": "présent",
+            "persons": [
+              "ils_elles"
+            ],
+            "stem": "font",
+            "note": "Irregular 3rd-person plural stem: ils font (attested)."
+          },
+          {
+            "tense": "futur_simple",
+            "persons": [
+              "all"
+            ],
+            "stem": "fer",
+            "note": "Irregular future stem, attested je ferai; also the conditional stem fer- and the passé simple stem fi- (fit, firent)."
+          },
+          {
+            "tense": "subjonctif_présent",
+            "persons": [
+              "all"
+            ],
+            "stem": "fass",
+            "note": "Irregular subjunctive stem: que je fasse, que nous fassions (attested)."
+          }
+        ],
+        "conjugations": [
+          {
+            "tense": "présent",
+            "mood": "indicative",
+            "forms": {
+              "je": "fais",
+              "tu": "fais",
+              "il_elle_on": "fait",
+              "nous": "faisons",
+              "vous": "faites",
+              "ils_elles": "font",
+              "imperative_tu": null,
+              "imperative_nous": null,
+              "imperative_vous": null,
+              "impersonal_form": null
+            },
+            "stems": [],
+            "endings": [],
+            "formation_note": null,
+            "irregularities": [
+              "Conjugaison irrégulière au présent."
+            ],
+            "notes": [],
+            "sources": []
+          },
+          {
+            "tense": "imparfait",
+            "mood": "indicative",
+            "forms": {
+              "je": "faisais",
+              "tu": "faisais",
+              "il_elle_on": "faisait",
+              "nous": "faisions",
+              "vous": "faisiez",
+              "ils_elles": "faisaient",
+              "imperative_tu": null,
+              "imperative_nous": null,
+              "imperative_vous": null,
+              "impersonal_form": null
+            },
+            "stems": [],
+            "endings": [],
+            "formation_note": null,
+            "irregularities": [],
+            "notes": [],
+            "sources": []
+          },
+          {
+            "tense": "futur_simple",
+            "mood": "indicative",
+            "forms": {
+              "je": "ferai",
+              "tu": "feras",
+              "il_elle_on": "fera",
+              "nous": "ferons",
+              "vous": "ferez",
+              "ils_elles": "feront",
+              "imperative_tu": null,
+              "imperative_nous": null,
+              "imperative_vous": null,
+              "impersonal_form": null
+            },
+            "stems": [
+              {
+                "tense": "futur_simple",
+                "persons": [
+                  "all"
+                ],
+                "stem": "fer-",
+                "note": "Radical irrégulier du futur."
+              }
+            ],
+            "endings": [],
+            "formation_note": null,
+            "irregularities": [
+              "Radical futur irrégulier fer-."
+            ],
+            "notes": [],
+            "sources": []
+          },
+          {
+            "tense": "passé_simple",
+            "mood": "indicative",
+            "forms": {
+              "je": "fis",
+              "tu": "fis",
+              "il_elle_on": "fit",
+              "nous": "fîmes",
+              "vous": "fîtes",
+              "ils_elles": "firent",
+              "imperative_tu": null,
+              "imperative_nous": null,
+              "imperative_vous": null,
+              "impersonal_form": null
+            },
+            "stems": [],
+            "endings": [],
+            "formation_note": null,
+            "irregularities": [
+              "Passé simple irrégulier."
+            ],
+            "notes": [],
+            "sources": []
+          },
+          {
+            "tense": "conditionnel_présent",
+            "mood": "conditional",
+            "forms": {
+              "je": "ferais",
+              "tu": "ferais",
+              "il_elle_on": "ferait",
+              "nous": "ferions",
+              "vous": "feriez",
+              "ils_elles": "feraient",
+              "imperative_tu": null,
+              "imperative_nous": null,
+              "imperative_vous": null,
+              "impersonal_form": null
+            },
+            "stems": [
+              {
+                "tense": "conditionnel_présent",
+                "persons": [
+                  "all"
+                ],
+                "stem": "fer-",
+                "note": "Radical irrégulier partagé avec le futur."
+              }
+            ],
+            "endings": [],
+            "formation_note": null,
+            "irregularities": [
+              "Radical conditionnel irrégulier fer-."
+            ],
+            "notes": [],
+            "sources": []
+          },
+          {
+            "tense": "subjonctif_présent",
+            "mood": "subjunctive",
+            "forms": {
+              "je": "fasse",
+              "tu": "fasses",
+              "il_elle_on": "fasse",
+              "nous": "fassions",
+              "vous": "fassiez",
+              "ils_elles": "fassent",
+              "imperative_tu": null,
+              "imperative_nous": null,
+              "imperative_vous": null,
+              "impersonal_form": null
+            },
+            "stems": [
+              {
+                "tense": "subjonctif_présent",
+                "persons": [
+                  "all"
+                ],
+                "stem": "fass-",
+                "note": "Radical irrégulier."
+              }
+            ],
+            "endings": [],
+            "formation_note": null,
+            "irregularities": [
+              "Radical subjonctif irrégulier fass-."
+            ],
+            "notes": [],
+            "sources": []
+          },
+          {
+            "tense": "impératif",
+            "mood": "imperative",
+            "forms": {
+              "je": null,
+              "tu": null,
+              "il_elle_on": null,
+              "nous": null,
+              "vous": null,
+              "ils_elles": null,
+              "imperative_tu": "fais",
+              "imperative_nous": "faisons",
+              "imperative_vous": "faites",
+              "impersonal_form": null
+            },
+            "stems": [],
+            "endings": [],
+            "formation_note": null,
+            "irregularities": [
+              "Formes impératives irrégulières."
+            ],
+            "notes": [],
+            "sources": []
+          }
+        ],
+        "related_expressions": [
+          "expr_faire_pousser",
+          "faire + [infinitive]",
+          "faire de l'exercice",
+          "faire de l'équitation",
+          "faire de la natation",
+          "faire des fautes",
+          "faire des grimaces",
+          "faire des siennes",
+          "faire du ski de fond",
+          "faire du sport",
+          "faire du vélo",
+          "faire escale",
+          "faire l'école buissonnière",
+          "faire la cuisine",
+          "faire la grasse matinée",
+          "faire la queue",
+          "faire la sieste",
+          "faire la vaisselle",
+          "faire le marché",
+          "faire le ménage",
+          "faire les courses",
+          "faire pression",
+          "faire semblant de + infinitif",
+          "faire ses devoirs",
+          "faire un compliment",
+          "faire un discours",
+          "faire un effort",
+          "faire un gâteau",
+          "faire un tour",
+          "faire un voyage",
+          "faire une offre",
+          "faire une promenade",
+          "il fait beau",
+          "il fait chaud",
+          "il fait doux",
+          "il fait frais",
+          "il fait froid",
+          "se faire faire quelque chose"
+        ],
+        "related_concepts": [
+          "Causative form",
+          "Chores and activities with faire",
+          "Impersonal weather expressions",
+          "Irregular past participles",
+          "Irregular subjunctive forms",
+          "Irregular verbs",
+          "Irregular verbs in passé simple",
+          "Passé simple",
+          "Present subjunctive",
+          "imparfait",
+          "imperative mood",
+          "irregular future stems"
+        ],
+        "aliases": [],
+        "search_terms": [
+          "causative",
+          "do",
+          "faire",
+          "faisant",
+          "fait",
+          "make",
+          "weather"
+        ],
+        "source_classifications": [],
+        "tags": [],
+        "study": {
+          "learning_priority": 5,
+          "importance": null,
+          "frequency": null,
+          "usefulness": 5,
+          "difficulty": 3,
+          "frequency_note": "very common",
+          "notes": null
+        },
+        "chapters": [
+          4,
+          7,
+          8,
+          9,
+          11,
+          13,
+          14,
+          15,
+          16,
+          17,
+          19,
+          20,
+          23,
+          24
+        ],
+        "sources": [
+          {
+            "source_type": "chapter",
+            "source_name": "11.json",
+            "chapter_number": 11,
+            "section_title": "The present conditional",
+            "page_printed": 87,
+            "page_pdf": 101,
+            "context_type": "table",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "faire to do",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "13.json",
+            "chapter_number": 13,
+            "section_title": "Irregular subjunctive verbs",
+            "page_printed": 105,
+            "page_pdf": 119,
+            "context_type": "table",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "faire to do, to make [table]",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "14.json",
+            "chapter_number": 14,
+            "section_title": "Causative faire with infinitive",
+            "page_printed": 117,
+            "page_pdf": null,
+            "context_type": "explanation",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "You learned faire in Chapter 4. This causative form with faire is used...",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "15.json",
+            "chapter_number": 15,
+            "section_title": "The present participle",
+            "page_printed": 128,
+            "page_pdf": 142,
+            "context_type": "exercise",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "faire",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "15.json",
+            "chapter_number": 15,
+            "section_title": "Vocabulaire",
+            "page_printed": 127,
+            "page_pdf": 141,
+            "context_type": "vocabulary",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "faire to do, to make",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "16.json",
+            "chapter_number": 16,
+            "section_title": "The passé simple of irregular verbs",
+            "page_printed": 133,
+            "page_pdf": 147,
+            "context_type": "table",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "faire (to do)",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "17.json",
+            "chapter_number": 17,
+            "section_title": "Exercice 17·2",
+            "page_printed": 138,
+            "page_pdf": 152,
+            "context_type": "exercise",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "Le gâteau a été fait par le chef.",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "19.json",
+            "chapter_number": 19,
+            "section_title": "Formation of the imperative",
+            "page_printed": 147,
+            "page_pdf": 161,
+            "context_type": "example",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "Faites un effort!",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "20.json",
+            "chapter_number": 20,
+            "section_title": "The partitive article",
+            "page_printed": 154,
+            "page_pdf": 168,
+            "context_type": "example",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "Elle fait pousser des haricots verts.",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "23.json",
+            "chapter_number": 23,
+            "section_title": "Possessive pronouns",
+            "page_printed": 196,
+            "page_pdf": 210,
+            "context_type": "example",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "Leur benjamin a encore fait des siennes!",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "24.json",
+            "chapter_number": 24,
+            "section_title": "Qui",
+            "page_printed": 203,
+            "page_pdf": null,
+            "context_type": "exercise",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "C’est lui qui (faire) la restauration.",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "4.json",
+            "chapter_number": 4,
+            "section_title": "The verb faire (to do, to make)",
+            "page_printed": 54,
+            "page_pdf": null,
+            "context_type": "table",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "je fais  I do  nous faisons  we do  tu fais  you do  vous faites  you do  il/elle fait  he/she does  ils/elles font  they do",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "7.json",
+            "chapter_number": 7,
+            "section_title": "Irregular past participles",
+            "page_printed": 72,
+            "page_pdf": null,
+            "context_type": "table",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "faire to do, to make fait done, made",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "8.json",
+            "chapter_number": 8,
+            "section_title": "Uses of the imparfait: habitual and repetitive action",
+            "page_printed": 67,
+            "page_pdf": 81,
+            "context_type": "example",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "Autrefois, elle faisait partie de la chorale.",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "chapter",
+            "source_name": "9.json",
+            "chapter_number": 9,
+            "section_title": "The futur simple",
+            "page_printed": 73,
+            "page_pdf": 87,
+            "context_type": "table",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "faire to do je ferai I'll do",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 250,
+            "page_pdf": 264,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "bid, to faire une offre",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 251,
+            "page_pdf": 265,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "brown, to (cooking) faire revenir",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 251,
+            "page_pdf": 265,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "cook, to faire la cuisine, cuire, faire cuire",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 252,
+            "page_pdf": 266,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "do, to faire",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 252,
+            "page_pdf": 266,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "to do the housework faire le ménage",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 253,
+            "page_pdf": 267,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "fill up, to faire le plein",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 255,
+            "page_pdf": 269,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "make, to faire",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 255,
+            "page_pdf": 269,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "make faces, to faire des grimaces, grimacer",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 255,
+            "page_pdf": 269,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "play hooky, to faire l’école buissonnière",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 256,
+            "page_pdf": 270,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "sauté, to (cooking) faire sauter",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 257,
+            "page_pdf": 271,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "stand in line, to faire la queue",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "glossary",
+            "source_name": "English-Frenchglossary.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 258,
+            "page_pdf": 272,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "take a nap, to faire la sieste",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          },
+          {
+            "source_type": "verb_table",
+            "source_name": "verb_table.json",
+            "chapter_number": null,
+            "section_title": null,
+            "page_printed": 239,
+            "page_pdf": 253,
+            "context_type": null,
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": "verb_table_irregular_verbs",
+            "table_type": null,
+            "row_label": "faire",
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "faire fait fais fais fait faisons faites font",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          }
+        ],
+        "notes": "cooking term ; multiple expressions ; two forms",
+        "usage_notes": [
+          "In the causative construction « faire + infinitif », the subject causes someone or something else to perform the action."
+        ],
+        "enriched": false,
+        "taken_for_enrichment": true
+      }
+    ],
+    "expressions": [
+      {
+        "canonical_form": "quoique + subjonctif",
+        "display_form": "quoique",
+        "english": [
+          "although"
+        ],
+        "expression_type": "connector",
+        "productive": true,
+        "pattern": "quoique + subjonctif",
+        "pattern_slots": [
+          {
+            "name": "verb",
+            "display": "verb in subjunctive",
+            "slot_type": "verb_infinitive",
+            "required": true
+          }
+        ],
+        "related_verbs": [],
+        "related_vocabulary": [],
+        "related_grammar_rules": [
+          "Conjunctions followed by the subjunctive"
+        ],
+        "related_concepts": [
+          "Conjunctions requiring subjunctive"
+        ],
+        "prepositions": [
+          "aucune préposition"
+        ],
+        "complement_structure": {
+          "direct_object": false,
+          "indirect_object": false,
+          "preposition": null,
+          "followed_by": "clause"
+        },
+        "restrictions": [
+          "La proposition introduite se met au subjonctif.",
+          "S'écrit en un seul mot quand il signifie although."
+        ],
+        "transformations": [
+          "quoique + subjonctif -> quoique + adjective/participe passé (quoique fatigué)",
+          "quoique + subjonctif -> bien que + subjonctif"
+        ],
+        "aliases": [],
+        "search_terms": [
+          "quoique"
+        ],
+        "collocation_strength": "strong",
+        "source_classifications": [
+          "conjunction"
+        ],
+        "tags": [],
+        "study": {
+          "learning_priority": 4,
+          "importance": null,
+          "frequency": null,
+          "usefulness": 4,
+          "difficulty": 2,
+          "frequency_note": null,
+          "notes": null
+        },
+        "chapters": [
+          13
+        ],
+        "sources": [
+          {
+            "source_type": "chapter",
+            "source_name": "13.json",
+            "chapter_number": 13,
+            "section_title": "Conjunctions followed by the subjunctive",
+            "page_printed": 108,
+            "page_pdf": 122,
+            "context_type": "explanation",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "quoique although",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          }
+        ],
+        "notes": null,
+        "usage_notes": [
+          "Written as one word when it means although; it introduces a concession and requires the subjunctive."
+        ],
+        "enriched": false,
+        "taken_for_enrichment": true
+      }
+    ],
+    "grammar_rules": [
+      {
+        "rule_name": "Conjunctions followed by the subjunctive",
+        "summary": "A list of conjunctions that require the subjunctive in the following clause.",
+        "explanation": "Conjunctions: afin que, pour que, de peur que, de crainte que, avant que, jusqu'à ce que, bien que, quoique, sans que, à moins que, pourvu que, à condition que, en attendant que.",
+        "formation": "Conjunction + subjunctive clause.",
+        "usage": [
+          "Expressing purpose, fear, time, concession, condition, etc."
+        ],
+        "restrictions": [
+          "Limited to the listed conjunctions (afin que, bien que, avant que, pourvu que, sans que, etc.).",
+          "Conjunctions that take the indicative must not be followed by the subjunctive."
+        ],
+        "conditions": [
+          "The subordinate clause is introduced by one of the listed conjunctions (afin que, bien que, avant que, pourvu que, etc.).",
+          "The clause expresses purpose, fear, time, concession, or condition rather than a stated fact."
+        ],
+        "signal_words": [
+          "afin que",
+          "pour que",
+          "de peur que",
+          "de crainte que",
+          "avant que",
+          "jusqu'à ce que",
+          "bien que",
+          "quoique",
+          "sans que",
+          "à moins que",
+          "pourvu que",
+          "à condition que",
+          "en attendant que"
+        ],
+        "exceptions": [
+          "Conjunctions of cause and time such as parce que, pendant que, and puisque take the indicative",
+          "après que is followed by the indicative in careful usage"
+        ],
+        "agreement_rules": [
+          "The subjunctive verb agrees with the subject of its own clause",
+          "The conjunction itself does not affect agreement"
+        ],
+        "word_order": "conjunction + subject + subjunctive verb",
+        "negative_form": null,
+        "interrogative_form": null,
+        "affirmative_form": null,
+        "transformations": [
+          "pour que + subjunctive -> Je le fais pour que tu comprennes.",
+          "bien que + subjunctive -> Bien qu'il soit tard, il travaille encore.",
+          "avant que + subjunctive -> Pars avant qu'il n'arrive."
+        ],
+        "contrast_with": [],
+        "common_traps": [
+          "Confusing with conjunctions that take the indicative (see Chapter 9)."
+        ],
+        "related_tenses": [
+          "subjonctif présent"
+        ],
+        "related_concepts": [
+          "Conjunctions requiring subjunctive"
+        ],
+        "related_expressions": [
+          "afin que + subjonctif",
+          "avant que + subjonctif",
+          "bien que + subjonctif",
+          "de crainte que + subjonctif",
+          "de peur que + subjonctif",
+          "en attendant que + subjonctif",
+          "jusqu'à ce que + subjonctif",
+          "pour que + subjonctif",
+          "pourvu que + subjonctif",
+          "quoique + subjonctif",
+          "sans que + subjonctif",
+          "à condition que + subjonctif",
+          "à moins que + subjonctif"
+        ],
+        "related_verbs": [],
+        "tags": [
+          "subjunctive",
+          "conjunctions",
+          "dependent clauses"
+        ],
+        "study": {
+          "learning_priority": 5,
+          "importance": null,
+          "frequency": null,
+          "usefulness": 5,
+          "difficulty": 3,
+          "frequency_note": null,
+          "notes": null
+        },
+        "chapters": [
+          13
+        ],
+        "sources": [
+          {
+            "source_type": "chapter",
+            "source_name": "13.json",
+            "chapter_number": 13,
+            "section_title": "Conjunctions followed by the subjunctive",
+            "page_printed": 108,
+            "page_pdf": 122,
+            "context_type": "explanation",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "When you use conjunctions, you will also have to decide whether to use the indicative or the subjunctive in the following clause. [List of conjunctions]",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          }
+        ],
+        "notes": null,
+        "enriched": false,
+        "taken_for_enrichment": true
+      }
+    ],
+    "tenses": [
+      {
+        "name": "subjonctif présent",
+        "english_name": "Subjonctif présent",
+        "mood": "subjunctive",
+        "formation": "radical de la troisième personne du pluriel du présent (ils) + terminaisons -e, -es, -e, -ions, -iez, -ent",
+        "usage": [
+          "Expresses actions presented through will, emotion, necessity, doubt, possibility, or judgment rather than asserted as fact.",
+          "Used after many conjunctions and impersonal expressions that require the subjunctive."
+        ],
+        "signal_words": [
+          "il faut que",
+          "bien que",
+          "pour que",
+          "avant que",
+          "je veux que",
+          "je doute que"
+        ],
+        "regular_patterns": [
+          {
+            "verb_group": "1er groupe (-er)",
+            "stem_rule": "radical de la 3e personne du pluriel au présent (parlent -> parl-)",
+            "endings": [
+              "-e",
+              "-es",
+              "-ions",
+              "-iez",
+              "-ent"
+            ],
+            "example_verb": "parler",
+            "notes": "Pour le 1er groupe, les personnes du pluriel gardent le radical de l'imparfait (parl-ions, parl-iez)."
+          },
+          {
+            "verb_group": "2e groupe (-ir)",
+            "stem_rule": "radical de la 3e personne du pluriel au présent (finissent -> finiss-), -iss- aux personnes du pluriel",
+            "endings": [
+              "-e",
+              "-es",
+              "-issions",
+              "-issiez",
+              "-ent"
+            ],
+            "example_verb": "finir",
+            "notes": "finir -> que je finisse, que nous finissions ; l'élargissement -iss- se maintient à toutes les personnes."
+          },
+          {
+            "verb_group": "3e groupe (-re)",
+            "stem_rule": "radical de la 3e personne du pluriel au présent (vendent -> vend-), parfois double radical (boivent/ buv-)",
+            "endings": [
+              "-e",
+              "-es",
+              "-ions",
+              "-iez",
+              "-ent"
+            ],
+            "example_verb": "vendre",
+            "notes": "vendre -> que je vende, que nous vendions ; les verbes à deux radicaux emploient le radical du pluriel pour nous et vous."
+          }
+        ],
+        "irregular_stems": [
+          {
+            "verb": "être",
+            "stem": "soy-",
+            "notes": "que je sois, que tu sois, qu'il soit, que nous soyons, que vous soyez, qu'ils soient ; radicaux soy-/soi-."
+          },
+          {
+            "verb": "avoir",
+            "stem": "ay-",
+            "notes": "que j'aie, que tu aies, qu'il ait, que nous ayons, que vous ayez, qu'ils aient."
+          },
+          {
+            "verb": "aller",
+            "stem": "aill-/all-",
+            "notes": "que j'aille, que nous allions, que vous alliez, qu'ils aillent ; deux radicaux aill- et all-."
+          },
+          {
+            "verb": "faire",
+            "stem": "fass-",
+            "notes": "que je fasse, que nous fassions, que vous fassiez, qu'ils fassent ; radical fass- au lieu de fais-."
+          },
+          {
+            "verb": "pouvoir",
+            "stem": "puiss-",
+            "notes": "que je puisse, que nous puissions, que vous puissiez, qu'ils puissent."
+          },
+          {
+            "verb": "savoir",
+            "stem": "sach-",
+            "notes": "que je sache, que nous sachions, que vous sachiez, qu'ils sachent."
+          }
+        ],
+        "compound_structure": {
+          "is_compound": false,
+          "auxiliary_tense": null,
+          "participle_rule": null,
+          "agreement_notes": []
+        },
+        "agreement_rules": [
+          "Le subjonctif présent est un temps simple : il n'a pas de participe passé et aucune règle d'accord de participe passé ne s'y applique.",
+          "Le verbe s'accorde avec le sujet en personne et en nombre : que je parle, que nous parlions, qu'ils parlent.",
+          "Les terminaisons -e, -es, -e, -ions, -iez, -ent varient selon la personne du sujet de la subordonnée, non selon le sujet de la principale.",
+          "Pour les verbes impersonnels comme falloir, la principale reste à la troisième personne du singulier, tandis que le verbe de la subordonnée s'accorde avec son propre sujet : il faut qu'ils viennent."
+        ],
+        "negative_form": null,
+        "interrogative_form": null,
+        "affirmative_form": null,
+        "common_traps": [],
+        "related_tenses": [],
+        "related_grammar_rules": [],
+        "tags": [
+          "subjunctive",
+          "present",
+          "necessity",
+          "emotion",
+          "doubt",
+          "dependent-clause"
+        ],
+        "study": {
+          "learning_priority": null,
+          "importance": null,
+          "frequency": null,
+          "usefulness": null,
+          "difficulty": null,
+          "frequency_note": null,
+          "notes": null
+        },
+        "chapters": [
+          13
+        ],
+        "sources": [],
+        "notes": null,
+        "enriched": false,
+        "taken_for_enrichment": true
+      }
+    ],
+    "concepts": [
+      {
+        "name": "Conjunctions requiring subjunctive",
+        "description": "Certain conjunctions are followed by the subjunctive.",
+        "aliases": [
+          "subjunctive conjunctions"
+        ],
+        "related_grammar_rules": [],
+        "related_verbs": [],
+        "related_expressions": [],
+        "related_vocabulary": [],
+        "related_tenses": [],
+        "tags": [
+          "subjunctive",
+          "conjunctions",
+          "dependent clauses"
+        ],
+        "study": {
+          "learning_priority": null,
+          "importance": null,
+          "frequency": null,
+          "usefulness": null,
+          "difficulty": null,
+          "frequency_note": null,
+          "notes": null
+        },
+        "chapters": [
+          13
+        ],
+        "sources": [
+          {
+            "source_type": "chapter",
+            "source_name": "13.json",
+            "chapter_number": 13,
+            "section_title": "Conjunctions followed by the subjunctive",
+            "page_printed": 108,
+            "page_pdf": 122,
+            "context_type": "explanation",
+            "exercise_code": null,
+            "question_number": null,
+            "table_title": null,
+            "table_type": null,
+            "row_label": null,
+            "column": null,
+            "direction": null,
+            "source_headword": null,
+            "source_target": null,
+            "source_text": "When you use conjunctions, you will also have to decide whether to use the indicative or the subjunctive...",
+            "created_by": null,
+            "notes": null,
+            "derived_from": [],
+            "source_classifications": []
+          }
+        ],
+        "notes": null,
+        "enriched": false,
+        "taken_for_enrichment": true
+      }
+    ],
+    "chapters": [
+      {
+        "chapter_number": 13,
+        "chapter_title": "The present subjunctive and the past subjunctive",
+        "pages": {
+          "printed_start": 104,
+          "printed_end": 114,
+          "pdf_start": 118,
+          "pdf_end": 128
+        },
+        "sections": [
+          {
+            "title": "Formation of the present subjunctive",
+            "parent_section": null,
+            "order": 1,
+            "pages": {
+              "printed_start": 104,
+              "printed_end": 106,
+              "pdf_start": 118,
+              "pdf_end": 120
+            },
+            "related_concepts": [
+              "Present subjunctive",
+              "Subjunctive mood"
+            ],
+            "related_grammar_rules": [],
+            "related_verbs": [],
+            "related_expressions": [],
+            "related_vocabulary": [],
+            "related_tenses": [],
+            "notes": null,
+            "sources": [
+              {
+                "source_type": "chapter",
+                "source_name": "13.json",
+                "chapter_number": 13,
+                "section_title": "Formation of the present subjunctive",
+                "page_printed": 104,
+                "page_pdf": 118,
+                "context_type": "explanation",
+                "exercise_code": null,
+                "question_number": null,
+                "table_title": null,
+                "table_type": null,
+                "row_label": null,
+                "column": null,
+                "direction": null,
+                "source_headword": null,
+                "source_target": null,
+                "source_text": "The subjunctive is a mood, not a tense. ... For most verbs, the present of the subjunctive is formed by adding the subjunctive endings (-e, -es, -e, -ions, -iez, -ent) to the stem.",
+                "created_by": null,
+                "notes": null,
+                "derived_from": [],
+                "source_classifications": []
+              }
+            ]
+          },
+          {
+            "title": "Irregular subjunctive verbs",
+            "parent_section": null,
+            "order": 2,
+            "pages": {
+              "printed_start": 105,
+              "printed_end": 106,
+              "pdf_start": 119,
+              "pdf_end": 120
+            },
+            "related_concepts": [
+              "Irregular subjunctive forms"
+            ],
+            "related_grammar_rules": [],
+            "related_verbs": [],
+            "related_expressions": [],
+            "related_vocabulary": [],
+            "related_tenses": [],
+            "notes": null,
+            "sources": [
+              {
+                "source_type": "chapter",
+                "source_name": "13.json",
+                "chapter_number": 13,
+                "section_title": "Irregular subjunctive verbs",
+                "page_printed": 105,
+                "page_pdf": 119,
+                "context_type": "table",
+                "exercise_code": null,
+                "question_number": null,
+                "table_title": null,
+                "table_type": null,
+                "row_label": null,
+                "column": null,
+                "direction": null,
+                "source_headword": null,
+                "source_target": null,
+                "source_text": "Some verbs have irregular forms in the present subjunctive. Être (to be) and avoir (to have) have both irregular stems and endings.",
+                "created_by": null,
+                "notes": null,
+                "derived_from": [],
+                "source_classifications": []
+              }
+            ]
+          },
+          {
+            "title": "Subjunctive after verbs of wish and desire",
+            "parent_section": null,
+            "order": 3,
+            "pages": {
+              "printed_start": 106,
+              "printed_end": 106,
+              "pdf_start": 120,
+              "pdf_end": 120
+            },
+            "related_concepts": [
+              "Wish and desire"
+            ],
+            "related_grammar_rules": [],
+            "related_verbs": [],
+            "related_expressions": [],
+            "related_vocabulary": [],
+            "related_tenses": [],
+            "notes": null,
+            "sources": [
+              {
+                "source_type": "chapter",
+                "source_name": "13.json",
+                "chapter_number": 13,
+                "section_title": "Subjunctive after verbs of wish and desire",
+                "page_printed": 106,
+                "page_pdf": 120,
+                "context_type": "explanation",
+                "exercise_code": null,
+                "question_number": null,
+                "table_title": null,
+                "table_type": null,
+                "row_label": null,
+                "column": null,
+                "direction": null,
+                "source_headword": null,
+                "source_target": null,
+                "source_text": "The subjunctive is used after verbs expressing the notion of wish and desire. It is used when the subject of the main clause is different from the subject of the dependent clause.",
+                "created_by": null,
+                "notes": null,
+                "derived_from": [],
+                "source_classifications": []
+              }
+            ]
+          },
+          {
+            "title": "Subjunctive after expressions of emotion",
+            "parent_section": null,
+            "order": 4,
+            "pages": {
+              "printed_start": 106,
+              "printed_end": 107,
+              "pdf_start": 120,
+              "pdf_end": 121
+            },
+            "related_concepts": [
+              "Emotion"
+            ],
+            "related_grammar_rules": [],
+            "related_verbs": [],
+            "related_expressions": [],
+            "related_vocabulary": [],
+            "related_tenses": [],
+            "notes": null,
+            "sources": [
+              {
+                "source_type": "chapter",
+                "source_name": "13.json",
+                "chapter_number": 13,
+                "section_title": "Subjunctive after expressions of emotion",
+                "page_printed": 106,
+                "page_pdf": 120,
+                "context_type": "explanation",
+                "exercise_code": null,
+                "question_number": null,
+                "table_title": null,
+                "table_type": null,
+                "row_label": null,
+                "column": null,
+                "direction": null,
+                "source_headword": null,
+                "source_target": null,
+                "source_text": "The subjunctive is used after expressions of emotion.",
+                "created_by": null,
+                "notes": null,
+                "derived_from": [],
+                "source_classifications": []
+              }
+            ]
+          },
+          {
+            "title": "Subjunctive after expressions of doubt",
+            "parent_section": null,
+            "order": 5,
+            "pages": {
+              "printed_start": 107,
+              "printed_end": 107,
+              "pdf_start": 121,
+              "pdf_end": 121
+            },
+            "related_concepts": [
+              "Doubt"
+            ],
+            "related_grammar_rules": [],
+            "related_verbs": [],
+            "related_expressions": [],
+            "related_vocabulary": [],
+            "related_tenses": [],
+            "notes": null,
+            "sources": [
+              {
+                "source_type": "chapter",
+                "source_name": "13.json",
+                "chapter_number": 13,
+                "section_title": "Subjunctive after expressions of doubt",
+                "page_printed": 107,
+                "page_pdf": 121,
+                "context_type": "explanation",
+                "exercise_code": null,
+                "question_number": null,
+                "table_title": null,
+                "table_type": null,
+                "row_label": null,
+                "column": null,
+                "direction": null,
+                "source_headword": null,
+                "source_target": null,
+                "source_text": "The subjunctive is also used after expressions of doubt.",
+                "created_by": null,
+                "notes": null,
+                "derived_from": [],
+                "source_classifications": []
+              }
+            ]
+          },
+          {
+            "title": "Impersonal expressions and the subjunctive",
+            "parent_section": null,
+            "order": 6,
+            "pages": {
+              "printed_start": 107,
+              "printed_end": 108,
+              "pdf_start": 121,
+              "pdf_end": 122
+            },
+            "related_concepts": [
+              "Impersonal expressions"
+            ],
+            "related_grammar_rules": [],
+            "related_verbs": [],
+            "related_expressions": [],
+            "related_vocabulary": [],
+            "related_tenses": [],
+            "notes": null,
+            "sources": [
+              {
+                "source_type": "chapter",
+                "source_name": "13.json",
+                "chapter_number": 13,
+                "section_title": "Impersonal expressions and the subjunctive",
+                "page_printed": 107,
+                "page_pdf": 121,
+                "context_type": "explanation",
+                "exercise_code": null,
+                "question_number": null,
+                "table_title": null,
+                "table_type": null,
+                "row_label": null,
+                "column": null,
+                "direction": null,
+                "source_headword": null,
+                "source_target": null,
+                "source_text": "The subjunctive is also used after certain impersonal expressions...",
+                "created_by": null,
+                "notes": null,
+                "derived_from": [],
+                "source_classifications": []
+              }
+            ]
+          },
+          {
+            "title": "Conjunctions followed by the subjunctive",
+            "parent_section": null,
+            "order": 7,
+            "pages": {
+              "printed_start": 108,
+              "printed_end": 109,
+              "pdf_start": 122,
+              "pdf_end": 123
+            },
+            "related_concepts": [
+              "Conjunctions requiring subjunctive"
+            ],
+            "related_grammar_rules": [],
+            "related_verbs": [],
+            "related_expressions": [],
+            "related_vocabulary": [],
+            "related_tenses": [],
+            "notes": null,
+            "sources": [
+              {
+                "source_type": "chapter",
+                "source_name": "13.json",
+                "chapter_number": 13,
+                "section_title": "Conjunctions followed by the subjunctive",
+                "page_printed": 108,
+                "page_pdf": 122,
+                "context_type": "explanation",
+                "exercise_code": null,
+                "question_number": null,
+                "table_title": null,
+                "table_type": null,
+                "row_label": null,
+                "column": null,
+                "direction": null,
+                "source_headword": null,
+                "source_target": null,
+                "source_text": "When you use conjunctions, you will also have to decide whether to use the indicative or the subjunctive in the following clause.",
+                "created_by": null,
+                "notes": null,
+                "derived_from": [],
+                "source_classifications": []
+              }
+            ]
+          },
+          {
+            "title": "Pourvu que",
+            "parent_section": null,
+            "order": 8,
+            "pages": {
+              "printed_start": 109,
+              "printed_end": 110,
+              "pdf_start": 123,
+              "pdf_end": 124
+            },
+            "related_concepts": [
+              "Pourvu que"
+            ],
+            "related_grammar_rules": [],
+            "related_verbs": [],
+            "related_expressions": [],
+            "related_vocabulary": [],
+            "related_tenses": [],
+            "notes": null,
+            "sources": [
+              {
+                "source_type": "chapter",
+                "source_name": "13.json",
+                "chapter_number": 13,
+                "section_title": "Pourvu que",
+                "page_printed": 109,
+                "page_pdf": 123,
+                "context_type": "explanation",
+                "exercise_code": null,
+                "question_number": null,
+                "table_title": null,
+                "table_type": null,
+                "row_label": null,
+                "column": null,
+                "direction": null,
+                "source_headword": null,
+                "source_target": null,
+                "source_text": "Pourvu que has the sense of provided that. ... When used in a single clause, pourvu que takes a different meaning.",
+                "created_by": null,
+                "notes": null,
+                "derived_from": [],
+                "source_classifications": []
+              }
+            ]
+          },
+          {
+            "title": "Subjunctive after superlatives and in relative clauses",
+            "parent_section": null,
+            "order": 9,
+            "pages": {
+              "printed_start": 110,
+              "printed_end": 110,
+              "pdf_start": 124,
+              "pdf_end": 124
+            },
+            "related_concepts": [
+              "Relative clauses",
+              "superlative"
+            ],
+            "related_grammar_rules": [],
+            "related_verbs": [],
+            "related_expressions": [],
+            "related_vocabulary": [],
+            "related_tenses": [],
+            "notes": null,
+            "sources": [
+              {
+                "source_type": "chapter",
+                "source_name": "13.json",
+                "chapter_number": 13,
+                "section_title": "Subjunctive after superlatives and in relative clauses",
+                "page_printed": 110,
+                "page_pdf": 124,
+                "context_type": "explanation",
+                "exercise_code": null,
+                "question_number": null,
+                "table_title": null,
+                "table_type": null,
+                "row_label": null,
+                "column": null,
+                "direction": null,
+                "source_headword": null,
+                "source_target": null,
+                "source_text": "The subjunctive is also used after a superlative or an adjective conveying a superlative idea...",
+                "created_by": null,
+                "notes": null,
+                "derived_from": [],
+                "source_classifications": []
+              }
+            ]
+          },
+          {
+            "title": "The past subjunctive",
+            "parent_section": null,
+            "order": 10,
+            "pages": {
+              "printed_start": 112,
+              "printed_end": 114,
+              "pdf_start": 126,
+              "pdf_end": 128
+            },
+            "related_concepts": [
+              "Past subjunctive"
+            ],
+            "related_grammar_rules": [],
+            "related_verbs": [],
+            "related_expressions": [],
+            "related_vocabulary": [],
+            "related_tenses": [],
+            "notes": null,
+            "sources": [
+              {
+                "source_type": "chapter",
+                "source_name": "13.json",
+                "chapter_number": 13,
+                "section_title": "The past subjunctive",
+                "page_printed": 112,
+                "page_pdf": 126,
+                "context_type": "explanation",
+                "exercise_code": null,
+                "question_number": null,
+                "table_title": null,
+                "table_type": null,
+                "row_label": null,
+                "column": null,
+                "direction": null,
+                "source_headword": null,
+                "source_target": null,
+                "source_text": "The past subjunctive is used in the same way as the present subjunctive. In such sentences, the action of the dependent clause is anterior to the action of the main clause.",
+                "created_by": null,
+                "notes": null,
+                "derived_from": [],
+                "source_classifications": []
+              }
+            ]
+          }
+        ],
+        "concepts": [
+          "Conjunctions requiring subjunctive",
+          "Doubt",
+          "Emotion",
+          "Impersonal expressions",
+          "Irregular subjunctive forms",
+          "Past subjunctive",
+          "Pourvu que",
+          "Present subjunctive",
+          "Relative clauses",
+          "Subjunctive mood",
+          "Superlative",
+          "Wish and desire"
+        ],
+        "grammar_rules": [
+          "Conjunctions followed by the subjunctive",
+          "Formation of the past subjunctive",
+          "Formation of the present subjunctive for regular verbs",
+          "Impersonal expressions followed by the indicative",
+          "Impersonal expressions followed by the subjunctive",
+          "Irregular present subjunctive of aller and vouloir",
+          "Irregular present subjunctive of pouvoir, savoir, faire",
+          "Irregular present subjunctive of être and avoir",
+          "Penser/croire: affirmative vs negative/interrogative",
+          "Pourvu que expressing hope",
+          "Pourvu que meaning 'provided that'",
+          "Subjunctive after superlatives",
+          "Subjunctive in relative clauses with doubt",
+          "Use of subjunctive after expressions of doubt",
+          "Use of subjunctive after expressions of emotion",
+          "Use of subjunctive after verbs of wish and desire"
+        ],
+        "verbs": [
+          "acheter",
+          "aller",
+          "avoir",
+          "cliquer",
+          "croire",
+          "demander",
+          "dire",
+          "douter",
+          "exiger",
+          "faire",
+          "imprimer",
+          "mettre",
+          "numériser",
+          "penser",
+          "pouvoir",
+          "regretter",
+          "sauvegarder",
+          "savoir",
+          "se connecter",
+          "suivre",
+          "surfer sur Internet",
+          "télécharger",
+          "venir",
+          "vouloir",
+          "être"
+        ],
+        "expressions": [
+          "afin que + subjonctif",
+          "avant que + subjonctif",
+          "bien que + subjonctif",
+          "cela ne vaut pas la peine que + subjonctif",
+          "de crainte que + subjonctif",
+          "de peur que + subjonctif",
+          "demander que + subjonctif",
+          "douter que + subjonctif",
+          "désirer que + subjonctif",
+          "en attendant que + subjonctif",
+          "exiger que + subjonctif",
+          "il est bizarre que + subjonctif",
+          "il est certain que + indicatif",
+          "il est dommage que + subjonctif",
+          "il est essentiel que + subjonctif",
+          "il est important que + subjonctif",
+          "il est indispensable que + subjonctif",
+          "il est juste que + subjonctif",
+          "il est naturel que + subjonctif",
+          "il est normal que + subjonctif",
+          "il est possible que + subjonctif",
+          "il est probable que + indicatif",
+          "il est préférable que + subjonctif",
+          "il est rare que + subjonctif",
+          "il est regrettable que + subjonctif",
+          "il est souhaitable que + subjonctif",
+          "il est surprenant que + subjonctif",
+          "il est sûr que + indicatif",
+          "il est triste que + subjonctif",
+          "il est utile que + subjonctif",
+          "il est vrai que + indicatif",
+          "il est étonnant que + subjonctif",
+          "il est étrange que + subjonctif",
+          "il est évident que + indicatif",
+          "il faut que + subjonctif",
+          "il me semble que + indicatif",
+          "il se peut que + subjonctif",
+          "il vaut mieux que + subjonctif",
+          "jusqu'à ce que + subjonctif",
+          "ne pas croire que + subjonctif",
+          "ne pas penser que + subjonctif",
+          "pour que + subjonctif",
+          "pourvu que + subjonctif",
+          "pourvu que + subjonctif (souhait)",
+          "quoique + subjonctif",
+          "regretter que + subjonctif",
+          "sans que + subjonctif",
+          "souhaiter que + subjonctif",
+          "surfer sur Internet",
+          "vouloir que + subjonctif",
+          "à condition que + subjonctif",
+          "à moins que + subjonctif",
+          "être content(e)(s) que + subjonctif",
+          "être déçu(e)(s) que + subjonctif",
+          "être ravi(e)(s) que + subjonctif"
+        ],
+        "vocabulary": [
+          {
+            "canonical_form": "ordinateur",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "souris",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "touche",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "clavier",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "écran",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "imprimante",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "informatique",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "internaute",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "banque de données",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "base de données",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "disquette",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "page d'accueil",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "Toile",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "disque dur",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "logiciel",
+            "part_of_speech": "noun"
+          },
+          {
+            "canonical_form": "numérique",
+            "part_of_speech": "adjective"
+          },
+          {
+            "canonical_form": "site Web",
+            "part_of_speech": "noun"
+          }
+        ],
+        "tenses": [
+          "subjonctif passé",
+          "subjonctif présent"
+        ],
+        "topics": [],
+        "notes": "Chapter covers present and past subjunctive formation and the principal triggers involving desire, emotion, doubt, impersonal expressions, conjunctions, superlatives, and relative clauses.",
+        "sources": [],
+        "enriched": false,
+        "taken_for_enrichment": true
+      }
+    ]
+  },
+  "unresolved_existing_references": [
+    {
+      "from": {
+        "collection": "examples",
+        "index": 835,
+        "naturalKey": "Quoiqu'il fasse froid, ils se promènent dans la forêt."
+      },
+      "relation": "related_verbs",
+      "value": "verb_promener"
+    }
+  ],
+  "master_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.local/letude-master.schema.json",
+    "title": "L'Étude Canonical French Revision Master Dataset",
+    "description": "Canonical global revision schema built from chapter, glossary, verb-table, and answer-key data. Uses natural human-readable references instead of artificial IDs. Duplicate entities are intended to be merged by their documented natural keys while unioning non-conflicting subordinate data.",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_version",
+      "dataset_type",
+      "metadata",
+      "chapters",
+      "topics",
+      "concepts",
+      "grammar_rules",
+      "tenses",
+      "verbs",
+      "expressions",
+      "vocabulary",
+      "examples",
+      "exercises",
+      "exceptions_and_traps",
+      "unresolved_items",
+      "source_quality"
+    ],
+    "properties": {
+      "schema_version": {
+        "const": "1.0.0"
+      },
+      "dataset_type": {
+        "const": "french_revision_master"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "dataset_name",
+          "book_title",
+          "author",
+          "language",
+          "source_language",
+          "target_language",
+          "notes"
+        ],
+        "properties": {
+          "dataset_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "book_title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "author": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "language": {
+            "const": "fr"
+          },
+          "source_language": {
+            "const": "fr"
+          },
+          "target_language": {
+            "const": "en"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "chapters": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/chapter"
+        }
+      },
+      "topics": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/topic"
+        }
+      },
+      "concepts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/concept"
+        }
+      },
+      "grammar_rules": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/grammarRule"
+        }
+      },
+      "tenses": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/tense"
+        }
+      },
+      "verbs": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/verb"
+        }
+      },
+      "expressions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/expression"
+        }
+      },
+      "vocabulary": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/vocabulary"
+        }
+      },
+      "examples": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/example"
+        }
+      },
+      "exercises": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/exercise"
+        }
+      },
+      "exceptions_and_traps": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/exceptionTrap"
+        }
+      },
+      "unresolved_items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/unresolvedItem"
+        }
+      },
+      "source_quality": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/sourceQuality"
+        }
+      }
+    },
+    "$defs": {
+      "stringArray": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "chapterRefs": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "uniqueItems": true
+      },
+      "articleSet": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "definite",
+          "indefinite",
+          "partitive",
+          "other"
+        ],
+        "properties": {
+          "definite": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "indefinite": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "partitive": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "other": {
+            "$ref": "#/$defs/stringArray"
+          }
+        }
+      },
+      "study": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "learning_priority",
+          "importance",
+          "frequency",
+          "usefulness",
+          "difficulty",
+          "frequency_note",
+          "notes"
+        ],
+        "properties": {
+          "learning_priority": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 5
+          },
+          "importance": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 5
+          },
+          "frequency": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 5
+          },
+          "usefulness": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 5
+          },
+          "difficulty": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 5
+          },
+          "frequency_note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "pageRange": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "printed_start",
+          "printed_end",
+          "pdf_start",
+          "pdf_end"
+        ],
+        "properties": {
+          "printed_start": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "printed_end": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "pdf_start": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "pdf_end": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          }
+        }
+      },
+      "sourceEvidence": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_type",
+          "source_name",
+          "chapter_number",
+          "section_title",
+          "page_printed",
+          "page_pdf",
+          "context_type",
+          "exercise_code",
+          "question_number",
+          "table_title",
+          "table_type",
+          "row_label",
+          "column",
+          "direction",
+          "source_headword",
+          "source_target",
+          "source_text",
+          "created_by",
+          "notes",
+          "derived_from",
+          "source_classifications"
+        ],
+        "properties": {
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "chapter",
+              "book",
+              "glossary",
+              "verb_table",
+              "answer_key",
+              "ai_enrichment",
+              "user_added",
+              "derived",
+              "other"
+            ]
+          },
+          "source_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "chapter_number": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 999
+          },
+          "section_title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "page_printed": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "page_pdf": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "context_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "explanation",
+              "example",
+              "exercise",
+              "answer_key",
+              "vocabulary",
+              "table",
+              "note",
+              "dialogue",
+              "caption",
+              "warning",
+              "contrast",
+              "glossary",
+              "other",
+              null
+            ]
+          },
+          "exercise_code": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "question_number": {
+            "type": [
+              "integer",
+              "string",
+              "null"
+            ]
+          },
+          "table_title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "table_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "row_label": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "column": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "left",
+              "right",
+              "single",
+              "unknown",
+              null
+            ]
+          },
+          "direction": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "fr_en",
+              "en_fr",
+              null
+            ]
+          },
+          "source_headword": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_target": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_text": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_by": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "independent_extraction",
+              "rule_expansion",
+              "mapping_script",
+              "ai_enrichment",
+              "manual",
+              "other",
+              null
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "derived_from": {
+            "$ref": "#/$defs/stringArray",
+            "description": "Natural source entity names from which this information was derived."
+          },
+          "source_classifications": {
+            "$ref": "#/$defs/stringArray",
+            "description": "Source-specific classifications worth preserving during migration."
+          }
+        }
+      },
+      "verbRef": {
+        "type": "string",
+        "minLength": 1
+      },
+      "tenseRef": {
+        "type": "string",
+        "minLength": 1
+      },
+      "ruleRef": {
+        "type": "string",
+        "minLength": 1
+      },
+      "expressionRef": {
+        "type": "string",
+        "minLength": 1
+      },
+      "conceptRef": {
+        "type": "string",
+        "minLength": 1
+      },
+      "topicRef": {
+        "type": "string",
+        "minLength": 1
+      },
+      "vocabularyRef": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "canonical_form",
+          "part_of_speech"
+        ],
+        "properties": {
+          "canonical_form": {
+            "type": "string",
+            "minLength": 1
+          },
+          "part_of_speech": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "noun",
+              "verb",
+              "adjective",
+              "adverb",
+              "pronoun",
+              "determiner",
+              "preposition",
+              "conjunction",
+              "interjection",
+              "number",
+              "other",
+              "unknown",
+              null
+            ]
+          }
+        }
+      },
+      "vocabularyWordRef": {
+        "type": "string",
+        "minLength": 1,
+        "description": "A display-form vocabulary relation retained when part-of-speech metadata is unavailable."
+      },
+      "variant": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "form",
+          "variant_type",
+          "note"
+        ],
+        "properties": {
+          "form": {
+            "type": "string",
+            "minLength": 1
+          },
+          "variant_type": {
+            "type": "string",
+            "enum": [
+              "masculine",
+              "feminine",
+              "masculine_before_vowel",
+              "plural",
+              "alternate_spelling",
+              "inflected_form",
+              "other"
+            ]
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "sense": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "english",
+          "note",
+          "gender",
+          "articles",
+          "plural"
+        ],
+        "properties": {
+          "english": {
+            "type": "string",
+            "minLength": 1
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "gender": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "articles": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/articleSet"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "plural": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "conjugationForms": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "je",
+          "tu",
+          "il_elle_on",
+          "nous",
+          "vous",
+          "ils_elles",
+          "imperative_tu",
+          "imperative_nous",
+          "imperative_vous",
+          "impersonal_form"
+        ],
+        "properties": {
+          "je": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tu": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "il_elle_on": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "vous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ils_elles": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_tu": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_nous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "imperative_vous": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "impersonal_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "stem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tense",
+          "persons",
+          "stem",
+          "note"
+        ],
+        "properties": {
+          "tense": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "persons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "je",
+                "tu",
+                "il_elle_on",
+                "nous",
+                "vous",
+                "ils_elles",
+                "all",
+                "other"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "stem": {
+            "type": "string",
+            "minLength": 1
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "verbConjugation": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tense",
+          "mood",
+          "forms",
+          "stems",
+          "endings",
+          "formation_note",
+          "irregularities",
+          "notes",
+          "sources"
+        ],
+        "properties": {
+          "tense": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mood": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "forms": {
+            "$ref": "#/$defs/conjugationForms"
+          },
+          "stems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/stem"
+            }
+          },
+          "endings": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "formation_note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "irregularities": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "notes": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          }
+        }
+      },
+      "patternSlot": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "display",
+          "slot_type",
+          "required"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "display": {
+            "type": "string",
+            "minLength": 1
+          },
+          "slot_type": {
+            "type": "string",
+            "enum": [
+              "person",
+              "thing",
+              "noun",
+              "verb_infinitive",
+              "clause",
+              "adjective",
+              "adverb",
+              "preposition",
+              "other"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          }
+        }
+      },
+      "complementStructure": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "direct_object",
+          "indirect_object",
+          "preposition",
+          "followed_by"
+        ],
+        "properties": {
+          "direct_object": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "indirect_object": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "preposition": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "followed_by": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "infinitive",
+              "noun",
+              "person",
+              "clause",
+              "adjective",
+              "adverb",
+              "mixed",
+              "none",
+              "unknown",
+              null
+            ]
+          }
+        }
+      },
+      "focusSpan": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "text",
+          "focus_type",
+          "entity_name"
+        ],
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "focus_type": {
+            "type": "string",
+            "enum": [
+              "verb",
+              "expression",
+              "vocabulary",
+              "grammar_rule",
+              "tense",
+              "concept",
+              "other"
+            ]
+          },
+          "entity_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "example": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "french",
+          "english",
+          "related_verbs",
+          "related_expressions",
+          "related_vocabulary",
+          "related_grammar_rules",
+          "related_tenses",
+          "related_concepts",
+          "focus_spans",
+          "tags",
+          "chapters",
+          "notes",
+          "sources"
+        ],
+        "properties": {
+          "french": {
+            "type": "string",
+            "minLength": 1
+          },
+          "english": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "related_verbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true
+          },
+          "related_expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true
+          },
+          "related_vocabulary": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/vocabularyRef"
+            }
+          },
+          "related_grammar_rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ruleRef"
+            },
+            "uniqueItems": true
+          },
+          "related_tenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/tenseRef"
+            },
+            "uniqueItems": true
+          },
+          "related_concepts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/conceptRef"
+            },
+            "uniqueItems": true
+          },
+          "focus_spans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/focusSpan"
+            }
+          },
+          "tags": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "chapters": {
+            "$ref": "#/$defs/chapterRefs"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          }
+        }
+      },
+      "verb": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "infinitive"
+        ],
+        "required": [
+          "infinitive",
+          "display_form",
+          "english",
+          "senses",
+          "verb_group",
+          "regularity",
+          "pronominal",
+          "transitivity",
+          "auxiliary",
+          "past_participle",
+          "present_participle",
+          "stems",
+          "conjugations",
+          "related_expressions",
+          "related_concepts",
+          "aliases",
+          "search_terms",
+          "source_classifications",
+          "tags",
+          "study",
+          "chapters",
+          "sources",
+          "notes"
+        ],
+        "properties": {
+          "infinitive": {
+            "type": "string",
+            "minLength": 1
+          },
+          "display_form": {
+            "type": "string",
+            "minLength": 1
+          },
+          "english": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "senses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sense"
+            }
+          },
+          "verb_group": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "1st_group",
+              "2nd_group",
+              "3rd_group",
+              "defective",
+              "impersonal",
+              "unknown",
+              null
+            ]
+          },
+          "regularity": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "regular",
+              "irregular",
+              "mixed",
+              "unknown",
+              null
+            ]
+          },
+          "pronominal": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "transitivity": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "transitive",
+                "intransitive",
+                "ditransitive",
+                "copular",
+                "unknown"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "auxiliary": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "avoir",
+              "etre",
+              "both",
+              "none",
+              "unknown",
+              null
+            ]
+          },
+          "past_participle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "present_participle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "stems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/stem"
+            }
+          },
+          "conjugations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbConjugation"
+            }
+          },
+          "related_expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true
+          },
+          "related_concepts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/conceptRef"
+            },
+            "uniqueItems": true
+          },
+          "aliases": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "search_terms": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "tags": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "study": {
+            "$ref": "#/$defs/study"
+          },
+          "chapters": {
+            "$ref": "#/$defs/chapterRefs"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_classifications": {
+            "$ref": "#/$defs/stringArray",
+            "description": "Legacy/source classifications preserved during mapping."
+          },
+          "register": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "formal",
+              "neutral",
+              "informal",
+              "colloquial",
+              "literary",
+              "slang",
+              "technical",
+              "archaic",
+              "regional",
+              "vulgar",
+              "unknown",
+              null
+            ],
+            "description": "Typical usage register of the item."
+          },
+          "synonyms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true,
+            "description": "Natural references to synonymous verbs."
+          },
+          "antonyms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true,
+            "description": "Natural references to antonymous verbs."
+          },
+          "usage_notes": {
+            "$ref": "#/$defs/stringArray",
+            "description": "Usage-specific notes kept separate from general notes."
+          }
+        }
+      },
+      "expression": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "canonical_form"
+        ],
+        "required": [
+          "canonical_form",
+          "display_form",
+          "english",
+          "expression_type",
+          "productive",
+          "pattern",
+          "pattern_slots",
+          "related_verbs",
+          "related_vocabulary",
+          "related_grammar_rules",
+          "related_concepts",
+          "prepositions",
+          "complement_structure",
+          "restrictions",
+          "transformations",
+          "aliases",
+          "search_terms",
+          "collocation_strength",
+          "source_classifications",
+          "tags",
+          "study",
+          "chapters",
+          "sources",
+          "notes"
+        ],
+        "properties": {
+          "canonical_form": {
+            "type": "string",
+            "minLength": 1
+          },
+          "display_form": {
+            "type": "string",
+            "minLength": 1
+          },
+          "english": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "expression_type": {
+            "type": "string",
+            "enum": [
+              "construction",
+              "verb_pattern",
+              "collocation",
+              "fixed_expression",
+              "idiom",
+              "sentence_starter",
+              "conversation_phrase",
+              "connector",
+              "functional_phrase",
+              "formulaic_phrase",
+              "time_expression",
+              "quantity_expression",
+              "comparison_structure",
+              "subjunctive_trigger",
+              "conditional_trigger",
+              "negative_construction",
+              "question_construction",
+              "other"
+            ]
+          },
+          "productive": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "pattern": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "pattern_slots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/patternSlot"
+            }
+          },
+          "related_verbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true
+          },
+          "related_vocabulary": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/vocabularyRef"
+            }
+          },
+          "related_grammar_rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ruleRef"
+            },
+            "uniqueItems": true
+          },
+          "related_concepts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/conceptRef"
+            },
+            "uniqueItems": true
+          },
+          "prepositions": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "complement_structure": {
+            "$ref": "#/$defs/complementStructure"
+          },
+          "restrictions": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "transformations": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "aliases": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "search_terms": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "collocation_strength": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "strong",
+              "common",
+              "possible",
+              "unknown",
+              null
+            ]
+          },
+          "tags": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "study": {
+            "$ref": "#/$defs/study"
+          },
+          "chapters": {
+            "$ref": "#/$defs/chapterRefs"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_classifications": {
+            "$ref": "#/$defs/stringArray",
+            "description": "Legacy/source classifications preserved during mapping."
+          },
+          "register": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "formal",
+              "neutral",
+              "informal",
+              "colloquial",
+              "literary",
+              "slang",
+              "technical",
+              "archaic",
+              "regional",
+              "vulgar",
+              "unknown",
+              null
+            ],
+            "description": "Typical usage register of the item."
+          },
+          "synonyms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true,
+            "description": "Natural references to synonymous expressions."
+          },
+          "antonyms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true,
+            "description": "Natural references to antonymous expressions."
+          },
+          "usage_notes": {
+            "$ref": "#/$defs/stringArray",
+            "description": "Usage-specific notes kept separate from general notes."
+          }
+        }
+      },
+      "vocabulary": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "canonical_form",
+          "part_of_speech"
+        ],
+        "required": [
+          "canonical_form",
+          "display_form",
+          "english",
+          "part_of_speech",
+          "gender",
+          "articles",
+          "plural",
+          "variants",
+          "senses",
+          "aliases",
+          "search_terms",
+          "word_family",
+          "related_expressions",
+          "related_verbs",
+          "related_concepts",
+          "source_classifications",
+          "tags",
+          "study",
+          "chapters",
+          "sources",
+          "notes"
+        ],
+        "properties": {
+          "canonical_form": {
+            "type": "string",
+            "minLength": 1
+          },
+          "display_form": {
+            "type": "string",
+            "minLength": 1
+          },
+          "english": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "part_of_speech": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "noun",
+              "verb",
+              "adjective",
+              "adverb",
+              "pronoun",
+              "determiner",
+              "preposition",
+              "conjunction",
+              "interjection",
+              "number",
+              "other",
+              "unknown",
+              null
+            ]
+          },
+          "gender": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "masculine",
+              "feminine",
+              "common",
+              "variable",
+              "none",
+              "unknown",
+              null
+            ]
+          },
+          "articles": {
+            "$ref": "#/$defs/articleSet"
+          },
+          "plural": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "variants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/variant"
+            }
+          },
+          "senses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sense"
+            }
+          },
+          "aliases": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "search_terms": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "word_family": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/vocabularyRef"
+                },
+                {
+                  "$ref": "#/$defs/vocabularyWordRef"
+                }
+              ]
+            }
+          },
+          "related_expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true
+          },
+          "related_verbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true
+          },
+          "related_concepts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/conceptRef"
+            },
+            "uniqueItems": true
+          },
+          "tags": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "study": {
+            "$ref": "#/$defs/study"
+          },
+          "chapters": {
+            "$ref": "#/$defs/chapterRefs"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_classifications": {
+            "$ref": "#/$defs/stringArray",
+            "description": "Legacy/source classifications preserved during mapping."
+          },
+          "register": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "formal",
+              "neutral",
+              "informal",
+              "colloquial",
+              "literary",
+              "slang",
+              "technical",
+              "archaic",
+              "regional",
+              "vulgar",
+              "unknown",
+              null
+            ],
+            "description": "Typical usage register of the item."
+          },
+          "synonyms": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/vocabularyRef"
+                },
+                {
+                  "$ref": "#/$defs/vocabularyWordRef"
+                }
+              ]
+            },
+            "description": "Natural vocabulary references for synonyms."
+          },
+          "antonyms": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/vocabularyRef"
+                },
+                {
+                  "$ref": "#/$defs/vocabularyWordRef"
+                }
+              ]
+            },
+            "description": "Natural vocabulary references for antonyms."
+          },
+          "usage_notes": {
+            "$ref": "#/$defs/stringArray",
+            "description": "Usage-specific notes kept separate from general notes."
+          }
+        }
+      },
+      "concept": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "name"
+        ],
+        "required": [
+          "name",
+          "description",
+          "aliases",
+          "related_grammar_rules",
+          "related_verbs",
+          "related_expressions",
+          "related_vocabulary",
+          "related_tenses",
+          "tags",
+          "study",
+          "chapters",
+          "sources",
+          "notes"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "aliases": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "related_grammar_rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ruleRef"
+            },
+            "uniqueItems": true
+          },
+          "related_verbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true
+          },
+          "related_expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true
+          },
+          "related_vocabulary": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/vocabularyRef"
+            }
+          },
+          "related_tenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/tenseRef"
+            },
+            "uniqueItems": true
+          },
+          "tags": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "study": {
+            "$ref": "#/$defs/study"
+          },
+          "chapters": {
+            "$ref": "#/$defs/chapterRefs"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "grammarRule": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "rule_name"
+        ],
+        "required": [
+          "rule_name",
+          "summary",
+          "explanation",
+          "formation",
+          "usage",
+          "restrictions",
+          "conditions",
+          "signal_words",
+          "exceptions",
+          "agreement_rules",
+          "word_order",
+          "negative_form",
+          "interrogative_form",
+          "affirmative_form",
+          "transformations",
+          "contrast_with",
+          "common_traps",
+          "related_tenses",
+          "related_concepts",
+          "related_expressions",
+          "related_verbs",
+          "tags",
+          "study",
+          "chapters",
+          "sources",
+          "notes"
+        ],
+        "properties": {
+          "rule_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "explanation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "formation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "usage": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "restrictions": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "conditions": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "signal_words": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "exceptions": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "agreement_rules": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "word_order": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "negative_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "interrogative_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "affirmative_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "transformations": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "contrast_with": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ruleRef"
+            },
+            "uniqueItems": true
+          },
+          "common_traps": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "related_tenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/tenseRef"
+            },
+            "uniqueItems": true
+          },
+          "related_concepts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/conceptRef"
+            },
+            "uniqueItems": true
+          },
+          "related_expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true
+          },
+          "related_verbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true
+          },
+          "tags": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "study": {
+            "$ref": "#/$defs/study"
+          },
+          "chapters": {
+            "$ref": "#/$defs/chapterRefs"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "regularPattern": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "verb_group",
+          "stem_rule",
+          "endings",
+          "example_verb",
+          "notes"
+        ],
+        "properties": {
+          "verb_group": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "stem_rule": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "endings": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "example_verb": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "irregularStem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "verb",
+          "stem",
+          "notes"
+        ],
+        "properties": {
+          "verb": {
+            "$ref": "#/$defs/verbRef"
+          },
+          "stem": {
+            "type": "string",
+            "minLength": 1
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "compoundStructure": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "is_compound",
+          "auxiliary_tense",
+          "participle_rule",
+          "agreement_notes"
+        ],
+        "properties": {
+          "is_compound": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "auxiliary_tense": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "participle_rule": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "agreement_notes": {
+            "$ref": "#/$defs/stringArray"
+          }
+        }
+      },
+      "tense": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "name"
+        ],
+        "required": [
+          "name",
+          "english_name",
+          "mood",
+          "formation",
+          "usage",
+          "signal_words",
+          "regular_patterns",
+          "irregular_stems",
+          "compound_structure",
+          "agreement_rules",
+          "negative_form",
+          "interrogative_form",
+          "affirmative_form",
+          "common_traps",
+          "related_tenses",
+          "related_grammar_rules",
+          "tags",
+          "study",
+          "chapters",
+          "sources",
+          "notes"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "english_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "mood": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "formation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "usage": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "signal_words": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "regular_patterns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/regularPattern"
+            }
+          },
+          "irregular_stems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/irregularStem"
+            }
+          },
+          "compound_structure": {
+            "$ref": "#/$defs/compoundStructure"
+          },
+          "agreement_rules": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "negative_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "interrogative_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "affirmative_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "common_traps": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "related_tenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/tenseRef"
+            },
+            "uniqueItems": true
+          },
+          "related_grammar_rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ruleRef"
+            },
+            "uniqueItems": true
+          },
+          "tags": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "study": {
+            "$ref": "#/$defs/study"
+          },
+          "chapters": {
+            "$ref": "#/$defs/chapterRefs"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "section": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "parent_section",
+          "order",
+          "pages",
+          "related_concepts",
+          "related_grammar_rules",
+          "related_verbs",
+          "related_expressions",
+          "related_vocabulary",
+          "related_tenses",
+          "notes",
+          "sources"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "parent_section": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "pages": {
+            "$ref": "#/$defs/pageRange"
+          },
+          "related_concepts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/conceptRef"
+            },
+            "uniqueItems": true
+          },
+          "related_grammar_rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ruleRef"
+            },
+            "uniqueItems": true
+          },
+          "related_verbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true
+          },
+          "related_expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true
+          },
+          "related_vocabulary": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/vocabularyRef"
+            }
+          },
+          "related_tenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/tenseRef"
+            },
+            "uniqueItems": true
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          }
+        }
+      },
+      "chapter": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "chapter_number"
+        ],
+        "required": [
+          "chapter_number",
+          "chapter_title",
+          "pages",
+          "sections",
+          "concepts",
+          "grammar_rules",
+          "verbs",
+          "expressions",
+          "vocabulary",
+          "tenses",
+          "topics",
+          "notes",
+          "sources"
+        ],
+        "properties": {
+          "chapter_number": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 999
+          },
+          "chapter_title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "pages": {
+            "$ref": "#/$defs/pageRange"
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/section"
+            }
+          },
+          "concepts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/conceptRef"
+            },
+            "uniqueItems": true
+          },
+          "grammar_rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ruleRef"
+            },
+            "uniqueItems": true
+          },
+          "verbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true
+          },
+          "expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true
+          },
+          "vocabulary": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/vocabularyRef"
+            }
+          },
+          "tenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/tenseRef"
+            },
+            "uniqueItems": true
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/topicRef"
+            },
+            "uniqueItems": true
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          }
+        }
+      },
+      "topic": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "name"
+        ],
+        "required": [
+          "name",
+          "description",
+          "aliases",
+          "related_concepts",
+          "related_grammar_rules",
+          "related_verbs",
+          "related_expressions",
+          "related_vocabulary",
+          "related_tenses",
+          "tags",
+          "study",
+          "chapters",
+          "sources",
+          "notes"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "aliases": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "related_concepts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/conceptRef"
+            },
+            "uniqueItems": true
+          },
+          "related_grammar_rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ruleRef"
+            },
+            "uniqueItems": true
+          },
+          "related_verbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true
+          },
+          "related_expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true
+          },
+          "related_vocabulary": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/vocabularyRef"
+            }
+          },
+          "related_tenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/tenseRef"
+            },
+            "uniqueItems": true
+          },
+          "tags": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "study": {
+            "$ref": "#/$defs/study"
+          },
+          "chapters": {
+            "$ref": "#/$defs/chapterRefs"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "answerOption": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "text",
+          "answer_type",
+          "is_complete",
+          "continues_across_pages",
+          "notes",
+          "sources"
+        ],
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "answer_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "text",
+              "sentence",
+              "word",
+              "phrase",
+              "multiple_values",
+              "numeric",
+              "date_or_year",
+              "other",
+              null
+            ]
+          },
+          "is_complete": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "continues_across_pages": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          }
+        }
+      },
+      "exerciseQuestion": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "number"
+        ],
+        "required": [
+          "number",
+          "prompt",
+          "answers",
+          "open_ended",
+          "related_verbs",
+          "related_expressions",
+          "related_vocabulary",
+          "related_grammar_rules",
+          "related_tenses",
+          "related_concepts",
+          "notes",
+          "sources"
+        ],
+        "properties": {
+          "number": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "prompt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "answers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/answerOption"
+            }
+          },
+          "open_ended": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "related_verbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true
+          },
+          "related_expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true
+          },
+          "related_vocabulary": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/vocabularyRef"
+            }
+          },
+          "related_grammar_rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ruleRef"
+            },
+            "uniqueItems": true
+          },
+          "related_tenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/tenseRef"
+            },
+            "uniqueItems": true
+          },
+          "related_concepts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/conceptRef"
+            },
+            "uniqueItems": true
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          }
+        }
+      },
+      "exercise": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "chapter_number",
+          "exercise_code"
+        ],
+        "required": [
+          "chapter_number",
+          "exercise_code",
+          "title",
+          "exercise_type",
+          "instructions",
+          "section_title",
+          "pages",
+          "questions",
+          "related_verbs",
+          "related_expressions",
+          "related_vocabulary",
+          "related_grammar_rules",
+          "related_tenses",
+          "related_concepts",
+          "notes",
+          "sources"
+        ],
+        "properties": {
+          "chapter_number": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 999
+          },
+          "exercise_code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "exercise_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "instructions": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "section_title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "pages": {
+            "$ref": "#/$defs/pageRange"
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/exerciseQuestion"
+            }
+          },
+          "related_verbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true
+          },
+          "related_expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true
+          },
+          "related_vocabulary": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/vocabularyRef"
+            }
+          },
+          "related_grammar_rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ruleRef"
+            },
+            "uniqueItems": true
+          },
+          "related_tenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/tenseRef"
+            },
+            "uniqueItems": true
+          },
+          "related_concepts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/conceptRef"
+            },
+            "uniqueItems": true
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          }
+        }
+      },
+      "exceptionTrap": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "title",
+          "category"
+        ],
+        "required": [
+          "title",
+          "category",
+          "description",
+          "correct_form",
+          "incorrect_form",
+          "related_grammar_rules",
+          "related_verbs",
+          "related_expressions",
+          "related_examples",
+          "tags",
+          "study",
+          "chapters",
+          "sources",
+          "notes"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "exception",
+              "contrast",
+              "restriction",
+              "agreement",
+              "spelling",
+              "word_order",
+              "usage",
+              "confusion",
+              "other"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "correct_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "incorrect_form": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "related_grammar_rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ruleRef"
+            },
+            "uniqueItems": true
+          },
+          "related_verbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/verbRef"
+            },
+            "uniqueItems": true
+          },
+          "related_expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expressionRef"
+            },
+            "uniqueItems": true
+          },
+          "related_examples": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true,
+            "description": "Natural references using the French example sentence."
+          },
+          "tags": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "study": {
+            "$ref": "#/$defs/study"
+          },
+          "chapters": {
+            "$ref": "#/$defs/chapterRefs"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "unresolvedItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_type",
+          "raw_text",
+          "normalized_candidate",
+          "reason_uncertain",
+          "possible_values",
+          "notes",
+          "sources"
+        ],
+        "properties": {
+          "candidate_type": {
+            "type": "string",
+            "enum": [
+              "expression",
+              "vocabulary",
+              "verb",
+              "conjugation",
+              "grammar_rule",
+              "example",
+              "exercise",
+              "answer",
+              "glossary_row",
+              "verb_table_row",
+              "other"
+            ]
+          },
+          "raw_text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "normalized_candidate": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reason_uncertain": {
+            "type": "string",
+            "minLength": 1
+          },
+          "possible_values": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          }
+        }
+      },
+      "sourceQuality": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "extraction_mode",
+          "schema_version",
+          "source_name",
+          "source_type",
+          "direction",
+          "source_pages",
+          "exercise_codes_seen",
+          "exercise_codes_emitted",
+          "answer_identities_seen",
+          "answers_emitted",
+          "uncertain_answers",
+          "multi_page_answers",
+          "tables_seen",
+          "rows_seen",
+          "rows_emitted",
+          "entries_emitted",
+          "uncertain_rows",
+          "header_footer_rows_removed",
+          "cross_column_fragments_rejected",
+          "duplicate_rows_collapsed",
+          "duplicate_answer_identities",
+          "notes",
+          "tables"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "extraction_mode": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "chapter",
+              "glossary",
+              "verb_table",
+              "answer_key",
+              "other"
+            ]
+          },
+          "direction": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "fr_en",
+              "en_fr",
+              null
+            ]
+          },
+          "source_pages": {
+            "$ref": "#/$defs/pageRange"
+          },
+          "tables": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceTable"
+            }
+          },
+          "exercise_codes_seen": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "exercise_codes_emitted": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "answer_identities_seen": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "answers_emitted": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "uncertain_answers": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "multi_page_answers": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "tables_seen": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "rows_seen": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "rows_emitted": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "entries_emitted": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "uncertain_rows": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "header_footer_rows_removed": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "cross_column_fragments_rejected": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "duplicate_rows_collapsed": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "duplicate_answer_identities": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "sourceTable": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-natural-key": [
+          "title",
+          "table_type",
+          "pages"
+        ],
+        "required": [
+          "title",
+          "table_type",
+          "column_order",
+          "pages",
+          "notes"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "table_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "principal_parts",
+              "present_indicative",
+              "full_conjugation",
+              "irregular_forms",
+              "mixed",
+              "other",
+              null
+            ]
+          },
+          "column_order": {
+            "$ref": "#/$defs/stringArray"
+          },
+          "pages": {
+            "$ref": "#/$defs/pageRange"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "ai_response_contract": {
+    "instruction": "Return structured proposals only. Enrich all applicable fields of every target entity. You may propose additions or merges for related entities not supplied in this batch, but never invent provenance.",
+    "operations": {
+      "MERGE_EXISTING": {
+        "required": [
+          "collection",
+          "natural_key",
+          "patch",
+          "evidence",
+          "reason"
+        ],
+        "rule": "The natural key must resolve to exactly one existing record after normalization."
+      },
+      "INSERT_NEW": {
+        "required": [
+          "collection",
+          "natural_key",
+          "record",
+          "evidence",
+          "reason"
+        ],
+        "rule": "record must satisfy the master schema entity definition and must not contain workflow fields."
+      },
+      "NO_PROPOSAL": {
+        "required": [
+          "collection",
+          "natural_key",
+          "reason"
+        ],
+        "rule": "Use when no source-supported addition can be proposed."
+      }
+    },
+    "merge_rules": [
+      "Never overwrite a conflicting learner-facing value automatically.",
+      "Deduplicate compatible array values by normalized natural key.",
+      "Merge verb conjugations by mood and tense, then inspect individual person forms for conflicts.",
+      "All proposed references must use existing natural keys or include an INSERT_NEW operation in the same response."
+    ]
+  }
+}

@@ -1029,7 +1029,7 @@ the current instructions if a new queue is needed.
 - **Functions**: N/A (Markdown operating instructions).
 
 #### `enrichment/create-deep-enrichment-batches.ts`
-- **Purpose**: Deep-enrichment batch generator. It creates or reuses a separately stored working copy, adds workflow-only `enriched` and `taken_for_enrichment` flags to every top-level dataset record, selects anchors in dataset order, recursively gathers typed forward relationships, freezes full-schema AI batch manifests, and marks each target record taken. `MAX_BATCHES` is set to `5` for the current test and must be changed to `null` for a full run.
+- **Purpose**: Deep-enrichment batch generator. It creates or reuses a separately stored working copy, adds workflow-only `enriched` and `taken_for_enrichment` flags to every top-level dataset record, selects anchors in dataset order, recursively gathers typed forward relationships, freezes full-schema AI batch manifests, and marks each target record taken. `MAX_BATCHES` is `null` for the current full run; set it to a number such as `5` for a limited test.
 - **Functions**:
   - `normalizeKey(value)`: Normalizes natural keys for accent-insensitive deterministic matching.
   - `addWorkflowFields(masterDataset)`: Clones a dataset and initializes both workflow flags on every top-level entity record.
@@ -1044,10 +1044,6 @@ the current instructions if a new queue is needed.
 - **Purpose**: Generated working copy of `data/MASTER_DATA.json` for deep enrichment. It preserves all source content while adding the workflow-only `enriched` and `taken_for_enrichment` booleans to each top-level record; it is intentionally not valid against the immutable master schema until those fields are removed by a future approved applicator.
 - **Functions**: N/A (generated JSON working dataset).
 
-#### `enrichment/deep-batches/DEEP_BATCH_001.json`
-#### `enrichment/deep-batches/DEEP_BATCH_002.json`
-#### `enrichment/deep-batches/DEEP_BATCH_003.json`
-#### `enrichment/deep-batches/DEEP_BATCH_004.json`
-#### `enrichment/deep-batches/DEEP_BATCH_005.json`
-- **Purpose**: Generated frozen deep-enrichment test manifests. Each contains the full master schema, source hashes, an automatically selected anchor, complete target/context record snapshots, unresolved source references, and the structured `MERGE_EXISTING`, `INSERT_NEW`, and `NO_PROPOSAL` AI response contract.
+#### `enrichment/deep-batches/DEEP_BATCH_001.json` through `enrichment/deep-batches/DEEP_BATCH_1650.json`
+- **Purpose**: Generated frozen full-run deep-enrichment manifests. Each contains the full master schema, source hashes, an automatically selected anchor, complete target/context record snapshots, unresolved source references, and the structured `MERGE_EXISTING`, `INSERT_NEW`, and `NO_PROPOSAL` AI response contract. Batch 001 is the 2,300-record Chapter 1 connected unit; the remaining batches cover all unclaimed records.
 - **Functions**: N/A (generated JSON batch manifests).

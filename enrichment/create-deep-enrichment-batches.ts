@@ -1,8 +1,8 @@
 /**
  * Builds deep-enrichment batches without ever changing data/MASTER_DATA.json.
  *
- * Test run: leave MAX_BATCHES at 5.
- * Full run: change MAX_BATCHES to null. The generator will continue until
+ * Test run: set MAX_BATCHES to a number such as 5.
+ * Full run: leave MAX_BATCHES as null. The generator will continue until
  * every top-level dataset record has either been claimed by a batch or is
  * already marked as taken_for_enrichment in the working copy.
  *
@@ -17,7 +17,7 @@ import path from "path";
 type JsonObject = Record<string, unknown>;
 type CollectionName = string;
 
-export const MAX_BATCHES: number | null = 5;
+export const MAX_BATCHES: number | null = null;
 const FOLLOW_INBOUND_RELATIONSHIPS = false;
 const WORKING_COPY_FORMAT = "deep-enrichment-working-copy/v1";
 
