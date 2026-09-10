@@ -7,7 +7,7 @@
  * already marked as taken_for_enrichment in the working copy.
  *
  * This generator does not apply AI responses. It only creates the safe working
- * copy and frozen text prompts that a later validator and merger can use.
+ * copy and frozen full-record deep prompts that a later validator and merger can use.
  */
 
 import crypto from "crypto";
@@ -26,8 +26,9 @@ const SOURCE_PATH = path.join(PROJECT_ROOT, "data/MASTER_DATA.json");
 const SCHEMA_PATH = path.join(PROJECT_ROOT, "data/MASTER_SCHEMA.json");
 const WORKING_COPY_PATH = path.join(PROJECT_ROOT, "enrichment/DEEP_ENRICHMENT_WORKING_DATA.json");
 const BATCH_DIRECTORY = path.join(PROJECT_ROOT, "enrichment/deep-batches");
+const GENERATION_LOCK_PATH = path.join(PROJECT_ROOT, "enrichment/.deep-batch-generation.lock");
 
-const COLLECTION_KEY_FIELDS: Record<string, string> = {
+export const COLLECTION_KEY_FIELDS: Record<string, string> = {
   chapters: "chapter_number",
   topics: "name",
   concepts: "name",
@@ -116,7 +117,23 @@ function writeTextAtomically(filePath: string, value: string): void {
   fs.renameSync(temporaryPath, filePath);
 }
 
-function getRecordKey(collection: string, record: JsonObject): string | null {
+function acquireGenerationLock(): number {
+  try {
+    const descriptor = fs.openSync(GENERATION_LOCK_PATH, "wx");
+    fs.writeFileSync(descriptor, `${process.pid}\n`, "utf8");
+    return descriptor;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "EEXIST") {
+      throw new Error(
+        "A deep-batch generator is already running (or an earlier run was interrupted). " +
+          `Inspect and deliberately remove ${path.relative(PROJECT_ROOT, GENERATION_LOCK_PATH)} before retrying.`
+      );
+    }
+    throw error;
+  }
+}
+
+export function getRecordKey(collection: string, record: JsonObject): string | null {
   const keyField = COLLECTION_KEY_FIELDS[collection];
   if (!keyField || record[keyField] === undefined || record[keyField] === null) return null;
   const key = String(record[keyField]).trim();
@@ -370,31 +387,21 @@ export function collectEmptyFields(value: unknown, pathPrefix = "$"): Array<{ pa
   return [];
 }
 
-function emptyFieldTargets(dataset: JsonObject, references: EntityReference[]): JsonObject[] {
-  return references.map((reference) => {
-    const record = getRecord(dataset, reference);
-    return {
-      collection: reference.collection,
-      natural_key_field: COLLECTION_KEY_FIELDS[reference.collection],
-      natural_key: reference.naturalKey,
-      empty_fields: collectEmptyFields(record),
-    };
-  });
-}
-
-function contextIdentities(references: EntityReference[]): JsonObject[] {
-  return references.map((reference) => ({
-    collection: reference.collection,
-    natural_key_field: COLLECTION_KEY_FIELDS[reference.collection],
-    natural_key: reference.naturalKey,
-  }));
+function recordsByCollection(dataset: JsonObject, references: EntityReference[]): Record<string, JsonObject[]> {
+  const grouped: Record<string, JsonObject[]> = {};
+  for (const reference of references) {
+    const records = grouped[reference.collection] ?? [];
+    records.push(clone(getRecord(dataset, reference)));
+    grouped[reference.collection] = records;
+  }
+  return grouped;
 }
 
 function getNextBatchNumber(): number {
   if (!fs.existsSync(BATCH_DIRECTORY)) return 1;
   const numbers = fs
     .readdirSync(BATCH_DIRECTORY)
-    .map((name) => /^DEEP_EMPTY_BATCH_(\d+)\.txt$/.exec(name)?.[1])
+    .map((name) => /^DEEP_BATCH_(\d+)\.txt$/.exec(name)?.[1])
     .filter((value): value is string => Boolean(value))
     .map(Number);
   return numbers.length === 0 ? 1 : Math.max(...numbers) + 1;
@@ -408,25 +415,25 @@ function buildBatchText(
   batchNumber: number,
   plan: BatchPlan
 ): string {
-  const batchId = `DEEP_EMPTY_BATCH_${String(batchNumber).padStart(3, "0")}`;
+  const batchId = `DEEP_BATCH_${String(batchNumber).padStart(3, "0")}`;
   const responseContract = {
     operations: {
       MERGE_EXISTING: {
         required: ["collection", "natural_key", "patch", "evidence", "reason"],
-        rule: "Every patch path must exactly match a path listed in target_empty_fields.",
+        rule: "The natural key must resolve to exactly one existing record after normalization.",
       },
       INSERT_NEW: {
         required: ["collection", "natural_key", "record", "evidence", "reason"],
         rule: "record must satisfy the master schema entity definition and must not contain workflow fields.",
       },
       NO_PROPOSAL: {
-        required: ["collection", "natural_key", "empty_field_path", "reason"],
-        rule: "Use for an empty field when no source-supported value can be proposed.",
+        required: ["collection", "natural_key", "reason"],
+        rule: "Use when no source-supported addition can be proposed.",
       },
     },
   };
 
-  return `# ${batchId} — Deep Empty-Field Enrichment\n\n` +
+  return `# ${batchId} — Full-Record Deep Enrichment\n\n` +
     `## Frozen source\n` +
     `- Working-copy format: ${WORKING_COPY_FORMAT}\n` +
     `- Master data SHA-256: ${masterHash}\n` +
@@ -436,53 +443,59 @@ function buildBatchText(
     `- Target entities: ${plan.targets.length}\n` +
     `- Context-only entities: ${plan.context.length}\n\n` +
     `## Mandatory instructions\n` +
-    `1. Enrich only the paths listed under \`empty_fields\`; they are the only fields currently empty.\n` +
-    `2. Do not overwrite, restate, or propose changes to any existing non-empty value.\n` +
+    `1. Use every target record and its linked target records as deep enrichment context.\n` +
+    `2. Do not overwrite conflicting learner-facing values automatically.\n` +
     `3. You may propose a new related record only through \`INSERT_NEW\`, using the full schema-valid record.\n` +
     `4. Never include \`enriched\` or \`taken_for_enrichment\` in a response; they are local workflow fields.\n` +
     `5. Return a JSON response using the response contract below. Never invent provenance.\n\n` +
     `## Full master schema\n\n\`\`\`json\n${JSON.stringify(schema, null, 2)}\n\`\`\`\n\n` +
     `## Response contract\n\n\`\`\`json\n${JSON.stringify(responseContract, null, 2)}\n\`\`\`\n\n` +
-    `## Target entities — empty fields only\n\n\`\`\`json\n${JSON.stringify(emptyFieldTargets(dataset, plan.targets), null, 2)}\n\`\`\`\n\n` +
-    `## Already-taken context identities — do not enrich again\n\n\`\`\`json\n${JSON.stringify(contextIdentities(plan.context), null, 2)}\n\`\`\`\n\n` +
+    `## Target entities — full source records\n\n\`\`\`json\n${JSON.stringify(recordsByCollection(dataset, plan.targets), null, 2)}\n\`\`\`\n\n` +
+    `## Already-taken context — full source records, do not enrich again\n\n\`\`\`json\n${JSON.stringify(recordsByCollection(dataset, plan.context), null, 2)}\n\`\`\`\n\n` +
     `## Unresolved existing references\n\n\`\`\`json\n${JSON.stringify(plan.unresolvedReferences, null, 2)}\n\`\`\`\n`;
 }
 
 export function generateDeepEnrichmentBatches(): { created: number; workingCopyPath: string } {
-  const masterText = fs.readFileSync(SOURCE_PATH, "utf8");
-  const schemaText = fs.readFileSync(SCHEMA_PATH, "utf8");
-  const masterDataset = JSON.parse(masterText) as JsonObject;
-  const schema = JSON.parse(schemaText) as JsonObject;
-  const masterHash = sha256(masterText);
-  const canonicalMasterHash = sha256(JSON.stringify(masterDataset));
-  const schemaHash = sha256(schemaText);
-  const workingCopy = ensureWorkingCopy(masterDataset, canonicalMasterHash);
-  const batchLimit = MAX_BATCHES ?? Number.POSITIVE_INFINITY;
-  let created = 0;
-  let batchNumber = getNextBatchNumber();
+  const lockDescriptor = acquireGenerationLock();
+  try {
+    const masterText = fs.readFileSync(SOURCE_PATH, "utf8");
+    const schemaText = fs.readFileSync(SCHEMA_PATH, "utf8");
+    const masterDataset = JSON.parse(masterText) as JsonObject;
+    const schema = JSON.parse(schemaText) as JsonObject;
+    const masterHash = sha256(masterText);
+    const canonicalMasterHash = sha256(JSON.stringify(masterDataset));
+    const schemaHash = sha256(schemaText);
+    const workingCopy = ensureWorkingCopy(masterDataset, canonicalMasterHash);
+    const batchLimit = MAX_BATCHES ?? Number.POSITIVE_INFINITY;
+    let created = 0;
+    let batchNumber = getNextBatchNumber();
 
-  while (created < batchLimit) {
-    const anchor = findFirstAvailableEntity(workingCopy);
-    if (!anchor) break;
-    const plan = buildBatchPlan(workingCopy, anchor);
-    if (plan.targets.length === 0) throw new Error(`No targets were found for ${anchor.collection}:${anchor.naturalKey}.`);
+    while (created < batchLimit) {
+      const anchor = findFirstAvailableEntity(workingCopy);
+      if (!anchor) break;
+      const plan = buildBatchPlan(workingCopy, anchor);
+      if (plan.targets.length === 0) throw new Error(`No targets were found for ${anchor.collection}:${anchor.naturalKey}.`);
 
-    markPlanTaken(workingCopy, plan);
-    const batch = buildBatchText(workingCopy, schema, masterHash, schemaHash, batchNumber, plan);
-    const batchPath = path.join(BATCH_DIRECTORY, `DEEP_EMPTY_BATCH_${String(batchNumber).padStart(3, "0")}.txt`);
-    writeTextAtomically(batchPath, batch);
-    writeJsonAtomically(WORKING_COPY_PATH, workingCopy);
+      markPlanTaken(workingCopy, plan);
+      const batch = buildBatchText(workingCopy, schema, masterHash, schemaHash, batchNumber, plan);
+      const batchPath = path.join(BATCH_DIRECTORY, `DEEP_BATCH_${String(batchNumber).padStart(3, "0")}.txt`);
+      writeTextAtomically(batchPath, batch);
+      writeJsonAtomically(WORKING_COPY_PATH, workingCopy);
 
-    console.log(
-      `${path.basename(batchPath)}: ${plan.anchor.collection}:${plan.anchor.naturalKey} → ` +
-        `${plan.targets.length} targets, ${plan.context.length} context records, ${plan.unresolvedReferences.length} unresolved references.`
-    );
-    created += 1;
-    batchNumber += 1;
+      console.log(
+        `${path.basename(batchPath)}: ${plan.anchor.collection}:${plan.anchor.naturalKey} → ` +
+          `${plan.targets.length} targets, ${plan.context.length} context records, ${plan.unresolvedReferences.length} unresolved references.`
+      );
+      created += 1;
+      batchNumber += 1;
+    }
+
+    console.log(`Created ${created} deep-enrichment batch(es). Working copy: ${path.relative(PROJECT_ROOT, WORKING_COPY_PATH)}`);
+    return { created, workingCopyPath: WORKING_COPY_PATH };
+  } finally {
+    fs.closeSync(lockDescriptor);
+    fs.rmSync(GENERATION_LOCK_PATH, { force: true });
   }
-
-  console.log(`Created ${created} deep-enrichment batch(es). Working copy: ${path.relative(PROJECT_ROOT, WORKING_COPY_PATH)}`);
-  return { created, workingCopyPath: WORKING_COPY_PATH };
 }
 
 if (require.main === module) {

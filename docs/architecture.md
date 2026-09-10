@@ -40,7 +40,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ### 1. Configuration & Guidelines
 
 #### `package.json`
-- **Purpose**: Project metadata, scripts (`dev`, `build`, `start`, `lint`, `test`), and dependencies (Next.js 16, React 19, Tailwind CSS, Zod 4, tsx).
+- **Purpose**: Project metadata, application/data scripts, the full test entry point, and explicit deep-enrichment and empty-field-batch generators; dependencies include Next.js 16, React 19, Tailwind CSS, Zod 4, and tsx.
 - **Functions**: N/A (JSON configuration).
 
 #### `package-lock.json`
@@ -569,11 +569,12 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - Validates learner-oriented navigation copy ("Search library...") and accessible modal dialog contracts (`role="dialog"`, `aria-modal="true"`, focus trap, focus restoration).
 
 #### `tests/deep-enrichment-batches.test.ts`
-- **Purpose**: Focused regression test for the deep-enrichment working-copy workflow and recursive relationship traversal.
+- **Purpose**: Focused regression test for the deep-enrichment working-copy workflow, recursive relationship traversal, full-record prompt parsing, and empty-only target transformation.
 - **Functions**: N/A (top-level assertions).
   - Verifies workflow flags are added only to the copied dataset.
   - Verifies the first available record is selected by source collection order.
   - Verifies a connected chapter, verb, expression, and vocabulary unit is planned together and marked taken without being marked enriched.
+  - Verifies empty-field batches retain only identities and empty paths, never populated source values, and parse the full-record target JSON section deterministically.
 
 ---
 
@@ -1029,7 +1030,7 @@ the current instructions if a new queue is needed.
 - **Functions**: N/A (Markdown operating instructions).
 
 #### `enrichment/create-deep-enrichment-batches.ts`
-- **Purpose**: Deep-enrichment text-prompt generator. It creates or reuses a separately stored working copy, adds workflow-only `enriched` and `taken_for_enrichment` flags to every top-level dataset record, selects anchors in dataset order, recursively gathers typed forward relationships, and writes full-schema `.txt` prompts that expose only empty target-field paths to AI. `MAX_BATCHES` is `null` for the current full run; set it to a number such as `5` for a limited test.
+- **Purpose**: Full-context deep-enrichment text-prompt generator. It creates or reuses a separately stored working copy, adds workflow-only `enriched` and `taken_for_enrichment` flags to every top-level dataset record, selects anchors in dataset order, recursively gathers typed forward relationships, and writes full-schema `.txt` prompts containing complete target and already-taken-context records. An exclusive run lock prevents concurrent generators from allocating a record twice. `MAX_BATCHES` is `null` for the current full run; set it to a number such as `5` for a limited test.
 - **Functions**:
   - `normalizeKey(value)`: Normalizes natural keys for accent-insensitive deterministic matching.
   - `addWorkflowFields(masterDataset)`: Clones a dataset and initializes both workflow flags on every top-level entity record.
@@ -1037,14 +1038,26 @@ the current instructions if a new queue is needed.
   - `findFirstAvailableEntity(dataset)`: Selects the first non-taken entity by top-level collection and record order.
   - `buildBatchPlan(dataset, anchor)`: Recursively plans a connected batch from typed relationship fields, separating fresh targets, already-taken context, and unresolved references.
   - `markPlanTaken(dataset, plan)`: Marks all planned target records as claimed while preserving their `enriched` state.
-  - `collectEmptyFields(value, pathPrefix)`: Recursively returns only null, blank-string, empty-array, and empty-object paths while excluding workflow flags.
+  - `collectEmptyFields(value, pathPrefix)`: Recursively returns only null, blank-string, empty-array, and empty-object paths while excluding workflow flags; reused by the separate empty-field generator.
   - `generateDeepEnrichmentBatches()`: Creates up to `MAX_BATCHES` frozen text prompts and persists working-copy claim state.
-  - `isObject(value)`, `clone(value)`, `sha256(value)`, `writeJsonAtomically(filePath, value)`, `writeTextAtomically(filePath, value)`, `getRecordKey(collection, record)`, `getRecords(dataset, collection)`, `listCollections(dataset)`, `removeWorkflowFields(dataset)`, `ensureWorkingCopy(masterDataset, masterHash)`, `buildIdentityIndex(dataset)`, `referenceValues(value, collection)`, `extractRelations(record, owningCollection)`, `getRecord(dataset, reference)`, `entityId(reference)`, `findInboundReferences(dataset, target, index)`, `emptyFieldTargets(dataset, references)`, `contextIdentities(references)`, `getNextBatchNumber()`, and `buildBatchText(dataset, schema, masterHash, schemaHash, batchNumber, plan)`: Internal cloning, persistence, integrity, reference-resolution, graph-traversal, empty-field extraction, numbering, and prompt-construction helpers.
+  - `isObject(value)`, `clone(value)`, `sha256(value)`, `writeJsonAtomically(filePath, value)`, `writeTextAtomically(filePath, value)`, `acquireGenerationLock()`, `getRecords(dataset, collection)`, `listCollections(dataset)`, `removeWorkflowFields(dataset)`, `ensureWorkingCopy(masterDataset, masterHash)`, `buildIdentityIndex(dataset)`, `referenceValues(value, collection)`, `extractRelations(record, owningCollection)`, `getRecord(dataset, reference)`, `entityId(reference)`, `findInboundReferences(dataset, target, index)`, `recordsByCollection(dataset, references)`, `getNextBatchNumber()`, and `buildBatchText(dataset, schema, masterHash, schemaHash, batchNumber, plan)`: Internal cloning, persistence, exclusive-run, integrity, reference-resolution, graph-traversal, record-grouping, numbering, and prompt-construction helpers.
+
+#### `enrichment/create-empty-field-enrichment-batches.ts`
+- **Purpose**: Separate minimal-prompt generator for fill-only enrichment. It reads frozen full-context deep batches and emits one matching `.txt` prompt per deep batch only when targets have empty fields. Each target includes only its collection, natural-key identity, within-batch ordinal, and empty paths—never a populated master-data field value—while the full master schema and a fill-only response contract remain available to AI.
+- **Functions**:
+  - `extractJsonCodeBlock(batchText, heading)`: Safely extracts a named JSON code-block section from a full deep-batch prompt.
+  - `emptyOnlyTargets(fullRecords)`: Converts grouped full target records into identity-and-empty-path-only targets, omitting records without any empty paths.
+  - `generateEmptyFieldEnrichmentBatches()`: Produces up to `MAX_EMPTY_FIELD_BATCHES` separate minimal `.txt` prompts from the deep-batch set without modifying master data or the deep working copy.
+  - `isObject(value)`, `sha256(value)`, `writeTextAtomically(filePath, value)`, `getDeepBatchFiles()`, and `buildEmptyFieldBatchText(sourceBatchName, schema, schemaHash, targets)`: Internal validation, hashing, deterministic discovery, safe persistence, and prompt-construction helpers.
 
 #### `enrichment/DEEP_ENRICHMENT_WORKING_DATA.json`
 - **Purpose**: Generated working copy of `data/MASTER_DATA.json` for deep enrichment. It preserves all source content while adding the workflow-only `enriched` and `taken_for_enrichment` booleans to each top-level record; it is intentionally not valid against the immutable master schema until those fields are removed by a future approved applicator.
 - **Functions**: N/A (generated JSON working dataset).
 
-#### `enrichment/deep-batches/DEEP_EMPTY_BATCH_001.txt` through `enrichment/deep-batches/DEEP_EMPTY_BATCH_1650.txt`
-- **Purpose**: Generated frozen full-run deep-enrichment text prompts. Each embeds the full master schema, source hashes, mandatory empty-field-only instructions, a structured AI response contract, target identities with only their empty field paths, context identities, and unresolved references. Batch 001 is the 2,300-record Chapter 1 connected unit; the remaining batches cover all unclaimed records.
+#### `enrichment/deep-batches/DEEP_BATCH_001.txt` through `enrichment/deep-batches/DEEP_BATCH_1650.txt`
+- **Purpose**: Generated frozen full-run, full-record deep-enrichment text prompts. Each embeds the full master schema, source hashes, full target records, full already-taken context records, a structured AI response contract, and unresolved references. Batch 001 is the 2,300-record Chapter 1 connected unit; every one of the 3,949 master records is a target in exactly one batch.
+- **Functions**: N/A (generated text prompts).
+
+#### `enrichment/empty-field-batches/EMPTY_FIELD_BATCH_001.txt` through `enrichment/empty-field-batches/EMPTY_FIELD_BATCH_1650.txt`
+- **Purpose**: Generated companion fill-only text prompts. Each embeds the full master schema and response contract but exposes targets only as collection/natural-key metadata, an ordinal, and `empty_field_paths`; no populated source-field value appears in its target section. The current run contains 3,949 targets across 1,650 matching deep batches.
 - **Functions**: N/A (generated text prompts).

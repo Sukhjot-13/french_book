@@ -6,6 +6,7 @@ import {
   findFirstAvailableEntity,
   markPlanTaken,
 } from "../enrichment/create-deep-enrichment-batches";
+import { emptyOnlyTargets, extractJsonCodeBlock } from "../enrichment/create-empty-field-enrichment-batches";
 
 type Fixture = Record<string, unknown>;
 
@@ -83,4 +84,27 @@ assert.deepStrictEqual(emptyFields, [
   { path: "$.nested.blank", current_value: "" },
 ]);
 
-console.log("✅ Deep-enrichment working-copy flags, recursive planning, and empty-field targeting verified.");
+const emptyOnly = emptyOnlyTargets({
+  verbs: [
+    { infinitive: "partir", translation: "leave", notes: "", examples: [] },
+    { infinitive: "venir", translation: "come", notes: "complete", examples: ["Je viens."] },
+  ],
+});
+assert.deepStrictEqual(emptyOnly, [
+  {
+    collection: "verbs",
+    natural_key_field: "infinitive",
+    natural_key: "partir",
+    source_target_ordinal: 1,
+    empty_field_paths: ["$.notes", "$.examples"],
+  },
+]);
+assert.strictEqual(JSON.stringify(emptyOnly).includes("leave"), false, "Empty-only targets must not include populated values.");
+
+const extracted = extractJsonCodeBlock(
+  "## Target entities — full source records\n\n```json\n{\n  \"verbs\": []\n}\n```\n",
+  "Target entities — full source records"
+);
+assert.deepStrictEqual(extracted, { verbs: [] });
+
+console.log("✅ Deep-enrichment working-copy flags, recursive planning, and empty-only batch targeting verified.");

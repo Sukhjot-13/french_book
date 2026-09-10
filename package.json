@@ -16,7 +16,9 @@
     "data:coverage": "tsx scripts/check-coverage.ts",
     "data:build": "tsx scripts/build-final-dataset.ts",
     "data:test-regressions": "tsx scripts/test-data-regressions.ts",
-    "data:all": "tsx scripts/run-all.ts"
+    "data:all": "tsx scripts/run-all.ts",
+    "enrichment:deep-batches": "tsx enrichment/create-deep-enrichment-batches.ts",
+    "enrichment:empty-field-batches": "tsx enrichment/create-empty-field-enrichment-batches.ts"
   },
   "dependencies": {
     "next": "16.3.4",
