@@ -15,23 +15,23 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ## Key User & Data Flows
 
 ### 1. The 3-Level Progressive Disclosure Flow (Scan → Peek → Deep Dive)
-- **Level 1 (Scan)**: High-density tables and lists designed for fast visual triage and revision (e.g., [`VerbLibraryTable`](file:///Users/sukhjot/codes/book/src/components/verbs/VerbLibraryTable.tsx), [`VocabDictionaryTable`](file:///Users/sukhjot/codes/book/src/components/vocabulary/VocabDictionaryTable.tsx), [`GrammarLibraryTable`](file:///Users/sukhjot/codes/book/src/components/grammar/GrammarLibraryTable.tsx), [`ExpressionLibraryTable`](file:///Users/sukhjot/codes/book/src/components/expressions/ExpressionLibraryTable.tsx)). Emphasizes compact rows, monospace formatting, instant alphabet jump bars, and facet filters without overwhelming whitespace.
-- **Level 2 (Peek)**: Non-disruptive slide-over drawer ([`PeekDrawer`](file:///Users/sukhjot/codes/book/src/components/peek/PeekDrawer.tsx) on desktop / bottom sheet on mobile) managed by [`PeekContext`](file:///Users/sukhjot/codes/book/src/components/peek/PeekContext.tsx) and served by the lightweight [`/api/peek`](file:///Users/sukhjot/codes/book/app/api/peek/route.ts) route. Users can click any table row or "Peek" badge to inspect key facts, core stems, traps, and verbal constructions in <150ms without losing scroll position or leaving their current revision workflow.
-- **Level 3 (Deep Dive)**: Dedicated full-page routes ([`/verbs/[id]`](file:///Users/sukhjot/codes/book/app/verbs/[id]/page.tsx), [`/grammar/[id]`](file:///Users/sukhjot/codes/book/app/grammar/[id]/page.tsx), [`/expressions/[id]`](file:///Users/sukhjot/codes/book/app/expressions/[id]/page.tsx), [`/tenses/[id]`](file:///Users/sukhjot/codes/book/app/tenses/[id]/page.tsx), [`/chapters/[id]`](file:///Users/sukhjot/codes/book/app/chapters/[id]/page.tsx)). Houses exhaustive pedagogical materials: 6-form mood conjugation grids, syntactic pattern slot breakdowns, contrast-with rules, and practice drills with revealable answers.
+- **Level 1 (Scan)**: High-density tables and lists designed for fast visual triage and revision (e.g., [`VerbLibraryTable`](file:///Users/sukhjot/codes/github/french_book/src/components/verbs/VerbLibraryTable.tsx), [`VocabDictionaryTable`](file:///Users/sukhjot/codes/github/french_book/src/components/vocabulary/VocabDictionaryTable.tsx), [`GrammarLibraryTable`](file:///Users/sukhjot/codes/github/french_book/src/components/grammar/GrammarLibraryTable.tsx), [`ExpressionLibraryTable`](file:///Users/sukhjot/codes/github/french_book/src/components/expressions/ExpressionLibraryTable.tsx)). Emphasizes compact rows, monospace formatting, instant alphabet jump bars, and facet filters without overwhelming whitespace.
+- **Level 2 (Peek)**: Non-disruptive slide-over drawer ([`PeekDrawer`](file:///Users/sukhjot/codes/github/french_book/src/components/peek/PeekDrawer.tsx) on desktop / bottom sheet on mobile) managed by [`PeekContext`](file:///Users/sukhjot/codes/github/french_book/src/components/peek/PeekContext.tsx) and served by the lightweight [`/api/peek`](file:///Users/sukhjot/codes/github/french_book/app/api/peek/route.ts) route. Users can click any table row or "Peek" badge to inspect key facts, core stems, traps, and verbal constructions in <150ms without losing scroll position or leaving their current revision workflow.
+- **Level 3 (Deep Dive)**: Dedicated full-page routes ([`/verbs/[id]`](file:///Users/sukhjot/codes/github/french_book/app/verbs/[id]/page.tsx), [`/grammar/[id]`](file:///Users/sukhjot/codes/github/french_book/app/grammar/[id]/page.tsx), [`/expressions/[id]`](file:///Users/sukhjot/codes/github/french_book/app/expressions/[id]/page.tsx), [`/tenses/[id]`](file:///Users/sukhjot/codes/github/french_book/app/tenses/[id]/page.tsx), [`/chapters/[id]`](file:///Users/sukhjot/codes/github/french_book/app/chapters/[id]/page.tsx)). Houses exhaustive pedagogical materials: 6-form mood conjugation grids, syntactic pattern slot breakdowns, contrast-with rules, and practice drills with revealable answers.
 
 ### 2. Universal Search & Command Palette Flow
-- **Trigger**: Pressing `Cmd+K` (macOS), `Ctrl+K` (Windows/Linux), or `/` anywhere opens [`CommandPalette`](file:///Users/sukhjot/codes/book/src/components/search/CommandPalette.tsx).
-- **Execution**: Debounced live input queries [`/api/search?q=...`](file:///Users/sukhjot/codes/book/app/api/search/route.ts) which runs [`searchDataset()`](file:///Users/sukhjot/codes/book/src/lib/data/search.ts). Searches across all 10 master collections simultaneously using accent/diacritic-insensitive French normalization ([`normalizeFrenchText`](file:///Users/sukhjot/codes/book/src/lib/data/search.ts)).
+- **Trigger**: Pressing `Cmd+K` (macOS), `Ctrl+K` (Windows/Linux), or `/` anywhere opens [`CommandPalette`](file:///Users/sukhjot/codes/github/french_book/src/components/search/CommandPalette.tsx).
+- **Execution**: Debounced live input queries [`/api/search?q=...`](file:///Users/sukhjot/codes/github/french_book/app/api/search/route.ts) which runs [`searchDataset()`](file:///Users/sukhjot/codes/github/french_book/src/lib/data/search.ts). Searches across all 10 master collections simultaneously using accent/diacritic-insensitive French normalization ([`normalizeFrenchText`](file:///Users/sukhjot/codes/github/french_book/src/lib/data/search.ts)).
 - **Action**: Results are categorized by entity type with direct navigation (`Enter`), arrow-key selection, or Level 2 inspection.
 
 ### 3. Resilient ID Resolution & URL Routing Flow
 - **Resolution Strategy**: Dynamic routes receive parameters that may be percent-encoded (`Present%20tense...`), accented (`(s')asseoir`), or slugified (`present_tense...`).
-- **Pipeline**: Selectors in [`selectors.ts`](file:///Users/sukhjot/codes/book/src/lib/data/selectors.ts) utilize `safeDecode()` to resolve both raw and decoded strings against primary keys, canonical forms, display forms, and normalized slugs.
+- **Pipeline**: Selectors in [`selectors.ts`](file:///Users/sukhjot/codes/github/french_book/src/lib/data/selectors.ts) utilize `safeDecode()` to resolve both raw and decoded strings against primary keys, canonical forms, display forms, and normalized slugs.
 
 ### 4. Server-Side Master Data Pipeline
-- **Storage**: Immutable source master JSON database stored in [`data/MASTER_DATA.json`](file:///Users/sukhjot/codes/book/data/MASTER_DATA.json), validated against [`data/MASTER_SCHEMA.json`](file:///Users/sukhjot/codes/book/data/MASTER_SCHEMA.json). There is no active derived dataset after the 2026-09-10 enrichment reset; any future enrichment output must be separately named under `enrichment/` and never replace the source dataset.
-- **Loader**: [`getMasterDataset()`](file:///Users/sukhjot/codes/book/src/lib/data/loader.ts) loads the JSON once from disk and caches the parsed in-memory representation in process memory, delivering zero-latency server-side rendering.
-- **View-Model Mapping**: Specialized selector functions in [`selectors.ts`](file:///Users/sukhjot/codes/book/src/lib/data/selectors.ts) sanitize and transform raw JSON into UI-safe contracts (e.g. flattening nested article objects, cross-linking related verbs, building reverse index lookups).
+- **Storage**: Immutable source master JSON database stored in [`data/MASTER_DATA.json`](file:///Users/sukhjot/codes/github/french_book/data/MASTER_DATA.json), validated against [`data/MASTER_SCHEMA.json`](file:///Users/sukhjot/codes/github/french_book/data/MASTER_SCHEMA.json). There is no active derived dataset after the 2026-09-10 enrichment reset; any future enrichment output must be separately named under `enrichment/` and never replace the source dataset.
+- **Loader**: [`getMasterDataset()`](file:///Users/sukhjot/codes/github/french_book/src/lib/data/loader.ts) loads the JSON once from disk and caches the parsed in-memory representation in process memory, delivering zero-latency server-side rendering.
+- **View-Model Mapping**: Specialized selector functions in [`selectors.ts`](file:///Users/sukhjot/codes/github/french_book/src/lib/data/selectors.ts) sanitize and transform raw JSON into UI-safe contracts (e.g. flattening nested article objects, cross-linking related verbs, building reverse index lookups).
 
 ---
 
@@ -58,10 +58,6 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 #### `tsconfig.json`
 - **Purpose**: TypeScript compiler options, strict mode, path aliases (`@/*`), and build target definitions.
 - **Functions**: N/A (JSON configuration).
-
-#### `tsconfig.tsbuildinfo`
-- **Purpose**: Incremental TypeScript compiler cache maintaining project graph and speed-ups.
-- **Functions**: N/A (Binary compiler state cache).
 
 #### `postcss.config.mjs`
 - **Purpose**: PostCSS configuration loading `@tailwindcss/postcss`.
@@ -217,9 +213,9 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `GET(request)`: Handles search queries and returns matched items grouped by category.
 
 #### `app/api/peek/route.ts`
-- **Purpose**: Universal Level 2 Peek API endpoint providing lightweight preview summaries for verbs, expressions, grammar rules, tenses, and vocabulary without full-page reloads.
+- **Purpose**: Universal Level 2 Peek API endpoint providing lightweight preview summaries for verbs, expressions, grammar rules, tenses, vocabulary, chapters, traps, examples, exercises, and concepts without full-page reloads.
 - **Functions**:
-  - `GET(request)`: Handles `?type={verb|expression|grammar|tense|vocab}&id={id}` requests and returns structured peek payloads.
+  - `GET(request)`: Handles `?type={verb|expression|tense|grammar|vocab|chapter|trap|example|exercise|concept}&id={id}` requests and returns structured peek payloads.
 
 ---
 
@@ -269,7 +265,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `handleSearchSubmit(e)`: Form submit handler committing search queries.
 
 #### `src/components/verbs/VerbDetailView.tsx`
-- **Purpose**: Systematic 3-level detail view for verbs featuring mood tabs (Indicatif, Conditionnel, Subjonctif, Impératif), accessible keyboard-navigable tense accordion rows with embedded peek triggers, smart "Show More" limits, peek triggers for expressions, and demoted technical metadata.
+- **Purpose**: Systematic 3-level detail view for verbs featuring mood tabs (Indicatif, Conditionnel, Subjonctif, Impératif), accessible keyboard-navigable tense accordion rows with embedded peek triggers, smart "Show More" limits, peek triggers for expressions, and demoted technical metadata. Mood-change tense reset uses the adjust-state-during-render pattern (no setState-in-effect).
 - **Functions**:
   - `VerbDetailView({ verb, conjugations, expressions, grammarRules, examples })`: Client detail component.
   - `formatGroupName(g)`: Formats French verb group name into descriptive label.
@@ -343,12 +339,12 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `ExampleExplorerList({ examples })`: Client list component with peek triggers.
 
 #### `src/components/search/CommandPalette.tsx`
-- **Purpose**: Modal command palette (`Cmd+K` / `Ctrl+K`) for keyboard-first navigation and instant search with backdrop click-to-close, explicit close button (`✕`) for mobile devices without Escape keys, and responsive padding.
+- **Purpose**: Modal command palette (`Cmd+K` / `Ctrl+K`) for keyboard-first navigation and instant search with backdrop click-to-close, explicit close button (`✕`) for mobile devices without Escape keys, and responsive padding. Open/close state is owned by `AppShell` via `isOpen`/`onClose` props; internal query/reset state uses the adjust-state-during-render pattern (no setState-in-effect) and search fetching is debounced (~150ms) with a focus-on-open effect.
 - **Functions**:
-  - `CommandPalette({ isOpen, onClose })`: Client component managing search dialog, keyboard shortcuts, live results, and listening for global `"open-command-palette"` custom events.
-  - `handleKeyDown(e)`: Listens for palette keyboard triggers (`Cmd+K`, `Esc`).
+  - `CommandPalette({ isOpen, onClose })`: Client component managing search dialog, keyboard shortcuts, live results, and debounced `/api/search` fetching.
+  - `handleKeyDown(e)`: Effect-internal key event listener for palette keyboard triggers (`Cmd+K`/`Ctrl+K`, `Esc`).
   - `handleKeyDownInInput(e)`: Handles arrow keys, Enter, and Tab inside palette input.
-  - `handleSelect(type, id)`: Executes selection navigation or triggers Level 2 peek.
+  - `handleSelect(item)`: Executes selection navigation to the result URL and closes the palette.
 
 #### `src/components/ui/Badges.tsx`
 - **Purpose**: Color-coded badges for linguistic attributes (CEFR, verb group, part of speech, auxiliary, priority, transitivity, mood, register, collocation strength).
@@ -444,51 +440,40 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Comprehensive Zod schemas defining types and contracts for chapters, rules, verbs, conjugations, vocabulary, expressions, and quality reports.
 - **Functions**: Schema definitions and type exports.
 
-#### `src/lib/dataset/schemas.js`
-- **Purpose**: Compiled JavaScript companion module for schemas.
-- **Functions**: Compiled schema objects.
-
 #### `src/lib/dataset/ids.ts`
 - **Purpose**: Deterministic identifier generation and slugification for all dataset entities.
 - **Functions**:
-  - `stripAccents(str)`: Removes French diacritics.
+  - `stripAccents(str)`: Removes French diacritics (including œ/æ/ç handling).
   - `slugify(str)`: Converts text to standard URL/ID friendly slug.
-  - `makeBookId()`: Generates root book identifier.
-  - `makeChapterId(chapterNum)`: Generates formatted chapter identifier.
-  - `makeSectionId(chapterNum, sectionNum)`: Generates chapter section identifier.
-  - `makeConceptId(name, suffix)`: Generates slugified concept identifier with optional chapter or index suffix to prevent duplicate key collisions.
-  - `makeTenseId(name)`: Generates slugified tense identifier.
-  - `makeRuleId(ruleName, order)`: Generates rule identifier with accented discriminator to avoid collisions.
+  - `makeBookId(titleOrSlug)`: Generates root book identifier.
+  - `makeChapterId(chapterNumber)`: Generates formatted chapter identifier.
+  - `makeSectionId(chapterNumber, sectionOrder, title?)`: Generates chapter section identifier with optional title slug suffix.
+  - `makeConceptId(name, suffix?)`: Generates slugified concept identifier with optional chapter or index suffix to prevent duplicate key collisions.
+  - `makeTenseId(nameEnglishOrKey)`: Generates slugified tense identifier.
+  - `makeRuleId(titleOrKey)`: Generates rule identifier with accented `-é` discriminator to avoid collisions.
   - `makeVerbId(infinitive)`: Generates verb lemma identifier.
-  - `makeConjugationId(verbId, mood, tense)`: Generates composite conjugation record identifier.
-  - `makeExpressionId(text)`: Generates expression identifier.
-  - `makeVocabId(word, pos)`: Generates vocabulary identifier with part-of-speech discriminator to prevent homograph collisions (supports string or object input).
-  - `makeExampleId(text)`: Generates deterministic example sentence identifier.
-  - `makeExerciseId(chapterNum, exerciseNum)`: Generates exercise identifier.
-  - `makeQuestionId(exerciseId, questionNum)`: Generates individual drill question identifier.
+  - `makeConjugationId(verbIdOrInfinitive, tenseIdOrKey)`: Generates composite conjugation record identifier.
+  - `makeExpressionId(canonicalForm)`: Generates expression identifier with qqn/qqch/inf abbreviation normalization.
+  - `makeVocabId(word, pos?)`: Generates vocabulary identifier with part-of-speech discriminator to prevent homograph collisions (supports string or object input; strips leading articles).
+  - `makeExampleId(verbOrChapter, index)`: Generates deterministic zero-padded example sentence identifier.
+  - `makeExerciseId(chapterNumber, exerciseNumber)`: Generates exercise identifier.
+  - `makeQuestionId(exerciseId, questionIndex)`: Generates individual drill question identifier.
   - `makeStudySetId(name)`: Generates study set identifier.
+  - `VALID_ID_PREFIXES`: Tuple of allowed entity ID prefixes.
   - `isValidId(id)`: Validates ID prefix and format.
-
-#### `src/lib/dataset/ids.js`
-- **Purpose**: Compiled JavaScript companion module for entity ID generators.
-- **Functions**: Compiled ID helper functions (`stripAccents`, `slugify`, `makeBookId`, `makeChapterId`, `makeSectionId`, `makeConceptId`, `makeTenseId`, `makeRuleId`, `makeVerbId`, `makeConjugationId`, `makeExpressionId`, `makeVocabId`, `makeExampleId`, `makeExerciseId`, `makeQuestionId`, `makeStudySetId`, `isValidId`).
 
 #### `src/lib/dataset/canonicalize.ts`
 - **Purpose**: De-duplication and canonicalization of lexical items from disparate extraction sources.
 - **Functions**:
   - `mergeAttestations()`: Merges and deduplicates attestation metadata records.
-  - `safeArray(val)`: Normalizes scalar, null, or undefined values into array containers.
   - `deduplicateArray()`: Removes duplicate primitives from arrays.
+  - `safeArray(val)`: Internal (non-exported) helper normalizing scalar, null, or undefined values into array containers.
   - `canonicalizeVerb()`: Cleans and standardizes single verb record.
   - `canonicalizeVocabularyEntry()`: Standardizes vocabulary record fields.
   - `canonicalizeExpressionEntry()`: Standardizes expression syntactic fields.
   - `canonicalizeVerbs()`: Bulk canonicalization for verb collections.
   - `canonicalizeVocabulary()`: Bulk canonicalization for vocabulary collections.
   - `canonicalizeExpressions()`: Bulk canonicalization for expression collections.
-
-#### `src/lib/dataset/canonicalize.js`
-- **Purpose**: Compiled JavaScript companion module for canonicalization routines.
-- **Functions**: Compiled canonicalization helper functions (`mergeAttestations`, `safeArray`, `deduplicateArray`, `canonicalizeVerb`, `canonicalizeVocabularyEntry`, `canonicalizeExpressionEntry`, `canonicalizeVerbs`, `canonicalizeVocabulary`, `canonicalizeExpressions`).
 
 #### `src/lib/dataset/normalize.ts`
 - **Purpose**: Text cleaning, OCR artifact cleanup, and normalization routines.
@@ -501,8 +486,8 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Builds bi-directional indexes connecting verbs, rules, tenses, and chapters.
 - **Functions**:
   - `buildReverseIndexes(dataset)`: Generates reverse lookup tables for relations.
-  - `registerId(id, type, entity)`: Internal helper registering known IDs.
-  - `addLink(fromId, toId, relationType)`: Internal helper recording directional graph links.
+  - `registerId(id)`: Internal helper registering known IDs into the `allEntityIds` set.
+  - `addLink(map, key, targetId)`: Internal helper recording directional graph links with dedupe.
 
 #### `src/lib/dataset/coverage.ts`
 - **Purpose**: Evaluates dataset completeness against expected chapter and section coverage.
@@ -517,11 +502,11 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 #### `src/lib/dataset/validators.ts`
 - **Purpose**: Dataset integrity verification and cross-reference validation.
 - **Functions**:
-  - `validateDataset(dataset)`: Validates foreign key relationships and schema adherence.
-  - `normalizedIdentity(item)`: Normalizes identity strings for duplicate checks.
-  - `checkEntityId(id, expectedPrefix, errors)`: Asserts valid entity identifier formats.
-  - `checkRelation(fromId, toId, validIds, errors)`: Verifies referential graph integrity.
-  - `findDuplicateGroups(items, keyFn)`: Identifies entity clusters with identical natural keys.
+  - `validateDataset(dataset)`: Validates foreign key relationships and schema adherence; returns a `ValidationReport` (also exports the `ValidationReport` interface).
+  - `normalizedIdentity(value)`: Internal (non-exported) helper normalizing identity strings for duplicate checks.
+  - `checkEntityId(id, type)`: Internal closure inside `validateDataset()` asserting valid entity identifier formats and uniqueness.
+  - `checkRelation(fromId, fromType, targetId, relationType)`: Internal closure inside `validateDataset()` verifying referential graph integrity.
+  - `findDuplicateGroups(entityType, entries)`: Internal closure inside `validateDataset()` identifying entity clusters with identical natural keys.
 
 ---
 
