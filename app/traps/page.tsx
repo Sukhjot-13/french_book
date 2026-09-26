@@ -74,6 +74,21 @@ export default async function TrapsPage({ searchParams }: TrapsPageProps) {
             </span>
           </div>
 
+          <div className="sm:w-56">
+            <select
+              name="category"
+              defaultValue={category}
+              className="w-full px-3 py-2 rounded bg-surface-container-lowest border border-amber-300 text-sm text-on-surface focus:outline-none focus:border-amber-600"
+              aria-label="Filter by category"
+            >
+              {categories.map((c) => (
+                <option key={c} value={c === "All Categories" ? "all" : c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div className="flex items-center gap-2">
             <Link
               href="/traps"

@@ -1,4 +1,4 @@
-import { Verb, Vocabulary, Expression, GrammarRule, Example, Attestation } from "./schemas";
+import { Verb, Vocabulary, Expression, Attestation } from "./schemas";
 
 export function mergeAttestations(existing: Attestation[] = [], incoming: Attestation[] = []): Attestation[] {
   const merged = [...(existing || [])];
@@ -23,7 +23,7 @@ export function deduplicateArray<T>(arr: T[] = []): T[] {
   return Array.from(new Set(arr || []));
 }
 
-function safeArray(val: any): string[] {
+function safeArray(val: unknown): string[] {
   if (Array.isArray(val)) return val;
   if (typeof val === "string") return [val];
   return [];

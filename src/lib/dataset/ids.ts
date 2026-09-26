@@ -81,7 +81,7 @@ export function makeConjugationId(verbIdOrInfinitive: string, tenseIdOrKey: stri
 
 export function makeExpressionId(canonicalForm: string): string {
   // common abbreviations in IDs: quelqu'un -> qqn, quelque chose -> qqch, infinitif -> inf
-  let form = canonicalForm
+  const form = canonicalForm
     .replace(/\bquelqu['’]un\b/gi, "qqn")
     .replace(/\bquelque chose\b/gi, "qqch")
     .replace(/\b[+]?\s*infinitif\b/gi, "inf");
@@ -94,7 +94,7 @@ export function makeVocabId(canonicalWord: string | { canonical_form?: string; d
     ? canonicalWord 
     : canonicalWord?.canonical_form || canonicalWord?.display_form || "";
   // Remove leading articles like 'le ', 'la ', 'l'', 'un ', 'une '
-  let clean = rawStr.trim().replace(/^(le|la|l'|l’|les|un|une|des)\s+/i, "");
+  const clean = rawStr.trim().replace(/^(le|la|l'|l’|les|un|une|des)\s+/i, "");
   const slug = slugify(clean);
   if (pos && typeof pos === "string") {
     return `vocab_${slug}_${slugify(pos)}`;

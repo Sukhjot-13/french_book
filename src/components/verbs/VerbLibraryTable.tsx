@@ -32,7 +32,7 @@ export function VerbLibraryTable({
   const router = useRouter();
   const searchParams = useSearchParams();
   const { openPeek } = usePeek();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const [showMoreFilters, setShowMoreFilters] = useState(
     Boolean(initialFilters.transitivity && initialFilters.transitivity !== "all") ||

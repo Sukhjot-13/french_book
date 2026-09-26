@@ -1,4 +1,4 @@
-import { SuperDatasetRoot, Verb, Expression, Conjugation, Example, Exercise, GrammarRule, Vocabulary, Tense } from "./schemas";
+import { SuperDatasetRoot } from "./schemas";
 
 export interface DatasetReverseIndexes {
   expressionsByVerb: Map<string, string[]>;

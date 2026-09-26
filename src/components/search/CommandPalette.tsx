@@ -17,14 +17,24 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
-    } else {
+  // Reset state when the palette closes. Done during render (adjusting
+  // state from previous-render info) instead of in an effect, so there is
+  // no cascading re-render.
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+  if (prevIsOpen !== isOpen) {
+    setPrevIsOpen(isOpen);
+    if (!isOpen) {
       setQuery("");
       setResults([]);
       setSelectedIndex(0);
     }
+  }
+
+  // Focus the input when the palette opens (pure DOM side effect — no state)
+  useEffect(() => {
+    if (!isOpen) return;
+    const timer = setTimeout(() => inputRef.current?.focus(), 50);
+    return () => clearTimeout(timer);
   }, [isOpen]);
 
   // Keyboard shortcut listener (Cmd+K / Ctrl+K)
@@ -45,19 +55,28 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Search API fetch on query change
-  useEffect(() => {
+  // Clear results the moment the query is emptied. Done during render
+  // (adjusting state from previous-render info) instead of in an effect.
+  const [prevQuery, setPrevQuery] = useState(query);
+  if (prevQuery !== query) {
+    setPrevQuery(query);
     if (!query.trim()) {
       setResults([]);
       setIsLoading(false);
-      return;
     }
+  }
 
-    setIsLoading(true);
+  // Search API fetch on query change. The loading flag flips inside the
+  // debounced callback (not synchronously in the effect body).
+  useEffect(() => {
+    if (!query.trim()) return;
+
+    let cancelled = false;
     const debounceTimer = setTimeout(async () => {
+      setIsLoading(true);
       try {
         const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&limit=15`);
-        if (res.ok) {
+        if (!cancelled && res.ok) {
           const data = await res.json();
           setResults(data.results || []);
           setSelectedIndex(0);
@@ -65,11 +84,14 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
       } catch (err) {
         console.error("Search failed:", err);
       } finally {
-        setIsLoading(false);
+        if (!cancelled) setIsLoading(false);
       }
     }, 150);
 
-    return () => clearTimeout(debounceTimer);
+    return () => {
+      cancelled = true;
+      clearTimeout(debounceTimer);
+    };
   }, [query]);
 
   // Navigation within modal via arrows and enter

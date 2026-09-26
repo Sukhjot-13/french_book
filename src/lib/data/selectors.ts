@@ -1285,7 +1285,7 @@ export function getVocabularyById(vocabId: string): VocabDetailWithGraph | null 
     .map(mapExpression);
 
   const examples = (data.examples || [])
-    .filter((ex, i) => {
+    .filter((ex) => {
       const normFr = normalizeFrenchText(ex.french);
       return normFr.includes(normWord);
     })

@@ -48,10 +48,15 @@ export function VerbDetailView({
 
   const [expandedTense, setExpandedTense] = useState<string>(defaultTense);
 
-  // Update expanded tense if mood changes
-  React.useEffect(() => {
+  // Reset the open tense when the mood changes. Done during render
+  // (adjusting state from previous-render info) instead of in an effect,
+  // so there is no cascading re-render. defaultTense is already computed
+  // from the new activeMood above by the time this runs.
+  const [prevMood, setPrevMood] = useState<string>(activeMood);
+  if (prevMood !== activeMood) {
+    setPrevMood(activeMood);
     setExpandedTense(defaultTense);
-  }, [activeMood, defaultTense]);
+  }
 
   // Smart "Show More" states
   const [showAllSenses, setShowAllSenses] = useState(false);
@@ -314,7 +319,7 @@ export function VerbDetailView({
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs font-mono">
                         {conj.forms?.je && (
                           <div className="p-2 rounded bg-surface-container-lowest border border-outline-variant/40 flex justify-between">
-                            <span className="text-on-surface-variant">je / j'</span>
+                            <span className="text-on-surface-variant">je / j&apos;</span>
                             <span className="font-bold text-primary">{conj.forms.je}</span>
                           </div>
                         )}

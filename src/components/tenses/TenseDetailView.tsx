@@ -54,6 +54,11 @@ export function TenseDetailView({
               Examples ({examples.length})
             </a>
           )}
+          {traps.length > 0 && (
+            <a href="#traps" className="px-2.5 py-1 rounded-lg hover:bg-surface-container hover:text-primary transition-colors text-on-surface-variant font-medium">
+              Traps ({traps.length})
+            </a>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <Link
@@ -332,6 +337,56 @@ export function TenseDetailView({
               <span>View all examples for {tense.name_fr} in Example Explorer</span>
               <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
             </Link>
+          </div>
+        </div>
+      )}
+
+      {/* RELATED TRAPS & PITFALLS */}
+      {traps.length > 0 && (
+        <div id="traps" className="p-5 rounded-xl bg-amber-50/40 border border-amber-200 space-y-3 shadow-xs">
+          <div className="flex items-center justify-between border-b border-amber-200/60 pb-2">
+            <h2 className="text-base font-bold text-amber-900 flex items-center gap-2">
+              <span className="material-symbols-outlined text-amber-600 text-[18px]">warning</span>
+              <span>Related Traps & Pitfalls ({traps.length})</span>
+            </h2>
+            <Link
+              href="/traps"
+              className="text-xs font-mono font-semibold text-amber-800 hover:underline inline-flex items-center gap-1"
+            >
+              <span>All traps</span>
+              <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
+            </Link>
+          </div>
+          <div className="space-y-2.5">
+            {traps.slice(0, 6).map((trap) => (
+              <div key={trap.id} className="p-3 rounded-lg bg-surface-container-lowest border border-amber-200/70">
+                <div className="flex items-start justify-between gap-2">
+                  <p className="font-bold text-sm text-amber-950 leading-snug">{trap.title}</p>
+                  {trap.category && (
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 whitespace-nowrap">
+                      {trap.category}
+                    </span>
+                  )}
+                </div>
+                {trap.description && (
+                  <p className="text-xs text-on-surface-variant leading-relaxed mt-1">{trap.description}</p>
+                )}
+                {(trap.correct_form || trap.incorrect_form) && (
+                  <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+                    {trap.correct_form && (
+                      <div className="p-1.5 px-2 rounded bg-emerald-100 text-emerald-900">
+                        ✓ {trap.correct_form}
+                      </div>
+                    )}
+                    {trap.incorrect_form && (
+                      <div className="p-1.5 px-2 rounded bg-rose-100 text-rose-900 line-through">
+                        ✗ {trap.incorrect_form}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       )}

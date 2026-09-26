@@ -204,7 +204,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 #### `app/traps/page.tsx`
 - **Purpose**: Dedicated Pitfalls & Common Traps library rendering the 108 curated items with side-by-side correct vs. incorrect form comparisons, explanations, and cross-references.
 - **Functions**:
-  - `TrapsPage({ searchParams })`: Renders searchable and filterable traps directory.
+  - `TrapsPage({ searchParams })`: Renders searchable and filterable traps directory (query text + category dropdown backed by the `category` search param).
 
 #### `app/search/page.tsx`
 - **Purpose**: Dedicated search page for deep queries across all 10 master collections (verbs, expressions, vocabulary, grammar rules, tenses, chapters, examples, exercises, and traps).
@@ -226,7 +226,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ### 3. UI Components (`src/components/`)
 
 #### `src/components/layout/AppShell.tsx`
-- **Purpose**: Responsive layout shell providing desktop sidebar navigation (with live counts for all 10 entity collections), mobile header with search and hamburger menu triggers, mobile drawer with auto-close on navigation and body scroll lock, breadcrumbs, command palette integration, PeekDrawer mount, and global keyboard shortcuts.
+- **Purpose**: Responsive layout shell providing desktop sidebar navigation (with live counts for all 10 entity collections), mobile header with search and hamburger menu triggers, mobile drawer with auto-close on navigation and body scroll lock, breadcrumbs, command palette integration, PeekDrawer mount, and global keyboard shortcuts. Mobile drawer auto-close uses the adjust-state-during-render pattern (no setState-in-effect).
 - **Functions**:
   - `AppShell({ children })`: Client component wrapping pages with consistent application chrome and listening for global `"open-command-palette"` events.
 
@@ -303,7 +303,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 #### `src/components/grammar/GrammarLibraryTable.tsx`
 - **Purpose**: Dense scan table for 284 grammar rules with formation formula previews, trap counters, and row-click Level 2 peek.
 - **Functions**:
-  - `GrammarLibraryTable({ rules, total, currentPage, pageSize, initialQuery, initialCategory })`: Interactive client grammar table.
+  - `GrammarLibraryTable({ rules, total, currentPage, pageSize, initialQuery })`: Interactive client grammar table.
   - `updateFilters(newFilters)`: Pushes updated URL search parameters for rule filters.
   - `handleSearchSubmit(e)`: Form submit handler committing grammar search queries.
 
@@ -318,7 +318,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `TensesDirectoryTable({ tenses, initialMood, initialQuery })`: Interactive client component with scan-to-peek interactions and layout switcher.
 
 #### `src/components/tenses/TenseDetailView.tsx`
-- **Purpose**: Tense deep dive with sticky subnavigation, 4-part Quick-Reference Card (Formula, When to Use, Signal Words, Agreement & Traps), verb inflection matrix with search & Peek, linked grammar rules, contextual sentence examples, practice drill CTA, and demoted attestation metadata.
+- **Purpose**: Tense deep dive with sticky subnavigation, 4-part Quick-Reference Card (Formula, When to Use, Signal Words, Agreement & Traps), verb inflection matrix with search & Peek, linked grammar rules, contextual sentence examples, related traps & pitfalls section, practice drill CTA, and demoted attestation metadata.
 - **Functions**:
   - `TenseDetailView({ tense, conjugations, grammarRules, examples, traps })`: Client detail component.
 

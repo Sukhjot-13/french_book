@@ -142,10 +142,10 @@ export async function GET(request: NextRequest) {
         ],
         patternSnippet: rule.formation || undefined,
         description: rule.summary || rule.explanation?.slice(0, 150),
-        traps: (traps.length ? traps : rule.common_traps?.map((t) => ({ title: t, correct_form: null, incorrect_form: null })) || []).slice(0, 2).map((t: any) => ({
-          title: t.title || t,
-          correct: t.correct_form || undefined,
-          incorrect: t.incorrect_form || undefined,
+        traps: (traps.length ? traps : rule.common_traps?.map((t) => ({ title: t, correct_form: null, incorrect_form: null })) || []).slice(0, 2).map((t: { title?: string; correct_form?: string | null; incorrect_form?: string | null } | string) => ({
+          title: typeof t === "string" ? t : t.title || t,
+          correct: typeof t === "string" ? undefined : t.correct_form || undefined,
+          incorrect: typeof t === "string" ? undefined : t.incorrect_form || undefined,
         })),
         examples: examples.slice(0, 2).map((ex) => ({
           french: ex.french,
