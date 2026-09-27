@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { VocabUI, ExpressionUI, ExampleUI, VerbUI, ChapterUI } from "@/src/lib/data/selectors";
 import { usePeek } from "@/src/components/peek/PeekContext";
+import { PronunciationButton } from "@/src/components/common/PronunciationButton";
 
 interface VocabDetailViewProps {
   vocab: VocabUI;
@@ -37,6 +38,7 @@ export function VocabDetailView({
               <h1 className="text-3xl md:text-4xl font-extrabold text-primary tracking-tight font-serif">
                 {vocab.display_form || vocab.french}
               </h1>
+              <PronunciationButton text={vocab.display_form || vocab.french} />
               {vocab.plural_form && (
                 <span className="text-sm font-mono text-on-surface-variant/80">
                   (pl. <span className="font-semibold text-primary">{vocab.plural_form}</span>)

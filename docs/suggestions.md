@@ -1,5 +1,7 @@
 # Project Suggestions & Roadmap
 
+- **2026-09-26**: (Implemented) All four open improvement ideas from this log: (1) `scripts/field-coverage.ts` + `data:coverage-report` regenerates the field-completeness inventory from `MASTER_DATA.json` (first run found 3 real gaps: 2× `grammar_rules.explanation`, 3× `examples.english`, 31× `exercises.instructions`); (2) Web Speech API pronunciation (`PronunciationButton`, wired into verb + vocabulary detail headers); (3) SRS flashcard review (`/review` route + `ReviewSession` + `src/lib/data/srs.ts` SM-2-lite in LocalStorage, tested in `run-all.test.ts`); (4) v2.2 repair policy (`enrichment/REPAIR_POLICY_V2_2.md` + hash-bound audit validator `src/lib/dataset/repair-audit.ts`, tested — staged application still needs independent review).
+
 ## 🟢 Improvements
 
 - **2026-09-26**: (Implemented) Fixed stale `docs/architecture.md` entries from recent refactors: removed deleted `src/lib/dataset/{schemas,ids,canonicalize}.js` companions and absent `tsconfig.tsbuildinfo`; corrected `ids.ts` signatures (`makeRuleId`, `makeConjugationId`, `makeExampleId`, `makeSectionId`), `relations.ts` helpers (`registerId`, `addLink`), `validators.ts` internal closures, `canonicalize.ts` non-exported `safeArray`, `/api/peek` supported types (10, not 5), `CommandPalette` props/handlers/render pattern, and `VerbDetailView` render pattern; repointed absolute `file:///.../codes/book/...` links to the real `codes/github/french_book` path. Prefer repo-relative links in future doc edits so absolute-path rot cannot recur.

@@ -2,6 +2,14 @@ import fs from "fs";
 import path from "path";
 import assert from "assert";
 import { isItemSaved, toggleItemSaved, isItemReviewed, toggleItemReviewed } from "../src/lib/data/reviewStore";
+import { nextInterval, getDueCards, getSrsStats } from "../src/lib/data/srs";
+import {
+  stableStringify,
+  sha256Hex,
+  readEvidence,
+  verifyRepairAudit,
+  buildRepairAudit,
+} from "../src/lib/dataset/repair-audit";
 
 console.log("🚀 Running complete test suite for French Revision Platform...\n");
 
@@ -255,5 +263,61 @@ assert.strictEqual(typeof toggleItemReviewed, "function", "toggleItemReviewed mu
 assert.strictEqual(isItemSaved("verb", "prendre"), false, "SSR isItemSaved must return false safely");
 assert.strictEqual(isItemReviewed("verb", "prendre"), false, "SSR isItemReviewed must return false safely");
 console.log("✅ Review store helper and SSR safety verified.");
+
+// 14. Validate SRS scheduler (pure logic — LocalStorage guarded under Node)
+assert.strictEqual(nextInterval(0, true), 1, "first success schedules 1 day");
+assert.strictEqual(nextInterval(1, true), 3, "1d success advances to 3d");
+assert.strictEqual(nextInterval(60, true), 60, "max interval caps at 60d");
+assert.strictEqual(nextInterval(7, false), 0, "miss resets to 0");
+assert.strictEqual(nextInterval(999, true), 1, "unknown interval restarts ladder");
+const srsCards = [
+  { key: "a", front: "x", back: "y" },
+  { key: "b", front: "x", back: "y" },
+];
+// No stored records under Node (guarded) → everything is due.
+assert.strictEqual(getDueCards(srsCards).length, 2, "fresh cards are all due");
+assert.deepStrictEqual(getSrsStats(srsCards), { total: 2, due: 2, learned: 0 }, "fresh stats");
+console.log("✅ SRS scheduler progression and due-selection verified.");
+
+// 15. Validate v2.2 repair audit mapping
+const repairOriginal = {
+  id: "verb_test",
+  infinitive: "tester",
+  sources: [{ ref: "p.12" }, { ref: "p.13" }],
+  conjugations: ["malformed"],
+};
+const repairGood = {
+  id: "verb_test",
+  infinitive: "tester",
+  conjugations: ["canonical"],
+  audit: buildRepairAudit(repairOriginal, "2026-09-26T00:00:00.000Z"),
+};
+const repairCheck = verifyRepairAudit(repairOriginal, repairGood);
+assert.strictEqual(repairCheck.ok, true, `compliant repair must verify (got: ${repairCheck.errors.join("; ")})`);
+assert.strictEqual(repairCheck.originalSha256, sha256Hex(stableStringify(repairOriginal)), "hash binds the original");
+// Tampered evidence fails.
+const tampered = {
+  ...repairGood,
+  audit: { ...repairGood.audit, original_evidence: [{ ref: "p.12" }] },
+};
+assert.strictEqual(verifyRepairAudit(repairOriginal, tampered).ok, false, "dropped evidence must fail");
+// Rebinding the hash fails.
+const rebound = {
+  ...repairGood,
+  audit: { ...repairGood.audit, original_sha256: "0".repeat(64) },
+};
+assert.strictEqual(verifyRepairAudit(repairOriginal, rebound).ok, false, "wrong hash must fail");
+// Key order must not affect the binding.
+assert.strictEqual(
+  stableStringify({ b: 1, a: [3, 2] }),
+  stableStringify({ a: [3, 2], b: 1 }),
+  "stable stringify is key-order independent (arrays stay ordered)"
+);
+// attestations fallback + audit chaining.
+const withPriorAudit = { ...repairOriginal, audit: { policy: "old", x: 1 } };
+const chained = { ...repairGood, audit: buildRepairAudit(withPriorAudit, "2026-09-26T00:00:00.000Z") };
+assert.strictEqual(verifyRepairAudit(repairOriginal, chained).ok, true, "re-repairs chain (prior audit excluded)");
+assert.deepStrictEqual(readEvidence({}), [], "no evidence sources reads empty");
+console.log("✅ v2.2 repair audit mapping (hash binding + verbatim evidence) verified.");
 
 console.log("\n🎉 All tests passed successfully!");

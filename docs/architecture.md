@@ -40,7 +40,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ### 1. Configuration & Guidelines
 
 #### `package.json`
-- **Purpose**: Project metadata, scripts (`dev`, `build`, `start`, `lint`, `test`), and dependencies (Next.js 16, React 19, Tailwind CSS, Zod 4, tsx).
+- **Purpose**: Project metadata, scripts (`dev`, `build`, `start`, `lint`, `test`, `data:*` incl. `data:coverage-report`), and dependencies (Next.js 16, React 19, Tailwind CSS, Zod 4, tsx).
 - **Functions**: N/A (JSON configuration).
 
 #### `package-lock.json`
@@ -202,6 +202,11 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `TrapsPage({ searchParams })`: Renders searchable and filterable traps directory (query text + category dropdown backed by the `category` search param).
 
+#### `app/review/page.tsx` (2026-09-26)
+- **Purpose**: SRS flashcard review over irregular verbs + vocabulary (deck capped at ~300 cards). Server component builds the deck; `ReviewSession` runs the session.
+- **Functions**:
+  - `ReviewPage()`: Builds `SrsCard[]` (verbs: lemma → English; vocab: French → English) and renders `ReviewSession`.
+
 #### `app/search/page.tsx`
 - **Purpose**: Dedicated search page for deep queries across all 10 master collections (verbs, expressions, vocabulary, grammar rules, tenses, chapters, examples, exercises, and traps).
 - **Functions**:
@@ -236,6 +241,16 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `GlobalKeyboardShortcuts()`: Client listener mounted in AppShell.
   - `handleKeyDown(e)`: Internal key event dispatcher for navigation, search, and drawer toggling.
+
+#### `src/components/common/PronunciationButton.tsx` (2026-09-26)
+- **Purpose**: Web Speech API pronunciation (no network/assets). Renders nothing when synthesis is unavailable. Wired into verb + vocabulary detail headers.
+- **Functions**:
+  - `PronunciationButton({ text, lang, label })`: Speaks `text` (`fr-FR`, 0.9 rate) with a speaking pulse.
+
+#### `src/components/review/ReviewSession.tsx` (2026-09-26)
+- **Purpose**: Client flashcard session: tap-to-flip card, Again (card cycles back into the session) / Got it grading via `gradeCard()`, progress counts, all-caught-up state.
+- **Functions**:
+  - `ReviewSession({ cards })`: Runs one review session over due cards.
 
 #### `src/components/peek/PeekContext.tsx`
 - **Purpose**: Global React Context provider managing Level 2 peek drawer state, selected entity type and ID, and asynchronous data fetching.
@@ -428,6 +443,24 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `safeGetStorage(key)`: Safely parses JSON records from localStorage with SSR fallback.
   - `safeSetStorage(key, data)`: Safely persists JSON records to localStorage and notifies subscribers.
 
+#### `src/lib/data/srs.ts` (2026-09-26)
+- **Purpose**: SM-2-lite spaced-repetition scheduler persisted in LocalStorage (`letude_srs`). Powers the `/review` flashcards.
+- **Functions**:
+  - `nextInterval(currentDays, remembered)`: 0 → 1 → 3 → 7 → 14 → 30 → 60 ladder; miss resets to 0.
+  - `gradeCard(key, remembered, now)`: Records a grade, returns the new record.
+  - `getDueCards(cards, now)`: Filters to due-or-new cards.
+  - `getSrsStats(cards, now)`: `{ total, due, learned }` counts.
+
+#### `src/lib/dataset/repair-audit.ts` (2026-09-26)
+- **Purpose**: v2.2 repair gate — hash-bound audit mapping for canonical record replacement (see `enrichment/REPAIR_POLICY_V2_2.md`). Pure, no I/O.
+- **Functions**:
+  - `stableStringify(value)`: Deterministic key-sorted JSON.
+  - `sha256Hex(text)`: SHA-256 hex digest.
+  - `readEvidence(record)`: `sources` array (fallback: `attestations`).
+  - `auditableOriginal(record)`: Record minus any prior `audit` block (re-repairs chain).
+  - `verifyRepairAudit(original, repaired)`: Checks policy id, timestamp, hash binding, verbatim evidence preservation. Returns `{ ok, errors, originalSha256 }`.
+  - `buildRepairAudit(original, repairedAt)`: Builds a compliant audit block.
+
 ---
 
 ### 5. Dataset Engine & Utilities (`src/lib/dataset/`)
@@ -545,6 +578,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - Validates URL-encoded identifier lookups.
   - Validates vocabulary article sanitization (string or null).
   - Validates enhanced example filters (`verb`, `tense`, `hasTranslation`).
+  - Validates SRS scheduler (`nextInterval` ladder/cap/reset, due selection, stats) and v2.2 repair audit mapping (compliant verify, tampered-evidence fail, rebound-hash fail, key-order-stable hash, re-repair chaining) — added 2026-09-26.
   - Validates `reviewStore` functions (`isItemSaved`, `toggleItemSaved`, `isItemReviewed`, `toggleItemReviewed`) and SSR environment safety.
 
 ---
@@ -999,3 +1033,12 @@ the current instructions if a new queue is needed.
 #### `enrichment/ENRICHMENT_INSTRUCTIONS.md`
 - **Purpose**: The authoritative restart procedure for a future safe enrichment run. It defines immutable input protection, batch/manifest content, response destinations, fail-closed validation, lifecycle/audit folders, extra linguistic-risk review controls, derived-output-only application, and final verification.
 - **Functions**: N/A (Markdown operating instructions).
+
+#### `enrichment/REPAIR_POLICY_V2_2.md` (2026-09-26)
+- **Purpose**: v2.2 canonical-replacement repair policy resolving the frozen-v2.1 incompatibility: malformed records may be replaced when schema-valid + hash-bound audit preserved + dual review passed. Non-goal: no promotion or migration runner ships here.
+- **Functions**: N/A (Markdown policy).
+
+#### `scripts/field-coverage.ts` (2026-09-26)
+- **Purpose**: Read-only field-completeness inventory regenerated from `data/MASTER_DATA.json` (`npm run data:coverage-report`, `--json` for machine output). First run found 3 real gaps (2× grammar explanations, 3× example translations, 31× exercise instructions).
+- **Functions**:
+  - `main()`: Prints per-collection coverage table + gap list.

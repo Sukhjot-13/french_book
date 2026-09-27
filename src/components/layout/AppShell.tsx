@@ -57,6 +57,7 @@ export function AppShell({ children }: AppShellProps) {
     { label: "Exercises", href: "/exercises", icon: "quiz", count: "217" },
     { label: "Traps & Pitfalls", href: "/traps", icon: "warning", count: "108" },
     { label: "Example Explorer", href: "/examples", icon: "format_quote", count: "1,011" },
+    { label: "Review Flashcards", href: "/review", icon: "style", count: null },
   ];
 
   return (

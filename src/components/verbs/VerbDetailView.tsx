@@ -5,6 +5,7 @@ import Link from "next/link";
 import { VerbUI, ExpressionUI, GrammarRuleUI, ExampleUI } from "@/src/lib/data/selectors";
 import { VerbConjugation } from "@/src/lib/dataset/masterSchema";
 import { usePeek } from "../peek/PeekContext";
+import { PronunciationButton } from "../common/PronunciationButton";
 
 interface VerbDetailViewProps {
   verb: VerbUI;
@@ -120,6 +121,7 @@ export function VerbDetailView({
             <h1 className="text-3xl md:text-4xl font-bold font-sans text-primary tracking-tight">
               {verb.lemma}
             </h1>
+            <PronunciationButton text={verb.lemma} />
             {verb.pronominal && (
               <span className="text-xs font-mono font-medium text-purple-800 bg-purple-100/80 px-2 py-0.5 rounded border border-purple-200">
                 pronominal (se {verb.lemma})
