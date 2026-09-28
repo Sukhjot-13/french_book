@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDataset } from "@/src/lib/data/loader";
 import { searchDataset } from "@/src/lib/data/search";
+import { logServerEvent } from "@/src/lib/manager";
 
 const MAX_QUERY_LENGTH = 100;
 const DEFAULT_LIMIT = 20;
@@ -39,6 +40,7 @@ export async function GET(request: NextRequest) {
 
   const dataset = getDataset();
   const results = searchDataset(dataset, query, limit);
+  logServerEvent("search_completed", { queryLength: query.length, limit, results: results.length });
 
   return json({ results });
 }

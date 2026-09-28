@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hanken_Grotesk, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/src/components/layout/AppShell";
+import ManagerProvider from "@/src/lib/manager/ManagerProvider";
 
 const hankenGrotesk = Hanken_Grotesk({
   variable: "--font-hanken",
@@ -49,6 +50,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-surface text-on-surface">
+        <ManagerProvider />
         <AppShell>{children}</AppShell>
       </body>
     </html>

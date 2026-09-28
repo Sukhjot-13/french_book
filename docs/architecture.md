@@ -6,8 +6,32 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ---
 
 ## Environment Variables
-*No external environment variables are required by this project at present.*
-- All data is statically loaded server-side from local JSON datasets (`data/MASTER_DATA.json`).
+*No external environment variables are required for the app to run.* All data is statically loaded server-side from local JSON datasets (`data/MASTER_DATA.json`).
+
+### Manager (centralized logging + analytics) — OPTIONAL, all nine default to unset
+
+Nothing in this group is required. With all of them unset the integration is a set of no-ops, so local dev, CI and previews behave exactly as before. Read by `src/lib/manager/index.ts`; the full block with comments is in `.env.example`.
+
+**Server half** — read only by Node-side code (route handlers). `MANAGER_ENDPOINT` is the base URL of the **Manager** deployment, *not* this app's own port (a local Manager is `http://127.0.0.1:3300`); pointing it at the app's own dev port makes every log POST fail silently.
+
+| Var | Required? | Purpose | Referenced in |
+|---|---|---|---|
+| `MANAGER_ENDPOINT` | Optional | Base URL of the **Manager** deployment. Endpoint + app id + log key must all be present before the integration enables itself. | `src/lib/manager/index.ts` → `managerConfig` |
+| `MANAGER_APP_ID` | Optional | Project slug in Manager (`french-book`). | `src/lib/manager/index.ts` → `managerConfig` |
+| `MANAGER_LOG_KEY` | Optional | Project log key — `mlk_…` for the server. Never exposed to the browser (verified absent from `.next/static`). | `src/lib/manager/index.ts` → `managerConfig` |
+| `MANAGER_ANALYTICS_KEY` | Optional | Analytics key (`mak_…`). | `src/lib/manager/index.ts` → `managerConfig.analyticsKey` |
+| `MANAGER_LOG_SOURCE` | Optional | `server` (default) or `client`. Inferred when omitted. | `src/lib/manager/index.ts` → `SOURCE` |
+
+**Client half** — required for *any* browser logging or analytics, because Next.js only inlines a literal `process.env.NEXT_PUBLIC_FOO` member expression into the client bundle. `process.env` is an empty object in browser code and a dynamic `process.env[name]` lookup is not inlined either, so a `'use client'` module reading `MANAGER_*` is silently dead. Every value below is written out statically in `src/lib/manager/index.ts` and guarded by a test that reads the facade source.
+
+| Var | Required? | Purpose | Referenced in |
+|---|---|---|---|
+| `NEXT_PUBLIC_MANAGER_ENDPOINT` | Optional (needed for browser half) | Same value as `MANAGER_ENDPOINT`. | `src/lib/manager/index.ts` → `CLIENT_ENDPOINT` |
+| `NEXT_PUBLIC_MANAGER_APP_ID` | Optional (needed for browser half) | Same value as `MANAGER_APP_ID`. | `src/lib/manager/index.ts` → `CLIENT_APP_ID` |
+| `NEXT_PUBLIC_MANAGER_CLIENT_KEY` | Optional (needed for browser logs) | The project's **client** key (`mck_…`), not the server key: Manager derives each entry's `source` from the key kind. | `src/lib/manager/index.ts` → `CLIENT_LOG_KEY` |
+| `NEXT_PUBLIC_MANAGER_ANALYTICS_KEY` | Optional (needed for analytics) | `mak_…` analytics key. | `src/lib/manager/index.ts` → `CLIENT_ANALYTICS_KEY` |
+
+### Other
 - `PORT` (optional): Standard Node.js / Next.js server port (defaults to 3000).
 
 ---
@@ -495,8 +519,24 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `getSrsServerSnapshot()`: Returns the constant empty server snapshot.
   - `readStorage()` / `writeStorage(records)`: Internal LocalStorage read/write helpers with quota and SSR guards.
 
-#### `src/lib/pagination.ts` (2026-09-28)
-- **Purpose**: Shared pagination arithmetic for the seven filterable list routes. Replaces the raw `parseInt(params.page, 10)` calls that produced a `NaN` offset (an empty slice next to a header reporting the full entry count and "Page NaN of NaN") for any non-numeric, zero, negative or very large `?page=` value.
+#### `src/lib/manager/` (2026-09-28) — Manager integration (optional)
+
+Three files, all no-ops unless configured. This app has no logging layer of its own, so the facade is the single entry point: the two API routes call `logServerEvent`/`logServerError` directly, next to the JSON they already return. Full contract in `README.md` § "Manager integration".
+
+| File | Purpose | Exports |
+|---|---|---|
+| `src/lib/manager/logger.ts` | The vendored `@manager/logger` SDK: one file, zero dependencies, types included. Refreshed with `curl -H "x-manager-key: …" "…/api/sdk/logger?format=ts"`. Do not edit by hand. | `initLogger`, `traceIdFromHeaders`, `shutdownLoggers`, `fingerprint`, `LOG_SDK_VERSION`, `LOG_SDK_PATH`, `TRACE_HEADER` |
+| `src/lib/manager/index.ts` | The integration facade. Reads the server `MANAGER_*` block into `managerConfig` and — separately, and this is the whole point — the `NEXT_PUBLIC_MANAGER_*` block into `managerClientConfig` using **static** `process.env.NEXT_PUBLIC_*` member expressions, because Next.js strips non-public env from the client bundle. Exposes a no-op logger when unconfigured, creates the real logger lazily on first use and caches it on `globalThis`, batches routine levels on a 250ms window, and leading-edge-flushes `error`/`fatal`. Never throws. | `managerConfig`, `managerClientConfig`, `startManagerLogger`, `getManagerLogger`, `managerLog`, `getManagerDroppedCount`, `logServerEvent`, `logServerError`, `managerTrackerScript` |
+| `src/lib/manager/ManagerProvider.tsx` | `'use client'` component mounted in `app/layout.tsx`. Starts the browser logger and injects the analytics `<script>` once, guarded against double injection. Gated on `managerClientConfig.enabled`, **not** `managerConfig.enabled`. | `ManagerProvider` (default) |
+
+**Delivery profile.** Routine levels ride the SDK's own 250ms `flushIntervalMs` window, so a burst of N lines becomes one HTTP request rather than N. `error`/`fatal` skip the window via `scheduleUrgentFlush` (leading edge): flush now if `URGENT_FLUSH_MIN_GAP_MS` (100ms) has passed, otherwise arm a single trailing flush — a burst of 50 errors costs ~2 requests, not 50. Measured with `node scripts/measure-log-delivery.mjs 200`: **201/200 entries delivered, 0 dropped, 11 requests, 18.3 entries/request** at 213 logs/s.
+
+**Design points.**
+- The logger is created on first use, not at boot: Next.js compiles startup hooks and route handlers into separate module graphs, so a boot-created instance is not the object a request sees.
+- `captureProcessErrors` is intentionally **off** — Next.js owns process error handling, and extra process listeners stop log delivery entirely.
+- The SDK import stays extensionless (`from './logger'`). Turbopack does not resolve an explicit `'./logger.js'` to `logger.ts`, so the JS-reference form would fail the production build here; `scripts/measure-log-delivery.mjs` bridges the same gap for plain Node with a `module.registerHooks` resolve hook.
+
+#### `src/lib/pagination.ts` (2026-09-28)- **Purpose**: Shared pagination arithmetic for the seven filterable list routes. Replaces the raw `parseInt(params.page, 10)` calls that produced a `NaN` offset (an empty slice next to a header reporting the full entry count and "Page NaN of NaN") for any non-numeric, zero, negative or very large `?page=` value.
 - **Functions**:
   - `parsePageParam(rawPage)`: Returns a positive integer page number, defaulting to 1 for missing, empty, non-numeric, zero, negative or garbage input and clamping to `MAX_PAGE_PARAM`.
   - `paginate(items, rawPage, pageSize)`: Slices `items` and returns `{ items, currentPage, totalPages, total }` with `totalPages` floored at 1 and `currentPage` clamped into range.
@@ -593,6 +633,13 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ---
 
 ### 8. Testing Suite (`tests/`)
+
+#### `tests/manager-integration.test.ts` (2026-09-28)
+- **Purpose**: The Manager integration facade suite, run by `tests/run-all.test.ts` as its final section (`npm test`). 14 checks in the repo's assert-based idiom. Because the facade reads its environment at module load, every case re-`require`s it through `createRequire` with its own cache entry deleted — the `tsx` equivalent of vitest's `vi.resetModules()`. (`tsx` compiles this repo to CJS because there is no `"type": "module"`, which is also why the caller chains a promise rather than using top-level `await`.)
+- **Functions**:
+  - `runManagerIntegrationTests()`: Runs all 14 cases and resolves with the check count. Covers: disabled-when-unconfigured no-ops across every entry point; server enablement; the analytics key alone never enabling logs; whitespace-only values treated as unconfigured; **the server block never enabling the client half**; the client half enabling itself from `NEXT_PUBLIC_*` alone; the tracker tag's shape; the tracker being omitted without a client analytics key; a **static-access guard** that reads `src/lib/manager/index.ts` and fails if any `NEXT_PUBLIC_*` value stops being a literal `process.env.X` member expression or if the client block dynamically indexes `process.env`; `managerLog` never throwing at any level; info riding the 250ms window while `error` leading-edge flushes with the 100ms floor; unknown levels falling back to `info`; `getManagerDroppedCount`; `globalThis` instance sharing; and the real SDK surface.
+  - `setEnv(values)`: Clears all nine `MANAGER_*`/`NEXT_PUBLIC_MANAGER_*` vars, then applies the given set.
+  - `loadManager()`: Returns a freshly-evaluated copy of the facade with the cached instance on `globalThis` cleared.
 
 #### `tests/run-all.test.ts`
 - **Purpose**: Unified single entry-point test runner validating master data schema compliance, 10 collection counts, data loader integrity, view model selectors, alphabetical dictionary filtering, expression pattern filtering, and search functionality.
@@ -1070,7 +1117,23 @@ the current instructions if a new queue is needed.
 - **Purpose**: v2.2 canonical-replacement repair policy resolving the frozen-v2.1 incompatibility: malformed records may be replaced when schema-valid + hash-bound audit preserved + dual review passed. Non-goal: no promotion or migration runner ships here.
 - **Functions**: N/A (Markdown policy).
 
+#### `scripts/check-manager-integration.mjs` (2026-09-28)
+- **Purpose**: `npm run manager:check` — live end-to-end check against a running Manager. Posts one log with the server key, one with the client key and one event with the analytics key; asserts each wrong key kind is refused (401, and a generic body for an unknown key); then hits this app's own `/api/peek?type=bogus` (400) and `/api/search?q=verbe` (200) so the app's real logging path is exercised. Requires `MANAGER_ENDPOINT`, `MANAGER_LOG_KEY`, `MANAGER_ANALYTICS_KEY` and `APP_ORIGIN` (default `http://localhost:3601`); `MANAGER_CLIENT_KEY` is optional and its check is skipped when unset.
+- **Functions**: N/A (script; `check()` records pass/fail and the process exits 1 on any failure).
+
+#### `scripts/measure-log-delivery.mjs` (2026-09-28)
+- **Purpose**: `node scripts/measure-log-delivery.mjs [count]` — fires N entries at the facade the way a request handler would, counts the HTTP requests that actually reach the ingest endpoint, and reports latency, entries/request and SDK drops. The facade is TypeScript and this repo has no bundler dependency, so the script installs a `module.registerHooks` resolve hook that appends `.ts` to the facade's extensionless `./logger` import and lets Node's own type stripping do the transform — which also proves that specifier resolves outside Turbopack.
+- **Functions**: N/A (script).
+
 #### `scripts/field-coverage.ts` (2026-09-26)
 - **Purpose**: Read-only field-completeness inventory regenerated from `data/MASTER_DATA.json` (`npm run data:coverage-report`, `--json` for machine output). First run found 3 real gaps (2× grammar explanations, 3× example translations, 31× exercise instructions).
 - **Functions**:
   - `main()`: Prints per-collection coverage table + gap list.
+
+---
+
+## Verification
+
+`npm run lint` (0 errors, 0 warnings) · `npm test` (full suite, incl. 14 Manager integration checks) · `npx tsc --noEmit` (clean) · `npm run build` (clean, 2614 prerendered pages) · `npm run manager:check` (8 checks) · `node scripts/measure-log-delivery.mjs 200`.
+
+Manager integration verified end to end against a running Manager: a production server on :3601 answering `GET /api/peek?type=bogus` lands in Manager as `level=info source=server keyPrefix=mlk_A5g` ~1s after the request.

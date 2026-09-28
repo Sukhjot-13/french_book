@@ -36,6 +36,7 @@ import {
   verifyRepairAudit,
   buildRepairAudit,
 } from "../src/lib/dataset/repair-audit";
+import { runManagerIntegrationTests } from "./manager-integration.test";
 
 console.log("🚀 Running complete test suite for French Revision Platform...\n");
 
@@ -537,4 +538,19 @@ assert.strictEqual(getAllVerbIds().length, 496, "all 496 verbs are prerenderable
 assert.strictEqual(getAllVocabularyIds().length, 1002, "all 1002 vocabulary records are prerenderable");
 console.log("✅ generateStaticParams id lists are complete and unique for all seven detail routes.");
 
-console.log("\n🎉 All tests passed successfully!");
+// 23. Manager integration facade (optional observability — no-ops when unconfigured).
+//     Async because the facade reads its env at module load, so the suite
+//     re-imports it through cache-busting query strings. `tsx` emits CJS for
+//     this repo (no "type": "module"), which forbids top-level await — hence the
+//     explicit chain and the process.exitCode below.
+runManagerIntegrationTests()
+  .then((managerChecks) => {
+    console.log(
+      `✅ Manager integration verified (${managerChecks} checks: disabled no-ops, enablement, NEXT_PUBLIC_ client split, static-access guard, batching + leading-edge flush, drop count, globalThis sharing).`
+    );
+    console.log("\n🎉 All tests passed successfully!");
+  })
+  .catch((error) => {
+    console.error("\n❌ Manager integration suite failed:", error);
+    process.exitCode = 1;
+  });

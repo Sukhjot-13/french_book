@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { logServerError, logServerEvent } from "@/src/lib/manager";
 import {
   getVerbById,
   getTenseById,
@@ -338,9 +339,11 @@ export async function GET(request: NextRequest) {
       });
     }
 
+    logServerEvent("peek_unsupported_type", { type, id });
     return NextResponse.json({ error: `Unsupported entity type: ${type}` }, { status: 400 });
   } catch (error) {
     console.error("Peek API error:", error);
+    logServerError("peek_failed", error, { type, id });
     return NextResponse.json({ error: "Failed to generate peek view" }, { status: 500 });
   }
 }
