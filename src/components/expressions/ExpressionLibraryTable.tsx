@@ -79,7 +79,11 @@ export function ExpressionLibraryTable({
           {/* Quick Search */}
           <form onSubmit={handleSearchSubmit} className="flex-1 min-w-[220px]">
             <div className="relative">
+              <label htmlFor="expressions-search" className="sr-only">
+                Search expressions, meaning, or pattern
+              </label>
               <input
+                id="expressions-search"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -97,6 +101,7 @@ export function ExpressionLibraryTable({
                     updateFilters({ query: "" });
                   }}
                   className="absolute right-2 top-1.5 text-on-surface-variant hover:text-primary text-[14px]"
+                  aria-label="Clear expression search"
                 >
                   ×
                 </button>
@@ -105,7 +110,11 @@ export function ExpressionLibraryTable({
           </form>
 
           {/* Type Filter */}
+          <label htmlFor="expressions-filter-type" className="sr-only">
+            Filter expressions by type
+          </label>
           <select
+            id="expressions-filter-type"
             value={initialFilters.type || "all"}
             onChange={(e) => updateFilters({ type: e.target.value })}
             className="px-2.5 py-1.5 rounded bg-surface-container-lowest border border-outline-variant text-xs text-on-surface font-mono focus:outline-none"
@@ -119,7 +128,11 @@ export function ExpressionLibraryTable({
           </select>
 
           {/* Preposition Quick Select */}
+          <label htmlFor="expressions-filter-preposition" className="sr-only">
+            Filter expressions by preposition
+          </label>
           <select
+            id="expressions-filter-preposition"
             value={initialFilters.preposition || "all"}
             onChange={(e) => updateFilters({ preposition: e.target.value })}
             className="px-2.5 py-1.5 rounded bg-surface-container-lowest border border-outline-variant text-xs text-on-surface font-mono focus:outline-none"
@@ -160,7 +173,11 @@ export function ExpressionLibraryTable({
               <span className="text-[11px] font-mono text-on-surface-variant uppercase">
                 Base Verb:
               </span>
+              <label htmlFor="expressions-filter-base-verb" className="sr-only">
+                Filter expressions by base verb
+              </label>
               <select
+                id="expressions-filter-base-verb"
                 value={initialFilters.baseVerb || "all"}
                 onChange={(e) => updateFilters({ baseVerb: e.target.value })}
                 className="px-2 py-1 rounded bg-surface-container-lowest border border-outline-variant text-xs text-on-surface font-mono"
@@ -179,7 +196,11 @@ export function ExpressionLibraryTable({
               <span className="text-[11px] font-mono text-on-surface-variant uppercase">
                 Register:
               </span>
+              <label htmlFor="expressions-filter-register" className="sr-only">
+                Filter expressions by register
+              </label>
               <select
+                id="expressions-filter-register"
                 value={initialFilters.register || "all"}
                 onChange={(e) => updateFilters({ register: e.target.value })}
                 className="px-2 py-1 rounded bg-surface-container-lowest border border-outline-variant text-xs text-on-surface font-mono"

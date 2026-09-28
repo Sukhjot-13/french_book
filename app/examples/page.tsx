@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { getExamples, getChapters } from "@/src/lib/data/selectors";
+import { paginate } from "@/src/lib/pagination";
 import { ExampleExplorerList } from "@/src/components/examples/ExampleExplorerList";
 
 interface ExamplesPageProps {
@@ -15,18 +16,12 @@ export default async function ExamplesPage({ searchParams }: ExamplesPageProps) 
   const params = await searchParams;
   const query = params.query || "";
   const chapterId = params.chapterId || "all";
-  const currentPage = params.page ? parseInt(params.page, 10) : 1;
   const pageSize = 40;
 
-  const { examples, total } = getExamples({
-    query,
-    chapterId,
-    limit: pageSize,
-    offset: (currentPage - 1) * pageSize,
-  });
+  const filtered = getExamples({ query, chapterId }).examples;
+  const { items: examples, currentPage, totalPages, total } = paginate(filtered, params.page, pageSize);
 
   const chapters = getChapters();
-  const totalPages = Math.ceil(total / pageSize);
 
   return (
     <div className="space-y-6 pb-12">
@@ -51,11 +46,15 @@ export default async function ExamplesPage({ searchParams }: ExamplesPageProps) 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Search */}
           <div className="sm:col-span-2">
-            <label className="block text-[11px] font-mono uppercase text-on-surface-variant mb-1">
+            <label
+              htmlFor="examples-search"
+              className="block text-[11px] font-mono uppercase text-on-surface-variant mb-1"
+            >
               Search Sentences
             </label>
             <div className="relative">
               <input
+                id="examples-search"
                 type="text"
                 name="query"
                 defaultValue={query}
@@ -70,10 +69,14 @@ export default async function ExamplesPage({ searchParams }: ExamplesPageProps) 
 
           {/* Chapter Filter */}
           <div>
-            <label className="block text-[11px] font-mono uppercase text-on-surface-variant mb-1">
+            <label
+              htmlFor="examples-chapter"
+              className="block text-[11px] font-mono uppercase text-on-surface-variant mb-1"
+            >
               Filter by Chapter
             </label>
             <select
+              id="examples-chapter"
               name="chapterId"
               defaultValue={chapterId}
               className="w-full px-3 py-2 rounded bg-surface-container-lowest border border-outline-variant text-sm text-on-surface focus:outline-none focus:border-primary"

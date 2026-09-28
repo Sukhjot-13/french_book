@@ -1,8 +1,34 @@
 import fs from "fs";
 import path from "path";
 import assert from "assert";
-import { isItemSaved, toggleItemSaved, isItemReviewed, toggleItemReviewed } from "../src/lib/data/reviewStore";
-import { nextInterval, getDueCards, getSrsStats } from "../src/lib/data/srs";
+import {
+  isItemSaved,
+  toggleItemSaved,
+  isItemReviewed,
+  toggleItemReviewed,
+  getReviewStateSnapshot,
+  subscribeReviewState,
+} from "../src/lib/data/reviewStore";
+import {
+  nextInterval,
+  getDueCards,
+  getSrsStats,
+  parseSrsState,
+  sanitizeRecords,
+  selectDueCards,
+  selectSrsStats,
+  SRS_SCHEMA_VERSION,
+} from "../src/lib/data/srs";
+import { parsePageParam, paginate, MAX_PAGE_PARAM } from "../src/lib/pagination";
+import {
+  getAllVerbIds,
+  getAllTenseIds,
+  getAllGrammarIds,
+  getAllExpressionIds,
+  getAllChapterIds,
+  getAllConceptIds,
+  getAllVocabularyIds,
+} from "../src/lib/data/staticParams";
 import {
   stableStringify,
   sha256Hex,
@@ -74,6 +100,7 @@ import {
   getConcepts,
   getConceptById,
   getExamples,
+  formatComplementStructure,
 } from "../src/lib/data/selectors";
 
 // 3. Validate Selectors Functionality
@@ -319,5 +346,195 @@ const chained = { ...repairGood, audit: buildRepairAudit(withPriorAudit, "2026-0
 assert.strictEqual(verifyRepairAudit(repairOriginal, chained).ok, true, "re-repairs chain (prior audit excluded)");
 assert.deepStrictEqual(readEvidence({}), [], "no evidence sources reads empty");
 console.log("✅ v2.2 repair audit mapping (hash binding + verbatim evidence) verified.");
+
+// 16. Vocabulary id integrity: every table id must resolve to itself, and the
+// article-stripping collision cases from the 2026-09-28 audit must be correct.
+const fullVocab = getVocabulary({ limit: 5000 });
+const misResolvingIds = fullVocab.vocabulary.filter((v) => {
+  const resolved = getVocabularyById(v.id);
+  return !resolved || resolved.vocab.id !== v.id;
+});
+assert.strictEqual(
+  misResolvingIds.length,
+  0,
+  `every vocabulary id must resolve to itself (broken: ${misResolvingIds
+    .slice(0, 5)
+    .map((v) => v.id)
+    .join(", ")})`
+);
+const dedupIdGroups = new Map<string, string[]>();
+for (const v of fullVocab.vocabulary) {
+  const base = v.id.replace(/_(ch\d+|\d+(_\d+)?)$/, "");
+  const bucket = dedupIdGroups.get(base);
+  if (bucket) bucket.push(v.id);
+  else dedupIdGroups.set(base, [v.id]);
+}
+const collisions = [...dedupIdGroups.entries()].filter(([, ids]) => ids.length > 1);
+for (const [base, ids] of collisions) {
+  const resolvedForms = ids.map((id) => {
+    const resolved = getVocabularyById(id);
+    assert(resolved !== null, `deduped id ${id} (base ${base}) must resolve`);
+    return resolved!.vocab.french;
+  });
+  assert.strictEqual(
+    new Set(resolvedForms).size,
+    ids.length,
+    `every member of colliding base ${base} must resolve to its own record (${ids
+      .map((id, i) => `${id}=${resolvedForms[i]}`)
+      .join("|")})`
+  );
+}
+for (const [probe, expected] of [
+  ["ile", "île"],
+  ["mer", "mer"],
+  ["toile", "toile"],
+  ["Toile", "Toile"],
+  ["vacances", "vacances"],
+] as const) {
+  const resolved = getVocabularyById(probe);
+  assert(resolved !== null, `getVocabularyById('${probe}') must resolve`);
+  assert.strictEqual(
+    resolved!.vocab.french,
+    expected,
+    `getVocabularyById('${probe}') must render '${expected}', got '${resolved!.vocab.french}'`
+  );
+}
+const laToile = fullVocab.vocabulary.find((v) => v.french === "la Toile");
+const toile = fullVocab.vocabulary.find((v) => v.french === "Toile");
+assert(laToile && toile, "la Toile and Toile must both exist as separate records");
+assert.notStrictEqual(laToile!.id, toile!.id, "la Toile and Toile must not collapse onto one id");
+assert.strictEqual(getVocabularyById(laToile!.id)!.vocab.french, "la Toile");
+assert.strictEqual(getVocabularyById(toile!.id)!.vocab.french, "Toile");
+console.log(
+  `✅ Vocabulary id integrity verified: all ${fullVocab.vocabulary.length} ids self-resolve, 0 collisions, article pairs kept distinct.`
+);
+
+// 17. Vocabulary relation flattening: no raw object may reach a text node.
+const objectLeak = fullVocab.vocabulary.find(
+  (v) =>
+    v.word_family.some((x) => typeof x !== "string") ||
+    v.synonyms.some((x) => typeof x !== "string") ||
+    v.antonyms.some((x) => typeof x !== "string") ||
+    v.variants.some((x) => typeof x !== "string")
+);
+assert.strictEqual(objectLeak, undefined, `no vocabulary relation may stay an object (leak: ${objectLeak?.french})`);
+const objectSense = fullVocab.vocabulary.find((v) =>
+  v.senses.some((s) => typeof s !== "object" || typeof s.english_gloss !== "string" || s.english_gloss === "")
+);
+assert.strictEqual(objectSense, undefined, `every vocabulary sense must expose a string gloss (leak: ${objectSense?.french})`);
+const objectComplement = getExpressions().expressions.find(
+  (e) => e.complement_structure !== null && typeof e.complement_structure !== "string"
+);
+assert.strictEqual(
+  objectComplement,
+  undefined,
+  `complement_structure must be flattened before rendering (leak: ${objectComplement?.french})`
+);
+assert.strictEqual(
+  formatComplementStructure({ direct_object: false, indirect_object: false, preposition: "à", followed_by: "infinitive" }),
+  "à · + infinitive",
+  "complement_structure flattens to a readable slot signature"
+);
+assert.strictEqual(formatComplementStructure({ direct_object: null, indirect_object: null, preposition: null, followed_by: null }), null);
+console.log("✅ Heterogeneous dataset fields flattened (vocab relations, senses, complement_structure).");
+
+// 18. Pagination guards: non-numeric, zero, negative and oversized page params.
+assert.strictEqual(parsePageParam(undefined), 1, "missing page defaults to 1");
+assert.strictEqual(parsePageParam(""), 1, "empty page defaults to 1");
+assert.strictEqual(parsePageParam("abc"), 1, "non-numeric page defaults to 1");
+assert.strictEqual(parsePageParam("2x"), 1, "trailing garbage page defaults to 1");
+assert.strictEqual(parsePageParam("0"), 1, "zero page clamps to 1");
+assert.strictEqual(parsePageParam("-5"), 1, "negative page clamps to 1");
+assert.strictEqual(parsePageParam("3"), 3, "valid page passes through");
+assert.strictEqual(parsePageParam("999999999"), MAX_PAGE_PARAM, "huge page clamps to the ceiling");
+const paged = paginate(Array.from({ length: 120 }, (_, i) => i), "abc", 50);
+assert.strictEqual(paged.currentPage, 1, "non-numeric page falls back to page 1");
+assert.strictEqual(paged.items.length, 50, "page 1 is full");
+assert.strictEqual(paged.totalPages, 3, "totalPages is derived from total and pageSize");
+assert(Number.isFinite(paged.items[0]), "offset must be a finite number");
+const overflow = paginate(Array.from({ length: 10 }, (_, i) => i), "99", 50);
+assert.strictEqual(overflow.currentPage, 1, "page beyond the end clamps to the last page");
+assert.strictEqual(overflow.totalPages, 1, "totalPages never below 1");
+const empty = paginate([], "4", 50);
+assert.strictEqual(empty.totalPages, 1, "empty result still reports one page");
+console.log("✅ Pagination guards verified (NaN, zero, negative, overflow, empty).");
+
+// 19. Versioned SRS envelope with per-record validation.
+assert.strictEqual(SRS_SCHEMA_VERSION, 2, "SRS envelope carries a schema version");
+assert.deepStrictEqual(parseSrsState(null), { version: SRS_SCHEMA_VERSION, records: {} }, "absent state is empty");
+assert.deepStrictEqual(parseSrsState("{oops"), { version: SRS_SCHEMA_VERSION, records: {} }, "malformed JSON is dropped");
+assert.deepStrictEqual(parseSrsState("[]"), { version: SRS_SCHEMA_VERSION, records: {} }, "non-object payload is dropped");
+const v2 = parseSrsState(
+  JSON.stringify({ version: 2, records: { a: { intervalDays: 3, due: 10, lapses: 0 } } })
+);
+assert.deepStrictEqual(v2.records.a, { intervalDays: 3, due: 10, lapses: 0 }, "valid v2 record survives");
+const mixed = parseSrsState(
+  JSON.stringify({
+    version: 2,
+    records: {
+      good: { intervalDays: 1, due: 5, lapses: 0 },
+      badDue: { intervalDays: 1, due: "soon", lapses: 0 },
+      badInterval: { intervalDays: null, due: 5, lapses: 0 },
+      badLapses: { intervalDays: 1, due: 5, lapses: "x" },
+      negative: { intervalDays: -1, due: 5, lapses: 0 },
+      notObject: "nope",
+    },
+  })
+);
+assert.deepStrictEqual(Object.keys(mixed.records), ["good"], "only well-formed records survive the read");
+const legacy = parseSrsState(JSON.stringify({ a: { intervalDays: 1, due: 5, lapses: 0 } }));
+assert.strictEqual(legacy.version, 1, "bare v1 map is recognised as version 1");
+assert.deepStrictEqual(legacy.records.a, { intervalDays: 1, due: 5, lapses: 0 }, "v1 records migrate forward");
+const corruptCard = { key: "corrupt", front: "x", back: "y" };
+const corruptNow = Date.now();
+assert.deepStrictEqual(
+  selectDueCards([corruptCard], { corrupt: { intervalDays: 1, due: "nope", lapses: 0 } } as never, corruptNow).length,
+  1,
+  "a malformed stored record must not permanently strand the card"
+);
+assert.deepStrictEqual(
+  selectSrsStats([corruptCard], { corrupt: { intervalDays: 1, due: "nope", lapses: 0 } } as never, corruptNow),
+  { total: 1, due: 1, learned: 0 },
+  "a malformed stored record is counted as due, never silently lost"
+);
+assert.deepStrictEqual(sanitizeRecords(null), {}, "sanitizeRecords tolerates junk");
+console.log("✅ SRS versioned envelope + per-record validation verified (invalid records dropped, v1 migrates).");
+
+// 20. Review state snapshot reads both maps in one pass.
+assert.deepStrictEqual(getReviewStateSnapshot(), { saved: new Set(), reviewed: new Set() }, "SSR snapshot is empty");
+assert.strictEqual(typeof subscribeReviewState, "function", "subscribeReviewState must be a function");
+assert.strictEqual(typeof getReviewStateSnapshot, "function", "getReviewStateSnapshot must be a function");
+console.log("✅ Review state snapshot helper verified.");
+
+// 21. Search result vocabulary urls must be the deduplicated detail id.
+const vocabSearch = searchDataset(loadedData, "île");
+for (const hit of vocabSearch.filter((h) => h.type === "vocabulary")) {
+  const slug = hit.url.replace("/vocabulary/", "");
+  const resolved = getVocabularyById(decodeURIComponent(slug));
+  assert(resolved !== null, `search hit ${hit.url} must resolve to a vocabulary record`);
+  assert.strictEqual(
+    resolved!.vocab.french,
+    hit.title,
+    `search hit ${hit.url} must render '${hit.title}', got '${resolved!.vocab.french}'`
+  );
+}
+console.log("✅ Search vocabulary URLs resolve to their own record.");
+
+// 22. generateStaticParams id lists must be non-empty and unique.
+for (const [label, ids] of [
+  ["verbs", getAllVerbIds()],
+  ["tenses", getAllTenseIds()],
+  ["grammar", getAllGrammarIds()],
+  ["expressions", getAllExpressionIds()],
+  ["chapters", getAllChapterIds()],
+  ["concepts", getAllConceptIds()],
+  ["vocabulary", getAllVocabularyIds()],
+] as const) {
+  assert(ids.length > 0, `${label} static params must not be empty`);
+  assert.strictEqual(new Set(ids).size, ids.length, `${label} static params must be unique`);
+}
+assert.strictEqual(getAllVerbIds().length, 496, "all 496 verbs are prerenderable");
+assert.strictEqual(getAllVocabularyIds().length, 1002, "all 1002 vocabulary records are prerenderable");
+console.log("✅ generateStaticParams id lists are complete and unique for all seven detail routes.");
 
 console.log("\n🎉 All tests passed successfully!");

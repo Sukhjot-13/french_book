@@ -2,7 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getChapterById } from "@/src/lib/data/selectors";
+import { getAllChapterIds } from "@/src/lib/data/staticParams";
 import { ChapterDetailView } from "@/src/components/chapters/ChapterDetailView";
+
+export const revalidate = false;
+
+export function generateStaticParams() {
+  return getAllChapterIds().map((id) => ({ id }));
+}
 
 interface ChapterDetailPageProps {
   params: Promise<{ id: string }>;

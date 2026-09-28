@@ -56,7 +56,11 @@ export function GrammarLibraryTable({
         {/* Search Input */}
         <form onSubmit={handleSearchSubmit} className="flex-1 min-w-[240px]">
           <div className="relative">
+            <label htmlFor="grammar-search" className="sr-only">
+              Search grammar rules, categories, or formation formulas
+            </label>
             <input
+              id="grammar-search"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -74,6 +78,7 @@ export function GrammarLibraryTable({
                   updateFilters({ query: "" });
                 }}
                 className="absolute right-2 top-1.5 text-on-surface-variant hover:text-primary text-[14px]"
+                aria-label="Clear grammar search"
               >
                 ×
               </button>

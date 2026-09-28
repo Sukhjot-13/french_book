@@ -56,6 +56,10 @@ export function PeekProvider({ children }: { children: React.ReactNode }) {
   // In-memory cache for instant zero-latency repeat peeks
   const cacheRef = useRef<Map<string, PeekData>>(new Map());
 
+  // Monotonic request counter: only the newest openPeek may write state, so two
+  // fast peeks that resolve out of order cannot render the wrong entity.
+  const requestCounterRef = useRef(0);
+
   // History stack for back/forward navigation inside the Peek Drawer
   const [history, setHistory] = useState<PeekHistoryItem[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
@@ -84,6 +88,9 @@ export function PeekProvider({ children }: { children: React.ReactNode }) {
 
   const openPeek = useCallback(
     async (type: PeekEntityType, id: string, pushHistory: boolean = true) => {
+      const requestId = requestCounterRef.current + 1;
+      requestCounterRef.current = requestId;
+
       setIsOpen(true);
 
       if (pushHistory) {
@@ -94,9 +101,14 @@ export function PeekProvider({ children }: { children: React.ReactNode }) {
         setHistoryIndex((prev) => prev + 1);
       }
 
+      // Clear first: a 404 or failed fetch must never leave the previous
+      // entity's title and facts on screen.
+      setPeekData(null);
+
       const cacheKey = `${type}:${id}`;
       const cached = cacheRef.current.get(cacheKey);
       if (cached) {
+        if (requestCounterRef.current !== requestId) return;
         setPeekData(cached);
         setIsLoading(false);
         return;
@@ -104,6 +116,7 @@ export function PeekProvider({ children }: { children: React.ReactNode }) {
 
       setIsLoading(true);
       const data = await fetchPeekData(type, id);
+      if (requestCounterRef.current !== requestId) return;
       if (data) {
         setPeekData(data);
       }
@@ -136,7 +149,10 @@ export function PeekProvider({ children }: { children: React.ReactNode }) {
   }, [canGoForward, history, historyIndex, openPeek]);
 
   const closePeek = useCallback(() => {
+    requestCounterRef.current += 1;
     setIsOpen(false);
+    setIsLoading(false);
+    setPeekData(null);
   }, []);
 
   return (

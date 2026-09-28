@@ -98,7 +98,11 @@ export function VerbLibraryTable({
           {/* Quick Search */}
           <form onSubmit={handleSearchSubmit} className="flex-1 min-w-[220px]">
             <div className="relative">
+              <label htmlFor="verbs-search" className="sr-only">
+                Search verbs by French or English
+              </label>
               <input
+                id="verbs-search"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -116,6 +120,7 @@ export function VerbLibraryTable({
                     updateFilters({ query: "" });
                   }}
                   className="absolute right-2 top-1.5 text-on-surface-variant hover:text-primary text-[14px]"
+                  aria-label="Clear verb search"
                 >
                   ×
                 </button>
@@ -124,7 +129,11 @@ export function VerbLibraryTable({
           </form>
 
           {/* Group Filter */}
+          <label htmlFor="verbs-filter-group" className="sr-only">
+            Filter verbs by conjugation group
+          </label>
           <select
+            id="verbs-filter-group"
             value={initialFilters.group || "all"}
             onChange={(e) => updateFilters({ group: e.target.value })}
             className="px-2.5 py-1.5 rounded bg-surface-container-lowest border border-outline-variant text-xs text-on-surface font-mono focus:outline-none"
@@ -137,7 +146,11 @@ export function VerbLibraryTable({
           </select>
 
           {/* Regularity */}
+          <label htmlFor="verbs-filter-regularity" className="sr-only">
+            Filter verbs by regularity
+          </label>
           <select
+            id="verbs-filter-regularity"
             value={initialFilters.regularity || "all"}
             onChange={(e) => updateFilters({ regularity: e.target.value })}
             className="px-2.5 py-1.5 rounded bg-surface-container-lowest border border-outline-variant text-xs text-on-surface font-mono focus:outline-none"
@@ -148,7 +161,11 @@ export function VerbLibraryTable({
           </select>
 
           {/* Auxiliary */}
+          <label htmlFor="verbs-filter-auxiliary" className="sr-only">
+            Filter verbs by auxiliary
+          </label>
           <select
+            id="verbs-filter-auxiliary"
             value={initialFilters.auxiliary || "all"}
             onChange={(e) => updateFilters({ auxiliary: e.target.value })}
             className="px-2.5 py-1.5 rounded bg-surface-container-lowest border border-outline-variant text-xs text-on-surface font-mono focus:outline-none"
@@ -187,7 +204,11 @@ export function VerbLibraryTable({
               <span className="text-[11px] font-mono text-on-surface-variant uppercase">
                 Transitivity:
               </span>
+              <label htmlFor="verbs-filter-transitivity" className="sr-only">
+                Filter verbs by transitivity
+              </label>
               <select
+                id="verbs-filter-transitivity"
                 value={initialFilters.transitivity || "all"}
                 onChange={(e) => updateFilters({ transitivity: e.target.value })}
                 className="px-2 py-1 rounded bg-surface-container-lowest border border-outline-variant text-xs text-on-surface font-mono"
@@ -205,7 +226,11 @@ export function VerbLibraryTable({
               <span className="text-[11px] font-mono text-on-surface-variant uppercase">
                 CEFR:
               </span>
+              <label htmlFor="verbs-filter-cefr" className="sr-only">
+                Filter verbs by CEFR level
+              </label>
               <select
+                id="verbs-filter-cefr"
                 value={initialFilters.cefr || "all"}
                 onChange={(e) => updateFilters({ cefr: e.target.value })}
                 className="px-2 py-1 rounded bg-surface-container-lowest border border-outline-variant text-xs text-on-surface font-mono"

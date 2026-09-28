@@ -63,7 +63,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       {/* SEARCH FORM */}
       <form method="GET" className="flex gap-2 max-w-2xl">
         <div className="relative flex-1">
+          <label htmlFor="global-search-input" className="sr-only">
+            Search across the entire repository
+          </label>
           <input
+            id="global-search-input"
             type="text"
             name="q"
             defaultValue={rawQuery}

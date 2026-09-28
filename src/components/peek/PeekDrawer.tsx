@@ -32,21 +32,37 @@ export function PeekDrawer() {
 
   const helperDeterminePeekType = (url?: string): { type: PeekEntityType; id: string } | null => {
     if (!url) return null;
-    if (url.startsWith("/verbs/")) return { type: "verb", id: decodeURIComponent(url.replace("/verbs/", "")) };
-    if (url.startsWith("/grammar/")) return { type: "grammar", id: decodeURIComponent(url.replace("/grammar/", "")) };
-    if (url.startsWith("/expressions/")) return { type: "expression", id: decodeURIComponent(url.replace("/expressions/", "")) };
-    if (url.startsWith("/tenses/")) return { type: "tense", id: decodeURIComponent(url.replace("/tenses/", "")) };
-    if (url.startsWith("/vocabulary/")) return { type: "vocab", id: decodeURIComponent(url.replace("/vocabulary/", "")) };
-    if (url.startsWith("/chapters/")) return { type: "chapter", id: decodeURIComponent(url.replace("/chapters/", "")) };
-    if (url.startsWith("/concepts/")) return { type: "concept", id: decodeURIComponent(url.replace("/concepts/", "")) };
+    const decode = (segment: string): string | null => {
+      try {
+        return decodeURIComponent(segment);
+      } catch {
+        return null;
+      }
+    };
+    const routes: { prefix: string; type: PeekEntityType }[] = [
+      { prefix: "/verbs/", type: "verb" },
+      { prefix: "/grammar/", type: "grammar" },
+      { prefix: "/expressions/", type: "expression" },
+      { prefix: "/tenses/", type: "tense" },
+      { prefix: "/vocabulary/", type: "vocab" },
+      { prefix: "/chapters/", type: "chapter" },
+      { prefix: "/concepts/", type: "concept" },
+    ];
+    for (const route of routes) {
+      if (!url.startsWith(route.prefix)) continue;
+      const id = decode(url.slice(route.prefix.length));
+      if (id === null || !id) return null;
+      return { type: route.type, id };
+    }
     return null;
   };
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden flex flex-col justify-end md:flex-row md:justify-end">
       {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity animate-in fade-in duration-150"
+      <button
+        type="button"
+        className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity animate-in fade-in duration-150 cursor-default"
         onClick={closePeek}
         aria-label="Close preview"
       />

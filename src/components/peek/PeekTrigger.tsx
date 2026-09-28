@@ -23,7 +23,6 @@ export function PeekTrigger({
   const { openPeek } = usePeek();
 
   const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
     e.stopPropagation();
     openPeek(type, id);
   };
@@ -70,15 +69,17 @@ export function PeekTrigger({
   }
 
   return (
-    <span
+    <button
+      type="button"
       onClick={handleClick}
       title={title}
-      className={`cursor-pointer hover:underline text-primary inline-flex items-center gap-0.5 ${className}`}
+      aria-label={title}
+      className={`cursor-pointer hover:underline text-primary inline-flex items-center gap-0.5 text-left ${className}`}
     >
       {children || id}
       <span className="material-symbols-outlined text-[12px] opacity-60 hover:opacity-100">
         visibility
       </span>
-    </span>
+    </button>
   );
 }

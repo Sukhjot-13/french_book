@@ -2,7 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getVerbById } from "@/src/lib/data/selectors";
+import { getAllVerbIds } from "@/src/lib/data/staticParams";
 import { VerbDetailView } from "@/src/components/verbs/VerbDetailView";
+
+export const revalidate = false;
+
+export function generateStaticParams() {
+  return getAllVerbIds().map((id) => ({ id }));
+}
 
 interface VerbDetailPageProps {
   params: Promise<{ id: string }>;

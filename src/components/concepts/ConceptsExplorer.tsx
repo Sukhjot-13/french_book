@@ -57,7 +57,11 @@ export function ConceptsExplorer({ concepts }: ConceptsExplorerProps) {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           {/* Search Input */}
           <div className="relative flex-1">
+            <label htmlFor="concepts-search" className="sr-only">
+              Filter concepts by name, rule, or keyword
+            </label>
             <input
+              id="concepts-search"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -72,6 +76,7 @@ export function ConceptsExplorer({ concepts }: ConceptsExplorerProps) {
                 type="button"
                 onClick={() => setSearchQuery("")}
                 className="absolute right-3 top-2 text-on-surface-variant hover:text-primary text-[14px]"
+                aria-label="Clear concept filter"
               >
                 ×
               </button>
@@ -131,9 +136,9 @@ export function ConceptsExplorer({ concepts }: ConceptsExplorerProps) {
       {/* CONCEPTS GRID */}
       {filteredConcepts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredConcepts.map((concept, idx) => (
+          {filteredConcepts.map((concept) => (
             <div
-              key={`${concept.id}-${idx}`}
+              key={concept.id}
               className="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant shadow-xs flex flex-col justify-between hover:border-primary/50 transition-all group"
             >
               <div className="space-y-2">

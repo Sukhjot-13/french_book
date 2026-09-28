@@ -3,11 +3,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
-  isItemSaved,
   toggleItemSaved,
-  isItemReviewed,
   toggleItemReviewed,
   subscribeReviewState,
+  getReviewStateSnapshot,
 } from "@/src/lib/data/reviewStore";
 
 interface RowActionMenuProps {
@@ -19,15 +18,22 @@ interface RowActionMenuProps {
 
 export function RowActionMenu({ type, id, fullUrl, label }: RowActionMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [, setVersion] = useState(0);
+  const [saved, setSaved] = useState(false);
+  const [reviewed, setReviewed] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Subscribe to changes across other tabs / components
+  // The store is read once per menu in a mount effect, then kept in sync via the
+  // subscription, so a 50-row table performs 50 reads instead of 50 x 2 x renders.
   useEffect(() => {
-    return subscribeReviewState(() => setVersion((v) => v + 1));
-  }, []);
+    const hydrate = () => {
+      const snapshot = getReviewStateSnapshot();
+      setSaved(snapshot.saved.has(`${type}:${id}`));
+      setReviewed(snapshot.reviewed.has(`${type}:${id}`));
+    };
+    hydrate();
+    return subscribeReviewState(hydrate);
+  }, [type, id]);
 
-  // Close menu on click outside
   useEffect(() => {
     if (!isOpen) return;
     const handleClickOutside = (e: MouseEvent) => {
@@ -38,9 +44,6 @@ export function RowActionMenu({ type, id, fullUrl, label }: RowActionMenuProps) 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
-
-  const saved = isItemSaved(type, id);
-  const reviewed = isItemReviewed(type, id);
 
   return (
     <div className="relative inline-flex items-center" ref={menuRef} onClick={(e) => e.stopPropagation()}>
@@ -75,6 +78,8 @@ export function RowActionMenu({ type, id, fullUrl, label }: RowActionMenuProps) 
           isOpen ? "bg-surface-container-high text-primary" : ""
         }`}
         aria-label={`Actions for ${label}`}
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
         title="Actions: Save / Review / Deep dive"
       >
         <span className="material-symbols-outlined text-[18px]">more_vert</span>
@@ -83,6 +88,8 @@ export function RowActionMenu({ type, id, fullUrl, label }: RowActionMenuProps) 
       {/* Action Dropdown Menu */}
       {isOpen && (
         <div
+          role="menu"
+          aria-label={`Actions for ${label}`}
           className="absolute right-0 top-full mt-1 w-48 bg-surface-container-lowest border border-outline-variant shadow-lg rounded-lg py-1 z-30 animate-in fade-in-50 zoom-in-95 duration-100 text-xs text-on-surface"
           onClick={(e) => e.stopPropagation()}
         >
@@ -93,6 +100,7 @@ export function RowActionMenu({ type, id, fullUrl, label }: RowActionMenuProps) 
           {/* Toggle Save */}
           <button
             type="button"
+            role="menuitem"
             onClick={() => {
               toggleItemSaved(type, id);
               setIsOpen(false);
@@ -112,6 +120,7 @@ export function RowActionMenu({ type, id, fullUrl, label }: RowActionMenuProps) 
           {/* Toggle Reviewed */}
           <button
             type="button"
+            role="menuitem"
             onClick={() => {
               toggleItemReviewed(type, id);
               setIsOpen(false);
@@ -131,6 +140,7 @@ export function RowActionMenu({ type, id, fullUrl, label }: RowActionMenuProps) 
           {/* Deep dive link */}
           <Link
             href={fullUrl}
+            role="menuitem"
             onClick={() => setIsOpen(false)}
             className="w-full px-3 py-2 text-left flex items-center gap-2 hover:bg-surface-container-low text-primary font-medium border-t border-outline-variant/40 transition-colors"
           >

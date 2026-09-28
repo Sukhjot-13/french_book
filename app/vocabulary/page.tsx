@@ -1,5 +1,6 @@
 import React from "react";
 import { getVocabulary } from "@/src/lib/data/selectors";
+import { paginate } from "@/src/lib/pagination";
 import { VocabDictionaryTable } from "@/src/components/vocabulary/VocabDictionaryTable";
 
 interface VocabPageProps {
@@ -18,17 +19,10 @@ export default async function VocabularyPage({ searchParams }: VocabPageProps) {
   const pos = params.pos || "all";
   const gender = params.gender || "all";
   const letter = params.letter || "all";
-  const currentPage = params.page ? parseInt(params.page, 10) : 1;
   const pageSize = 50;
 
-  const { vocabulary, total } = getVocabulary({
-    query,
-    pos,
-    gender,
-    letter,
-    limit: pageSize,
-    offset: (currentPage - 1) * pageSize,
-  });
+  const filtered = getVocabulary({ query, pos, gender, letter }).vocabulary;
+  const { items: vocabulary, currentPage, total } = paginate(filtered, params.page, pageSize);
 
   return (
     <div className="space-y-4 pb-12">

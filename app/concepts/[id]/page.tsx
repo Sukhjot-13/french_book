@@ -2,7 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getConceptById } from "@/src/lib/data/selectors";
+import { getAllConceptIds } from "@/src/lib/data/staticParams";
 import { ConceptDetailView } from "@/src/components/concepts/ConceptDetailView";
+
+export const revalidate = false;
+
+export function generateStaticParams() {
+  return getAllConceptIds().map((id) => ({ id }));
+}
 
 interface ConceptDetailPageProps {
   params: Promise<{ id: string }>;

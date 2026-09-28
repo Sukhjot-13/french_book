@@ -2,7 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getGrammarRuleById } from "@/src/lib/data/selectors";
+import { getAllGrammarIds } from "@/src/lib/data/staticParams";
 import { GrammarDetailView } from "@/src/components/grammar/GrammarDetailView";
+
+export const revalidate = false;
+
+export function generateStaticParams() {
+  return getAllGrammarIds().map((id) => ({ id }));
+}
 
 interface GrammarDetailPageProps {
   params: Promise<{ id: string }>;

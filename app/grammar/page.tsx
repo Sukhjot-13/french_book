@@ -1,5 +1,6 @@
 import React from "react";
 import { getGrammarRules } from "@/src/lib/data/selectors";
+import { paginate } from "@/src/lib/pagination";
 import { GrammarLibraryTable } from "@/src/components/grammar/GrammarLibraryTable";
 
 interface GrammarPageProps {
@@ -13,14 +14,10 @@ interface GrammarPageProps {
 export default async function GrammarPage({ searchParams }: GrammarPageProps) {
   const params = await searchParams;
   const query = params.query || "";
-  const currentPage = params.page ? parseInt(params.page, 10) : 1;
   const pageSize = 40;
 
-  const { rules, total } = getGrammarRules({
-    query,
-    limit: pageSize,
-    offset: (currentPage - 1) * pageSize,
-  });
+  const filtered = getGrammarRules({ query }).rules;
+  const { items: rules, currentPage, total } = paginate(filtered, params.page, pageSize);
 
   return (
     <div className="space-y-4 pb-12">

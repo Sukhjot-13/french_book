@@ -95,8 +95,8 @@ export function ChapterDetailView({
             </div>
             {keyVerbs.length > 0 ? (
               <div className="space-y-1">
-                {keyVerbs.map((v, idx) => (
-                  <div key={`${v.id}_${idx}`} className="flex items-center justify-between">
+                {keyVerbs.map((v) => (
+                  <div key={v.id} className="flex items-center justify-between">
                     <button
                       type="button"
                       onClick={() => openPeek("verb", v.lemma)}
@@ -147,11 +147,11 @@ export function ChapterDetailView({
             </div>
             {essentialVocab.length > 0 ? (
               <div className="space-y-1">
-                {essentialVocab.map((voc, idx) => (
-                  <div key={`${voc.id}_${idx}`} className="flex items-center justify-between">
+                {essentialVocab.map((voc) => (
+                  <div key={voc.id} className="flex items-center justify-between">
                     <button
                       type="button"
-                      onClick={() => openPeek("vocab", voc.french)}
+                      onClick={() => openPeek("vocab", voc.id)}
                       className="font-semibold text-primary hover:underline text-xs truncate max-w-[90px]"
                     >
                       {voc.french}
@@ -298,9 +298,9 @@ export function ChapterDetailView({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/40">
-                    {grammarRules.map((rule, idx) => (
+                    {grammarRules.map((rule) => (
                       <tr
-                        key={`${rule.id}_${idx}`}
+                        key={rule.id}
                         onClick={() => openPeek("grammar", rule.title)}
                         className="hover:bg-surface-container-low transition-colors cursor-pointer group"
                       >
@@ -359,9 +359,9 @@ export function ChapterDetailView({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/40">
-                    {verbs.map((verb, idx) => (
+                    {verbs.map((verb) => (
                       <tr
-                        key={`${verb.id}_${idx}`}
+                        key={verb.id}
                         onClick={() => openPeek("verb", verb.lemma)}
                         className="hover:bg-surface-container-low transition-colors cursor-pointer group"
                       >
@@ -418,10 +418,10 @@ export function ChapterDetailView({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/40">
-                    {vocabulary.map((voc, idx) => (
+                    {vocabulary.map((voc) => (
                       <tr
-                        key={`${voc.id}_${idx}`}
-                        onClick={() => openPeek("vocab", voc.french)}
+                        key={voc.id}
+                        onClick={() => openPeek("vocab", voc.id)}
                         className="hover:bg-surface-container-low transition-colors cursor-pointer group"
                       >
                         <td className="py-2.5 px-3.5 font-bold text-primary text-sm">
@@ -439,7 +439,7 @@ export function ChapterDetailView({
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
-                              openPeek("vocab", voc.french);
+                              openPeek("vocab", voc.id);
                             }}
                             className="px-2 py-1 rounded text-[11px] font-mono text-primary bg-surface-container group-hover:bg-[#002147] group-hover:text-white transition-colors"
                           >
@@ -474,9 +474,9 @@ export function ChapterDetailView({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/40">
-                    {expressions.map((exp, idx) => (
+                    {expressions.map((exp) => (
                       <tr
-                        key={`${exp.id}_${idx}`}
+                        key={exp.id}
                         onClick={() => openPeek("expression", exp.french)}
                         className="hover:bg-surface-container-low transition-colors cursor-pointer group"
                       >

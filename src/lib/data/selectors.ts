@@ -313,6 +313,27 @@ export interface ConceptUI {
  * When isVerb is true, intelligently avoids redundancies where both bare verb and
  * infinitive with 'to' exist (e.g. ['accept', 'to accept'] -> 'to accept').
  */
+/**
+ * complement_structure is an object in every one of the 557 expression records
+ * (MASTER_SCHEMA `complementStructure`), so it must be flattened before it can
+ * reach a text node. Renders as a compact slot signature.
+ */
+export function formatComplementStructure(value: unknown): string | null {
+  if (value === null || value === undefined) return null;
+  if (typeof value === "string") return value.trim() || null;
+  if (typeof value !== "object") return null;
+
+  const record = value as Record<string, unknown>;
+  const parts: string[] = [];
+  if (record.direct_object === true) parts.push("direct object");
+  if (record.indirect_object === true) parts.push("indirect object");
+  if (typeof record.preposition === "string" && record.preposition) parts.push(record.preposition);
+  if (typeof record.followed_by === "string" && record.followed_by && record.followed_by !== "none") {
+    parts.push(`+ ${record.followed_by}`);
+  }
+  return parts.length > 0 ? parts.join(" · ") : null;
+}
+
 export function formatEnglishList(
   val: unknown,
   isVerb: boolean = false
@@ -481,7 +502,7 @@ function mapExpression(e: MasterExpression): ExpressionUI {
     register: e.register || "neutral",
     strength: e.collocation_strength || null,
     prepositions: e.prepositions || [],
-    complement_structure: e.complement_structure || null,
+    complement_structure: formatComplementStructure(e.complement_structure),
     restrictions: e.restrictions || [],
     transformations: e.transformations || [],
     synonyms: e.synonyms || [],
@@ -497,6 +518,64 @@ function mapExpression(e: MasterExpression): ExpressionUI {
     chapter_ids: chapterIds,
     raw_chapters: e.chapters || [],
   };
+}
+
+/**
+ * Vocabulary relations are heterogeneous in the dataset: a word_family entry is
+ * either a bare string or a { canonical_form, part_of_speech } reference, and a
+ * variant is a { form, variant_type, note } object. Flatten both to display
+ * strings so no raw object ever reaches a text node.
+ */
+export function formatVocabRelation(value: unknown): string | null {
+  if (typeof value === "string") return value.trim() || null;
+  if (typeof value === "number") return String(value);
+  if (!value || typeof value !== "object") return null;
+  const record = value as Record<string, unknown>;
+  for (const key of ["canonical_form", "form", "word", "label", "name"]) {
+    const candidate = record[key];
+    if (typeof candidate === "string" && candidate.trim()) return candidate.trim();
+  }
+  return null;
+}
+
+export function formatVocabRelations(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  const out: string[] = [];
+  for (const item of value) {
+    const label = formatVocabRelation(item);
+    if (label) out.push(label);
+  }
+  return Array.from(new Set(out));
+}
+
+/**
+ * Master vocabulary senses use an `english` key (plus nested `articles`), while
+ * the UI contract reads `english_gloss` / `meaning`. Normalize to the UI shape.
+ */
+export function normalizeVocabSenses(value: unknown): Sense[] {
+  if (!Array.isArray(value)) return [];
+  const out: Sense[] = [];
+  for (const item of value) {
+    if (!item || typeof item !== "object") continue;
+    const record = item as Record<string, unknown>;
+    const gloss =
+      (typeof record.english_gloss === "string" && record.english_gloss) ||
+      (typeof record.meaning === "string" && record.meaning) ||
+      (typeof record.english === "string" && record.english) ||
+      null;
+    if (!gloss) continue;
+    out.push({
+      sense_number: typeof record.sense_number === "number" ? record.sense_number : out.length + 1,
+      english_gloss: gloss,
+      meaning: typeof record.meaning === "string" ? record.meaning : null,
+      context: typeof record.context === "string" ? record.context : null,
+      register: typeof record.register === "string" ? record.register : null,
+      french_definition:
+        typeof record.french_definition === "string" ? record.french_definition : null,
+      examples: Array.isArray(record.examples) ? (record.examples as string[]) : [],
+    });
+  }
+  return out;
 }
 
 function mapVocab(vc: MasterVocabulary, explicitIdOrIndex?: string | number): VocabUI {
@@ -533,14 +612,14 @@ function mapVocab(vc: MasterVocabulary, explicitIdOrIndex?: string | number): Vo
     gender: vc.gender || null,
     article,
     plural_form: vc.plural || null,
-    variants: vc.variants || [],
-    senses: vc.senses || [],
-    word_family: vc.word_family || [],
+    variants: formatVocabRelations(vc.variants),
+    senses: normalizeVocabSenses(vc.senses),
+    word_family: formatVocabRelations(vc.word_family),
     category: (vc.tags && vc.tags[0]) || null,
     register: vc.register || "neutral",
-    synonyms: vc.synonyms || [],
-    antonyms: vc.antonyms || [],
-    usage_notes: vc.usage_notes || [],
+    synonyms: formatVocabRelations(vc.synonyms),
+    antonyms: formatVocabRelations(vc.antonyms),
+    usage_notes: formatVocabRelations(vc.usage_notes),
     priority: vc.study?.learning_priority ?? 3,
     cefr: vc.study?.cefr_level || null,
     related_expressions: vc.related_expressions || [],
@@ -1180,18 +1259,95 @@ export interface VocabFilterOptions {
   offset?: number;
 }
 
-export function getVocabulary(filters?: VocabFilterOptions): { vocabulary: VocabUI[]; total: number } {
+interface VocabIndexEntry {
+  id: string;
+  record: MasterVocabulary;
+}
+
+interface VocabIndex {
+  entries: VocabIndexEntry[];
+  byId: Map<string, VocabIndexEntry>;
+  byCanonical: Map<string, VocabIndexEntry>;
+  bySlug: Map<string, VocabIndexEntry[]>;
+}
+
+let cachedVocabIndex: VocabIndex | null = null;
+
+/**
+ * Builds the single source of truth for vocabulary identity. The deduplicated id
+ * assigned here is the id the table renders, the id /vocabulary/[id] resolves and
+ * the id the review store keys off, so the three can never disagree.
+ */
+function getVocabIndex(): VocabIndex {
+  if (cachedVocabIndex) return cachedVocabIndex;
+
   const data = getMasterDataset();
   const seenIds = new Set<string>();
-  let list = (data.vocabulary || []).map((v, idx) => {
+  const entries: VocabIndexEntry[] = (data.vocabulary || []).map((v, idx) => {
     let id = makeVocabId(v.canonical_form, v.part_of_speech);
     if (seenIds.has(id)) {
       const ch = v.chapters && v.chapters.length > 0 ? `ch${v.chapters[0]}` : String(idx + 1);
       id = `${id}_${ch}`;
     }
+    let suffix = 2;
+    while (seenIds.has(id)) {
+      id = `${makeVocabId(v.canonical_form, v.part_of_speech)}_${idx + 1}_${suffix}`;
+      suffix += 1;
+    }
     seenIds.add(id);
-    return mapVocab(v, id);
+    return { id, record: v };
   });
+
+  const byId = new Map<string, VocabIndexEntry>();
+  const byCanonical = new Map<string, VocabIndexEntry>();
+  const bySlug = new Map<string, VocabIndexEntry[]>();
+  for (const entry of entries) {
+    byId.set(entry.id, entry);
+    const canonical = entry.record.canonical_form;
+    if (!byCanonical.has(canonical)) byCanonical.set(canonical, entry);
+    const slug = slugify(canonical);
+    const bucket = bySlug.get(slug);
+    if (bucket) bucket.push(entry);
+    else bySlug.set(slug, [entry]);
+  }
+
+  cachedVocabIndex = { entries, byId, byCanonical, bySlug };
+  return cachedVocabIndex;
+}
+
+/**
+ * Canonical detail id for a vocabulary record, taken from the deduplicated
+ * index so search results, the dictionary table and /vocabulary/[id] agree.
+ */
+export function resolveVocabularyId(canonicalForm: string, partOfSpeech?: string | null): string | null {
+  const index = getVocabIndex();
+  const byCanonical = index.byCanonical.get(canonicalForm);
+  if (byCanonical) return byCanonical.id;
+  const slugBucket = index.bySlug.get(slugify(canonicalForm));
+  if (!slugBucket || slugBucket.length === 0) return null;
+  if (partOfSpeech) {
+    const match = slugBucket.find((entry) => entry.record.part_of_speech === partOfSpeech);
+    if (match) return match.id;
+  }
+  return slugBucket[0].id;
+}
+
+function resolveVocabRecord(rawId: string, decoded: string): { entry: VocabIndexEntry | null } {
+  const index = getVocabIndex();
+  const byId = index.byId.get(rawId) || index.byId.get(decoded);
+  if (byId) return { entry: byId };
+
+  const byCanonical = index.byCanonical.get(rawId) || index.byCanonical.get(decoded);
+  if (byCanonical) return { entry: byCanonical };
+
+  const slugBucket = index.bySlug.get(slugify(decoded)) || index.bySlug.get(slugify(rawId));
+  if (slugBucket && slugBucket.length > 0) return { entry: slugBucket[0] };
+
+  return { entry: null };
+}
+
+export function getVocabulary(filters?: VocabFilterOptions): { vocabulary: VocabUI[]; total: number } {
+  let list = getVocabIndex().entries.map((entry) => mapVocab(entry.record, entry.id));
 
   // Alphabetical sort by default for dictionary view
   list.sort((a, b) => a.french.localeCompare(b.french, "fr", { sensitivity: "base" }));
@@ -1248,28 +1404,11 @@ export function getVocabularyById(vocabId: string): VocabDetailWithGraph | null 
   const data = getMasterDataset();
   const rawId = vocabId;
   const decoded = safeDecode(vocabId);
-  const rawVocab = (data.vocabulary || []).find((v) => {
-    const idWithPos = makeVocabId(v.canonical_form, v.part_of_speech);
-    const idBare = makeVocabId(v.canonical_form);
-    return (
-      idWithPos === rawId ||
-      idWithPos === decoded ||
-      idBare === rawId ||
-      idBare === decoded ||
-      v.canonical_form === rawId ||
-      v.canonical_form === decoded ||
-      slugify(v.canonical_form) === slugify(rawId) ||
-      slugify(v.canonical_form) === slugify(decoded) ||
-      rawId.startsWith(idWithPos) ||
-      decoded.startsWith(idWithPos) ||
-      rawId.startsWith(idBare) ||
-      decoded.startsWith(idBare)
-    );
-  });
+  const { entry } = resolveVocabRecord(rawId, decoded);
+  const rawVocab = entry?.record ?? null;
+  if (!rawVocab || !entry) return null;
 
-  if (!rawVocab) return null;
-
-  const vocab = mapVocab(rawVocab);
+  const vocab = mapVocab(rawVocab, entry.id);
   const normWord = normalizeFrenchText(rawVocab.canonical_form);
 
   const expressions = (data.expressions || [])

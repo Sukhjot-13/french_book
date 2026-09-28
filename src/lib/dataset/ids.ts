@@ -93,8 +93,9 @@ export function makeVocabId(canonicalWord: string | { canonical_form?: string; d
   const rawStr = typeof canonicalWord === "string" 
     ? canonicalWord 
     : canonicalWord?.canonical_form || canonicalWord?.display_form || "";
-  // Remove leading articles like 'le ', 'la ', 'l'', 'un ', 'une '
-  const clean = rawStr.trim().replace(/^(le|la|l'|l’|les|un|une|des)\s+/i, "");
+  // The article is kept in the slug: "la Toile", "Toile" and "toile" are three
+  // distinct lexical records and must not collapse onto a single identifier.
+  const clean = rawStr.trim();
   const slug = slugify(clean);
   if (pos && typeof pos === "string") {
     return `vocab_${slug}_${slugify(pos)}`;

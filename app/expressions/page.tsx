@@ -1,5 +1,6 @@
 import React from "react";
 import { getExpressions } from "@/src/lib/data/selectors";
+import { paginate } from "@/src/lib/pagination";
 import { ExpressionLibraryTable } from "@/src/components/expressions/ExpressionLibraryTable";
 
 interface ExpressionsPageProps {
@@ -20,18 +21,16 @@ export default async function ExpressionsPage({ searchParams }: ExpressionsPageP
   const register = params.register || "all";
   const preposition = params.preposition || "all";
   const baseVerb = params.baseVerb || "all";
-  const currentPage = params.page ? parseInt(params.page, 10) : 1;
   const pageSize = 50;
 
-  const { expressions, total } = getExpressions({
+  const filtered = getExpressions({
     query,
     type,
     register,
     preposition,
     baseVerb,
-    limit: pageSize,
-    offset: (currentPage - 1) * pageSize,
-  });
+  }).expressions;
+  const { items: expressions, currentPage, total } = paginate(filtered, params.page, pageSize);
 
   return (
     <div className="space-y-4 pb-12">

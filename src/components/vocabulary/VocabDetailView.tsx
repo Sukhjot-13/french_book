@@ -80,7 +80,7 @@ export function VocabDetailView({
 
           <div className="flex items-center gap-2">
             <button
-              onClick={() => openPeek("vocab", vocab.french)}
+              onClick={() => openPeek("vocab", vocab.id)}
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant text-xs font-mono text-primary hover:bg-[#002147] hover:text-white transition-colors shadow-xs"
             >
               <span className="material-symbols-outlined text-[16px]">visibility</span>

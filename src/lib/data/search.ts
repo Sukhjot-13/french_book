@@ -1,6 +1,6 @@
 import { MasterDataset } from "../dataset/masterSchema";
-import { makeVerbId, makeTenseId, makeRuleId, makeExpressionId, makeChapterId, slugify } from "../dataset/ids";
-import { formatEnglishList } from "./selectors";
+import { makeVerbId, makeTenseId, makeRuleId, makeExpressionId, makeChapterId, makeVocabId, slugify } from "../dataset/ids";
+import { formatEnglishList, resolveVocabularyId } from "./selectors";
 
 /**
  * Normalizes French text by stripping diacritics and converting to lowercase.
@@ -123,13 +123,14 @@ export function searchDataset(
     else if (normEn.includes(query)) score = 30;
 
     if (score > 0) {
+      const vocabId = resolveVocabularyId(fr, item.part_of_speech) ?? makeVocabId(fr, item.part_of_speech);
       results.push({
-        id: `vocab_${slugify(fr)}`,
+        id: vocabId,
         type: "vocabulary",
         title: fr,
         subtitle: enStr,
         snippet: item.part_of_speech,
-        url: `/vocabulary/${encodeURIComponent(fr)}`,
+        url: `/vocabulary/${encodeURIComponent(vocabId)}`,
         badge: item.part_of_speech || "vocab",
         priority: item.study?.learning_priority ?? undefined,
         score,

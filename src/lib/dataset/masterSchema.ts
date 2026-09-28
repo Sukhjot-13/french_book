@@ -162,6 +162,13 @@ export interface PatternSlot {
   notes?: string | null;
 }
 
+export interface ComplementStructure {
+  direct_object?: boolean | null;
+  indirect_object?: boolean | null;
+  preposition?: string | null;
+  followed_by?: string | null;
+}
+
 export interface MasterExpression {
   canonical_form: string;
   display_form?: string | null;
@@ -175,7 +182,7 @@ export interface MasterExpression {
   related_grammar_rules?: string[];
   related_concepts?: string[];
   prepositions?: string[];
-  complement_structure?: string | null;
+  complement_structure?: string | ComplementStructure | null;
   restrictions?: string[];
   transformations?: unknown[];
   aliases?: string[];

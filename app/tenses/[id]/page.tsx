@@ -2,7 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTenseById } from "@/src/lib/data/selectors";
+import { getAllTenseIds } from "@/src/lib/data/staticParams";
 import { TenseDetailView } from "@/src/components/tenses/TenseDetailView";
+
+export const revalidate = false;
+
+export function generateStaticParams() {
+  return getAllTenseIds().map((id) => ({ id }));
+}
 
 interface TenseDetailPageProps {
   params: Promise<{ id: string }>;

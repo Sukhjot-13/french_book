@@ -315,13 +315,13 @@ export function ConceptDetailView({
                   className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container-low border border-outline-variant/40 text-xs font-mono group"
                 >
                   <Link
-                    href={`/vocabulary/${encodeURIComponent(vc.french)}`}
+                    href={`/vocabulary/${encodeURIComponent(vc.id)}`}
                     className="font-bold text-primary group-hover:underline"
                   >
                     {vc.french}
                   </Link>
                   <button
-                    onClick={() => openPeek("vocab", vc.french)}
+                    onClick={() => openPeek("vocab", vc.id)}
                     className="text-[10px] text-on-surface-variant hover:text-primary"
                     title="Peek"
                   >

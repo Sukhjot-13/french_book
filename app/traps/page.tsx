@@ -1,9 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import { getExceptionsAndTraps } from "@/src/lib/data/selectors";
+import { paginate } from "@/src/lib/pagination";
 import { PriorityBadge, CEFRBadge } from "@/src/components/ui/Badges";
 
-interface TrapsPageProps {
+export interface TrapsPageProps {
   searchParams: Promise<{
     query?: string;
     category?: string;
@@ -15,17 +16,10 @@ export default async function TrapsPage({ searchParams }: TrapsPageProps) {
   const params = await searchParams;
   const query = params.query || "";
   const category = params.category || "all";
-  const currentPage = params.page ? parseInt(params.page, 10) : 1;
   const pageSize = 30;
 
-  const { traps, total } = getExceptionsAndTraps({
-    query,
-    category,
-    limit: pageSize,
-    offset: (currentPage - 1) * pageSize,
-  });
-
-  const totalPages = Math.ceil(total / pageSize);
+  const filtered = getExceptionsAndTraps({ query, category }).traps;
+  const { items: traps, currentPage, totalPages, total } = paginate(filtered, params.page, pageSize);
 
   const categories = [
     "All Categories",
@@ -62,7 +56,11 @@ export default async function TrapsPage({ searchParams }: TrapsPageProps) {
       <form method="GET" className="p-4 rounded-xl bg-amber-50/50 border border-amber-200 space-y-3">
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="flex-1 relative">
+            <label htmlFor="traps-search" className="sr-only">
+              Search traps, keywords, or error patterns
+            </label>
             <input
+              id="traps-search"
               type="text"
               name="query"
               defaultValue={query}
@@ -75,11 +73,14 @@ export default async function TrapsPage({ searchParams }: TrapsPageProps) {
           </div>
 
           <div className="sm:w-56">
+            <label htmlFor="traps-category" className="sr-only">
+              Filter by category
+            </label>
             <select
+              id="traps-category"
               name="category"
               defaultValue={category}
               className="w-full px-3 py-2 rounded bg-surface-container-lowest border border-amber-300 text-sm text-on-surface focus:outline-none focus:border-amber-600"
-              aria-label="Filter by category"
             >
               {categories.map((c) => (
                 <option key={c} value={c === "All Categories" ? "all" : c}>

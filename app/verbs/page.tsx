@@ -1,5 +1,6 @@
 import React from "react";
 import { getVerbs } from "@/src/lib/data/selectors";
+import { paginate } from "@/src/lib/pagination";
 import { VerbLibraryTable } from "@/src/components/verbs/VerbLibraryTable";
 
 interface VerbsPageProps {
@@ -23,19 +24,17 @@ export default async function VerbsPage({ searchParams }: VerbsPageProps) {
   const auxiliary = params.auxiliary || "all";
   const transitivity = params.transitivity || "all";
   const cefr = params.cefr || "all";
-  const currentPage = params.page ? parseInt(params.page, 10) : 1;
   const pageSize = 50;
 
-  const { verbs, total } = getVerbs({
+  const filtered = getVerbs({
     query,
     group,
     regularity,
     auxiliary,
     transitivity,
     cefr,
-    limit: pageSize,
-    offset: (currentPage - 1) * pageSize,
-  });
+  }).verbs;
+  const { items: verbs, currentPage, total } = paginate(filtered, params.page, pageSize);
 
   return (
     <div className="space-y-4 pb-12">

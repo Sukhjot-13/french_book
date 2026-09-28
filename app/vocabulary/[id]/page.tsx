@@ -2,7 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getVocabularyById } from "@/src/lib/data/selectors";
+import { getAllVocabularyIds } from "@/src/lib/data/staticParams";
 import { VocabDetailView } from "@/src/components/vocabulary/VocabDetailView";
+
+export const revalidate = false;
+
+export function generateStaticParams() {
+  return getAllVocabularyIds().map((id) => ({ id }));
+}
 
 interface VocabDetailPageProps {
   params: Promise<{ id: string }>;
@@ -10,12 +17,7 @@ interface VocabDetailPageProps {
 
 export default async function VocabDetailPage({ params }: VocabDetailPageProps) {
   const { id } = await params;
-  let decodedId = id;
-  try {
-    decodedId = decodeURIComponent(id);
-  } catch {}
-
-  const data = getVocabularyById(decodedId) || getVocabularyById(id);
+  const data = getVocabularyById(id);
 
   if (!data) {
     notFound();

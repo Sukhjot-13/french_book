@@ -12,13 +12,26 @@ import {
   getConceptById,
 } from "@/src/lib/data/selectors";
 
+function safeDecode(value: string): string | null {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return null;
+  }
+}
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const type = searchParams.get("type");
-  const id = searchParams.get("id");
+  const rawId = searchParams.get("id");
 
-  if (!type || !id) {
+  if (!type || !rawId) {
     return NextResponse.json({ error: "Missing type or id" }, { status: 400 });
+  }
+
+  const id = safeDecode(rawId);
+  if (id === null) {
+    return NextResponse.json({ error: "Malformed id" }, { status: 400 });
   }
 
   try {
@@ -162,10 +175,10 @@ export async function GET(request: NextRequest) {
 
       return NextResponse.json({
         type: "vocab",
-        id: vocab.french,
+        id: vocab.id,
         title: vocab.french,
         subtitle: vocab.english,
-        url: `/vocabulary/${encodeURIComponent(vocab.french)}`,
+        url: `/vocabulary/${encodeURIComponent(vocab.id)}`,
         facts: [
           { label: "Part of Speech", value: vocab.part_of_speech },
           ...(vocab.gender ? [{ label: "Gender", value: vocab.gender }] : []),
@@ -212,7 +225,7 @@ export async function GET(request: NextRequest) {
 
     if (type === "trap") {
       const trapsData = getExceptionsAndTraps({ limit: 150 });
-      const rawDecoded = decodeURIComponent(id).toLowerCase();
+      const rawDecoded = id.toLowerCase();
       const trap = trapsData.traps.find(
         (t) =>
           t.id === id ||
@@ -249,7 +262,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (type === "example") {
-      const examplesData = getExamples({ query: decodeURIComponent(id), limit: 5 });
+      const examplesData = getExamples({ query: id, limit: 5 });
       const ex = examplesData.examples[0];
       if (!ex) return NextResponse.json({ error: "Example not found" }, { status: 404 });
 
@@ -274,7 +287,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (type === "exercise") {
-      const exercisesData = getExercises({ query: decodeURIComponent(id), limit: 5 });
+      const exercisesData = getExercises({ query: id, limit: 5 });
       const ex = exercisesData.exercises[0];
       if (!ex) return NextResponse.json({ error: "Exercise not found" }, { status: 404 });
 

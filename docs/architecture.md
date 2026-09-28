@@ -26,7 +26,9 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ### 3. Resilient ID Resolution & URL Routing Flow
 - **Resolution Strategy**: Dynamic routes receive parameters that may be percent-encoded (`Present%20tense...`), accented (`(s')asseoir`), or slugified (`present_tense...`).
-- **Pipeline**: Selectors in [`selectors.ts`](file:///Users/sukhjot/codes/github/french_book/src/lib/data/selectors.ts) utilize `safeDecode()` to resolve both raw and decoded strings against primary keys, canonical forms, display forms, and normalized slugs.
+- **Pipeline**: Selectors in [`selectors.ts`](file:///Users/sukhjot/codes/github/french_book/src/lib/data/selectors.ts) utilize `safeDecode()` to resolve both raw and decoded strings against primary keys, canonical forms, display forms, and normalized slugs. `decodeURIComponent` is never called unguarded: `/api/peek` returns `400` for an unusable id rather than a `500`.
+- **Vocabulary identity (rewritten 2026-09-28)**: vocabulary ids are no longer derived independently by the table and the detail page. `getVocabIndex()` builds one memoized index of the 1002 records (`byId`, `byCanonical`, `bySlug`) and assigns the deduplicated id once; `getVocabulary()`, `getVocabularyById()`, `resolveVocabularyId()` and `getAllVocabularyIds()` all read from it, so the dictionary table id, the `/vocabulary/[id]` id, the search-result URL and the review-store key are the same string. `getVocabularyById()` matches exact id first, then exact canonical form, then slug — **prefix matching was removed**, because `rawId.startsWith(idBare)` made 188 of 1002 ids render a different record. `makeVocabId()` no longer strips leading articles, so `la Toile`, `Toile` and `toile` are three distinct records. Measured: 188 → 0 mis-resolving ids, 13 → 0 colliding base id groups (1 residual case, `Toile` / `toile`, is disambiguated by the chapter suffix and both resolve to themselves).
+- **Static generation**: `generateStaticParams` in [`staticParams.ts`](file:///Users/sukhjot/codes/github/french_book/src/lib/data/staticParams.ts) enumerates every id for the seven dynamic detail routes, so all 2614 detail pages are prerendered at build time. The seven filterable list routes stay dynamic because they read `searchParams`.
 
 ### 4. Server-Side Master Data Pipeline
 - **Storage**: Immutable source master JSON database stored in [`data/MASTER_DATA.json`](file:///Users/sukhjot/codes/github/french_book/data/MASTER_DATA.json), validated against [`data/MASTER_SCHEMA.json`](file:///Users/sukhjot/codes/github/french_book/data/MASTER_SCHEMA.json). There is no active derived dataset after the 2026-09-10 enrichment reset; any future enrichment output must be separately named under `enrichment/` and never replace the source dataset.
@@ -40,7 +42,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ### 1. Configuration & Guidelines
 
 #### `package.json`
-- **Purpose**: Project metadata, scripts (`dev`, `build`, `start`, `lint`, `test`, `data:*` incl. `data:coverage-report`), and dependencies (Next.js 16, React 19, Tailwind CSS, Zod 4, tsx).
+- **Purpose**: Project metadata, scripts (`dev`, `build`, `start`, `lint`, `test`, `data:coverage-report`) and dependencies (Next.js 16, React 19, `pdf-parse`, Tailwind CSS, tsx). 2026-09-28 cleanup: the nine `data:*` scripts pointing at files that do not exist (`extract-pages`, `parse-book`, `normalize-chapter`, `reconcile-global`, `validate-dataset`, `check-coverage`, `build-final-dataset`, `test-data-regressions`, `run-all`) and the `zod` runtime dependency (used only by the deleted `src/lib/dataset/schemas.ts`) were removed.
 - **Functions**: N/A (JSON configuration).
 
 #### `package-lock.json`
@@ -75,10 +77,6 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: Authoritative AI behavior, architectural documentation requirements, test runner rules, suggestions logging, and local-first commit workflow guidelines for Antigravity.
 - **Functions**: N/A (Markdown guidelines).
 
-#### `GEMINI.md`
-- **Purpose**: Architectural documentation standards, test runner guidelines, and AI pair-programming rules mirroring AGENTS.md for Gemini.
-- **Functions**: N/A (Markdown guidelines).
-
 #### `docs/architecture.md`
 - **Purpose**: Exhaustive codebase inventory documenting every file's purpose, all functions and their roles, and environment variables.
 - **Functions**: N/A (Markdown documentation).
@@ -90,10 +88,6 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 #### `docs/to-do.md`
 - **Purpose**: Current enrichment restart handoff pointing to the gap report and operating instructions, and recording that no prior queue, response, validation, approval, or derived dataset remains active.
 - **Functions**: N/A (Markdown task handoff).
-
-#### `gptsugg.txt`
-- **Purpose**: Tracks remaining optional UI refinements from the original 22-part "Scan → Peek → Deep Dive" design improvement plan.
-- **Functions**: N/A (Text specification).
 
 ---
 
@@ -116,6 +110,21 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 #### `app/favicon.ico`
 - **Purpose**: Browser tab favicon icon branding the French revision platform.
 - **Functions**: N/A (Binary icon file).
+
+#### `app/not-found.tsx` (2026-09-28)
+- **Purpose**: App-shell-styled 404 page. Every dynamic route calls `notFound()` for an unknown id; without this the seven detail routes rendered Next's unstyled default outside the shell.
+- **Functions**:
+  - `NotFound()`: Renders the "Page not found" panel with links back to the home dashboard, vocabulary, verbs and search.
+
+#### `app/error.tsx` (2026-09-28)
+- **Purpose**: Client error boundary for the root segment. A throw inside a selector (or any other render error) previously white-screened the whole app.
+- **Functions**:
+  - `GlobalError({ error, reset })`: Renders the failure panel, shows `error.digest` for support correlation, and offers a "Try again" `reset()` action plus a link home.
+
+#### `app/<route>/loading.tsx` (2026-09-28)
+- **Purpose**: Route-level loading skeletons for the twelve list/detail routes (`/chapters`, `/concepts`, `/examples`, `/exercises`, `/expressions`, `/grammar`, `/review`, `/search`, `/tenses`, `/traps`, `/verbs`, `/vocabulary`), each delegating to the shared `ListSkeleton`.
+- **Functions**:
+  - `Loading()`: Returns `<ListSkeleton rows={n} label="Loading <route>" />` for that route.
 
 #### `app/chapters/page.tsx`
 - **Purpose**: Chapter index explorer displaying all 27 chapters with printed page ranges, section breakdowns, rule counts, and verb counts.
@@ -202,25 +211,28 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `TrapsPage({ searchParams })`: Renders searchable and filterable traps directory (query text + category dropdown backed by the `category` search param).
 
-#### `app/review/page.tsx` (2026-09-26)
-- **Purpose**: SRS flashcard review over irregular verbs + vocabulary (deck capped at ~300 cards). Server component builds the deck; `ReviewSession` runs the session.
+#### `app/review/page.tsx` (2026-09-28)
+- **Purpose**: SRS flashcard review over all 133 irregular verbs plus an A-Z cross-section of the 1002-entry dictionary. Rewritten 2026-09-28: the deck is built from the **untruncated** collections with the cap applied after filtering, so the previous alphabetical slice (which stopped at "chaque année" and excluded 13 irregular verbs) no longer makes anything beyond C unlearnable, and the deck grows as cards are scheduled forward.
 - **Functions**:
-  - `ReviewPage()`: Builds `SrsCard[]` (verbs: lemma → English; vocab: French → English) and renders `ReviewSession`.
+  - `ReviewPage()`: Builds `SrsCard[]` (all 133 irregular verbs: lemma → English; 251 strided vocabulary cards spread across A-Z: French → English) and renders `ReviewSession`.
 
 #### `app/search/page.tsx`
 - **Purpose**: Dedicated search page for deep queries across all 10 master collections (verbs, expressions, vocabulary, grammar rules, tenses, chapters, examples, exercises, and traps).
 - **Functions**:
   - `SearchPage({ searchParams })`: Renders unified query input and list of matching entity cards.
 
-#### `app/api/search/route.ts`
-- **Purpose**: API endpoint for real-time search queries and quick command palette lookups.
+#### `app/api/search/route.ts` (2026-09-28 hardened)
+- **Purpose**: API endpoint for real-time search queries and quick command palette lookups. Input is now validated: `limit` is clamped to 1–50 (default 20, previously unbounded and returning ~2500 results / ~600 KB per request after a full 18 MB scan), a `q` longer than 100 characters is a `400`, and every response carries `Cache-Control: public, max-age=60, s-maxage=300, stale-while-revalidate=600`.
 - **Functions**:
-  - `GET(request)`: Handles search queries and returns matched items grouped by category.
+  - `GET(request)`: Validates `q` length and `limit`, then returns matched items grouped by category, or a `400` for malformed input.
+  - `json(body, status = 200)`: Internal helper attaching the shared `Cache-Control` header to every response.
+  - `resolveLimit(rawLimit)`: Internal helper parsing and clamping `limit` to 1–50, returning `null` (→ `400`) for non-numeric input.
 
-#### `app/api/peek/route.ts`
-- **Purpose**: Universal Level 2 Peek API endpoint providing lightweight preview summaries for verbs, expressions, grammar rules, tenses, vocabulary, chapters, traps, examples, exercises, and concepts without full-page reloads.
+#### `app/api/peek/route.ts` (2026-09-28 hardened)
+- **Purpose**: Universal Level 2 Peek API endpoint providing lightweight preview summaries for verbs, expressions, grammar rules, tenses, vocabulary, chapters, traps, examples, exercises, and concepts without full-page reloads. The `id` is decoded once through a guarded helper, so a malformed value (for example a trailing `%`) is a `400` instead of the `500` the previous unguarded `decodeURIComponent` calls produced. Vocabulary peek payloads now return the canonical deduplicated id and `/vocabulary/<id>` URL.
 - **Functions**:
-  - `GET(request)`: Handles `?type={verb|expression|tense|grammar|vocab|chapter|trap|example|exercise|concept}&id={id}` requests and returns structured peek payloads.
+  - `GET(request)`: Handles `?type={verb|expression|tense|grammar|vocab|chapter|trap|example|exercise|concept}&id={id}` requests and returns structured peek payloads, or `400` for a missing / malformed type or id.
+  - `safeDecode(value)`: Internal helper returning `null` instead of throwing `URIError` on a malformed percent-encoding.
 
 ---
 
@@ -231,8 +243,8 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `AppShell({ children })`: Client component wrapping pages with consistent application chrome and listening for global `"open-command-palette"` events.
 
-#### `src/components/common/RowActionMenu.tsx`
-- **Purpose**: Reusable compact action menu providing "Save for review" toggle, "Mark as reviewed" toggle, and "Full Detail Page" navigation link with reactive bookmark badges and local storage synchronization.
+#### `src/components/common/RowActionMenu.tsx` (2026-09-28)
+- **Purpose**: Reusable compact action menu providing "Save for review" toggle, "Mark as reviewed" toggle, and "Full Detail Page" navigation link with reactive bookmark badges and local storage synchronization. The saved/reviewed flags are now hydrated **once per menu in a mount effect** from `getReviewStateSnapshot()` and kept current through the existing subscription; previously `isItemSaved` and `isItemReviewed` ran during render, so a 50-row page (mobile list *and* desktop table both mounted) performed roughly 200 full localStorage reads and parses per render pass. Dropdown items carry `role="menuitem"` and the trigger carries `aria-expanded` / `aria-haspopup`.
 - **Functions**:
   - `RowActionMenu({ type, id, fullUrl, label })`: Interactive action dropdown and status pill component.
 
@@ -242,33 +254,39 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `GlobalKeyboardShortcuts()`: Client listener mounted in AppShell.
   - `handleKeyDown(e)`: Internal key event dispatcher for navigation, search, and drawer toggling.
 
-#### `src/components/common/PronunciationButton.tsx` (2026-09-26)
-- **Purpose**: Web Speech API pronunciation (no network/assets). Renders nothing when synthesis is unavailable. Wired into verb + vocabulary detail headers.
+#### `src/components/common/PronunciationButton.tsx` (2026-09-28)
+- **Purpose**: Web Speech API pronunciation (no network/assets). Wired into verb + vocabulary detail headers. Rewritten 2026-09-28: the button is **always rendered**, because the previous `typeof window === "undefined"` early return in the render body made the server emit no button while the first client render emitted one — a guaranteed hydration mismatch on every `/verbs/[id]` and `/vocabulary/[id]` page. Support is now detected through `useSyncExternalStore` (server snapshot `false`) and the handler is a no-op when unsupported; the button stays visible with `aria-disabled` and reduced opacity.
 - **Functions**:
-  - `PronunciationButton({ text, lang, label })`: Speaks `text` (`fr-FR`, 0.9 rate) with a speaking pulse.
+  - `PronunciationButton({ text, lang, label })`: Always renders the button; speaks `text` (`fr-FR`, 0.9 rate) with a speaking pulse.
+  - `subscribeToSpeechSupport()`: Internal no-op subscribe function for the `useSyncExternalStore` capability check.
+  - `getSpeechSupportSnapshot()`: Internal client snapshot returning whether `window.speechSynthesis` exists.
+  - `getSpeechSupportServerSnapshot()`: Internal server snapshot, always `false`.
 
-#### `src/components/review/ReviewSession.tsx` (2026-09-26)
-- **Purpose**: Client flashcard session: tap-to-flip card, Again (card cycles back into the session) / Got it grading via `gradeCard()`, progress counts, all-caught-up state.
+#### `src/components/review/ReviewSession.tsx` (2026-09-28)
+- **Purpose**: Client flashcard session: tap-to-flip card, Again (card cycles back into the session) / Got it grading via `gradeCard()`, progress counts, all-caught-up state. Rewritten 2026-09-28: the previous `useState(() => getDueCards(cards))` read LocalStorage **during render**, so the server treated every card as due while the client treated only a filtered subset as due (a hydration mismatch plus an impure render), and `getSrsStats(cards)` re-parsed LocalStorage on every render. The component now reads the store exclusively through `useSyncExternalStore` and derives the queue and the stats with `useMemo`, so nothing touches LocalStorage in the render body. The progress counter is `done + 1` over a fixed `session.total`.
 - **Functions**:
-  - `ReviewSession({ cards })`: Runs one review session over due cards.
+  - `ReviewSession({ cards })`: Runs one review session over due cards from the external SRS store.
+  - `buildQueue(due, resolved)`: Internal pure helper that drops "got it" cards and re-appends "again" cards to the end of the session queue.
 
-#### `src/components/peek/PeekContext.tsx`
-- **Purpose**: Global React Context provider managing Level 2 peek drawer state, selected entity type and ID, and asynchronous data fetching.
+#### `src/components/peek/PeekContext.tsx` (2026-09-28)
+- **Purpose**: Global React Context provider managing Level 2 peek drawer state, selected entity type and ID, and asynchronous data fetching. Hardened 2026-09-28: `openPeek` now clears `peekData` to `null` **before** awaiting, so a 404 or a failed fetch can no longer leave the previous entity's title and facts on screen, and a monotonic `requestCounterRef` discards out-of-order responses so two fast peeks cannot render the wrong entity. `closePeek` also bumps the counter and clears the payload.
 - **Functions**:
   - `PeekProvider({ children })`: Context provider component.
-  - `usePeek()`: Hook returning peek state (`activePeek`, `peekData`, `loading`, `openPeek`, `closePeek`).
+  - `usePeek()`: Hook returning peek state (`isOpen`, `isLoading`, `peekData`, `openPeek`, `closePeek`, `canGoBack`, `canGoForward`, `goBack`, `goForward`).
+  - `fetchPeekData(type, id)`: Internal async helper returning cached or freshly fetched peek data, or `null` on failure.
 
 #### `src/components/peek/PeekDrawer.tsx`
 - **Purpose**: Dual-mode preview component acting as a right-side slide-over drawer on desktop (`>=768px`) and a tactile bottom sheet on mobile screens (`<768px`) with top drag/grab indicator bar, rounded top corners, max-height 85vh, and bottom slide-in animation.
 - **Functions**:
   - `PeekDrawer()`: Slide-over and bottom-sheet UI component mounted globally in AppShell.
   - `handleKeyDown(e)`: Internal key event listener closing drawer on Escape.
+  - `helperDeterminePeekType(url)`: Internal helper mapping a linked `/<type>/<id>` URL back to a peek target; the inline `decode` closure returns `null` for malformed percent-encodings instead of throwing.
 
-#### `src/components/peek/PeekTrigger.tsx`
-- **Purpose**: Reusable interactive trigger button/link that invokes `openPeek(type, id)` from anywhere in the application.
+#### `src/components/peek/PeekTrigger.tsx` (2026-09-28)
+- **Purpose**: Reusable interactive trigger that invokes `openPeek(type, id)` from anywhere in the application. The `inline` variant is now a real `<button type="button">`: it was a `span` with no role, no `tabIndex` and no key handler that also called `preventDefault()`, so it was unreachable by keyboard and could hijack an enclosing `Link`.
 - **Functions**:
-  - `PeekTrigger({ type, id, label, className, children })`: Clickable trigger component.
-  - `handleClick(e)`: Click handler preventing event bubbling and invoking `openPeek`.
+  - `PeekTrigger({ type, id, className, variant, title, children })`: Clickable trigger component; `icon` / `badge` / `button` variants were already real buttons.
+  - `handleClick(e)`: Click handler stopping propagation (no `preventDefault`) and invoking `openPeek`.
 
 #### `src/components/verbs/VerbLibraryTable.tsx`
 - **Purpose**: Scan-and-peek interface for the 496 verbs library featuring enhanced desktop table scanning (sticky header, subtle zebra striping, selected-row styling via `data-selected`, visually dominant French lemma, formatted English meaning with intelligent deduplication, right-aligned action badges) and a purpose-built mobile two-line list layout (`<768px`: Line 1 = French lemma · English gloss; Line 2 = classification, auxiliary, participle with tap-to-peek and save/review menu).
@@ -290,9 +308,11 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Functions**:
   - `VocabDictionaryTable({ vocabulary, total, currentPage, pageSize, initialFilters })`: Dual-mode responsive dictionary table/list component.
   - `formatMeaning(val)`: Formats and safely joins English translations with commas, removing duplicates.
-  - `formatPosGender(pos, gender)`: Formats part of speech and gender display badge text.
+  - `formatPosGender(item)`: Formats part of speech and gender display badge text.
   - `updateFilters(newFilters)`: Pushes updated URL search parameters for vocabulary filters.
   - `handleSearchSubmit(e)`: Form submit handler committing dictionary search queries.
+  - `detailHref(item)`: Returns `/vocabulary/<dedup id>`; since 2026-09-28 rows link and key by the canonical id instead of the French form, so `la Toile` and `Toile` are two distinct URLs.
+- **Changes (2026-09-28)**: the mobile list and the desktop table are no longer both mounted — `useIsDesktop()` renders only the active breakpoint, halving the mounted `RowActionMenu` count from 100 to 50 on a 50-row page. `totalPages` is floored at 1, rows key on `item.id` (not `id` + index), and the search input, part-of-speech select, gender select and the clear-search button all have proper `id` / `htmlFor` / `aria-label` pairs.
 
 #### `src/components/vocabulary/VocabDetailView.tsx`
 - **Purpose**: Vocabulary word deep dive with gender tag, article, definitions/senses, synonyms, antonyms, related expressions, base verbs, and contextual sentences.
@@ -376,6 +396,11 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `MoodBadge({ mood })`: Renders grammatical mood badge (indicatif, subjonctif, etc.).
   - `CollocationBadge({ strength })`: Renders collocation strength badge.
 
+#### `src/components/ui/ListSkeleton.tsx` (2026-09-28)
+- **Purpose**: Shared loading skeleton rendered by every `app/<route>/loading.tsx`, so a slow dataset filter pass shows structure instead of a blank page.
+- **Functions**:
+  - `ListSkeleton({ rows, label })`: Renders an `aria-busy` header, facet-bar, and row placeholders with a screen-reader status label.
+
 #### `src/components/ui/CrossLink.tsx`
 - **Purpose**: Standardized internal navigation link with entity-specific styling and icons.
 - **Functions**:
@@ -383,7 +408,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 
 ---
 
-### 4. Data Layer (`src/lib/data/`)
+### 4. Data Layer (`src/lib/data/`) and Shared Utilities (`src/lib/`, `src/hooks/`)
 
 #### `src/lib/data/loader.ts`
 - **Purpose**: Robust, server-side cached data loader reading the master dataset from disk (`data/MASTER_DATA.json`).
@@ -399,8 +424,8 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `getVerbById(id)`: Retrieves full detail for a single verb including conjugations, expressions, rules, and examples. Supports raw and URL-decoded IDs.
   - `getExpressions(filters)`: Retrieves filtered list of idiomatic expressions with pattern slots and collocations.
   - `getExpressionById(id)`: Retrieves single expression detail. Supports raw and URL-decoded IDs.
-  - `getVocabulary(filters)`: Retrieves filtered vocabulary words with safely normalized articles, guaranteed 100% unique IDs via automatic homograph and chapter/index collision resolution, gender, plural forms, and senses.
-  - `getVocabularyById(id)`: Retrieves single vocabulary detail with related expressions, related verbs, related chapters, and examples. Supports raw, composite, and URL-decoded IDs.
+  - `getVocabulary(filters)`: Retrieves filtered vocabulary words with safely normalized articles, guaranteed 100% unique IDs assigned by the shared `getVocabIndex()`, gender, plural forms, and flattened senses. 2026-09-28: ids now come from the shared index instead of being recomputed here.
+  - `getVocabularyById(id)`: Retrieves single vocabulary detail with related expressions, related verbs, related chapters, and examples. Matches exact id → exact canonical form → slug (prefix clauses removed 2026-09-28) and returns the index id as `vocab.id`, so the detail page and the table always agree.
   - `getGrammarRules(filters)`: Retrieves grammar rules list.
   - `getGrammarRuleById(id)`: Retrieves single grammar rule with formation, transformations, traps, and cross-links. Supports raw, URL-decoded, and slugified rule titles.
   - `getTenses()`: Retrieves all 24 tenses organized by mood.
@@ -414,6 +439,13 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `getConcepts()`: Retrieves all 206 grammatical concepts with guaranteed 100% unique IDs across case-variant duplicates.
   - `getConceptById(id)`: Retrieves single concept detail with linked grammar rules, tenses, verbs, expressions, vocabulary, and examples. Supports raw, slugified, disambiguated, and URL-decoded IDs.
   - `safeDecode(str)`: Defensive URL decoding helper preventing URI malformed exceptions.
+  - `getVocabIndex()`: Internal memoized builder for the single source of vocabulary truth — returns `{ entries, byId, byCanonical, bySlug }` with the deduplicated id assigned once.
+  - `resolveVocabRecord(rawId, decoded)`: Internal exact-id → canonical-form → slug resolver used by `getVocabularyById`.
+  - `resolveVocabularyId(canonicalForm, partOfSpeech?)`: Returns the canonical detail id for a vocabulary record from the shared index (used by search results so a hit opens its own record).
+  - `formatComplementStructure(value)`: Flattens the dataset's object-shaped `complement_structure` into a readable slot signature; all 557 expression records carry the object shape, and rendering it raw was a prerender crash.
+  - `formatVocabRelation(value)`: Flattens one heterogeneous vocabulary relation (bare string or `{ canonical_form }` / `{ form }` reference) to a display string.
+  - `formatVocabRelations(value)`: Array wrapper over `formatVocabRelation` with dedupe; applied to `variants`, `word_family`, `synonyms`, `antonyms` and `usage_notes`.
+  - `normalizeVocabSenses(value)`: Normalizes master vocabulary senses (which use an `english` key plus nested `articles`) to the UI `Sense` shape with a guaranteed string `english_gloss`.
   - `formatEnglishList(val, isVerb)`: Normalizes English translation strings or arrays into a clean comma-separated list, intelligently deduplicating bare and to-infinitive pairs for verbs.
   - `mapVerb(v)`: View-model normalizer for verbs.
   - `mapTense(t)`: View-model normalizer for tenses.
@@ -430,7 +462,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 - **Purpose**: In-memory search indexing and fuzzy/prefix matching over French text with accent normalization across master dataset entities (verbs, rules, tenses, expressions, vocabulary, exercises, traps, examples, chapters).
 - **Functions**:
   - `normalizeFrenchText(text)`: Lowercases, removes diacritics, and normalizes punctuation for search indexing.
-  - `searchDataset(dataset, query, limit)`: Searches across all master entities and returns categorized, ranked matches.
+  - `searchDataset(dataset, query, limit)`: Searches across all master entities and returns categorized, ranked matches. Vocabulary hits use the canonical deduplicated detail id (via `resolveVocabularyId`) for both the result `id` and the `/vocabulary/<id>` URL, so a search result always opens its own record.
 
 #### `src/lib/data/reviewStore.ts`
 - **Purpose**: Client-side storage helper for saving items for review and marking entries reviewed with persistent `localStorage` backing and cross-component reactive custom event broadcasting.
@@ -442,14 +474,54 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `subscribeReviewState(callback)`: Registers listener for `letude-review-state-changed` events and returns cleanup unsubscription function.
   - `safeGetStorage(key)`: Safely parses JSON records from localStorage with SSR fallback.
   - `safeSetStorage(key, data)`: Safely persists JSON records to localStorage and notifies subscribers.
+  - `getReviewStateSnapshot()`: Reads **both** key maps in one pass and returns `{ saved: Set<string>, reviewed: Set<string> }`. Added 2026-09-28: `RowActionMenu` previously called `isItemSaved` and `isItemReviewed` during render, so a 50-row page performed roughly 200 full localStorage reads and parses per render pass.
+  - `sanitizeStore(store, storageKey)`: Internal helper that prunes any key whose value is not `true`, so neither key map can grow without bound.
 
-#### `src/lib/data/srs.ts` (2026-09-26)
-- **Purpose**: SM-2-lite spaced-repetition scheduler persisted in LocalStorage (`letude_srs`). Powers the `/review` flashcards.
+#### `src/lib/data/srs.ts` (2026-09-28)
+- **Purpose**: SM-2-lite spaced-repetition scheduler persisted in LocalStorage (`letude_srs`). Powers the `/review` flashcards. The persisted payload is now a **versioned envelope** (`{ version, records }`, `SRS_SCHEMA_VERSION = 2`) and every record is validated with `Number.isFinite` on read; a malformed or future-shaped record is dropped instead of silently stranding its card forever (previously `rec.due <= now` evaluated false, the card was never due again, and `getSrsStats` counted it as neither due nor learned — a permanent loss with no migration path). Version 1 bare-map payloads migrate forward. The store is exposed through `useSyncExternalStore`-compatible subscribe/snapshot functions so no component reads LocalStorage during render.
 - **Functions**:
   - `nextInterval(currentDays, remembered)`: 0 → 1 → 3 → 7 → 14 → 30 → 60 ladder; miss resets to 0.
-  - `gradeCard(key, remembered, now)`: Records a grade, returns the new record.
-  - `getDueCards(cards, now)`: Filters to due-or-new cards.
-  - `getSrsStats(cards, now)`: `{ total, due, learned }` counts.
+  - `gradeCard(key, remembered, now)`: Records a grade, writes the versioned envelope, notifies listeners, returns the new record.
+  - `selectDueCards(cards, records, now)`: Pure filter to due-or-new cards; treats an unusable stored record as due.
+  - `selectSrsStats(cards, records, now)`: Pure `{ total, due, learned }` counter; an unusable record counts as due.
+  - `getDueCards(cards, now)`: Store-reading convenience wrapper around `selectDueCards` (used by tests and non-React callers).
+  - `getSrsStats(cards, now)`: Store-reading convenience wrapper around `selectSrsStats`.
+  - `sanitizeRecords(input)`: Keeps only well-formed `SrsRecord` entries from an arbitrary parsed value.
+  - `parseSrsState(raw)`: Parses and validates a persisted payload into `{ version, records }`, tolerating absent, malformed, non-object and legacy v1 shapes.
+  - `isSrsRecord(value)`: Type guard checking `Number.isFinite` on `intervalDays`, `due` and `lapses` plus non-negative intervals and lapse counts.
+  - `isUsableRecord(rec)`: Internal guard used by the pure selectors.
+  - `subscribeSrsStore(listener)`: `useSyncExternalStore` subscribe function; also listens for cross-tab `storage` events.
+  - `getSrsStoreSnapshot()`: Returns the memoized client snapshot, re-reading storage only when the raw string changed.
+  - `getSrsServerSnapshot()`: Returns the constant empty server snapshot.
+  - `readStorage()` / `writeStorage(records)`: Internal LocalStorage read/write helpers with quota and SSR guards.
+
+#### `src/lib/pagination.ts` (2026-09-28)
+- **Purpose**: Shared pagination arithmetic for the seven filterable list routes. Replaces the raw `parseInt(params.page, 10)` calls that produced a `NaN` offset (an empty slice next to a header reporting the full entry count and "Page NaN of NaN") for any non-numeric, zero, negative or very large `?page=` value.
+- **Functions**:
+  - `parsePageParam(rawPage)`: Returns a positive integer page number, defaulting to 1 for missing, empty, non-numeric, zero, negative or garbage input and clamping to `MAX_PAGE_PARAM`.
+  - `paginate(items, rawPage, pageSize)`: Slices `items` and returns `{ items, currentPage, totalPages, total }` with `totalPages` floored at 1 and `currentPage` clamped into range.
+  - `MAX_PAGE_PARAM`: Upper bound constant (100000) for a supplied page number.
+
+#### `src/lib/data/staticParams.ts` (2026-09-28)
+- **Purpose**: Enumerable id lists for the seven dynamic detail routes. The dataset is fully static, so every id can be enumerated at build time and prerendered rather than re-rendered per request.
+- **Functions**:
+  - `getAllVerbIds()`: 496 verb lemmas.
+  - `getAllTenseIds()`: 24 French tense names.
+  - `getAllGrammarIds()`: 284 grammar rule titles.
+  - `getAllExpressionIds()`: 557 expression canonical forms.
+  - `getAllChapterIds()`: 27 chapter numbers as strings.
+  - `getAllConceptIds()`: 206 concept names.
+  - `getAllVocabularyIds()`: 1002 deduplicated vocabulary ids from the shared index.
+
+#### `src/hooks/useMediaQuery.ts` (2026-09-28)
+- **Note**: the only file under `src/hooks/`.
+- **Purpose**: CSS media-query subscription built on `useSyncExternalStore`, so the server snapshot and the first client render agree and no `setState`-in-effect cascade is triggered. Used to render only the active breakpoint instead of mounting both the mobile list and the desktop table.
+- **Functions**:
+  - `useMediaQuery(query)`: Returns whether the query currently matches; subscribes to `change` (with an `addListener` fallback).
+  - `useIsDesktop()`: Convenience hook for the `(min-width: 768px)` table breakpoint.
+  - `usePrefersReducedMotion()`: Convenience hook for `(prefers-reduced-motion: reduce)`.
+  - `useIsTouch()`: Convenience hook for `(hover: none) and (pointer: coarse)`.
+  - `MEDIA_BREAKPOINTS`: Named breakpoint query constants.
 
 #### `src/lib/dataset/repair-audit.ts` (2026-09-26)
 - **Purpose**: v2.2 repair gate — hash-bound audit mapping for canonical record replacement (see `enrichment/REPAIR_POLICY_V2_2.md`). Pure, no I/O.
@@ -466,12 +538,9 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
 ### 5. Dataset Engine & Utilities (`src/lib/dataset/`)
 
 #### `src/lib/dataset/masterSchema.ts`
-- **Purpose**: Authoritative TypeScript type definitions matching the complete `MASTER_SCHEMA.json` specifications and entity structures.
-- **Functions**: Type exports (`MasterDataset`, `MasterVerb`, `MasterTense`, `MasterGrammarRule`, `MasterExpression`, `MasterVocabulary`, `MasterExample`, `MasterExercise`, `MasterExceptionTrap`, `MasterConcept`, `MasterChapter`).
+- **Purpose**: Authoritative TypeScript type definitions matching the complete `MASTER_SCHEMA.json` specifications and entity structures. Corrected 2026-09-28: `MasterExpression.complement_structure` is declared `string | ComplementStructure | null` (it is an object in all 557 records) and a new `ComplementStructure` interface models `{ direct_object, indirect_object, preposition, followed_by }`.
+- **Functions**: Type exports (`MasterDataset`, `MasterVerb`, `MasterTense`, `MasterGrammarRule`, `MasterExpression`, `MasterVocabulary`, `MasterExample`, `MasterExercise`, `MasterExceptionTrap`, `MasterConcept`, `MasterChapter`, `ComplementStructure`, `Sense`, `ConjugationForms`, `PatternSlot`, `VerbConjugation`, `VerbStem`, `FocusSpan`, `ExerciseQuestion`, `ChapterSection`, `SourceEvidence`, `Study`).
 
-#### `src/lib/dataset/schemas.ts`
-- **Purpose**: Comprehensive Zod schemas defining types and contracts for chapters, rules, verbs, conjugations, vocabulary, expressions, and quality reports.
-- **Functions**: Schema definitions and type exports.
 
 #### `src/lib/dataset/ids.ts`
 - **Purpose**: Deterministic identifier generation and slugification for all dataset entities.
@@ -487,7 +556,7 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `makeVerbId(infinitive)`: Generates verb lemma identifier.
   - `makeConjugationId(verbIdOrInfinitive, tenseIdOrKey)`: Generates composite conjugation record identifier.
   - `makeExpressionId(canonicalForm)`: Generates expression identifier with qqn/qqch/inf abbreviation normalization.
-  - `makeVocabId(word, pos?)`: Generates vocabulary identifier with part-of-speech discriminator to prevent homograph collisions (supports string or object input; strips leading articles).
+  - `makeVocabId(word, pos?)`: Generates vocabulary identifier with part-of-speech discriminator to prevent homograph collisions (supports string or object input). Since 2026-09-28 the leading article is **kept** in the slug, so `la Toile`, `Toile` and `toile` cannot collapse onto one identifier; any residual collision is disambiguated by the `getVocabIndex()` suffix in `selectors.ts`.
   - `makeExampleId(verbOrChapter, index)`: Generates deterministic zero-padded example sentence identifier.
   - `makeExerciseId(chapterNumber, exerciseNumber)`: Generates exercise identifier.
   - `makeQuestionId(exerciseId, questionIndex)`: Generates individual drill question identifier.
@@ -495,51 +564,11 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - `VALID_ID_PREFIXES`: Tuple of allowed entity ID prefixes.
   - `isValidId(id)`: Validates ID prefix and format.
 
-#### `src/lib/dataset/canonicalize.ts`
-- **Purpose**: De-duplication and canonicalization of lexical items from disparate extraction sources.
-- **Functions**:
-  - `mergeAttestations()`: Merges and deduplicates attestation metadata records.
-  - `deduplicateArray()`: Removes duplicate primitives from arrays.
-  - `safeArray(val)`: Internal (non-exported) helper normalizing scalar, null, or undefined values into array containers.
-  - `canonicalizeVerb()`: Cleans and standardizes single verb record.
-  - `canonicalizeVocabularyEntry()`: Standardizes vocabulary record fields.
-  - `canonicalizeExpressionEntry()`: Standardizes expression syntactic fields.
-  - `canonicalizeVerbs()`: Bulk canonicalization for verb collections.
-  - `canonicalizeVocabulary()`: Bulk canonicalization for vocabulary collections.
-  - `canonicalizeExpressions()`: Bulk canonicalization for expression collections.
 
-#### `src/lib/dataset/normalize.ts`
-- **Purpose**: Text cleaning, OCR artifact cleanup, and normalization routines.
-- **Functions**:
-  - `normalizeFrenchText(text)`: Accented text normalization.
-  - `searchNormalize(text)`: Normalization tailored for search keys.
-  - `cleanPdfText(text)`: Strips PDF line-breaks, ligatures, and artifacts.
 
-#### `src/lib/dataset/relations.ts`
-- **Purpose**: Builds bi-directional indexes connecting verbs, rules, tenses, and chapters.
-- **Functions**:
-  - `buildReverseIndexes(dataset)`: Generates reverse lookup tables for relations.
-  - `registerId(id)`: Internal helper registering known IDs into the `allEntityIds` set.
-  - `addLink(map, key, targetId)`: Internal helper recording directional graph links with dedupe.
 
-#### `src/lib/dataset/coverage.ts`
-- **Purpose**: Evaluates dataset completeness against expected chapter and section coverage.
-- **Functions**:
-  - `checkCoverage(dataset)`: Audits entities per chapter and flags missing sections.
 
-#### `src/lib/dataset/load.ts`
-- **Purpose**: Low-level loader for legacy schema dataset files with Zod validation.
-- **Functions**:
-  - `loadSuperDataset(filePath)`: Loads and parses dataset against `SuperDatasetRootSchema`.
 
-#### `src/lib/dataset/validators.ts`
-- **Purpose**: Dataset integrity verification and cross-reference validation.
-- **Functions**:
-  - `validateDataset(dataset)`: Validates foreign key relationships and schema adherence; returns a `ValidationReport` (also exports the `ValidationReport` interface).
-  - `normalizedIdentity(value)`: Internal (non-exported) helper normalizing identity strings for duplicate checks.
-  - `checkEntityId(id, type)`: Internal closure inside `validateDataset()` asserting valid entity identifier formats and uniqueness.
-  - `checkRelation(fromId, fromType, targetId, relationType)`: Internal closure inside `validateDataset()` verifying referential graph integrity.
-  - `findDuplicateGroups(entityType, entries)`: Internal closure inside `validateDataset()` identifying entity clusters with identical natural keys.
 
 ---
 
@@ -580,6 +609,13 @@ A comprehensive French grammar, conjugation, and vocabulary revision platform bu
   - Validates enhanced example filters (`verb`, `tense`, `hasTranslation`).
   - Validates SRS scheduler (`nextInterval` ladder/cap/reset, due selection, stats) and v2.2 repair audit mapping (compliant verify, tampered-evidence fail, rebound-hash fail, key-order-stable hash, re-repair chaining) — added 2026-09-26.
   - Validates `reviewStore` functions (`isItemSaved`, `toggleItemSaved`, `isItemReviewed`, `toggleItemReviewed`) and SSR environment safety.
+  - Validates vocabulary id integrity: every one of the 1002 table ids resolves to itself, every colliding base-id group resolves to distinct records, and the previously broken `ile` / `mer` / `toile` / `Toile` / `vacances` probes plus the `la Toile` vs `Toile` pair resolve correctly — added 2026-09-28.
+  - Validates heterogeneous dataset fields are flattened before rendering: no vocabulary relation (`word_family`, `synonyms`, `antonyms`, `variants`) may remain an object, every sense exposes a string `english_gloss`, and no `complement_structure` reaches the UI as an object — added 2026-09-28.
+  - Validates pagination guards via `parsePageParam` / `paginate`: missing, empty, non-numeric, trailing-garbage, zero, negative and oversized `?page=` values, plus the page-1, overflow and empty-result cases — added 2026-09-28.
+  - Validates the versioned SRS envelope: `SRS_SCHEMA_VERSION`, absent / malformed / non-object / legacy-v1 payloads, per-record `Number.isFinite` validation dropping bad records, and a malformed record being treated as due rather than permanently stranded — added 2026-09-28.
+  - Validates `getReviewStateSnapshot()` / `subscribeReviewState()` exist and return an empty SSR snapshot — added 2026-09-28.
+  - Validates that every search-result vocabulary URL resolves to its own record — added 2026-09-28.
+  - Validates that the seven `generateStaticParams` id lists are non-empty, unique, and complete (496 verbs, 1002 vocabulary, 24 tenses, 284 rules, 557 expressions, 27 chapters, 206 concepts) — added 2026-09-28.
 
 ---
 
@@ -1005,10 +1041,6 @@ the current instructions if a new queue is needed.
   - `TestValidationGatesFailClosed`: Tests legacy fail-closed rejection across response, metadata, precondition, evidence, and placeholder gates without mutating the production manifest.
   - `TestFullQueueValidation`: Tests v2.1 no-proposal accounting, schema-valid candidate acceptance, schema rejection, and partial-conjugation preservation.
   - `TestApprovalAndSafeApplication`: Tests legacy protections plus v2.1 validation-to-approval-to-generic-application, idempotence, bulk missing-response reporting, and rejection of incomplete bulk approvals.
-
-#### `tests/run-all.test.ts`
-- **Purpose**: Single project test entry point; verifies master-data and selector invariants, then launches the normal and high-risk Python pipeline suites with accurate result summaries, including the current 25-test high-risk suite and its isolated v2.2 correction-queue coverage.
-- **Functions**: N/A (top-level test orchestration).
 
 #### Directory Inventory: `batches/`, `responses/`, `validated/`, `approved/`, `rejected/`, `reports/`, `audits/`, `backups/`
 - **Purpose**: Isolated lifecycle directories housing prompt `.txt` files, worker responses, validated payloads, approved batches with decision metadata, rejection reports, verification/preview/applied text reports, immutable audit logs (`*_AUDIT.json`), and atomic timestamped dataset backups.

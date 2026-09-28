@@ -2,7 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getExpressionById } from "@/src/lib/data/selectors";
+import { getAllExpressionIds } from "@/src/lib/data/staticParams";
 import { ExpressionDetailView } from "@/src/components/expressions/ExpressionDetailView";
+
+export const revalidate = false;
+
+export function generateStaticParams() {
+  return getAllExpressionIds().map((id) => ({ id }));
+}
 
 interface ExpressionDetailPageProps {
   params: Promise<{ id: string }>;

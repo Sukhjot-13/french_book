@@ -226,7 +226,7 @@ export function ExpressionDetailView({
                 >
                   <div>
                     <Link
-                      href={`/vocabulary/${encodeURIComponent(voc.french)}`}
+                      href={`/vocabulary/${encodeURIComponent(voc.id)}`}
                       className="font-bold text-primary hover:underline text-sm"
                     >
                       {voc.french}
@@ -235,7 +235,7 @@ export function ExpressionDetailView({
                   </div>
                   <button
                     type="button"
-                    onClick={() => openPeek("vocab", voc.french)}
+                    onClick={() => openPeek("vocab", voc.id)}
                     className="text-[11px] font-mono text-primary hover:underline px-2 py-0.5 rounded bg-surface-container"
                   >
                     Peek Vocab

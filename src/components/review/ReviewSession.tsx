@@ -1,15 +1,45 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { getDueCards, getSrsStats, gradeCard, type SrsCard } from "@/src/lib/data/srs";
+import {
+  selectDueCards,
+  selectSrsStats,
+  gradeCard,
+  subscribeSrsStore,
+  getSrsStoreSnapshot,
+  getSrsServerSnapshot,
+  type SrsCard,
+} from "@/src/lib/data/srs";
+
+type Grade = "got" | "again";
+
+function buildQueue(due: SrsCard[], resolved: Record<string, Grade>): SrsCard[] {
+  const pending = due.filter((card) => resolved[card.key] !== "got");
+  const requeued = due.filter((card) => resolved[card.key] === "again");
+  return [...pending, ...requeued];
+}
 
 export function ReviewSession({ cards }: { cards: SrsCard[] }) {
-  const [queue, setQueue] = useState<SrsCard[]>(() => getDueCards(cards));
+  const store = useSyncExternalStore(subscribeSrsStore, getSrsStoreSnapshot, getSrsServerSnapshot);
+  const [now, setNow] = useState(() => Date.now());
+  const [resolved, setResolved] = useState<Record<string, Grade>>({});
   const [flipped, setFlipped] = useState(false);
-  const [done, setDone] = useState(0);
-  // Read fresh every render: grading writes LocalStorage directly.
-  const stats = getSrsStats(cards);
+
+  const due = useMemo(() => selectDueCards(cards, store.records, now), [cards, store.records, now]);
+  const stats = useMemo(() => selectSrsStats(cards, store.records, now), [cards, store.records, now]);
+  const queue = useMemo(() => buildQueue(due, resolved), [due, resolved]);
+
+  // Fixed session total: the number of due cards the session started with.
+  const deckSignature = `${cards.length}:${cards[0]?.key ?? ""}:${cards[cards.length - 1]?.key ?? ""}`;
+  const [session, setSession] = useState({ signature: deckSignature, total: due.length, done: 0 });
+  if (session.signature !== deckSignature) {
+    setSession({ signature: deckSignature, total: due.length, done: 0 });
+    setResolved({});
+    setFlipped(false);
+  }
+
+  const done = session.done;
 
   if (queue.length === 0) {
     return (
@@ -31,22 +61,21 @@ export function ReviewSession({ cards }: { cards: SrsCard[] }) {
 
   const grade = (remembered: boolean) => {
     gradeCard(current.key, remembered);
-    setDone((d) => d + 1);
+    setResolved((prev) => ({ ...prev, [current.key]: remembered ? "got" : "again" }));
+    setSession((prev) => ({ ...prev, done: prev.done + 1 }));
+    setNow(Date.now());
     setFlipped(false);
-    setQueue((q) => {
-      const [, ...rest] = q;
-      // A missed card goes straight back into this session's queue.
-      return remembered ? rest : [...rest, current];
-    });
   };
 
   return (
     <div className="max-w-xl mx-auto space-y-4">
       <div className="flex items-center justify-between text-xs font-mono text-on-surface-variant">
         <span>
-          {done + 1} / {done + queue.length} this session
+          {done + 1} / {Math.max(session.total, done + 1)} this session
         </span>
-        <span>{stats.due} due · {stats.learned} learned</span>
+        <span>
+          {stats.due} due · {stats.learned} learned
+        </span>
       </div>
 
       <button
@@ -61,9 +90,7 @@ export function ReviewSession({ cards }: { cards: SrsCard[] }) {
         <span className="text-3xl font-bold font-sans text-primary text-center">
           {flipped ? current.back : current.front}
         </span>
-        {current.hint && (
-          <span className="text-xs text-on-surface-variant">{current.hint}</span>
-        )}
+        {current.hint && <span className="text-xs text-on-surface-variant">{current.hint}</span>}
       </button>
 
       {flipped ? (

@@ -35,6 +35,45 @@ function safeSetStorage(key: string, data: Record<string, boolean>): void {
   }
 }
 
+export interface ReviewStateSnapshot {
+  saved: Set<string>;
+  reviewed: Set<string>;
+}
+
+/**
+ * Reads both key maps in one pass. Components that need the state for many rows
+ * call this once per mount instead of once per row per render, and prune keys
+ * that are no longer plain booleans so the maps cannot grow without bound.
+ */
+export function getReviewStateSnapshot(): ReviewStateSnapshot {
+  return {
+    saved: sanitizeStore(safeGetStorage(STORAGE_KEY_SAVED), STORAGE_KEY_SAVED),
+    reviewed: sanitizeStore(safeGetStorage(STORAGE_KEY_REVIEWED), STORAGE_KEY_REVIEWED),
+  };
+}
+
+function sanitizeStore(store: Record<string, boolean>, storageKey: string): Set<string> {
+  const keys = new Set<string>();
+  let dirty = false;
+  const cleaned: Record<string, boolean> = {};
+  for (const [key, value] of Object.entries(store)) {
+    if (value === true) {
+      keys.add(key);
+      cleaned[key] = true;
+    } else {
+      dirty = true;
+    }
+  }
+  if (dirty) {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(cleaned));
+    } catch {
+      // ignore quota errors
+    }
+  }
+  return keys;
+}
+
 export function isItemSaved(type: string, id: string): boolean {
   const store = safeGetStorage(STORAGE_KEY_SAVED);
   return Boolean(store[`${type}:${id}`]);

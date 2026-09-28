@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { getExercises, getChapters } from "@/src/lib/data/selectors";
+import { paginate } from "@/src/lib/pagination";
 
 interface ExercisesPageProps {
   searchParams: Promise<{
@@ -16,19 +17,12 @@ export default async function ExercisesPage({ searchParams }: ExercisesPageProps
   const query = params.query || "";
   const chapterId = params.chapterId || "all";
   const type = params.type || "all";
-  const currentPage = params.page ? parseInt(params.page, 10) : 1;
   const pageSize = 20;
 
-  const { exercises, total } = getExercises({
-    query,
-    chapterId,
-    type,
-    limit: pageSize,
-    offset: (currentPage - 1) * pageSize,
-  });
+  const filtered = getExercises({ query, chapterId, type }).exercises;
+  const { items: exercises, currentPage, totalPages, total } = paginate(filtered, params.page, pageSize);
 
   const chapters = getChapters();
-  const totalPages = Math.ceil(total / pageSize);
 
   return (
     <div className="space-y-6 pb-12">
@@ -55,11 +49,15 @@ export default async function ExercisesPage({ searchParams }: ExercisesPageProps
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {/* Search */}
           <div>
-            <label className="block text-[11px] font-mono uppercase text-on-surface-variant mb-1">
+            <label
+              htmlFor="exercises-search"
+              className="block text-[11px] font-mono uppercase text-on-surface-variant mb-1"
+            >
               Search Exercises
             </label>
             <div className="relative">
               <input
+                id="exercises-search"
                 type="text"
                 name="query"
                 defaultValue={query}
@@ -74,10 +72,14 @@ export default async function ExercisesPage({ searchParams }: ExercisesPageProps
 
           {/* Chapter Filter */}
           <div>
-            <label className="block text-[11px] font-mono uppercase text-on-surface-variant mb-1">
+            <label
+              htmlFor="exercises-chapter"
+              className="block text-[11px] font-mono uppercase text-on-surface-variant mb-1"
+            >
               Filter by Chapter
             </label>
             <select
+              id="exercises-chapter"
               name="chapterId"
               defaultValue={chapterId}
               className="w-full px-3 py-2 rounded bg-surface-container-lowest border border-outline-variant text-sm text-on-surface focus:outline-none focus:border-primary"
@@ -93,10 +95,14 @@ export default async function ExercisesPage({ searchParams }: ExercisesPageProps
 
           {/* Exercise Type */}
           <div>
-            <label className="block text-[11px] font-mono uppercase text-on-surface-variant mb-1">
+            <label
+              htmlFor="exercises-type"
+              className="block text-[11px] font-mono uppercase text-on-surface-variant mb-1"
+            >
               Exercise Type
             </label>
             <select
+              id="exercises-type"
               name="type"
               defaultValue={type}
               className="w-full px-3 py-2 rounded bg-surface-container-lowest border border-outline-variant text-sm text-on-surface focus:outline-none focus:border-primary"
