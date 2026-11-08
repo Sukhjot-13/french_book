@@ -1,0 +1,522 @@
+{
+  "version": "1.0.0",
+  "description": "Explicit deterministic field-by-field and value-level mapping from LEGACY_COMBINED_SCHEMA.json to MASTER_SCHEMA.json.",
+  "principles": {
+    "zero_ai_inference": "All mappings are deterministic, auditable, and rule-based without AI or external linguistic invention.",
+    "no_semantic_coercion": "Never semantically coerce enum values where meanings differ (e.g. invariable != variable). Exact equivalents normalize cleanly (être -> etre); non-matching classifications are preserved in source_classifications while canonical fields receive null, unknown, or other as appropriate.",
+    "value_level_coverage": "Every populated legacy leaf value is accounted for as DIRECTLY_MAPPED, TRANSFORMED, MERGED, DEDUPLICATED, MOVED_TO_PROVENANCE, MOVED_TO_SOURCE_CLASSIFICATIONS, MOVED_TO_UNRESOLVED, or CONFLICTED.",
+    "natural_references": "All artificial IDs (e.g. verb_prendre, tense_present, rule_123) are resolved to natural keys (e.g. prendre, présent, rule_name) via global lookup indices."
+  },
+  "enum_transformations": {
+    "auxiliary": {
+      "être": {
+        "target": "etre",
+        "rationale": "Exact orthographic normalization to match MASTER_SCHEMA enum constraint without meaning change."
+      },
+      "avoir": {
+        "target": "avoir",
+        "rationale": "Direct match."
+      },
+      "both": {
+        "target": "both",
+        "rationale": "Direct match."
+      },
+      "none": {
+        "target": "none",
+        "rationale": "Direct match."
+      },
+      "unknown": {
+        "target": "unknown",
+        "rationale": "Direct match."
+      }
+    },
+    "gender": {
+      "invariable": {
+        "target": null,
+        "preserved_in": "source_classifications",
+        "rationale": "Invariable means non-inflecting for gender; it does NOT mean variable. Preserved accurately in source_classifications; canonical gender set to null."
+      },
+      "masculine": {
+        "target": "masculine",
+        "rationale": "Direct match."
+      },
+      "feminine": {
+        "target": "feminine",
+        "rationale": "Direct match."
+      },
+      "common": {
+        "target": "common",
+        "rationale": "Direct match."
+      },
+      "variable": {
+        "target": "variable",
+        "rationale": "Direct match."
+      },
+      "none": {
+        "target": "none",
+        "rationale": "Direct match."
+      },
+      "unknown": {
+        "target": "unknown",
+        "rationale": "Direct match."
+      }
+    },
+    "expression_type": {
+      "construction": {
+        "target": "construction",
+        "rationale": "Direct match."
+      },
+      "verb_pattern": {
+        "target": "verb_pattern",
+        "rationale": "Direct match."
+      },
+      "collocation": {
+        "target": "collocation",
+        "rationale": "Direct match."
+      },
+      "fixed_expression": {
+        "target": "fixed_expression",
+        "rationale": "Direct match."
+      },
+      "idiom": {
+        "target": "idiom",
+        "rationale": "Direct match."
+      },
+      "sentence_starter": {
+        "target": "sentence_starter",
+        "rationale": "Direct match."
+      },
+      "conversation_phrase": {
+        "target": "conversation_phrase",
+        "rationale": "Direct match."
+      },
+      "connector": {
+        "target": "connector",
+        "rationale": "Direct match."
+      },
+      "functional_phrase": {
+        "target": "functional_phrase",
+        "rationale": "Direct match."
+      },
+      "formulaic_phrase": {
+        "target": "formulaic_phrase",
+        "rationale": "Direct match."
+      },
+      "time_expression": {
+        "target": "time_expression",
+        "rationale": "Direct match."
+      },
+      "quantity_expression": {
+        "target": "quantity_expression",
+        "rationale": "Direct match."
+      },
+      "comparison_structure": {
+        "target": "comparison_structure",
+        "rationale": "Direct match."
+      },
+      "subjunctive_trigger": {
+        "target": "subjunctive_trigger",
+        "rationale": "Direct match."
+      },
+      "conditional_trigger": {
+        "target": "conditional_trigger",
+        "rationale": "Direct match."
+      },
+      "negative_construction": {
+        "target": "negative_construction",
+        "rationale": "Direct match."
+      },
+      "question_construction": {
+        "target": "question_construction",
+        "rationale": "Direct match."
+      },
+      "impersonal_expression": {
+        "target": "other",
+        "preserved_in": "source_classifications",
+        "rationale": "Classification preserved in source_classifications; canonical field set to other."
+      },
+      "location_expression": {
+        "target": "other",
+        "preserved_in": "source_classifications",
+        "rationale": "Classification preserved in source_classifications; canonical field set to other."
+      },
+      "frequency_expression": {
+        "target": "other",
+        "preserved_in": "source_classifications",
+        "rationale": "Classification preserved in source_classifications; canonical field set to other."
+      },
+      "conjunction": {
+        "target": "connector",
+        "preserved_in": "source_classifications",
+        "rationale": "Preserved in source_classifications; mapped to connector in master schema."
+      }
+    },
+    "variant_type": {
+      "masculine": {
+        "target": "masculine",
+        "rationale": "Direct match."
+      },
+      "feminine": {
+        "target": "feminine",
+        "rationale": "Direct match."
+      },
+      "masculine_before_vowel": {
+        "target": "masculine_before_vowel",
+        "rationale": "Direct match."
+      },
+      "plural": {
+        "target": "plural",
+        "rationale": "Direct match."
+      },
+      "alternate_spelling": {
+        "target": "alternate_spelling",
+        "rationale": "Direct match."
+      },
+      "inflected_form": {
+        "target": "inflected_form",
+        "rationale": "Direct match."
+      },
+      "feminine_before_vowel": {
+        "target": "other",
+        "preserved_in": "notes",
+        "rationale": "Preserved in notes; canonical variant_type set to other."
+      }
+    }
+  },
+  "field_mappings": {
+    "chapter": {
+      "chapter.schema_version": {
+        "master": "source_quality[].schema_version",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "chapter.extraction_mode": {
+        "master": "source_quality[].extraction_mode",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "chapter.chapter.id": {
+        "master": null,
+        "action": "TRANSFORMED",
+        "transformation": "Used to index chapter and sections; converted to integer chapter_number."
+      },
+      "chapter.chapter.chapter_number": {
+        "master": "chapters[].chapter_number",
+        "action": "DIRECTLY_MAPPED"
+      },
+      "chapter.chapter.chapter_title": {
+        "master": "chapters[].chapter_title",
+        "action": "DIRECTLY_MAPPED"
+      },
+      "chapter.chapter.source_pages": {
+        "master": "chapters[].pages",
+        "action": "DIRECTLY_MAPPED"
+      },
+      "chapter.chapter.notes": {
+        "master": "chapters[].notes",
+        "action": "DIRECTLY_MAPPED"
+      },
+      "chapter.sections[].id": {
+        "master": null,
+        "action": "TRANSFORMED",
+        "transformation": "Indexed to resolve parent_section references to natural section titles."
+      },
+      "chapter.sections[].title": {
+        "master": "chapters[].sections[].title",
+        "action": "DIRECTLY_MAPPED"
+      },
+      "chapter.sections[].chapter_id": {
+        "master": null,
+        "action": "TRANSFORMED",
+        "transformation": "Associates section with parent chapter."
+      },
+      "chapter.sections[].parent_section_id": {
+        "master": "chapters[].sections[].parent_section",
+        "action": "TRANSFORMED",
+        "transformation": "Resolved to parent section natural title."
+      },
+      "chapter.sections[].order": {
+        "master": "chapters[].sections[].order",
+        "action": "DIRECTLY_MAPPED"
+      },
+      "chapter.sections[].page_printed_start": {
+        "master": "chapters[].sections[].pages.printed_start",
+        "action": "TRANSFORMED"
+      },
+      "chapter.sections[].page_printed_end": {
+        "master": "chapters[].sections[].pages.printed_end",
+        "action": "TRANSFORMED"
+      },
+      "chapter.sections[].page_pdf_start": {
+        "master": "chapters[].sections[].pages.pdf_start",
+        "action": "TRANSFORMED"
+      },
+      "chapter.sections[].page_pdf_end": {
+        "master": "chapters[].sections[].pages.pdf_end",
+        "action": "TRANSFORMED"
+      },
+      "chapter.sections[].concept_ids": {
+        "master": "chapters[].sections[].related_concepts",
+        "action": "TRANSFORMED",
+        "transformation": "Resolved to canonical concept names."
+      },
+      "chapter.sections[].attestations": {
+        "master": "chapters[].sections[].sources",
+        "action": "MOVED_TO_PROVENANCE",
+        "transformation": "Converted to sourceEvidence objects."
+      },
+      "chapter.verbs[].id": {
+        "master": null,
+        "action": "TRANSFORMED",
+        "transformation": "Indexed to map legacy verb IDs to canonical infinitives."
+      },
+      "chapter.verbs[].infinitive": {
+        "master": "verbs[].infinitive",
+        "action": "DIRECTLY_MAPPED"
+      },
+      "chapter.verbs[].display_form": {
+        "master": "verbs[].display_form",
+        "action": "DIRECTLY_MAPPED"
+      },
+      "chapter.verbs[].english": {
+        "master": "verbs[].english",
+        "action": "MERGED",
+        "transformation": "Unique union of translation strings."
+      },
+      "chapter.verbs[].verb_group": {
+        "master": "verbs[].verb_group",
+        "action": "MERGED"
+      },
+      "chapter.verbs[].regularity": {
+        "master": "verbs[].regularity",
+        "action": "MERGED"
+      },
+      "chapter.verbs[].pronominal": {
+        "master": "verbs[].pronominal",
+        "action": "MERGED"
+      },
+      "chapter.verbs[].transitivity": {
+        "master": "verbs[].transitivity",
+        "action": "MERGED",
+        "transformation": "Unique union of transitivity tags."
+      },
+      "chapter.verbs[].auxiliary": {
+        "master": "verbs[].auxiliary",
+        "action": "TRANSFORMED",
+        "transformation": "Exact normalization: être -> etre."
+      },
+      "chapter.verbs[].past_participle": {
+        "master": "verbs[].past_participle",
+        "action": "MERGED"
+      },
+      "chapter.verbs[].present_participle": {
+        "master": "verbs[].present_participle",
+        "action": "MERGED"
+      },
+      "chapter.verbs[].stem": {
+        "master": "verbs[].stems",
+        "action": "TRANSFORMED",
+        "transformation": "Appended to stems array as stem object."
+      },
+      "chapter.verbs[].conjugation_ids": {
+        "master": "verbs[].conjugations",
+        "action": "TRANSFORMED",
+        "transformation": "Resolved referenced chapter conjugations and deep-merged under verb."
+      },
+      "chapter.verbs[].expression_ids": {
+        "master": "verbs[].related_expressions",
+        "action": "TRANSFORMED",
+        "transformation": "Resolved to canonical expression forms."
+      },
+      "chapter.verbs[].concept_ids": {
+        "master": "verbs[].related_concepts",
+        "action": "TRANSFORMED",
+        "transformation": "Resolved to canonical concept names."
+      },
+      "chapter.verbs[].aliases": {
+        "master": "verbs[].aliases",
+        "action": "MERGED"
+      },
+      "chapter.verbs[].search_terms": {
+        "master": "verbs[].search_terms",
+        "action": "MERGED"
+      },
+      "chapter.verbs[].senses": {
+        "master": "verbs[].senses",
+        "action": "MERGED",
+        "transformation": "Deduplicated by english + note."
+      },
+      "chapter.verbs[].study": {
+        "master": "verbs[].study",
+        "action": "MERGED",
+        "transformation": "Conservative merge; differing non-null values reported as conflicts."
+      },
+      "chapter.verbs[].origin": {
+        "master": "verbs[].sources",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "chapter.verbs[].attestations": {
+        "master": "verbs[].sources",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "chapter.conjugations[]": {
+        "master": "verbs[].conjugations",
+        "action": "TRANSFORMED",
+        "transformation": "Deep-merged under matching verb by (tense, mood). Person forms normalized by stripping redundant subject pronouns deterministically (e.g. j'étais -> étais, tu étais -> étais) while preserving full text in provenance. Merged with conflict tracking."
+      },
+      "chapter.verbs[].present_participle": {
+        "master": "verbs[].present_participle",
+        "action": "TRANSFORMED",
+        "transformation": "Normalized to lexical participle without reflexive pronoun for pronominal verbs (se levant -> levant, s'écrivant -> écrivant); original text preserved in provenance."
+      },
+      "chapter.expressions[]": {
+        "master": "expressions[]",
+        "action": "MERGED",
+        "transformation": "Deduplicated by canonical_form. All lists merged by unique union."
+      },
+      "chapter.vocabulary[]": {
+        "master": "vocabulary[]",
+        "action": "MERGED",
+        "transformation": "Deduplicated by canonical_form + part_of_speech. Legacy article string deterministically classified into structured articles object (definite, indefinite, partitive, other). Senses extended to support subordinate gender, articles, and plural to preserve distinct homographic senses without artificial IDs."
+      },
+      "chapter.grammar_rules[]": {
+        "master": "grammar_rules[]",
+        "action": "MERGED",
+        "transformation": "Deduplicated by rule_name."
+      },
+      "chapter.concepts[]": {
+        "master": "concepts[]",
+        "action": "MERGED",
+        "transformation": "Deduplicated by concept name."
+      },
+      "chapter.examples[]": {
+        "master": "examples[]",
+        "action": "MERGED",
+        "transformation": "Deduplicated by normalized French sentence. All cross-links unioned."
+      },
+      "chapter.exercises[]": {
+        "master": "exercises[]",
+        "action": "MERGED",
+        "transformation": "Deduplicated by chapter_number + exercise_code. Merged with answer_key.json."
+      },
+      "chapter.exceptions_and_traps[]": {
+        "master": "exceptions_and_traps[]",
+        "action": "MERGED",
+        "transformation": "Deduplicated by title + category."
+      },
+      "chapter.uncertain_candidates[]": {
+        "master": "unresolved_items[]",
+        "action": "MOVED_TO_UNRESOLVED"
+      }
+    },
+    "glossary": {
+      "glossary.schema_version": {
+        "master": "source_quality[].schema_version",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "glossary.extraction_mode": {
+        "master": "source_quality[].extraction_mode",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "glossary.source_type": {
+        "master": "source_quality[].source_type",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "glossary.direction": {
+        "master": "source_quality[].direction",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "glossary.source_pages": {
+        "master": "source_quality[].source_pages",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "glossary.entries[verb]": {
+        "master": "verbs[]",
+        "action": "MERGED",
+        "transformation": "Merged into master verb matching verb_infinitive."
+      },
+      "glossary.entries[expression]": {
+        "master": "expressions[]",
+        "action": "MERGED",
+        "transformation": "Merged into master expressions matching canonical_french."
+      },
+      "glossary.entries[vocabulary]": {
+        "master": "vocabulary[]",
+        "action": "MERGED",
+        "transformation": "Merged into master vocabulary matching canonical_french + part_of_speech."
+      },
+      "glossary.quality_summary": {
+        "master": "source_quality[]",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "glossary.uncertain_rows": {
+        "master": "unresolved_items[]",
+        "action": "MOVED_TO_UNRESOLVED"
+      }
+    },
+    "verb_table": {
+      "verb_table.schema_version": {
+        "master": "source_quality[].schema_version",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "verb_table.extraction_mode": {
+        "master": "source_quality[].extraction_mode",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "verb_table.source_type": {
+        "master": "source_quality[].source_type",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "verb_table.source_pages": {
+        "master": "source_quality[].source_pages",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "verb_table.tables": {
+        "master": "source_quality[].tables",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "verb_table.rows[]": {
+        "master": "verbs[]",
+        "action": "MERGED",
+        "transformation": "Merged into master verb matching infinitive. Conjugation tables merged under verb.conjugations."
+      },
+      "verb_table.quality_summary": {
+        "master": "source_quality[]",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "verb_table.uncertain_rows": {
+        "master": "unresolved_items[]",
+        "action": "MOVED_TO_UNRESOLVED"
+      }
+    },
+    "answer_key": {
+      "answer_key.schema_version": {
+        "master": "source_quality[].schema_version",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "answer_key.extraction_mode": {
+        "master": "source_quality[].extraction_mode",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "answer_key.source_type": {
+        "master": "source_quality[].source_type",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "answer_key.source_pages": {
+        "master": "source_quality[].source_pages",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "answer_key.exercises[].answers[]": {
+        "master": "exercises[].questions[].answers",
+        "action": "TRANSFORMED",
+        "transformation": "Appended as answerOption to matching question by chapter_number + exercise_code + question_number."
+      },
+      "answer_key.quality_summary": {
+        "master": "source_quality[]",
+        "action": "MOVED_TO_PROVENANCE"
+      },
+      "answer_key.uncertain_answers": {
+        "master": "unresolved_items[]",
+        "action": "MOVED_TO_UNRESOLVED"
+      }
+    }
+  }
+}
