@@ -1,0 +1,2572 @@
+# L’Étude Master JSON Construction Pipeline
+
+## Complete Implementation Specification
+
+## 1. Objective
+
+We already have separate JSON files for different textbook chapters.
+
+These JSON files are **not raw extraction output**. They already follow a reasonably structured schema, but:
+
+- some chapters may contain fields that other chapters do not;
+- the same concept may occasionally use different field names;
+- some objects may contain additional nested information;
+- some fields may be missing;
+- some data may be incomplete;
+- the same verb, vocabulary item, construction, tense, grammar rule, expression, etc. may appear in multiple chapters;
+- some information must eventually be enriched using AI.
+
+The goal is to construct a **single canonical master dataset** without losing any information from any chapter.
+
+The process must be deterministic and auditable.
+
+AI must NOT simply read all chapter files and generate a new master JSON from memory.
+
+Instead, build scripts that:
+
+1. inspect all existing chapter JSONs;
+2. compare their schemas;
+3. identify every field variation;
+4. compare them against the proposed master schema;
+5. report unmapped or conflicting fields;
+6. normalize chapter data;
+7. merge duplicate entities;
+8. detect conflicts;
+9. verify that nothing was lost;
+10. identify missing information;
+11. prepare controlled AI enrichment batches;
+12. validate enrichment results;
+13. generate the final master JSON;
+14. allow new data to be added later using the same pipeline.
+
+---
+
+# 2. Fundamental Architecture Rules
+
+## Rule 1 — Never silently discard data
+
+If a source chapter contains a field that the canonical schema does not understand, do NOT ignore it.
+
+It must appear in an audit report such as:
+
+```json
+{
+  "entity_type": "verb",
+  "field": "special_usage",
+  "files": ["chapter_07.json", "chapter_11.json"],
+  "status": "unmapped"
+}
+```
+
+The developer must decide whether:
+
+- it maps to an existing canonical field;
+- it deserves a new canonical field;
+- it belongs to another entity type;
+- it is redundant;
+- it is parsing noise.
+
+Until explicitly resolved, it must remain reported.
+
+---
+
+## Rule 2 — Do not use artificial IDs in the canonical JSON
+
+The human-readable data should use natural references.
+
+Example:
+
+```json
+{
+  "base_verb": "prendre"
+}
+```
+
+instead of:
+
+```json
+{
+  "verb_id": "verb_00483"
+}
+```
+
+Another example:
+
+```json
+{
+  "related_tense": "conditionnel présent"
+}
+```
+
+Natural references should normally use:
+
+```text
+entity category + canonical name
+```
+
+The entity category provides the namespace.
+
+For example:
+
+```text
+verbs → prendre
+tenses → conditionnel présent
+constructions → demander à quelqu'un de + infinitif
+```
+
+The final JSON does not need UUIDs.
+
+A database may later use internal IDs when importing this data.
+
+---
+
+# 3. Natural Key Rules
+
+Different entity types require different canonical keys.
+
+## Verbs
+
+Canonical infinitive.
+
+Examples:
+
+```text
+prendre
+venir
+lever
+se lever
+se souvenir
+s'attendre
+```
+
+`lever` and `se lever` are separate verbs.
+
+`attendre` and `s'attendre` are separate verbs.
+
+---
+
+## Tenses
+
+Canonical French tense name.
+
+Examples:
+
+```text
+présent
+passé composé
+imparfait
+plus-que-parfait
+futur simple
+futur antérieur
+conditionnel présent
+conditionnel passé
+```
+
+---
+
+## Constructions
+
+Canonical normalized construction.
+
+Example:
+
+```text
+demander à quelqu'un de + infinitif
+```
+
+---
+
+## Collocations
+
+Canonical phrase.
+
+Example:
+
+```text
+prendre une décision
+prendre sa retraite
+avoir besoin de
+```
+
+---
+
+## Expressions
+
+Canonical expression text.
+
+---
+
+## Grammar rules
+
+Use a canonical descriptive rule name.
+
+Example:
+
+```text
+si + imparfait → conditionnel présent
+```
+
+Do not rely on vague names such as:
+
+```text
+rule 1
+grammar point
+special case
+```
+
+---
+
+## Vocabulary
+
+Vocabulary requires more caution.
+
+The same French spelling can potentially represent different parts of speech or meanings.
+
+Internally, deduplication may therefore use:
+
+```text
+normalized_french + part_of_speech
+```
+
+Example:
+
+```text
+orange|noun
+orange|adjective
+```
+
+The final JSON does not necessarily have to expose this combined string.
+
+---
+
+# 4. Recommended Project Structure
+
+Create:
+
+```text
+data/
+    source/
+        chapter_01.json
+        chapter_02.json
+        ...
+
+    schema/
+        proposed_master_schema.json
+        canonical_schema.json
+        field_mappings.json
+        normalization_rules.json
+        merge_rules.json
+
+    audit/
+        file_inventory.json
+        schema_inventory.json
+        schema_variations.json
+        unknown_fields.json
+        field_frequency.json
+        mapping_candidates.json
+        unresolved_mappings.json
+        normalization_report.json
+        merge_conflicts.json
+        duplicate_report.json
+        reference_report.json
+        coverage_report.json
+        missing_fields_report.json
+
+    normalized/
+        chapter_01.normalized.json
+        chapter_02.normalized.json
+        ...
+
+    master/
+        master.source.json
+        master.json
+
+    enrichment/
+        requests/
+        responses/
+        validated/
+        rejected/
+
+    logs/
+
+scripts/
+```
+
+---
+
+# PHASE 1 — SOURCE FILE DISCOVERY
+
+# 5. Script 01 — `01_inventory_files.py`
+
+## Purpose
+
+Discover every chapter JSON and verify that files are readable.
+
+## Checks
+
+For every file:
+
+- filename;
+- JSON validity;
+- top-level type;
+- chapter number;
+- chapter title;
+- file size;
+- top-level fields;
+- whether required chapter metadata exists.
+
+## Output
+
+```text
+audit/file_inventory.json
+```
+
+Example:
+
+```json
+{
+  "total_files": 19,
+  "valid_json": 19,
+  "invalid_json": 0,
+  "chapters": [
+    {
+      "file": "chapter_12.json",
+      "chapter_number": 12,
+      "chapter_title": "Could, Should, Would?",
+      "top_level_fields": [
+        "grammar_rules",
+        "verbs",
+        "vocabulary",
+        "expressions"
+      ]
+    }
+  ]
+}
+```
+
+## Critical checks
+
+Detect:
+
+- duplicate chapter numbers;
+- missing chapter numbers;
+- malformed JSON;
+- empty files;
+- unexpected non-JSON files.
+
+The script must fail validation if a required source file cannot be parsed.
+
+---
+
+# PHASE 2 — SCHEMA DISCOVERY
+
+# 6. Script 02 — `02_extract_schema_paths.py`
+
+## Purpose
+
+Since the files are already semi-structured, discover **every field path actually used anywhere**.
+
+Recursively inspect every JSON object.
+
+Example source:
+
+```json
+{
+  "verbs": [
+    {
+      "infinitive": "prendre",
+      "conjugations": {
+        "present": {
+          "je": "prends"
+        }
+      }
+    }
+  ]
+}
+```
+
+Must produce paths such as:
+
+```text
+verbs[]
+verbs[].infinitive
+verbs[].conjugations
+verbs[].conjugations.present
+verbs[].conjugations.present.je
+```
+
+Do this for every entity.
+
+## Record
+
+For every path:
+
+- number of files containing it;
+- number of occurrences;
+- files containing it;
+- detected value types;
+- sample values.
+
+Example:
+
+```json
+{
+  "path": "verbs[].past_participle",
+  "files_count": 11,
+  "occurrences": 43,
+  "types": ["string"],
+  "sample_values": ["pris", "fait", "venu"]
+}
+```
+
+## Output
+
+```text
+audit/schema_inventory.json
+```
+
+---
+
+# 7. Script 03 — `03_detect_schema_variations.py`
+
+## Purpose
+
+Determine where chapter schemas differ.
+
+Because the files already share a rough schema, this script should answer:
+
+> Which fields are standard, which are optional, and which occur only in a few chapters?
+
+Classify fields as:
+
+```text
+universal
+common
+occasional
+rare
+unique
+```
+
+Suggested thresholds:
+
+```text
+universal = 100% files where entity occurs
+common = >= 70%
+occasional = 30–69%
+rare = 2–29%
+unique = one source file
+```
+
+These percentages are diagnostic only.
+
+Never assume a rare field is unimportant.
+
+## Output
+
+```text
+audit/schema_variations.json
+audit/field_frequency.json
+```
+
+---
+
+# PHASE 3 — COMPARE AGAINST MASTER SCHEMA
+
+# 8. Create `proposed_master_schema.json`
+
+Before transformation, provide the proposed canonical schema.
+
+The exact schema can still change during auditing.
+
+The master should conceptually include:
+
+```json
+{
+  "metadata": {},
+  "chapters": {},
+  "verbs": {},
+  "vocabulary": {},
+  "tenses": {},
+  "grammar_rules": {},
+  "constructions": {},
+  "collocations": {},
+  "expressions": {},
+  "examples": [],
+  "exceptions_and_traps": {},
+  "topics": {}
+}
+```
+
+Additional categories may be added if source data proves they are necessary.
+
+---
+
+# 9. Script 04 — `04_compare_source_to_master_schema.py`
+
+Compare every discovered source path against the proposed master schema.
+
+Classify source fields into:
+
+```text
+EXACT_MATCH
+KNOWN_ALIAS
+POSSIBLE_ALIAS
+UNMAPPED
+TYPE_CONFLICT
+STRUCTURE_CONFLICT
+```
+
+Example:
+
+```text
+verbs[].english
+verbs[].meaning
+verbs[].translation
+```
+
+may all potentially map to:
+
+```text
+verbs[].meanings
+```
+
+But the script must NOT make semantic guesses automatically unless the mapping is already defined.
+
+Unknown possibilities should be reported.
+
+## Output
+
+```text
+audit/mapping_candidates.json
+audit/unknown_fields.json
+```
+
+---
+
+# PHASE 4 — FIELD-MAPPING REVIEW
+
+# 10. Create `field_mappings.json`
+
+All known schema variations must be configured outside transformation code.
+
+Example:
+
+```json
+{
+  "verb": {
+    "infinitive": ["infinitive", "verb", "base_form"],
+    "meanings": [
+      "meaning",
+      "meanings",
+      "english",
+      "translation",
+      "translations"
+    ],
+    "past_participle": ["past_participle", "participe_passe"]
+  }
+}
+```
+
+Mappings must support nested paths when necessary.
+
+---
+
+# 11. Important: Mapping is NOT always renaming
+
+Determine whether a source field requires:
+
+### Direct rename
+
+```text
+english → meanings
+```
+
+### Scalar-to-array conversion
+
+```json
+"meaning": "to take"
+```
+
+becomes:
+
+```json
+"meanings": ["to take"]
+```
+
+### Object restructuring
+
+Example:
+
+```json
+"future_stem": "prendr-"
+```
+
+might become:
+
+```json
+"stems": {
+  "futur simple": "prendr-"
+}
+```
+
+### Entity extraction
+
+Example:
+
+```json
+{
+  "verb": "prendre",
+  "expressions": ["prendre une décision"]
+}
+```
+
+The expression may need to become its own top-level entity.
+
+The verb should then reference it naturally.
+
+### Semantic split
+
+One source field may contain multiple concepts and need separation.
+
+### Semantic merge
+
+Multiple source fields may represent one canonical concept.
+
+---
+
+# 12. Script 05 — `05_validate_field_mappings.py`
+
+Before normalization starts, verify:
+
+- every source field is accounted for;
+- every mapping points to a valid canonical field;
+- no incompatible fields are accidentally mapped together;
+- data types are compatible;
+- no field is silently ignored.
+
+Output:
+
+```text
+audit/unresolved_mappings.json
+```
+
+Normalization must NOT be considered final while unresolved mappings remain.
+
+---
+
+# PHASE 5 — NORMALIZATION RULES
+
+# 13. Create `normalization_rules.json`
+
+Normalization must be conservative.
+
+Do not modify meaningful French text unnecessarily.
+
+Rules may cover:
+
+### Whitespace
+
+```text
+" prendre " → "prendre"
+```
+
+### Unicode apostrophes
+
+Normalize equivalent apostrophe characters when appropriate.
+
+Example:
+
+```text
+s’attendre
+s'attendre
+```
+
+Choose one canonical representation.
+
+### Case
+
+Natural keys may be lowercase:
+
+```text
+Prendre → prendre
+```
+
+while preserving original display text if useful.
+
+### Tense aliases
+
+```text
+conditionnel present
+conditionnel présent
+conditional present
+```
+
+→
+
+```text
+conditionnel présent
+```
+
+### Part-of-speech aliases
+
+```text
+noun
+nom
+n.
+```
+
+→ canonical value.
+
+### Gender aliases
+
+```text
+masc
+masculine
+m
+```
+
+→
+
+```text
+masculine
+```
+
+### Verb group aliases
+
+Normalize consistent representation.
+
+---
+
+# 14. Never perform dangerous normalization
+
+Do NOT blindly:
+
+- remove accents;
+- remove `se`;
+- alphabetically rearrange phrases;
+- remove prepositions;
+- stem French words;
+- singularize everything;
+- collapse expressions that merely look similar.
+
+For example:
+
+```text
+attendre
+s'attendre
+```
+
+must never merge.
+
+Likewise:
+
+```text
+parler à quelqu'un
+parler de quelque chose
+```
+
+are not the same construction.
+
+---
+
+# PHASE 6 — NORMALIZE EACH CHAPTER
+
+# 15. Script 06 — `06_normalize_chapters.py`
+
+Transform every chapter file independently into the canonical schema.
+
+Do NOT merge chapters yet.
+
+Output:
+
+```text
+normalized/chapter_01.normalized.json
+...
+```
+
+This intermediate stage is essential.
+
+It lets us compare:
+
+```text
+source chapter
+vs
+normalized chapter
+```
+
+before deduplication complicates things.
+
+---
+
+# 16. Normalization must preserve provenance
+
+Every canonical entity should at minimum know which chapter(s) supplied it.
+
+Example:
+
+```json
+{
+  "infinitive": "prendre",
+  "source_chapters": [8]
+}
+```
+
+When later merged:
+
+```json
+{
+  "source_chapters": [3, 8, 12]
+}
+```
+
+Fine-grained source file/path information can remain in audit files rather than bloating the final JSON.
+
+---
+
+# 17. Script 07 — `07_validate_normalized_chapters.py`
+
+For each normalized chapter verify:
+
+- valid JSON;
+- canonical schema compliance;
+- no unmapped fields;
+- all source entities accounted for;
+- natural keys present;
+- expected arrays are arrays;
+- expected objects are objects;
+- no data disappeared because of null-handling;
+- no duplicate values were accidentally introduced.
+
+Create:
+
+```text
+audit/normalization_report.json
+```
+
+---
+
+# PHASE 7 — LOSSLESSNESS / COVERAGE VALIDATION
+
+# 18. Script 08 — `08_source_normalization_coverage.py`
+
+This is one of the most important scripts.
+
+It must compare the original chapter JSONs against normalized chapter JSONs.
+
+For every source value determine one of:
+
+```text
+PRESERVED
+NORMALIZED
+MOVED
+MERGED
+INTENTIONALLY_EXCLUDED
+UNACCOUNTED_FOR
+```
+
+There should be **zero `UNACCOUNTED_FOR` source values** before proceeding.
+
+Do not rely only on object counts because restructuring can alter counts.
+
+Track mapping at field/value level during transformation.
+
+Output:
+
+```text
+audit/coverage_report.json
+```
+
+Summary example:
+
+```json
+{
+  "source_fields_seen": 18452,
+  "preserved": 16210,
+  "normalized": 1940,
+  "moved": 302,
+  "unaccounted_for": 0
+}
+```
+
+---
+
+# PHASE 8 — ENTITY EXTRACTION
+
+# 19. Extract embedded reusable concepts
+
+Some information may currently exist only inside another entity.
+
+Examples:
+
+```text
+verb → expression
+verb → collocation
+grammar rule → example
+tense → exception
+chapter → construction
+```
+
+These may need to become independent global entities.
+
+---
+
+# 20. Script 09 — `09_extract_global_entities.py`
+
+Extract reusable entities such as:
+
+```text
+verbs
+vocabulary
+tenses
+grammar rules
+constructions
+collocations
+expressions
+examples
+exceptions
+```
+
+Example source:
+
+```json
+{
+  "infinitive": "prendre",
+  "expressions": [
+    {
+      "french": "prendre une décision",
+      "english": "to make a decision"
+    }
+  ]
+}
+```
+
+Should be capable of creating:
+
+```json
+{
+  "collocations": {
+    "prendre une décision": {
+      "phrase": "prendre une décision",
+      "meaning": "to make a decision",
+      "base_verb": "prendre"
+    }
+  }
+}
+```
+
+And verb:
+
+```json
+{
+  "prendre": {
+    "collocations": ["prendre une décision"]
+  }
+}
+```
+
+No artificial ID required.
+
+---
+
+# PHASE 9 — DUPLICATE DETECTION
+
+# 21. Script 10 — `10_detect_duplicates.py`
+
+Before merging, identify duplicates using natural keys.
+
+Create categories:
+
+```text
+EXACT_DUPLICATE
+NORMALIZED_DUPLICATE
+POSSIBLE_DUPLICATE
+DISTINCT
+```
+
+Examples:
+
+```text
+"Prendre"
+"prendre "
+```
+
+→ normalized duplicate.
+
+But:
+
+```text
+prendre
+se prendre
+```
+
+→ distinct.
+
+---
+
+# 22. Fuzzy matching must never auto-merge
+
+Fuzzy similarity can generate suggestions:
+
+```text
+demander à qn de faire
+demander à quelqu'un de + infinitif
+```
+
+But fuzzy matches must go into:
+
+```text
+audit/possible_duplicates.json
+```
+
+unless explicitly approved through deterministic rules.
+
+Never let edit distance automatically merge French linguistic structures.
+
+---
+
+# PHASE 10 — MERGE RULES
+
+# 23. Create `merge_rules.json`
+
+Different fields require different merge behavior.
+
+Possible merge strategies:
+
+```text
+KEEP_EXACT_SINGLETON
+UNION_UNIQUE
+ORDERED_UNION
+DEEP_MERGE
+PREFER_NON_EMPTY
+CONFLICT_IF_DIFFERENT
+APPEND
+CUSTOM
+```
+
+---
+
+# 24. Verb merge examples
+
+## `source_chapters`
+
+Use:
+
+```text
+UNION_UNIQUE
+```
+
+---
+
+## `meanings`
+
+Usually:
+
+```text
+UNION_UNIQUE
+```
+
+---
+
+## `past_participle`
+
+Use:
+
+```text
+CONFLICT_IF_DIFFERENT
+```
+
+If chapter A says:
+
+```text
+pris
+```
+
+and chapter B says:
+
+```text
+prendre
+```
+
+do not choose automatically.
+
+Report conflict.
+
+---
+
+## `auxiliary`
+
+Usually:
+
+```text
+CONFLICT_IF_DIFFERENT
+```
+
+unless schema intentionally permits multiple auxiliaries.
+
+---
+
+## `conjugations`
+
+Use:
+
+```text
+DEEP_MERGE
+```
+
+Example:
+
+Chapter 7 contains:
+
+```text
+passé composé
+```
+
+Chapter 11 contains:
+
+```text
+conditionnel présent
+```
+
+Both must survive.
+
+---
+
+## `examples_by_tense`
+
+Use:
+
+```text
+UNION_UNIQUE
+```
+
+possibly preserving textbook order.
+
+---
+
+## `constructions`
+
+Use:
+
+```text
+UNION_UNIQUE
+```
+
+---
+
+# PHASE 11 — BUILD SOURCE MASTER
+
+# 25. Script 11 — `11_build_master_source.py`
+
+Merge all normalized chapter data.
+
+Output:
+
+```text
+master/master.source.json
+```
+
+This file should represent:
+
+> Everything derivable from the source chapter JSONs after deterministic normalization and merging, but before external AI enrichment.
+
+This file is extremely important.
+
+It gives us a clean textbook-derived baseline.
+
+---
+
+# 26. Suggested master structure
+
+Prefer natural-key dictionaries for strongly deduplicated entities.
+
+Example:
+
+```json
+{
+  "verbs": {
+    "prendre": {
+      "infinitive": "prendre"
+    },
+
+    "venir": {
+      "infinitive": "venir"
+    },
+
+    "se souvenir": {
+      "infinitive": "se souvenir"
+    }
+  }
+}
+```
+
+This gives simple access:
+
+```javascript
+master.verbs["prendre"];
+```
+
+---
+
+# 27. Chapters should remain accessible
+
+Even though the dataset is global-first, preserve chapter organization.
+
+For example:
+
+```json
+{
+  "chapters": {
+    "12": {
+      "chapter_number": 12,
+      "title": "Could, Should, Would?",
+      "verbs": [
+        "pouvoir",
+        "devoir",
+        "vouloir"
+      ],
+      "tenses": [
+        "conditionnel présent",
+        "conditionnel passé"
+      ],
+      "grammar_rules": [...]
+    }
+  }
+}
+```
+
+Thus the same data supports:
+
+```text
+global revision
+```
+
+and:
+
+```text
+chapter revision
+```
+
+without duplicating full entity objects unnecessarily.
+
+---
+
+# PHASE 12 — CONFLICT DETECTION
+
+# 28. Script 12 — `12_detect_merge_conflicts.py`
+
+Never silently overwrite conflicting singleton values.
+
+Example:
+
+```json
+{
+  "entity_type": "verb",
+  "entity": "attendre",
+  "field": "meaning",
+  "values": [
+    {
+      "value": "to wait",
+      "source_chapters": [5, 8]
+    },
+    {
+      "value": "to attend",
+      "source_chapters": [11]
+    }
+  ]
+}
+```
+
+Create:
+
+```text
+audit/merge_conflicts.json
+```
+
+Classify conflicts:
+
+```text
+LIKELY_SOURCE_ERROR
+MULTIPLE_VALID_VALUES
+FORMAT_ONLY
+SEMANTIC_CONFLICT
+STRUCTURAL_CONFLICT
+NEEDS_REVIEW
+```
+
+Do not resolve semantic conflicts silently.
+
+---
+
+# PHASE 13 — REFERENCE VALIDATION
+
+# 29. Script 13 — `13_validate_references.py`
+
+Since we use natural string references, verify every reference exists.
+
+Example:
+
+```json
+{
+  "base_verb": "prendre"
+}
+```
+
+Must confirm:
+
+```text
+master.verbs["prendre"]
+```
+
+exists.
+
+Check all:
+
+```text
+verb references
+tense references
+construction references
+grammar references
+expression references
+chapter references
+related entities
+```
+
+Output:
+
+```text
+audit/reference_report.json
+```
+
+Report:
+
+```text
+VALID
+MISSING_TARGET
+AMBIGUOUS_TARGET
+MALFORMED_REFERENCE
+```
+
+Target:
+
+```text
+0 missing references
+```
+
+---
+
+# PHASE 14 — MASTER COMPLETENESS AUDIT
+
+# 30. Script 14 — `14_master_coverage_audit.py`
+
+Compare:
+
+```text
+all source normalized information
+```
+
+against:
+
+```text
+master.source.json
+```
+
+Ensure:
+
+- every verb survived;
+- every vocabulary item survived;
+- every grammar rule survived;
+- every tense survived;
+- every example survived or is deliberately represented elsewhere;
+- every construction survived;
+- every expression survived;
+- every exception survived;
+- all chapters remain represented.
+
+Output:
+
+```text
+audit/master_coverage_report.json
+```
+
+Required final result:
+
+```text
+unaccounted_source_information = 0
+```
+
+---
+
+# PHASE 15 — CANONICAL MASTER SCHEMA FINALIZATION
+
+# 31. Only now finalize `canonical_schema.json`
+
+Do NOT freeze the schema before inspecting all chapter files.
+
+The proper order is:
+
+```text
+proposed schema
+↓
+source schema audit
+↓
+identify extra fields
+↓
+review semantic needs
+↓
+update design
+↓
+final canonical schema
+```
+
+The schema should be based on actual textbook data plus deliberate revision requirements.
+
+---
+
+# 32. Important possible master categories
+
+Inspect source files carefully for whether we require:
+
+```text
+verbs
+verb forms
+verb meanings
+conjugations
+verb stems
+participles
+
+vocabulary
+word families
+
+tenses
+tense formation
+tense usage
+tense exceptions
+
+grammar rules
+subrules
+exceptions
+warnings
+traps
+
+constructions
+verb constructions
+prepositional constructions
+
+expressions
+idioms
+collocations
+
+examples
+
+pronouns
+
+prepositions
+
+agreement rules
+
+negation patterns
+
+question structures
+
+comparison structures
+
+connectors
+
+time expressions
+
+chapter metadata
+
+topics/themes
+```
+
+Do NOT create categories merely because they sound useful.
+
+Create them when:
+
+1. textbook data supports them; or
+2. they materially improve revision architecture.
+
+---
+
+# PHASE 16 — MISSING DATA ANALYSIS
+
+# 33. Script 15 — `15_detect_missing_fields.py`
+
+Once `master.source.json` is stable, determine which canonical fields are absent.
+
+Example verb completeness requirements might include:
+
+```text
+infinitive
+meanings
+verb_group
+regularity
+auxiliary
+past_participle
+stems
+conjugations
+examples_by_tense
+constructions
+expressions
+frequency
+importance
+source_chapters
+```
+
+Not every missing field is an error.
+
+Classify:
+
+```text
+REQUIRED_MISSING
+OPTIONAL_MISSING
+ENRICHMENT_CANDIDATE
+NOT_APPLICABLE
+```
+
+Example:
+
+```json
+{
+  "entity": "prendre",
+  "missing": ["frequency", "future_stem", "examples_by_tense.futur_simple"]
+}
+```
+
+Output:
+
+```text
+audit/missing_fields_report.json
+```
+
+---
+
+# PHASE 17 — DEFINE ENRICHMENT POLICY
+
+# 34. Do not let AI modify source-derived facts indiscriminately
+
+AI should primarily fill missing fields.
+
+Existing source data should be protected unless:
+
+```text
+explicit conflict resolution
+```
+
+or:
+
+```text
+explicit correction workflow
+```
+
+occurs.
+
+---
+
+# 35. Add enrichment provenance if useful
+
+For generated fields, consider storing metadata during processing such as:
+
+```json
+{
+  "value": "pris",
+  "origin": "ai_enrichment"
+}
+```
+
+However, to keep final JSON compact, provenance can instead live in separate audit files.
+
+Recommended:
+
+```text
+master.source.json
+```
+
+contains textbook-derived normalized information.
+
+```text
+master.json
+```
+
+contains textbook information plus approved enrichment.
+
+This gives a clean historical boundary without bloating every field.
+
+---
+
+# PHASE 18 — AI ENRICHMENT BATCH GENERATION
+
+# 36. Script 16 — `16_create_enrichment_batches.py`
+
+Never send the entire master JSON to AI and ask it to rewrite it.
+
+Generate small focused jobs.
+
+Possible enrichment types:
+
+```text
+VERB_METADATA
+VERB_MEANINGS
+VERB_CONJUGATIONS
+VERB_STEMS
+VERB_EXAMPLES
+
+VOCAB_METADATA
+VOCAB_EXAMPLES
+
+CONSTRUCTION_EXPLANATIONS
+CONSTRUCTION_EXAMPLES
+
+GRAMMAR_EXPLANATIONS
+GRAMMAR_EXAMPLES
+
+TENSE_METADATA
+
+FREQUENCY_CLASSIFICATION
+IMPORTANCE_CLASSIFICATION
+```
+
+---
+
+# 37. Example verb enrichment request
+
+```json
+{
+  "task": "VERB_METADATA",
+  "required_fields": [
+    "past_participle",
+    "auxiliary",
+    "verb_group",
+    "regularity",
+    "future_stem"
+  ],
+  "entities": [
+    {
+      "infinitive": "prendre"
+    },
+    {
+      "infinitive": "recevoir"
+    }
+  ]
+}
+```
+
+---
+
+# 38. Use manageable batches
+
+Do not send thousands of unrelated fields in a single request.
+
+Batch by:
+
+```text
+entity type
++
+enrichment task
+```
+
+Possible batch sizes can be experimentally tuned.
+
+The important principle is:
+
+> one well-defined semantic task per batch.
+
+---
+
+# PHASE 19 — AI RETURNS PATCHES, NOT FULL ENTITIES
+
+# 39. Required enrichment response format
+
+AI should return patches such as:
+
+```json
+{
+  "entity_type": "verb",
+  "key": "prendre",
+  "patch": {
+    "past_participle": "pris",
+    "auxiliary": "avoir",
+    "future_stem": "prendr-"
+  }
+}
+```
+
+Do NOT ask the AI to reproduce the complete `prendre` object.
+
+This prevents accidental deletion of:
+
+```text
+examples
+chapters
+expressions
+constructions
+existing meanings
+other metadata
+```
+
+---
+
+# PHASE 20 — VALIDATE AI RESPONSES
+
+# 40. Script 17 — `17_validate_enrichment_response.py`
+
+Check every returned AI patch before applying it.
+
+Validate:
+
+- requested entity exists;
+- patch contains only permitted fields;
+- correct JSON types;
+- tense names canonical;
+- conjugation person keys valid;
+- no protected fields overwritten;
+- natural references valid;
+- strings not empty;
+- required accents/format valid where appropriate;
+- no duplicate values;
+- no unrelated fields added.
+
+Rejected patches go into:
+
+```text
+enrichment/rejected/
+```
+
+Valid patches go into:
+
+```text
+enrichment/validated/
+```
+
+---
+
+# 41. Additional deterministic conjugation validation
+
+Where possible, validate forms mechanically.
+
+For example check conjugation object keys:
+
+```text
+je
+tu
+il_elle_on
+nous
+vous
+ils_elles
+```
+
+For compound tenses verify expected structure exists.
+
+Do not assume an AI response is correct merely because its JSON is valid.
+
+---
+
+# PHASE 21 — APPLY ENRICHMENT
+
+# 42. Script 18 — `18_apply_enrichment_patches.py`
+
+Apply only validated patches.
+
+Rules:
+
+- never delete existing fields;
+- never overwrite protected textbook values without explicit conflict approval;
+- union list values appropriately;
+- log every applied change.
+
+Output:
+
+```text
+master/master.json
+```
+
+Also create:
+
+```text
+logs/enrichment_changes.json
+```
+
+Example:
+
+```json
+{
+  "entity_type": "verb",
+  "entity": "prendre",
+  "field": "future_stem",
+  "old_value": null,
+  "new_value": "prendr-",
+  "source": "ai_enrichment_batch_004"
+}
+```
+
+---
+
+# PHASE 22 — FINAL DATA VALIDATION
+
+# 43. Script 19 — `19_validate_master_schema.py`
+
+Validate `master.json` against `canonical_schema.json`.
+
+Check:
+
+```text
+types
+required fields
+allowed enum values
+nested structures
+reference formats
+duplicate natural keys
+invalid nulls
+```
+
+---
+
+# 44. Script 20 — `20_validate_master_references.py`
+
+Re-run reference validation after enrichment.
+
+Target:
+
+```text
+0 broken references
+```
+
+---
+
+# 45. Script 21 — `21_final_completeness_report.py`
+
+Generate one final audit summarizing:
+
+```text
+source chapter files
+entities found
+entities normalized
+entities merged
+duplicates resolved
+possible duplicates remaining
+schema conflicts
+semantic conflicts
+broken references
+missing required fields
+AI-enriched fields
+rejected enrichments
+unaccounted source information
+```
+
+Required major invariant:
+
+```text
+UNACCOUNTED SOURCE INFORMATION = 0
+```
+
+---
+
+# PHASE 23 — DATA QUALITY METRICS
+
+# 46. Generate statistics
+
+The final report should include counts such as:
+
+```text
+chapters
+verbs
+vocabulary items
+grammar rules
+tenses
+constructions
+collocations
+expressions
+examples
+exceptions
+```
+
+Also:
+
+```text
+verbs missing meanings
+verbs missing past participles
+verbs missing conjugations
+verbs without examples
+
+vocabulary missing English meaning
+
+constructions without explanation
+
+grammar rules without examples
+```
+
+This lets future enrichment continue systematically.
+
+---
+
+# PHASE 24 — ROUND-TRIP / REPRODUCIBILITY TEST
+
+# 47. Script 22 — `22_rebuild_test.py`
+
+Delete generated outputs from a temporary test directory and rebuild everything from:
+
+```text
+source JSON
++
+schema
++
+mappings
++
+normalization rules
++
+approved enrichment patches
+```
+
+The resulting master JSON should be deterministic.
+
+Running the pipeline twice should produce equivalent output.
+
+---
+
+# PHASE 25 — REGRESSION TESTS
+
+# 48. Create automated tests
+
+At minimum test:
+
+### Verb distinction
+
+```text
+lever != se lever
+attendre != s'attendre
+```
+
+### Merge
+
+Multiple appearances of:
+
+```text
+prendre
+```
+
+create one global verb.
+
+### Chapter provenance
+
+If `prendre` occurs in chapters:
+
+```text
+3, 8, 12
+```
+
+result must contain:
+
+```json
+"source_chapters": [3, 8, 12]
+```
+
+### Deep conjugation merge
+
+One chapter containing imparfait and another containing conditionnel must preserve both.
+
+### Conflict detection
+
+Different past participles must create a conflict rather than overwrite.
+
+### Unknown field
+
+A newly added source field must cause the schema audit to flag it.
+
+### Broken reference
+
+A construction referring to nonexistent verb must fail reference validation.
+
+### Losslessness
+
+Removing a mapping must cause coverage checks to fail.
+
+---
+
+# PHASE 26 — FUTURE UPSERT PIPELINE
+
+# 49. Script 23 — `23_ingest_new_data.py`
+
+The architecture must support future additions.
+
+Input may contain:
+
+```text
+new verbs
+new vocabulary
+new expressions
+new constructions
+new grammar
+another textbook
+user-added revision information
+```
+
+Future ingestion should follow:
+
+```text
+new input
+↓
+schema detection
+↓
+mapping
+↓
+normalization
+↓
+duplicate check
+↓
+conflict check
+↓
+upsert
+↓
+missing-field detection
+↓
+optional AI enrichment
+↓
+validation
+↓
+master update
+```
+
+Do NOT require rebuilding the architecture manually whenever new vocabulary is added.
+
+---
+
+# PHASE 27 — DATABASE IMPORT LATER
+
+# 50. JSON remains the canonical portable format
+
+Later we may import data into:
+
+```text
+PostgreSQL
+SQLite
+Supabase
+etc.
+```
+
+The relational database may generate internal IDs.
+
+Example tables:
+
+```text
+verbs
+verb_conjugations
+verb_examples
+
+vocabulary
+
+tenses
+
+grammar_rules
+
+constructions
+
+expressions
+
+collocations
+
+chapters
+```
+
+Relation tables may include:
+
+```text
+chapter_verbs
+chapter_grammar_rules
+verb_constructions
+verb_collocations
+verb_expressions
+```
+
+The database ingestion script can translate:
+
+```json
+"base_verb": "prendre"
+```
+
+to its internal database `verb_id`.
+
+The JSON itself should remain understandable without database IDs.
+
+---
+
+# 51. Special requirement — no unnecessary duplication
+
+Do not copy full verb objects into constructions, chapters, expressions, etc.
+
+Bad:
+
+```json
+{
+  "construction": {
+    "verb": {
+      "infinitive": "prendre",
+      "meaning": "...",
+      "conjugations": {...}
+    }
+  }
+}
+```
+
+Good:
+
+```json
+{
+  "construction": {
+    "base_verb": "prendre"
+  }
+}
+```
+
+The actual verb exists once in:
+
+```text
+master.verbs["prendre"]
+```
+
+---
+
+# 52. Special requirement — examples
+
+Examples may appear:
+
+- inside verb records;
+- inside grammar rules;
+- inside tense sections;
+- inside vocabulary;
+- inside constructions.
+
+During schema analysis, determine whether examples should become a global top-level collection.
+
+If global examples are used, references still do not require artificial IDs unless necessary.
+
+For many use cases, keeping examples nested under relevant entities may be simpler.
+
+Do NOT prematurely force every example into a global reference system.
+
+First inspect the source data and actual application requirements.
+
+---
+
+# 53. Special requirement — source truth vs enrichment
+
+Never confuse:
+
+```text
+WHAT THE BOOK PROVIDED
+```
+
+with:
+
+```text
+WHAT AI ADDED
+```
+
+Always retain:
+
+```text
+master.source.json
+```
+
+before enrichment.
+
+Then create:
+
+```text
+master.json
+```
+
+after enrichment.
+
+This protects the textbook audit trail.
+
+---
+
+# 54. Important implementation principle
+
+The scripts should be generic.
+
+Avoid hardcoding logic such as:
+
+```python
+if chapter == 12:
+    ...
+```
+
+unless the textbook genuinely requires a documented chapter-specific exception.
+
+The pipeline must operate based on:
+
+```text
+schema
+mappings
+normalization rules
+merge rules
+```
+
+rather than large amounts of chapter-specific code.
+
+---
+
+# 55. Reports must be human-readable
+
+Every audit file should include both:
+
+```text
+machine-readable details
+```
+
+and:
+
+```text
+summary statistics
+```
+
+Example:
+
+```json
+{
+  "summary": {
+    "unknown_fields": 4,
+    "affected_files": 3
+  },
+  "items": [...]
+}
+```
+
+This lets us inspect results without reading thousands of objects.
+
+---
+
+# 56. Do not automatically fix semantic uncertainty
+
+The pipeline may automatically fix structural certainty.
+
+Safe examples:
+
+```text
+trim whitespace
+normalize known tense alias
+convert meaning string to meanings array
+merge identical chapter numbers
+```
+
+Unsafe examples:
+
+```text
+deciding two constructions mean the same thing
+correcting a French meaning
+deciding an unusual field is useless
+merging similar grammar rules
+changing a textbook example
+```
+
+Unsafe cases must enter a review report or a targeted AI-resolution process.
+
+---
+
+# 57. Final Pipeline Order
+
+The complete implementation order is:
+
+```text
+01_inventory_files.py
+
+02_extract_schema_paths.py
+
+03_detect_schema_variations.py
+
+04_compare_source_to_master_schema.py
+
+05_validate_field_mappings.py
+
+06_normalize_chapters.py
+
+07_validate_normalized_chapters.py
+
+08_source_normalization_coverage.py
+
+09_extract_global_entities.py
+
+10_detect_duplicates.py
+
+11_build_master_source.py
+
+12_detect_merge_conflicts.py
+
+13_validate_references.py
+
+14_master_coverage_audit.py
+
+15_detect_missing_fields.py
+
+16_create_enrichment_batches.py
+
+17_validate_enrichment_response.py
+
+18_apply_enrichment_patches.py
+
+19_validate_master_schema.py
+
+20_validate_master_references.py
+
+21_final_completeness_report.py
+
+22_rebuild_test.py
+
+23_ingest_new_data.py
+```
+
+---
+
+# 58. Development Checkpoints
+
+Do NOT build all scripts and only inspect results at the end.
+
+Stop at these checkpoints.
+
+## CHECKPOINT A
+
+After scripts 01–04.
+
+Provide:
+
+```text
+schema inventory
+field variations
+unknown fields
+mapping candidates
+```
+
+We review these before finalizing mappings.
+
+---
+
+## CHECKPOINT B
+
+After scripts 05–08.
+
+Provide:
+
+```text
+normalized chapter sample
+unresolved mappings
+coverage report
+```
+
+Requirement:
+
+```text
+unaccounted source data = 0
+```
+
+---
+
+## CHECKPOINT C
+
+After scripts 09–14.
+
+Provide:
+
+```text
+master.source.json
+duplicate report
+conflict report
+reference report
+master coverage report
+```
+
+Do NOT start AI enrichment before the textbook-derived master passes this checkpoint.
+
+---
+
+## CHECKPOINT D
+
+After script 15.
+
+Provide:
+
+```text
+missing data report
+```
+
+We then decide exactly which fields AI should populate.
+
+---
+
+## CHECKPOINT E
+
+Implement enrichment scripts.
+
+Test first with a very small batch such as:
+
+```text
+5–10 verbs
+```
+
+Validate before scaling.
+
+---
+
+# 59. Important Instructions to the Coding AI
+
+Do not assume the proposed master schema is automatically correct.
+
+The existing chapter JSONs are the evidence.
+
+Before normalizing anything:
+
+1. inspect all source schemas;
+2. identify all fields;
+3. identify field-name variations;
+4. identify structural variations;
+5. report anything not represented by the proposed master schema.
+
+Do not remove information simply to make source data fit the schema.
+
+When source information exposes an important concept missing from the master schema, propose a schema change.
+
+---
+
+# 60. What I Expect First
+
+Do NOT immediately create the final master JSON.
+
+First implement only:
+
+```text
+01_inventory_files.py
+02_extract_schema_paths.py
+03_detect_schema_variations.py
+04_compare_source_to_master_schema.py
+```
+
+Then generate the audit reports.
+
+Also create:
+
+```text
+AUDIT_SUMMARY.md
+```
+
+containing:
+
+### Source overview
+
+Number of chapter JSONs and entity counts.
+
+### Common schema
+
+Fields consistently present.
+
+### Schema variations
+
+Fields that differ among chapter files.
+
+### Unknown fields
+
+Everything absent from the proposed master schema.
+
+### Similar fields
+
+Potential aliases requiring mapping.
+
+### Structural differences
+
+Places where the same concept is represented differently.
+
+### Proposed schema changes
+
+Any fields/categories that should be added.
+
+### Risks
+
+Anything that may cause data loss or incorrect merging.
+
+### Next recommended mappings
+
+Suggested additions to `field_mappings.json`.
+
+Do not continue into normalization until this audit has been inspected.
+
+---
+
+# 61. Non-Negotiable Invariants
+
+The completed system must satisfy all of these:
+
+```text
+1. No source information silently disappears.
+
+2. Unknown fields are reported.
+
+3. Duplicate entities are merged only using safe deterministic rules.
+
+4. Fuzzy matches are suggestions, never silent merges.
+
+5. Conflicting facts are reported rather than overwritten.
+
+6. Every natural reference resolves.
+
+7. Reflexive and non-reflexive verbs remain distinct.
+
+8. Chapter provenance survives global merging.
+
+9. Textbook-derived data can be separated from AI enrichment.
+
+10. AI enrichment uses patches, not complete object rewrites.
+
+11. AI responses are validated before insertion.
+
+12. The master file can be rebuilt deterministically.
+
+13. New data can later enter through the same ingestion pipeline.
+
+14. The JSON does not depend on artificial internal IDs.
+
+15. Database IDs, if eventually used, remain a database implementation detail.
+
+16. `master.source.json` must account for 100% of intentionally preserved source information.
+
+17. The final master should support both chapter-based revision and global collective revision.
+```
+
+---
+
+# 62. Ultimate Goal
+
+The finished pipeline should allow us to take semi-structured chapter JSONs such as:
+
+```text
+chapter 1
+chapter 2
+chapter 3
+...
+```
+
+and reliably produce:
+
+```text
+validated textbook dataset
++
+global interconnected knowledge
++
+optional controlled enrichment
+=
+master.json
+```
+
+Afterward, adding a new verb, vocabulary item, chapter, textbook, expression or construction should not require manually rewriting the master file.
+
+It should simply pass through the same:
+
+```text
+inspect
+→ normalize
+→ validate
+→ merge
+→ enrich if necessary
+→ validate
+→ update
+```
+
+pipeline.

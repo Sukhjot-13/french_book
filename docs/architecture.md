@@ -1074,3 +1074,54 @@ the current instructions if a new queue is needed.
 - **Purpose**: Read-only field-completeness inventory regenerated from `data/MASTER_DATA.json` (`npm run data:coverage-report`, `--json` for machine output). First run found 3 real gaps (2× grammar explanations, 3× example translations, 31× exercise instructions).
 - **Functions**:
   - `main()`: Prints per-collection coverage table + gap list.
+
+
+## Archived Book JSON source
+
+Original French chapter data, compiled dataset, migration reports, schemas, and standalone scripts retained for reference. These files are not loaded by the app.
+
+- `bookjson/audit/EXTRA_FIELDS_REPORT.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/audit/EXTRA_FIELDS_REPORT.md`: Audit documentation. Functions: none.
+- `bookjson/goal.txt`: Data consolidation requirements. Functions: none.
+- `bookjson/json1/1.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/10.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/11.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/12.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/13.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/14.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/15.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/16.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/17.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/18.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/19.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/2.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/20.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/21.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/22.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/23.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/24.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/25.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/26.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/27.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/3.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/4.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/5.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/6.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/7.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/8.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/9.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/English-Frenchglossary.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/French-Englishglossary.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/answer_key.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/json1/verb_table.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/master/master.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/migration/DEDUPLICATION_REPORT.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/migration/LEGACY_TO_MASTER_MAPPING.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/migration/MASTER_VALIDATION_REPORT.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/migration/MIGRATION_CONFLICTS.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/migration/MIGRATION_COVERAGE.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/migration/REFERENCE_VALIDATION.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/schema/LEGACY_COMBINED_SCHEMA.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/schema/MASTER_SCHEMA.json`: French source data, schema, or audit/migration report. Functions: none.
+- `bookjson/scripts/audit_extra_fields.py`: Audit script: Compare all existing JSON data files against LEGACY_COMBINED_SCHEMA.json.. Functions: `get_json_type`, `make_sample_value`, `collect_json_files`, `run_audit`, `main`, `__init__`, `resolve_schema`, `classify_file`, `find_extra_fields_in_node`, `audit_file`.
+- `bookjson/scripts/build_master.py`: Deterministic Legacy-to-Master Migration & Consolidation Pipeline.. Functions: `normalize_text_identity`, `normalize_infinitive`, `normalize_sentence`, `canonical_tense_name`, `clean_source_evidence`, `make_evidence_hash`, `merge_source_evidence_lists`, `strip_subject_pronoun`, `default_articles`, `classify_articles`, `merge_articles`, `normalize_present_participle`, `normalize_note_for_comparison`, `sense_subordinate_key`, `merge_singleton_value`, `default_study_metadata`, `merge_study_metadata`, `main`, `__init__`, `record`, `record_unaccounted`, `to_dict`, `__init__`, `add`, `to_list`, `__init__`, `record_source`, `record_master`, `add_merge_example`, `to_dict`, `__init__`, `check`, `to_dict`, `__init__`, `scan_file`, `__init__`, `run`, `migrate_chapter_file`, `migrate_verb`, `merge_conjugation_into_verb`, `register_tense`, `migrate_expression`, `migrate_vocabulary`, `migrate_grammar_rule`, `migrate_concept`, `migrate_example`, `migrate_exercise`, `migrate_exception_trap`, `migrate_verb_table_file`, `migrate_glossary_file`, `migrate_answer_key_file`, `assemble_master`, `validate_all_references`, `to_str_or_none`.
